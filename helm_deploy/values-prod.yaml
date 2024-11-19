@@ -3,7 +3,8 @@
 
 generic-service:
   ingress:
-    host: community-accommodation-tier-2-bail-ui.hmpps.service.justice.gov.uk
+    host: community-accommodation-tier-2-bail.hmpps.service.justice.gov.uk
+    tlsSecretName: hmpps-community-accommodation-tier-2-bail-cert
 
   env:
     INGRESS_URL: "https://community-accommodation-tier-2-bail-ui.hmpps.service.justice.gov.uk"

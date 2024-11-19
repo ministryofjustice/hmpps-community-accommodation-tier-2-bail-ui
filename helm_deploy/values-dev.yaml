@@ -5,14 +5,17 @@ generic-service:
   replicaCount: 2
 
   ingress:
-    host: community-accommodation-tier-2-bail-ui-dev.hmpps.service.justice.gov.uk
+    host: community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk
+    tlsSecretName: hmpps-community-accommodation-tier-2-bail-dev-cert
 
   env:
-    INGRESS_URL: "https://community-accommodation-tier-2-bail-ui-dev.hmpps.service.justice.gov.uk"
+    INGRESS_URL: "https://community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV
     AUDIT_ENABLED: "false"
+
+  allowlist: null
 
 generic-prometheus-alerts:
   alertSeverity: digital-prison-service-dev
