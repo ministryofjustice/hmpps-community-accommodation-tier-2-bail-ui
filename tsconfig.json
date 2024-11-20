@@ -19,6 +19,8 @@
       "@approved-premises/api": ["server/@types/shared/index.d.ts"]
     }
   },
-  "exclude": ["node_modules", "assets/**/*.js", "integration_tests", "dist", "cypress.config.ts", "esbuild"],
+  "exclude": ["node_modules", "assets/**/*.js", "integration_tests", "dist", "cypress.config.ts",
+    "esbuild-configs"
+  ],
   "include": ["**/*.js", "**/*.ts"]
 }

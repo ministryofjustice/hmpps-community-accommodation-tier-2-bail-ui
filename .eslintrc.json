@@ -87,7 +87,7 @@
     "comma-dangle": ["error", "always-multiline"],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*.test.js", "**/*.test.ts", "**/testutils/**", "cypress.config.ts", "esbuild/**/*"] }
+      { "devDependencies": ["**/*.test.js", "**/*.test.ts", "**/testutils/**", "cypress.config.ts", "esbuild-configs/**/*"] }
     ],
     "no-only-tests/no-only-tests": "error",
     "prettier/prettier": [
