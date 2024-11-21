@@ -5,6 +5,7 @@ export declare module 'express-session' {
   interface SessionData {
     returnTo: string
     nowInMinutes: number
+    previousPage: string
   }
 }
 
@@ -19,11 +20,23 @@ export declare global {
     interface Request {
       verified?: boolean
       id: string
+      flash(type: string, message: string | ErrorMessages | Array<ErrorSummary> | Record<string, unknown>): number
       logout(done: (err: unknown) => void): void
     }
 
     interface Locals {
       user: HmppsUser
     }
+  }
+}
+
+declare module 'express' {
+  interface TypedRequest<T extends Query, U = Body> extends Express.Request {
+    body: U
+    params: T
+  }
+
+  interface TypedRequestHandler<T, U = Response> extends Express.RequestHandler {
+    (req: T, res: U, next: () => void): void
   }
 }
