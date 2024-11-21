@@ -16,7 +16,8 @@
     "typeRoots": ["./server/@types", "./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "@approved-premises/api": ["server/@types/shared/index.d.ts"]
+      "@approved-premises/api": ["server/@types/shared/index.d.ts"],
+      "@approved-premises/ui": ["server/@types/ui/index.d.ts"]
     }
   },
   "exclude": ["node_modules", "assets/**/*.js", "integration_tests", "dist", "cypress.config.ts",
