@@ -29,7 +29,7 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'CAS-2: Short-Term Accommodation',
+        pageHeading: 'CAS-2: Bail Accommodation',
         sections,
       })
     })
