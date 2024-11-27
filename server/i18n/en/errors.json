@@ -1,0 +1,95 @@
+{
+  "fundingSource": {
+    "empty": "Select a funding source"
+  },
+  "willAnswer": {
+    "empty": "Choose either Yes or No"
+  },
+  "hasDisability": {
+    "empty": "Choose either Yes, No or Prefer not to say",
+    "otherDisability": "Enter the other disability",
+    "typeOfDisability": "Choose a disability type"
+  },
+  "sexAndGender": {
+    "sex": "Choose either Female, Male or Prefer not to say",
+    "gender": "Choose either Yes, No or Prefer not to say"
+  },
+  "sexualOrientation": {
+    "orientation": "Select an orientation or choose 'Prefer not to say'"
+  },
+  "ethnicGroup": {
+    "empty": "Select an ethnic group or choose 'Prefer not to say'"
+  },
+  "background": {
+    "empty": "Select a background or 'Prefer not to say'"
+  },
+  "religion": {
+    "empty": "Select a religion or 'Prefer not to say'"
+  },
+  "isVeteran": {
+    "empty": "Choose either Yes, No or I don't know"
+  },
+  "isCareLeaver": {
+    "empty": "Choose either Yes, No or I don't know"
+  },
+  "hasParentalOrCarerResponsibilities": {
+    "empty": "Choose either Yes, No or I don't know"
+  },
+  "maritalStatus": {
+    "empty": "Select a marital status or 'Prefer not to say'"
+  },
+  "oasysConfirmation": {
+    "empty": "Confirm that the information is relevant and up to date"
+  },
+  "circumstancesLikelyToIncreaseRisk": {
+    "empty": "Enter the circumstances that are likely to increase risk"
+  },
+  "whenIsRiskLikelyToBeGreatest": {
+    "empty": "Enter when the risk is likely to be the greatest"
+  },
+  "factorsLikelyToReduceRisk": {
+    "empty": "Enter the factors that are likely to reduce risk"
+  },
+  "natureOfRisk": {
+    "empty": "Enter the nature of the risk"
+  },
+  "whoIsAtRisk": {
+    "empty": "Enter who is at risk"
+  },
+  "idDocuments": {
+    "empty": "Select an ID document or 'None of these options'"
+  },
+  "alternativeIDDocuments": {
+    "empty": "Select an ID document or 'Other type of identification'",
+    "other": "Enter the other type of ID"
+  },
+  "hasPreviousAddress": {
+    "empty": "Select whether applicant had an address before entering custody"
+  },
+  "addressLine1": {
+    "empty": "Enter the first line of the address"
+  },
+  "townOrCity": {
+    "empty": "Enter a town or city"
+  },
+  "postCode": {
+    "empty": "Enter a postcode"
+  },
+  "newStatus": {
+    "empty": "Select an application status"
+  },
+  "newStatusDetails": {
+    "moreInfoRequested": {
+      "empty": "Select the types of information you need"
+    },
+    "offerDeclined": {
+      "empty": "Select why the offer was declined or withdrawn"
+    },
+    "withdrawn": {
+      "empty": "Select why the referral was withdrawn"
+    },
+    "cancelled": {
+      "empty": "Select why the referral was cancelled"
+    }
+  }
+}
