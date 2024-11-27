@@ -126,3 +126,9 @@ integration_tests/screenshots/
 **/Chart.lock
 **/.DS_Store
 tmp
+
+# E2E tests
+e2e-tests/test-results/
+e2e-tests/playwright-report/
+e2e-tests/playwright/
+e2e-tests/.DS_Store
