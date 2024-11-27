@@ -77,7 +77,7 @@ export default class Summary implements TaskListPage {
   }
 
   response() {
-    let response = {}
+    let response: Record<string, string> = {}
     if (this.isSummaryDataRetrieved(this.application)) {
       const oasysData = this.application.data['risk-of-serious-harm']['summary-data']
       response = {

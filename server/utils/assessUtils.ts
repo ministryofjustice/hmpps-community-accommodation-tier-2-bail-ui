@@ -49,5 +49,5 @@ export const getStatusDetailQuestionText = (status: string): string => {
     cancelled: 'Why was the referral cancelled?',
   }
 
-  return questions[status] || ''
+  return questions[status as keyof typeof questions] || ''
 }

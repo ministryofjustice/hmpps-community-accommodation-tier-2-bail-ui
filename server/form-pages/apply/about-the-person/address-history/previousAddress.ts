@@ -126,7 +126,7 @@ export default class PreviousAddress implements TaskListPage {
   }
 
   response(): Record<string, string> {
-    const response = {}
+    const response: Record<string, string> = {}
 
     const answerData: PreviousAddressBody = this.application.data?.['address-history']?.['previous-address']
 
@@ -137,15 +137,15 @@ export default class PreviousAddress implements TaskListPage {
       let address = ''
       if (answerData.hasPreviousAddress === 'yes') {
         previousKeys.forEach(key => {
-          address += `${answerData[key]}\r\n`
+          address += `${answerData[key as keyof typeof answerData]}\r\n`
         })
         response[this.questions.knownAddress.question] = address
       } else if (answerData.hasPreviousAddress === 'no') {
         response[this.questions.howLong.question] = answerData.howLong
 
         lastKnownKeys.slice(1).forEach(key => {
-          if (answerData[key]) {
-            address += `${answerData[key]}\r\n`
+          if (answerData[key as keyof typeof answerData]) {
+            address += `${answerData[key as keyof typeof answerData]}\r\n`
           }
         })
 

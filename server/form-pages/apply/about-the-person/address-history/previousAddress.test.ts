@@ -66,7 +66,7 @@ describe('PreviousAddress', () => {
         const page = new PreviousAddress({ hasPreviousAddress: 'yes' }, application)
         const errors = page.errors()
 
-        expect(errors[field]).toEqual(message)
+        expect(errors[field as keyof typeof errors]).toEqual(message)
       })
     })
 

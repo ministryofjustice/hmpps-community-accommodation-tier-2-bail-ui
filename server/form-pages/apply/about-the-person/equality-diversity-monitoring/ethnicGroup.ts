@@ -50,8 +50,10 @@ export default class EthnicGroup implements TaskListPage {
       black: 'black-background',
       other: 'other-background',
     }
-    if (ethnicGroupNext[this.body.ethnicGroup]) {
-      return ethnicGroupNext[this.body.ethnicGroup]
+    const ethnicGroupBody = this.body.ethnicGroup as keyof typeof ethnicGroupNext
+
+    if (ethnicGroupNext[ethnicGroupBody]) {
+      return ethnicGroupNext[ethnicGroupBody]
     }
     return 'religion'
   }

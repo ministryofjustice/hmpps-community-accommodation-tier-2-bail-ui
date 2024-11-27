@@ -46,7 +46,7 @@ describe('OffenceHistoryData', () => {
       const page = new OffenceHistoryData({ offenceCategory: 'choose' }, application)
       const errors = page.errors()
 
-      expect(errors[field]).toEqual(message)
+      expect(errors[field as keyof typeof errors]).toEqual(message)
     })
   })
 

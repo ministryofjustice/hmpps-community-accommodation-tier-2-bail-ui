@@ -78,7 +78,7 @@ export default class Acct implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response: Record<string, string> = {}
 
     this.accts?.forEach(acct => {
       const key = getAcctMetadata(acct)

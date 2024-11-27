@@ -59,7 +59,10 @@ export default class CurrentOffences implements TaskListPage {
       this.offences = CurrentOffencesData.map((offence, index) => {
         const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
 
-        const offenceCategoryText = this.currentOffenceQuestions.offenceCategory.answers[offence.offenceCategory]
+        const offenceCategoryText =
+          this.currentOffenceQuestions.offenceCategory.answers[
+            offence.offenceCategory as keyof typeof this.currentOffenceQuestions.offenceCategory.answers
+          ]
 
         return {
           titleAndNumber: offence.titleAndNumber,
@@ -108,7 +111,7 @@ export default class CurrentOffences implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response: Record<string, string> = {}
 
     this.offences?.forEach((offence, index) => {
       const {

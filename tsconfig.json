@@ -2,6 +2,7 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "compileOnSave": true,
   "compilerOptions": {
+    "target": "es2018",
     "outDir": "./dist",
     "sourceMap": true,
     "skipLibCheck": true,
@@ -13,6 +14,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "typeRoots": ["./server/@types", "./node_modules/@types"],
     "baseUrl": ".",
     "paths": {

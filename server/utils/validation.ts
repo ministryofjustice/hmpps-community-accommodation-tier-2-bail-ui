@@ -116,8 +116,11 @@ const generateErrors = (params: Array<InvalidParams>): Record<string, string> =>
 
 const extractValidationErrors = (error: SanitisedError | Error) => {
   if ('data' in error) {
-    if (Array.isArray(error.data['invalid-params']) && error.data['invalid-params'].length) {
-      return generateErrors(error.data['invalid-params'])
+    if (
+      Array.isArray(error.data['invalid-params' as keyof typeof error.data]) &&
+      error.data['invalid-params' as keyof typeof error.data].length
+    ) {
+      return generateErrors(error.data['invalid-params' as keyof typeof error.data])
     }
     if (typeof error.data === 'object' && error.data !== null && 'detail' in error.data) {
       return error.data.detail as string
