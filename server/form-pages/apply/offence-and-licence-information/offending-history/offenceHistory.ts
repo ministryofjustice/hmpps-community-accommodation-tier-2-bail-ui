@@ -56,7 +56,8 @@ export default class OffenceHistory implements TaskListPage {
       this.offences = offenceHistoryData
         .filter(offence => offence.numberOfOffences)
         .map((offence, index) => {
-          const offenceCategoryText = this.offenceCategories[offence.offenceCategory]
+          const offenceCategoryText =
+            this.offenceCategories[offence.offenceCategory as keyof typeof this.offenceCategories]
 
           return {
             offenceGroupName: offence.offenceGroupName,
@@ -92,7 +93,7 @@ export default class OffenceHistory implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response: Record<string, string> = {}
 
     this.offences?.forEach(offence => {
       const { offenceCategoryTag, offenceGroupName, numberOfOffences, sentenceTypes, summary } = offence

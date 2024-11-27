@@ -62,7 +62,7 @@ describe('AcctData', () => {
       )
       const errors = page.errors()
 
-      expect(errors[field]).toEqual(message)
+      expect(errors[field as keyof typeof errors]).toEqual(message)
     })
 
     describe('when an ACCT is ongoing but a closed date has not been given', () => {

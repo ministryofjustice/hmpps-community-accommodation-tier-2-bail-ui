@@ -13,6 +13,7 @@ export const getTask = <T>(task: T) => {
 
   pageClasses.forEach(<PageType>(page: PageType) => {
     const pageName = Reflect.getMetadata('page:name', page)
+    // @ts-expect-error Requires refactor to satisfy TS7053
     taskPages[pageName] = page
   })
 
@@ -41,7 +42,7 @@ export const getSection = <T>(section: T) => {
 }
 
 export const getPagesForSections = <T>(sections: Array<T>) => {
-  const pages = {}
+  const pages: Record<string, unknown> = {}
   sections.forEach(sectionClass => {
     const section = getSection(sectionClass)
     const { tasks } = section

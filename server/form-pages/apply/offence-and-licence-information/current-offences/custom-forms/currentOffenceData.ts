@@ -72,7 +72,9 @@ export default class CurrentOffenceData implements TaskListPage {
     Object.keys(this.questions.offenceCategory.answers).forEach(value => {
       items.push({
         value,
-        text: this.questions.offenceCategory.answers[value] as string,
+        text: this.questions.offenceCategory.answers[
+          value as keyof typeof this.questions.offenceCategory.answers
+        ] as string,
         selected: selectedItem === value,
       })
     })

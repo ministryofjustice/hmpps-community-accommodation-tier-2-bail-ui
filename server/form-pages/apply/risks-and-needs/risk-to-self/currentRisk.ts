@@ -77,13 +77,17 @@ export default class CurrentRisk implements TaskListPage {
           : 'Unknown',
         'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
         [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
-        [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
+        [this.questions.confirmation.question]:
+          this.questions.confirmation.answers[
+            this.body.confirmation as keyof typeof this.questions.confirmation.answers
+          ],
       }
     }
 
     return {
       [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
-      [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
+      [this.questions.confirmation.question]:
+        this.questions.confirmation.answers[this.body.confirmation as keyof typeof this.questions.confirmation.answers],
     }
   }
 }

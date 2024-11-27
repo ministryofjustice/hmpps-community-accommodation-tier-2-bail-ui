@@ -109,6 +109,7 @@ export default class OasysImport implements TaskListPage {
 
     const today = new Date()
 
+    // @ts-expect-error Requires refactor to satisfy TS7053
     taskData['risk-of-serious-harm']['summary-data'] = {
       ...risks,
       oasysImportedDate: today,

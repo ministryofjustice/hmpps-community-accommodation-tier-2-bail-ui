@@ -47,7 +47,9 @@ export default class ImmigrationStatus implements TaskListPage {
     Object.keys(this.questions.immigrationStatus.answers).forEach(value => {
       items.push({
         value,
-        text: this.questions.immigrationStatus.answers[value] as string,
+        text: this.questions.immigrationStatus.answers[
+          value as keyof typeof this.questions.immigrationStatus.answers
+        ] as string,
         selected: selectedItem === value,
       })
     })

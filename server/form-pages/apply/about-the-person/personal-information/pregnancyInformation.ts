@@ -59,7 +59,7 @@ export default class PregnancyInformation implements TaskListPage {
   }
 
   response() {
-    const response = {}
+    const response: Record<string, string> = {}
 
     response[`${this.questions.isPregnant.question}`] = this.questions.isPregnant.answers[this.body.isPregnant]
 

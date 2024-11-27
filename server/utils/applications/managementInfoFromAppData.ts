@@ -1,10 +1,12 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 
 const preferredAreasFromAppData = (application: Application): string => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
   const firstPreference: string = (application.data as Record<string, unknown>)?.['area-information']?.[
     'first-preferred-area'
   ]?.preferredArea
 
+  // @ts-expect-error Requires refactor to satisfy TS7053
   const secondPreference: string = (application.data as Record<string, unknown>)?.['area-information']?.[
     'second-preferred-area'
   ]?.preferredArea
@@ -13,6 +15,7 @@ const preferredAreasFromAppData = (application: Application): string => {
 }
 
 const hdcEligibilityDateFromAppData = (application: Application): string => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
   const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
     ?.hdcEligibilityDate
 
@@ -20,6 +23,7 @@ const hdcEligibilityDateFromAppData = (application: Application): string => {
 }
 
 const conditionalReleaseDateFromAppData = (application: Application): string => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
   const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
     ?.conditionalReleaseDate
 
@@ -27,6 +31,7 @@ const conditionalReleaseDateFromAppData = (application: Application): string => 
 }
 
 const telephoneNumberFromAppData = (application: Application): string | null => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
   const telephoneNumber: string = (application.data as Record<string, unknown>)?.['referrer-details']?.[
     'contact-number'
   ]?.telephone

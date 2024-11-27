@@ -93,6 +93,7 @@ export const addPageAnswersToItemsArray = (params: {
           return
         }
 
+        // @ts-expect-error Requires refactor to satisfy TS7053
         const questionText = questions[task][pageKey]?.[questionKey]?.question
 
         if (!questionText) {
@@ -120,6 +121,7 @@ export const getAnswer = (
     if (Array.isArray(application.data[task][pageKey][questionKey])) {
       return arrayAnswersAsString(application, questions, task, pageKey, questionKey)
     }
+    // @ts-expect-error Requires refactor to satisfy TS7053
     return questions[task][pageKey][questionKey].answers[application.data[task][pageKey][questionKey]]
   }
   return application.data[task][pageKey][questionKey]
@@ -135,6 +137,7 @@ export const arrayAnswersAsString = (
   const answerKeys = application.data[task][pageKey][questionKey]
   const textAnswers: Array<string> = []
   answerKeys.forEach((answerKey: string) => {
+    // @ts-expect-error Requires refactor to satisfy TS7053
     textAnswers.push(questions[task][pageKey][questionKey].answers[answerKey])
   })
   return textAnswers.join()
@@ -202,6 +205,7 @@ const hasDefinedAnswers = (
   pageKey: string,
   questionKey: string,
 ): boolean => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
   return questions[task][pageKey]?.[questionKey]?.answers
 }
 
@@ -213,7 +217,7 @@ export const hasResponseMethod = (page: TaskListPage): boolean => {
 }
 
 export const getPage = (taskName: string, pageName: string): TaskListPageInterface => {
-  const pageList = Apply.pages[taskName]
+  const pageList = Apply.pages[taskName as keyof typeof Apply.pages]
 
   const Page = pageList[pageName]
 

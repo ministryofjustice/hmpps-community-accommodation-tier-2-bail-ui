@@ -10,6 +10,7 @@ export function convertKeyValuePairToRadioItems<T>(object: T, checkedItem: strin
   return Object.keys(object).map(key => {
     return {
       value: key,
+      // @ts-expect-error Requires refactor to satisfy TS7053
       text: object[key],
       checked: checkedItem === key,
     }
@@ -23,6 +24,7 @@ export function convertKeyValuePairToCheckboxItems<T>(
   return Object.keys(object).map(key => {
     return {
       value: key,
+      // @ts-expect-error Requires refactor to satisfy TS7053
       text: object[key],
       checked: checkedItems.includes(key),
     }

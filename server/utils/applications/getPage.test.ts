@@ -49,7 +49,7 @@ const applySection2 = {
 
 Apply.sections = [applySection1, applySection2]
 
-Apply.pages['first-apply-section-task-1'] = {
+Apply.pages['first-apply-section-task-1' as keyof typeof Apply.pages] = {
   first: FirstApplyPage,
   second: SecondApplyPage,
 }

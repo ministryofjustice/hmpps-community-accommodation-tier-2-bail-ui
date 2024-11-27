@@ -52,7 +52,7 @@ describe('CurrentOffenceData', () => {
         const page = new CurrentOffenceData({ offenceCategory: 'choose' }, application)
         const errors = page.errors()
 
-        expect(errors[field]).toEqual(message)
+        expect(errors[field as keyof typeof errors]).toEqual(message)
       })
 
       it('when outstanding charges are selected but no detail is provided', () => {

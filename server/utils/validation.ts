@@ -117,7 +117,7 @@ const generateErrors = (params: Array<InvalidParams>): Record<string, string> =>
 const extractValidationErrors = (error: SanitisedError | Error) => {
   if ('data' in error) {
     if (Array.isArray(error.data['invalid-params']) && error.data['invalid-params'].length) {
-      return generateErrors(error.data['invalid-params'])
+      return generateErrors(error.data['invalid-params'] as InvalidParams[])
     }
     if (typeof error.data === 'object' && error.data !== null && 'detail' in error.data) {
       return error.data.detail as string
