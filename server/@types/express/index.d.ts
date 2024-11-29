@@ -23,10 +23,6 @@ export declare global {
       flash(type: string, message: string | ErrorMessages | Array<ErrorSummary> | Record<string, unknown>): number
       logout(done: (err: unknown) => void): void
     }
-
-    interface Locals {
-      user: HmppsUser
-    }
   }
 }
 
