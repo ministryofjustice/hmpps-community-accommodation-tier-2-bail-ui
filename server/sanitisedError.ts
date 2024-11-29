@@ -4,7 +4,11 @@ export interface SanitisedError extends Error {
   text?: string
   status?: number
   headers?: unknown
-  data?: unknown
+  data?: {
+    'invalid-params'?: Array<unknown>
+    detail?: string
+    [key: string]: unknown
+  }
   stack: string
   message: string
 }
