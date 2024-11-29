@@ -17,6 +17,11 @@ import RedisTokenStore from './tokenStore/redisTokenStore'
 import InMemoryTokenStore from './tokenStore/inMemoryTokenStore'
 import config from '../config'
 import HmppsAuditClient from './hmppsAuditClient'
+import ApplicationClient from './applicationClient'
+import AssessmentClient from './assessmentClient'
+import SubmittedApplicationClient from './submittedApplicationClient'
+import ReferenceDataClient from './referenceDataClient'
+import ReportClient from './reportClient'
 
 type RestClientBuilder<T> = (token: string) => T
 
@@ -27,8 +32,23 @@ export const dataAccess = () => ({
   ),
   hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
   personClient: ((token: string) => new PersonClient(token)) as RestClientBuilder<PersonClient>,
+  applicationClient: ((token: string) => new ApplicationClient(token)) as RestClientBuilder<ApplicationClient>,
+  assessmentClient: ((token: string) => new AssessmentClient(token)) as RestClientBuilder<AssessmentClient>,
+  referenceDataClient: ((token: string) => new ReferenceDataClient(token)) as RestClientBuilder<ReferenceDataClient>,
+  submittedApplicationClient: ((token: string) =>
+    new SubmittedApplicationClient(token)) as RestClientBuilder<SubmittedApplicationClient>,
+  reportClient: ((token: string) => new ReportClient(token)) as RestClientBuilder<ReportClient>,
 })
 
 export type DataAccess = ReturnType<typeof dataAccess>
 
-export { HmppsAuthClient, RestClientBuilder, HmppsAuditClient, PersonClient }
+export {
+  HmppsAuthClient,
+  RestClientBuilder,
+  HmppsAuditClient,
+  PersonClient,
+  ApplicationClient,
+  AssessmentClient,
+  SubmittedApplicationClient,
+  ReferenceDataClient,
+}
