@@ -34,6 +34,13 @@ export interface ApiConfig {
   agent: AgentConfig
 }
 
+export interface AuditConfig {
+  region: string
+  queueUrl: string
+  serviceName: string
+  logErrors: boolean
+}
+
 const auditConfig = () => {
   const auditEnabled = get('AUDIT_ENABLED', 'false') === 'true'
   return {
@@ -98,6 +105,12 @@ export default {
       },
       agent: new AgentConfig(Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000))),
       enabled: get('TOKEN_VERIFICATION_ENABLED', 'false') === 'true',
+    },
+    audit: {
+      region: get('AUDIT_SQS_REGION', 'eu-west-2'),
+      queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
+      serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
+      logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
     },
   },
   sqs: {
