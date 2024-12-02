@@ -20,10 +20,11 @@ import setUpWebSession from './middleware/setUpWebSession'
 import setUpMaintenancePageRedirect from './middleware/setUpMaintenancePageRedirect'
 import setUpProductInfo from './middleware/setUpProductInfo'
 
+import { Controllers } from './controllers'
 import routes from './routes'
 import type { Services } from './services'
 
-export default function createApp(services: Services): express.Application {
+export default function createApp(controllers: Controllers, services: Services): express.Application {
   const app = express()
 
   app.set('json spaces', 2)
@@ -54,7 +55,7 @@ export default function createApp(services: Services): express.Application {
   })
   app.use(flash())
 
-  app.use(routes(services))
+  app.use(routes(controllers, services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
 
