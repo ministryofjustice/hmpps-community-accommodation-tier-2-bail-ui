@@ -25,7 +25,8 @@ jobs:
   # main node build workflow
   node_build:
     name: node build
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v1 # WORKFLOW_VERSION
+#    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v1 # WORKFLOW_VERSION
+    uses: ./.github/workflows/local_node_build.yml
     secrets: inherit
     with:
       node_version: 22
