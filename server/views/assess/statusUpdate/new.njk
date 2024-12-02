@@ -1,0 +1,56 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "../../partials/layout.njk" %}
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../../partials/applicationCurrentStatus.njk" import applicationCurrentStatus %}
+
+{% set pageTitle = applicationName + " - " + pageHeading %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if previousPath %}
+    {{ govukBackLink({
+      text: "Back",
+      href: previousPath
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ applicationCurrentStatus(currentStatus) }}
+
+      <form action="{{ paths.statusUpdate.create({id: application.assessment.id}) }}?applicationId={{application.id}}" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ showErrorSummary(errorSummary) }}
+
+        {{ govukRadios({
+          name: "newStatus",
+          fieldset: {
+            legend: {
+              text: questionText,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          errorMessage: errors.newStatus,
+          items: applicationStatusRadios(statuses, application.assessment.statusUpdates)
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Save and continue"
+          }) }}
+
+          <a href="{{ paths.submittedApplications.overview({ id: application.id }) }}">Back to application overview</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

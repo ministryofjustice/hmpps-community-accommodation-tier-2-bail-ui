@@ -1,0 +1,54 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+{% from "../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+{% from "../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+
+{% extends "../../partials/layout.njk" %}
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+
+{% set pageTitle = page.documentTitle + " - " + applicationName %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {% if page.previous() === 'taskList' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% elif page.previous() %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.pages.show({ id: applicationId, task: task, page: page.previous() })
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      <form action="{{ paths.applications.pages.update({ id: applicationId, task: task, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ showErrorSummary(errorSummary) }}
+
+        {% block questions %}{% endblock %}
+
+        {% block button %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+            text: "Save and continue"
+            }) }}
+
+            <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+          </div>
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+{% endblock %}
