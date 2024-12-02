@@ -1,0 +1,63 @@
+{% extends "../layout.njk" %}
+{% from "../../../components/formFields/form-page-checkboxes/macro.njk" import formPageCheckboxes %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% block questions %}
+
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.hasDisability.question }}
+  {% endset%}
+
+  {% set otherDisability %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.otherDisability.question},
+          classes: "govuk-input--width-20",
+          fieldName: "otherDisability"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {% set typeOfDisability %}
+    {{ 
+      formPageCheckboxes(
+          {
+            fieldName: "typeOfDisability",
+            hint: {
+              text: page.questions.typeOfDisability.hint
+            },
+            fieldset: {
+              legend: {
+                text: page.questions.typeOfDisability.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: page.typeOfDisabilityItems(otherDisability)
+          }, 
+          fetchContext()
+      ) 
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasDisability",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items(typeOfDisability)
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

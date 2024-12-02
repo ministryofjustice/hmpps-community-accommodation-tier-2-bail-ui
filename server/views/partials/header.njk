@@ -1,4 +1,5 @@
-{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
 <header class="hmpps-header" role="banner">
   <div class="hmpps-header__container">
     <div class="hmpps-header__title">
@@ -12,23 +13,13 @@
       </a>
 
       <a class="hmpps-header__link hmpps-header__title__service-name" href="/">{{ applicationName }}</a>
-
-      {% if environmentName %}
-        <div class="govuk-phase-banner">
-          {{ govukTag({
-            text: environmentName,
-            classes: environmentNameColour,
-            attributes: { "data-qa": "header-phase-banner" }
-          }) }}
-        </div>
-      {% endif %}
     </div>
 
     <nav aria-label="Account navigation">
       <ul class="hmpps-header__navigation">
         {% if user %}
           <li class="hmpps-header__navigation__item">
-            <a data-qa="manageDetails" class="hmpps-header__link" href="/account-details" data-test="manage-account-link" rel="noopener noreferrer">
+            <a data-qa="manageDetails" class="hmpps-header__link" href="/account-details" data-test="manage-account-link" target="_blank" rel="noopener noreferrer">
               <span data-qa=header-user-name>{{ user.displayName | initialiseName }}</span>
               <span class="hmpps-header__link__sub-text">Manage your details</span>
             </a>
@@ -42,3 +33,14 @@
     </nav>
   </div>
 </header>
+
+{% block phaseBanner %}
+  {{ govukPhaseBanner({
+    attributes: { "data-cy-phase-banner": "phase-banner" },
+    classes: "hmpps-header__container print__hidden",
+    tag: {
+      text: "Beta"
+    },
+    html: PhaseBannerUtils.getContent()
+  }) }}
+{% endblock %}

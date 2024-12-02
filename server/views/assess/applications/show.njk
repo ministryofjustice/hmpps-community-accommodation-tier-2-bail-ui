@@ -1,0 +1,60 @@
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../../partials/documentSummaryList.njk" import documentSummaryList %}
+{% from "../../partials/applicantDetails.njk" import applicantDetails %}
+{% from "../../components/printButton/macro.njk" import printButtonScript %}
+{% from "../../components/applicationSummary/macro.njk" import applicationSummary %}
+{% from "../../components/sideNav/macro.njk" import sideNav %}
+
+{% extends "../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.submittedApplications.overview({id: application.id})
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {{ applicationSummary({
+        id: application.id,
+        name: application.person.name,
+        prisonNumber: application.person.nomsNumber,
+        prisonName: application.person.prisonName,
+        referrerName: application.submittedBy.name,
+        contactEmail: application.submittedBy.email,
+        contactNumber: application.telephoneNumber,
+        view: 'assessor'
+      })}}
+
+      <div class="govuk-grid-column-one-quarter side-nav">
+
+        {{ sideNav(getSideNavLinksForDocument(application.document)) }}
+
+      </div>
+
+      <div class="govuk-grid-column-three-quarters">
+        {{ applicantDetails(application) }}
+        {% if application.document.sections | length %}
+          {{ documentSummaryList(application) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extraScripts %}
+  {{ printButtonScript(cspNonce) }}
+{% endblock %}

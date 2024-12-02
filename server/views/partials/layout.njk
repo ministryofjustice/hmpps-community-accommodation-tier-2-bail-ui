@@ -1,18 +1,82 @@
 {% extends "govuk/template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block head %}
-  <link href="{{ '/assets/css/app.css' | assetMap }}" rel="stylesheet"/>
+  <link href="/assets/stylesheets/application.css?{{ version }}" rel="stylesheet"/>
+  <script src="/assets/js/jquery.min.js"></script>
+
+  {% if tagManagerId %}
+    <!-- Google Tag Manager -->
+    <script nonce="{{ cspNonce }}">
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer'
+            ? '&l=' + l
+            : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f
+          .parentNode
+          .insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', "{{ tagManagerId }}");
+    </script>
+    <!-- End Google Tag Manager -->
+  {% endif %}
+
 {% endblock %}
 
-{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+{% block pageTitle %}{{pageTitle | default(applicationName)}}
+{% endblock %}
 
 {% block header %}
   {% include "./header.njk" %}
 {% endblock %}
 
-{% block bodyStart %}
+{% block bodyStart %}{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    classes: 'govuk-footer print__hidden',
+    meta: {
+      items: [
+        {
+          href: "/privacy-notice",
+          text: "Privacy notice"
+        },
+        {
+          href: "/cookies",
+          text: "Cookies policy"
+        },
+        {
+          href: "/accessibility-statement",
+          text: "Accessibility statement"
+        }
+      ]
+    }
+  }) }}
 {% endblock %}
 
 {% block bodyEnd %}
-  <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+  {# Run JavaScript at end of the
+  <body>, to avoid blocking the initial render. #}
+  <script nonce="{{ cspNonce }}" type="module" src="/assets/govukFrontendInit.js"></script>
+  <script src="/assets/moj/all.js"></script>
+
+  {% if tagManagerId %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe nonce="{{ cspNonce }}" src="{{ tagManagerUrl }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {% endif %}
+
+  {% block extraScripts %}{% endblock %}
 {% endblock %}
