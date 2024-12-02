@@ -1,0 +1,50 @@
+{% extends "./_risk-of-serious-harm-screen.njk" %}
+{% set pageName = "additional-risk-information" %}
+
+{% block questions %}
+  {% set additionalInformationDetail %}
+  {{
+        formPageTextArea(
+          {
+            fieldName: 'additionalInformationDetail',
+            label: {
+              text: page.questions.additionalInformationDetail.question,
+              classes: "govuk-label--s"
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasAdditionalInformation",
+        fieldset: {
+          legend: {
+            text: page.questions.hasAdditionalInformation.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: page.questions.hasAdditionalInformation.hint
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: additionalInformationDetail
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

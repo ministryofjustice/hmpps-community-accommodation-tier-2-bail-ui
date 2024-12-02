@@ -1,0 +1,153 @@
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
+{%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% from "../../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../../partials/_timeline.njk" import timeline %}
+{% from "../../partials/submittedApplicationDetails.njk" import submittedApplicationDetails %}
+{% from "../../components/printButton/macro.njk" import printButton,
+printButtonScript %}
+
+{% extends "../../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading  %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.submittedApplications.index(),
+    classes: 'print__hidden'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {{ showErrorSummary(errorSummary) }}
+
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="govuk-grid-column-full">
+      <div class="actions-menu">
+        <div class="moj-button-menu print__hidden">
+          <div class="moj-button-menu__wrapper">
+
+            {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary moj-button-menu__item') }}
+
+            {% if assessmentHasExistingData %}
+              {% set assessmentLinkText = 'Change assessment details' %}
+            {% else %}
+              {% set assessmentLinkText = 'Add assessment details' %}
+            {% endif %}
+
+            {{ govukButton({
+              text: assessmentLinkText,
+              classes: 'govuk-button govuk-button--secondary moj-button-menu__item',
+              href: paths.assessmentDetails.show({ id: application.id }),
+              attributes: {
+                'data-testid': 'add-assessment-details'
+              }
+            }) }}
+          </div>
+
+        </div>
+      </div>
+
+      {{submittedApplicationDetails(application, status)}}
+
+      <p data-testid="cas2-ref-number">CAS-2 reference number:
+        {% if application.assessment.nacroReferralId %}
+          <strong>{{ application.assessment.nacroReferralId }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
+
+      <p data-testid="assessor-name">Assessor name:
+        {% if application.assessment.assessorName %}
+          <strong>{{ application.assessment.assessorName }}</strong>
+        {% else %}
+          <strong>Not added yet</strong>
+        {% endif %}
+      </p>
+
+      <div class="govuk-button-group govuk-!-margin-top-5">
+        {{ govukButton({
+              text: "View submitted application",
+              href: paths.submittedApplications.show({id: application.id})
+            }) }}
+
+        {{ govukButton({
+              text: "Update application status",
+              href: paths.statusUpdate.new({id: application.id}),
+              classes: "govuk-button--secondary"
+            })
+          }}
+      </div>
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+      <h2 class="govuk-heading-l">
+        Application history
+      </h2>
+
+      <form action="{{ paths.submittedApplications.addNote({ id: application.assessment.id }) }}?applicationId={{application.id}}" method="post">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ govukTextarea({
+        name: "note",
+        id: "note",
+        label: {
+          text: "Add a note for the referrer",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: 'Use this text box to ask for or provide more information. Anything you add and save will appear on the application history.'
+        },
+        errorMessage: errors.note
+      }) }}
+
+        <button type="submit" class="govuk-button" data-module="govuk-button" data-prevent-double-click="true" data-testid="submit-button">
+          Submit
+        </button>
+
+      </form>
+
+      {{ timeline(getApplicationTimelineEvents(application)) }}
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block extraScripts %}
+{{ printButtonScript(cspNonce) }}
+
+<script type="text/javascript" nonce="{{ cspNonce }}">
+new MOJFrontend.ButtonMenu({container: $('.moj-button-menu'), mq: "(min-width: 200em)", buttonText: "Actions", menuClasses: "moj-button-menu__wrapper--right"});
+</script>
+
+{% endblock %}

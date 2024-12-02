@@ -1,0 +1,26 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro printButton(text = 'Download as a PDF', styles = 'govuk-button print__hidden') %}
+  {{ govukButton({
+    text: text,
+    classes: styles,
+    attributes: { 'data-print-btn': true }
+  }) }}
+  {% endmacro%}
+
+  {% macro printButtonScript(cspNonce) %}
+    <script type="text/javascript" nonce="{{ cspNonce }}">
+      $(document).ready(function () {
+        const printBtn = document.querySelector('[data-print-btn]');
+        function printHandler() {
+          window.print();
+        }
+        if (printBtn) {
+          printBtn.addEventListener('click', printHandler);
+          window.addEventListener('beforeunload', function () {
+            printBtn.removeEventListener('click', printHandler)
+          })
+        }
+      })
+    </script>
+  {% endmacro %}

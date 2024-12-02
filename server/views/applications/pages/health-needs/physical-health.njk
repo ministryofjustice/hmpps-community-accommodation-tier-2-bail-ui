@@ -1,0 +1,222 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "physical-health" %}
+
+{% block questions %}
+  {% set phyHealthNeedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsDetail',
+          label: {
+            text: page.questions.needsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageRadios(
+        {
+          fieldName: 'canClimbStairs',
+          fieldset: {
+            legend: {
+              text: page.questions.canClimbStairs.question,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set isReceivingMedicationOrTreatmentFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'medicationOrTreatmentDetail',
+          label: {
+            text: page.questions.medicationOrTreatmentDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set indyLivingFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'indyLivingDetail',
+          label: {
+            text: page.questions.indyLivingDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set addSupportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'addSupportDetail',
+          label: {
+            text: page.questions.addSupportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasPhyHealthNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasPhyHealthNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+          hint: {
+            html: '
+              <div id="physical-health-needs-hint" class="govuk-hint">
+                <p class="govuk-hint">This includes needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps</p>
+              </div>
+            '
+          },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: phyHealthNeedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isReceivingMedicationOrTreatment",
+        fieldset: {
+          legend: {
+            text: page.questions.isReceivingMedicationOrTreatment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: isReceivingMedicationOrTreatmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "canLiveIndependently",
+        fieldset: {
+          legend: {
+            text: page.questions.canLiveIndependently.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+            html: '
+                <div id="live-independently-details-hint" class="govuk-hint">
+                  <p class="govuk-hint">Someone can live independently if they can:</p>
+                  <ul class="govuk-list govuk-list--bullet govuk-hint">
+                    <li>cook for themselves</li>
+                    <li>clean for themselves</li>
+                    <li>manage their own personal hygiene</li>
+                    <li>shop for themselves</li>
+                    <li>manage their own medication</li>
+                  </ul>
+               </div>
+            '
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No",
+          conditional: {
+            html: indyLivingFollowUp
+          }
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresAdditionalSupport",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresAdditionalSupport.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: addSupportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

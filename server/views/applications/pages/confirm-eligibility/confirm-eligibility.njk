@@ -1,0 +1,72 @@
+{% extends "../layout.njk" %}
+
+{% block beforeContent %}
+  {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
+    {{ govukBackLink({
+      text: "Back",
+      href: paths.applications.show({ id: applicationId })
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block questions %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <div>
+    <p class="govuk-body">Check {{ page.application.person.name }} meets the requirements for Short-Term Accommodation (CAS-2).</p>
+
+    <p class="govuk-body">The applicant must:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+      <li>
+        be 18 years old or older
+      </li>
+      <li>
+        not be currently charged with, or have any past convictions of cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003
+      </li>
+      <li>
+        not be assessed as high or very high risk of serious harm
+      </li>
+      <li>
+        not have breached immigration law (other than over staying on approved period of leave to enter or remain in UK)
+      </li>
+      <li>
+        not have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or remain in the UK
+      </li>
+      <li>
+        be able to live independently. This means they are able to cook, clean and shop for themselves, and manage their own personal hygiene and medication
+      </li>
+      <li>
+        if a Home Detention Curfew (HDC) applicant, not be currently in prison having been recalled for failing to comply with HDC licence conditions
+      </li>
+      <li>
+        if a HDC applicant, not have an outstanding charge related to an offence committed during their current sentence. This would make them ineligible for HDC and CAS-2
+      </li>
+      <li>
+        if a HDC applicant, have a conditional release date (CRD) that is more than 10 days from the application submitted date
+      </li>
+    </ul>
+  </div>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isEligible",
+        fieldset: {
+          legend: {
+            html: '<h2 class="govuk-fieldset__heading">' + page.questions.isEligible + '</h2>',
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
+
+{% block button %}
+  {{ govukButton({
+      text: "Save and continue"
+    }) }}
+{% endblock %}

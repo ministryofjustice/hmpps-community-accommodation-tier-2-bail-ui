@@ -1,0 +1,39 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.otherBackground.question }}
+  {% endset%}
+
+  {% set optionalOtherBackground %}
+    {{
+      formPageInput(
+        {
+          label: { text: page.questions.optionalOtherBackground.question},
+          classes: "govuk-input--width-20",
+          fieldName: "optionalOtherBackground"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "otherBackground",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items(optionalOtherBackground)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

@@ -1,0 +1,47 @@
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+
+{% extends "../layout.njk" %}
+
+{% set columnClasses = "govuk-grid-column-full" %}
+
+{% block content %}
+  <div class="govuk-grid-row" id="{{ pageName }}">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-4">
+    <div class="govuk-grid-column-one-third">
+      {{ mojSideNavigation({
+          label: 'Preferred areas navigation',
+          items: [{
+            text: 'First preferred area',
+            href: paths.applications.pages.show({ id: applicationId, task: 'area-information', page: 'first-preferred-area' }),
+            active: (pageName === 'first-preferred-area')
+          },{
+            text: 'Second preferred area',
+            href: paths.applications.pages.show({ id: applicationId, task: 'area-information', page: 'second-preferred-area' }),
+            active: (pageName === 'second-preferred-area')
+          },{
+            text: 'Exclusion zones',
+            href: paths.applications.pages.show({ id: applicationId, task: 'area-information', page: 'exclusion-zones' }),
+            active: (pageName === 'exclusion-zones')
+          }, {
+            text: 'Gang affiliations',
+            href: paths.applications.pages.show({ id: applicationId, task: 'area-information', page: 'gang-affiliations' }),
+            active: (pageName === 'gang-affiliations')
+          },{
+            text: 'Family accommodation',
+            href: paths.applications.pages.show({ id: applicationId, task: 'area-information', page: 'family-accommodation' }),
+            active: (pageName === 'family-accommodation')
+          }]
+        }) }}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+      {{ super() }}
+    </div>
+
+  </div>
+{% endblock %}
