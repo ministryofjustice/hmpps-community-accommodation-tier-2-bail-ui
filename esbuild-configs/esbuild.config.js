@@ -22,6 +22,10 @@ const buildConfig = {
       .filter(file => !file.endsWith('.test.ts')),
     copy: [
       {
+        from: path.join(cwd, 'server/i18n/**/*'),
+        to: path.join(cwd, 'dist/server/i18n'),
+      },
+      {
         from: path.join(cwd, 'server/views/**/*'),
         to: path.join(cwd, 'dist/server/views'),
       },
