@@ -60,8 +60,9 @@ jobs:
     name: Build docker image from hmpps-github-actions
     if: github.ref == 'refs/heads/main'
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v1 # WORKFLOW_VERSION
-    needs: 
-      - node_integration_tests
+    needs:
+    # ensure app gets deployed to dev regardless of integration tests being skipped
+    # - node_integration_tests
       - node_unit_tests
     with:
       docker_registry: 'ghcr.io'
