@@ -1,0 +1,26 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  {% set pageTitleHTML %}
+    <span class="govuk-caption-l">{{ page.title }}</span>
+    {{ page.questions.isVeteran.question }}
+  {% endset%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isVeteran",
+        fieldset: {
+          legend: {
+            html: pageTitleHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

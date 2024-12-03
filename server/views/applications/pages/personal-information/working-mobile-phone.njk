@@ -1,0 +1,99 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% set smartphoneGuidanceHtml %}
+    <p>A smart phone is a mobile phone that allows the user to browse the Web, send and receive e-mail, view audio and video files, play games, read e-books, and access other computer applications, as well as to make phone calls.</p>
+  {% endset %}
+
+  {% set mobilePhoneDetailHtml %}
+    {{
+      formPageInput(
+        {
+          fieldName: "mobilePhoneNumber",
+          label: {
+            text: page.questions.mobilePhoneNumber.question
+          },
+          classes: "govuk-input--width-20"
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      formPageRadios(
+        {
+          fieldName: "isSmartPhone",
+          fieldset: {
+            legend: {
+              text: page.questions.isSmartPhone.question
+            }
+          },
+          classes: "govuk-radios--inline govuk-!-margin-bottom-6",
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              attributes: {
+                'data-testid': 'isSmartPhone-yes'
+              }
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+      govukDetails({
+        summaryText: "What is a smart phone?",
+        html: smartphoneGuidanceHtml
+      })
+    }}
+
+  {% endset %}
+
+  {% call govukFieldset({
+    legend: {
+      text: page.questions.hasWorkingMobilePhone.question,
+      classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+      isPageHeading: true
+    }
+  }) %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasWorkingMobilePhone",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: { html: mobilePhoneDetailHtml },
+            attributes: {
+              'data-testid': 'hasWorkingMobilePhone-yes'
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {% endcall %}
+{% endblock %}

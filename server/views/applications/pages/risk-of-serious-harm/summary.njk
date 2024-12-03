@@ -1,0 +1,38 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/roshWidget/macro.njk" import roshWidget %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% set additionalCommentsInput %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'additionalComments',
+          label: {
+            text: page.questions.additionalComments,
+            classes: "govuk-label--s"
+          },
+          classes: 'govuk-!-margin-0'
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  {% if page.importDate %}
+    <p class="govuk-hint">
+        Imported from OASys on <strong>{{page.importDate}}</strong>
+    </p>
+  {% endif %}
+
+  {{ roshWidget(page.risks) }}
+
+  {{ govukDetails({
+    summaryText: "Add comments to this summary ",
+    html: additionalCommentsInput
+  }) }}
+
+{% endblock %}

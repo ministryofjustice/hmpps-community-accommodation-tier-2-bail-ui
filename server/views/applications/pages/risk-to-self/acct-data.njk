@@ -1,0 +1,160 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+
+{% extends "../layout.njk" %}
+
+{% set closedDate %}
+{{ 
+          formPageDateInput( {
+            hint: {
+              text: page.questions.closedDate.hint
+            },
+            fieldName: "closedDate",
+            fieldset: {
+              legend: {
+                text: page.questions.closedDate.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: dateFieldValues('closedDate', errors)
+            }, 
+            fetchContext()) 
+        }}
+{% endset %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ showErrorSummary(errorSummary) }}
+
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+      <p class="govuk-body">An Assessment, Care in Custody and Teamwork (ACCT) 
+          is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{ 
+          formPageDateInput( {
+            fieldName: "createdDate",
+            hint: {
+              text: page.questions.createdDate.hint
+            },
+            fieldset: {
+              legend: {
+                text: page.questions.createdDate.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: dateFieldValues('createdDate', errors)
+            }, 
+            fetchContext()) 
+          }}
+
+        {{
+          formPageRadios(
+            {
+              fieldName: "isOngoing",
+              fieldset: {
+                legend: {
+                  text: page.questions.isOngoing.question,
+                  classes: "govuk-fieldset__legend--m"
+                }
+              },
+              items: [
+              {
+                value: "yes",
+                text: "Yes"
+              },
+              {
+                value: "no",
+                text: "No",
+                conditional: {
+                  html: closedDate
+                }
+              }
+            ]
+            },
+            fetchContext()
+          )
+        }}
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.referringInstitution.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-20",
+                fieldName: "referringInstitution",
+                hint: {
+                  text: page.questions.referringInstitution.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            formPageTextArea(
+              {
+                fieldName: "acctDetails",
+                label: {
+                  text: page.questions.acctDetail.question,
+                  classes: "govuk-label--m"
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        <div>
+          {{ govukButton({
+            id: "add-another",
+            text: "Save and add another",
+            classes: "govuk-button--secondary"
+          }) }}
+        </div>
+
+        {% block button %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+                text: "Save and add ACCT"
+            }) }}
+
+            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }) }}">
+                Cancel
+            </a>
+          </div>
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function addRedirect(event) {
+      const form = document.getElementById('form')
+      form.action = form.action + '&redirectPage=acct-data'
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document
+        .getElementById('add-another')
+        .addEventListener('click', (event) => addRedirect(event));
+    });
+  </script>
+{% endblock %}

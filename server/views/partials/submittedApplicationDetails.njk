@@ -1,0 +1,15 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "./_timeline.njk" import timeline %}
+{% from "./applicationCurrentStatus.njk" import applicationCurrentStatus %}
+
+{% macro submittedApplicationDetails(application, status) %}
+
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+    {{ application.person.name }}
+  </h1>
+
+  {{ applicationCurrentStatus(status) }}
+
+  <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
+
+{% endmacro %}

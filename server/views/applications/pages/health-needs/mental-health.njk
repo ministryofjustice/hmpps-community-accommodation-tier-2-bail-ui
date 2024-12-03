@@ -1,0 +1,247 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "mental-health" %}
+
+{% block questions %}
+
+  {% set mentalHealthNeedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsDetail',
+          label: {
+            text: page.questions.needsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsPresentation',
+          label: {
+            text: page.questions.needsPresentation.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set communityFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'servicesDetail',
+          label: {
+            text: page.questions.servicesDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set canManageMedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'canManageMedicationNotes',
+          label: {
+            text: page.questions.canManageMedicationNotes.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.canManageMedicationNotes.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set cantManageMedsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'medicationIssues',
+          label: {
+            text: page.questions.medicationIssues.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'cantManageMedicationNotes',
+          label: {
+            text: page.questions.cantManageMedicationNotes.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.cantManageMedicationNotes.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasMentalHealthNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasMentalHealthNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: mentalHealthNeedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isEngagedWithCommunity",
+        fieldset: {
+          legend: {
+            text: page.questions.isEngagedWithCommunity.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: communityFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isEngagedWithServicesInCustody",
+        fieldset: {
+          legend: {
+            text: page.questions.isEngagedWithServicesInCustody.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "areIntendingToEngageWithServicesAfterCustody",
+        fieldset: {
+          legend: {
+            text: page.questions.areIntendingToEngageWithServicesAfterCustody.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "I don't know"
+          }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "canManageMedication",
+        fieldset: {
+          legend: {
+            text: page.questions.canManageMedication.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: canManageMedsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No",
+          conditional: {
+            html: cantManageMedsFollowUp
+          }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "notPrescribedMedication",
+          text: "They are not prescribed medication for their mental health"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "communication-and-language" %}
+
+{% block questions %}
+
+  {% set interpretationFollowUp %}
+  {{
+      formPageInput(
+        {
+          fieldName: 'interpretationDetail',
+          label: {
+            text: page.questions.interpretationDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set supportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'supportDetail',
+          label: {
+            text: page.questions.supportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "requiresInterpreter",
+        fieldset: {
+          legend: {
+            text: page.questions.requiresInterpreter.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: interpretationFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasSupportNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasSupportNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: supportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
