@@ -116,4 +116,6 @@ export default function nunjucksSetup(app: express.Express): void {
 
   njkEnv.addGlobal('arePreTaskListTasksIncomplete', arePreTaskListTasksIncomplete)
   njkEnv.addGlobal('PhaseBannerUtils', PhaseBannerUtils)
+
+  njkEnv.addFilter('assetMap', (url: string) => assetManifest[url] || url)
 }
