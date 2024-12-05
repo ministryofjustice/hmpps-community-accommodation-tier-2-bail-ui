@@ -39,11 +39,19 @@ export const hasRole = (userRoles: Array<string>, role: string): boolean => {
   return userRoles.includes(role)
 }
 
-export const sectionsForUser = (): Array<ServiceSection> => {
+export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection> => {
   const items = []
 
-  items.push(sections.applications)
-  items.push(sections.newApplication)
+  if (hasRole(userRoles, 'POM') || hasRole(userRoles, 'LICENCE_CA')) {
+    items.push(sections.applications)
+    items.push(sections.newApplication)
+  }
+  if (hasRole(userRoles, 'CAS2_ADMIN')) {
+    items.push(sections.submittedApplications)
+  }
+  if (hasRole(userRoles, 'CAS2_MI')) {
+    items.push(sections.managementInformationReports)
+  }
 
   return Array.from(new Set(items))
 }
