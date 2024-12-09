@@ -122,10 +122,6 @@ export const addNote = async (page: Page) => {
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 }
 
-export const goToPrisonDashboard = async (page: Page) => {
-  await page.goto(`/applications/prison`)
-}
-
 export const checkAnApplicationByUserExists = async (page: Page, name: string) => {
   const tableRows = page.locator('.govuk-table__row')
   expect(tableRows.filter({ hasText: name }).first()).toBeVisible()

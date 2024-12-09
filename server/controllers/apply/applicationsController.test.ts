@@ -714,35 +714,4 @@ describe('applicationsController', () => {
       })
     })
   })
-
-  describe('prisonDashboard', () => {
-    it('renders the prison dashboard page ', async () => {
-      response.locals.user = { activeCaseLoadId: '123' }
-      const prisonApplications = applicationSummaryFactory.buildList(5)
-
-      const paginatedResponse = paginatedResponseFactory.build({
-        data: prisonApplications,
-        totalPages: '50',
-        totalResults: '500',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
-
-      const paginationDetails = {
-        hrefPrefix: paths.applications.prison({}),
-        pageNumber: 1,
-      }
-      ;(getPaginationDetails as jest.Mock).mockReturnValue(paginationDetails)
-      applicationService.getAllByPrison.mockResolvedValue(paginatedResponse)
-
-      const requestHandler = applicationsController.prisonDashboard()
-
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
-        applications: prisonApplications,
-        pageNumber: 1,
-        totalPages: 50,
-        hrefPrefix: paths.applications.prison({}),
-      })
-    })
-  })
 })
