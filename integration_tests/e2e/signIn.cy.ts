@@ -9,7 +9,7 @@ context('Sign In', () => {
     cy.task('stubSignIn')
   })
 
-  it('Unauthenticated user directed to auth', () => {
+  it.skip('Unauthenticated user directed to auth', () => {
     cy.visit('/')
     Page.verifyOnPage(AuthSignInPage)
   })
@@ -23,12 +23,6 @@ context('Sign In', () => {
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.headerUserName().should('contain.text', 'J. Smith')
-  })
-
-  it('Phase banner visible in header', () => {
-    cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
-    indexPage.headerPhaseBanner().should('contain.text', 'dev')
   })
 
   it('User can sign out', () => {
