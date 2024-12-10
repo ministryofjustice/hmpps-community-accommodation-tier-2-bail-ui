@@ -11,3 +11,8 @@ $govuk-page-width: $moj-page-width;
 @import './components/actions-menu';
 @import './pages/dashboard-index';
 @import './local';
+
+.govuk-panel--fail {
+    background-color: #d4351c;
+    color: #ffffff;
+  }
