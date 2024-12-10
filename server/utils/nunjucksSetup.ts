@@ -37,7 +37,7 @@ import * as PhaseBannerUtils from './phaseBannerUtils'
 export default function nunjucksSetup(app: express.Express): void {
   app.set('view engine', 'njk')
 
-  app.locals.applicationName = 'HMPPS Community Accommodation Tier 2 Bail Ui'
+  app.locals.applicationName = 'CAS-2: Bail Accommodation'
   app.locals.environmentName = config.environmentName
   app.locals.environmentNameColour = config.environmentName === 'PRE-PRODUCTION' ? 'govuk-tag--green' : ''
   let assetManifest: Record<string, string> = {}
