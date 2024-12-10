@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import { Cas2Application as Application } from '@approved-premises/api'
+import { ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -11,7 +11,6 @@ import {
   applicationSummaryFactory,
   personFactory,
   applicationNoteFactory,
-  paginatedResponseFactory,
 } from '../../testutils/factories'
 import {
   catchValidationErrorOrPropogate,
@@ -26,7 +25,6 @@ import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
 import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 import { validateReferer } from '../../utils/viewUtils'
-import { getPaginationDetails } from '../../utils/getPaginationDetails'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
@@ -711,37 +709,6 @@ describe('applicationsController', () => {
           note: { text: 'Enter a note for the assessor' },
         })
         expect(response.redirect).toHaveBeenCalledWith(paths.applications.overview({ id: 'application-id' }))
-      })
-    })
-  })
-
-  describe('prisonDashboard', () => {
-    it('renders the prison dashboard page ', async () => {
-      response.locals.user = { activeCaseLoadId: '123' }
-      const prisonApplications = applicationSummaryFactory.buildList(5)
-
-      const paginatedResponse = paginatedResponseFactory.build({
-        data: prisonApplications,
-        totalPages: '50',
-        totalResults: '500',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
-
-      const paginationDetails = {
-        hrefPrefix: paths.applications.prison({}),
-        pageNumber: 1,
-      }
-      ;(getPaginationDetails as jest.Mock).mockReturnValue(paginationDetails)
-      applicationService.getAllByPrison.mockResolvedValue(paginatedResponse)
-
-      const requestHandler = applicationsController.prisonDashboard()
-
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/prison-dashboard', {
-        applications: prisonApplications,
-        pageNumber: 1,
-        totalPages: 50,
-        hrefPrefix: paths.applications.prison({}),
       })
     })
   })

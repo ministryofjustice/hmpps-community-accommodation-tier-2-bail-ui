@@ -11,7 +11,7 @@ describe('userUtils', () => {
       expect(sectionsForUser(['POM'])).toEqual(expected)
     })
 
-    it('should return the prison dashboard for a Licence CA', () => {
+    it('should return correct sections for a Licence CA', () => {
       const expected = [sections.applications, sections.newApplication]
       expect(sectionsForUser(['LICENCE_CA'])).toEqual(expected)
     })
