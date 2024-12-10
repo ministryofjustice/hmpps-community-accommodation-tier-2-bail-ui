@@ -15,7 +15,6 @@ import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
-import { getPaginationDetails } from '../../utils/getPaginationDetails'
 
 export default class ApplicationsController {
   constructor(
