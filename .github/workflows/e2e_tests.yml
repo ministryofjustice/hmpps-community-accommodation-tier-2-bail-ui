@@ -1,0 +1,61 @@
+name: e2e tests
+
+on:
+  workflow_call:
+    inputs:
+      node_version_file:
+        description: "Passed to setup-node action to specify where to source the version of node from"
+        required: false
+        type: string
+        default: ".nvmrc"
+
+permissions:
+  contents: read
+
+jobs:
+  e2e_test:
+    name: Run the e2e tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ inputs.node_version_file }}
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ inputs.node_version_file }}
+      - name: refresh cache
+        id: refresh-cache
+        uses: actions/cache@v4
+        env:
+          cache-name: node-modules
+        with:
+          path: |
+            ~/.cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: install playwright
+        shell: bash
+        run: |
+          npx playwright install
+      - name: run e2e tests
+        env:
+          CAS2_ASSESSOR_USERNAME: ${{ vars.CAS2_ASSESSOR_USERNAME }}
+          CAS2_ASSESSOR_PASSWORD: ${{ vars.CAS2_ASSESSOR_PASSWORD }}
+          CAS2_HMPPS_AUTH_USERNAME: ${{ vars.CAS2_HMPPS_AUTH_USERNAME }}
+          CAS2_HMPPS_AUTH_PASSWORD: ${{ vars.CAS2_HMPPS_AUTH_PASSWORD }}
+          CAS2_MI_USERNAME: ${{ vars.CAS2_MI_USERNAME }}
+          CAS2_MI_PASSWORD: ${{ vars.CAS2_MI_PASSWORD }}
+        shell: bash
+        run: |
+          npm run test:e2e
+      - name: upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm_e2e_test_artifacts
+          path: |
+            e2e-tests/test_results/
+            e2e-tests/playwright-report/
