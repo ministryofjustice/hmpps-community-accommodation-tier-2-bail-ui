@@ -1,9 +1,4 @@
-import {
-  preferredAreasFromAppData,
-  hdcEligibilityDateFromAppData,
-  conditionalReleaseDateFromAppData,
-  telephoneNumberFromAppData,
-} from './managementInfoFromAppData'
+import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
 
@@ -58,68 +53,6 @@ describe('managementInfoFromAppData', () => {
         },
       })
       expect(preferredAreasFromAppData(application)).toEqual('Bradford')
-    })
-  })
-
-  describe('hdcEligibilityDateFromAppData', () => {
-    it('returns the given date', () => {
-      const application = applicationFactory.build({
-        data: {
-          'hdc-licence-dates': {
-            'hdc-licence-dates': { hdcEligibilityDate: '2024-02-27' },
-          },
-        },
-      })
-      expect(hdcEligibilityDateFromAppData(application)).toEqual('2024-02-27')
-    })
-
-    const noDateData = [
-      {
-        'hdc-licence-dates': null,
-      },
-      {
-        'hdc-licence-dates': { 'hdc-licence-dates': null },
-      },
-      {},
-      null,
-    ]
-
-    it.each(noDateData)('returns null if no date is given', data => {
-      const application = applicationFactory.build({
-        data,
-      })
-      expect(hdcEligibilityDateFromAppData(application)).toEqual(null)
-    })
-  })
-
-  describe('conditionalReleaseDateFromAppData', () => {
-    it('returns the given date', () => {
-      const application = applicationFactory.build({
-        data: {
-          'hdc-licence-dates': {
-            'hdc-licence-dates': { conditionalReleaseDate: '2024-03-15' },
-          },
-        },
-      })
-      expect(conditionalReleaseDateFromAppData(application)).toEqual('2024-03-15')
-    })
-
-    const noDateData = [
-      {
-        'hdc-licence-dates': null,
-      },
-      {
-        'hdc-licence-dates': { 'hdc-licence-dates': null },
-      },
-      {},
-      null,
-    ]
-
-    it.each(noDateData)('returns null if no date is given', data => {
-      const application = applicationFactory.build({
-        data,
-      })
-      expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
     })
   })
 

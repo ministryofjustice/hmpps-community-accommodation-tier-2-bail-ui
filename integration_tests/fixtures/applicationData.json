@@ -13,20 +13,6 @@
       "consentDate-day": "1"
     }
   },
-  "hdc-licence-dates": {
-    "hdc-licence-dates": {
-      "hdcEligibilityDate": "2026-02-22",
-      "hdcEligibilityDate-year": "2026",
-      "hdcEligibilityDate-month": "2",
-      "hdcEligibilityDate-day": "22",
-      "conditionalReleaseDate": "2026-03-28",
-      "conditionalReleaseDate-year": "2026",
-      "conditionalReleaseDate-month": "3",
-      "conditionalReleaseDate-day": "28"
-    },
-    "hdc-warning": {},
-    "hdc-ineligible": {}
-  },
   "referrer-details": {
     "confirm-details": { "name": "Eric Dier", "email": "eric.dier@moj.gov.uk" },
     "job-title": { "jobTitle": "POM" },

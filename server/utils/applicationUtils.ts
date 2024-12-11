@@ -122,11 +122,7 @@ export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'r
 }
 
 export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
-  if (
-    application.data?.['confirm-eligibility'] &&
-    application.data?.['confirm-consent'] &&
-    application.data?.['hdc-licence-dates']
-  ) {
+  if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
     return false
   }
   return true

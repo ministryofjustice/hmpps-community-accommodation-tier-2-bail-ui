@@ -359,8 +359,8 @@ describe('utils', () => {
         )
       })
     })
-    describe('when the person is confirmed ELIGIBLE and consent is confirmed, but the HDC licence dates task has not been completed', () => {
-      it('redirects to the _HDC licence dates_ page', async () => {
+    describe('when the person is confirmed ELIGIBLE and consent is confirmed', () => {
+      it('redirects to the task list page', async () => {
         const application = applicationFactory.build({
           data: {
             'confirm-eligibility': {
@@ -373,18 +373,6 @@ describe('utils', () => {
                 'consentDate-year': '2022',
                 'consentDate-month': '2',
                 'consentDate-day': '22',
-              },
-            },
-            'hdc-licence-dates': {
-              'hdc-licence-dates': {
-                hdcEligibilityDate: '2024-02-28',
-                'hdcEligibilityDate-year': '2024',
-                'hdcEligibilityDate-month': '2',
-                'hdcEligibilityDate-day': '28',
-                conditionalReleaseDate: '2024-02-22',
-                'conditionalReleaseDate-year': '2024',
-                'conditionalReleaseDate-month': '2',
-                'conditionalReleaseDate-day': '22',
               },
             },
           },
@@ -409,39 +397,6 @@ describe('utils', () => {
             errorSummary: [],
             referrer: 'some-validated-referer',
           }),
-        )
-      })
-    })
-
-    describe('when eligibility and consent have been confirmed, and HDC dates have been entered', () => {
-      it('redirects to the _task list_ page', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'yes',
-                consentDate: '2022-02-22',
-                'consentDate-year': '2022',
-                'consentDate-month': '2',
-                'consentDate-day': '22',
-              },
-            },
-          },
-        })
-
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
-
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'hdc-licence-dates',
-              page: 'hdc-licence-dates',
-            }),
-          ),
         )
       })
     })

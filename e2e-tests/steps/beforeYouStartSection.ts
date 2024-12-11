@@ -1,6 +1,5 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
-import { getTodaysDatePlusMonthsAndDays } from '../../server/utils/dateUtils'
 
 export const completeEligibilityTask = async (page: Page, name: string) => {
   const confirmEligibilityPage = await ApplyPage.initialize(
@@ -25,24 +24,6 @@ export const completeConsentTask = async (page: Page, name: string) => {
     day: '1',
   })
   await confirmConsentPage.clickSave()
-}
-
-export const completeHDCLicenceDatesTask = async (page: Page, name: string) => {
-  const hdcDate = getTodaysDatePlusMonthsAndDays()
-  const crdDate = getTodaysDatePlusMonthsAndDays(2)
-
-  const hdcLicenceDatesPage = await ApplyPage.initialize(page, `${name}'s Home Detention Curfew (HDC) licence dates`)
-  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s HDC eligibility date?`, {
-    year: hdcDate.year,
-    month: hdcDate.month,
-    day: hdcDate.day,
-  })
-  await hdcLicenceDatesPage.fillDateFieldInGroup(`What is ${name}'s conditional release date?`, {
-    year: crdDate.year,
-    month: crdDate.month,
-    day: crdDate.day,
-  })
-  await hdcLicenceDatesPage.clickSave()
 }
 
 export const completeReferrerDetailsTask = async (page: Page) => {
