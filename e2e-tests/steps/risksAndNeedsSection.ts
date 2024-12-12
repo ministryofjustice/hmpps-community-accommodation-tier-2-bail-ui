@@ -12,6 +12,7 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await completeCommunicationAndLanguagePage(page, name)
   await completeLearningDifficultiesPage(page, name)
   await completeBrainInjuryPage(page, name)
+  await completeLiaisonAndDiversionPage(page, name)
   await completeOtherHealthPage(page, name)
 }
 
@@ -90,6 +91,14 @@ async function completeBrainInjuryPage(page: Page, name: string) {
   await brainInjuryPage.checkRadioInGroup('additional support', 'No')
 
   await brainInjuryPage.clickSave()
+}
+
+async function completeLiaisonAndDiversionPage(page: Page, name: string) {
+  const liaisonAndDiversionPage = await ApplyPage.initialize(page, `Liaison & Diversion Assessment for ${name}`)
+
+  await liaisonAndDiversionPage.checkRadioInGroup('Liaison & Diversion Assessment', 'No')
+
+  await liaisonAndDiversionPage.clickSave()
 }
 
 async function completeOtherHealthPage(page: Page, name: string) {

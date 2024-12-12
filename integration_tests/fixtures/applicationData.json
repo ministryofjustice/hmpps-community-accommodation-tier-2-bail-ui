@@ -187,6 +187,9 @@
       "requiresAdditionalSupport": "no",
       "addSupportDetail": ""
     },
+    "liaison-and-diversion": {
+      "liaisonAndDiversionAssessment": "no"
+    },
     "other-health": {
       "hasLongTermHealthCondition": "no",
       "healthConditionDetail": "",

@@ -9,6 +9,7 @@ import MentalHealth from './mentalHealth'
 import OtherHealth from './otherHealth'
 import PhysicalHealth from './physicalHealth'
 import SubstanceMisuse from './substanceMisuse'
+import LiaisonAndDiversion from './liaisonAndDiversion'
 
 @Task({
   name: 'Add health needs',
@@ -21,6 +22,7 @@ import SubstanceMisuse from './substanceMisuse'
     CommunicationAndLanguage,
     LearningDifficulties,
     BrainInjury,
+    LiaisonAndDiversion,
     OtherHealth,
   ],
 })

@@ -1,0 +1,31 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "liaison-and-diversion" %}
+
+{% block questions %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "liaisonAndDiversionAssessment",
+        fieldset: {
+          legend: {
+            text: page.questions.liaisonAndDiversionAssessment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
