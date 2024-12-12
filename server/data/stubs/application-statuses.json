@@ -16,7 +16,6 @@
       { "id": "8641d719-7356-42d3-8363-e323bf76caec", "name": "riskOfSeriousHarm", "label": "Risk of serious harm" },
       { "id": "90f075ae-0b9f-445b-a9b5-1095abca87dc", "name": "currentOffences", "label": "Current offences" },
       { "id": "8ce77ea1-324e-4ac8-be8c-33d6d4d927f8", "name": "offendingHistory", "label": "Offending history" },
-      { "id": "d2c44705-2795-4610-9879-dcf26940e121", "name": "hdcAndCpp", "label": "HDC licence and CPP details" },
       { "id": "94631a70-6c51-43d6-9112-2b6d042b5aa0", "name": "other", "label": "Other" }
     ]
   },

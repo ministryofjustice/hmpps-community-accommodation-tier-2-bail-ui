@@ -826,23 +826,5 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'cpp-details-and-hdc-licence-conditions': {
-      'cpp-details': {
-        cppDetails: {
-          question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
-          hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
-        },
-      },
-      'non-standard-licence-conditions': {
-        nonStandardLicenceConditions: {
-          question: `Does ${name} have any non-standard licence conditions?`,
-          answers: yesNoOrIDontKnow,
-          hint: 'Check with their Community Probation Practitioner (CPP), also known as Community Offender Manager (COM). Non-standard licence conditions may also be in NDelius.',
-        },
-        nonStandardLicenceConditionsDetail: {
-          question: 'Describe the conditions',
-        },
-      },
-    },
   }
 }
