@@ -324,18 +324,6 @@
     ],
     "offence-history": {}
   },
-  "cpp-details-and-hdc-licence-conditions": {
-    "cpp-details": {
-      "name": "A. CPP",
-      "probationRegion": "some region",
-      "email": "cpp@moj.gov.uk",
-      "telephone": "012345"
-    },
-    "non-standard-licence-conditions": {
-      "nonStandardLicenceConditions": "yes",
-      "nonStandardLicenceConditionsDetail": "some detail"
-    }
-  },
   "check-your-answers": {
     "check-your-answers": {
       "checkYourAnswers": "confirmed"

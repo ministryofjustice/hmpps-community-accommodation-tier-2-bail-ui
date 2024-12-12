@@ -44,29 +44,3 @@ async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
   await anyPreviousConvictionsPage.checkRadio('No, they do not have any previous unspent convictions')
   await anyPreviousConvictionsPage.clickSave()
 }
-
-export const completeCPPDetailsAndHDCLicenceConditionsTask = async (page: Page, name: string) => {
-  const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add CPP details and HDC licence conditions')
-
-  await completeCPPDetailsPage(page, name)
-  await completeNonStandardLicenceConditionsPage(page, name)
-}
-
-async function completeCPPDetailsPage(page: Page, name: string) {
-  const cppDetailsPage = await ApplyPage.initialize(page, `Who is ${name}'s Community Probation Practitioner (CPP)?`)
-  await cppDetailsPage.fillField('Full name', 'A. CPP')
-  await cppDetailsPage.fillField('Probation region', 'south')
-  await cppDetailsPage.fillField('Contact email address', 'an@email.gov.uk')
-  await cppDetailsPage.fillField('Contact number', '12345')
-  await cppDetailsPage.clickSave()
-}
-
-async function completeNonStandardLicenceConditionsPage(page: Page, name: string) {
-  const nonStandardLicenceConditionsPage = await ApplyPage.initialize(
-    page,
-    `Does ${name} have any non-standard licence conditions?`,
-  )
-  await nonStandardLicenceConditionsPage.checkRadio("I don't know")
-  await nonStandardLicenceConditionsPage.clickSave()
-}

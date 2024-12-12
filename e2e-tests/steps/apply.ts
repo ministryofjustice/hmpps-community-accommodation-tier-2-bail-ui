@@ -21,11 +21,7 @@ import {
   enterOldRoshOasysDate,
 } from './risksAndNeedsSection'
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
-import {
-  completeCurrentOffencesTask,
-  completeCPPDetailsAndHDCLicenceConditionsTask,
-  completeOffenceHistoryTask,
-} from './offenceAndLicenceInformationSection'
+import { completeCurrentOffencesTask, completeOffenceHistoryTask } from './offenceAndLicenceInformationSection'
 import { completeCheckAnswersTask } from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
 
@@ -84,10 +80,9 @@ export const enterOldOasysDates = async (page: Page, name: string) => {
   await enterOldRoshOasysDate(page, name)
 }
 
-export const completeOffenceAndLicenceInformationSection = async (page: Page, name: string) => {
+export const completeOffenceInformationSection = async (page: Page, name: string) => {
   await completeCurrentOffencesTask(page, name)
   await completeOffenceHistoryTask(page, name)
-  await completeCPPDetailsAndHDCLicenceConditionsTask(page, name)
 }
 
 export const completeCheckAnswersSection = async (page: Page, name: string) => {
