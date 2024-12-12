@@ -51,18 +51,6 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'hdc-licence-dates': {
-      'hdc-licence-dates': {
-        hdcEligibilityDate: {
-          question: `What is ${name}'s HDC eligibility date?`,
-          hint: `For example, ${dateExample}`,
-        },
-        conditionalReleaseDate: {
-          question: `What is ${name}'s conditional release date?`,
-          hint: `For example, ${dateExample}`,
-        },
-      },
-    },
     'referrer-details': {
       'confirm-details': {
         name: { question: 'Name' },

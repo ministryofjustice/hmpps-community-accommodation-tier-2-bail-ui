@@ -14,22 +14,6 @@ const preferredAreasFromAppData = (application: Application): string => {
   return [firstPreference, secondPreference].filter(x => x).join(' | ')
 }
 
-const hdcEligibilityDateFromAppData = (application: Application): string => {
-  // @ts-expect-error Requires refactor to satisfy TS7053
-  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
-    ?.hdcEligibilityDate
-
-  return date || null
-}
-
-const conditionalReleaseDateFromAppData = (application: Application): string => {
-  // @ts-expect-error Requires refactor to satisfy TS7053
-  const date: string = (application.data as Record<string, unknown>)?.['hdc-licence-dates']?.['hdc-licence-dates']
-    ?.conditionalReleaseDate
-
-  return date || null
-}
-
 const telephoneNumberFromAppData = (application: Application): string | null => {
   // @ts-expect-error Requires refactor to satisfy TS7053
   const telephoneNumber: string = (application.data as Record<string, unknown>)?.['referrer-details']?.[
@@ -39,9 +23,4 @@ const telephoneNumberFromAppData = (application: Application): string | null => 
   return telephoneNumber || null
 }
 
-export {
-  preferredAreasFromAppData,
-  hdcEligibilityDateFromAppData,
-  conditionalReleaseDateFromAppData,
-  telephoneNumberFromAppData,
-}
+export { preferredAreasFromAppData, telephoneNumberFromAppData }

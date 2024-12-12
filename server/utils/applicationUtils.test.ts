@@ -249,20 +249,6 @@ describe('arePreTaskListTasksIncomplete', () => {
             'consentDate-day': '1',
           },
         },
-        'hdc-licence-dates': {
-          'hdc-licence-dates': {
-            hdcEligibilityDate: '2026-02-22',
-            'hdcEligibilityDate-year': '2026',
-            'hdcEligibilityDate-month': '2',
-            'hdcEligibilityDate-day': '22',
-            conditionalReleaseDate: '2026-03-28',
-            'conditionalReleaseDate-year': '2026',
-            'conditionalReleaseDate-month': '3',
-            'conditionalReleaseDate-day': '28',
-          },
-          'hdc-warning': {},
-          'hdc-ineligible': {},
-        },
       },
     })
 
@@ -289,15 +275,6 @@ describe('arePreTaskListTasksIncomplete', () => {
         'confirm-eligibility': {
           'confirm-eligibility': {
             isEligible: 'yes',
-          },
-        },
-        'confirm-consent': {
-          'confirm-consent': {
-            hasGivenConsent: 'yes',
-            consentDate: '2023-01-01',
-            'consentDate-year': '2023',
-            'consentDate-month': '1',
-            'consentDate-day': '1',
           },
         },
       },

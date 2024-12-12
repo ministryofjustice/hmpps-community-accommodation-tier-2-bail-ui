@@ -49,10 +49,6 @@ export const consentIsDenied = (application: Application): boolean => {
   return consentAnswer(application) === 'no'
 }
 
-export const hdcDatesHaveBeenEntered = (application: Application): boolean => {
-  return Boolean(application.data?.['hdc-licence-dates']?.['hdc-licence-dates'])
-}
-
 const consentAnswer = (application: Application): string => {
   return application.data?.['confirm-consent']?.['confirm-consent']?.hasGivenConsent
 }
@@ -127,20 +123,11 @@ export const getSideNavLinksForApplication = () => {
 export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application) => {
   if (eligibilityIsConfirmed(application)) {
     if (consentIsConfirmed(application)) {
-      if (hdcDatesHaveBeenEntered(application)) {
-        const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+      const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
-        const referer = validateReferer(req.headers.referer)
-        const taskList = new TaskListService(application)
-        return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
-      }
-      return res.redirect(
-        paths.applications.pages.show({
-          id: application.id,
-          task: 'hdc-licence-dates',
-          page: 'hdc-licence-dates',
-        }),
-      )
+      const referer = validateReferer(req.headers.referer)
+      const taskList = new TaskListService(application)
+      return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
     }
     if (consentIsDenied(application)) {
       return res.redirect(paths.applications.consentRefused({ id: application.id }))
