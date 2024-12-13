@@ -24,6 +24,7 @@ import { completeAreaInformationTask, completeFundingInformationTask } from './a
 import { completeCurrentOffencesTask, completeOffenceHistoryTask } from './offenceAndLicenceInformationSection'
 import { completeCheckAnswersTask } from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
+import { completeBailConditionsAndSupportSessionsTask } from './bailInformationSection'
 
 export const startAnApplication = async (page: Page) => {
   // Start page
@@ -83,6 +84,10 @@ export const enterOldOasysDates = async (page: Page, name: string) => {
 export const completeOffenceInformationSection = async (page: Page, name: string) => {
   await completeCurrentOffencesTask(page, name)
   await completeOffenceHistoryTask(page, name)
+}
+
+export const completeBailInformationSection = async (page: Page, name: string) => {
+  await completeBailConditionsAndSupportSessionsTask(page, name)
 }
 
 export const completeCheckAnswersSection = async (page: Page, name: string) => {
