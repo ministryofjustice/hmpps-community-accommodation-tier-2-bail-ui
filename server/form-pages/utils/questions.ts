@@ -826,5 +826,25 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'bail-conditions-and-support-sessions': {
+      'non-standard-bail-conditions': {
+        nonStandardBailConditions: {
+          question: `Are there any non-standard bail conditions being considered for ${name}?`,
+          answers: yesOrNo,
+        },
+        nonStandardBailConditionsDetail: {
+          question: 'What are they?',
+        },
+      },
+      'mandatory-support-sessions': {
+        mandatorySupportSessions: {
+          question: `Does the court require more than one mandatory support session per week for ${name}?`,
+          answers: yesOrNo,
+        },
+        mandatorySupportSessionsDetail: {
+          question: 'Provide additional information on how many sessions are required',
+        },
+      },
+    },
   }
 }
