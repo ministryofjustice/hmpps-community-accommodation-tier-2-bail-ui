@@ -606,6 +606,13 @@ export const getQuestions = (name: string) => {
         requiresAdditionalSupport: { question: 'Is additional support required?', answers: yesOrNo },
         addSupportDetail: { question: 'Please describe the type of support.' },
       },
+      'liaison-and-diversion': {
+        liaisonAndDiversionAssessment: {
+          question:
+            'Did the police or court request a Liaison & Diversion Assessment to be carried out for this applicant?',
+          answers: yesOrNo,
+        },
+      },
       'other-health': {
         hasLongTermHealthCondition: {
           question: 'Are they managing any long term health conditions?',

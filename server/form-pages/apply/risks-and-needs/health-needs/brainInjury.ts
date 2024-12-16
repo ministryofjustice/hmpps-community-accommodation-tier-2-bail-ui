@@ -52,7 +52,7 @@ export default class BrainInjury implements TaskListPage {
   }
 
   next() {
-    return 'other-health'
+    return 'liaison-and-diversion'
   }
 
   errors() {
