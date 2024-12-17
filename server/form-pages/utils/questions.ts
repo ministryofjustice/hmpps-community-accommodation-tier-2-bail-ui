@@ -876,5 +876,16 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'bail-hearing-arrangement': {
+      'bail-hearing-arranger': {
+        bailHearingArranger: {
+          question: 'Who will arrange the bail hearing?',
+          answers: {
+            legalAdvisor: 'Legal advisor',
+            applicant: 'Applicant',
+          },
+        },
+      },
+    },
   }
 }
