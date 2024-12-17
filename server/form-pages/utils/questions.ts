@@ -865,6 +865,16 @@ export const getQuestions = (name: string) => {
           hint: `For example, ${dateExample}`,
         },
       },
+      'bail-hearing-medium': {
+        bailHearingMedium: {
+          question: `How will ${name}'s bail hearing be heard?`,
+          answers: {
+            inCourt: 'In court',
+            videoLink: 'Video link',
+            judgeInChambers: 'Judge in Chambers',
+          },
+        },
+      },
     },
   }
 }
