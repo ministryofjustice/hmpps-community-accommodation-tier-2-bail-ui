@@ -856,9 +856,15 @@ export const getQuestions = (name: string) => {
     'bail-hearing-information': {
       'court-name': {
         courtName: {
-          question: `What's the name of the court where ${name}'s bail hearing will take place?`
-        }
-      }
-    }
+          question: `What's the name of the court where ${name}'s bail hearing will take place?`,
+        },
+      },
+      'bail-hearing-date': {
+        bailHearingDate: {
+          question: `When is ${name}'s bail hearing?`,
+          hint: `For example, ${dateExample}`,
+        },
+      },
+    },
   }
 }

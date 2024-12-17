@@ -1,0 +1,25 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {{ 
+    formPageDateInput( {
+      hint: {
+        text: page.questions.bailHearingDate.hint
+      },
+      fieldName: "bailHearingDate",
+      fieldset: {
+        legend: {
+            text: page.questions.bailHearingDate.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: dateFieldValues('bailHearingDate', errors)
+      }, 
+      fetchContext()) 
+  }}
+{% endblock %}
