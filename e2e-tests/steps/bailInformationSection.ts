@@ -69,6 +69,7 @@ export async function completeBailHearingArrangementInformationTask(page: Page) 
   await taskListPage.clickTask('Add bail hearing arrangement information')
 
   await completeBailHearingArrangerPage(page)
+  await completeBailHearingContactPage(page)
 }
 
 async function completeBailHearingArrangerPage(page: Page) {
@@ -76,4 +77,14 @@ async function completeBailHearingArrangerPage(page: Page) {
 
   await bailHearingArrangerPage.checkRadio('Legal Advisor (from the court)')
   await bailHearingArrangerPage.clickButton('Save and continue')
+}
+
+async function completeBailHearingContactPage(page: Page) {
+  const bailHearingContactPage = await ApplyPage.initialize(page, 'Add legal advisor contact information')
+
+  await bailHearingContactPage.fillField('Full name', 'Jay Legal')
+  await bailHearingContactPage.fillField('Legal firm address', 'Legal Firm, 1 Winchester Road, X14 3UF')
+  await bailHearingContactPage.fillField('Email address', 'jay@legal.com')
+  await bailHearingContactPage.fillField('Phone number', '11111111111')
+  await bailHearingContactPage.clickButton('Save and continue')
 }

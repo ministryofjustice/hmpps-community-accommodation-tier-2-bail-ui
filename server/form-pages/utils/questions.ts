@@ -886,6 +886,11 @@ export const getQuestions = (name: string) => {
           },
         },
       },
+      'bail-hearing-contact': {
+        bailHearingContact: {
+          question: 'Add legal advisor contact information',
+        },
+      },
     },
   }
 }

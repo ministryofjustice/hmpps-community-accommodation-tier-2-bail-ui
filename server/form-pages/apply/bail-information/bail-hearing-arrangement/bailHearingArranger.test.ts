@@ -6,7 +6,7 @@ describe('BailHearingArranger', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHavePreviousValue(new BailHearingArranger({}, application), 'taskList')
-  itShouldHaveNextValue(new BailHearingArranger({}, application), '')
+  itShouldHaveNextValue(new BailHearingArranger({}, application), 'bail-hearing-contact')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
