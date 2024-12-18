@@ -16,11 +16,11 @@ export type WorkingMobilePhoneBody = {
   bodyProperties: ['hasWorkingMobilePhone', 'mobilePhoneNumber', 'isSmartPhone'],
 })
 export default class WorkingMobilePhone implements TaskListPage {
-  documentTitle = 'Will the person have a working mobile phone when they are released?'
+  documentTitle = 'Will the person have a working mobile phone?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Will ${nameOrPlaceholderCopy(this.application.person)} have a working mobile phone when they are released?`
+  title = `Will ${nameOrPlaceholderCopy(this.application.person)} have a working mobile phone?`
 
   questions = getQuestions(this.personName)['personal-information']['working-mobile-phone']
 

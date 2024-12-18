@@ -14,7 +14,7 @@ describe('WorkingMobilePhone', () => {
   it('sets the question as the page title', () => {
     const page = new WorkingMobilePhone(body, application)
 
-    expect(page.title).toEqual('Will Sue Smith have a working mobile phone when they are released?')
+    expect(page.title).toEqual('Will Sue Smith have a working mobile phone?')
   })
 
   it('sets the body', () => {

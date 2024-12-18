@@ -134,7 +134,7 @@ export const completePersonalInformationTask = async (page: Page, name: string) 
 }
 
 async function completeWorkingMobilePhonePage(page: Page, name: string) {
-  const pageTitle = `Will ${name} have a working mobile phone when they are released?`
+  const pageTitle = `Will ${name} have a working mobile phone?`
   const workingMobilePhonePage = await ApplyPage.initialize(page, pageTitle)
 
   await workingMobilePhonePage.checkRadioByTestId('hasWorkingMobilePhone-yes')
