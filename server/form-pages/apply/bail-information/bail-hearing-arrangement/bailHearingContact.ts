@@ -40,7 +40,7 @@ export default class BailHearingContact implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'consult-legal-advisor'
   }
 
   errors() {

@@ -891,6 +891,12 @@ export const getQuestions = (name: string) => {
           question: 'Add legal advisor contact information',
         },
       },
+      'consult-legal-advisor': {
+        consultLegalAdvisor: {
+          question: `Have you spoken to ${name}'s legal advisor about this application?`,
+          answers: yesOrNo,
+        },
+      },
     },
   }
 }
