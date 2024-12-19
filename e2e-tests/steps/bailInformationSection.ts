@@ -63,3 +63,38 @@ async function completeMandatorySupportSessionsPage(page: Page, name: string) {
   await mandatorySupportSessionsPage.checkRadio('No')
   await mandatorySupportSessionsPage.clickButton('Save and continue')
 }
+
+export async function completeBailHearingArrangementInformationTask(page: Page, name: string) {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add bail hearing arrangement information')
+
+  await completeBailHearingArrangerPage(page)
+  await completeBailHearingContactPage(page)
+  await completeConsultLegalAdvisorPage(page, name)
+}
+
+async function completeBailHearingArrangerPage(page: Page) {
+  const bailHearingArrangerPage = await ApplyPage.initialize(page, 'Who will arrange the bail hearing?')
+
+  await bailHearingArrangerPage.checkRadio('Legal Advisor (from the court)')
+  await bailHearingArrangerPage.clickButton('Save and continue')
+}
+
+async function completeBailHearingContactPage(page: Page) {
+  const bailHearingContactPage = await ApplyPage.initialize(page, 'Add legal advisor contact information')
+
+  await bailHearingContactPage.fillField('Full name', 'Jay Legal')
+  await bailHearingContactPage.fillField('Legal firm address', 'Legal Firm, 1 Winchester Road, X14 3UF')
+  await bailHearingContactPage.fillField('Email address', 'jay@legal.com')
+  await bailHearingContactPage.fillField('Phone number', '11111111111')
+  await bailHearingContactPage.clickButton('Save and continue')
+}
+async function completeConsultLegalAdvisorPage(page: Page, name: string) {
+  const consultLegalAdvisorPage = await ApplyPage.initialize(
+    page,
+    `Have you spoken to ${name}'s legal advisor about this application?`,
+  )
+
+  await consultLegalAdvisorPage.checkRadio('Yes')
+  await consultLegalAdvisorPage.clickButton('Save and continue')
+}

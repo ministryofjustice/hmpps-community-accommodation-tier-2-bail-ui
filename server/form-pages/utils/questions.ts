@@ -876,5 +876,27 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'bail-hearing-arrangement': {
+      'bail-hearing-arranger': {
+        bailHearingArranger: {
+          question: 'Who will arrange the bail hearing?',
+          answers: {
+            legalAdvisor: 'Legal advisor',
+            applicant: 'Applicant',
+          },
+        },
+      },
+      'bail-hearing-contact': {
+        bailHearingContact: {
+          question: 'Add legal advisor contact information',
+        },
+      },
+      'consult-legal-advisor': {
+        consultLegalAdvisor: {
+          question: `Have you spoken to ${name}'s legal advisor about this application?`,
+          answers: yesOrNo,
+        },
+      },
+    },
   }
 }

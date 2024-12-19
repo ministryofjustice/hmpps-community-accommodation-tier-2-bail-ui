@@ -27,6 +27,7 @@ import { TestOptions } from '../testOptions'
 import {
   completeBailConditionsAndSupportSessionsTask,
   completeBailHearingInformationTask,
+  completeBailHearingArrangementInformationTask,
 } from './bailInformationSection'
 
 export const startAnApplication = async (page: Page) => {
@@ -92,6 +93,7 @@ export const completeOffenceInformationSection = async (page: Page, name: string
 export const completeBailInformationSection = async (page: Page, name: string) => {
   await completeBailConditionsAndSupportSessionsTask(page, name)
   await completeBailHearingInformationTask(page, name)
+  await completeBailHearingArrangementInformationTask(page, name)
 }
 
 export const completeCheckAnswersSection = async (page: Page, name: string) => {
