@@ -77,7 +77,7 @@ export const getQuestions = (name: string) => {
     'personal-information': {
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
-          question: `Will ${name} have a working mobile phone when they are released?`,
+          question: `Will ${name} have a working mobile phone?`,
         },
         mobilePhoneNumber: {
           question: 'What is their mobile number? (Optional)',
