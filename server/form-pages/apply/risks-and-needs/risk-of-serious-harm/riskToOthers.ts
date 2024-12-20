@@ -4,7 +4,6 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getOasysImportDateFromApplication } from '../../../utils'
-import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
 import { hasOasys } from '../../../../utils/applicationUtils'
@@ -55,16 +54,7 @@ export default class RiskToOthers implements TaskListPage {
     if (!this.body.natureOfRisk) {
       errors.natureOfRisk = errorLookups.natureOfRisk.empty
     }
-    if (!this.body.confirmation) {
-      errors.confirmation = errorLookups.oasysConfirmation.empty
-    }
 
     return errors
-  }
-
-  items() {
-    return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
-      this.body.confirmation,
-    ])
   }
 }

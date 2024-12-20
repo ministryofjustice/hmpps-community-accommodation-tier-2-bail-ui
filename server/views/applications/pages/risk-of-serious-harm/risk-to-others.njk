@@ -1,6 +1,5 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "./_risk-of-serious-harm-screen.njk" %}
-{% from "../../../partials/dateOfOasysImport.njk" import dateOfOasysImport %}
 
 {% set pageName = "risk-to-others" %}
 
@@ -35,10 +34,6 @@
 {% endset %}
 
 {% block questions %}
-  {% if page.importDate %}
-    {{dateOfOasysImport(page.importDate)}}
-  {% endif %}
-
   {{
       formPageTextArea(
         {
@@ -70,21 +65,4 @@
         fetchContext()
       )
   }}
-
-  {% if page.hasOasysRecord %}
-    {{ govukInsetText({
-      text: "If you have noticed information in OASys is out of date, you should tell the person responsible for updating OASys."
-    }) }}
-  {% endif %}
-
-  {{ 
-      formPageCheckboxes(
-          {
-            fieldName: "confirmation",
-            items: page.items()
-          }, 
-          fetchContext()
-      ) 
-  }}
-
 {% endblock %}

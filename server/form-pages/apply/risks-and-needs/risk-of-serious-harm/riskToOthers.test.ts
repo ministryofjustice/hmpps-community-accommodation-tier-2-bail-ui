@@ -28,20 +28,9 @@ describe('RiskToOthers', () => {
     it('returns an error when required fields are blank', () => {
       const page = new RiskToOthers({}, application)
       expect(page.errors()).toEqual({
-        confirmation: 'Confirm that the information is relevant and up to date',
         whoIsAtRisk: 'Enter who is at risk',
         natureOfRisk: 'Enter the nature of the risk',
       })
-    })
-  })
-
-  describe('items', () => {
-    it('returns the checkbox as expected', () => {
-      const page = new RiskToOthers({}, application)
-
-      expect(page.items()).toEqual([
-        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
-      ])
     })
   })
 })
