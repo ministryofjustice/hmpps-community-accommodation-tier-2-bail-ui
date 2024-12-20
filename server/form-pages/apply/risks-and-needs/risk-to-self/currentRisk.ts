@@ -4,10 +4,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getOasysImportDateFromApplication } from '../../../utils'
-import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
-import errorLookups from '../../../../i18n/en/errors.json'
 import { getQuestions } from '../../../utils/questions'
-import { DateFormats } from '../../../../utils/dateUtils'
 import { hasOasys } from '../../../../utils/applicationUtils'
 
 type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
@@ -53,41 +50,7 @@ export default class CurrentRisk implements TaskListPage {
     if (!this.body.currentRiskDetail) {
       errors.currentRiskDetail = `Describe ${this.personName}'s current issues and needs related to self harm and suicide`
     }
-    if (!this.body.confirmation) {
-      errors.confirmation = errorLookups.oasysConfirmation.empty
-    }
 
     return errors
-  }
-
-  items() {
-    return convertKeyValuePairToCheckboxItems({ confirmed: this.questions.confirmation.question }, [
-      this.body.confirmation,
-    ])
-  }
-
-  response() {
-    const oasysData = this.application.data?.['risk-to-self']?.['oasys-import']
-
-    if (oasysData) {
-      return {
-        'OASys created': DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' }),
-        'OASys completed': oasysData.oasysCompletedDate
-          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
-          : 'Unknown',
-        'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
-        [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
-        [this.questions.confirmation.question]:
-          this.questions.confirmation.answers[
-            this.body.confirmation as keyof typeof this.questions.confirmation.answers
-          ],
-      }
-    }
-
-    return {
-      [this.questions.currentRiskDetail.question]: this.body.currentRiskDetail,
-      [this.questions.confirmation.question]:
-        this.questions.confirmation.answers[this.body.confirmation as keyof typeof this.questions.confirmation.answers],
-    }
   }
 }

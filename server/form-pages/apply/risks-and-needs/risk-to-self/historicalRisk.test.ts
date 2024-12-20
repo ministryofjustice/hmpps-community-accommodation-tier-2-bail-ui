@@ -35,22 +35,11 @@ describe('HistoricalRisk', () => {
   itShouldHavePreviousValue(new HistoricalRisk({}, application), 'current-risk')
 
   describe('errors', () => {
-    it('returns an error when the confirmation is blank', () => {
+    it('returns an error when historicalRiskDetail is blank', () => {
       const page = new HistoricalRisk({}, application)
       expect(page.errors()).toEqual({
         historicalRiskDetail: "Describe Roger Smith's historical issues and needs related to self harm and suicide",
-        confirmation: 'Confirm that the information is relevant and up to date',
       })
-    })
-  })
-
-  describe('items', () => {
-    it('returns the checkbox as expected', () => {
-      const page = new HistoricalRisk({}, application)
-
-      expect(page.items()).toEqual([
-        { value: 'confirmed', text: 'I confirm this information is relevant and up to date.', checked: false },
-      ])
     })
   })
 })
