@@ -3,9 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { getOasysImportDateFromApplication } from '../../../utils'
 import { getQuestions } from '../../../utils/questions'
-import { hasOasys } from '../../../../utils/applicationUtils'
 
 type HistoricalRiskBody = { historicalRiskDetail: string; confirmation: string }
 
@@ -22,18 +20,13 @@ export default class HistoricalRisk implements TaskListPage {
 
   questions = getQuestions(this.personName)['risk-to-self']['historical-risk']
 
-  importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
-
   body: HistoricalRiskBody
-
-  hasOasysRecord: boolean
 
   constructor(
     body: Partial<HistoricalRiskBody>,
     private readonly application: Application,
   ) {
     this.body = body as HistoricalRiskBody
-    this.hasOasysRecord = hasOasys(application, 'risk-to-self')
   }
 
   previous() {

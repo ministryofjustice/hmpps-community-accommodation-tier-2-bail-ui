@@ -144,12 +144,6 @@ describe('checkYourAnswersUtils', () => {
             oldPageKey: {
               question1: 'no',
             },
-            'oasys-import': {
-              question1: 'no',
-            },
-            'summary-data': {
-              question2: 'some answer',
-            },
           },
         },
       })
@@ -512,19 +506,6 @@ describe('checkYourAnswersUtils', () => {
 
       expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
     })
-
-    describe('when the question is OASys imported', () => {
-      it('returns the task response as a Summary List item without the actions object', () => {
-        const question = { question: 'OASys imported', answer: 'an answer' }
-
-        const expected = {
-          key: { html: 'OASys imported' },
-          value: { html: 'an answer' },
-        }
-
-        expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
-      })
-    })
   })
 
   describe('getSections', () => {
@@ -538,7 +519,6 @@ describe('checkYourAnswersUtils', () => {
   describe('getKeysForPages', () => {
     it('returns an array of page keys for risk to self', () => {
       expect(getKeysForPages(application, 'risk-to-self')).toEqual([
-        'oasys-import',
         'current-risk',
         'vulnerability',
         'historical-risk',

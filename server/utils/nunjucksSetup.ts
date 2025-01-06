@@ -27,7 +27,6 @@ import { applicationStatusRadios, applicationStatusDetailOptions } from './asses
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { dateFieldValues } from './formUtils'
-import * as OasysImportUtils from './oasysImportUtils'
 import { statusTag } from './personUtils'
 import * as TaskListUtils from './taskListUtils'
 import { pagination } from './pagination'
@@ -73,8 +72,6 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('mergeObjects', (obj1: Record<string, unknown>, obj2: Record<string, unknown>) => {
     return { ...obj1, ...obj2 }
   })
-
-  njkEnv.addGlobal('OasysImportUtils', OasysImportUtils)
 
   njkEnv.addGlobal('paths', { ...applicationPaths, ...assessPaths, ...reportPaths, ...staticPaths })
   njkEnv.addGlobal('TaskListUtils', TaskListUtils)

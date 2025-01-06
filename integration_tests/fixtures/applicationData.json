@@ -241,7 +241,7 @@
   "risk-of-serious-harm": {
     "risk-to-others": {
       "whoIsAtRisk": "a person",
-      "natureOfRisk": "a nature",
+      "natureOfRisk": "a nature"
     },
     "risk-management-arrangements": {
       "arrangements": ["mappa", "marac", "iom"],

@@ -1,7 +1,3 @@
-import { OASysRiskOfSeriousHarm } from '../shared/models/OASysRiskOfSeriousHarm'
-import { OASysRiskToSelf } from '../shared/models/OASysRiskToSelf'
-import { RoshRisksEnvelope } from '../shared/models/RoshRisksEnvelope'
-
 export type JourneyType = 'applications'
 
 export type UiTask = {
@@ -46,9 +42,6 @@ export type FormArtifact = Cas2Application
 export type DataServices = Partial<{
   personService: {
     findByPrisonNumber: (token: string, prisonNumber: string) => Promise<Person>
-    getOasysRiskToSelf: (token: string, crn: string) => Promise<OASysRiskToSelf>
-    getOasysRosh: (token: string, crn: string) => Promise<OASysRiskOfSeriousHarm>
-    getRoshRisks: (token: string, crn: string) => Promise<RoshRisksEnvelope>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2Application>
@@ -90,10 +83,6 @@ export type UserDetails = {
   displayName: string
   roles: Array<UserRole>
 }
-
-export type OasysImportArrays = ArrayOfOASysRiskOfSeriousHarmSummaryQuestions
-
-export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Very High'
 
 export type TierNumber = '1' | '2' | '3' | '4'
 export type TierLetter = 'A' | 'B' | 'C' | 'D'

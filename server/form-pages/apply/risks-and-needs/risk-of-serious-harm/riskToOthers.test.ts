@@ -13,14 +13,6 @@ describe('RiskToOthers', () => {
     })
   })
 
-  describe('import date', () => {
-    it('sets importDate to null where application contains no OASys import date', () => {
-      const page = new RiskToOthers({}, application)
-
-      expect(page.importDate).toEqual(null)
-    })
-  })
-
   itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-management-arrangements')
   itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
 

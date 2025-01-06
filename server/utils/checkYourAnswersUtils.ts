@@ -40,7 +40,7 @@ export const getTaskAnswersAsSummaryListItems = (
   const questions = getQuestions(nameOrPlaceholderCopy(application.person))
 
   // Get the page keys stored on the application at creation
-  const applicationPageKeys = getKeysForPages(application, task).filter(key => pagesWeNeverWantToPresent(key) === false)
+  const applicationPageKeys = getKeysForPages(application, task)
 
   // Filter out any keys that are no longer in the latest question schema
   const relevantPagesKeys = removeAnyOldPageKeys(questions, task, applicationPageKeys)
@@ -149,9 +149,6 @@ export const summaryListItemForQuestion = (
   pageKey: string,
   questionAndAnswer: Record<string, string>,
 ) => {
-  const nonEditablePages = ['summary']
-  const nonEditableQuestions = ['OASys created', 'OASys completed', 'OASys imported']
-
   const { question, answer } = questionAndAnswer
 
   const actions = {
@@ -169,7 +166,7 @@ export const summaryListItemForQuestion = (
       html: question,
     },
     value: { html: formatLines(answer as string) },
-    ...(nonEditablePages.includes(pageKey) || nonEditableQuestions.includes(question) ? {} : { actions }),
+    actions,
   }
 }
 
@@ -307,7 +304,4 @@ export const removeAnyOldPageKeys = (questions: any, task: string, applicationPa
     key => latestPageKeys.includes(key) || ['acct', 'current-offences', 'offence-history'].includes(key),
   )
   return matchedKeys
-}
-const pagesWeNeverWantToPresent = (key: string): boolean => {
-  return ['summary-data', 'oasys-import'].includes(key)
 }

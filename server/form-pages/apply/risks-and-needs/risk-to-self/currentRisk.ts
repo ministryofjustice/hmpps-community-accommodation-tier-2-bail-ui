@@ -3,9 +3,7 @@ import { Cas2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { getOasysImportDateFromApplication } from '../../../utils'
 import { getQuestions } from '../../../utils/questions'
-import { hasOasys } from '../../../../utils/applicationUtils'
 
 type CurrentRiskBody = { currentRiskDetail: string; confirmation: string }
 
@@ -24,16 +22,11 @@ export default class CurrentRisk implements TaskListPage {
 
   body: CurrentRiskBody
 
-  importDate = getOasysImportDateFromApplication(this.application, 'risk-to-self')
-
-  hasOasysRecord: boolean
-
   constructor(
     body: Partial<CurrentRiskBody>,
     private readonly application: Application,
   ) {
     this.body = body as CurrentRiskBody
-    this.hasOasysRecord = hasOasys(application, 'risk-to-self')
   }
 
   previous() {
