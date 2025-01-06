@@ -14,7 +14,6 @@ import {
   submitApplication,
   viewSubmittedApplication,
   addNote,
-  enterOldOasysDates,
   viewInProgressDashboard,
   createAnInProgressApplication,
 } from '../steps/apply'
@@ -42,15 +41,6 @@ test('add a note to a submitted application', async ({ page, person, pomUser }) 
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
-})
-
-test('create a CAS-2 application with no OASys', async ({ page, personWithoutOasys, pomUser }) => {
-  await signIn(page, pomUser)
-  await startAnApplication(page)
-  await enterPrisonerNumber(page, personWithoutOasys.nomsNumber)
-  await confirmApplicant(page)
-  await completeBeforeYouStartSection(page, personWithoutOasys.name)
-  await enterOldOasysDates(page, personWithoutOasys.name)
 })
 
 test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
