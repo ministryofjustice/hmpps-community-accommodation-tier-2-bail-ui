@@ -41,9 +41,9 @@ export default class CurrentOffences implements TaskListPage {
 
   dataPageName = 'current-offence-data'
 
-  taskName = 'current-offences'
+  taskName = 'community-supervision-and-current-offences'
 
-  currentOffenceQuestions = getQuestions('')['current-offences']['current-offence-data']
+  currentOffenceQuestions = getQuestions('')['community-supervision-and-current-offences']['current-offence-data']
 
   constructor(
     body: Partial<CurrentOffencesBody>,
@@ -86,7 +86,7 @@ export default class CurrentOffences implements TaskListPage {
   }
 
   static async initialize(body: Partial<CurrentOffenceDataBody>, application: Application) {
-    if (!application.data['current-offences']?.['current-offence-data']) {
+    if (!application.data['community-supervision-and-current-offences']?.['current-offence-data']) {
       return new CurrentOffenceData(body, application)
     }
     return new CurrentOffences({}, application)
@@ -103,7 +103,7 @@ export default class CurrentOffences implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.application.data['current-offences']?.['current-offence-data'].length) {
+    if (!this.application.data['community-supervision-and-current-offences']?.['current-offence-data'].length) {
       errors.offenceList = 'Current offences must be added to the application'
     }
 

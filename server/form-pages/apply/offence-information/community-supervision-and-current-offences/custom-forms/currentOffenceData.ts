@@ -42,11 +42,11 @@ export default class CurrentOffenceData implements TaskListPage {
 
   body: CurrentOffenceDataBody
 
-  taskName = 'current-offences'
+  taskName = 'community-supervision-and-current-offences'
 
   pageName = 'current-offence-data'
 
-  questions = getQuestions('')['current-offences']['current-offence-data']
+  questions = getQuestions('')['community-supervision-and-current-offences']['current-offence-data']
 
   offenceCategories: Array<SelectItem>
 
@@ -58,7 +58,9 @@ export default class CurrentOffenceData implements TaskListPage {
   ) {
     this.body = body as CurrentOffenceDataBody
     this.offenceCategories = this.getCategoriesAsItemsForSelect(this.body.offenceCategory)
-    this.hasPreviouslySavedACurrentOffence = Boolean(application.data['current-offences']?.['current-offence-data'])
+    this.hasPreviouslySavedACurrentOffence = Boolean(
+      application.data['community-supervision-and-current-offences']?.['current-offence-data'],
+    )
   }
 
   private getCategoriesAsItemsForSelect(selectedItem: string): Array<SelectItem> {

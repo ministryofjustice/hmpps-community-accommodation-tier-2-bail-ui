@@ -741,7 +741,7 @@ export const getQuestions = (name: string) => {
         additionalInformationDetail: { question: 'Additional information' },
       },
     },
-    'current-offences': {
+    'community-supervision-and-current-offences': {
       'current-offence-data': {
         titleAndNumber: {
           question: 'Offence title',
