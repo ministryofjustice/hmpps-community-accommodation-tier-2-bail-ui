@@ -1,12 +1,29 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeCurrentOffencesTask = async (page: Page, name: string) => {
+export const completeCommunitySupervisionAndCurrentOffencesTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add current offences')
+  await taskListPage.clickTask('Community supervision and current offences')
 
+  await completeCommunitySupervisionPage(page, name)
+  await completeCPPDetailsPage(page, name)
   await completeCurrentOffenceDetailsPage(page, name)
   await completeCurrentOffencesPage(page, name)
+}
+
+async function completeCommunitySupervisionPage(page: Page, name: string) {
+  const communitySupervisionPage = await ApplyPage.initialize(page, `Is ${name} currently supervised by probation?`)
+  await communitySupervisionPage.checkRadio('Yes')
+  await communitySupervisionPage.clickButton('Save and continue')
+}
+
+async function completeCPPDetailsPage(page: Page, name: string) {
+  const cppDetailsPage = await ApplyPage.initialize(page, `Who is ${name}'s Community Probation Practitioner (CPP)?`)
+  await cppDetailsPage.fillField('Full name', 'A. CPP')
+  await cppDetailsPage.fillField('Probation region', 'south')
+  await cppDetailsPage.fillField('Contact email address', 'an@email.gov.uk')
+  await cppDetailsPage.fillField('Contact number', '12345')
+  await cppDetailsPage.clickSave()
 }
 
 async function completeCurrentOffenceDetailsPage(page: Page, name: string) {
