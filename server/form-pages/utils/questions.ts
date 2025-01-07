@@ -748,6 +748,12 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
       },
+      'cpp-details': {
+        cppDetails: {
+          question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
+          hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
+        },
+      },
       'current-offence-data': {
         titleAndNumber: {
           question: 'Offence title',
