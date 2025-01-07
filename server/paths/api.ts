@@ -2,7 +2,6 @@ import { path } from 'static-path'
 
 const peoplePath = path('/cas2/people')
 const personPath = peoplePath.path(':crn')
-const oasysPath = personPath.path('oasys')
 const applicationsPath = path('/cas2/applications')
 const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
@@ -15,11 +14,6 @@ const singleReportPath = reportsPath.path(':name')
 
 export default {
   people: {
-    oasys: {
-      sections: oasysPath.path('sections'),
-      riskToSelf: oasysPath.path('risk-to-self'),
-      rosh: oasysPath.path('rosh'),
-    },
     search: peoplePath.path('search'),
     risks: {
       show: personPath.path('risks'),

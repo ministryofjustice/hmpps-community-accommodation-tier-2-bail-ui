@@ -114,13 +114,6 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
-export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
-  if (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes') {
-    return true
-  }
-  return false
-}
-
 export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
   if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
     return false

@@ -49,7 +49,9 @@ export default class BailHearingDate implements TaskListPage {
 
   response() {
     return {
-      [this.questions.bailHearingDate.question]: DateFormats.dateAndTimeInputsToUiDate(this.body, 'bailHearingDate'),
+      [this.questions.bailHearingDate.question]: this.body.bailHearingDate
+        ? DateFormats.dateAndTimeInputsToUiDate(this.body, 'bailHearingDate')
+        : '',
     }
   }
 }
