@@ -301,7 +301,8 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
 export const removeAnyOldPageKeys = (questions: any, task: string, applicationPageKeys: string[]): string[] => {
   const latestPageKeys = Object.keys(questions[task])
   const matchedKeys = applicationPageKeys.filter(
-    key => latestPageKeys.includes(key) || ['acct', 'current-offences', 'offence-history'].includes(key),
+    key =>
+      latestPageKeys.includes(key) || ['acct', 'current-offences', 'alleged-offences', 'offence-history'].includes(key),
   )
   return matchedKeys
 }

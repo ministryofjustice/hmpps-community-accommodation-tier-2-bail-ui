@@ -1,0 +1,76 @@
+{% extends "../layout.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  <p>The CAS-2 referral team needs an overview of all alleged offences to assess risk and make sure people are placed safely.</p>
+
+  {{ govukButton({
+    text: "Add an alleged offence",
+    href: paths.applications.pages.show({ id: applicationId, task: 'alleged-offences', page: 'alleged-offence-data' }),
+    classes: "govuk-button--secondary"
+  }) }}
+
+  {% if page.offences | length %}
+
+    {% for offence in page.offences %}
+
+      {{ govukSummaryList({
+          card: {
+            title: {
+              text: offence.titleAndNumber,
+              classes:  "govuk-summary-card__title-wrapper--flex-end"
+            },
+            actions: {
+              items: [
+                {
+                  href: offence.removeLink,
+                  text: "Remove",
+                  visuallyHiddenText: offence.titleAndNumber +" offence"
+                }
+              ]
+            }  
+          },
+          rows: [
+            {
+              key: {
+                text: 'Type:'
+              },
+              value: {
+                html: offence.offenceCategoryTag
+              }
+            },
+            {
+              key: {
+                text: 'Offence date:'
+              },
+              value: {
+                text: offence.offenceDate
+              }
+            },
+            {
+              key: {
+                text: 'Offence details:'
+              },
+              value: {
+                text: offence.summary
+              }
+            }
+          ]
+        }) }}
+
+    {% endfor %}
+
+  {% else %}
+    <p class="govuk-body govuk-!-font-weight-bold">There are no alleged offences to show.</p>
+  {% endif %}
+
+{% endblock %}
