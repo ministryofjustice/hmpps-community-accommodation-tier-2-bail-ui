@@ -11,7 +11,7 @@ describe('CurrentOffences', () => {
   const applicationWithData = applicationFactory.build({
     person: personFactory.build({ name: 'Roger Smith' }),
     data: {
-      'current-offences': {
+      'community-supervision-and-current-offences': {
         'current-offence-data': [
           {
             titleAndNumber: 'Stalking',
@@ -63,7 +63,7 @@ describe('CurrentOffences', () => {
             summary: 'summary detail',
             outstandingCharges: 'Yes',
             outstandingChargesDetail: 'some detail',
-            removeLink: `/applications/${applicationWithData.id}/tasks/current-offences/pages/current-offence-data/0/removeFromList?redirectPage=current-offences`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/community-supervision-and-current-offences/pages/current-offence-data/0/removeFromList?redirectPage=current-offences`,
           },
           {
             titleAndNumber: 'Arson',
@@ -74,7 +74,7 @@ describe('CurrentOffences', () => {
             summary: 'second summary detail',
             outstandingCharges: 'No',
             outstandingChargesDetail: '',
-            removeLink: `/applications/${applicationWithData.id}/tasks/current-offences/pages/current-offence-data/1/removeFromList?redirectPage=current-offences`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/community-supervision-and-current-offences/pages/current-offence-data/1/removeFromList?redirectPage=current-offences`,
           },
         ])
       })

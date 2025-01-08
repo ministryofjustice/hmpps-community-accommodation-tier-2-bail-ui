@@ -258,7 +258,18 @@
       "additionalInformationDetail": "some information"
     }
   },
-  "current-offences": {
+  "community-supervision-and-current-offences": {
+    "community-supervision": {
+      "probationSupervision": "yes"
+    },
+    "cpp-details": {
+      "cppDetails": {
+        "name": "A. CPP",
+        "probationRegion": "some region",
+        "email": "cpp@moj.gov.uk",
+        "telephone": "012345"
+      }
+    },
     "current-offence-data": [
       {
         "titleAndNumber": "Arson",

@@ -15,7 +15,10 @@ import {
 } from './aboutThePersonSection'
 import { completeHealthNeedsTask, completeRiskToSelfTask, completeRoshTask } from './risksAndNeedsSection'
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
-import { completeCurrentOffencesTask, completeOffenceHistoryTask } from './offenceAndLicenceInformationSection'
+import {
+  completeCommunitySupervisionAndCurrentOffencesTask,
+  completeOffenceHistoryTask,
+} from './offenceAndLicenceInformationSection'
 import { completeCheckAnswersTask } from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
 import {
@@ -75,7 +78,7 @@ export const completeRisksAndNeedsSection = async (page: Page, name: string) => 
 }
 
 export const completeOffenceInformationSection = async (page: Page, name: string) => {
-  await completeCurrentOffencesTask(page, name)
+  await completeCommunitySupervisionAndCurrentOffencesTask(page, name)
   await completeOffenceHistoryTask(page, name)
 }
 
