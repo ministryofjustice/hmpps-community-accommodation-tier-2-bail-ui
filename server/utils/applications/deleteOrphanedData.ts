@@ -28,6 +28,12 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: AnyValue)
     }
   }
 
+  const deleteOrphanedCPPAndCurrentOffenceData = () => {
+    delete applicationData['community-supervision-and-current-offences']['cpp-details']
+    delete applicationData['community-supervision-and-current-offences']['current-offence-data']
+    delete applicationData['community-supervision-and-current-offences']['current-offences']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -88,6 +94,17 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: AnyValue)
 
   if (applicationData['address-history']?.['previous-address']?.hasPreviousAddress) {
     deleteAddressHistoryInformation()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'community-supervision-and-current-offences',
+      pageName: 'community-supervision',
+      questionKey: 'probationSupervision',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedCPPAndCurrentOffenceData()
   }
 
   return applicationData
