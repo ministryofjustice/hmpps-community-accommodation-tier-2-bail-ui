@@ -9,13 +9,6 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1>Apply for Short-Term Accommodation (CAS-2)</h1>
-      <p>Use this service to apply for accommodation and support on behalf of someone on Home Detention Curfew (HDC) licence.</p>
-
-      <p>You can save your progress and return to your application at any time.</p>
-
-      <div class="govuk-inset-text">
-        <p>Prison bail applications must be submitted using the paper form.</p>
-      </div>
 
       {{ govukButton({
           text: "Start now",
@@ -23,36 +16,6 @@
           preventDoubleClick: true,
           href: paths.applications.new()
       }) }}
-
-      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-    </div>
-  </div>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h2>Before you start</h2>
-
-      <h3>You need:</h3>
-
-      <ul>
-        <li>consent from the applicant</li>
-        <li>the applicant's prison number (from NOMIS)</li>
-        <li>a Layer 3 OASys for the applicant, which has been updated in the last 6 months</li>
-      </ul>
-
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            What to do if OASys is not up to date
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-text">
-          <p>Information in the application should be up to date and consistent with OASys.</p>
-
-          <p>If you can update OASys, do this before you start so risk information can be imported to save you time.</p>
-
-          <p>If the applicant does not have an OASys or you cannot update it, you can complete the sections manually.</p>
-        </div>
-      </details>
 
     </div>
   </div>
