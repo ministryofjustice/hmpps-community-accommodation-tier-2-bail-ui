@@ -11,6 +11,32 @@ export const completeCommunitySupervisionAndCurrentOffencesTask = async (page: P
   await completeCurrentOffencesPage(page, name)
 }
 
+export const completeAllegedOffencesTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add alleged offences')
+
+  await completeAllegedOffenceDetailsPage(page, name)
+  await completeAllegedOffencesPage(page, name)
+}
+
+async function completeAllegedOffenceDetailsPage(page: Page, name: string) {
+  const allegedOffenceDetailsPage = await ApplyPage.initialize(page, `Add ${name}'s alleged offence details`)
+  await allegedOffenceDetailsPage.fillField('Offence title', 'Stalking')
+  await allegedOffenceDetailsPage.chooseSelectItem('Offence type', 'Stalking or Harassment')
+  await allegedOffenceDetailsPage.fillDateFieldInGroup('When is it alleged that they committed the offence?', {
+    year: '2022',
+    month: '3',
+    day: '1',
+  })
+  await allegedOffenceDetailsPage.fillField('Provide a summary of the allegations', 'an offence summary')
+  await allegedOffenceDetailsPage.clickButton('Save and continue')
+}
+
+async function completeAllegedOffencesPage(page: Page, name: string) {
+  const allegedOffencesPage = await ApplyPage.initialize(page, `Alleged offences for ${name}`)
+  await allegedOffencesPage.clickButton('Save and continue')
+}
+
 async function completeCommunitySupervisionPage(page: Page, name: string) {
   const communitySupervisionPage = await ApplyPage.initialize(page, `Is ${name} currently supervised by probation?`)
   await communitySupervisionPage.checkRadio('Yes')
