@@ -2,12 +2,7 @@ import { Page, expect } from '@playwright/test'
 import { faker } from '@faker-js/faker/locale/en_GB'
 
 import { BeforeYouStartPage, DashboardPage, FindByPrisonNumberPage, TaskListPage } from '../pages/apply'
-import {
-  completeCheckInformationTask,
-  completeConsentTask,
-  completeEligibilityTask,
-  completeReferrerDetailsTask,
-} from './beforeYouStartSection'
+import { completeConsentTask, completeEligibilityTask, completeReferrerDetailsTask } from './beforeYouStartSection'
 import {
   completeAddressHistoryTask,
   completeEqualityAndDiversityTask,
@@ -58,7 +53,6 @@ export const completeBeforeYouStartSection = async (page: Page, name: string) =>
   await completeEligibilityTask(page, name)
   await completeConsentTask(page, name)
   await completeReferrerDetailsTask(page)
-  await completeCheckInformationTask(page)
 }
 
 export const completeAreaAndFundingSection = async (page: Page, name: string) => {
