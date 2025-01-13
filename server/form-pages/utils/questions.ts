@@ -69,14 +69,6 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'information-needed-from-applicant': {
-      'information-needed-from-applicant': {
-        hasInformationNeeded: {
-          question: 'Have you got all the information you need from the applicant?',
-          answers: yesOrNo,
-        },
-      },
-    },
     'personal-information': {
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
