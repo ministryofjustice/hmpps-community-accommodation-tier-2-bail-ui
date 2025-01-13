@@ -60,7 +60,7 @@ export const getQuestions = (name: string) => {
         email: { question: 'Email address' },
       },
       'job-title': {
-        jobTitle: { question: 'What is your job title?', hint: 'For example, Prison Offender Manager (POM)' },
+        jobTitle: { question: 'What is your job title?', hint: 'For example, Bail Information Officer (BIO)' },
       },
       'contact-number': {
         telephone: {
