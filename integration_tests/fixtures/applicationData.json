@@ -52,6 +52,14 @@
       "nationalInsuranceNumber": "12345"
     }
   },
+  "solicitor-details": {
+    "contact-information": {
+      "name": "Jay Legal",
+      "legalFirmAndAddress": "Legal Firm, 1 Winchester Road, X14 3UF",
+      "email": "jay@legal.com",
+      "number": "11111111111"
+    }
+  },
   "personal-information": {
     "working-mobile-phone": {
       "hasWorkingMobilePhone": "yes",
