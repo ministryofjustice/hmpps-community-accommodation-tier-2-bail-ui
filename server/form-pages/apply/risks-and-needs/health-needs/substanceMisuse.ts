@@ -52,7 +52,7 @@ export default class SubstanceMisuse implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'liaison-and-diversion'
   }
 
   next() {

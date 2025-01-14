@@ -32,11 +32,11 @@ export default class LiaisonAndDiversion implements TaskListPage {
   }
 
   previous() {
-    return 'brain-injury'
+    return 'taskList'
   }
 
   next() {
-    return 'other-health'
+    return 'substance-misuse'
   }
 
   errors() {

@@ -45,7 +45,7 @@ describe('SubstanceMisuse', () => {
   })
 
   itShouldHaveNextValue(new SubstanceMisuse({}, application), 'physical-health')
-  itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'taskList')
+  itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'liaison-and-diversion')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {

@@ -29,7 +29,7 @@ export default class Guidance implements TaskListPage {
   }
 
   next() {
-    return 'substance-misuse'
+    return 'liaison-and-diversion'
   }
 
   errors() {
