@@ -6,13 +6,13 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await taskListPage.clickTask('Add health needs')
 
   await reviewGuidancePage(page, name)
+  await completeLiaisonAndDiversionPage(page, name)
   await completeSubstanceMisusePage(page, name)
   await completePhysicalHealthPage(page, name)
   await completeMentalHealthPage(page, name)
   await completeCommunicationAndLanguagePage(page, name)
   await completeLearningDifficultiesPage(page, name)
   await completeBrainInjuryPage(page, name)
-  await completeLiaisonAndDiversionPage(page, name)
   await completeOtherHealthPage(page, name)
 }
 

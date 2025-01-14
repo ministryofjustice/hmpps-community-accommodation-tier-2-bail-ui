@@ -23,8 +23,8 @@ describe('LiaisonAndDiversion', () => {
     })
   })
 
-  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'other-health')
-  itShouldHavePreviousValue(new LiaisonAndDiversion({}, application), 'brain-injury')
+  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'substance-misuse')
+  itShouldHavePreviousValue(new LiaisonAndDiversion({}, application), 'taskList')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {

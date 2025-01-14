@@ -13,7 +13,7 @@ describe('Guidance', () => {
     })
   })
 
-  itShouldHaveNextValue(new Guidance({}, application), 'substance-misuse')
+  itShouldHaveNextValue(new Guidance({}, application), 'liaison-and-diversion')
   itShouldHavePreviousValue(new Guidance({}, application), 'taskList')
 
   describe('errors', () => {

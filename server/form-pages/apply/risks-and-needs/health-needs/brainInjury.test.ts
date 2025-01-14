@@ -53,7 +53,7 @@ describe('BrainInjury', () => {
     })
   })
 
-  itShouldHaveNextValue(new BrainInjury({}, application), 'liaison-and-diversion')
+  itShouldHaveNextValue(new BrainInjury({}, application), 'other-health')
   itShouldHavePreviousValue(new BrainInjury({}, application), 'learning-difficulties')
 
   describe('errors', () => {
