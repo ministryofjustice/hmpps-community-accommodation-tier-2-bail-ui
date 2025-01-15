@@ -56,3 +56,20 @@ async function completeContactNumberPage(page: Page) {
 
   await confirmDetailsPage.clickSave()
 }
+
+export const completeSolicitorDetailsTask = async (page: Page) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add solicitor details')
+
+  await completeSolicitorContactInformationPage(page)
+}
+
+async function completeSolicitorContactInformationPage(page: Page) {
+  const bailHearingContactPage = await ApplyPage.initialize(page, "Add solicitor's contact information")
+
+  await bailHearingContactPage.fillField('Full name', 'Jay Legal')
+  await bailHearingContactPage.fillField('Legal firm address', 'Legal Firm, 1 Winchester Road, X14 3UF')
+  await bailHearingContactPage.fillField('Email address', 'jay@legal.com')
+  await bailHearingContactPage.fillField('Phone number', '11111111111')
+  await bailHearingContactPage.clickButton('Save and continue')
+}
