@@ -1,0 +1,68 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {% call govukFieldset({
+    legend: {
+      text: page.questions.contactInformation.question,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) %}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Full name"
+        },
+        fieldName: "name",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Legal firm address"
+        },
+        fieldName: "legalFirmAndAddress"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Email address"
+        },
+        type: "email",
+        fieldName: "email",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Phone number"
+        },
+        fieldName: "number",
+        classes: "govuk-input--width-10"
+      },
+      fetchContext()
+    )
+  }}
+
+  {% endcall %}
+{% endblock %}

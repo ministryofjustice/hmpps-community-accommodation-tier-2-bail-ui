@@ -32,7 +32,7 @@ test('create a CAS-2 application', async ({ page, person, pomUser }) => {
   await completeOffenceInformationSection(page, person.name)
   await completeBailInformationSection(page, person.name)
   await completeCheckAnswersSection(page, person.name)
-  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
+  await expect(page.getByText('You have completed 19 of 19 tasks')).toBeVisible()
   await submitApplication(page)
 })
 

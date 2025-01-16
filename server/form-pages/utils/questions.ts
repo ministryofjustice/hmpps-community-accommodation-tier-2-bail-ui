@@ -69,6 +69,13 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'solicitor-details': {
+      'contact-information': {
+        contactInformation: {
+          question: "Add solicitor's contact information",
+        },
+      },
+    },
     'personal-information': {
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
