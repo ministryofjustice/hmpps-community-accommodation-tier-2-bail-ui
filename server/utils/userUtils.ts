@@ -15,7 +15,7 @@ export const sections = {
   newApplication: {
     id: 'new-application',
     title: 'Start a new CAS-2 Bail application',
-    description: 'Start a new CAS-2 application for a Bail applicant.',
+    description: '',
     shortTitle: 'New application',
     href: applyPaths.applications.beforeYouStart({}),
   },
