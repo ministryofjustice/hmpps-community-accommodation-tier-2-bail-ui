@@ -157,6 +157,19 @@ export default class ApplicationsController {
     request.flash('userInput', request.body)
   }
 
+  applicationType(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/application-type', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are applying for:',
+      })
+    }
+  }
+
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
@@ -281,6 +294,14 @@ export default class ApplicationsController {
           catchValidationErrorOrPropogate(req, res, err, paths.applications.overview({ id: applicationId }))
         }
       }
+    }
+  }
+
+  chooseApplicationType() {
+    return async (req: Request, res: Response) => {
+      const { applicationType } = req.body
+
+      return res.redirect(paths.applications.new({ params: { applicationType } }))
     }
   }
 }

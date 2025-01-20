@@ -15,6 +15,7 @@ const paths = {
     index: applicationsPath,
     new: applicationsPath.path('new'),
     beforeYouStart: applicationsPath.path('before-you-start'),
+    applicationType: applicationsPath.path('application-type'),
     people: {
       find: peoplePath.path('find'),
     },
