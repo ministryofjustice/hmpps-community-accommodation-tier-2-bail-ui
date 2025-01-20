@@ -31,7 +31,7 @@ export default class RiskToOthers implements TaskListPage {
   }
 
   previous() {
-    return 'summary'
+    return 'taskList'
   }
 
   next() {

@@ -14,7 +14,7 @@ describe('RiskToOthers', () => {
   })
 
   itShouldHaveNextValue(new RiskToOthers({}, application), 'risk-management-arrangements')
-  itShouldHavePreviousValue(new RiskToOthers({}, application), 'summary')
+  itShouldHavePreviousValue(new RiskToOthers({}, application), 'taskList')
 
   describe('errors', () => {
     it('returns an error when required fields are blank', () => {
