@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
+import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -344,6 +344,41 @@ describe('applicationsController', () => {
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
       })
+    })
+  })
+
+  describe('selectApplicationOrigin', () => {
+    it('redirects to the select application type page when application origin is not selected', async () => {
+      request.body = {
+        applicationOrigin: null,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
+    })
+
+    it('redirects to the searchByPrisonNumber page when application origin is prisonBail', async () => {
+      request.body = {
+        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+    })
+
+    it('redirects to the searchByPrisonNumber page when application origin is courtBail', async () => {
+      request.body = {
+        applicationOrigin: 'courtBail' as ApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
   })
 

@@ -16,6 +16,7 @@ const paths = {
     searchByPrisonNumber: applicationsPath.path('search-by-prison-number'),
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-origin'),
+    selectApplicationOrigin: applicationsPath.path('select-application-origin'),
     people: {
       find: peoplePath.path('find'),
     },
