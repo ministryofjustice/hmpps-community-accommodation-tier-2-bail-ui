@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
+import { ApplicationOrigin } from '@approved-premises/ui'
 
 import PeopleController from './peopleController'
 import { errorMessage, errorSummary } from '../utils/validation'
@@ -17,6 +18,7 @@ describe('peopleController', () => {
   const flashSpy = jest.fn()
   const token = 'SOME_TOKEN'
   const prisonNumber = '1234'
+  const applicationOrigin: ApplicationOrigin = 'prisonBail'
 
   let request: DeepMocked<Request> = createMock<Request>({ user: { token } })
   let response: DeepMocked<Response> = createMock<Response>({})
@@ -30,7 +32,7 @@ describe('peopleController', () => {
   beforeEach(() => {
     peopleController = new PeopleController(applicationService, personService)
     request = createMock<Request>({
-      body: { prisonNumber },
+      body: { prisonNumber, applicationOrigin },
       user: { token },
       flash: flashSpy,
       headers: {
@@ -61,6 +63,7 @@ describe('peopleController', () => {
           person,
           date: DateFormats.dateObjtoUIDate(new Date()),
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          applicationOrigin,
         })
       })
 
