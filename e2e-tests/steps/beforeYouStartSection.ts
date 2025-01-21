@@ -63,6 +63,17 @@ export const completeSolicitorDetailsTask = async (page: Page, name: string) => 
 
   await completeHasSolicitorPage(page, name)
   await completeSolicitorContactInformationPage(page)
+  await completeConsultSolicitorPage(page, name)
+}
+
+async function completeConsultSolicitorPage(page: Page, name: string) {
+  const consultSolicitorPage = await ApplyPage.initialize(
+    page,
+    `Have you spoken to ${name}'s solicitor about this application?`,
+  )
+
+  await consultSolicitorPage.checkRadio('Yes')
+  await consultSolicitorPage.clickButton('Save and continue')
 }
 
 async function completeHasSolicitorPage(page: Page, name: string) {
