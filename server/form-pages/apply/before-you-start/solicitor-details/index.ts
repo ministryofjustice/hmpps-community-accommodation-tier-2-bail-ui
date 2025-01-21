@@ -2,10 +2,11 @@
 
 import { Task } from '../../../utils/decorators'
 import ContactInformation from './contactInformation'
+import HasSolicitor from './hasSolicitor'
 
 @Task({
   name: 'Add solicitor details',
   slug: 'solicitor-details',
-  pages: [ContactInformation],
+  pages: [HasSolicitor, ContactInformation],
 })
 export default class SolicitorDetails {}

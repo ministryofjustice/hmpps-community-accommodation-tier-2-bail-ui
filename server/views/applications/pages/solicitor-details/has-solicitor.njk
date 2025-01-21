@@ -1,0 +1,22 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.hasSolicitor,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        fieldName: "hasSolicitor",
+        items: page.items()
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
