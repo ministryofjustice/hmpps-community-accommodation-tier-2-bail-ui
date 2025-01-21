@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { DataServices } from '@approved-premises/ui'
+import { DataServices, ApplicationOrigin } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
@@ -167,6 +167,28 @@ export default class ApplicationsController {
         ...userInput,
         pageHeading: 'You are applying for:',
       })
+    }
+  }
+
+  selectApplicationOrigin(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'prisonBail') {
+        return res.redirect(paths.applications.searchByPrisonNumber({}))
+      }
+
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
+        return res.redirect(paths.applications.searchByPrisonNumber({}))
+      }
+
+      const message = 'Please select an application type'
+
+      req.flash('errors', {
+        applicationOrigin: errorMessage('applicationOrigin', message),
+      })
+
+      req.flash('errorSummary', [buildErrorSummary('applicationOrigin', message)])
+
+      return res.redirect(paths.applications.applicationOrigin({}))
     }
   }
 
