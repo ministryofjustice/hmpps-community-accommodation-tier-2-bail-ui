@@ -57,11 +57,19 @@ async function completeContactNumberPage(page: Page) {
   await confirmDetailsPage.clickSave()
 }
 
-export const completeSolicitorDetailsTask = async (page: Page) => {
+export const completeSolicitorDetailsTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add solicitor details')
 
+  await completeHasSolicitorPage(page, name)
   await completeSolicitorContactInformationPage(page)
+}
+
+async function completeHasSolicitorPage(page: Page, name: string) {
+  const hasSolicitorPage = await ApplyPage.initialize(page, `Does ${name} have a solicitor?`)
+
+  await hasSolicitorPage.checkRadio('Yes')
+  await hasSolicitorPage.clickSave()
 }
 
 async function completeSolicitorContactInformationPage(page: Page) {

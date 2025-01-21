@@ -58,7 +58,7 @@ export const completeBeforeYouStartSection = async (page: Page, name: string) =>
   await completeEligibilityTask(page, name)
   await completeConsentTask(page, name)
   await completeReferrerDetailsTask(page)
-  await completeSolicitorDetailsTask(page)
+  await completeSolicitorDetailsTask(page, name)
 }
 
 export const completeAreaAndFundingSection = async (page: Page, name: string) => {
