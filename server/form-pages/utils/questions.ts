@@ -689,15 +689,6 @@ export const getQuestions = (name: string) => {
       },
     },
     'risk-of-serious-harm': {
-      summary: {
-        status: 'retrieved',
-        overallRisk: { question: 'Overall risk' },
-        riskToChildren: { question: 'Risk to children' },
-        riskToPublic: { question: 'Risk to the public' },
-        riskToKnownAdult: { question: 'Risk to a known adult' },
-        riskToStaff: { question: 'Risk to staff' },
-        additionalComments: { question: 'Additional comments (optional)' },
-      },
       'risk-to-others': {
         whoIsAtRisk: {
           question: 'Who is at risk?',
