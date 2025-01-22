@@ -6,7 +6,7 @@ describe('ContactInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHaveNextValue(new ContactInformation({}, application), '')
-  itShouldHavePreviousValue(new ContactInformation({}, application), 'taskList')
+  itShouldHavePreviousValue(new ContactInformation({}, application), 'has-solicitor')
 
   describe('errors', () => {
     it('returns an error if fields are are missing', () => {

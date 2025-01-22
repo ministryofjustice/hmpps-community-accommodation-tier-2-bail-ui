@@ -36,7 +36,7 @@ export default class ContactInformation implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'has-solicitor'
   }
 
   next() {

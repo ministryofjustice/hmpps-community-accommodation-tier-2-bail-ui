@@ -70,6 +70,12 @@ export const getQuestions = (name: string) => {
       },
     },
     'solicitor-details': {
+      'has-solicitor': {
+        hasSolicitor: {
+          question: `Does ${name} have a solicitor?`,
+          answers: yesOrNo,
+        },
+      },
       'contact-information': {
         contactInformation: {
           question: "Add solicitor's contact information",
