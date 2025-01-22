@@ -64,13 +64,12 @@ async function completeMandatorySupportSessionsPage(page: Page, name: string) {
   await mandatorySupportSessionsPage.clickButton('Save and continue')
 }
 
-export async function completeBailHearingArrangementInformationTask(page: Page, name: string) {
+export async function completeBailHearingArrangementInformationTask(page: Page) {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add bail hearing arrangement information')
 
   await completeBailHearingArrangerPage(page)
   await completeBailHearingContactPage(page)
-  await completeConsultLegalAdvisorPage(page, name)
 }
 
 async function completeBailHearingArrangerPage(page: Page) {
@@ -88,13 +87,4 @@ async function completeBailHearingContactPage(page: Page) {
   await bailHearingContactPage.fillField('Email address', 'jay@legal.com')
   await bailHearingContactPage.fillField('Phone number', '11111111111')
   await bailHearingContactPage.clickButton('Save and continue')
-}
-async function completeConsultLegalAdvisorPage(page: Page, name: string) {
-  const consultLegalAdvisorPage = await ApplyPage.initialize(
-    page,
-    `Have you spoken to ${name}'s legal advisor about this application?`,
-  )
-
-  await consultLegalAdvisorPage.checkRadio('Yes')
-  await consultLegalAdvisorPage.clickButton('Save and continue')
 }

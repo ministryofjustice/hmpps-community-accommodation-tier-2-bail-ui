@@ -6,35 +6,35 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
-export type ConsultLegalAdvisorBody = {
-  consultLegalAdvisor: YesOrNo
+export type ConsultSolicitorBody = {
+  consultSolicitor: YesOrNo
 }
 
 @Page({
-  name: 'consult-legal-advisor',
-  bodyProperties: ['consultLegalAdvisor'],
+  name: 'consult-solicitor',
+  bodyProperties: ['consultSolicitor'],
 })
-export default class ConsultLegalAdvisor implements TaskListPage {
-  documentTitle = "Have you spoken to the person's legal advisor about this application?"
+export default class ConsultSolicitor implements TaskListPage {
+  documentTitle = "Have you spoken to the person's solicitor about this application?"
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title
 
-  questions = getQuestions(this.personName)['bail-hearing-arrangement']['consult-legal-advisor']
+  questions = getQuestions(this.personName)['solicitor-details']['consult-solicitor']
 
-  body: ConsultLegalAdvisorBody
+  body: ConsultSolicitorBody
 
   constructor(
-    body: Partial<ConsultLegalAdvisorBody>,
+    body: Partial<ConsultSolicitorBody>,
     private readonly application: Application,
   ) {
-    this.body = body as ConsultLegalAdvisorBody
-    this.title = this.questions.consultLegalAdvisor.question
+    this.body = body as ConsultSolicitorBody
+    this.title = this.questions.consultSolicitor.question
   }
 
   previous() {
-    return 'bail-hearing-contact'
+    return 'contact-information'
   }
 
   next() {
@@ -43,8 +43,8 @@ export default class ConsultLegalAdvisor implements TaskListPage {
 
   items() {
     return convertKeyValuePairToRadioItems(
-      this.questions.consultLegalAdvisor.answers,
-      this.body.consultLegalAdvisor,
+      this.questions.consultSolicitor.answers,
+      this.body.consultSolicitor,
     ) as Array<Radio>
   }
 

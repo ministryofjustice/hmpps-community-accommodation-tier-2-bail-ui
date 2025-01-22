@@ -6,7 +6,7 @@ describe('BailHearingContact', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHavePreviousValue(new BailHearingContact({}, application), 'bail-hearing-arranger')
-  itShouldHaveNextValue(new BailHearingContact({}, application), 'consult-legal-advisor')
+  itShouldHaveNextValue(new BailHearingContact({}, application), '')
 
   describe('response', () => {
     describe('when all contact information is present', () => {

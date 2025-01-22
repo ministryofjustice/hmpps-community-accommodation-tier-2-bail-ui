@@ -1,18 +1,18 @@
 import { itShouldHavePreviousValue, itShouldHaveNextValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import ConsultLegalAdvisor from './consultLegalAdvisor'
+import ConsultSolicitor from './consultSolicitor'
 
-describe('ConsultLegalAdvisor', () => {
+describe('ConsultSolicitor', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
-  itShouldHavePreviousValue(new ConsultLegalAdvisor({}, application), 'bail-hearing-contact')
-  itShouldHaveNextValue(new ConsultLegalAdvisor({}, application), '')
+  itShouldHavePreviousValue(new ConsultSolicitor({}, application), 'contact-information')
+  itShouldHaveNextValue(new ConsultSolicitor({}, application), '')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
-      const page = new ConsultLegalAdvisor(
+      const page = new ConsultSolicitor(
         {
-          consultLegalAdvisor: 'yes',
+          consultSolicitor: 'yes',
         },
         application,
       )

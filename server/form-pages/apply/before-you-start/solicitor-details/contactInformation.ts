@@ -40,7 +40,7 @@ export default class ContactInformation implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'consult-solicitor'
   }
 
   errors() {
