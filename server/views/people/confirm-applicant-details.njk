@@ -12,7 +12,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: paths.applications.new()
+    href: paths.applications.applicationOrigin()
   }) }}
 {% endblock %}
 
@@ -48,7 +48,7 @@
                 text: "Confirm and continue"
             }) }}
 
-          <a href="{{ paths.applications.new() }}"> Search for a different applicant </a>
+          <a href="{{ paths.applications.applicationOrigin() }}"> Search for a different applicant </a>
         </div>
 
       </form>
