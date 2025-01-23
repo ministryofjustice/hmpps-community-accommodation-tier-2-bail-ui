@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AnyValue } from './AnyValue';
 import type { AssessmentDecision } from './AssessmentDecision';
 import type { ClarificationNote } from './ClarificationNote';
-import type { ReferralHistoryNote } from './ReferralHistoryNote';
+import type { Unit } from './Unit';
 export type Assessment = {
     service: string;
     id: string;
@@ -16,8 +15,7 @@ export type Assessment = {
     submittedAt?: string;
     decision?: AssessmentDecision;
     rejectionRationale?: string;
-    data?: AnyValue;
+    data?: Unit;
     clarificationNotes: Array<ClarificationNote>;
-    referralHistoryNotes?: Array<ReferralHistoryNote>;
 };
 
