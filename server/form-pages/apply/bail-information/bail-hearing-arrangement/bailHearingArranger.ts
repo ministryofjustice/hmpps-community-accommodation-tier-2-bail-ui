@@ -45,9 +45,6 @@ export default class BailHearingArranger implements TaskListPage {
   }
 
   next() {
-    if (this.body.bailHearingArranger === 'legalAdvisor') {
-      return 'bail-hearing-contact'
-    }
     return ''
   }
 
