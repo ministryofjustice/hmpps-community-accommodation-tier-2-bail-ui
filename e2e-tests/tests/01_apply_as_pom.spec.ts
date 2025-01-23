@@ -10,6 +10,7 @@ import {
   completeBailInformationSection,
   confirmApplicant,
   enterPrisonerNumber,
+  selectApplicationOrigin,
   startAnApplication,
   submitApplication,
   viewSubmittedApplication,
@@ -20,9 +21,10 @@ import {
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
 
-test('create a CAS-2 application', async ({ page, person, pomUser }) => {
+test('create a CAS-2 bail application', async ({ page, person, pomUser }) => {
   await signIn(page, pomUser)
   await startAnApplication(page)
+  await selectApplicationOrigin(page)
   await enterPrisonerNumber(page, person.nomsNumber)
   await confirmApplicant(page)
   await completeBeforeYouStartSection(page, person.name)

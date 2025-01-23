@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { DataServices } from '@approved-premises/ui'
+import { DataServices, ApplicationOrigin } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
@@ -102,7 +102,7 @@ export default class ApplicationsController {
       task: 'confirm-eligibility',
       page: 'confirm-eligibility',
     })
-    const newApplicationPath = paths.applications.new({})
+    const newApplicationPath = paths.applications.applicationOrigin({})
     return { application, panelText, changeAnswerPath, newApplicationPath }
   }
 
@@ -116,7 +116,7 @@ export default class ApplicationsController {
       task: 'confirm-consent',
       page: 'confirm-consent',
     })
-    const newApplicationPath = paths.applications.new({})
+    const newApplicationPath = paths.applications.applicationOrigin({})
     const backLink = validateReferer(req.headers.referer)
     return { application, panelText, changeAnswerPath, newApplicationPath, backLink }
   }
@@ -144,7 +144,7 @@ export default class ApplicationsController {
           this.addErrorMessagesToFlash(req, 'There was an error creating the application, please try again.')
         }
 
-        res.redirect(paths.applications.new({}))
+        res.redirect(paths.applications.searchByPrisonNumber({}))
       }
     }
   }
@@ -157,11 +157,46 @@ export default class ApplicationsController {
     request.flash('userInput', request.body)
   }
 
-  new(): RequestHandler {
+  applicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      return res.render('applications/new', {
+      return res.render('applications/application-origin', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are applying for:',
+      })
+    }
+  }
+
+  selectApplicationOrigin(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'prisonBail') {
+        return res.redirect(paths.applications.searchByPrisonNumber({}))
+      }
+
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
+        return res.redirect(paths.applications.searchByPrisonNumber({}))
+      }
+
+      const message = 'Please select an application type'
+
+      req.flash('errors', {
+        applicationOrigin: errorMessage('applicationOrigin', message),
+      })
+
+      req.flash('errorSummary', [buildErrorSummary('applicationOrigin', message)])
+
+      return res.redirect(paths.applications.applicationOrigin({}))
+    }
+  }
+
+  searchByPrisonNumber(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/search-by-prison-number', {
         errors,
         errorSummary,
         ...userInput,

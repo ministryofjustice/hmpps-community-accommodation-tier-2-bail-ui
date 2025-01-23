@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application } from '@approved-premises/api'
-import { ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
+import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -180,7 +180,7 @@ describe('applicationsController', () => {
         task: 'confirm-eligibility',
         page: 'confirm-eligibility',
       })
-      const newApplicationPath = paths.applications.new({})
+      const newApplicationPath = paths.applications.applicationOrigin({})
 
       applicationService.findApplication.mockResolvedValue(application)
 
@@ -209,7 +209,7 @@ describe('applicationsController', () => {
         task: 'confirm-consent',
         page: 'confirm-consent',
       })
-      const newApplicationPath = paths.applications.new({})
+      const newApplicationPath = paths.applications.applicationOrigin({})
 
       applicationService.findApplication.mockResolvedValue(application)
 
@@ -239,7 +239,7 @@ describe('applicationsController', () => {
       const requestHandler = applicationsController.create()
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('handles a not found error if person not found', async () => {
@@ -268,7 +268,7 @@ describe('applicationsController', () => {
         'No person found for prison number prisonNumber123, please try another number.',
       )
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('handles a forbidden error if person forbidden', async () => {
@@ -297,7 +297,7 @@ describe('applicationsController', () => {
         'You do not have permission to access the prison number prisonNumber123, please try another number.',
       )
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('throws a generic error if createApplication returns server error', async () => {
@@ -311,20 +311,87 @@ describe('applicationsController', () => {
 
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
   })
 
-  describe('new', () => {
+  describe('applicationOrigin', () => {
+    it('renders the enter application origin template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.applicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: 'You are applying for:',
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.applicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
+        pageHeading: 'You are applying for:',
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('selectApplicationOrigin', () => {
+    it('redirects to the select application type page when application origin is not selected', async () => {
+      request.body = {
+        applicationOrigin: null,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
+    })
+
+    it('redirects to the searchByPrisonNumber page when application origin is prisonBail', async () => {
+      request.body = {
+        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+    })
+
+    it('redirects to the searchByPrisonNumber page when application origin is courtBail', async () => {
+      request.body = {
+        applicationOrigin: 'courtBail' as ApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+    })
+  })
+
+  describe('searchByPrisonNumber', () => {
     it('renders the enter CRN template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.searchByPrisonNumber()
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         errors: {},
         errorSummary: [],
         pageHeading: "Enter the person's prison number",
@@ -335,10 +402,10 @@ describe('applicationsController', () => {
       const errorsAndUserInput = createMock<ErrorsAndUserInput>()
       ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.searchByPrisonNumber()
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         pageHeading: "Enter the person's prison number",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
