@@ -1,0 +1,52 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../partials/showErrorSummary.njk" import showErrorSummary %}
+{% from "../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+
+{% extends "../partials/layout.njk" %}
+
+{% block pageTitle %}
+    What type of application are you making?
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: paths.applications.beforeYouStart()
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  {{ showErrorSummary(errorSummary) }}
+
+  <form action="{{ paths.applications.selectApplicationOrigin() }}" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+    {{
+      formPageRadios({
+        fieldName: "applicationOrigin",
+        fieldset: {
+          legend: {
+            text: "You are applying for:",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "courtBail",
+            text: "Court bail"
+          },
+          {
+            value: "prisonBail",
+            text: "Prison bail"
+          }
+        ]
+      },
+      fetchContext()
+    )}}
+
+    {{ govukButton({ text: "Confirm" }) }}
+  </form>
+{% endblock %}

@@ -315,6 +315,38 @@ describe('applicationsController', () => {
     })
   })
 
+  describe('applicationOrigin', () => {
+    it('renders the enter application origin template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.applicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: 'You are applying for:',
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.applicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
+        pageHeading: 'You are applying for:',
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
   describe('new', () => {
     it('renders the enter CRN template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
