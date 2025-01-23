@@ -239,7 +239,7 @@ describe('applicationsController', () => {
       const requestHandler = applicationsController.create()
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('handles a not found error if person not found', async () => {
@@ -268,7 +268,7 @@ describe('applicationsController', () => {
         'No person found for prison number prisonNumber123, please try another number.',
       )
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('handles a forbidden error if person forbidden', async () => {
@@ -297,7 +297,7 @@ describe('applicationsController', () => {
         'You do not have permission to access the prison number prisonNumber123, please try another number.',
       )
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
     it('throws a generic error if createApplication returns server error', async () => {
@@ -311,7 +311,7 @@ describe('applicationsController', () => {
 
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.new({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
   })
 
@@ -347,16 +347,16 @@ describe('applicationsController', () => {
     })
   })
 
-  describe('new', () => {
+  describe('searchByPrisonNumber', () => {
     it('renders the enter CRN template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.searchByPrisonNumber()
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         errors: {},
         errorSummary: [],
         pageHeading: "Enter the person's prison number",
@@ -367,10 +367,10 @@ describe('applicationsController', () => {
       const errorsAndUserInput = createMock<ErrorsAndUserInput>()
       ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
 
-      const requestHandler = applicationsController.new()
+      const requestHandler = applicationsController.searchByPrisonNumber()
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/new', {
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         pageHeading: "Enter the person's prison number",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
