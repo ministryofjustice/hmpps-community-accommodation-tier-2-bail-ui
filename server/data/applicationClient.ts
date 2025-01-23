@@ -45,7 +45,7 @@ export default class ApplicationClient {
   async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
     return (await this.restClient.put({
       path: paths.applications.update({ id: applicationId }),
-      data: { ...updateData, type: 'CAS2' } as UpdateApplication,
+      data: { ...updateData, type: 'CAS2V2' } as UpdateApplication,
     })) as Application
   }
 

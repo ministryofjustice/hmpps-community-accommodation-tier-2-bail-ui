@@ -8,7 +8,7 @@ import latestStatusUpdateFactory from './latestStatusUpdate'
 
 export default Factory.define<Cas2ApplicationSummary>(() => ({
   id: faker.string.uuid(),
-  type: 'CAS2',
+  type: 'CAS2V2',
   person: fullPersonFactory.build(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),

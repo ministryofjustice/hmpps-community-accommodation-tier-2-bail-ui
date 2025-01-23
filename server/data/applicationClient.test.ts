@@ -141,7 +141,7 @@ describeClient('ApplicationClient', provider => {
       const application = applicationFactory.build()
       const data = {
         data: application.data,
-        type: 'CAS2',
+        type: 'CAS2V2',
       } as UpdateApplication
 
       provider.addInteraction({

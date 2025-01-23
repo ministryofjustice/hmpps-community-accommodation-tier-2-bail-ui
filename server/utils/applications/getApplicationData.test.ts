@@ -6,7 +6,7 @@ describe('getApplicationUpdateData', () => {
   it('returns the application data', () => {
     const mockApplication = applicationFactory.build()
     expect(getApplicationUpdateData(mockApplication)).toEqual({
-      type: 'CAS2',
+      type: 'CAS2V2',
       data: mockApplication.data,
     })
   })
