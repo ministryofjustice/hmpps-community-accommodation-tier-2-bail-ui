@@ -28,7 +28,7 @@ export default class BailHearingArranger implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['bail-hearing-arrangement']['bail-hearing-arranger']
+  questions = getQuestions(this.personName)['bail-hearing-information']['bail-hearing-arranger']
 
   body: BailHearingArrangerBody
 
@@ -45,7 +45,7 @@ export default class BailHearingArranger implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'court-name'
   }
 
   items() {
