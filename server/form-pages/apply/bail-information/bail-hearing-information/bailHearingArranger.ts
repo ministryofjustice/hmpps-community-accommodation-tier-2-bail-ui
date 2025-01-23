@@ -6,15 +6,13 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
-const arrangerOptions = {
-  legalAdvisor: 'Legal Advisor (from the court)',
-  applicant: "Applicant with prison referrer's help",
-}
+const applicationQuestions = getQuestions('')
 
-export type BailHearingArrangerOptions = keyof typeof arrangerOptions
+export const arrangerOptions =
+  applicationQuestions['bail-hearing-information']['bail-hearing-arranger'].bailHearingArranger.answers
 
-export type BailHearingArrangerBody = {
-  bailHearingArranger: BailHearingArrangerOptions
+type BailHearingArrangerBody = {
+  bailHearingArranger: keyof typeof arrangerOptions
 }
 
 @Page({

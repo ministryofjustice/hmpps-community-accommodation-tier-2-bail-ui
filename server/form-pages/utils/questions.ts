@@ -859,7 +859,7 @@ export const getQuestions = (name: string) => {
         bailHearingArranger: {
           question: 'Who will arrange the bail hearing?',
           answers: {
-            legalAdvisor: 'Legal advisor',
+            solicitor: 'Solicitor',
             applicant: 'Applicant',
           },
         },

@@ -19,13 +19,13 @@ describe('BailHearingArranger', () => {
 
       expect(page.items()).toEqual([
         {
-          value: 'legalAdvisor',
-          text: 'Legal Advisor (from the court)',
+          value: 'solicitor',
+          text: 'Solicitor',
           checked: false,
         },
         {
           value: 'applicant',
-          text: "Applicant with prison referrer's help",
+          text: 'Applicant',
           checked: true,
         },
       ])
