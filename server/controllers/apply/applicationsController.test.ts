@@ -180,7 +180,7 @@ describe('applicationsController', () => {
         task: 'confirm-eligibility',
         page: 'confirm-eligibility',
       })
-      const newApplicationPath = paths.applications.new({})
+      const newApplicationPath = paths.applications.applicationOrigin({})
 
       applicationService.findApplication.mockResolvedValue(application)
 
@@ -209,7 +209,7 @@ describe('applicationsController', () => {
         task: 'confirm-consent',
         page: 'confirm-consent',
       })
-      const newApplicationPath = paths.applications.new({})
+      const newApplicationPath = paths.applications.applicationOrigin({})
 
       applicationService.findApplication.mockResolvedValue(application)
 

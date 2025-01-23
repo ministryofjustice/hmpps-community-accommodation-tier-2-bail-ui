@@ -102,7 +102,7 @@ export default class ApplicationsController {
       task: 'confirm-eligibility',
       page: 'confirm-eligibility',
     })
-    const newApplicationPath = paths.applications.new({})
+    const newApplicationPath = paths.applications.applicationOrigin({})
     return { application, panelText, changeAnswerPath, newApplicationPath }
   }
 
@@ -116,7 +116,7 @@ export default class ApplicationsController {
       task: 'confirm-consent',
       page: 'confirm-consent',
     })
-    const newApplicationPath = paths.applications.new({})
+    const newApplicationPath = paths.applications.applicationOrigin({})
     const backLink = validateReferer(req.headers.referer)
     return { application, panelText, changeAnswerPath, newApplicationPath, backLink }
   }
