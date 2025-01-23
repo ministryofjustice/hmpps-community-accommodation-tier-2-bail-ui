@@ -144,7 +144,7 @@ export default class ApplicationsController {
           this.addErrorMessagesToFlash(req, 'There was an error creating the application, please try again.')
         }
 
-        res.redirect(paths.applications.new({}))
+        res.redirect(paths.applications.searchByPrisonNumber({}))
       }
     }
   }
@@ -170,11 +170,11 @@ export default class ApplicationsController {
     }
   }
 
-  new(): RequestHandler {
+  searchByPrisonNumber(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      return res.render('applications/new', {
+      return res.render('applications/search-by-prison-number', {
         errors,
         errorSummary,
         ...userInput,

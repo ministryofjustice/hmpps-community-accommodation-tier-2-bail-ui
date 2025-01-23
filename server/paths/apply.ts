@@ -13,7 +13,7 @@ const paths = {
   applications: {
     create: applicationsPath.path('create'),
     index: applicationsPath,
-    new: applicationsPath.path('new'),
+    searchByPrisonNumber: applicationsPath.path('search-by-prison-number'),
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-origin'),
     people: {
