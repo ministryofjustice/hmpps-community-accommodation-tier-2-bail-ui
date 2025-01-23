@@ -16,7 +16,7 @@ export default Factory.define<Application>(() => ({
   document: {},
   outdatedSchema: faker.datatype.boolean(),
   status: 'inProgress' as const,
-  type: 'CAS2',
+  type: 'CAS2V2',
   telephoneNumber: null,
   statusUpdates: null,
   assessment: null,

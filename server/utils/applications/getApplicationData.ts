@@ -4,7 +4,7 @@ import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managem
 
 export const getApplicationUpdateData = (application: Application): UpdateApplication => {
   return {
-    type: 'CAS2',
+    type: 'CAS2V2',
     data: application.data,
   }
 }

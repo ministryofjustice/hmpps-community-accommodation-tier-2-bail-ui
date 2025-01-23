@@ -21,7 +21,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2/people/search`,
+          path: `/cas2v2/people/search`,
           query: {
             nomsNumber: 'nomsNumber',
           },
