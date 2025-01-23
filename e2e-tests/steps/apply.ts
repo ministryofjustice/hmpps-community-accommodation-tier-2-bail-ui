@@ -1,7 +1,13 @@
 import { Page, expect } from '@playwright/test'
 import { faker } from '@faker-js/faker/locale/en_GB'
 
-import { BeforeYouStartPage, DashboardPage, FindByPrisonNumberPage, TaskListPage } from '../pages/apply'
+import {
+  BeforeYouStartPage,
+  DashboardPage,
+  FindByPrisonNumberPage,
+  TaskListPage,
+  ApplicationOriginPage,
+} from '../pages/apply'
 import {
   completeConsentTask,
   completeEligibilityTask,
@@ -41,6 +47,11 @@ export const startAnApplication = async (page: Page) => {
   // // confirm that I'm ready to start
   const beforeYouStartPage = new BeforeYouStartPage(page)
   await beforeYouStartPage.startNow()
+}
+
+export const selectApplicationOrigin = async (page: Page) => {
+  const applicationOriginPage = new ApplicationOriginPage(page)
+  await applicationOriginPage.choosePrisonBail()
 }
 
 export const enterPrisonerNumber = async (page: Page, prisonNumber: string) => {
@@ -134,6 +145,7 @@ export const viewApplicationMadeByAnotherUser = async (page: Page, name: string)
 
 export const createAnInProgressApplication = async (page: Page, person: TestOptions['person']) => {
   await startAnApplication(page)
+  await selectApplicationOrigin(page)
   await enterPrisonerNumber(page, person.nomsNumber)
   await confirmApplicant(page)
 }
