@@ -157,6 +157,19 @@ export default class ApplicationsController {
     request.flash('userInput', request.body)
   }
 
+  applicationOrigin(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/application-origin', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are applying for:',
+      })
+    }
+  }
+
   new(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
