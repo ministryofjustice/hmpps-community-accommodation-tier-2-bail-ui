@@ -6,7 +6,7 @@ describe('BailHearingArranger', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHavePreviousValue(new BailHearingArranger({}, application), 'taskList')
-  itShouldHaveNextValue(new BailHearingArranger({ bailHearingArranger: 'applicant' }, application), '')
+  itShouldHaveNextValue(new BailHearingArranger({ bailHearingArranger: 'applicant' }, application), 'court-name')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
@@ -19,13 +19,13 @@ describe('BailHearingArranger', () => {
 
       expect(page.items()).toEqual([
         {
-          value: 'legalAdvisor',
-          text: 'Legal Advisor (from the court)',
+          value: 'solicitor',
+          text: 'Solicitor',
           checked: false,
         },
         {
           value: 'applicant',
-          text: "Applicant with prison referrer's help",
+          text: 'Applicant',
           checked: true,
         },
       ])

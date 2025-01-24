@@ -33,7 +33,7 @@ export default class CourtName implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'bail-hearing-arranger'
   }
 
   next() {

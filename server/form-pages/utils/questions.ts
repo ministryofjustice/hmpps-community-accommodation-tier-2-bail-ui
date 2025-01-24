@@ -855,6 +855,15 @@ export const getQuestions = (name: string) => {
       },
     },
     'bail-hearing-information': {
+      'bail-hearing-arranger': {
+        bailHearingArranger: {
+          question: 'Who will arrange the bail hearing?',
+          answers: {
+            solicitor: 'Solicitor',
+            applicant: 'Applicant',
+          },
+        },
+      },
       'court-name': {
         courtName: {
           question: `What's the name of the court where ${name}'s bail hearing will take place?`,
@@ -874,22 +883,6 @@ export const getQuestions = (name: string) => {
             videoLink: 'Video link',
             judgeInChambers: 'Judge in Chambers',
           },
-        },
-      },
-    },
-    'bail-hearing-arrangement': {
-      'bail-hearing-arranger': {
-        bailHearingArranger: {
-          question: 'Who will arrange the bail hearing?',
-          answers: {
-            legalAdvisor: 'Legal advisor',
-            applicant: 'Applicant',
-          },
-        },
-      },
-      'bail-hearing-contact': {
-        bailHearingContact: {
-          question: 'Add legal advisor contact information',
         },
       },
     },

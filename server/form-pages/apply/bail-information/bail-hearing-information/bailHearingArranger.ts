@@ -6,15 +6,13 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
-const arrangerOptions = {
-  legalAdvisor: 'Legal Advisor (from the court)',
-  applicant: "Applicant with prison referrer's help",
-}
+const applicationQuestions = getQuestions('')
 
-export type BailHearingArrangerOptions = keyof typeof arrangerOptions
+export const arrangerOptions =
+  applicationQuestions['bail-hearing-information']['bail-hearing-arranger'].bailHearingArranger.answers
 
-export type BailHearingArrangerBody = {
-  bailHearingArranger: BailHearingArrangerOptions
+type BailHearingArrangerBody = {
+  bailHearingArranger: keyof typeof arrangerOptions
 }
 
 @Page({
@@ -28,7 +26,7 @@ export default class BailHearingArranger implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['bail-hearing-arrangement']['bail-hearing-arranger']
+  questions = getQuestions(this.personName)['bail-hearing-information']['bail-hearing-arranger']
 
   body: BailHearingArrangerBody
 
@@ -45,7 +43,7 @@ export default class BailHearingArranger implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'court-name'
   }
 
   items() {
