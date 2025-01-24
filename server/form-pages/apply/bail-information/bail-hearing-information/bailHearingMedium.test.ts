@@ -8,7 +8,7 @@ describe('BailHearingMedium', () => {
 
   const questions = getQuestions('Roger Smith')['bail-hearing-information']['bail-hearing-medium']
 
-  itShouldHavePreviousValue(new BailHearingMedium({}, application), 'bail-hearing-date')
+  itShouldHavePreviousValue(new BailHearingMedium({}, application), 'court-name')
   itShouldHaveNextValue(new BailHearingMedium({}, application), '')
 
   describe('items', () => {

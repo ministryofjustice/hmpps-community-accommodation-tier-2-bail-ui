@@ -5,6 +5,6 @@ import { applicationFactory, personFactory } from '../../../../testutils/factori
 describe('CourtName', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
-  itShouldHavePreviousValue(new CourtName({}, application), 'bail-hearing-arranger')
-  itShouldHaveNextValue(new CourtName({}, application), 'bail-hearing-date')
+  itShouldHavePreviousValue(new CourtName({}, application), 'bail-hearing-date')
+  itShouldHaveNextValue(new CourtName({}, application), 'bail-hearing-medium')
 })

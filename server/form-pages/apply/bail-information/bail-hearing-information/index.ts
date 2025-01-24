@@ -9,6 +9,6 @@ import BailHearingMedium from './bailHearingMedium'
 @Task({
   name: 'Add bail hearing information',
   slug: 'bail-hearing-information',
-  pages: [BailHearingArranger, CourtName, BailHearingDate, BailHearingMedium],
+  pages: [BailHearingArranger, BailHearingDate, CourtName, BailHearingMedium],
 })
 export default class BailHearingInformation {}

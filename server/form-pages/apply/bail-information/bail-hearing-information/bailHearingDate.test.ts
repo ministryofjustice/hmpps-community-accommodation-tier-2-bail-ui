@@ -5,8 +5,8 @@ import { applicationFactory, personFactory } from '../../../../testutils/factori
 describe('BailHearingDate', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
-  itShouldHavePreviousValue(new BailHearingDate({}, application), 'court-name')
-  itShouldHaveNextValue(new BailHearingDate({}, application), 'bail-hearing-medium')
+  itShouldHavePreviousValue(new BailHearingDate({}, application), 'bail-hearing-arranger')
+  itShouldHaveNextValue(new BailHearingDate({}, application), 'court-name')
 
   describe('response', () => {
     describe('when a date is provided', () => {

@@ -33,11 +33,11 @@ export default class CourtName implements TaskListPage {
   }
 
   previous() {
-    return 'bail-hearing-arranger'
+    return 'bail-hearing-date'
   }
 
   next() {
-    return 'bail-hearing-date'
+    return 'bail-hearing-medium'
   }
 
   errors() {

@@ -39,7 +39,7 @@ export default class BailHearingMedium implements TaskListPage {
   }
 
   previous() {
-    return 'bail-hearing-date'
+    return 'court-name'
   }
 
   next() {
