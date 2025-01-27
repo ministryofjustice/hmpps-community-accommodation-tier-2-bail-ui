@@ -388,7 +388,7 @@ describe('applicationsController', () => {
   })
 
   describe('searchByPrisonNumber', () => {
-    it('renders the enter CRN template', async () => {
+    it('renders the enter prison number template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
@@ -412,6 +412,38 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         pageHeading: "Enter the person's prison number",
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('searchByCrn', () => {
+    it('renders the enter CRN template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.searchByCrn()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: "Enter the person's CRN",
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.searchByCrn()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        pageHeading: "Enter the person's CRN",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
