@@ -12,7 +12,7 @@ export default class PeopleController {
     private readonly personService: PersonService,
   ) {}
 
-  find(): RequestHandler {
+  findByPrisonNumber(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { prisonNumber, applicationOrigin } = req.body
 
