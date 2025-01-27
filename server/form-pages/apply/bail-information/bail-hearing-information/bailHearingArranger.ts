@@ -43,7 +43,7 @@ export default class BailHearingArranger implements TaskListPage {
   }
 
   next() {
-    return 'court-name'
+    return 'bail-hearing-date'
   }
 
   items() {

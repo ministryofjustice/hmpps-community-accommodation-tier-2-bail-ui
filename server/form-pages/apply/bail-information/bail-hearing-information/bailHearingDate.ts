@@ -34,11 +34,11 @@ export default class BailHearingDate implements TaskListPage {
   }
 
   previous() {
-    return 'court-name'
+    return 'bail-hearing-arranger'
   }
 
   next() {
-    return 'bail-hearing-medium'
+    return 'court-name'
   }
 
   errors() {

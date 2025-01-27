@@ -14,8 +14,8 @@ export const completeBailHearingInformationTask = async (page: Page, name: strin
   await taskListPage.clickTask('Add bail hearing information')
 
   await completeBailHearingArrangerPage(page)
-  await completeCourtNamePage(page, name)
   await completeBailHearingDatePage(page, name)
+  await completeCourtNamePage(page, name)
   await completeBailHearingMediumPage(page, name)
 }
 
