@@ -177,7 +177,7 @@ export default class ApplicationsController {
       }
 
       if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
-        return res.redirect(paths.applications.searchByPrisonNumber({}))
+        return res.redirect(paths.applications.searchByCrn({}))
       }
 
       const message = 'Please select an application type'
