@@ -30,6 +30,10 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     auditEvent: 'VIEW_APPLICATION_SEARCH_BY_PRISON_NUMBER',
   })
 
+  get(paths.applications.searchByCrn.pattern, applicationsController.searchByCrn(), {
+    auditEvent: 'VIEW_APPLICATION_SEARCH_BY_CRN',
+  })
+
   post(paths.applications.selectApplicationOrigin.pattern, applicationsController.selectApplicationOrigin(), {
     auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
   })

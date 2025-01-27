@@ -14,6 +14,7 @@ const paths = {
     create: applicationsPath.path('create'),
     index: applicationsPath,
     searchByPrisonNumber: applicationsPath.path('search-by-prison-number'),
+    searchByCrn: applicationsPath.path('search-by-crn'),
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-type'),
     selectApplicationOrigin: applicationsPath.path('select-application-origin'),

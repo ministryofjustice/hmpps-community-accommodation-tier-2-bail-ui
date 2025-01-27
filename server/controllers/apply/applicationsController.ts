@@ -205,6 +205,19 @@ export default class ApplicationsController {
     }
   }
 
+  searchByCrn(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/search-by-crn', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: "Enter the person's CRN",
+      })
+    }
+  }
+
   submit(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
