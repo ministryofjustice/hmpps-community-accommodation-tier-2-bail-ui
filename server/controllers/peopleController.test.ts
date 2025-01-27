@@ -43,13 +43,13 @@ describe('peopleController', () => {
     jest.clearAllMocks()
   })
 
-  describe('find', () => {
+  describe('findByPrisonNumber', () => {
     beforeEach(() => {
       ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
     })
     describe('when there is a prison number', () => {
       it('redirects to the show applications path', async () => {
-        const requestHandler = peopleController.find()
+        const requestHandler = peopleController.findByPrisonNumber()
 
         const person = fullPersonFactory.build({})
 
@@ -70,7 +70,7 @@ describe('peopleController', () => {
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
           it('renders a not found error message', async () => {
-            const requestHandler = peopleController.find()
+            const requestHandler = peopleController.findByPrisonNumber()
 
             const err = { data: {}, status: 404 }
 
@@ -101,7 +101,7 @@ describe('peopleController', () => {
 
         describe('when there is a 403 error', () => {
           it('renders a permissions error message', async () => {
-            const requestHandler = peopleController.find()
+            const requestHandler = peopleController.findByPrisonNumber()
 
             const err = { data: {}, status: 403 }
 
@@ -132,7 +132,7 @@ describe('peopleController', () => {
 
         describe('when there is an error of another type', () => {
           it('throws the error', async () => {
-            const requestHandler = peopleController.find()
+            const requestHandler = peopleController.findByPrisonNumber()
 
             const err = new Error()
 
@@ -152,7 +152,7 @@ describe('peopleController', () => {
       it('sends an error to the flash if a prison number has not been provided', async () => {
         request.body = {}
 
-        const requestHandler = peopleController.find()
+        const requestHandler = peopleController.findByPrisonNumber()
 
         await requestHandler(request, response, next)
         expect(validateReferer).toHaveBeenCalledWith('some-referer/')

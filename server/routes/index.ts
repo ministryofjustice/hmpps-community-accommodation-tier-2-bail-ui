@@ -21,7 +21,7 @@ export default function routes(controllers: Controllers, services: Services): Ro
 
   const { peopleController } = controllers
 
-  post(paths.applications.people.find.pattern, peopleController.find(), {
+  post(paths.applications.people.find.pattern, peopleController.findByPrisonNumber(), {
     auditEvent: 'FIND_APPLICATION_PERSON',
     auditBodyParams: ['prisonNumber'],
   })
