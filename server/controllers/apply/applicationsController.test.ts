@@ -375,7 +375,7 @@ describe('applicationsController', () => {
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
 
-    it('redirects to the searchByPrisonNumber page when application origin is courtBail', async () => {
+    it('redirects to the searchByCrn page when application origin is courtBail', async () => {
       request.body = {
         applicationOrigin: 'courtBail' as ApplicationOrigin,
       }
@@ -383,7 +383,7 @@ describe('applicationsController', () => {
       const requestHandler = applicationsController.selectApplicationOrigin()
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
     })
   })
 
