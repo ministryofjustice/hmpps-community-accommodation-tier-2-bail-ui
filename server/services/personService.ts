@@ -7,7 +7,14 @@ export default class PersonService {
   async findByPrisonNumber(token: string, nomsNumber: string): Promise<FullPerson> {
     const personClient = this.personClientFactory(token)
 
-    const person = await personClient.search(nomsNumber)
+    const person = await personClient.searchByPrisonNumber(nomsNumber)
+    return person
+  }
+
+  async findByCrn(token: string, crn: string): Promise<FullPerson> {
+    const personClient = this.personClientFactory(token)
+
+    const person = await personClient.searchByCrn(crn)
     return person
   }
 }
