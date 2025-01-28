@@ -16,6 +16,11 @@ describe('userUtils', () => {
       expect(sectionsForUser(['LICENCE_CA'])).toEqual(expected)
     })
 
+    it('should return correct sections for a probation user', () => {
+      const expected = [sections.applications, sections.newApplication]
+      expect(sectionsForUser(['PROBATION'])).toEqual(expected)
+    })
+
     it('should return correct sections for an admin', () => {
       const expected = [sections.submittedApplications]
       expect(sectionsForUser(['CAS2_ADMIN'])).toEqual(expected)

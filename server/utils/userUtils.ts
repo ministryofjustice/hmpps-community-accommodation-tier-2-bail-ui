@@ -42,7 +42,7 @@ export const hasRole = (userRoles: Array<string>, role: string): boolean => {
 export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection> => {
   const items = []
 
-  if (hasRole(userRoles, 'POM') || hasRole(userRoles, 'LICENCE_CA')) {
+  if (hasRole(userRoles, 'POM') || hasRole(userRoles, 'LICENCE_CA') || hasRole(userRoles, 'PROBATION')) {
     items.push(sections.applications)
     items.push(sections.newApplication)
   }
