@@ -2,4 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ServiceName = 'approved-premises' | 'cas2' | 'cas2v2' | 'temporary-accommodation';
+export type LatestCas2v2StatusUpdate = {
+    statusId: string;
+    label: string;
+};
+
