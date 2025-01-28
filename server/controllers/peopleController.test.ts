@@ -19,6 +19,7 @@ describe('peopleController', () => {
   const token = 'SOME_TOKEN'
   const prisonNumber = '1234'
   const applicationOrigin: ApplicationOrigin = 'prisonBail'
+  const crn = '4321'
 
   let request: DeepMocked<Request> = createMock<Request>({ user: { token } })
   let response: DeepMocked<Response> = createMock<Response>({})
@@ -31,14 +32,6 @@ describe('peopleController', () => {
 
   beforeEach(() => {
     peopleController = new PeopleController(applicationService, personService)
-    request = createMock<Request>({
-      body: { prisonNumber, applicationOrigin },
-      user: { token },
-      flash: flashSpy,
-      headers: {
-        referer: 'some-referer/',
-      },
-    })
     response = createMock<Response>({})
     jest.clearAllMocks()
   })
@@ -46,6 +39,15 @@ describe('peopleController', () => {
   describe('findByPrisonNumber', () => {
     beforeEach(() => {
       ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
+
+      request = createMock<Request>({
+        body: { prisonNumber, applicationOrigin },
+        user: { token },
+        flash: flashSpy,
+        headers: {
+          referer: 'some-referer/',
+        },
+      })
     })
     describe('when there is a prison number', () => {
       it('redirects to the show applications path', async () => {
@@ -162,6 +164,131 @@ describe('peopleController', () => {
           prisonNumber: errorMessage('prisonNumber', 'Enter a prison number'),
         })
         expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('prisonNumber', 'Enter a prison number')])
+      })
+    })
+  })
+
+  describe('findByCrn', () => {
+    beforeEach(() => {
+      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
+
+      request = createMock<Request>({
+        body: { crn, applicationOrigin },
+        user: { token },
+        flash: flashSpy,
+        headers: {
+          referer: 'some-referer/',
+        },
+      })
+    })
+    describe('when there is a CRN', () => {
+      it('redirects to the show applications path', async () => {
+        const requestHandler = peopleController.findByCrn()
+
+        const person = fullPersonFactory.build({})
+
+        personService.findByCrn.mockResolvedValue(person)
+        applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
+
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
+          pageHeading: `Confirm ${person.name}'s details`,
+          person,
+          date: DateFormats.dateObjtoUIDate(new Date()),
+          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+        })
+      })
+
+      describe('when there are errors', () => {
+        describe('when there is a 404 error', () => {
+          it('renders a not found error message', async () => {
+            const requestHandler = peopleController.findByCrn()
+
+            const err = { data: {}, status: 404 }
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_NUMBER'
+
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              crn: errorMessage('crn', `No person found for CRN ${request.body.crn}, please try another number.`),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('crn', `No person found for CRN ${request.body.crn}, please try another number.`),
+            ])
+            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+          })
+        })
+
+        describe('when there is a 403 error', () => {
+          it('renders a permissions error message', async () => {
+            const requestHandler = peopleController.findByCrn()
+
+            const err = { data: {}, status: 403 }
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_NUMBER'
+
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              crn: errorMessage(
+                'crn',
+                'You do not have permission to access the CRN SOME_NUMBER, please try another number.',
+              ),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary(
+                'crn',
+                'You do not have permission to access the CRN SOME_NUMBER, please try another number.',
+              ),
+            ])
+            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+          })
+        })
+
+        describe('when there is an error of another type', () => {
+          it('throws the error', async () => {
+            const requestHandler = peopleController.findByCrn()
+
+            const err = new Error()
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'SOME_NUMBER'
+
+            expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
+          })
+        })
+      })
+    })
+
+    describe('when there is not a CRN', () => {
+      it('sends an error to the flash if a CRN has not been provided', async () => {
+        request.body = {}
+
+        const requestHandler = peopleController.findByCrn()
+
+        await requestHandler(request, response, next)
+        expect(validateReferer).toHaveBeenCalledWith('some-referer/')
+        expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+
+        expect(flashSpy).toHaveBeenCalledWith('errors', {
+          crn: errorMessage('crn', 'Enter a CRN'),
+        })
+        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('crn', 'Enter a CRN')])
       })
     })
   })
