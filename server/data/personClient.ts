@@ -15,7 +15,7 @@ export default class PersonClient {
   async search(nomsNumber: string): Promise<FullPerson> {
     const query = { nomsNumber } as Record<string, string | boolean>
 
-    const path = `${paths.people.search({})}?${createQueryString(query)}`
+    const path = `${paths.people.search({ nomsNumber })}`
     const response = await this.restClient.get({
       path,
     })

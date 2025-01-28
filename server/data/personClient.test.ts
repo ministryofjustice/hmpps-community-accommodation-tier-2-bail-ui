@@ -21,10 +21,8 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2v2/people/search`,
-          query: {
-            nomsNumber: 'nomsNumber',
-          },
+          path: `/cas2v2/people/search-by-noms/nomsNumber`,
+          query: {},
           headers: {
             authorization: `Bearer ${token}`,
           },
