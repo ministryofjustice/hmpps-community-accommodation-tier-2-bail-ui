@@ -11,8 +11,19 @@ export default class PersonClient {
     this.restClient = new RestClient('personClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async search(nomsNumber: string): Promise<FullPerson> {
-    const path = `${paths.people.search({ nomsNumber })}`
+  async searchByPrisonNumber(nomsNumber: string): Promise<FullPerson> {
+    const path = `${paths.people.searchByPrisonNumber({ nomsNumber })}`
+
+    const response = await this.restClient.get({
+      path,
+    })
+
+    return response as FullPerson
+  }
+
+  async searchByCrn(crn: string): Promise<FullPerson> {
+    const path = `${paths.people.searchByCrn({ crn })}`
+
     const response = await this.restClient.get({
       path,
     })
