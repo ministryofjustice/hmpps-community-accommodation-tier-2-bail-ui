@@ -1,10 +1,10 @@
 import {
-  Cas2Application as Application,
+  Cas2v2Application as Application,
   Cas2ApplicationSummary,
   SubmitCas2Application,
   UpdateApplication,
 } from '@approved-premises/api'
-import { PaginatedResponse } from '@approved-premises/ui'
+import { ApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
 import { UpdateCas2Application } from '../@types/shared/models/UpdateCas2Application'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -23,10 +23,10 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async create(crn: string): Promise<Application> {
+  async create(crn: string, applicationOrigin: ApplicationOrigin): Promise<Application> {
     return (await this.restClient.post({
       path: paths.applications.new.pattern,
-      data: { crn: crn.trim() },
+      data: { crn: crn.trim(), applicationOrigin },
     })) as Application
   }
 

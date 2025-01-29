@@ -1,7 +1,7 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
 import { Cas2ApplicationSummary, SubmitCas2Application } from '@approved-premises/api'
-import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
+import { ApplicationOrigin, UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
@@ -34,15 +34,16 @@ describe('ApplicationService', () => {
       const application = applicationFactory.build()
 
       const token = 'SOME_TOKEN'
+      const applicationOrigin: ApplicationOrigin = 'courtBail'
 
       applicationClient.create.mockResolvedValue(application)
 
-      const result = await service.createApplication(token, application.person.crn)
+      const result = await service.createApplication(token, application.person.crn, applicationOrigin)
 
       expect(result).toEqual(application)
 
       expect(applicationClientFactory).toHaveBeenCalledWith(token)
-      expect(applicationClient.create).toHaveBeenCalledWith(application.person.crn)
+      expect(applicationClient.create).toHaveBeenCalledWith(application.person.crn, applicationOrigin)
     })
   })
 
