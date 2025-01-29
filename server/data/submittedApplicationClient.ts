@@ -1,7 +1,7 @@
 import {
   Cas2v2SubmittedApplication as SubmittedApplication,
   Cas2v2SubmittedApplicationSummary,
-  Cas2ApplicationNote,
+  Cas2v2ApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 import RestClient from './restClient'
@@ -29,10 +29,10 @@ export default class SubmittedApplicationClient {
     })) as SubmittedApplication
   }
 
-  async addNote(assessmentId: string, newNote: string): Promise<Cas2ApplicationNote> {
+  async addNote(assessmentId: string, newNote: string): Promise<Cas2v2ApplicationNote> {
     return (await this.restClient.post({
       path: paths.assessments.applicationNotes.create({ id: assessmentId }),
       data: { note: newNote },
-    })) as Cas2ApplicationNote
+    })) as Cas2v2ApplicationNote
   }
 }

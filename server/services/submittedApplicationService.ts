@@ -2,7 +2,7 @@ import {
   Cas2v2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatus as ApplicationStatus,
   Cas2v2SubmittedApplicationSummary,
-  Cas2ApplicationNote,
+  Cas2v2ApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
 
@@ -38,7 +38,7 @@ export default class SubmittedApplicationService {
     return statuses
   }
 
-  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2ApplicationNote> {
+  async addApplicationNote(token: string, applicationId: string, newNote: string): Promise<Cas2v2ApplicationNote> {
     const applicationClient = this.submittedApplicationClientFactory(token)
 
     return applicationClient.addNote(applicationId, newNote)
