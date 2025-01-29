@@ -3,12 +3,13 @@ import { Factory } from 'fishery'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory, restrictedPersonFactory } from './person'
-import nomisUserFactory from './nomisUser'
+import cas2v2UserFactory from './cas2v2User'
 
 export default Factory.define<Application>(() => ({
   id: faker.string.uuid(),
+  applicationOrigin: 'prisonBail',
   person: faker.helpers.arrayElement([fullPersonFactory.build(), restrictedPersonFactory.build()]),
-  createdBy: nomisUserFactory.build({}),
+  createdBy: cas2v2UserFactory.build({}),
   schemaVersion: faker.string.uuid(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: undefined,
