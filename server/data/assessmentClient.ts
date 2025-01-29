@@ -1,7 +1,7 @@
 import {
   Cas2v2Assessment,
   UpdateCas2Assessment,
-  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
+  Cas2v2AssessmentStatusUpdate as AssessmentStatusUpdate,
 } from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
