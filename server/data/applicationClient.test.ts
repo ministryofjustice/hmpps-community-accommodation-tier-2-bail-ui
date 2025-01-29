@@ -52,7 +52,7 @@ describeClient('ApplicationClient', provider => {
           path: paths.applications.new.pattern,
           body: {
             crn: application.person.crn,
-            applicationOrigin
+            applicationOrigin,
           },
           headers: {
             authorization: `Bearer ${token}`,

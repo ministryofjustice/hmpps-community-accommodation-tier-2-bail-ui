@@ -3,7 +3,6 @@ import type { FullPerson, PersonRisks } from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
-import { createQueryString } from '../utils/utils'
 
 export default class PersonClient {
   restClient: RestClient
@@ -13,8 +12,6 @@ export default class PersonClient {
   }
 
   async search(nomsNumber: string): Promise<FullPerson> {
-    const query = { nomsNumber } as Record<string, string | boolean>
-
     const path = `${paths.people.search({ nomsNumber })}`
     const response = await this.restClient.get({
       path,

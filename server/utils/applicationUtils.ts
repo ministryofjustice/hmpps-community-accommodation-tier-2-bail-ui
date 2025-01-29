@@ -1,4 +1,8 @@
-import type { Cas2v2SubmittedApplicationSummary, Cas2v2ApplicationSummary, Cas2v2Application } from '@approved-premises/api'
+import type {
+  Cas2v2SubmittedApplicationSummary,
+  Cas2v2ApplicationSummary,
+  Cas2v2Application,
+} from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
