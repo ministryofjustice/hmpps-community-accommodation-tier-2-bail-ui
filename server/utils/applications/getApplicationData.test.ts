@@ -18,6 +18,7 @@ describe('getApplicationSubmissionData', () => {
 
     expect(getApplicationSubmissionData(mockApplication)).toEqual({
       applicationId: mockApplication.id,
+      applicationOrigin: mockApplication.applicationOrigin,
       translatedDocument: mockApplication.document,
       preferredAreas: 'London | Birmingham',
       telephoneNumber: '1234567',

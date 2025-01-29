@@ -13,6 +13,7 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
   return {
     translatedDocument: application.document,
     applicationId: application.id,
+    applicationOrigin: application.applicationOrigin,
     preferredAreas: preferredAreasFromAppData(application),
     telephoneNumber: telephoneNumberFromAppData(application),
   }
