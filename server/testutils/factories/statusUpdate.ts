@@ -1,11 +1,11 @@
-import { Cas2StatusUpdate } from '@approved-premises/api'
+import { Cas2v2StatusUpdate } from '@approved-premises/api'
 import { faker } from '@faker-js/faker'
 import { Factory } from 'fishery'
 import { DateFormats } from '../../utils/dateUtils'
 import externalUser from './externalUser'
 import statusUpdateDetail from './statusUpdateDetail'
 
-export default Factory.define<Cas2StatusUpdate>(() => ({
+export default Factory.define<Cas2v2StatusUpdate>(() => ({
   id: faker.string.uuid(),
   name: 'onWaitingList',
   label: 'On waiting list',

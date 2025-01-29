@@ -1,8 +1,8 @@
-import { Cas2v2ApplicationStatus, Cas2v2ApplicationStatusDetail, Cas2StatusUpdate } from '@approved-premises/api'
+import { Cas2v2ApplicationStatus, Cas2v2ApplicationStatusDetail, Cas2v2StatusUpdate } from '@approved-premises/api'
 
 export const applicationStatusRadios = (
   statuses: Array<Record<string, string>>,
-  previousStatuses: Array<Cas2StatusUpdate>,
+  previousStatuses: Array<Cas2v2StatusUpdate>,
 ) => {
   return statuses.map(status => {
     return {
@@ -15,7 +15,7 @@ export const applicationStatusRadios = (
 
 export const applicationStatusDetailOptions = (
   statusDetails: Array<Cas2v2ApplicationStatusDetail>,
-  previousStatuses: Array<Cas2StatusUpdate>,
+  previousStatuses: Array<Cas2v2StatusUpdate>,
 ) => {
   const previousStatusUpdateDetails = previousStatuses.length ? previousStatuses[0].statusUpdateDetails : []
 
