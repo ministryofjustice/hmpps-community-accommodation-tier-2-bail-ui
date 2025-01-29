@@ -1,5 +1,5 @@
 import {
-  Cas2SubmittedApplication as SubmittedApplication,
+  Cas2v2SubmittedApplication as SubmittedApplication,
   Cas2SubmittedApplicationSummary,
   Cas2ApplicationNote,
 } from '@approved-premises/api'

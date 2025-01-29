@@ -3,7 +3,7 @@ import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimeli
 import type {
   Cas2v2Application as Application,
   Cas2v2Application,
-  Cas2SubmittedApplication,
+  Cas2v2SubmittedApplication,
   Cas2TimelineEvent,
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
@@ -82,7 +82,7 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
 }
 
 export const getApplicationTimelineEvents = (
-  application: Cas2v2Application | Cas2SubmittedApplication,
+  application: Cas2v2Application | Cas2v2SubmittedApplication,
 ): Array<UiTimelineEvent> => getTimelineEvents(application.timelineEvents)
 
 export const generateSuccessMessage = (pageName: string): string => {

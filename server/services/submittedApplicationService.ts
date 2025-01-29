@@ -1,5 +1,5 @@
 import {
-  Cas2SubmittedApplication as SubmittedApplication,
+  Cas2v2SubmittedApplication as SubmittedApplication,
   Cas2ApplicationStatus as ApplicationStatus,
   Cas2SubmittedApplicationSummary,
   Cas2ApplicationNote,
