@@ -1,6 +1,6 @@
 import {
   Cas2v2Application as Application,
-  Cas2ApplicationSummary,
+  Cas2v2ApplicationSummary,
   SubmitCas2Application,
   UpdateApplication,
 } from '@approved-premises/api'
@@ -30,12 +30,12 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async all(): Promise<Array<Cas2ApplicationSummary>> {
-    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2ApplicationSummary>
+  async all(): Promise<Array<Cas2v2ApplicationSummary>> {
+    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2v2ApplicationSummary>
   }
 
-  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
+  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
       query: { prisonCode, isSubmitted: 'true' },

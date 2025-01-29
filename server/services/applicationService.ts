@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Unit, Cas2v2Application as Application, Cas2v2Application, Cas2ApplicationSummary } from '@approved-premises/api'
+import { Unit, Cas2v2Application as Application, Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
 import type { ApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -53,7 +53,7 @@ export default class ApplicationService {
     token: string,
     prisonCode: string,
     pageNumber: number = 1,
-  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
     const applications = await applicationClient.getAllByPrison(prisonCode, pageNumber)

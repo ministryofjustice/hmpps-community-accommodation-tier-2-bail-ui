@@ -1,6 +1,6 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
-import { Cas2ApplicationSummary, SubmitCas2Application, ApplicationOrigin } from '@approved-premises/api'
+import { Cas2v2ApplicationSummary, SubmitCas2Application, ApplicationOrigin } from '@approved-premises/api'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
@@ -96,7 +96,7 @@ describe('ApplicationService', () => {
         totalPages: '50',
         totalResults: '500',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2ApplicationSummary>
+      }) as PaginatedResponse<Cas2v2ApplicationSummary>
 
       applicationClient.getAllByPrison.mockResolvedValue(paginatedResponse)
 
