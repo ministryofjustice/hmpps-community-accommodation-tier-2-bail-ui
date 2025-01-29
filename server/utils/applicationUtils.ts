@@ -1,4 +1,4 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2v2Application } from '@approved-premises/api'
+import type { Cas2v2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2v2Application } from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
@@ -32,7 +32,7 @@ export const submittedApplicationTableRows = (
   })
 }
 
-export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
+export const assessmentsTableRows = (applications: Array<Cas2v2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, true),

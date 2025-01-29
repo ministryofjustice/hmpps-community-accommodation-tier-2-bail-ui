@@ -1,6 +1,6 @@
 import {
   Cas2v2SubmittedApplication as SubmittedApplication,
-  Cas2SubmittedApplicationSummary,
+  Cas2v2SubmittedApplicationSummary,
   Cas2ApplicationNote,
 } from '@approved-premises/api'
 import { PaginatedResponse } from '@approved-premises/ui'
@@ -15,8 +15,8 @@ export default class SubmittedApplicationClient {
     this.restClient = new RestClient('submittedApplicationClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async all(pageNumber: number): Promise<PaginatedResponse<Cas2SubmittedApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2SubmittedApplicationSummary>({
+  async all(pageNumber: number): Promise<PaginatedResponse<Cas2v2SubmittedApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2v2SubmittedApplicationSummary>({
       path: paths.submissions.index.pattern,
       page: pageNumber.toString(),
       query: {},
