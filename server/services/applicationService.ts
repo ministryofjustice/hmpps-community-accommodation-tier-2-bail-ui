@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Unit, Cas2Application as Application, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
+import { Unit, Cas2v2Application as Application, Cas2v2Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import type { ApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -186,13 +186,13 @@ export default class ApplicationService {
     return page
   }
 
-  async submit(token: string, application: Cas2Application) {
+  async submit(token: string, application: Cas2v2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.submit(application.id, getApplicationSubmissionData(application))
   }
 
-  async cancel(token: string, application: Cas2Application) {
+  async cancel(token: string, application: Cas2v2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.abandon(application.id)

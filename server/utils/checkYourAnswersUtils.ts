@@ -1,4 +1,4 @@
-import { Cas2Application as Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2v2Application as Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
 import { SummaryListItem, FormSection, QuestionAndAnswer } from '@approved-premises/ui'
 import Apply from '../form-pages/apply/index'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers'

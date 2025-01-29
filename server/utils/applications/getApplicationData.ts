@@ -1,4 +1,4 @@
-import { Cas2Application as Application, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { Cas2v2Application as Application, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
 
 import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managementInfoFromAppData'
 

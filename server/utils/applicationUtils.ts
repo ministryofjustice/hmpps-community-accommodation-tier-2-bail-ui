@@ -1,4 +1,4 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
+import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2v2Application } from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
@@ -114,7 +114,7 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
-export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
+export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): boolean => {
   if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
     return false
   }
