@@ -123,10 +123,10 @@ export default class ApplicationsController {
 
   create(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn, prisonNumber } = req.body
+      const { crn, prisonNumber, applicationOrigin } = req.body
 
       try {
-        const application = await this.applicationService.createApplication(req.user.token, crn)
+        const application = await this.applicationService.createApplication(req.user.token, crn, applicationOrigin)
 
         res.redirect(paths.applications.show({ id: application.id }))
       } catch (err) {

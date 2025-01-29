@@ -1,4 +1,4 @@
-import { SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { SubmitCas2Application, UpdateApplication, ApplicationOrigin } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
 import { applicationFactory } from '../testutils/factories'
 import paths from '../paths/api'
@@ -42,6 +42,7 @@ describeClient('ApplicationClient', provider => {
   describe('create', () => {
     it('should return an application when a crn is posted', async () => {
       const application = applicationFactory.build()
+      const applicationOrigin: ApplicationOrigin = 'courtBail'
 
       provider.addInteraction({
         state: 'Server is healthy',
@@ -51,6 +52,7 @@ describeClient('ApplicationClient', provider => {
           path: paths.applications.new.pattern,
           body: {
             crn: application.person.crn,
+            applicationOrigin
           },
           headers: {
             authorization: `Bearer ${token}`,
@@ -62,7 +64,7 @@ describeClient('ApplicationClient', provider => {
         },
       })
 
-      const result = await applicationClient.create(application.person.crn)
+      const result = await applicationClient.create(application.person.crn, applicationOrigin)
 
       expect(result).toEqual(application)
     })
