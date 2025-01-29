@@ -1,7 +1,11 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
-import { Cas2v2ApplicationSummary, SubmitCas2v2Application, ApplicationOrigin } from '@approved-premises/api'
-import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
+import {
+  Cas2v2ApplicationSummary,
+  SubmitCas2v2Application,
+  ApplicationOrigin,
+  UpdateCas2v2Application,
+} from '@approved-premises/api'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
 import ApplicationClient from '../data/applicationClient'
@@ -120,7 +124,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<UpdateCas2v2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -473,7 +477,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<UpdateCas2v2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -553,7 +557,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page', index: '1' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2Application>()
+    const applicationData = createMock<UpdateCas2v2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -707,7 +711,7 @@ describe('ApplicationService', () => {
         user: { token },
       })
 
-      const applicationData = createMock<UpdateCas2Application>()
+      const applicationData = createMock<UpdateCas2v2Application>()
       ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
 
       const newApplicationData = { 'risk-to-self': { vulnerability: { vulnerabilityDetail: 'example' } } }
