@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application, SubmitCas2Application, UpdateApplication } from '@approved-premises/api'
+import { Cas2v2Application as Application, SubmitCas2v2Application, UpdateApplication } from '@approved-premises/api'
 
 import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managementInfoFromAppData'
 
@@ -9,7 +9,7 @@ export const getApplicationUpdateData = (application: Application): UpdateApplic
   }
 }
 
-export const getApplicationSubmissionData = (application: Application): SubmitCas2Application => {
+export const getApplicationSubmissionData = (application: Application): SubmitCas2v2Application => {
   return {
     translatedDocument: application.document,
     applicationId: application.id,

@@ -1,7 +1,7 @@
 import {
   Cas2v2Application as Application,
   Cas2v2ApplicationSummary,
-  SubmitCas2Application,
+  SubmitCas2v2Application,
   UpdateApplication,
 } from '@approved-premises/api'
 import { ApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
@@ -49,7 +49,7 @@ export default class ApplicationClient {
     })) as Application
   }
 
-  async submit(applicationId: string, submissionData: SubmitCas2Application): Promise<void> {
+  async submit(applicationId: string, submissionData: SubmitCas2v2Application): Promise<void> {
     await this.restClient.post({
       path: paths.submissions.create.pattern,
       data: { ...submissionData, applicationId },

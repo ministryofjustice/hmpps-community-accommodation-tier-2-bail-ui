@@ -1,6 +1,6 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
-import { Cas2v2ApplicationSummary, SubmitCas2Application, ApplicationOrigin } from '@approved-premises/api'
+import { Cas2v2ApplicationSummary, SubmitCas2v2Application, ApplicationOrigin } from '@approved-premises/api'
 import { UpdateCas2Application } from 'server/@types/shared/models/UpdateCas2Application'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
@@ -683,7 +683,7 @@ describe('ApplicationService', () => {
   describe('submit', () => {
     it('calls the submit method', async () => {
       const application = applicationFactory.build()
-      const applicationData = createMock<SubmitCas2Application>()
+      const applicationData = createMock<SubmitCas2v2Application>()
       const token = 'SOME_TOKEN'
 
       applicationClient.submit.mockImplementation(() => Promise.resolve())
