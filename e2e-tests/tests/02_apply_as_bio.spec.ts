@@ -9,7 +9,7 @@ import {
   completeRisksAndNeedsSection,
   completeBailInformationSection,
   confirmApplicant,
-  enterPrisonerNumber,
+  enterCrn,
   selectApplicationOrigin,
   startAnApplication,
   submitApplication,
@@ -21,11 +21,11 @@ import {
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
 
-test('create a CAS-2 bail application', async ({ page, person, pomUser }) => {
-  await signIn(page, pomUser)
+test('create a CAS-2 bail application', async ({ page, person, bioUser }) => {
+  await signIn(page, bioUser)
   await startAnApplication(page)
-  await selectApplicationOrigin(page, 'prisonBail')
-  await enterPrisonerNumber(page, person.nomsNumber)
+  await selectApplicationOrigin(page, 'courtBail')
+  await enterCrn(page, person.crn)
   await confirmApplicant(page)
   await completeBeforeYouStartSection(page, person.name)
   await completeAreaAndFundingSection(page, person.name)
@@ -34,20 +34,20 @@ test('create a CAS-2 bail application', async ({ page, person, pomUser }) => {
   await completeOffenceInformationSection(page, person.name)
   await completeBailInformationSection(page, person.name)
   await completeCheckAnswersSection(page, person.name)
-  await expect(page.getByText('You have completed 17 of 17 tasks')).toBeVisible()
+  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
   await submitApplication(page)
 })
 
-test('add a note to a submitted application', async ({ page, person, pomUser }) => {
-  await signIn(page, pomUser)
+test('add a note to a submitted application', async ({ page, person, bioUser }) => {
+  await signIn(page, bioUser)
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 })
 
-test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
-  await signIn(page, pomUser)
-  await createAnInProgressApplication(page, person, 'prisonBail')
+test('cancel an in progress application from the task list', async ({ page, bioUser, person }) => {
+  await signIn(page, bioUser)
+  await createAnInProgressApplication(page, person, 'courtBail')
   await viewInProgressDashboard(page)
   const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
   await clickCancel(page, person.name)
