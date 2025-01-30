@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
 import type { Cas2v2Assessment } from './Cas2v2Assessment';
 import type { Cas2v2User } from './Cas2v2User';
@@ -17,8 +18,9 @@ export type Cas2v2SubmittedApplication = {
     document?: Unit;
     submittedAt?: string;
     telephoneNumber?: string;
+    applicationOrigin?: ApplicationOrigin;
     timelineEvents: Array<Cas2TimelineEvent>;
     assessment: Cas2v2Assessment;
-    bailHearingDate?: Cas2v2Assessment;
+    bailHearingDate?: string;
 };
 
