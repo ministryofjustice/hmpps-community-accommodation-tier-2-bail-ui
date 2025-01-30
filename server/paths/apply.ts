@@ -19,7 +19,8 @@ const paths = {
     applicationOrigin: applicationsPath.path('application-type'),
     selectApplicationOrigin: applicationsPath.path('select-application-origin'),
     people: {
-      find: peoplePath.path('find'),
+      findByPrisonNumber: peoplePath.path('find-by-prison-number'),
+      findByCrn: peoplePath.path('find-by-crn'),
     },
     show: singleApplicationPath,
     overview: singleApplicationPath.path('overview'),
