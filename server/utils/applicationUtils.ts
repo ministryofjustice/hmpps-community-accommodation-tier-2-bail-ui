@@ -1,11 +1,15 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
+import type {
+  Cas2v2SubmittedApplicationSummary,
+  Cas2v2ApplicationSummary,
+  Cas2v2Application,
+} from '@approved-premises/api'
 import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 
-export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
+export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, false, true),
@@ -18,7 +22,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2Applicati
 }
 
 export const submittedApplicationTableRows = (
-  applications: Array<Cas2ApplicationSummary>,
+  applications: Array<Cas2v2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
@@ -32,7 +36,7 @@ export const submittedApplicationTableRows = (
   })
 }
 
-export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
+export const assessmentsTableRows = (applications: Array<Cas2v2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, true),
@@ -114,7 +118,7 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
-export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
+export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): boolean => {
   if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
     return false
   }

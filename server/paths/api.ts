@@ -1,20 +1,20 @@
 import { path } from 'static-path'
 
-const peoplePath = path('/cas2/people')
+const peoplePath = path('/cas2v2/people')
 const personPath = peoplePath.path(':crn')
-const applicationsPath = path('/cas2/applications')
+const applicationsPath = path('/cas2v2/applications')
 const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
-const singleAssessmentPath = path('/cas2/assessments/:id')
-const submissionsPath = path('/cas2/submissions')
+const singleAssessmentPath = path('/cas2v2/assessments/:id')
+const submissionsPath = path('/cas2v2/submissions')
 const singleSubmissionPath = submissionsPath.path(':id')
-const referenceDataPath = path('/cas2/reference-data')
-const reportsPath = path('/cas2/reports')
+const referenceDataPath = path('/cas2v2/reference-data')
+const reportsPath = path('/cas2v2/reports')
 const singleReportPath = reportsPath.path(':name')
 
 export default {
   people: {
-    search: peoplePath.path('search'),
+    search: peoplePath.path('search-by-noms/:nomsNumber'),
     risks: {
       show: personPath.path('risks'),
     },

@@ -1,4 +1,4 @@
-import { Cas2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
+import { Cas2v2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
 
 import ReferenceDataClient from './referenceDataClient'
 import { applicationStatusFactory } from '../testutils/factories'
@@ -22,7 +22,7 @@ describeClient('ReferenceDataClient', provider => {
         uponReceiving: `A request to get application statuses`,
         withRequest: {
           method: 'GET',
-          path: `/cas2/reference-data/application-status`,
+          path: `/cas2v2/reference-data/application-status`,
           headers: {
             authorization: `Bearer ${token}`,
           },

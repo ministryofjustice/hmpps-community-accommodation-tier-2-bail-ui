@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2v2Application as Application } from '@approved-premises/api'
 import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
@@ -228,10 +228,13 @@ describe('applicationsController', () => {
   })
 
   describe('create', () => {
+    const applicationOrigin: ApplicationOrigin = 'courtBail'
+
     it('redirects to the new applications page on success', async () => {
       request.body = {
         crn: 'crn123',
         prisonNumber: 'prisonNumber123',
+        applicationOrigin,
       }
 
       applicationService.createApplication.mockResolvedValue({} as Application)
@@ -246,6 +249,7 @@ describe('applicationsController', () => {
       request.body = {
         crn: 'crn123',
         prisonNumber: 'prisonNumber123',
+        applicationOrigin,
       }
 
       const requestHandler = applicationsController.create()
@@ -275,6 +279,7 @@ describe('applicationsController', () => {
       request.body = {
         crn: 'crn123',
         prisonNumber: 'prisonNumber123',
+        applicationOrigin,
       }
 
       const requestHandler = applicationsController.create()

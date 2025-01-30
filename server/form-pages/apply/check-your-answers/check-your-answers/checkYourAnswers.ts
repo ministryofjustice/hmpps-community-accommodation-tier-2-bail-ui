@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import type { Cas2Application as Application } from '@approved-premises/api'
+import type { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { isFullPerson } from '../../../../utils/utils'
 

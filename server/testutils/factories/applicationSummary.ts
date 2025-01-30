@@ -1,14 +1,15 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { Cas2ApplicationSummary } from '@approved-premises/api'
+import { Cas2v2ApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory } from './person'
 import latestStatusUpdateFactory from './latestStatusUpdate'
 
-export default Factory.define<Cas2ApplicationSummary>(() => ({
+export default Factory.define<Cas2v2ApplicationSummary>(() => ({
   id: faker.string.uuid(),
-  type: 'CAS2',
+  applicationOrigin: 'prisonBail',
+  type: 'CAS2V2',
   person: fullPersonFactory.build(),
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),

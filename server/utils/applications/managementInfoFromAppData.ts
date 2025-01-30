@@ -1,4 +1,4 @@
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2v2Application as Application } from '@approved-premises/api'
 
 const preferredAreasFromAppData = (application: Application): string => {
   // @ts-expect-error Requires refactor to satisfy TS7053

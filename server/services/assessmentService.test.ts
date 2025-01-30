@@ -1,4 +1,4 @@
-import { Cas2AssessmentStatusUpdate, UpdateCas2Assessment } from '@approved-premises/api'
+import { Cas2v2AssessmentStatusUpdate, UpdateCas2Assessment } from '@approved-premises/api'
 import AssessmentService from './assessmentService'
 import AssessmentClient from '../data/assessmentClient'
 
@@ -64,7 +64,7 @@ describe('AssessmentService', () => {
 
       assessmentClient.updateStatus.mockResolvedValue(null)
 
-      const newStatus: Cas2AssessmentStatusUpdate = {
+      const newStatus: Cas2v2AssessmentStatusUpdate = {
         newStatus: 'waitingApproval',
         newStatusDetails: ['detail'],
       }

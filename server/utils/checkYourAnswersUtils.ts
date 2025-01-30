@@ -1,4 +1,4 @@
-import { Cas2Application as Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2v2Application as Application, Cas2v2SubmittedApplication, FullPerson } from '@approved-premises/api'
 import { SummaryListItem, FormSection, QuestionAndAnswer } from '@approved-premises/ui'
 import Apply from '../form-pages/apply/index'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers'
@@ -225,7 +225,7 @@ export const getPage = (taskName: string, pageName: string): TaskListPageInterfa
   return Page as TaskListPageInterface
 }
 
-export const getApplicantDetails = (application: Application | Cas2SubmittedApplication): Array<SummaryListItem> => {
+export const getApplicantDetails = (application: Application | Cas2v2SubmittedApplication): Array<SummaryListItem> => {
   const { crn, nomsNumber, pncNumber, name, dateOfBirth, nationality, sex, prisonName } =
     application.person as FullPerson
 

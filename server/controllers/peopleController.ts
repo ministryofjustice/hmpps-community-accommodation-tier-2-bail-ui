@@ -14,7 +14,7 @@ export default class PeopleController {
 
   find(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { prisonNumber } = req.body
+      const { prisonNumber, applicationOrigin } = req.body
 
       if (prisonNumber) {
         try {
@@ -25,6 +25,7 @@ export default class PeopleController {
             person,
             date: DateFormats.dateObjtoUIDate(new Date()),
             dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            applicationOrigin,
           })
         } catch (err) {
           if (err.status === 404) {

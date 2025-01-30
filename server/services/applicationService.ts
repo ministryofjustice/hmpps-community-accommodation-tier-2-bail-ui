@@ -1,6 +1,11 @@
 import type { Request } from 'express'
-import { Unit, Cas2Application as Application, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import type { DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import {
+  Unit,
+  Cas2v2Application as Application,
+  Cas2v2Application,
+  Cas2v2ApplicationSummary,
+} from '@approved-premises/api'
+import type { ApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
@@ -12,10 +17,10 @@ import deleteOrphanedFollowOnAnswers from '../utils/applications/deleteOrphanedD
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
 
-  async createApplication(token: string, crn: string): Promise<Application> {
+  async createApplication(token: string, crn: string, applicationOrigin: ApplicationOrigin): Promise<Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.create(crn)
+    const application = await applicationClient.create(crn, applicationOrigin)
 
     return application
   }
@@ -53,7 +58,7 @@ export default class ApplicationService {
     token: string,
     prisonCode: string,
     pageNumber: number = 1,
-  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
     const applications = await applicationClient.getAllByPrison(prisonCode, pageNumber)
@@ -186,13 +191,13 @@ export default class ApplicationService {
     return page
   }
 
-  async submit(token: string, application: Cas2Application) {
+  async submit(token: string, application: Cas2v2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.submit(application.id, getApplicationSubmissionData(application))
   }
 
-  async cancel(token: string, application: Cas2Application) {
+  async cancel(token: string, application: Cas2v2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.abandon(application.id)
