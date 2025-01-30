@@ -34,4 +34,9 @@ export type TestOptions = {
     username: string
     password: string
   }
+  bioUser: {
+    name: string
+    username: string
+    password: string
+  }
 }
