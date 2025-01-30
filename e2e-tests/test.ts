@@ -27,6 +27,22 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
+  nomisCourtUser: [
+    {
+      name: 'Cas-two bail Test-nomis-court-user',
+      username: process.env.CAS2_BAIL_NOMIS_COURT_USERNAME as string,
+      password: process.env.CAS2_BAIL_NOMIS_COURT_PASSWORD as string,
+    },
+    { option: true },
+  ],
+  nomisPrisonUser: [
+    {
+      name: 'Cas-two bail Test-nomis-prison-user',
+      username: process.env.CAS2_BAIL_NOMIS_PRISON_USERNAME as string,
+      password: process.env.CAS2_BAIL_NOMIS_PRISON_PASSWORD as string,
+    },
+    { option: true },
+  ],
   lcaUser: [
     {
       name: 'Licence Case-admin',
