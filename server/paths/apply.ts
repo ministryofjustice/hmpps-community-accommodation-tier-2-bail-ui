@@ -15,6 +15,7 @@ const paths = {
     index: applicationsPath,
     searchByPrisonNumber: applicationsPath.path('search-by-prison-number'),
     searchByCrn: applicationsPath.path('search-by-crn'),
+    unauthorisedCourtBailApplication: applicationsPath.path('unauthorised-court-bail-application'),
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-type'),
     selectApplicationOrigin: applicationsPath.path('select-application-origin'),
