@@ -15,6 +15,7 @@ import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
+import { hasRole } from '../../utils/userUtils'
 
 export default class ApplicationsController {
   constructor(
@@ -177,6 +178,10 @@ export default class ApplicationsController {
       }
 
       if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
+        if (!hasRole(res.locals.user.userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
+          return res.redirect(paths.applications.unauthorisedCourtBailApplication({}))
+        }
+
         return res.redirect(paths.applications.searchByCrn({}))
       }
 
@@ -214,6 +219,19 @@ export default class ApplicationsController {
         errorSummary,
         ...userInput,
         pageHeading: "Enter the person's CRN",
+      })
+    }
+  }
+
+  unauthorisedCourtBailApplication(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/unauthorised-court-bail-application', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are unauthorised to make a court bail application',
       })
     }
   }

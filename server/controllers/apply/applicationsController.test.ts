@@ -353,6 +353,12 @@ describe('applicationsController', () => {
   })
 
   describe('selectApplicationOrigin', () => {
+    beforeEach(() => {
+      response = createMock<Response>({
+        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
+      })
+    })
+
     it('redirects to the select application type page when application origin is not selected', async () => {
       request.body = {
         applicationOrigin: null,
@@ -384,6 +390,21 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+    })
+
+    it('redirects to the unauthorised court bail page when the application origin is courtBail and the user does not have the CAS2_COURT_BAIL_REFERRER role', async () => {
+      request.body = {
+        applicationOrigin: 'courtBail' as ApplicationOrigin,
+      }
+
+      response = createMock<Response>({
+        locals: { user: { userRoles: ['CAS2_PRISON_BAIL_REFERRER'] } },
+      })
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedCourtBailApplication({}))
     })
   })
 
@@ -444,6 +465,38 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
         pageHeading: "Enter the person's CRN",
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('unauthorisedCourtBailApplication', () => {
+    it('renders the enter unauthorised court bail application template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.unauthorisedCourtBailApplication()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: 'You are unauthorised to make a court bail application',
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.unauthorisedCourtBailApplication()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
+        pageHeading: 'You are unauthorised to make a court bail application',
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
