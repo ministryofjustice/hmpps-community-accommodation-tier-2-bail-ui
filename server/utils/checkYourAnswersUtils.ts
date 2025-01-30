@@ -232,6 +232,14 @@ export const getApplicantDetails = (application: Application | Cas2v2SubmittedAp
   return [
     {
       key: {
+        text: 'Application type',
+      },
+      value: {
+        html: application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
+      },
+    },
+    {
+      key: {
         text: 'Full name',
       },
       value: {
