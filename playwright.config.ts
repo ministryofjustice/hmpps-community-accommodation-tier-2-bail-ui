@@ -55,6 +55,11 @@ export default defineConfig<TestOptions>({
           username: 'CAS2_ASSESSOR_USER',
           password: 'password123456',
         },
+        bioUser: {
+          name: 'CAS2 Bail BIO User',
+          username: 'JIMSNOWLDAP',
+          password: 'secret'
+        }
       },
     },
     {
@@ -97,6 +102,11 @@ export default defineConfig<TestOptions>({
           username: 'CAS2_MI_USER',
           password: 'password123456',
         },
+        bioUser: {
+          name: 'CAS2 Bail BIO User',
+          username: 'JIMSNOWLDAP',
+          password: 'secret'
+        }
       },
       dependencies: ['setupLocal'],
     },
