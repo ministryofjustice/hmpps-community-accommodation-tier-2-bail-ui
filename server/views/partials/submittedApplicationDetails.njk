@@ -10,6 +10,8 @@
 
   {{ applicationCurrentStatus(status) }}
 
+  <p>Application type: <strong>{{ "Prison Bail" if application.applicationOrigin == 'prisonBail' else "Court Bail" }}</strong></p>
+
   <p>This application was submitted on <strong>{{ formatDate(application.submittedAt, {format: 'medium'}) }}</strong>.</p>
 
 {% endmacro %}
