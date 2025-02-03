@@ -595,79 +595,174 @@ describe('getPage', () => {
   })
 
   describe('getApplicantDetails', () => {
-    it('should return applicant details in the correct format', () => {
-      const person = personFactory.build({})
+    describe('when application type is prison bail', () => {
+      it('should return applicant details in the correct format', () => {
+        const person = personFactory.build({})
 
-      const application = applicationFactory.build({ person })
+        const application = applicationFactory.build({ person, applicationOrigin: 'prisonBail' })
 
-      const expected = [
-        {
-          key: {
-            text: 'Full name',
+        const expected = [
+          {
+            key: {
+              text: 'Application type',
+            },
+            value: {
+              html: 'Prison Bail',
+            },
           },
-          value: {
-            html: person.name,
+          {
+            key: {
+              text: 'Full name',
+            },
+            value: {
+              html: person.name,
+            },
           },
-        },
-        {
-          key: {
-            text: 'Date of birth',
+          {
+            key: {
+              text: 'Date of birth',
+            },
+            value: {
+              html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            },
           },
-          value: {
-            html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          {
+            key: {
+              text: 'Nationality',
+            },
+            value: {
+              html: person.nationality,
+            },
           },
-        },
-        {
-          key: {
-            text: 'Nationality',
+          {
+            key: {
+              text: 'Sex',
+            },
+            value: {
+              html: person.sex,
+            },
           },
-          value: {
-            html: person.nationality,
+          {
+            key: {
+              text: 'Prison number',
+            },
+            value: {
+              html: person.nomsNumber,
+            },
           },
-        },
-        {
-          key: {
-            text: 'Sex',
+          {
+            key: {
+              text: 'Prison',
+            },
+            value: {
+              html: person.prisonName,
+            },
           },
-          value: {
-            html: person.sex,
+          {
+            key: {
+              text: 'PNC number',
+            },
+            value: {
+              html: person.pncNumber,
+            },
           },
-        },
-        {
-          key: {
-            text: 'Prison number',
+          {
+            key: {
+              text: 'CRN from NDelius',
+            },
+            value: {
+              html: person.crn,
+            },
           },
-          value: {
-            html: person.nomsNumber,
-          },
-        },
-        {
-          key: {
-            text: 'Prison',
-          },
-          value: {
-            html: person.prisonName,
-          },
-        },
-        {
-          key: {
-            text: 'PNC number',
-          },
-          value: {
-            html: person.pncNumber,
-          },
-        },
-        {
-          key: {
-            text: 'CRN from NDelius',
-          },
-          value: {
-            html: person.crn,
-          },
-        },
-      ]
+        ]
 
-      expect(getApplicantDetails(application)).toEqual(expected)
+        expect(getApplicantDetails(application)).toEqual(expected)
+      })
+    })
+
+    describe('when application type is court bail', () => {
+      it('should return applicant details in the correct format', () => {
+        const person = personFactory.build({})
+
+        const application = applicationFactory.build({ person, applicationOrigin: 'courtBail' })
+
+        const expected = [
+          {
+            key: {
+              text: 'Application type',
+            },
+            value: {
+              html: 'Court Bail',
+            },
+          },
+          {
+            key: {
+              text: 'Full name',
+            },
+            value: {
+              html: person.name,
+            },
+          },
+          {
+            key: {
+              text: 'Date of birth',
+            },
+            value: {
+              html: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            },
+          },
+          {
+            key: {
+              text: 'Nationality',
+            },
+            value: {
+              html: person.nationality,
+            },
+          },
+          {
+            key: {
+              text: 'Sex',
+            },
+            value: {
+              html: person.sex,
+            },
+          },
+          {
+            key: {
+              text: 'Prison number',
+            },
+            value: {
+              html: person.nomsNumber,
+            },
+          },
+          {
+            key: {
+              text: 'Prison',
+            },
+            value: {
+              html: person.prisonName,
+            },
+          },
+          {
+            key: {
+              text: 'PNC number',
+            },
+            value: {
+              html: person.pncNumber,
+            },
+          },
+          {
+            key: {
+              text: 'CRN from NDelius',
+            },
+            value: {
+              html: person.crn,
+            },
+          },
+        ]
+
+        expect(getApplicantDetails(application)).toEqual(expected)
+      })
     })
 
     it('should return applicant details with nationality as unknown', () => {
@@ -676,6 +771,14 @@ describe('getPage', () => {
       const application = applicationFactory.build({ person })
 
       const expected = [
+        {
+          key: {
+            text: 'Application type',
+          },
+          value: {
+            html: 'Prison Bail',
+          },
+        },
         {
           key: {
             text: 'Full name',
