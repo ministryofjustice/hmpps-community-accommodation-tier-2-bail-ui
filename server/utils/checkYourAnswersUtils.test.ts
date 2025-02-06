@@ -1,4 +1,4 @@
-import { SummaryListItem } from '@approved-premises/ui'
+import { QuestionAndAnswer, SummaryListItem } from '@approved-premises/ui'
 import applicationData from '../../integration_tests/fixtures/applicationData.json'
 import Apply from '../form-pages/apply'
 import * as getQuestionsUtil from '../form-pages/utils/questions'
@@ -64,7 +64,9 @@ describe('checkYourAnswersUtils', () => {
       ]
 
       jest.spyOn(checkYourAnswersUtils, 'getSections').mockImplementationOnce(jest.fn(() => sections))
-      jest.spyOn(checkYourAnswersUtils, 'getTaskAnswersAsSummaryListItems').mockImplementation(jest.fn(() => []))
+      jest
+        .spyOn(checkYourAnswersUtils, 'getTaskAnswersAsSummaryListItems')
+        .mockImplementation(jest.fn(() => [] as Array<SummaryListItem | QuestionAndAnswer>))
 
       const expected = [
         { title: 'Section 1', tasks: [{ id: 'task1', title: 'Task 1', rows: [] as Array<SummaryListItem> }] },
