@@ -161,7 +161,6 @@
     "esbuild-plugin-manifest": "^1.0.5",
     "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^9.19.0",
-    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-cypress": "^3.6.0",
@@ -187,7 +186,7 @@
   },
   "overrides": {
     "csurf": {
-      "cookie": "0.7.2"
+      "cookie": "1.0.2"
     }
   }
 }
