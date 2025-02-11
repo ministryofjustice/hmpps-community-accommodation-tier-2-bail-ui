@@ -1,15 +1,10 @@
 /* istanbul ignore file */
 
-import CheckYourAnswersPage from './check-your-answers/checkYourAnswers'
-import { Section, Task } from '../../utils/decorators'
+import { Section } from '../../utils/decorators'
+import CheckYourAnswersTask from './check-your-answers'
 
-@Task({
-  name: 'Check application answers',
-  slug: 'check-your-answers',
-  pages: [CheckYourAnswersPage],
-})
 @Section({
   title: 'Check answers',
-  tasks: [CheckYourAnswers],
+  tasks: [CheckYourAnswersTask],
 })
 export default class CheckYourAnswers {}

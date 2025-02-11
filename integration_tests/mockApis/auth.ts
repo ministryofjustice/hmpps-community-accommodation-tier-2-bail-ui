@@ -126,10 +126,74 @@ const token = (userToken: UserToken) =>
     },
   })
 
+const stubUser = (name: string, activeCaseLoadId?: string) =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/auth/api/user/me',
+    },
+    response: {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      jsonBody: {
+        staffId: 231232,
+        username: 'USER1',
+        active: true,
+        name,
+        activeCaseLoadId,
+      },
+    },
+  })
+
+const stubUserRoles = () =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/auth/api/user/me/roles',
+    },
+    response: {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      jsonBody: [{ roleCode: 'SOME_USER_ROLE' }],
+    },
+  })
+
+const stubProfile = (roles = [], userId = '70596333-63d4-4fb2-8acc-9ca55563d878') =>
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/profile',
+    },
+    response: {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      jsonBody: {
+        id: userId,
+        roles,
+      },
+    },
+  })
+
+type UserRole = 'manager'
+
 export default {
   getSignInUrl,
   stubAuthPing: ping,
   stubAuthManageDetails: manageDetails,
   stubSignIn: (userToken: UserToken = {}): Promise<[Response, Response, Response, Response, Response]> =>
     Promise.all([favicon(), redirect(), signOut(), token(userToken), tokenVerification.stubVerifyToken()]),
+  stubAuthUser: (
+    args: { name?: string; activeCaseLoadId?: string; userId?: string; roles?: Array<UserRole> } = {},
+  ): Promise<[Response, Response, Response]> =>
+    Promise.all([
+      stubUser(args.name || 'john smith', args.activeCaseLoadId || 'ABC'),
+      stubUserRoles(),
+      stubProfile(args.roles || [], args.userId),
+    ]),
 }

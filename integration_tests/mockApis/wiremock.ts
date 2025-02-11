@@ -1,6 +1,8 @@
 import superagent, { SuperAgentRequest, Response } from 'superagent'
 
-const url = 'http://localhost:9091/__admin'
+const wiremockEndpoint = 'http://localhost:9999'
+
+const url = `${wiremockEndpoint}/__admin`
 
 const stubFor = (mapping: Record<string, unknown>): SuperAgentRequest =>
   superagent.post(`${url}/mappings`).send(mapping)
