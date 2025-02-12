@@ -69,7 +69,7 @@ const redirect = () =>
         'Content-Type': 'text/html',
         Location: 'http://localhost:3007/sign-in/callback?code=codexxxx&state=stateyyyy',
       },
-      body: '<html><body>Sign in page<h1>Sign in</h1></body></html>',
+      body: '<html lang="en"><head><title>Sign in</title></head><body><main>Sign in page<h1>Sign in</h1></main></body></html>',
     },
   })
 
@@ -84,7 +84,7 @@ const signOut = () =>
       headers: {
         'Content-Type': 'text/html',
       },
-      body: '<html><body>Sign in page<h1>Sign in</h1></body></html>',
+      body: '<html lang="en"><head><title>Sign in</title></head><body><main>Sign in page<h1>Sign in</h1></main></body></html>',
     },
   })
 
@@ -99,7 +99,7 @@ const manageDetails = () =>
       headers: {
         'Content-Type': 'text/html',
       },
-      body: '<html><body><h1>Your account details</h1></body></html>',
+      body: '<html lang="en"><head><title>Sign in</title></head><body><main><h1>Your account details</h1></main></body></html>',
     },
   })
 
