@@ -43,7 +43,7 @@ export default class Identification implements TaskListPage {
   }
 
   previous() {
-    return 'funding-source'
+    return 'funding-cas2-accommodation'
   }
 
   next() {

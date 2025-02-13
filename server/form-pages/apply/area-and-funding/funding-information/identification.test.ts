@@ -8,7 +8,7 @@ describe('Identification', () => {
   itShouldHaveNextValue(new Identification({ idDocuments: ['none'] }, application), 'alternative-identification')
   itShouldHaveNextValue(new Identification({ idDocuments: ['travelPass'] }, application), 'national-insurance')
 
-  itShouldHavePreviousValue(new Identification({}, application), 'funding-source')
+  itShouldHavePreviousValue(new Identification({}, application), 'funding-cas2-accommodation')
 
   describe('errors', () => {
     it('returns error if no document is selected', () => {

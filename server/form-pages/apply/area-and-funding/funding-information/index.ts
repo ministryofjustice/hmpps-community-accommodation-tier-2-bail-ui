@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { Task } from '../../../utils/decorators'
-import FundingInformationPage from './fundingInformation'
+import FundingCas2Accommodation from './fundingCas2Accommodation'
 import NationalInsurance from './nationalInsurance'
 import Identification from './identification'
 import AlternativeIdentification from './alternativeID'
@@ -9,6 +9,6 @@ import AlternativeIdentification from './alternativeID'
 @Task({
   name: 'Confirm funding and ID',
   slug: 'funding-information',
-  pages: [FundingInformationPage, NationalInsurance, Identification, AlternativeIdentification],
+  pages: [FundingCas2Accommodation, NationalInsurance, Identification, AlternativeIdentification],
 })
 export default class FundingInformation {}

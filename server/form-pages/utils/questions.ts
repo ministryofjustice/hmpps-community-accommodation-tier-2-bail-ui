@@ -410,20 +410,41 @@ export const getQuestions = (name: string) => {
       },
     },
     'funding-information': {
-      'funding-source': {
+      'funding-cas2-accommodation': {
         fundingSource: {
-          question: `How will ${name} pay for their accommodation and service charge?`,
-          hint: 'Applicants must pay for a weekly service charge using their personal money or wages. This service charge is not eligible to be covered by Housing Benefit.',
+          question: `How will the applicant pay for their accommodation and the service charge?`,
           answers: {
-            personalSavings: 'Personal money or wages',
-            benefits: 'Housing Benefit and personal money or wages',
+            benefits: 'Housing Benefit',
+            personalSavings: 'Personal savings, salary or pension',
           },
         },
-      },
-      'national-insurance': {
+        fundingSourceDetail: {
+          question: 'Enter details (optional)',
+        },
+        hasNationalInsuranceNumber: {
+          question: 'Does the applicant have a National Insurance number?',
+          answers: {
+            yes: 'Yes',
+            no: 'No, they do not have one',
+            dontKnow: "They have one but they don't know the number",
+          },
+        },
         nationalInsuranceNumber: {
-          question: `What is ${name}'s National Insurance number? (Optional)`,
-          hint: 'We need this to set up a Universal Credit and Housing Benefit claim if required.',
+          question: 'Enter the number (optional)',
+          hint: 'For example, SF123456X',
+        },
+        receivingBenefits: {
+          question: 'Is the applicant currently receiving benefits?',
+          hint: 'For example, Universal Credit, Personal Independence Payments or Employment & Support Allowance',
+          answers: yesOrNo,
+        },
+        receivedBenefitSanctions: {
+          question: 'Have they received any benefit sanctions in the last 6 months?',
+          answers: yesOrNo,
+        },
+        inEducationOrTraining: {
+          question: 'Is the applicant in education or receiving any training?',
+          answers: yesOrNo,
         },
       },
       identification: {
