@@ -5,4 +5,9 @@ export class ApplicationOriginPage extends BasePage {
     await this.checkRadio('Prison bail')
     await this.clickButton('Confirm')
   }
+
+  async chooseCourtBail() {
+    await this.checkRadio('Court bail')
+    await this.clickButton('Confirm')
+  }
 }

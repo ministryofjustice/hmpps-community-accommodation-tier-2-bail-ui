@@ -27,6 +27,14 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
+  bioUser: [
+    {
+      name: 'Cas-two bail Test-bio-user',
+      username: process.env.CAS2_BIO_USERNAME as string,
+      password: process.env.CAS2_BIO_PASSWORD as string,
+    },
+    { option: true },
+  ],
   lcaUser: [
     {
       name: 'Licence Case-admin',
