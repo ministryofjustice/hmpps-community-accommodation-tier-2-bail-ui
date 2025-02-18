@@ -449,7 +449,7 @@ export const getQuestions = (name: string) => {
       },
       identification: {
         idDocuments: {
-          question: `What identification documentation (ID) does ${name} have?`,
+          question: `What identity document (ID) does the applicant have?`,
           hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             passport: 'Passport',
@@ -457,8 +457,8 @@ export const getQuestions = (name: string) => {
             birthCertificate: 'Birth certificate',
             bankOrDebitCard: 'Bank account or debit card',
             bankStatements: 'Bank, building society or Post Office card account statements',
-            drivingLicence: 'UK photo driving licence',
-            wageSlip: 'Recent wage slip',
+            drivingLicence: 'UK photo driving licence (full or provisional)',
+            wageSlip: 'Recent wage slip (with payee name and NI number)',
             none: 'None of these options',
           },
         },

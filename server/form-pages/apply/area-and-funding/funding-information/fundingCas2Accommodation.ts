@@ -64,7 +64,7 @@ export default class FundingCas2Accommodation implements TaskListPage {
     if (this.body.fundingSource === 'personalSavings') {
       return ''
     }
-    return 'identification'
+    return 'applicant-id'
   }
 
   errors() {

@@ -18,11 +18,11 @@ export type IdentificationBody = {
 }
 
 @Page({
-  name: 'identification',
+  name: 'applicant-id',
   bodyProperties: ['idDocuments'],
 })
 export default class Identification implements TaskListPage {
-  documentTitle = 'What identification documentation (ID) does the person have?'
+  documentTitle = 'What identity document (ID) does the applicant have?'
 
   title
 
@@ -31,8 +31,6 @@ export default class Identification implements TaskListPage {
   questions
 
   body: IdentificationBody
-
-  guidanceHtml = `The applicant needs ID if they are applying for Universal Credit for financial support, and Housing Benefit to cover their rent.<br /><br />If they want to receive an advance payment of Universal Credit on the day of release, they will need a bank account and photo ID.`
 
   constructor(
     body: Partial<IdentificationBody>,
@@ -68,11 +66,6 @@ export default class Identification implements TaskListPage {
 
     items.forEach(item => {
       item.attributes = { 'data-selector': 'documents' }
-      if (item.value === 'wageSlip') {
-        item.hint = { text: 'With payee name and NI number' }
-      } else if (item.value === 'drivingLicence') {
-        item.hint = { text: 'Can be provisional' }
-      }
     })
 
     return [...items, { divider: 'or' }, { ...none }]

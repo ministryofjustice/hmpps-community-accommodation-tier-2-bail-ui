@@ -46,7 +46,7 @@ export default class AlternativeIdentification implements TaskListPage {
   }
 
   previous() {
-    return 'identification'
+    return 'applicant-id'
   }
 
   next() {

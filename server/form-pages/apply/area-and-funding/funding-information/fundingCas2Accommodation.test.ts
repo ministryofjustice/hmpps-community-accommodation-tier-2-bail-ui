@@ -39,7 +39,7 @@ describe('FundingCas2Accommodation', () => {
   })
 
   itShouldHaveNextValue(new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application), '')
-  itShouldHaveNextValue(new FundingCas2Accommodation({ fundingSource: 'benefits' }, application), 'identification')
+  itShouldHaveNextValue(new FundingCas2Accommodation({ fundingSource: 'benefits' }, application), 'applicant-id')
   itShouldHavePreviousValue(new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application), 'taskList')
 
   describe('errors', () => {

@@ -68,8 +68,7 @@ describe('Identification', () => {
             'data-selector': 'documents',
           },
           checked: false,
-          text: 'UK photo driving licence',
-          hint: { text: 'Can be provisional' },
+          text: 'UK photo driving licence (full or provisional)',
           value: 'drivingLicence',
         },
         {
@@ -77,8 +76,7 @@ describe('Identification', () => {
             'data-selector': 'documents',
           },
           checked: false,
-          text: 'Recent wage slip',
-          hint: { text: 'With payee name and NI number' },
+          text: 'Recent wage slip (with payee name and NI number)',
           value: 'wageSlip',
         },
         {
