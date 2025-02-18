@@ -318,4 +318,15 @@ export default class ApplicationsController {
       }
     }
   }
+
+  confirmSubmission() {
+    return async (req: Request, res: Response) => {
+      const { id } = req.params
+
+      res.render('applications/confirm-submission', {
+        pageHeading: 'Confirm application submission',
+        applicationId: id,
+      })
+    }
+  }
 }

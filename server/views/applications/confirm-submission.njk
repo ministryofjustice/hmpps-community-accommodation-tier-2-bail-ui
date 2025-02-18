@@ -1,0 +1,41 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+
+
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - " + pageHeading %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Are you sure you want to submit the application?</h1>
+      {{ govukInsetText({
+        html: "<p>Any incomplete or inaccurate information will cause delayes in processing the application.</p><p>Make sure you are happy with the information you have entered as you will not be able to make any changes after you submit it.</p>",
+        classes: "submission-guidance-panel"
+        }) }}
+          <form action="{{ paths.applications.submission({id: applicationId}) }}" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+              <div class="govuk-button-group">
+                {{
+                  govukButton({
+                    text: "Yes, I am sure",
+                    preventDoubleClick: true
+                  })
+                }}
+            </form>
+          <a href="{{ paths.applications.show({ id: applicationId }) }}" class="govuk-link">Go back to edit application</a>
+        </div>
+    </div>
+
+
+  </div>
+{% endblock %}

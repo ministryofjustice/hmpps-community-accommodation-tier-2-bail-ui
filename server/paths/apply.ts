@@ -23,6 +23,7 @@ const paths = {
     show: singleApplicationPath,
     overview: singleApplicationPath.path('overview'),
     submission: singleApplicationPath.path('submission'),
+    confirmSubmission: singleApplicationPath.path('confirm-submission'),
     pages: {
       show: pagesPath,
       update: pagesPath,

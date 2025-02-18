@@ -784,4 +784,21 @@ describe('applicationsController', () => {
       })
     })
   })
+
+  describe('confirmSubmission', () => {
+    it('renders the confirm submission template', async () => {
+      request.params = {
+        id: 'abc123',
+      }
+
+      const requestHandler = applicationsController.confirmSubmission()
+
+      await requestHandler(request, response)
+
+      expect(response.render).toHaveBeenCalledWith('applications/confirm-submission', {
+        pageHeading: 'Confirm application submission',
+        applicationId: 'abc123',
+      })
+    })
+  })
 })
