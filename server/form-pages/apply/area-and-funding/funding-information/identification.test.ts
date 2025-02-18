@@ -6,7 +6,7 @@ describe('Identification', () => {
   const application = applicationFactory.build({})
 
   itShouldHaveNextValue(new Identification({ idDocuments: ['none'] }, application), 'alternative-identification')
-  itShouldHaveNextValue(new Identification({ idDocuments: ['travelPass'] }, application), 'national-insurance')
+  itShouldHaveNextValue(new Identification({ idDocuments: ['travelPass'] }, application), '')
 
   itShouldHavePreviousValue(new Identification({}, application), 'funding-cas2-accommodation')
 

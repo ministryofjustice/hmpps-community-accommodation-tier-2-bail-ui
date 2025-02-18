@@ -50,7 +50,7 @@ export default class AlternativeIdentification implements TaskListPage {
   }
 
   next() {
-    return 'national-insurance'
+    return ''
   }
 
   errors() {

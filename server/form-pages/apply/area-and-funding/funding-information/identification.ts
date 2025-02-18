@@ -50,7 +50,7 @@ export default class Identification implements TaskListPage {
     if (this.body.idDocuments.includes('none')) {
       return 'alternative-identification'
     }
-    return 'national-insurance'
+    return ''
   }
 
   errors() {

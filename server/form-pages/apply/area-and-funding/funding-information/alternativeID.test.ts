@@ -5,7 +5,7 @@ import AlternativeIdentification, { AlternativeIdentificationBody } from './alte
 describe('AlternativeIdentification', () => {
   const application = applicationFactory.build({})
 
-  itShouldHaveNextValue(new AlternativeIdentification({}, application), 'national-insurance')
+  itShouldHaveNextValue(new AlternativeIdentification({}, application), '')
   itShouldHavePreviousValue(new AlternativeIdentification({}, application), 'identification')
 
   describe('errors', () => {
