@@ -46,7 +46,7 @@ export default class Identification implements TaskListPage {
 
   next() {
     if (this.body.idDocuments.includes('none')) {
-      return 'alternative-identification'
+      return 'alternative-applicant-id'
     }
     return ''
   }

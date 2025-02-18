@@ -465,7 +465,7 @@ export const getQuestions = (name: string) => {
       },
       'alternative-identification': {
         alternativeIDDocuments: {
-          question: `What alternative identification documentation (ID) does ${name} have?`,
+          question: 'What other identification document (ID) does the applicant have?',
           hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             contract: 'Employer letter/contract of employment',

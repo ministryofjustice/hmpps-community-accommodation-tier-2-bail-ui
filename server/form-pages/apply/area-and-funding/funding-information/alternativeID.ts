@@ -17,11 +17,11 @@ export type AlternativeIdentificationBody = {
 }
 
 @Page({
-  name: 'alternative-identification',
+  name: 'alternative-applicant-id',
   bodyProperties: ['alternativeIDDocuments', 'other'],
 })
 export default class AlternativeIdentification implements TaskListPage {
-  documentTitle = 'What alternative identification documentation (ID) does the person have?'
+  documentTitle = 'What other identification document (ID) does the applicant have?'
 
   title
 
@@ -30,8 +30,6 @@ export default class AlternativeIdentification implements TaskListPage {
   questions
 
   body: AlternativeIdentificationBody
-
-  guidanceHtml = `The applicant needs ID if they are applying for Universal Credit for financial support, and Housing Benefit to cover their rent.<br /><br />If they want to receive an advance payment of Universal Credit on the day of release, they will need a bank account and photo ID.`
 
   hintHtml = `<div id="alternativeIDDocuments-hint" class="govuk-hint">
               ${applicationQuestions.alternativeIDDocuments.hint}

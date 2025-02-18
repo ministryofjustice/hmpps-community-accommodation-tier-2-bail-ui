@@ -6,14 +6,15 @@ describe('AlternativeIdentification', () => {
   const application = applicationFactory.build({})
 
   itShouldHaveNextValue(new AlternativeIdentification({}, application), '')
-  itShouldHavePreviousValue(new AlternativeIdentification({}, application), 'identification')
+  itShouldHavePreviousValue(new AlternativeIdentification({}, application), 'applicant-id')
 
   describe('errors', () => {
     it('returns error if no document is selected', () => {
       const page = new AlternativeIdentification({}, application)
 
       expect(page.errors()).toEqual({
-        alternativeIDDocuments: "Select an ID document or 'Other type of identification'",
+        alternativeIDDocuments:
+          "Select other identity documents the applicant has, or select 'Other type of identification'",
       })
     })
 
