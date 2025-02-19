@@ -5,13 +5,13 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     describe('when fundingSource is personalSavings', () => {
       const applicationData = {
         'funding-information': {
-          'funding-source': {
+          'funding-cas2-accommodation': {
             fundingSource: 'personalSavings',
           },
-          identification: {
+          'applicant-id': {
             idDocuments: 'passport',
           },
-          'alternative-identification': {
+          'alternative-applicant-id': {
             alternativeIDDocuments: 'citizenCard',
           },
         },
@@ -20,8 +20,37 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       it('removes identification and alternative-identification data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'funding-information': {
-            'funding-source': {
+            'funding-cas2-accommodation': {
               fundingSource: 'personalSavings',
+            },
+          },
+        })
+      })
+    })
+
+    describe('when fundingSource is benefits and applicant ID is not "None"', () => {
+      const applicationData = {
+        'funding-information': {
+          'funding-cas2-accommodation': {
+            fundingSource: 'benefits',
+          },
+          'applicant-id': {
+            idDocuments: 'passport',
+          },
+          'alternative-applicant-id': {
+            alternativeIDDocuments: 'citizenCard',
+          },
+        },
+      }
+
+      it('removes alternative-identification data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'funding-information': {
+            'funding-cas2-accommodation': {
+              fundingSource: 'benefits',
+            },
+            'applicant-id': {
+              idDocuments: 'passport',
             },
           },
         })
