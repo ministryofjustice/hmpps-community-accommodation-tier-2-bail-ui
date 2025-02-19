@@ -3,7 +3,7 @@
 import { Task } from '../../../utils/decorators'
 import FundingCas2Accommodation from './fundingCas2Accommodation'
 import ApplicantID from './applicantID'
-import AlternativeIdentification from './alternativeID'
+import AlternativeIdentification from './alternativeApplicantID'
 
 @Task({
   name: 'Confirm funding and ID',

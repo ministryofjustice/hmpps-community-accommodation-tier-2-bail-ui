@@ -463,7 +463,7 @@ export const getQuestions = (name: string) => {
           },
         },
       },
-      'alternative-identification': {
+      'alternative-applicant-id': {
         alternativeIDDocuments: {
           question: 'What other identification document (ID) does the applicant have?',
           hint: 'Expired ID will be accepted. Select all that apply.',

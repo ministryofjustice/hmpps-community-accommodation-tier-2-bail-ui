@@ -7,7 +7,7 @@ import errorLookups from '../../../../i18n/en/errors.json'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
-const applicationQuestions = getQuestions('')['funding-information']['alternative-identification']
+const applicationQuestions = getQuestions('')['funding-information']['alternative-applicant-id']
 
 const alternativeIDOptions = applicationQuestions.alternativeIDDocuments.answers
 
@@ -39,7 +39,7 @@ export default class AlternativeIdentification implements TaskListPage {
     body: Partial<AlternativeIdentificationBody>,
     private readonly application: Application,
   ) {
-    this.questions = getQuestions(this.personName)['funding-information']['alternative-identification']
+    this.questions = getQuestions(this.personName)['funding-information']['alternative-applicant-id']
     this.title = this.questions.alternativeIDDocuments.question
   }
 

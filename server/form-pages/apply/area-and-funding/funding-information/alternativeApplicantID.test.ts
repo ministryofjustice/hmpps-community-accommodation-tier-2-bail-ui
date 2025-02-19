@@ -1,6 +1,6 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory } from '../../../../testutils/factories/index'
-import AlternativeIdentification, { AlternativeIdentificationBody } from './alternativeID'
+import AlternativeIdentification, { AlternativeIdentificationBody } from './alternativeApplicantID'
 
 describe('AlternativeIdentification', () => {
   const application = applicationFactory.build({})
