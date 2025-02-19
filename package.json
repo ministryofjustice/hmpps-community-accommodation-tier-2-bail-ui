@@ -131,7 +131,7 @@
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
-    "@jgoz/esbuild-plugin-typecheck": "^4.0.2",
+    "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
     "@pact-foundation/pact": "^13.2.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/bunyan": "^1.8.11",
