@@ -71,7 +71,10 @@
         items: [
           {
             value: 'yes',
-            text: 'Yes'
+            text: 'Yes',
+            attributes: {
+              "data-testid": "received-benefit-sanctions-radio-yes"
+            }
           },
           {
             value: 'no',
@@ -149,6 +152,9 @@
          {
            value: 'yes',
            text: 'Yes',
+           attributes: {
+             "data-testid": "receiving-benefits-radio-yes"
+           },
            conditional: {
              html: receivedBenefitSanctions
            }

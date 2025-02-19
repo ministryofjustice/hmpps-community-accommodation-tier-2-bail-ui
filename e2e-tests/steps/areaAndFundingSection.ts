@@ -1,25 +1,17 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeFundingInformationTask = async (page: Page, name: string) => {
+export const completeFundingInformationTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Confirm funding and ID')
 
-  const fundingInformationPage = await ApplyPage.initialize(
-    page,
-    `How will ${name} pay for their accommodation and service charge?`,
-  )
-  await fundingInformationPage.checkRadio('Personal money or wages', true)
+  const fundingInformationPage = await ApplyPage.initialize(page, 'Funding CAS-2 accommodation')
+  await fundingInformationPage.checkRadio('Personal savings, salary or pension', true)
+  await fundingInformationPage.checkRadioInGroup('Does the applicant have a National Insurance number?', 'Yes')
+  await fundingInformationPage.checkRadioByTestId('receiving-benefits-radio-yes')
+  await fundingInformationPage.checkRadioByTestId('received-benefit-sanctions-radio-yes')
+  await fundingInformationPage.checkRadioInGroup('Is the applicant in education or receiving any training?', 'No')
   await fundingInformationPage.clickSave()
-  await completeNationalInsurancePage(page, name)
-}
-
-async function completeNationalInsurancePage(page: Page, name: string) {
-  const willAnswerEqualityQuestionsPage = await ApplyPage.initialize(
-    page,
-    `What is ${name}'s National Insurance number? (Optional)`,
-  )
-  await willAnswerEqualityQuestionsPage.clickSave()
 }
 
 export const completeAreaInformationTask = async (page: Page, name: string) => {
