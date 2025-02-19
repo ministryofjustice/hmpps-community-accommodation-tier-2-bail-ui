@@ -447,7 +447,7 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
       },
-      identification: {
+      'applicant-id': {
         idDocuments: {
           question: `What identity document (ID) does the applicant have?`,
           hint: 'Expired ID will be accepted. Select all that apply.',

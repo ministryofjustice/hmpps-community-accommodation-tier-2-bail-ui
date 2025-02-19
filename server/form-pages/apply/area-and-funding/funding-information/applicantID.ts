@@ -9,11 +9,11 @@ import { getQuestions } from '../../../utils/questions'
 
 const applicationQuestions = getQuestions('')
 
-export const idDocumentOptions = applicationQuestions['funding-information'].identification.idDocuments.answers
+export const idDocumentOptions = applicationQuestions['funding-information']['applicant-id'].idDocuments.answers
 
 export type IDDocumentOptions = keyof typeof idDocumentOptions
 
-export type IdentificationBody = {
+export type ApplicantIDBody = {
   idDocuments: Array<IDDocumentOptions>
 }
 
@@ -21,7 +21,7 @@ export type IdentificationBody = {
   name: 'applicant-id',
   bodyProperties: ['idDocuments'],
 })
-export default class Identification implements TaskListPage {
+export default class ApplicantID implements TaskListPage {
   documentTitle = 'What identity document (ID) does the applicant have?'
 
   title
@@ -30,13 +30,13 @@ export default class Identification implements TaskListPage {
 
   questions
 
-  body: IdentificationBody
+  body: ApplicantIDBody
 
   constructor(
-    body: Partial<IdentificationBody>,
+    body: Partial<ApplicantIDBody>,
     private readonly application: Application,
   ) {
-    this.questions = getQuestions(this.personName)['funding-information'].identification.idDocuments
+    this.questions = getQuestions(this.personName)['funding-information']['applicant-id'].idDocuments
     this.title = this.questions.question
   }
 
