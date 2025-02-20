@@ -81,4 +81,8 @@ export default abstract class Page {
 
     cy.task('logAccessibilityViolationsTable', violationData)
   }
+
+  clickLink(label: string): void {
+    cy.get('a:visible').contains(label).click()
+  }
 }

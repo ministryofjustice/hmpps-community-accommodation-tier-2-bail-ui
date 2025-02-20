@@ -104,7 +104,9 @@ export const completeCheckAnswersSection = async (page: Page, name: string) => {
 }
 
 export const submitApplication = async (page: Page) => {
-  await page.getByRole('button', { name: 'Submit application' }).click()
+  await page.getByRole('link', { name: 'Submit application' }).click()
+  await expect(page.locator('h1')).toContainText('Are you sure you want to submit the application?')
+  await page.getByRole('button', { name: 'Yes, I am sure' }).click()
   await expect(page.locator('h1')).toContainText('Application complete')
 }
 

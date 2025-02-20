@@ -99,5 +99,9 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     auditEvent: 'CANCEL_APPLICATION_AS_REFERRER',
   })
 
+  get(paths.applications.confirmSubmission.pattern, applicationsController.confirmSubmission(), {
+    auditEvent: 'CONFIRM_APPLICATION_SUBMISSION',
+  })
+
   return router
 }

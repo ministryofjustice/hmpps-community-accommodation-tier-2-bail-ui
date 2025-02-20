@@ -40,20 +40,11 @@
     </div>
 
     <div class="govuk-grid-column-three-quarters">
-      <form action="{{ paths.applications.submission({id: application.id}) }}" method="post">
         <ol class="govuk-task-list">
           {% include '../partials/taskListItems.njk' %}
-
           <li>
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-
             {% if taskList.status === 'complete' %}
-              {{
-                  govukButton({
-                    text: "Submit application",
-                    preventDoubleClick: true
-                  })
-                }}
+            <a class="govuk-button" href="{{ paths.applications.confirmSubmission({ id: application.id }) }}">Submit application</a>
             {% else %}
               <p>Complete all tasks and check answers before submitting.</p>
               <div class="govuk-button-group">
@@ -73,7 +64,6 @@
             </div>
           </li>
         </ol>
-      </form>
     </div>
   </div>
 {% endblock %}

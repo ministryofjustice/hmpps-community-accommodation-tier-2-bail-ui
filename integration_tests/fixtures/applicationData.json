@@ -53,6 +53,12 @@
     }
   },
   "solicitor-details": {
+    "has-solicitor": {
+      "hasSolicitor": "yes"
+    },
+    "consult-solicitor": {
+      "consultSolicitor": "yes"
+    },
     "contact-information": {
       "name": "Jay Legal",
       "legalFirmAndAddress": "Legal Firm, 1 Winchester Road, X14 3UF",
@@ -266,12 +272,10 @@
       "probationSupervision": "yes"
     },
     "cpp-details": {
-      "cppDetails": {
         "name": "A. CPP",
         "probationRegion": "some region",
         "email": "cpp@moj.gov.uk",
         "telephone": "012345"
-      }
     },
     "current-offence-data": [
       {
@@ -338,6 +342,32 @@
       }
     ],
     "offence-history": {}
+  },
+  "bail-conditions-and-support-sessions": {
+    "non-standard-bail-conditions": {
+      "nonStandardBailConditions": "yes",
+      "nonStandardBailConditionsDetail": "some non standard condition"
+    },
+    "mandatory-support-sessions": {
+      "mandatorySupportSessions": "yes",
+      "mandatorySupportSessionsDetail": "2 sessions per week"
+    }
+  },
+  "bail-hearing-information": {
+    "bail-hearing-arranger": {
+      "bailHearingArranger": "solicitor"
+    },
+    "bail-hearing-date": {
+      "bailHearingDate-year": "2025",
+      "bailHearingDate-month": "2",
+      "bailHearingDate-day": "2"
+    },
+    "court-name": {
+      "courtName": "Chelmsford Supreme Court"
+    },
+    "bail-hearing-medium": {
+      "bailHearingMedium": "videoLink"
+    }
   },
   "check-your-answers": {
     "check-your-answers": {
