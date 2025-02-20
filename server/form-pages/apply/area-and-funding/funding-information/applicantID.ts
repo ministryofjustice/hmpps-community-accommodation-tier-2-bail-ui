@@ -9,20 +9,20 @@ import { getQuestions } from '../../../utils/questions'
 
 const applicationQuestions = getQuestions('')
 
-export const idDocumentOptions = applicationQuestions['funding-information'].identification.idDocuments.answers
+export const idDocumentOptions = applicationQuestions['funding-information']['applicant-id'].idDocuments.answers
 
 export type IDDocumentOptions = keyof typeof idDocumentOptions
 
-export type IdentificationBody = {
+export type ApplicantIDBody = {
   idDocuments: Array<IDDocumentOptions>
 }
 
 @Page({
-  name: 'identification',
+  name: 'applicant-id',
   bodyProperties: ['idDocuments'],
 })
-export default class Identification implements TaskListPage {
-  documentTitle = 'What identification documentation (ID) does the person have?'
+export default class ApplicantID implements TaskListPage {
+  documentTitle = 'What identity document (ID) does the applicant have?'
 
   title
 
@@ -30,27 +30,25 @@ export default class Identification implements TaskListPage {
 
   questions
 
-  body: IdentificationBody
-
-  guidanceHtml = `The applicant needs ID if they are applying for Universal Credit for financial support, and Housing Benefit to cover their rent.<br /><br />If they want to receive an advance payment of Universal Credit on the day of release, they will need a bank account and photo ID.`
+  body: ApplicantIDBody
 
   constructor(
-    body: Partial<IdentificationBody>,
+    body: Partial<ApplicantIDBody>,
     private readonly application: Application,
   ) {
-    this.questions = getQuestions(this.personName)['funding-information'].identification.idDocuments
+    this.questions = getQuestions(this.personName)['funding-information']['applicant-id'].idDocuments
     this.title = this.questions.question
   }
 
   previous() {
-    return 'funding-source'
+    return 'funding-cas2-accommodation'
   }
 
   next() {
     if (this.body.idDocuments.includes('none')) {
-      return 'alternative-identification'
+      return 'alternative-applicant-id'
     }
-    return 'national-insurance'
+    return ''
   }
 
   errors() {
@@ -68,11 +66,6 @@ export default class Identification implements TaskListPage {
 
     items.forEach(item => {
       item.attributes = { 'data-selector': 'documents' }
-      if (item.value === 'wageSlip') {
-        item.hint = { text: 'With payee name and NI number' }
-      } else if (item.value === 'drivingLicence') {
-        item.hint = { text: 'Can be provisional' }
-      }
     })
 
     return [...items, { divider: 'or' }, { ...none }]

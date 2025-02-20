@@ -4,42 +4,48 @@
 {% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
 
 {% block questions %}
+  {% set otherID %}
+  {{  
+    formPageInput(
+      {
+        label: { text: page.questions.other.question, classes: "govuk-label--s"},
+        classes: "govuk-input",
+        fieldName: "other"
+      },
+      fetchContext()
+    )
+  }}
+  {% endset -%}
 
   {{ 
     formPageCheckboxes(
         {
-          fieldName: "idDocuments",
-          hint: {
-            text: page.questions.hint
-          },
+          fieldName: "alternativeIDDocuments",
           fieldset: {
             legend: {
-              text: page.questions.question,
+              text: page.title,
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
-          items: page.items()
+          hint: {
+            html: page.hintHtml
+          },
+          classes: "alternative-id-documents",
+          items: page.items(otherID)
         }, 
         fetchContext()
     ) 
   }}
 
-  {{ govukDetails({
-    summaryText: "Why we need ID",
-    html: page.guidanceHtml
-  }) }}
-
 {% endblock %}
 
 {% block extraScripts %}
   <script type="text/javascript" nonce="{{ cspNonce }}">
-    function setCheckedToFalseByIds(ids) {
-      ids.forEach(id => {
-        document
-          .getElementById(id)
-          .checked = false;
-      })
+    function setCheckedToFalseById(id) {
+      document
+        .getElementById(id)
+        .checked = false;
     }
 
     function clearValueByIds(ids) {
@@ -53,23 +59,17 @@
     document.addEventListener('DOMContentLoaded', function () {
       // 'no' checkbox sets the others to unchecked
       document
-        .getElementById('idDocuments-9')
+        .getElementById('alternativeIDDocuments-35')
         .addEventListener('click', () => {
-          setCheckedToFalseByIds([
-            'idDocuments',
-            'idDocuments-2',
-            'idDocuments-3',
-            'idDocuments-4',
-            'idDocuments-5',
-            'idDocuments-6',
-            'idDocuments-7'
-          ])
+          document
+            .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-35)')
+            .forEach(checkbox => checkbox.checked = false)
         });
       // clicking any arrangement checkbox sets 'no' to unchecked
       document
-        .querySelectorAll("[data-selector='documents']")
+        .querySelectorAll('.govuk-checkboxes__input:not(#alternativeIDDocuments-35)')
         .forEach(checkbox => {
-          checkbox.addEventListener('click', () => setCheckedToFalseByIds(['idDocuments-9']));
+          checkbox.addEventListener('click', () => setCheckedToFalseById('alternativeIDDocuments-35'));
         })
     });
   </script>

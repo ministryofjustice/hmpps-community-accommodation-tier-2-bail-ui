@@ -410,25 +410,46 @@ export const getQuestions = (name: string) => {
       },
     },
     'funding-information': {
-      'funding-source': {
+      'funding-cas2-accommodation': {
         fundingSource: {
-          question: `How will ${name} pay for their accommodation and service charge?`,
-          hint: 'Applicants must pay for a weekly service charge using their personal money or wages. This service charge is not eligible to be covered by Housing Benefit.',
+          question: `How will the applicant pay for their accommodation and the service charge?`,
           answers: {
-            personalSavings: 'Personal money or wages',
-            benefits: 'Housing Benefit and personal money or wages',
+            benefits: 'Housing Benefit',
+            personalSavings: 'Personal savings, salary or pension',
           },
         },
-      },
-      'national-insurance': {
+        fundingSourceDetail: {
+          question: 'Enter details (optional)',
+        },
+        hasNationalInsuranceNumber: {
+          question: 'Does the applicant have a National Insurance number?',
+          answers: {
+            yes: 'Yes',
+            no: 'No, they do not have one',
+            dontKnow: "They have one but they don't know the number",
+          },
+        },
         nationalInsuranceNumber: {
-          question: `What is ${name}'s National Insurance number? (Optional)`,
-          hint: 'We need this to set up a Universal Credit and Housing Benefit claim if required.',
+          question: 'Enter the number (optional)',
+          hint: 'For example, SF123456X',
+        },
+        receivingBenefits: {
+          question: 'Is the applicant currently receiving benefits?',
+          hint: 'For example, Universal Credit, Personal Independence Payments or Employment & Support Allowance',
+          answers: yesOrNo,
+        },
+        receivedBenefitSanctions: {
+          question: 'Have they received any benefit sanctions in the last 6 months?',
+          answers: yesOrNo,
+        },
+        inEducationOrTraining: {
+          question: 'Is the applicant in education or receiving any training?',
+          answers: yesOrNo,
         },
       },
-      identification: {
+      'applicant-id': {
         idDocuments: {
-          question: `What identification documentation (ID) does ${name} have?`,
+          question: `What identity document (ID) does the applicant have?`,
           hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             passport: 'Passport',
@@ -436,15 +457,15 @@ export const getQuestions = (name: string) => {
             birthCertificate: 'Birth certificate',
             bankOrDebitCard: 'Bank account or debit card',
             bankStatements: 'Bank, building society or Post Office card account statements',
-            drivingLicence: 'UK photo driving licence',
-            wageSlip: 'Recent wage slip',
+            drivingLicence: 'UK photo driving licence (full or provisional)',
+            wageSlip: 'Recent wage slip (with payee name and NI number)',
             none: 'None of these options',
           },
         },
       },
-      'alternative-identification': {
+      'alternative-applicant-id': {
         alternativeIDDocuments: {
-          question: `What alternative identification documentation (ID) does ${name} have?`,
+          question: 'What other identification document (ID) does the applicant have?',
           hint: 'Expired ID will be accepted. Select all that apply.',
           answers: {
             contract: 'Employer letter/contract of employment',

@@ -1,18 +1,18 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory } from '../../../../testutils/factories/index'
-import Identification from './identification'
+import ApplicantID from './applicantID'
 
 describe('Identification', () => {
   const application = applicationFactory.build({})
 
-  itShouldHaveNextValue(new Identification({ idDocuments: ['none'] }, application), 'alternative-identification')
-  itShouldHaveNextValue(new Identification({ idDocuments: ['travelPass'] }, application), 'national-insurance')
+  itShouldHaveNextValue(new ApplicantID({ idDocuments: ['none'] }, application), 'alternative-applicant-id')
+  itShouldHaveNextValue(new ApplicantID({ idDocuments: ['travelPass'] }, application), '')
 
-  itShouldHavePreviousValue(new Identification({}, application), 'funding-source')
+  itShouldHavePreviousValue(new ApplicantID({}, application), 'funding-cas2-accommodation')
 
   describe('errors', () => {
     it('returns error if no document is selected', () => {
-      const page = new Identification({}, application)
+      const page = new ApplicantID({}, application)
 
       expect(page.errors()).toEqual({ idDocuments: "Select an ID document or 'None of these options'" })
     })
@@ -20,7 +20,7 @@ describe('Identification', () => {
 
   describe('items', () => {
     it('returns items as expected', () => {
-      const page = new Identification({}, application)
+      const page = new ApplicantID({}, application)
 
       const expected = [
         {
@@ -68,8 +68,7 @@ describe('Identification', () => {
             'data-selector': 'documents',
           },
           checked: false,
-          text: 'UK photo driving licence',
-          hint: { text: 'Can be provisional' },
+          text: 'UK photo driving licence (full or provisional)',
           value: 'drivingLicence',
         },
         {
@@ -77,8 +76,7 @@ describe('Identification', () => {
             'data-selector': 'documents',
           },
           checked: false,
-          text: 'Recent wage slip',
-          hint: { text: 'With payee name and NI number' },
+          text: 'Recent wage slip (with payee name and NI number)',
           value: 'wageSlip',
         },
         {

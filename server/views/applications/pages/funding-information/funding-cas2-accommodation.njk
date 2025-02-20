@@ -1,0 +1,200 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "../../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+
+{% extends "../layout.njk" %}
+
+{% block beforeContent %}
+  {{ super() }}
+
+  <h1 class="govuk-heading-l govuk-!-margin-top-7">Funding CAS-2 accommodation</h1>
+
+  {% call govukInsetText({
+    classes: "govuk-!-width-one-half govuk-!-margin-0 submission-guidance-panel"
+  }) %}
+    <h2 class="govuk-heading-s govuk-!-margin-0">Applicants claiming Housing Benefit:</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>must pay for a weekly service charge using their personal money or wages</li>
+      <li>will need their National Insurance (NI) number and an identity document (ID) to set up a claim to cover their rent</li>
+    </ul>
+    <h2 class="govuk-heading-s govuk-!-margin-0">Applicants using personal money or wages:</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>will need to provide proof of personal funds to show they can afford the accommodation and service charge</li>
+      <li>may be eligible for help with rent payments if they are in employment</li>
+    </ul>
+  {% endcall %}
+{% endblock %}
+
+{% set fundingSourceDetail %}
+  {{
+    formPageTextArea(
+      {
+        fieldName: 'fundingSourceDetail',
+        label: {
+          text: page.questions.fundingSourceDetail.question
+        }
+      },
+      fetchContext()
+    )
+  }}
+{% endset %}
+
+{% set nationalInsuranceNumber %}
+  {{
+    formPageInput(
+      {
+        fieldName: 'nationalInsuranceNumber',
+        classes: "govuk-input--width-10",
+        hint: {
+          text: page.questions.nationalInsuranceNumber.hint
+        },
+        label: {
+          text: page.questions.nationalInsuranceNumber.question
+        }
+      },
+      fetchContext()
+    )
+  }}
+{% endset %}
+
+{% set receivedBenefitSanctions %}
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.receivedBenefitSanctions.question
+          }
+        },
+        fieldName: 'receivedBenefitSanctions',
+        items: [
+          {
+            value: 'yes',
+            text: 'Yes',
+            attributes: {
+              "data-testid": "received-benefit-sanctions-radio-yes"
+            }
+          },
+          {
+            value: 'no',
+            text: 'No'
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endset %}
+
+{% block questions %}
+  {{
+    formPageRadios(
+      {
+       fieldset: {
+          legend: {
+            text: page.questions.fundingSource.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "fundingSource",
+        items: [
+          {
+            value: "benefits",
+            text: page.questions.fundingSource.answers.benefits
+          },
+          {
+            value: "personalSavings",
+            text: page.questions.fundingSource.answers.personalSavings,
+            conditional: {
+              html: fundingSourceDetail
+            }
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+       fieldset: {
+          legend: {
+            text: page.questions.hasNationalInsuranceNumber.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "hasNationalInsuranceNumber",
+        items: page.items(nationalInsuranceNumber)
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+       fieldset: {
+          legend: {
+            text: page.questions.receivingBenefits.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+       },
+       fieldName: 'receivingBenefits',
+       hint: {
+         text: page.questions.receivingBenefits.hint
+       },
+       label: {
+         text: page.questions.receivingBenefits.question
+       },
+       items: [
+         {
+           value: 'yes',
+           text: 'Yes',
+           attributes: {
+             "data-testid": "receiving-benefits-radio-yes"
+           },
+           conditional: {
+             html: receivedBenefitSanctions
+           }
+         },
+         {
+           value: 'no',
+           text: 'No'
+         }
+       ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+       fieldset: {
+          legend: {
+            text: page.questions.inEducationOrTraining.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+       },
+       fieldName: 'inEducationOrTraining',
+       label: {
+         text: page.questions.inEducationOrTraining.question
+       },
+       items: [
+         {
+           value: 'yes',
+           text: 'Yes'
+         },
+         {
+           value: 'no',
+           text: 'No'
+         }
+       ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

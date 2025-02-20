@@ -279,13 +279,13 @@ describe('ApplicationService', () => {
           },
           body: { fundingSource: 'personalSavings' },
         })
-        ;(getPageName as jest.Mock).mockImplementation(() => 'funding-source')
+        ;(getPageName as jest.Mock).mockImplementation(() => 'funding-cas2-accommodation')
         ;(getTaskName as jest.Mock).mockImplementation(() => 'funding-information')
 
         application.data = {
           'funding-information': {
-            identification: { question: 'answer' },
-            'alternative-identification': { question: 'answer' },
+            'applicant-id': { question: 'answer' },
+            'alternative-applicant-id': { question: 'answer' },
           },
         }
 
@@ -295,7 +295,7 @@ describe('ApplicationService', () => {
         expect(getApplicationUpdateData).toHaveBeenCalledWith({
           ...application,
           data: {
-            'funding-information': { 'funding-source': { fundingSource: 'personalSavings' } },
+            'funding-information': { 'funding-cas2-accommodation': { fundingSource: 'personalSavings' } },
           },
         })
       })

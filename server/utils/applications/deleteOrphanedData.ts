@@ -4,8 +4,12 @@ import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-infor
 
 export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
   const deleteOrphanedFundingInformation = () => {
-    delete applicationData['funding-information'].identification
-    delete applicationData['funding-information']['alternative-identification']
+    delete applicationData['funding-information']['applicant-id']
+    delete applicationData['funding-information']['alternative-applicant-id']
+  }
+
+  const deleteOrphanedFundingAlternativeIdInformation = () => {
+    delete applicationData['funding-information']['alternative-applicant-id']
   }
 
   const deleteOrphanedEqualityInformation = () => {
@@ -51,12 +55,19 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   if (
     hasOrphanedInformation({
       taskName: 'funding-information',
-      pageName: 'funding-source',
+      pageName: 'funding-cas2-accommodation',
       questionKey: 'fundingSource',
       answerToCheck: 'personalSavings',
     })
   ) {
     deleteOrphanedFundingInformation()
+  }
+
+  if (
+    applicationData['funding-information']?.['funding-cas2-accommodation']?.fundingSource === 'benefits' &&
+    applicationData['funding-information']?.['applicant-id']?.idDocuments !== 'none'
+  ) {
+    deleteOrphanedFundingAlternativeIdInformation()
   }
 
   if (

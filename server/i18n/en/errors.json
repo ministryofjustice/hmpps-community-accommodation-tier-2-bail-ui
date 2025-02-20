@@ -57,7 +57,7 @@
     "empty": "Select an ID document or 'None of these options'"
   },
   "alternativeIDDocuments": {
-    "empty": "Select an ID document or 'Other type of identification'",
+    "empty": "Select other identity documents the applicant has, or select 'Other type of identification'",
     "other": "Enter the other type of ID"
   },
   "hasPreviousAddress": {

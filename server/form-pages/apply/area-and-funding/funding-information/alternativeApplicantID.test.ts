@@ -1,19 +1,20 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory } from '../../../../testutils/factories/index'
-import AlternativeIdentification, { AlternativeIdentificationBody } from './alternativeID'
+import AlternativeIdentification, { AlternativeIdentificationBody } from './alternativeApplicantID'
 
 describe('AlternativeIdentification', () => {
   const application = applicationFactory.build({})
 
-  itShouldHaveNextValue(new AlternativeIdentification({}, application), 'national-insurance')
-  itShouldHavePreviousValue(new AlternativeIdentification({}, application), 'identification')
+  itShouldHaveNextValue(new AlternativeIdentification({}, application), '')
+  itShouldHavePreviousValue(new AlternativeIdentification({}, application), 'applicant-id')
 
   describe('errors', () => {
     it('returns error if no document is selected', () => {
       const page = new AlternativeIdentification({}, application)
 
       expect(page.errors()).toEqual({
-        alternativeIDDocuments: "Select an ID document or 'Other type of identification'",
+        alternativeIDDocuments:
+          "Select other identity documents the applicant has, or select 'Other type of identification'",
       })
     })
 
