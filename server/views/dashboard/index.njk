@@ -16,7 +16,7 @@
           <h2 class="govuk-heading-s">
             <a class="govuk-link" href="{{ section.href }}">{{ section.title }}</a>
           </h2>
-          <p class="govuk-body">{{ section.description }}</p>
+          {{ section.description | safe }}
         </div>
       </div>
     {% endfor %}
