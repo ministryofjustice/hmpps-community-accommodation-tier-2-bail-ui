@@ -16,9 +16,10 @@
       flex-basis: 100%;
       flex-grow: 0;
       margin-bottom: 2em;
+      font-size: 1rem;
     }
   
-    @include govuk-media-query($from: tablet, $until: desktop, $media-type: screen) {
+    @include govuk-media-query($from: tablet, $until: 850px, $media-type: screen) {
       .card {
         flex-basis: 48%;
   
@@ -31,8 +32,15 @@
         }
       }
     }
+
+      
+    @include govuk-media-query($from: 1120px, $media-type: screen) {
+      .card {
+        font-size: 1.1875rem;
+      }
+    }
   
-    @include govuk-media-query($from: desktop, $media-type: screen) {
+    @include govuk-media-query($from: 850px, $media-type: screen) {
       .card {
         flex-basis: 31%;
   
