@@ -6,6 +6,6 @@ export class DashboardPage extends BasePage {
   }
 
   async makeNewApplication() {
-    await this.page.getByText('Start a new CAS-2 Bail application').click()
+    await this.page.getByText('Start a new application').click()
   }
 }
