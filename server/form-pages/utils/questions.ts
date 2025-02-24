@@ -81,12 +81,6 @@ export const getQuestions = (name: string) => {
           question: "Add solicitor's contact information",
         },
       },
-      'consult-solicitor': {
-        consultSolicitor: {
-          question: `Have you spoken to ${name}'s solicitor about this application?`,
-          answers: yesOrNo,
-        },
-      },
     },
     'personal-information': {
       'working-mobile-phone': {
