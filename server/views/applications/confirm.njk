@@ -12,31 +12,29 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             {{ govukPanel({
-                titleText: "Application complete"
+                titleText: "Application submitted",
+                html: "<h2 class='govuk-!-font-size-36'>Application number: 
+                    <span class='govuk-!-font-weight-regular'>" + application.id + "</span></h2>
+                    <h2 class='govuk-!-font-size-36'>Applicant name: 
+                    <span class='govuk-!-font-weight-regular'>" + application.person.name + "</span></h2>"
             }) }}
 
-            <ul class="govuk-list govuk-list--spaced">
-                <li>
-                    <span class="govuk-!-font-weight-bold">Application ID: </span>{{ application.id }}</li>
-                <li>
-                    <span class="govuk-!-font-weight-bold">Applicant name: </span>{{ application.person.name }}</li>
-                <li>
-                    <span class="govuk-!-font-weight-bold">Prison number: </span>{{ application.person.nomsNumber }}</li>
-            </ul>
+            <p>Thank you for submitting the application. It is now with the Nacro Referral and Contact Centre.</p>
 
             <h2>What happens next</h2>
 
-            <p>This application has been sent to the CAS-2 team for review.</p>
-            <p>The CAS-2 team will make an assessment and decide whether to offer a placement.</p>
-            <p>You may need to provide more information if the CAS-2 team does not have everything they need to make an asessment.</p>
-            <p><a class="govuk-link" rel="noreferrer noopener" target="_blank" href="{{ PhaseBannerUtils.feedbackSurveyUrl }}">Share your feedback for this service</a> (opens in new tab) to help us improve it.</p>
+            <ol>
+                <li>An assessor will check the application for completeness.</li>
+                <li>They might get in touch with you for more clarity on some of the answers provided.</li>
+                <li>Once you provide the requested information, the assessor will make a decision on the application within one hour. In some cases, it may take longer.</li>
+                <li>You'll receive an email confirming the decision.</li>
+                <li>You can also check the status of the application on your dashboard.</li>
+            </ol>
 
-            {{ govukButton({
-                text: "Start new application",
-                href: '/'
-                })
-            }}
-
+            <h3>If the application is rejected</h3>
+            <p>The applicant can appeal the decision. You'll need to contact the assessor to start the appeal process. Once you appeal, you'll receive a decision within 10 working days.</p>
+        
+            <a href="{{paths.applications.index()}}">Return to applications dashboard</a>
         </div>
     </div>
 {% endblock %}

@@ -74,7 +74,6 @@ context('Confirm submission page', () => {
     //  Then I see the submission confirmation page
     const applicationSubmittedPage = Page.verifyOnPage(ApplicationSubmittedPage, this.application)
     applicationSubmittedPage.shouldShowApplicationDetails()
-    applicationSubmittedPage.shouldShowLinkToFeedbackSurvey()
   })
 
   //  Scenario: return to task list
