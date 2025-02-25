@@ -23,7 +23,7 @@ describe('LiaisonAndDiversion', () => {
     })
   })
 
-  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'substance-misuse')
+  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'independent-living')
   itShouldHavePreviousValue(new LiaisonAndDiversion({}, application), 'taskList')
 
   describe('errors', () => {
