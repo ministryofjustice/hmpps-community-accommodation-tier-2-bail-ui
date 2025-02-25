@@ -75,4 +75,30 @@ describe('FundingCas2Accommodation', () => {
       })
     })
   })
+
+  describe('onSave', () => {
+    it('should remove conditional answers if the answers are no longer relevant', () => {
+      const page = new FundingCas2Accommodation(
+        {
+          fundingSource: 'benefits',
+          fundingSourceDetail: 'Funding source details',
+          hasNationalInsuranceNumber: 'no',
+          nationalInsuranceNumber: 'SF123456X',
+          receivingBenefits: 'no',
+          receivedBenefitSanctions: 'yes',
+          inEducationOrTraining: 'yes',
+        },
+        application,
+      )
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        fundingSource: 'benefits',
+        hasNationalInsuranceNumber: 'no',
+        receivingBenefits: 'no',
+        inEducationOrTraining: 'yes',
+      })
+    })
+  })
 })

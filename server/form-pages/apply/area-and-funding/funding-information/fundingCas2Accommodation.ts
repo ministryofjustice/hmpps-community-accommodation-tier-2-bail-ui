@@ -97,4 +97,16 @@ export default class FundingCas2Accommodation implements TaskListPage {
 
     return [{ ...yes, conditional: { html: conditionalHtml } }, ...items, { ...dontKnow }]
   }
+
+  onSave() {
+    if (this.body.fundingSource === 'benefits') {
+      delete this.body.fundingSourceDetail
+    }
+    if (this.body.hasNationalInsuranceNumber === 'no') {
+      delete this.body.nationalInsuranceNumber
+    }
+    if (this.body.receivingBenefits === 'no') {
+      delete this.body.receivedBenefitSanctions
+    }
+  }
 }
