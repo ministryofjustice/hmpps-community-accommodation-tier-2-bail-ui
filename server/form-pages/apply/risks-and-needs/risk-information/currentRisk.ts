@@ -18,7 +18,7 @@ export default class CurrentRisk implements TaskListPage {
 
   title = `${this.personName}'s current risks`
 
-  questions = getQuestions(this.personName)['risk-to-self']['current-risk']
+  questions = getQuestions(this.personName)['risk-information']['current-risk']
 
   body: CurrentRiskBody
 

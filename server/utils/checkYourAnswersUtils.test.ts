@@ -464,7 +464,7 @@ describe('checkYourAnswersUtils', () => {
         acctDetails: 'ACCT details\nsome more details on another line',
       }
 
-      expect(getAnswer(application, questions, 'risk-to-self', 'acct-data', '0')).toEqual(expected)
+      expect(getAnswer(application, questions, 'risk-information', 'acct-data', '0')).toEqual(expected)
     })
 
     it('returns the answer string by default', () => {
@@ -519,8 +519,8 @@ describe('checkYourAnswersUtils', () => {
   })
 
   describe('getKeysForPages', () => {
-    it('returns an array of page keys for risk to self', () => {
-      expect(getKeysForPages(application, 'risk-to-self')).toEqual([
+    it('returns an array of page keys for risk information', () => {
+      expect(getKeysForPages(application, 'risk-information')).toEqual([
         'current-risk',
         'vulnerability',
         'historical-risk',

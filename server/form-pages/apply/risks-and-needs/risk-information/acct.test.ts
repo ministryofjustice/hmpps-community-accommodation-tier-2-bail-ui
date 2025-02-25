@@ -19,7 +19,7 @@ describe('Acct', () => {
         const applicationWithData = applicationFactory.build({
           person: personFactory.build({ name: 'Roger Smith' }),
           data: {
-            'risk-to-self': {
+            'risk-information': {
               'acct-data': [
                 {
                   referringInstitution: 'institution',
@@ -53,7 +53,7 @@ describe('Acct', () => {
             acctDetails: 'detail info',
             closedDate: '10 October 2013',
             createdDate: '1 February 2012',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/0/removeFromList?redirectPage=acct`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/acct-data/0/removeFromList?redirectPage=acct`,
             title: '1 February 2012 - 10 October 2013',
           },
           {
@@ -61,7 +61,7 @@ describe('Acct', () => {
             acctDetails: 'detail info 2',
             closedDate: false,
             createdDate: '2 March 2012',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-to-self/pages/acct-data/1/removeFromList?redirectPage=acct`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/acct-data/1/removeFromList?redirectPage=acct`,
             title: '2 March 2012 - Ongoing',
           },
         ])

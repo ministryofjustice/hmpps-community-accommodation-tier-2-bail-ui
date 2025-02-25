@@ -16,19 +16,19 @@
       {{ mojSideNavigation({
           items: [{
             text: 'Vulnerability',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'vulnerability' }),
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'vulnerability' }),
             active: (pageName === 'vulnerability')
           }, {
             text: 'Current risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'current-risk' }),
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'current-risk' }),
             active: (pageName === 'current-risk')
           }, {
             text: 'Historical risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'historical-risk' }),
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'historical-risk' }),
             active: (pageName === 'historical-risk')
           }, {
             text: 'ACCT',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-to-self', page: 'acct' }),
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }),
             active: (pageName === 'acct')
           }]
         }) }}
