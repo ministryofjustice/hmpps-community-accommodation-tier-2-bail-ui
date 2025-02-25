@@ -15,21 +15,29 @@
     <div class="govuk-grid-column-one-third">
       {{ mojSideNavigation({
           items: [{
-            text: 'Vulnerability',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'vulnerability' }),
-            active: (pageName === 'vulnerability')
+            text: 'Add information about concerns',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'concerns' }),
+            active: (pageName === 'concerns')
           }, {
-            text: 'Current risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'current-risk' }),
-            active: (pageName === 'current-risk')
-          }, {
-            text: 'Historical risk',
-            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'historical-risk' }),
-            active: (pageName === 'historical-risk')
+            text: 'Self-harm and suicide',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'self-harm' }),
+            active: (pageName === 'self-harm')
           }, {
             text: 'ACCT',
             href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }),
             active: (pageName === 'acct')
+          }, {
+            text: 'Violence and arson',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'violence-and-arson' }),
+            active: (pageName === 'violence-and-arson')
+          }, {
+            text: 'Risks to staff',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'risks-to-staff' }),
+            active: (pageName === 'risks-to-staff')
+          }, {
+            text: 'Additional concerns',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'additional-concerns' }),
+            active: (pageName === 'additional-concerns')
           }]
         }) }}
     </div>
