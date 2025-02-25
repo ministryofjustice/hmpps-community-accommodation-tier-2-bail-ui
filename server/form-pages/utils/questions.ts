@@ -663,6 +663,7 @@ export const getQuestions = (name: string) => {
     },
     'risk-information': {
       concerns: {},
+      'self-harm': {},
       vulnerability: {
         vulnerabilityDetail: {
           question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
