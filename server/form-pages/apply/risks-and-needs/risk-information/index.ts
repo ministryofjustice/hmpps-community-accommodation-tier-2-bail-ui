@@ -9,8 +9,8 @@ import HistoricalRisk from './historicalRisk'
 import Vulnerability from './vulnerability'
 
 @Task({
-  name: 'Add risk to self information',
-  slug: 'risk-to-self',
+  name: 'Add information about risks to the applicant and others',
+  slug: 'risk-information',
   pages: [Vulnerability, CurrentRisk, HistoricalRisk, AcctData, Acct, AdditionalInformation],
 })
 export default class RiskToSelf {}

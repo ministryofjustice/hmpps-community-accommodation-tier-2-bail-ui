@@ -18,7 +18,7 @@ export default class HistoricalRisk implements TaskListPage {
 
   title = `${this.personName}'s historical risks`
 
-  questions = getQuestions(this.personName)['risk-to-self']['historical-risk']
+  questions = getQuestions(this.personName)['risk-information']['historical-risk']
 
   body: HistoricalRiskBody
 

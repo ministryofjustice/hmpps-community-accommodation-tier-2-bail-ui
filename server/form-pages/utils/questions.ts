@@ -661,7 +661,7 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'risk-to-self': {
+    'risk-information': {
       vulnerability: {
         vulnerabilityDetail: {
           question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,

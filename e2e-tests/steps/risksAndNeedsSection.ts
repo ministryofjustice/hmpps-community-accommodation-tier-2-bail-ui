@@ -125,7 +125,7 @@ async function completeOtherHealthPage(page: Page, name: string) {
 
 export const completeRiskToSelfTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add risk to self information')
+  await taskListPage.clickTask('Add information about risks to the applicant and others')
 
   await completeVulnerabilityPage(page, name)
   await completeCurrentRisksPage(page, name)

@@ -40,9 +40,9 @@ export default class AcctData implements TaskListPage {
 
   body: AcctDataBody
 
-  questions = getQuestions('')['risk-to-self']['acct-data']
+  questions = getQuestions('')['risk-information']['acct-data']
 
-  taskName = 'risk-to-self'
+  taskName = 'risk-information'
 
   pageName = 'acct-data'
 

@@ -16,7 +16,7 @@ export default class AdditionalInformation implements TaskListPage {
 
   documentTitle = this.title
 
-  questions = getQuestions(nameOrPlaceholderCopy(this.application.person))['risk-to-self']['additional-information']
+  questions = getQuestions(nameOrPlaceholderCopy(this.application.person))['risk-information']['additional-information']
 
   body: AdditionalInformationBody
 

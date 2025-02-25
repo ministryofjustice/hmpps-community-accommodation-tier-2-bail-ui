@@ -34,8 +34,8 @@ export default class Acct implements TaskListPage {
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
-    if (application.data['risk-to-self'] && application.data['risk-to-self']['acct-data']) {
-      const acctData = application.data['risk-to-self']['acct-data'] as [AcctDataBody]
+    if (application.data['risk-information'] && application.data['risk-information']['acct-data']) {
+      const acctData = application.data['risk-information']['acct-data'] as [AcctDataBody]
 
       this.accts = acctData.map((acct, index) => {
         const query = {
@@ -53,7 +53,7 @@ export default class Acct implements TaskListPage {
           closedDate,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
-            task: 'risk-to-self',
+            task: 'risk-information',
             page: 'acct-data',
             index: index.toString(),
           })}?${createQueryString(query)}`,
