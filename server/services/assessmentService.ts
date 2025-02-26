@@ -1,6 +1,6 @@
 import {
   Cas2v2Assessment,
-  UpdateCas2Assessment,
+  UpdateCas2v2Assessment,
   Cas2v2AssessmentStatusUpdate as AssessmentStatusUpdate,
 } from '@approved-premises/api'
 import { AssessmentClient, RestClientBuilder } from '../data'
@@ -19,7 +19,7 @@ export default class AssessmentService {
   async updateAssessment(
     token: string,
     assessmentId: string,
-    updateData: UpdateCas2Assessment,
+    updateData: UpdateCas2v2Assessment,
   ): Promise<Cas2v2Assessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 

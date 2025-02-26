@@ -1,4 +1,4 @@
-import { Cas2v2AssessmentStatusUpdate, UpdateCas2Assessment } from '@approved-premises/api'
+import { Cas2v2AssessmentStatusUpdate, UpdateCas2v2Assessment } from '@approved-premises/api'
 import AssessmentService from './assessmentService'
 import AssessmentClient from '../data/assessmentClient'
 
@@ -42,7 +42,7 @@ describe('AssessmentService', () => {
 
       assessmentClient.update.mockResolvedValue(assessment)
 
-      const updateData: UpdateCas2Assessment = {
+      const updateData: UpdateCas2v2Assessment = {
         nacroReferralId: 'nacro-referral-id',
         assessorName: 'assessor-name',
       }
