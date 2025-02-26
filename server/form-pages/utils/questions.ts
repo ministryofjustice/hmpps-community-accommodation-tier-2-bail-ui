@@ -666,6 +666,7 @@ export const getQuestions = (name: string) => {
       'self-harm': {},
       'violence-and-arson': {},
       'risks-to-staff': {},
+      'additional-concerns': {},
       vulnerability: {
         vulnerabilityDetail: {
           question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
