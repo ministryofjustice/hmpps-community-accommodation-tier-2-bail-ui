@@ -1,6 +1,6 @@
 import {
   Cas2v2Assessment,
-  UpdateCas2Assessment,
+  UpdateCas2v2Assessment,
   Cas2v2AssessmentStatusUpdate as AssessmentStatusUpdate,
 } from '@approved-premises/api'
 import RestClient from './restClient'
@@ -20,7 +20,7 @@ export default class AssessmentClient {
     })) as Cas2v2Assessment
   }
 
-  async update(assessmentId: string, updateData: UpdateCas2Assessment): Promise<Cas2v2Assessment> {
+  async update(assessmentId: string, updateData: UpdateCas2v2Assessment): Promise<Cas2v2Assessment> {
     return (await this.restClient.put({
       path: paths.assessments.update({ id: assessmentId }),
       data: updateData,
