@@ -64,11 +64,11 @@ export default class Acct implements TaskListPage {
   }
 
   previous() {
-    return 'historical-risk'
+    return 'self-harm'
   }
 
   next() {
-    return 'additional-information'
+    return 'violence-and-arson'
   }
 
   errors() {

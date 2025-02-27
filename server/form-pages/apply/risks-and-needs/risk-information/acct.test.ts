@@ -69,8 +69,8 @@ describe('Acct', () => {
     })
   })
 
-  itShouldHaveNextValue(new Acct({}, application), 'additional-information')
-  itShouldHavePreviousValue(new Acct({}, application), 'historical-risk')
+  itShouldHaveNextValue(new Acct({}, application), 'violence-and-arson')
+  itShouldHavePreviousValue(new Acct({}, application), 'self-harm')
 
   describe('response', () => {
     it('returns formatted ACCTs', () => {
