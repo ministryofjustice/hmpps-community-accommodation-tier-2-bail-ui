@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 type GuidanceBody = Record<string, never>
 
 @Page({
-  name: 'guidance',
+  name: 'health-needs-information',
   bodyProperties: [],
 })
 export default class Guidance implements TaskListPage {
@@ -25,11 +25,11 @@ export default class Guidance implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'independent-living'
   }
 
   next() {
-    return 'liaison-and-diversion'
+    return 'substance-misuse'
   }
 
   errors() {

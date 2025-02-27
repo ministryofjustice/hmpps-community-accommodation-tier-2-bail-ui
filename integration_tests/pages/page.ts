@@ -39,6 +39,10 @@ export default abstract class Page {
     cy.get('button').contains(text).click()
   }
 
+  clickContinue(): void {
+    cy.get('button').contains('Continue').click()
+  }
+
   checkRadioByNameAndValue(name: string, option: string): void {
     cy.get(`input[name="${name}"][value="${option}"]`).check()
   }

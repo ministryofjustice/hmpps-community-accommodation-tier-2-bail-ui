@@ -1,0 +1,18 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "health-needs-information" %}
+
+{% block questions %}
+
+  <h2 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h2>
+
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+    text: "Continue"
+    }) }}
+
+    <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+  </div>
+{% endblock %}
