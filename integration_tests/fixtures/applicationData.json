@@ -133,7 +133,11 @@
     }
   },
   "health-needs": {
-    "guidance": {},
+    "liaison-and-diversion": {
+      "liaisonAndDiversionAssessment": "no"
+    },
+    "independent-living": {},
+    "health-needs-information": {},
     "substance-misuse": {
       "usesIllegalSubstances": "no",
       "substanceMisuse": "",
@@ -195,9 +199,6 @@
       "interactionDetail": "",
       "requiresAdditionalSupport": "no",
       "addSupportDetail": ""
-    },
-    "liaison-and-diversion": {
-      "liaisonAndDiversionAssessment": "no"
     },
     "other-health": {
       "hasLongTermHealthCondition": "no",
