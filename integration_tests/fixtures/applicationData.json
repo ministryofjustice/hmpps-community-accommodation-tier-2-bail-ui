@@ -52,7 +52,7 @@
       "inEducationOrTraining": "no"
     },
     "applicant-id": {
-      "idDocuments": "passport"
+      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip", "none"]
     }
   },
   "solicitor-details": {

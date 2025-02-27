@@ -446,7 +446,7 @@ describe('checkYourAnswersUtils', () => {
     it('returns array answers as string given an array of defined answers', () => {
       const arrayAnswersAsStringSpy = jest.spyOn(checkYourAnswersUtils, 'arrayAnswersAsString')
 
-      getAnswer(application, questions, 'risk-of-serious-harm', 'risk-management-arrangements', 'arrangements')
+      getAnswer(application, questions, 'funding-information', 'applicant-id', 'idDocuments')
 
       expect(arrayAnswersAsStringSpy).toHaveBeenCalledTimes(1)
     })
@@ -477,14 +477,10 @@ describe('checkYourAnswersUtils', () => {
   describe('arrayAnswersAsString', () => {
     it('returns an array of string answers as a comma separated string', () => {
       expect(
-        arrayAnswersAsString(
-          application,
-          questions,
-          'risk-of-serious-harm',
-          'risk-management-arrangements',
-          'arrangements',
-        ),
-      ).toEqual('MAPPA,MARAC,IOM')
+        arrayAnswersAsString(application, questions, 'funding-information', 'applicant-id', 'idDocuments'),
+      ).toEqual(
+        'Passport,Travel pass with photograph,Birth certificate,Bank account or debit card,Bank, building society or Post Office card account statements,UK photo driving licence (full or provisional),Recent wage slip (with payee name and NI number),None of these options',
+      )
     })
   })
 
