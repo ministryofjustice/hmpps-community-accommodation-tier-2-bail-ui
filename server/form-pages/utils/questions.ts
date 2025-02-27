@@ -667,24 +667,6 @@ export const getQuestions = (name: string) => {
       'violence-and-arson': {},
       'risks-to-staff': {},
       'additional-concerns': {},
-      vulnerability: {
-        vulnerabilityDetail: {
-          question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
-          hint: 'Include all current risk information and remove sensitive information, such as names and addresses.',
-        },
-      },
-      'current-risk': {
-        currentRiskDetail: {
-          question: `Describe ${name}'s current issues and needs related to self harm and suicide`,
-          hint: 'Include all current risk information and remove sensitive information, such as names and addresses.',
-        },
-      },
-      'historical-risk': {
-        historicalRiskDetail: {
-          question: `Describe ${name}'s historical issues and needs related to self harm and suicide`,
-          hint: 'Remove sensitive information, such as names and addresses.',
-        },
-      },
       'acct-data': {
         createdDate: {
           question: 'When was the ACCT created?',
@@ -704,66 +686,6 @@ export const getQuestions = (name: string) => {
         acctDetail: {
           question: 'Details about the ACCT',
         },
-      },
-      'additional-information': {
-        hasAdditionalInformation: {
-          question: `Is there anything else to include about ${name}'s risk to self?`,
-          hint: 'Record any additional information about their risk to self.',
-          answers: yesOrNo,
-        },
-        additionalInformationDetail: { question: 'Additional information' },
-      },
-    },
-    'risk-of-serious-harm': {
-      'risk-to-others': {
-        whoIsAtRisk: {
-          question: 'Who is at risk?',
-        },
-        natureOfRisk: {
-          question: 'What is the nature of the risk?',
-        },
-        confirmation: {
-          question: 'I confirm this information is relevant and up to date.',
-          answers: { confirmed: 'Confirmed' },
-        },
-      },
-      'risk-management-arrangements': {
-        arrangements: {
-          question: `Is ${name} subject to any of these multi-agency risk management arrangements upon release?`,
-          hint: 'Select all that apply',
-          answers: {
-            mappa: 'MAPPA',
-            marac: 'MARAC',
-            iom: 'IOM',
-          },
-        },
-        mappaDetails: {
-          question: 'Provide MAPPA details',
-          hint: 'Specify whether the MAPPA is Category 2 or Category 3. Include lead contact details where possible.',
-        },
-        maracDetails: {
-          question: 'Provide MARAC details',
-          hint: 'Include lead contact details where possible.',
-        },
-        iomDetails: {
-          question: 'Provide IOM details',
-          hint: 'Include lead contact details where possible.',
-        },
-      },
-      'cell-share-information': {
-        hasCellShareComments: {
-          question: 'Are there any comments to add about cell sharing?',
-          answers: yesOrNo,
-        },
-        cellShareInformationDetail: { question: 'Cell sharing information' },
-      },
-      'additional-risk-information': {
-        hasAdditionalInformation: {
-          question: `Is there any other risk information for ${name}?`,
-          hint: 'If known, state their incentive level, also known as Incentive and Enhanced Privileges (IEP), and any other information about their risk to others.',
-          answers: yesOrNo,
-        },
-        additionalInformationDetail: { question: 'Additional information' },
       },
     },
     'community-supervision-and-current-offences': {

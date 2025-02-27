@@ -237,26 +237,6 @@
       }
     ]
   },
-  "risk-of-serious-harm": {
-    "risk-to-others": {
-      "whoIsAtRisk": "a person",
-      "natureOfRisk": "a nature"
-    },
-    "risk-management-arrangements": {
-      "arrangements": ["mappa", "marac", "iom"],
-      "mappaDetails": "mappa details",
-      "maracDetails": "marac details",
-      "iomDetails": "iom details"
-    },
-    "cell-share-information": {
-      "hasCellShareComments": "yes",
-      "cellShareInformationDetail": "some information"
-    },
-    "additional-risk-information": {
-      "hasAdditionalInformation": "yes",
-      "additionalInformationDetail": "some information"
-    }
-  },
   "community-supervision-and-current-offences": {
     "community-supervision": {
       "probationSupervision": "yes"
