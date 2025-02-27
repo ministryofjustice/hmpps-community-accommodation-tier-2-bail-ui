@@ -521,12 +521,13 @@ describe('checkYourAnswersUtils', () => {
   describe('getKeysForPages', () => {
     it('returns an array of page keys for risk information', () => {
       expect(getKeysForPages(application, 'risk-information')).toEqual([
-        'current-risk',
-        'vulnerability',
-        'historical-risk',
+        'concerns',
+        'self-harm',
+        'violence-and-arson',
+        'risks-to-staff',
+        'additional-concerns',
         'acct',
         'acct-data',
-        'additional-information',
       ])
     })
   })
