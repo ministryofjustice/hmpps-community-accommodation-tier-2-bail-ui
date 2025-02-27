@@ -1,6 +1,7 @@
 import 'cypress-axe'
 import { Result } from 'axe-core'
 import errorLookups from '../../server/i18n/en/errors.json'
+import { DateFormats } from '../../server/utils/dateUtils'
 
 export type PageElement = Cypress.Chainable<JQuery>
 
@@ -88,5 +89,16 @@ export default abstract class Page {
 
   clickLink(label: string): void {
     cy.get('a:visible').contains(label).click()
+  }
+
+  clickRemove(): void {
+    cy.get('a').contains('Remove').click()
+  }
+
+  completeDateInputs(prefix: string, date: string): void {
+    const parsedDate = DateFormats.isoToDateObj(date)
+    cy.get(`#${prefix}-day`).type(parsedDate.getDate().toString())
+    cy.get(`#${prefix}-month`).type(`${parsedDate.getMonth() + 1}`)
+    cy.get(`#${prefix}-year`).type(parsedDate.getFullYear().toString())
   }
 }

@@ -714,7 +714,7 @@ describe('ApplicationService', () => {
       const applicationData = createMock<UpdateCas2v2Application>()
       ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
 
-      const newApplicationData = { 'risk-to-self': { vulnerability: { vulnerabilityDetail: 'example' } } }
+      const newApplicationData = { 'risk-information': { vulnerability: { vulnerabilityDetail: 'example' } } }
 
       await service.saveData(newApplicationData, request)
 
