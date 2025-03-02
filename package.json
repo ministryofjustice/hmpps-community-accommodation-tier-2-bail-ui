@@ -132,7 +132,7 @@
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
-    "@pact-foundation/pact": "^13.2.0",
+    "@pact-foundation/pact": "^14.0.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/bunyan": "^1.8.11",
     "@types/bunyan-format": "^0.2.9",
