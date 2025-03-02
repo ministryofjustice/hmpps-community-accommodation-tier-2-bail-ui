@@ -12,7 +12,7 @@ export default class PeopleController {
     private readonly personService: PersonService,
   ) {}
 
-  find(): RequestHandler {
+  findByPrisonNumber(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { prisonNumber, applicationOrigin } = req.body
 
@@ -31,11 +31,13 @@ export default class PeopleController {
           if (err.status === 404) {
             this.addErrorMessagesToFlash(
               req,
+              'prisonNumber',
               `No person found for prison number ${prisonNumber}, please try another number.`,
             )
           } else if (err.status === 403) {
             this.addErrorMessagesToFlash(
               req,
+              'prisonNumber',
               `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
             )
           } else {
@@ -45,17 +47,53 @@ export default class PeopleController {
           return res.redirect(validateReferer(req.headers.referer))
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'Enter a prison number')
+        this.addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number')
         return res.redirect(validateReferer(req.headers.referer))
       }
     }
   }
 
-  addErrorMessagesToFlash(request: Request, message: string) {
+  findByCrn(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { crn } = req.body
+
+      if (crn) {
+        try {
+          const person = await this.personService.findByCrn(req.user.token, crn)
+
+          return res.render(`people/confirm-applicant-details`, {
+            pageHeading: `Confirm ${person.name}'s details`,
+            person,
+            date: DateFormats.dateObjtoUIDate(new Date()),
+            dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          })
+        } catch (err) {
+          if (err.status === 404) {
+            this.addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
+          } else if (err.status === 403) {
+            this.addErrorMessagesToFlash(
+              req,
+              'crn',
+              `You do not have permission to access the CRN ${crn}, please try another number.`,
+            )
+          } else {
+            throw err
+          }
+
+          return res.redirect(validateReferer(req.headers.referer))
+        }
+      } else {
+        this.addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
+        return res.redirect(validateReferer(req.headers.referer))
+      }
+    }
+  }
+
+  addErrorMessagesToFlash(request: Request, key: string, message: string) {
     request.flash('errors', {
-      prisonNumber: errorMessage('prisonNumber', message),
+      [key]: errorMessage(key, message),
     })
-    request.flash('errorSummary', [errorSummary('prisonNumber', message)])
+    request.flash('errorSummary', [errorSummary(key, message)])
     request.flash('userInput', request.body)
   }
 }
