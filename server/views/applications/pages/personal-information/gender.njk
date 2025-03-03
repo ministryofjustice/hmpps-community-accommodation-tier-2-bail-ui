@@ -1,0 +1,59 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% set genderDetailHtml %}
+
+    {{
+      formPageInput(
+        {
+          fieldName: "genderIdentity",
+          label: {
+            text: page.questions.genderIdentity.question,
+            classes: "govuk-label"
+          },
+          classes: "govuk-input--width-10"
+        },
+        fetchContext()
+      )
+    }}
+
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "gender",
+        fieldset: {
+          legend: {
+            text: page.questions.gender.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        hint: {
+            text: "This information helps make sure that the applicant can be placed in appropriate accommodation."
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            conditional: { html: genderDetailHtml }
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "preferNotToSay",
+            text: "Prefer not to say"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
+

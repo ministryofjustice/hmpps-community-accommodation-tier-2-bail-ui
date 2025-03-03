@@ -46,7 +46,7 @@ describe('PregnancyInformation', () => {
   })
 
   itShouldHaveNextValue(new PregnancyInformation(body, application), 'support-worker-preference')
-  itShouldHavePreviousValue(new PregnancyInformation(body, application), 'immigration-status')
+  itShouldHavePreviousValue(new PregnancyInformation(body, application), 'gender')
 
   describe('response', () => {
     it('returns the pregnancy information', () => {
