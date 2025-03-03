@@ -13,6 +13,6 @@ describe('ViolenceAndArson', () => {
     })
   })
 
-  itShouldHaveNextValue(new ViolenceAndArson({}, application), 'risks-to-staff')
+  itShouldHaveNextValue(new ViolenceAndArson({}, application), 'living-in-the-community')
   itShouldHavePreviousValue(new ViolenceAndArson({}, application), 'acct')
 })

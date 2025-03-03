@@ -6,36 +6,36 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type ViolenceAndArsonBody = {}
+type LivingInTheCommunityBody = {}
 
 @Page({
-  name: 'violence-and-arson',
+  name: 'living-in-the-community',
   bodyProperties: [],
 })
-export default class ViolenceAndArson implements TaskListPage {
-  documentTitle = 'Violence and arson'
+export default class LivingInTheCommunity implements TaskListPage {
+  documentTitle = 'Living in the community'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = 'Violence and arson'
+  title = 'Living in the community'
 
-  questions = getQuestions(this.personName)['risk-information']['violence-and-arson']
+  questions = getQuestions(this.personName)['risk-information']['living-in-the-community']
 
-  body: ViolenceAndArsonBody
+  body: LivingInTheCommunityBody
 
   constructor(
-    body: Partial<ViolenceAndArsonBody>,
+    body: Partial<LivingInTheCommunityBody>,
     private readonly application: Application,
   ) {
-    this.body = body as ViolenceAndArsonBody
+    this.body = body as LivingInTheCommunityBody
   }
 
   previous() {
-    return 'acct'
+    return 'violence-and-arson'
   }
 
   next() {
-    return 'living-in-the-community'
+    return 'risks-to-staff'
   }
 
   errors() {

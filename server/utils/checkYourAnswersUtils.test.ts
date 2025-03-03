@@ -520,6 +520,7 @@ describe('checkYourAnswersUtils', () => {
         'concerns',
         'self-harm',
         'violence-and-arson',
+        'living-in-the-community',
         'risks-to-staff',
         'additional-concerns',
         'acct',

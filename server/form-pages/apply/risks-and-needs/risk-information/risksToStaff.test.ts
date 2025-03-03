@@ -14,5 +14,5 @@ describe('RisksToStaff', () => {
   })
 
   itShouldHaveNextValue(new RisksToStaff({}, application), 'additional-concerns')
-  itShouldHavePreviousValue(new RisksToStaff({}, application), 'violence-and-arson')
+  itShouldHavePreviousValue(new RisksToStaff({}, application), 'living-in-the-community')
 })

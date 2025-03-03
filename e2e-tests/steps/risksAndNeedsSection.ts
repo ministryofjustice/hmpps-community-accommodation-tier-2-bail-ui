@@ -131,6 +131,7 @@ export const completeRiskInformationTask = async (page: Page) => {
   await completeSelfHarmPage(page)
   await addAnAcct(page)
   await completeViolenceAndArsonPage(page)
+  await completeLivingInTheCommunityPage(page)
   await completeRisksToStaffPage(page)
   await completeAdditionalConcernsPage(page)
 }
@@ -151,6 +152,12 @@ async function completeViolenceAndArsonPage(page: Page) {
   const violenceAndArsonPage = await ApplyPage.initialize(page, 'Violence and arson')
 
   violenceAndArsonPage.clickSave()
+}
+
+async function completeLivingInTheCommunityPage(page: Page) {
+  const livingInTheCommunityPage = await ApplyPage.initialize(page, 'Living in the community')
+
+  livingInTheCommunityPage.clickSave()
 }
 
 async function completeRisksToStaffPage(page: Page) {

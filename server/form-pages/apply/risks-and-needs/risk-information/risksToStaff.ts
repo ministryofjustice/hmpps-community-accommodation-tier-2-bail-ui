@@ -31,7 +31,7 @@ export default class RisksToStaff implements TaskListPage {
   }
 
   previous() {
-    return 'violence-and-arson'
+    return 'living-in-the-community'
   }
 
   next() {
