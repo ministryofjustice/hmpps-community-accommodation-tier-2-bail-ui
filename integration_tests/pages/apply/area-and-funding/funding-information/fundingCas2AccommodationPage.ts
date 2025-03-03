@@ -12,14 +12,12 @@ export default class FundingCas2AccommodationPage extends ApplyPage {
     this.enterFundingSourceDetails()
     this.enterNationalInsuranceNumber()
     this.enterBenefitsDetails()
-    this.selectInEducationOrTraining()
   }
 
   completeWithHousingBenefits(): void {
     this.selectFundingSource('benefits')
     this.enterNationalInsuranceNumber()
     this.enterBenefitsDetails()
-    this.selectInEducationOrTraining()
   }
 
   private selectFundingSource(fundingSource: FundingSources): void {
@@ -38,9 +36,5 @@ export default class FundingCas2AccommodationPage extends ApplyPage {
   private enterBenefitsDetails(): void {
     this.checkRadioByNameAndValue('receivingBenefits', 'yes')
     this.checkRadioByNameAndValue('receivedBenefitSanctions', 'no')
-  }
-
-  private selectInEducationOrTraining(): void {
-    this.checkRadioByNameAndValue('inEducationOrTraining', 'no')
   }
 }

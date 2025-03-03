@@ -18,7 +18,6 @@ export type FundingCas2AccommodationBody = {
   nationalInsuranceNumber: string
   receivingBenefits: YesOrNo
   receivedBenefitSanctions: YesOrNo
-  inEducationOrTraining: YesOrNo
 }
 
 @Page({
@@ -30,7 +29,6 @@ export type FundingCas2AccommodationBody = {
     'nationalInsuranceNumber',
     'receivingBenefits',
     'receivedBenefitSanctions',
-    'inEducationOrTraining',
   ],
 })
 export default class FundingCas2Accommodation implements TaskListPage {
@@ -81,9 +79,6 @@ export default class FundingCas2Accommodation implements TaskListPage {
     if (this.body.receivingBenefits === 'yes' && !this.body.receivedBenefitSanctions) {
       errors.receivedBenefitSanctions =
         'Select if the applicant has received any benefit sanctions in the last 6 months'
-    }
-    if (!this.body.inEducationOrTraining) {
-      errors.inEducationOrTraining = 'Select if the applicant is currently in education or receiving any training'
     }
     return errors
   }

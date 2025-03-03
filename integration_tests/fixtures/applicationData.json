@@ -48,8 +48,7 @@
       "hasNationalInsuranceNumber": "yes",
       "nationalInsuranceNumber": "SF123456X",
       "receivingBenefits": "yes",
-      "receivedBenefitSanctions": "no",
-      "inEducationOrTraining": "no"
+      "receivedBenefitSanctions": "no"
     },
     "applicant-id": {
       "idDocuments": "passport"
