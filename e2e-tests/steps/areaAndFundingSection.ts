@@ -10,7 +10,6 @@ export const completeFundingInformationTask = async (page: Page) => {
   await fundingInformationPage.checkRadioInGroup('Does the applicant have a National Insurance number?', 'Yes')
   await fundingInformationPage.checkRadioByTestId('receiving-benefits-radio-yes')
   await fundingInformationPage.checkRadioByTestId('received-benefit-sanctions-radio-yes')
-  await fundingInformationPage.checkRadioInGroup('Is the applicant in education or receiving any training?', 'No')
   await fundingInformationPage.clickSave()
 }
 

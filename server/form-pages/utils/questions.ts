@@ -436,10 +436,6 @@ export const getQuestions = (name: string) => {
           question: 'Have they received any benefit sanctions in the last 6 months?',
           answers: yesOrNo,
         },
-        inEducationOrTraining: {
-          question: 'Is the applicant in education or receiving any training?',
-          answers: yesOrNo,
-        },
       },
       'applicant-id': {
         idDocuments: {

@@ -169,32 +169,4 @@
     )
   }}
 
-  {{
-    formPageRadios(
-      {
-       fieldset: {
-          legend: {
-            text: page.questions.inEducationOrTraining.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-       },
-       fieldName: 'inEducationOrTraining',
-       label: {
-         text: page.questions.inEducationOrTraining.question
-       },
-       items: [
-         {
-           value: 'yes',
-           text: 'Yes'
-         },
-         {
-           value: 'no',
-           text: 'No'
-         }
-       ]
-      },
-      fetchContext()
-    )
-  }}
-
 {% endblock %}

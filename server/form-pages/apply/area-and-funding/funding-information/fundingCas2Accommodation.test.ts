@@ -22,7 +22,6 @@ describe('FundingCas2Accommodation', () => {
         nationalInsuranceNumber: 'SF123456X',
         receivingBenefits: 'yes',
         receivedBenefitSanctions: 'no',
-        inEducationOrTraining: 'yes',
       },
       application,
     )
@@ -34,7 +33,6 @@ describe('FundingCas2Accommodation', () => {
       nationalInsuranceNumber: 'SF123456X',
       receivingBenefits: 'yes',
       receivedBenefitSanctions: 'no',
-      inEducationOrTraining: 'yes',
     } as FundingCas2AccommodationBody)
   })
 
@@ -50,7 +48,6 @@ describe('FundingCas2Accommodation', () => {
         fundingSource: 'Select how the applicant will pay for their accommodation and the service charge',
         hasNationalInsuranceNumber: 'Select if the applicant has a National Insurance number',
         receivingBenefits: 'Select if the applicant is currently receiving any benefits',
-        inEducationOrTraining: 'Select if the applicant is currently in education or receiving any training',
       })
     })
 
@@ -64,7 +61,6 @@ describe('FundingCas2Accommodation', () => {
             nationalInsuranceNumber: 'SF123456X',
             receivingBenefits: 'yes',
             receivedBenefitSanctions: null,
-            inEducationOrTraining: 'yes',
           },
           application,
         )
@@ -86,7 +82,6 @@ describe('FundingCas2Accommodation', () => {
           nationalInsuranceNumber: 'SF123456X',
           receivingBenefits: 'no',
           receivedBenefitSanctions: 'yes',
-          inEducationOrTraining: 'yes',
         },
         application,
       )
@@ -97,7 +92,6 @@ describe('FundingCas2Accommodation', () => {
         fundingSource: 'benefits',
         hasNationalInsuranceNumber: 'no',
         receivingBenefits: 'no',
-        inEducationOrTraining: 'yes',
       })
     })
   })
