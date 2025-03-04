@@ -7,7 +7,7 @@ export default defineConfig<TestOptions>({
   outputDir: './e2e-tests/test_results',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   maxFailures: 1,
   workers: 1,
   reporter: [['html', { outputFolder: './e2e-tests/playwright-report/index.html' }]],
