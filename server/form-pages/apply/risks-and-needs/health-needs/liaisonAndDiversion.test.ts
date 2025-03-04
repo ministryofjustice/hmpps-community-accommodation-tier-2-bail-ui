@@ -9,7 +9,7 @@ describe('LiaisonAndDiversion', () => {
     it('personalises the page title', () => {
       const page = new LiaisonAndDiversion({}, application)
 
-      expect(page.title).toEqual('Liaison & Diversion Assessment for Roger Smith')
+      expect(page.title).toEqual('Liaison and Diversion Assessment for Roger Smith')
     })
   })
 
@@ -33,7 +33,7 @@ describe('LiaisonAndDiversion', () => {
       it('includes a validation error for _liaisonAndDiversionAssessment_', () => {
         expect(page.errors()).toHaveProperty(
           'liaisonAndDiversionAssessment',
-          'Confirm whether a Liaison & Diversion Assessment has been requested',
+          "Select if a Liaison and Diversion Assessment has been carried out, or select 'I don't know'",
         )
       })
     })

@@ -13,6 +13,7 @@
             classes: "govuk-fieldset__legend--m"
           }
         },
+        hint: { text: page.questions.liaisonAndDiversionAssessment.hint },
         items: [
         {
           value: "yes",
@@ -21,6 +22,13 @@
         {
           value: "no",
           text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I don't know"
         }
       ]
       },
