@@ -74,6 +74,10 @@
     "immigration-status": {
       "immigrationStatus": "UK citizen"
     },
+    "gender": {
+      "gender": "no",
+      "genderIdentity": "Non binary"
+    },
     "pregnancy-information": {
       "isPregnant": "yes",
       "dueDate-day": "5",

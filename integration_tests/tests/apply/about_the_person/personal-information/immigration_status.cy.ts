@@ -11,24 +11,18 @@
 //  Scenario: view 'immigration status' page
 //    Then I see the "immigration status" page
 //
-//  Scenario: navigate to the task list if the applicant is male
+//  Scenario: navigate to the gender page
 //    When I complete the "immigration status" page
 //    And I continue to the next task / page
-//    Then I am taken to the task list page
-//
-//  Scenario: navigate to the pregnancy information page if the applicant is not male
-//    When I complete the "immigration status" page
-//    And I continue to the next task / page
-//    Then I am taken to the pregnancy information page
+//    Then I am taken to the gender page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import ImmigrationStatusPage from '../../../../pages/apply/about_the_person/personal_information/immigrationStatusPage'
-import PregnancyInformationPage from '../../../../pages/apply/about_the_person/personal_information/pregnancyInformationPage'
-import TaskListPage from '../../../../pages/apply/taskListPage'
+import GenderPage from '../../../../pages/apply/about_the_person/personal_information/genderPage'
 
-context('Visit "immigration status" page - when the applicant is a male', () => {
-  const person = personFactory.build({ name: 'Roger Smith', sex: 'Male' })
+context('Visit "immigration status" page', () => {
+  const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
     cy.task('reset')
@@ -69,9 +63,9 @@ context('Visit "immigration status" page - when the applicant is a male', () => 
     Page.verifyOnPage(ImmigrationStatusPage, this.application)
   })
 
-  //  Scenario: navigate to the task list if the applicant is male
+  //  Scenario: navigate to the gender page
   // ----------------------------------------------
-  it('navigates to the task list if the applicant is male', function test() {
+  it('navigates to the gender page', function test() {
     //    When I complete the "immigration status" page
     const page = Page.verifyOnPage(ImmigrationStatusPage, this.application)
     page.completeForm()
@@ -79,60 +73,7 @@ context('Visit "immigration status" page - when the applicant is a male', () => 
     //    When I continue to the next task / page
     page.clickSubmit()
 
-    //    Then I am taken to the task list next page
-    Page.verifyOnPage(TaskListPage, this.application)
-  })
-})
-
-context('Visit "immigration status" page - when the applicant is not a male', () => {
-  const person = personFactory.build({ name: 'Rose Smith', sex: 'Female' })
-
-  beforeEach(function test() {
-    cy.task('reset')
-    cy.task('stubSignIn')
-    cy.task('stubAuthUser')
-
-    cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['immigration-status']
-      const application = applicationFactory.build({
-        id: 'abc123',
-        person,
-        data: applicationData,
-      })
-      cy.wrap(application).as('application')
-    })
-  })
-
-  beforeEach(function test() {
-    // And an application exists
-    // -------------------------
-    cy.task('stubApplicationGet', { application: this.application })
-    cy.task('stubApplicationUpdate', { application: this.application })
-
-    // Given I am logged in
-    //---------------------
-    cy.signIn()
-
-    // And I visit the 'immigration status' page
-    // --------------------------------
-    ImmigrationStatusPage.visit(this.application)
-  })
-
-  //  Scenario: navigate to the pregnancy information page if the applicant is not male
-  // ----------------------------------------------
-  it('navigates to the task list if the applicant is not male', function test() {
-    // And I visit the 'immigration status' page
-    // --------------------------------
-    ImmigrationStatusPage.visit(this.application)
-
-    //    When I complete the "immigration status" page
-    const page = Page.verifyOnPage(ImmigrationStatusPage, this.application)
-    page.completeForm()
-
-    //    When I continue to the next task / page
-    page.clickSubmit()
-
-    //    Then I am taken to the pregnancy information page
-    Page.verifyOnPage(PregnancyInformationPage, this.application)
+    //    Then I am taken to the gender page
+    Page.verifyOnPage(GenderPage, this.application)
   })
 })

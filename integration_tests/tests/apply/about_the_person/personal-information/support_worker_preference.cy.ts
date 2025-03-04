@@ -11,7 +11,7 @@
 //  Scenario: view 'support worker preference' page
 //    Then I see the "support worker preference" page
 //
-//  Scenario: navigate to the task list page
+//  Scenario: navigate to the next page
 //    When I complete the "support worker preference" page
 //    And I continue to the next task / page
 //    Then I am taken to the task list page
@@ -63,9 +63,9 @@ context('Visit "support worker preference" page', () => {
     Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
   })
 
-  //  Scenario: navigate to the task list page
+  //  Scenario: navigate to the next page
   // ----------------------------------------------
-  it('navigates to the support worker preference page', function test() {
+  it('navigates to the task list page', function test() {
     //    When I complete the "support worker preference" page
     const page = Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
     page.completeForm()
