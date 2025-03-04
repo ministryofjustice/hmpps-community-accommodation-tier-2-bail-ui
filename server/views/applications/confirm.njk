@@ -26,7 +26,11 @@
             <ol>
                 <li>An assessor will check the application for completeness.</li>
                 <li>They might get in touch with you for more clarity on some of the answers provided.</li>
+                {% if application.applicationOrigin === "courtBail" %}
                 <li>Once you provide the requested information, the assessor will make a decision on the application within one hour. In some cases, it may take longer.</li>
+                {% else %}
+                <li>Once you provide the requested information, the assessor will make a decision on the application within 3 working days. In some cases, it may take longer.</li>
+                {% endif %}
                 <li>You'll receive an email confirming the decision.</li>
                 <li>You can also check the status of the application on your dashboard.</li>
             </ol>
