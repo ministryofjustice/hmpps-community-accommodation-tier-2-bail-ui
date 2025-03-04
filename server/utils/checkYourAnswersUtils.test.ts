@@ -446,7 +446,7 @@ describe('checkYourAnswersUtils', () => {
     it('returns array answers as string given an array of defined answers', () => {
       const arrayAnswersAsStringSpy = jest.spyOn(checkYourAnswersUtils, 'arrayAnswersAsString')
 
-      getAnswer(application, questions, 'risk-of-serious-harm', 'risk-management-arrangements', 'arrangements')
+      getAnswer(application, questions, 'funding-information', 'applicant-id', 'idDocuments')
 
       expect(arrayAnswersAsStringSpy).toHaveBeenCalledTimes(1)
     })
@@ -464,7 +464,7 @@ describe('checkYourAnswersUtils', () => {
         acctDetails: 'ACCT details\nsome more details on another line',
       }
 
-      expect(getAnswer(application, questions, 'risk-to-self', 'acct-data', '0')).toEqual(expected)
+      expect(getAnswer(application, questions, 'risk-information', 'acct-data', '0')).toEqual(expected)
     })
 
     it('returns the answer string by default', () => {
@@ -477,14 +477,10 @@ describe('checkYourAnswersUtils', () => {
   describe('arrayAnswersAsString', () => {
     it('returns an array of string answers as a comma separated string', () => {
       expect(
-        arrayAnswersAsString(
-          application,
-          questions,
-          'risk-of-serious-harm',
-          'risk-management-arrangements',
-          'arrangements',
-        ),
-      ).toEqual('MAPPA,MARAC,IOM')
+        arrayAnswersAsString(application, questions, 'funding-information', 'applicant-id', 'idDocuments'),
+      ).toEqual(
+        'Passport,Travel pass with photograph,Birth certificate,Bank account or debit card,Bank, building society or Post Office card account statements,UK photo driving licence (full or provisional),Recent wage slip (with payee name and NI number),None of these options',
+      )
     })
   })
 
@@ -519,14 +515,16 @@ describe('checkYourAnswersUtils', () => {
   })
 
   describe('getKeysForPages', () => {
-    it('returns an array of page keys for risk to self', () => {
-      expect(getKeysForPages(application, 'risk-to-self')).toEqual([
-        'current-risk',
-        'vulnerability',
-        'historical-risk',
+    it('returns an array of page keys for risk information', () => {
+      expect(getKeysForPages(application, 'risk-information')).toEqual([
+        'concerns',
+        'self-harm',
+        'violence-and-arson',
+        'living-in-the-community',
+        'risks-to-staff',
+        'additional-concerns',
         'acct',
         'acct-data',
-        'additional-information',
       ])
     })
   })

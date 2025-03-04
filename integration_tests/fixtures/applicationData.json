@@ -52,7 +52,7 @@
       "inEducationOrTraining": "no"
     },
     "applicant-id": {
-      "idDocuments": "passport"
+      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip", "none"]
     }
   },
   "solicitor-details": {
@@ -208,19 +208,13 @@
       "beingTreatedForCancer": "no"
     }
   },
-  "risk-to-self": {
-    "current-risk": {
-      "currentRiskDetail": "[R8.1.1] Review 06.10.21:\r\n\r\n        There have been numerous ACCTs opened since 2013 and every subsequent year he has been in custody.  In 2021...",
-      "confirmation": "confirmed"
-    },
-    "vulnerability": {
-      "vulnerabilityDetail": "example answer vulnerability",
-      "confirmation": "confirmed"
-    },
-    "historical-risk": {
-      "historicalRiskDetail": "example answer historical risk",
-      "confirmation": "confirmed"
-    },
+  "risk-information": {
+    "concerns": {},
+    "self-harm": {},
+    "violence-and-arson": {},
+    "living-in-the-community": {},
+    "risks-to-staff": {},
+    "additional-concerns": {},
     "acct": {},
     "acct-data": [
       {
@@ -242,31 +236,7 @@
         "referringInstitution": "HMPPS prison 2",
         "acctDetails": "ACCT details 2"
       }
-    ],
-    "additional-information": {
-      "hasAdditionalInformation": "yes",
-      "additionalInformationDetail": "some information"
-    }
-  },
-  "risk-of-serious-harm": {
-    "risk-to-others": {
-      "whoIsAtRisk": "a person",
-      "natureOfRisk": "a nature"
-    },
-    "risk-management-arrangements": {
-      "arrangements": ["mappa", "marac", "iom"],
-      "mappaDetails": "mappa details",
-      "maracDetails": "marac details",
-      "iomDetails": "iom details"
-    },
-    "cell-share-information": {
-      "hasCellShareComments": "yes",
-      "cellShareInformationDetail": "some information"
-    },
-    "additional-risk-information": {
-      "hasAdditionalInformation": "yes",
-      "additionalInformationDetail": "some information"
-    }
+    ]
   },
   "community-supervision-and-current-offences": {
     "community-supervision": {

@@ -1,0 +1,54 @@
+{%- from "moj/components/side-navigation/macro.njk" import mojSideNavigation -%}
+
+{% extends "../layout.njk" %}
+
+{% set columnClasses = "govuk-grid-column-full" %}
+
+{% block content %}
+  <div class="govuk-grid-row" id="{{ pageName }}">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-4">
+    <div class="govuk-grid-column-one-third">
+      {{ mojSideNavigation({
+          items: [{
+            text: 'Add information about concerns',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'concerns' }),
+            active: (pageName === 'concerns')
+          }, {
+            text: 'Self-harm and suicide',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'self-harm' }),
+            active: (pageName === 'self-harm')
+          }, {
+            text: 'ACCT',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }),
+            active: (pageName === 'acct')
+          }, {
+            text: 'Violence and arson',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'violence-and-arson' }),
+            active: (pageName === 'violence-and-arson')
+          }, {
+            text: 'Living in the community',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'living-in-the-community' }),
+            active: (pageName === 'living-in-the-community')
+          }, {
+            text: 'Risks to staff',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'risks-to-staff' }),
+            active: (pageName === 'risks-to-staff')
+          }, {
+            text: 'Additional concerns',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'additional-concerns' }),
+            active: (pageName === 'additional-concerns')
+          }]
+        }) }}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds govuk-!-padding-top-4">
+      {{ super() }}
+    </div>
+
+  </div>
+{% endblock %}

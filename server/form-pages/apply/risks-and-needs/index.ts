@@ -2,11 +2,10 @@
 
 import { Section } from '../../utils/decorators'
 import HealthNeeds from './health-needs'
-import RiskToSelf from './risk-to-self'
-import RiskOfSeriousHarm from './risk-of-serious-harm'
+import RiskInformation from './risk-information'
 
 @Section({
   title: 'Risks and needs',
-  tasks: [HealthNeeds, RiskToSelf, RiskOfSeriousHarm],
+  tasks: [HealthNeeds, RiskInformation],
 })
 export default class RisksAndNeeds {}

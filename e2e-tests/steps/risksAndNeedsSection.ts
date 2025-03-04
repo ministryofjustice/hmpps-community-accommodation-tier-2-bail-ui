@@ -123,45 +123,53 @@ async function completeOtherHealthPage(page: Page, name: string) {
   await otherHealthPage.clickSave()
 }
 
-export const completeRiskToSelfTask = async (page: Page, name: string) => {
+export const completeRiskInformationTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add risk to self information')
+  await taskListPage.clickTask('Add information about risks to the applicant and others')
 
-  await completeVulnerabilityPage(page, name)
-  await completeCurrentRisksPage(page, name)
-  await completeHistoricalRisksPage(page, name)
+  await completeConcernsPage(page)
+  await completeSelfHarmPage(page)
   await addAnAcct(page)
-  await completeAdditionalInformationPage(page, name)
+  await completeViolenceAndArsonPage(page)
+  await completeLivingInTheCommunityPage(page)
+  await completeRisksToStaffPage(page)
+  await completeAdditionalConcernsPage(page)
 }
 
-async function completeVulnerabilityPage(page: Page, name: string) {
-  const vulnerabilityPage = await ApplyPage.initialize(page, `${name}'s vulnerability`)
+async function completeConcernsPage(page: Page) {
+  const concernsPage = await ApplyPage.initialize(page, 'Concerns')
 
-  await vulnerabilityPage.fillField(
-    `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
-    'some vulnerability',
-  )
-  await vulnerabilityPage.clickSave()
+  concernsPage.clickSave()
 }
 
-async function completeCurrentRisksPage(page: Page, name: string) {
-  const currentRisksPage = await ApplyPage.initialize(page, `${name}'s current risks`)
+async function completeSelfHarmPage(page: Page) {
+  const selfHarmPage = await ApplyPage.initialize(page, 'Self harm')
 
-  await currentRisksPage.fillField(
-    `Describe ${name}'s current issues and needs related to self harm and suicide`,
-    'some needs',
-  )
-  await currentRisksPage.clickSave()
+  selfHarmPage.clickSave()
 }
 
-async function completeHistoricalRisksPage(page: Page, name: string) {
-  const historicalRisksPage = await ApplyPage.initialize(page, `${name}'s historical risks`)
+async function completeViolenceAndArsonPage(page: Page) {
+  const violenceAndArsonPage = await ApplyPage.initialize(page, 'Violence and arson')
 
-  await historicalRisksPage.fillField(
-    `Describe ${name}'s historical issues and needs related to self harm and suicide`,
-    'some needs',
-  )
-  await historicalRisksPage.clickSave()
+  violenceAndArsonPage.clickSave()
+}
+
+async function completeLivingInTheCommunityPage(page: Page) {
+  const livingInTheCommunityPage = await ApplyPage.initialize(page, 'Living in the community')
+
+  livingInTheCommunityPage.clickSave()
+}
+
+async function completeRisksToStaffPage(page: Page) {
+  const risksToStaffPage = await ApplyPage.initialize(page, 'Risks to staff')
+
+  risksToStaffPage.clickSave()
+}
+
+async function completeAdditionalConcernsPage(page: Page) {
+  const additionalConcernsPage = await ApplyPage.initialize(page, 'Additional concerns')
+
+  additionalConcernsPage.clickSave()
 }
 
 async function addAnAcct(page: Page) {
@@ -178,48 +186,4 @@ async function completeAcctDataPage(page: Page) {
   await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
   await acctDataPage.fillField('Details about the ACCT', 'some details')
   await acctDataPage.clickButton('Save and add ACCT')
-}
-
-async function completeAdditionalInformationPage(page: Page, name: string) {
-  const additionalInformationPage = await ApplyPage.initialize(
-    page,
-    `Is there anything else to include about ${name}'s risk to self?`,
-  )
-  await additionalInformationPage.checkRadio('No')
-  await additionalInformationPage.clickSave()
-}
-
-export const completeRoshTask = async (page: Page, name: string) => {
-  const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add risk of serious harm (RoSH) information')
-
-  await completeRiskToOthersPage(page, name)
-  await completeRiskManagementArrangementsPage(page, name)
-  await completeCellShareInformationPage(page, name)
-  await completeAdditionalRiskPage(page, name)
-}
-
-async function completeRiskToOthersPage(page: Page, name: string) {
-  const riskToOthersPage = await ApplyPage.initialize(page, `Risk to others for ${name}`)
-  await riskToOthersPage.fillField('Who is at risk?', 'a person')
-  await riskToOthersPage.fillField('What is the nature of the risk?', 'some details about the risk')
-  await riskToOthersPage.clickSave()
-}
-
-async function completeRiskManagementArrangementsPage(page: Page, name: string) {
-  const riskManagementPage = await ApplyPage.initialize(page, `Risk management arrangements for ${name}`)
-  await riskManagementPage.checkCheckboxes(['No, this person does not have risk management arrangements'])
-  await riskManagementPage.clickSave()
-}
-
-async function completeCellShareInformationPage(page: Page, name: string) {
-  const riskManagementPage = await ApplyPage.initialize(page, `Cell share information for ${name}`)
-  await riskManagementPage.checkRadio('No')
-  await riskManagementPage.clickSave()
-}
-
-async function completeAdditionalRiskPage(page: Page, name: string) {
-  const riskManagementPage = await ApplyPage.initialize(page, `Additional risk information for ${name}`)
-  await riskManagementPage.checkRadio('No')
-  await riskManagementPage.clickSave()
 }
