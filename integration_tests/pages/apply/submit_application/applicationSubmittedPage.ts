@@ -7,10 +7,25 @@ export default class ApplicationSubmittedPage extends Page {
     super('Application submitted', person.name)
   }
 
-  shouldShowApplicationDetails(): void {
+  shouldShowApplicationDetailsForCourtUsers(): void {
     const person = this.application.person as FullPerson
 
     cy.get('h2').contains(this.application.id)
     cy.get('h2').contains(person.name)
+
+    cy.get('li').contains(
+      'Once you provide the requested information, the assessor will make a decision on the application within one hour. In some cases, it may take longer.',
+    )
+  }
+
+  shouldShowApplicationDetailsForPrisonUsers(): void {
+    const person = this.application.person as FullPerson
+
+    cy.get('h2').contains(this.application.id)
+    cy.get('h2').contains(person.name)
+
+    cy.get('li').contains(
+      'Once you provide the requested information, the assessor will make a decision on the application within 3 working days. In some cases, it may take longer.',
+    )
   }
 }
