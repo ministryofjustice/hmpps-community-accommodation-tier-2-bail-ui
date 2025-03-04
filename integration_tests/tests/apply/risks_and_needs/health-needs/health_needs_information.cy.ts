@@ -1,7 +1,7 @@
-//  Feature: Referrer completes 'Health needs: guidance' page
-//    So that I can complete the first page of the "Health needs" task
+//  Feature: Referrer completes 'Health needs information' page
+//    So that I can complete the "Health needs" task
 //    As a referrer
-//    I want to confirm that I've understood the guidance on that page
+//    I want to confirm that I've understood the information on that page
 //
 //  Scenario: Follows link from task list
 //    Given there is a section with a task
