@@ -131,6 +131,17 @@ export const completePersonalInformationTask = async (page: Page, name: string) 
 
   await completeWorkingMobilePhonePage(page, name)
   await completeImmigrationStatusPage(page, name)
+  await completeGenderPage(page, name)
+}
+
+async function completeGenderPage(page: Page, name: string) {
+  const genderPage = await ApplyPage.initialize(
+    page,
+    `Is the gender ${name} identifies with the same as the sex registered at birth?`,
+  )
+
+  await genderPage.checkRadio('Yes')
+  await genderPage.clickSave()
 }
 
 async function completeWorkingMobilePhonePage(page: Page, name: string) {
