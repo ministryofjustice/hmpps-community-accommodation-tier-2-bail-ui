@@ -6,7 +6,7 @@ import paths from '../../../../../server/paths/apply'
 export default class WorkingMobilePhonePage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Will ${nameOrPlaceholderCopy(application.person)} have a working mobile phone when they are released?`,
+      `Will ${nameOrPlaceholderCopy(application.person)} have a working mobile phone?`,
       application,
       'personal-information',
       'working-mobile-phone',
