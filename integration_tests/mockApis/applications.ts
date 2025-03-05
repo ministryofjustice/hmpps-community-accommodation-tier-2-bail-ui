@@ -8,7 +8,7 @@ export default {
     stubFor({
       request: {
         method: 'POST',
-        url: paths.applications,
+        url: paths.applications.new.pattern,
       },
       response: {
         status: 201,
@@ -32,7 +32,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: paths.applications,
+        url: paths.applications.index.pattern,
       },
       response: {
         status: 200,
