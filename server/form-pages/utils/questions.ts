@@ -133,6 +133,19 @@ export const getQuestions = (name: string) => {
           answers: { male: 'Male', female: 'Female' },
         },
       },
+      gender: {
+        gender: {
+          question: `Is the gender ${name} identifies with the same as the sex registered at birth?`,
+          answers: {
+            yes: 'Yes',
+            no: 'No',
+            preferNotToSay: 'Prefer not to say',
+          },
+        },
+        genderIdentity: {
+          question: 'What is their gender identity? (optional)',
+        },
+      },
     },
     'address-history': {
       'previous-address': {

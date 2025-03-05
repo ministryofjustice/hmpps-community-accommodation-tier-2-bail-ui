@@ -95,6 +95,10 @@ export default abstract class Page {
     cy.get('a').contains('Remove').click()
   }
 
+  getSelectInputByIdAndSelectAnEntry(id: string, entry: string): void {
+    cy.get(`#${id}`).select(entry)
+  }
+
   completeDateInputs(prefix: string, date: string): void {
     const parsedDate = DateFormats.isoToDateObj(date)
     cy.get(`#${prefix}-day`).type(parsedDate.getDate().toString())

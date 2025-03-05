@@ -37,7 +37,7 @@ export default class PregnancyInformation implements TaskListPage {
   }
 
   previous() {
-    return 'immigration-status'
+    return 'gender'
   }
 
   next() {
