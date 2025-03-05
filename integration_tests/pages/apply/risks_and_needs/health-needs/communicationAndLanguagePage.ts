@@ -30,8 +30,8 @@ export default class CommunicationAndLanguagePage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('interpretationDetail', 'Welsh')
   }
 
-  describeSupportNeeded = (): void => {
-    this.checkRadioByNameAndValue('hasSupportNeeds', 'yes')
-    this.getTextInputByIdAndEnterDetails('supportDetail', 'Struggles with written comprehension')
+  describeImpairments = (): void => {
+    this.checkRadioByNameAndValue('hasImpairments', 'yes')
+    this.getTextInputByIdAndEnterDetails('impairmentsDetail', 'Struggles with written comprehension')
   }
 }
