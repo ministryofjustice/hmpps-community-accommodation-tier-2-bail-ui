@@ -598,13 +598,15 @@ export const getQuestions = (name: string) => {
         },
       },
       'communication-and-language': {
-        requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesOrNo },
-        interpretationDetail: { question: 'What language do they need an interpreter for?' },
-        hasSupportNeeds: {
-          question: 'Do they need any support to see, hear, speak, or understand?',
-          answers: yesOrNo,
+        hasImpairments: {
+          question: 'Do they have any literacy, visual or hearing impairments?',
+          answers: yesNoOrIDontKnow,
         },
-        supportDetail: { question: 'Please describe their support needs.' },
+        impairmentsDetail: {
+          question: 'Enter details of their needs, including any support they have already or will need',
+        },
+        requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesNoOrIDontKnow },
+        interpretationDetail: { question: 'What language do they need an interpreter for?' },
       },
       'learning-difficulties': {
         hasLearningNeeds: {
