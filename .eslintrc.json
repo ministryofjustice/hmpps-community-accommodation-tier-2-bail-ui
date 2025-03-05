@@ -19,7 +19,8 @@
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
       }
-    }
+    },
+    "import/core-modules": ["@approved-premises/api"]
   },
 
   "overrides": [
