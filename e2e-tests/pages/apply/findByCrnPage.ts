@@ -5,4 +5,3 @@ export class FindByCrnPage extends BasePage {
     await this.page.getByLabel("Enter the person's CRN").fill(crn)
   }
 }
-

@@ -153,7 +153,11 @@ export const viewApplicationMadeByAnotherUser = async (page: Page, name: string)
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
 
-export const createAnInProgressApplication = async (page: Page, person: TestOptions['person'], applicationOrigin: 'courtBail' | 'prisonBail') => {
+export const createAnInProgressApplication = async (
+  page: Page,
+  person: TestOptions['person'],
+  applicationOrigin: 'courtBail' | 'prisonBail',
+) => {
   await startAnApplication(page)
   await selectApplicationOrigin(page, applicationOrigin)
   if (applicationOrigin === 'courtBail') {

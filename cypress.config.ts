@@ -3,6 +3,7 @@ import { resetStubs } from './integration_tests/mockApis/wiremock'
 import auth from './integration_tests/mockApis/auth'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
 import applications from './integration_tests/mockApis/applications'
+import person from './integration_tests/mockApis/person'
 import accessibilityViolations from './integration_tests/tasks/accessibilityViolations'
 
 export default defineConfig({
@@ -22,6 +23,7 @@ export default defineConfig({
         ...auth,
         ...tokenVerification,
         ...applications,
+        ...person,
         ...accessibilityViolations,
       })
     },
