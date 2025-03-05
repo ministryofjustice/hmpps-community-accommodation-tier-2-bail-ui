@@ -646,8 +646,9 @@ export const getQuestions = (name: string) => {
       },
       'liaison-and-diversion': {
         liaisonAndDiversionAssessment: {
-          question: `Does ${name} have a Liaison & Diversion Assessment?`,
-          answers: yesOrNo,
+          question: `Has a Liaison and Diversion Assessment been carried out for ${name}?`,
+          hint: 'This may have been carried out by the police or in court if the applicant has any mental health issues, learning disabilities, substance misuse problems, or other vulnerabilities.',
+          answers: yesNoOrIDontKnow,
         },
       },
       'other-health': {
