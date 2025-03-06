@@ -21,8 +21,8 @@ import {
 import { signIn } from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
 
-test('create a CAS-2 bail application', async ({ page, person, pomUser }) => {
-  await signIn(page, pomUser)
+test('create a CAS-2 bail application', async ({ page, person, nomisPrisonUser }) => {
+  await signIn(page, nomisPrisonUser)
   await startAnApplication(page)
   await selectApplicationOrigin(page, 'prisonBail')
   await enterPrisonerNumber(page, person.nomsNumber)
@@ -38,15 +38,15 @@ test('create a CAS-2 bail application', async ({ page, person, pomUser }) => {
   await submitApplication(page)
 })
 
-test('add a note to a submitted application', async ({ page, person, pomUser }) => {
-  await signIn(page, pomUser)
+test('add a note to a submitted application', async ({ page, person, nomisPrisonUser }) => {
+  await signIn(page, nomisPrisonUser)
   await viewSubmittedApplication(page, person.name)
   await addNote(page)
   await expect(page.locator('.moj-timeline__title').first()).toContainText('Note')
 })
 
-test('cancel an in progress application from the task list', async ({ page, pomUser, person }) => {
-  await signIn(page, pomUser)
+test('cancel an in progress application from the task list', async ({ page, nomisPrisonUser, person }) => {
+  await signIn(page, nomisPrisonUser)
   await createAnInProgressApplication(page, person, 'prisonBail')
   await viewInProgressDashboard(page)
   const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
