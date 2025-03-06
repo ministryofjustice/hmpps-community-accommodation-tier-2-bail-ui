@@ -9,8 +9,7 @@ import ApplicationService from '../services/applicationService'
 import { fullPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
 import { DateFormats } from '../utils/dateUtils'
-
-import { validateReferer } from '../utils/viewUtils'
+import paths from '../paths/apply'
 
 jest.mock('../utils/viewUtils')
 
@@ -44,9 +43,6 @@ describe('peopleController', () => {
   })
 
   describe('findByPrisonNumber', () => {
-    beforeEach(() => {
-      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
-    })
     describe('when there is a prison number', () => {
       it('redirects to the show applications path', async () => {
         const requestHandler = peopleController.findByPrisonNumber()
@@ -69,7 +65,7 @@ describe('peopleController', () => {
 
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
-          it('renders a not found error message', async () => {
+          it('renders the search-by-prison-number page with a not found error message', async () => {
             const requestHandler = peopleController.findByPrisonNumber()
 
             const err = { data: {}, status: 404 }
@@ -94,13 +90,12 @@ describe('peopleController', () => {
                 `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
               ),
             ])
-            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
-            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
           })
         })
 
         describe('when there is a 403 error', () => {
-          it('renders a permissions error message', async () => {
+          it('renders the search-by-prison-number page with a permissions error message', async () => {
             const requestHandler = peopleController.findByPrisonNumber()
 
             const err = { data: {}, status: 403 }
@@ -125,16 +120,15 @@ describe('peopleController', () => {
                 'You do not have permission to access the prison number SOME_NUMBER, please try another number.',
               ),
             ])
-            expect(validateReferer).toHaveBeenCalledWith('some-referer/')
-            expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
           })
         })
 
         describe('when there is an error of another type', () => {
-          it('throws the error', async () => {
+          it('renders the search-by-prison-number page with a generic error message', async () => {
             const requestHandler = peopleController.findByPrisonNumber()
 
-            const err = new Error()
+            const err = { data: {}, status: 500 }
 
             personService.findByPrisonNumber.mockImplementation(() => {
               throw err
@@ -142,21 +136,29 @@ describe('peopleController', () => {
 
             request.body.nomsNumber = 'SOME_NUMBER'
 
-            expect(async () => requestHandler(request, response, next)).rejects.toThrow(err)
+            await requestHandler(request, response, next)
+
+            expect(request.flash).toHaveBeenCalledWith('errors', {
+              prisonNumber: errorMessage('prisonNumber', 'Something went wrong. Please try again later.'),
+            })
+            expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('prisonNumber', 'Something went wrong. Please try again later.'),
+            ])
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
           })
         })
       })
     })
 
     describe('when there is not a prison number', () => {
-      it('sends an error to the flash if a prison number has not been provided', async () => {
+      it('renders the search-by-prison-number page with an error message', async () => {
         request.body = {}
 
         const requestHandler = peopleController.findByPrisonNumber()
 
         await requestHandler(request, response, next)
-        expect(validateReferer).toHaveBeenCalledWith('some-referer/')
-        expect(response.redirect).toHaveBeenCalledWith('some-validated-referer')
+
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
 
         expect(flashSpy).toHaveBeenCalledWith('errors', {
           prisonNumber: errorMessage('prisonNumber', 'Enter a prison number'),
