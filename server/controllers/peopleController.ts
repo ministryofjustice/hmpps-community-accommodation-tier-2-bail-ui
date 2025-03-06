@@ -4,7 +4,6 @@ import { errorMessage, errorSummary } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
 import { DateFormats } from '../utils/dateUtils'
-import { validateReferer } from '../utils/viewUtils'
 import paths from '../paths/apply'
 
 export default class PeopleController {
@@ -53,13 +52,39 @@ export default class PeopleController {
       }
     }
   }
+
+  findByCrn(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { crn } = req.body
+
+      if (crn) {
+        try {
+          const person = await this.personService.findByCrn(req.user.token, crn)
+
+          return res.render(`people/confirm-applicant-details`, {
+            pageHeading: `Confirm ${person.name}'s details`,
+            person,
+            date: DateFormats.dateObjtoUIDate(new Date()),
+            dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          })
+        } catch (err) {
+          if (err.status === 404) {
+            this.addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
+          } else if (err.status === 403) {
+            this.addErrorMessagesToFlash(
+              req,
+              'crn',
+              `You do not have permission to access the CRN ${crn}, please try another number.`,
+            )
+          } else {
+            this.addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
           }
 
-          return res.redirect(validateReferer(req.headers.referer))
+          return res.redirect(paths.applications.searchByCrn({}))
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'Enter a prison number')
-        return res.redirect(validateReferer(req.headers.referer))
+        this.addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
+        return res.redirect(paths.applications.searchByCrn({}))
       }
     }
   }
