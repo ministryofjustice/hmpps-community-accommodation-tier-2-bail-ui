@@ -20,14 +20,28 @@ describe('Person Service', () => {
   describe('findByPrisonNumber', () => {
     it('on success returns the person given their prison number', async () => {
       const person = personFactory.build()
-      personClient.search.mockResolvedValue(person)
+      personClient.searchByPrisonNumber.mockResolvedValue(person)
 
       const postedPerson = await service.findByPrisonNumber(token, 'prisonNumber')
 
       expect(postedPerson).toEqual(person)
 
       expect(personClientFactory).toHaveBeenCalledWith(token)
-      expect(personClient.search).toHaveBeenCalledWith('prisonNumber')
+      expect(personClient.searchByPrisonNumber).toHaveBeenCalledWith('prisonNumber')
+    })
+  })
+
+  describe('findByCrn', () => {
+    it('on success returns the person given their crn', async () => {
+      const person = personFactory.build()
+      personClient.searchByCrn.mockResolvedValue(person)
+
+      const postedPerson = await service.findByCrn(token, 'crn')
+
+      expect(postedPerson).toEqual(person)
+
+      expect(personClientFactory).toHaveBeenCalledWith(token)
+      expect(personClient.searchByCrn).toHaveBeenCalledWith('crn')
     })
   })
 })

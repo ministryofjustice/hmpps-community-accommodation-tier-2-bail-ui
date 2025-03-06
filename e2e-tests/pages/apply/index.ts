@@ -1,4 +1,5 @@
 import { FindByPrisonNumberPage } from './findByPrisonNumberPage'
+import { FindByCrnPage } from './findByCrnPage'
 import { TaskListPage } from './taskListPage'
 import { ApplyPage } from './applyPage'
 import { DashboardPage } from './dashboardPage'
@@ -8,6 +9,7 @@ import { ApplicationOriginPage } from './applicationOriginPage'
 
 export {
   FindByPrisonNumberPage,
+  FindByCrnPage,
   TaskListPage,
   ApplyPage,
   DashboardPage,

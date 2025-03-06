@@ -55,6 +55,16 @@ export default defineConfig<TestOptions>({
           username: 'CAS2_ASSESSOR_USER',
           password: 'password123456',
         },
+        nomisCourtUser: {
+          name: 'CAS2 Bail NOMIS Court',
+          username: 'CAS2V2_NOMIS_CB',
+          password: 'password123456'
+        },
+        nomisPrisonUser: {
+          name: 'CAS2 Bail NOMIS Prison',
+          username: 'CAS2V2_NOMIS_PB',
+          password: 'password123456'
+        }
       },
     },
     {
@@ -97,6 +107,16 @@ export default defineConfig<TestOptions>({
           username: 'CAS2_MI_USER',
           password: 'password123456',
         },
+        nomisCourtUser: {
+          name: 'CAS2 Bail NOMIS Court',
+          username: 'CAS2V2_NOMIS_CB',
+          password: 'password123456'
+        },
+        nomisPrisonUser: {
+          name: 'CAS2 Bail NOMIS Prison',
+          username: 'CAS2V2_NOMIS_PB',
+          password: 'password123456'
+        }
       },
       dependencies: ['setupLocal'],
     },
