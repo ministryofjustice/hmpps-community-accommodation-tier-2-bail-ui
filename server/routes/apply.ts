@@ -42,6 +42,14 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     },
   )
 
+  get(
+    paths.applications.unauthorisedPrisonBailApplication.pattern,
+    applicationsController.unauthorisedPrisonBailApplication(),
+    {
+      auditEvent: 'VIEW_APPLICATION_UNAUTHORISED_PRISON_BAIL',
+    },
+  )
+
   post(paths.applications.selectApplicationOrigin.pattern, applicationsController.selectApplicationOrigin(), {
     auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
   })

@@ -174,6 +174,10 @@ export default class ApplicationsController {
   selectApplicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
       if ((req.body.applicationOrigin as ApplicationOrigin) === 'prisonBail') {
+        if (!hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {
+          return res.redirect(paths.applications.unauthorisedPrisonBailApplication({}))
+        }
+
         return res.redirect(paths.applications.searchByPrisonNumber({}))
       }
 
@@ -232,6 +236,19 @@ export default class ApplicationsController {
         errorSummary,
         ...userInput,
         pageHeading: 'You are unauthorised to make a court bail application',
+      })
+    }
+  }
+
+  unauthorisedPrisonBailApplication(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/unauthorised-prison-bail-application', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are unauthorised to make a prison bail application',
       })
     }
   }

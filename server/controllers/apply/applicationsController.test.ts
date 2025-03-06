@@ -355,7 +355,7 @@ describe('applicationsController', () => {
   describe('selectApplicationOrigin', () => {
     beforeEach(() => {
       response = createMock<Response>({
-        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
+        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER', 'CAS2_PRISON_BAIL_REFERRER'] } },
       })
     })
 
@@ -405,6 +405,21 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedCourtBailApplication({}))
+    })
+
+    it('redirects to the unauthorised prison bail page when the application origin is prisonBail and the user does not have the CAS2_PRISON_BAIL_REFERRER role', async () => {
+      request.body = {
+        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+      }
+
+      response = createMock<Response>({
+        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
+      })
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedPrisonBailApplication({}))
     })
   })
 
