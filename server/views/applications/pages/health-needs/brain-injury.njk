@@ -18,6 +18,37 @@
     }}
   {% endset %}
 
+  {% set supportFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'supportDetail',
+          label: {
+            text: page.questions.supportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set treatmentFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'treatmentDetail',
+          label: {
+            text: page.questions.treatmentDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: { text: page.questions.treatmentDetail.hint }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
   {% set vulnerabilityFollowUp %}
   {{
       formPageTextArea(
@@ -48,22 +79,7 @@
     }}
   {% endset %}
 
-  {% set addSupportFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'addSupportDetail',
-          label: {
-            text: page.questions.addSupportDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  <p class="govuk-body guidance">
+  <p class="govuk-hint">
     This could be as a result of accident, drug and alcohol use or an inherited condition.
   </p>
 
@@ -88,6 +104,83 @@
         {
           value: "no",
           text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "supportNeeded",
+        fieldset: {
+          legend: {
+            text: page.questions.supportNeeded.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: supportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "receivingTreatment",
+        fieldset: {
+          legend: {
+            text: page.questions.receivingTreatment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: treatmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
         }
       ]
       },
@@ -116,6 +209,13 @@
         {
           value: "no",
           text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
         }
       ]
       },
@@ -144,34 +244,13 @@
         {
           value: "no",
           text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "requiresAdditionalSupport",
-        fieldset: {
-          legend: {
-            text: page.questions.requiresAdditionalSupport.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: addSupportFollowUp
-          }
         },
         {
-          value: "no",
-          text: "No"
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
         }
       ]
       },

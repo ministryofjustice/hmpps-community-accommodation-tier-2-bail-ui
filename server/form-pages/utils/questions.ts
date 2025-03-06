@@ -630,21 +630,30 @@ export const getQuestions = (name: string) => {
       'brain-injury': {
         hasBrainInjury: {
           question: 'Do they have a brain injury?',
-          answers: yesOrNo,
+          answers: yesNoOrIDontKnow,
         },
-        injuryDetail: { question: 'Please describe their brain injury and needs.' },
+        injuryDetail: {
+          question: 'Enter details of their brain injury and needs, including if they have a formal diagnosis',
+        },
+        supportNeeded: { question: 'Do they need any support as a result of this?', answers: yesNoOrIDontKnow },
+        supportDetail: {
+          question: 'Enter details of the type of support needed, including any support they have already or will need',
+        },
+        receivingTreatment: { question: 'Do they receive any treatment or medication?', answers: yesNoOrIDontKnow },
+        treatmentDetail: {
+          question: 'Enter details about their treatment and medication',
+          hint: 'For example, if they have it and they can manage it in the community',
+        },
         isVulnerable: {
-          question: 'Are they vulnerable as a result of this injury?',
-          answers: yesOrNo,
+          question: 'Are they vulnerable as a result of this?',
+          answers: yesNoOrIDontKnow,
         },
-        vulnerabilityDetail: { question: 'Please describe their level of vulnerability.' },
+        vulnerabilityDetail: { question: 'Enter details of how they might be vulnerable' },
         hasDifficultyInteracting: {
-          question: 'Do they have difficulties interacting with other people as a result of this injury?',
-          answers: yesOrNo,
+          question: 'Do they have difficulties interacting with other people as a result of their injury?',
+          answers: yesNoOrIDontKnow,
         },
-        interactionDetail: { question: 'Please describe these difficulties.' },
-        requiresAdditionalSupport: { question: 'Is additional support required?', answers: yesOrNo },
-        addSupportDetail: { question: 'Please describe the type of support.' },
+        interactionDetail: { question: 'Enter details of the type of difficulties they have.' },
       },
       'liaison-and-diversion': {
         liaisonAndDiversionAssessment: {
