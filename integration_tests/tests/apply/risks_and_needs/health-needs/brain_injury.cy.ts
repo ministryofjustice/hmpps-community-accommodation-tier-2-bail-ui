@@ -70,9 +70,10 @@ context('Visit "brain injury" page', () => {
     const page = new BrainInjuryPage(this.application)
 
     page.describeInjuryAndNeeds()
+    page.describeSupportNeeded()
+    page.describeTreatment()
     page.describeVulnerability()
     page.describeDifficultiesInteracting()
-    page.describeAdditionalSupportNeeded()
 
     page.clickSubmit()
 

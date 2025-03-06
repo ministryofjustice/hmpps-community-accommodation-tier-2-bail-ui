@@ -95,9 +95,10 @@ async function completeBrainInjuryPage(page: Page, name: string) {
   const brainInjuryPage = await ApplyPage.initialize(page, `Brain injury needs for ${name}`)
 
   await brainInjuryPage.checkRadioInGroup('brain injury?', 'No')
+  await brainInjuryPage.checkRadioInGroup('any support', 'No')
+  await brainInjuryPage.checkRadioInGroup('treatment', 'No')
   await brainInjuryPage.checkRadioInGroup('vulnerable', 'No')
   await brainInjuryPage.checkRadioInGroup('difficulties interacting', 'No')
-  await brainInjuryPage.checkRadioInGroup('additional support', 'No')
 
   await brainInjuryPage.clickSave()
 }

@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -6,14 +6,16 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type BrainInjuryBody = {
-  hasBrainInjury: YesOrNo
+  hasBrainInjury: YesNoOrDontKnow
   injuryDetail: string
-  isVulnerable: YesOrNo
+  supportNeeded: YesNoOrDontKnow
+  supportDetail: string
+  receivingTreatment: YesNoOrDontKnow
+  treatmentDetail: string
+  isVulnerable: YesNoOrDontKnow
   vulnerabilityDetail: string
-  hasDifficultyInteracting: YesOrNo
+  hasDifficultyInteracting: YesNoOrDontKnow
   interactionDetail: string
-  requiresAdditionalSupport: YesOrNo
-  addSupportDetail: string
 }
 
 @Page({
@@ -21,12 +23,14 @@ export type BrainInjuryBody = {
   bodyProperties: [
     'hasBrainInjury',
     'injuryDetail',
+    'supportNeeded',
+    'supportDetail',
+    'receivingTreatment',
+    'treatmentDetail',
     'isVulnerable',
     'vulnerabilityDetail',
     'hasDifficultyInteracting',
     'interactionDetail',
-    'requiresAdditionalSupport',
-    'addSupportDetail',
   ],
 })
 export default class BrainInjury implements TaskListPage {
@@ -59,31 +63,38 @@ export default class BrainInjury implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasBrainInjury) {
-      errors.hasBrainInjury = `Confirm whether they have a brain injury`
+      errors.hasBrainInjury = `Select if they have a brain injury, or select 'I do not know'`
     }
     if (this.body.hasBrainInjury === 'yes' && !this.body.injuryDetail) {
-      errors.injuryDetail = 'Describe their brain injury and needs'
+      errors.injuryDetail = 'Enter details of their brain injury and needs'
+    }
+
+    if (!this.body.supportNeeded) {
+      errors.supportNeeded = `Select if they need any support, or select 'I do not know'`
+    }
+    if (this.body.supportNeeded === 'yes' && !this.body.supportDetail) {
+      errors.supportDetail = 'Enter the type of support needed'
+    }
+
+    if (!this.body.receivingTreatment) {
+      errors.receivingTreatment = `Select if they receive any treatment or medication, or select 'I do not know'`
+    }
+    if (this.body.receivingTreatment === 'yes' && !this.body.treatmentDetail) {
+      errors.treatmentDetail = 'Enter details about their treatment and medication'
     }
 
     if (!this.body.isVulnerable) {
-      errors.isVulnerable = `Confirm whether they are vulnerable`
+      errors.isVulnerable = `Select if they are vulnerable, or select 'I do not know'`
     }
     if (this.body.isVulnerable === 'yes' && !this.body.vulnerabilityDetail) {
-      errors.vulnerabilityDetail = 'Describe their level of vulnerability'
+      errors.vulnerabilityDetail = 'Enter how they are vulnerable'
     }
 
     if (!this.body.hasDifficultyInteracting) {
-      errors.hasDifficultyInteracting = `Confirm whether they have difficulties interacting`
+      errors.hasDifficultyInteracting = `Select if they have difficulties interacting with other people, or select 'I do not know'`
     }
     if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
-      errors.interactionDetail = 'Describe their difficulties interacting with other people'
-    }
-
-    if (!this.body.requiresAdditionalSupport) {
-      errors.requiresAdditionalSupport = `Confirm whether additional support is required`
-    }
-    if (this.body.requiresAdditionalSupport === 'yes' && !this.body.addSupportDetail) {
-      errors.addSupportDetail = 'Describe the additional support required'
+      errors.interactionDetail = 'Enter the type of difficulties they have'
     }
 
     return errors
@@ -94,16 +105,20 @@ export default class BrainInjury implements TaskListPage {
       delete this.body.injuryDetail
     }
 
+    if (this.body.supportNeeded !== 'yes') {
+      delete this.body.supportDetail
+    }
+
+    if (this.body.receivingTreatment !== 'yes') {
+      delete this.body.treatmentDetail
+    }
+
     if (this.body.isVulnerable !== 'yes') {
       delete this.body.vulnerabilityDetail
     }
 
     if (this.body.hasDifficultyInteracting !== 'yes') {
       delete this.body.interactionDetail
-    }
-
-    if (this.body.requiresAdditionalSupport !== 'yes') {
-      delete this.body.addSupportDetail
     }
   }
 }

@@ -196,12 +196,14 @@
     "brain-injury": {
       "hasBrainInjury": "no",
       "injuryDetail": "",
+      "supportNeeded": "no",
+      "supportDetail": "",
+      "receivingTreatment": "no",
+      "treatmentDetail": "",
       "isVulnerable": "no",
       "vulnerabilityDetail": "",
       "hasDifficultyInteracting": "no",
-      "interactionDetail": "",
-      "requiresAdditionalSupport": "no",
-      "addSupportDetail": ""
+      "interactionDetail": ""
     },
     "other-health": {
       "hasLongTermHealthCondition": "no",

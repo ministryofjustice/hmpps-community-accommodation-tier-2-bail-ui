@@ -28,12 +28,22 @@ export default class BrainInjuryPage extends ApplyPage {
   }
 
   pageHasBrainInjuryGuidance = (): void => {
-    cy.get('.guidance').contains('This could be as a result of accident')
+    cy.get('p').contains('This could be as a result of accident')
   }
 
   describeInjuryAndNeeds = (): void => {
     this.checkRadioByNameAndValue('hasBrainInjury', 'yes')
     this.getTextInputByIdAndEnterDetails('injuryDetail', 'Has frontal lobe damange')
+  }
+
+  describeSupportNeeded = (): void => {
+    this.checkRadioByNameAndValue('supportNeeded', 'yes')
+    this.getTextInputByIdAndEnterDetails('supportDetail', 'Requires regular support')
+  }
+
+  describeTreatment = (): void => {
+    this.checkRadioByNameAndValue('receivingTreatment', 'yes')
+    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'Lots of treatment')
   }
 
   describeVulnerability = (): void => {
@@ -44,10 +54,5 @@ export default class BrainInjuryPage extends ApplyPage {
   describeDifficultiesInteracting = (): void => {
     this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
     this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can misunderstand situations')
-  }
-
-  describeAdditionalSupportNeeded = (): void => {
-    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
-    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Requires regular support')
   }
 }
