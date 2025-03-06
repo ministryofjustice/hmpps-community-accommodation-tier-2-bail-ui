@@ -47,7 +47,7 @@ describe('peopleController', () => {
       })
     })
     describe('when there is a prison number', () => {
-      it('redirects to the show applications path', async () => {
+      it('renders the confirm applicant details page', async () => {
         const requestHandler = peopleController.findByPrisonNumber()
 
         const person = fullPersonFactory.build({})
