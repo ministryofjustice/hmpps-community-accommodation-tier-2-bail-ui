@@ -14,11 +14,11 @@ type LiaisonAndDiversionBody = {
   bodyProperties: ['liaisonAndDiversionAssessment'],
 })
 export default class LiaisonAndDiversion implements TaskListPage {
-  documentTitle = 'Liaison & Diversion Assessment for the person'
+  documentTitle = 'Liaison and Diversion Assessment for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Liaison & Diversion Assessment for ${this.personName}`
+  title = `Liaison and Diversion Assessment for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['liaison-and-diversion']
 
@@ -43,7 +43,8 @@ export default class LiaisonAndDiversion implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.liaisonAndDiversionAssessment) {
-      errors.liaisonAndDiversionAssessment = `Confirm whether a Liaison & Diversion Assessment has been requested`
+      errors.liaisonAndDiversionAssessment =
+        "Select if a Liaison and Diversion Assessment has been carried out, or select 'I don't know'"
     }
 
     return errors

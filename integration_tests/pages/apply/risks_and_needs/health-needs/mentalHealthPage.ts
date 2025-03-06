@@ -1,7 +1,7 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
-import { pageIsActiveInNavigation, pageHasLinkToGuidance, fieldIsOptional } from '../utils'
+import { pageIsActiveInNavigation, fieldIsOptional } from '../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class MentalHealthPage extends ApplyPage {
@@ -12,7 +12,6 @@ export default class MentalHealthPage extends ApplyPage {
       'health-needs',
       'mental-health',
     )
-    pageHasLinkToGuidance()
     pageIsActiveInNavigation('Mental health')
   }
 
