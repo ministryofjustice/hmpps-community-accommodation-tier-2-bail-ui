@@ -177,10 +177,10 @@
       "cantManageMedicationNotes": ""
     },
     "communication-and-language": {
+      "hasImpairments": "no",
+      "impairmentsDetail": "",
       "requiresInterpreter": "no",
       "interpretationDetail": "",
-      "hasSupportNeeds": "no",
-      "supportDetail": "",
       "oldQuestion": "this answer should not appear"
     },
     "learning-difficulties": {

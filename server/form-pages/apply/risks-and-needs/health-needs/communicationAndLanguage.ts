@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -6,15 +6,15 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type CommunicationAndLanguageBody = {
+  hasImpairments: YesNoOrDontKnow
+  impairmentsDetail: string
   requiresInterpreter: YesOrNo
   interpretationDetail: string
-  hasSupportNeeds: YesOrNo
-  supportDetail: string
 }
 
 @Page({
   name: 'communication-and-language',
-  bodyProperties: ['requiresInterpreter', 'interpretationDetail', 'hasSupportNeeds', 'supportDetail'],
+  bodyProperties: ['hasImpairments', 'impairmentsDetail', 'requiresInterpreter', 'interpretationDetail'],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
   documentTitle = 'Communication and language needs for the person'
@@ -45,30 +45,30 @@ export default class CommunicationAndLanguage implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.requiresInterpreter) {
-      errors.requiresInterpreter = `Confirm whether they need an interpreter`
+    if (!this.body.hasImpairments) {
+      errors.hasImpairments = `Select if they have any literacy, visual or hearing impairments, or select 'I do not know'`
     }
-    if (this.body.requiresInterpreter === 'yes' && !this.body.interpretationDetail) {
-      errors.interpretationDetail = 'Specify the language the interpreter is needed for'
+    if (this.body.hasImpairments === 'yes' && !this.body.impairmentsDetail) {
+      errors.impairmentsDetail = 'Enter details of their needs'
     }
 
-    if (!this.body.hasSupportNeeds) {
-      errors.hasSupportNeeds = `Confirm they they need support`
+    if (!this.body.requiresInterpreter) {
+      errors.requiresInterpreter = `Select if they need an interpreter, or select 'I do not know'`
     }
-    if (this.body.hasSupportNeeds === 'yes' && !this.body.supportDetail) {
-      errors.supportDetail = 'Describe the support needed to see, hear, speak or understand'
+    if (this.body.requiresInterpreter === 'yes' && !this.body.interpretationDetail) {
+      errors.interpretationDetail = 'Enter the language they need an interpreter for'
     }
 
     return errors
   }
 
   onSave(): void {
-    if (this.body.requiresInterpreter !== 'yes') {
-      delete this.body.interpretationDetail
+    if (this.body.hasImpairments !== 'yes') {
+      delete this.body.impairmentsDetail
     }
 
-    if (this.body.hasSupportNeeds !== 'yes') {
-      delete this.body.supportDetail
+    if (this.body.requiresInterpreter !== 'yes') {
+      delete this.body.interpretationDetail
     }
   }
 }

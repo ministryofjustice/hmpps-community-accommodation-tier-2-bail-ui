@@ -3,6 +3,21 @@
 
 {% block questions %}
 
+  {% set impairmentsFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'impairmentsDetail',
+          label: {
+            text: page.questions.impairmentsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
   {% set interpretationFollowUp %}
   {{
       formPageInput(
@@ -18,20 +33,40 @@
     }}
   {% endset %}
 
-  {% set supportFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'supportDetail',
-          label: {
-            text: page.questions.supportDetail.question,
-            classes: "govuk-label--s"
+   {{
+    formPageRadios(
+      {
+        fieldName: "hasImpairments",
+        fieldset: {
+          legend: {
+            text: page.questions.hasImpairments.question,
+            classes: "govuk-fieldset__legend--m"
           }
         },
-        fetchContext()
-      )
-    }}
-  {% endset %}
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: impairmentsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I don't know"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
 
   {{
     formPageRadios(
@@ -54,33 +89,13 @@
         {
           value: "no",
           text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasSupportNeeds",
-        fieldset: {
-          legend: {
-            text: page.questions.hasSupportNeeds.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: supportFollowUp
-          }
         },
         {
-          value: "no",
-          text: "No"
+          divider: 'or'
+        },
+        {
+          value: "dontKnow",
+          text: "I do not know"
         }
       ]
       },

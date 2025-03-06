@@ -17,7 +17,7 @@
 //    Then I see the "learning difficulties" page
 
 import Page from '../../../../pages/page'
-import CommunicationAndLanguage from '../../../../pages/apply/risks_and_needs/health-needs/communicationAndLanguagePage'
+import CommunicationAndLanguagePage from '../../../../pages/apply/risks_and_needs/health-needs/communicationAndLanguagePage'
 import LearningDifficultiesPage from '../../../../pages/apply/risks_and_needs/health-needs/learningDifficultiesPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -52,13 +52,13 @@ context('Visit "communication and language" page', () => {
 
     // And I am on the communication and language page
     // --------------------------------
-    CommunicationAndLanguage.visit(this.application)
+    CommunicationAndLanguagePage.visit(this.application)
   })
 
   //  Scenario: view communication and language questions
   //    Then I see the "communication and language" page
   it('presents communication and language page', function test() {
-    Page.verifyOnPage(CommunicationAndLanguage, this.application)
+    Page.verifyOnPage(CommunicationAndLanguagePage, this.application)
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
@@ -66,12 +66,11 @@ context('Visit "communication and language" page', () => {
   //    And I continue to the next task / page
   //    Then I see the "learning difficulties" page
   it('navigates to the next page (learning difficulties)', function test() {
-    CommunicationAndLanguage.visit(this.application)
-    const page = new CommunicationAndLanguage(this.application)
+    CommunicationAndLanguagePage.visit(this.application)
+    const page = new CommunicationAndLanguagePage(this.application)
 
+    page.describeImpairments()
     page.specifyInterpretationNeeds()
-    page.describeSupportNeeded()
-
     page.clickSubmit()
 
     Page.verifyOnPage(LearningDifficultiesPage, this.application)
