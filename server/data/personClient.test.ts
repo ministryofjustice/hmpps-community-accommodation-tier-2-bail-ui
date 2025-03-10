@@ -12,7 +12,7 @@ describeClient('PersonClient', provider => {
     personClient = new PersonClient(token)
   })
 
-  describe('search', () => {
+  describe('searchByPrisonNumber', () => {
     it('should return a person', async () => {
       const person = personFactory.build()
 
@@ -33,7 +33,34 @@ describeClient('PersonClient', provider => {
         },
       })
 
-      const result = await personClient.search('nomsNumber')
+      const result = await personClient.searchByPrisonNumber('nomsNumber')
+
+      expect(result).toEqual(person)
+    })
+  })
+
+  describe('searchByCrn', () => {
+    it('should return a person', async () => {
+      const person = personFactory.build()
+
+      provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request to search for a person',
+        withRequest: {
+          method: 'GET',
+          path: `/cas2v2/people/search-by-crn/crn`,
+          query: {},
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: person,
+        },
+      })
+
+      const result = await personClient.searchByCrn('crn')
 
       expect(result).toEqual(person)
     })

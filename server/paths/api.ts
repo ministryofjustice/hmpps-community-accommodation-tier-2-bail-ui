@@ -14,7 +14,8 @@ const singleReportPath = reportsPath.path(':name')
 
 export default {
   people: {
-    search: peoplePath.path('search-by-noms/:nomsNumber'),
+    searchByPrisonNumber: peoplePath.path('search-by-noms/:nomsNumber'),
+    searchByCrn: peoplePath.path('search-by-crn/:crn'),
     risks: {
       show: personPath.path('risks'),
     },

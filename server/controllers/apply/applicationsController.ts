@@ -15,6 +15,7 @@ import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { validateReferer } from '../../utils/viewUtils'
+import { hasRole } from '../../utils/userUtils'
 
 export default class ApplicationsController {
   constructor(
@@ -173,11 +174,19 @@ export default class ApplicationsController {
   selectApplicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
       if ((req.body.applicationOrigin as ApplicationOrigin) === 'prisonBail') {
+        if (!hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {
+          return res.redirect(paths.applications.unauthorisedPrisonBailApplication({}))
+        }
+
         return res.redirect(paths.applications.searchByPrisonNumber({}))
       }
 
       if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
-        return res.redirect(paths.applications.searchByPrisonNumber({}))
+        if (!hasRole(res.locals.user.userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
+          return res.redirect(paths.applications.unauthorisedCourtBailApplication({}))
+        }
+
+        return res.redirect(paths.applications.searchByCrn({}))
       }
 
       const message = 'Please select an application type'
@@ -201,6 +210,45 @@ export default class ApplicationsController {
         errorSummary,
         ...userInput,
         pageHeading: "Enter the person's prison number",
+      })
+    }
+  }
+
+  searchByCrn(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/search-by-crn', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: "Enter the person's CRN",
+      })
+    }
+  }
+
+  unauthorisedCourtBailApplication(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/unauthorised-court-bail-application', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are unauthorised to make a court bail application',
+      })
+    }
+  }
+
+  unauthorisedPrisonBailApplication(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/unauthorised-prison-bail-application', {
+        errors,
+        errorSummary,
+        ...userInput,
+        pageHeading: 'You are unauthorised to make a prison bail application',
       })
     }
   }

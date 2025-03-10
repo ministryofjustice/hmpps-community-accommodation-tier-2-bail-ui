@@ -20,9 +20,9 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <form action="{{ paths.applications.people.findByPrisonNumber() }}" method="post" autocomplete="off">
+      <form action="{{ paths.applications.people.findByCrn() }}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-        <input type="hidden" name="applicationOrigin" value="prisonBail"/>
+        <input type="hidden" name="applicationOrigin" value="courtBail"/>
 
         {{ showErrorSummary(errorSummary) }}
 
@@ -30,15 +30,15 @@
           formPageInput(
             {
               label: {
-                text: "Enter the person's prison number",
+                text: "Enter the person's CRN",
                 classes: "govuk-label--l",
                 isPageHeading: true
               },
               hint: {
-                text: "For example, DO16821"
+                text: "For example, X320741"
               },
               classes: "govuk-input--width-10 govuk-input--extra-letter-spacing",
-              fieldName: "prisonNumber"
+              fieldName: "crn"
             },
             fetchContext()
           )

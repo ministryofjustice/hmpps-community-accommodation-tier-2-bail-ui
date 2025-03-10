@@ -5,6 +5,7 @@ import {
   BeforeYouStartPage,
   DashboardPage,
   FindByPrisonNumberPage,
+  FindByCrnPage,
   TaskListPage,
   ApplicationOriginPage,
 } from '../pages/apply'
@@ -48,15 +49,25 @@ export const startAnApplication = async (page: Page) => {
   await beforeYouStartPage.startNow()
 }
 
-export const selectApplicationOrigin = async (page: Page) => {
+export const selectApplicationOrigin = async (page: Page, applicationOrigin: 'courtBail' | 'prisonBail') => {
   const applicationOriginPage = new ApplicationOriginPage(page)
-  await applicationOriginPage.choosePrisonBail()
+  if (applicationOrigin === 'prisonBail') {
+    await applicationOriginPage.choosePrisonBail()
+  } else {
+    await applicationOriginPage.chooseCourtBail()
+  }
 }
 
 export const enterPrisonerNumber = async (page: Page, prisonNumber: string) => {
   const prisonNumberPage = new FindByPrisonNumberPage(page)
   await prisonNumberPage.enterPrisonNumber(prisonNumber)
   await prisonNumberPage.clickButton('Search for applicant')
+}
+
+export const enterCrn = async (page: Page, crn: string) => {
+  const crnPage = new FindByCrnPage(page)
+  await crnPage.enterCrn(crn)
+  await crnPage.clickButton('Search for applicant')
 }
 
 export const confirmApplicant = async (page: Page) => {
@@ -142,9 +153,17 @@ export const viewApplicationMadeByAnotherUser = async (page: Page, name: string)
   await expect(page.locator('h2').first()).toContainText('Application history')
 }
 
-export const createAnInProgressApplication = async (page: Page, person: TestOptions['person']) => {
+export const createAnInProgressApplication = async (
+  page: Page,
+  person: TestOptions['person'],
+  applicationOrigin: 'courtBail' | 'prisonBail',
+) => {
   await startAnApplication(page)
-  await selectApplicationOrigin(page)
-  await enterPrisonerNumber(page, person.nomsNumber)
+  await selectApplicationOrigin(page, applicationOrigin)
+  if (applicationOrigin === 'courtBail') {
+    await enterCrn(page, person.crn)
+  } else {
+    await enterPrisonerNumber(page, person.nomsNumber)
+  }
   await confirmApplicant(page)
 }
