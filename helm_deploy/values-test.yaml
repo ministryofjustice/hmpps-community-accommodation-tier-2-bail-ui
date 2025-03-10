@@ -1,0 +1,24 @@
+---
+# Per environment values which override defaults in hmpps-community-accommodation-tier-2-bail-ui/values.yaml
+
+generic-service:
+  replicaCount: 2
+
+  ingress:
+    host: community-accommodation-tier-2-bail-test.hmpps.service.justice.gov.uk
+    tlsSecretName: hmpps-community-accommodation-tier-2-bail-test-cert
+
+  env:
+    INGRESS_URL: "https://community-accommodation-tier-2-bail-test.hmpps.service.justice.gov.uk"
+    HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
+    TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
+    APPROVED_PREMISES_API_URL: "https://approved-premises-api-test.hmpps.service.justice.gov.uk"
+    COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
+    COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
+    ENVIRONMENT_NAME: test
+    AUDIT_ENABLED: "false"
+
+  allowlist: null
+
+generic-prometheus-alerts:
+  alertSeverity: digital-prison-service-dev
