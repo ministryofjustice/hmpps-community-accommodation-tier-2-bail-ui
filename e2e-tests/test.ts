@@ -19,14 +19,6 @@ export const test = base.extend<TestOptions>({
     },
     { option: true },
   ],
-  pomUser: [
-    {
-      name: 'Cas-two Test-user',
-      username: process.env.CAS2_HMPPS_AUTH_USERNAME as string,
-      password: process.env.CAS2_HMPPS_AUTH_PASSWORD as string,
-    },
-    { option: true },
-  ],
   nomisCourtUser: [
     {
       name: 'Cas-two bail Test-nomis-court-user',

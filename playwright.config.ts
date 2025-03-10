@@ -35,11 +35,6 @@ export default defineConfig<TestOptions>({
       testMatch: /.*\.setup\.ts/,
       use: {
         baseURL: 'http://localhost:3000',
-        pomUser: {
-          name: 'Prison Officer',
-          username: 'POM_USER',
-          password: 'password123456',
-        },
         lcaUser: {
           name: 'LCA User',
           username: 'CAS2_LICENCE_USER',
@@ -81,11 +76,6 @@ export default defineConfig<TestOptions>({
           name: 'James Brown',
           crn: 'C246139',
           nomsNumber: 'A1234AJ',
-        },
-        pomUser: {
-          name: 'Prison Officer',
-          username: 'POM_USER',
-          password: 'password123456',
         },
         lcaUser: {
           name: 'Licence Case-Admin',
