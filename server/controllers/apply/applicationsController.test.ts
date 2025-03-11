@@ -228,6 +228,10 @@ describe('applicationsController', () => {
   })
 
   describe('create', () => {
+    beforeEach(() => {
+      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
+    })
+
     const applicationOrigin: ApplicationOrigin = 'courtBail'
 
     it('redirects to the new applications page on success', async () => {
