@@ -82,7 +82,7 @@ jobs:
     needs:
       - build
     if: github.ref == 'refs/heads/main'
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v1
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v2
     secrets: inherit
     with:
       environment: 'test'
