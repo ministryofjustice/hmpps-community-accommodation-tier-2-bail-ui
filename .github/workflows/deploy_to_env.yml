@@ -9,6 +9,7 @@ on:
         required: true
         options:
           - dev
+          - test
           - preprod
           - prod
         default: 'dev'
