@@ -36,7 +36,7 @@ export const manageInformationReports = async (page: Page) => {
 }
 
 export const downloadReport = async (reportType: ReportType, page: Page) => {
-  const downloadPromise = page.waitForEvent('download')
+  const downloadPromise = page.waitForEvent('download', { timeout: 10000 })
   await page.getByRole('button', { name: reportTypeMetaData[reportType].callToAction }).click()
   const download = await downloadPromise
   const path = await download.path()
