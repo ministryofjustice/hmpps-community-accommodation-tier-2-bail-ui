@@ -9,6 +9,7 @@ export type PaginationItem =
       number: number
       href: string
       current?: boolean
+      attributes?: Record<string, string>
     }
   | {
       ellipsis: true
@@ -69,6 +70,7 @@ export function pagination(currentPage: number, pageCount: number, hrefPrefix: s
       const item: PaginationItem = {
         number: somePage,
         href: `${hrefPrefix}page=${somePage}`,
+        attributes: { 'data-testid': 'pagination-page-number-link' },
       }
       if (somePage === currentPage) {
         item.current = true
