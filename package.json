@@ -91,7 +91,7 @@
     "@aws-sdk/client-sqs": "^3.758.0",
     "@faker-js/faker": "^9.5.1",
     "@golevelup/ts-jest": "^0.6.2",
-    "@ministryofjustice/frontend": "^3.7.0",
+    "@ministryofjustice/frontend": "^4.0.1",
     "@playwright/test": "^1.51.0",
     "@types/jsonpath": "^0.2.4",
     "agentkeepalive": "^4.6.0",
