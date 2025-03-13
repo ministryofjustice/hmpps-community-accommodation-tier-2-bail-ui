@@ -13,6 +13,6 @@ describe('LivingInTheCommunity', () => {
     })
   })
 
-  itShouldHaveNextValue(new LivingInTheCommunity({}, application), 'risks-to-staff')
+  itShouldHaveNextValue(new LivingInTheCommunity({}, application), 'safety-of-staff')
   itShouldHavePreviousValue(new LivingInTheCommunity({}, application), 'violence-and-arson')
 })

@@ -1,8 +1,8 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 
-export default class RisksToStaffPage extends ApplyPage {
+export default class SafetyOfStaffPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Risks to staff', application, 'risk-information', 'risks-to-staff')
+    super('Safety of staff', application, 'risk-information', 'safety-of-staff')
   }
 }

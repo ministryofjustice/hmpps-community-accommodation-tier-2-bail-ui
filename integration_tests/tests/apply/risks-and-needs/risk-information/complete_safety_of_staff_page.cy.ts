@@ -1,11 +1,11 @@
-//  Feature: complete risks to staff page
+//  Feature: complete Safety of staff page
 //
 
-import RisksToStaffPage from '../../../../pages/apply/risks-and-needs/risk-information/risksToStaffPage'
+import SafetyOfStaffPage from '../../../../pages/apply/risks-and-needs/risk-information/safetyOfStaffPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
-context('Complete "Risks to staff" page', () => {
+context('Complete "Safety of staff" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
@@ -34,13 +34,13 @@ context('Complete "Risks to staff" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the Risks to staff page
+    // And I visit the Safety of staff page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/risk-information/pages/risks-to-staff')
+    cy.visit('applications/abc123/tasks/risk-information/pages/safety-of-staff')
   })
 
   it('exists', function test() {
-    // Given I am on the Risks to staff page
-    Page.verifyOnPage(RisksToStaffPage, this.application)
+    // Given I am on the Safety of staff page
+    Page.verifyOnPage(SafetyOfStaffPage, this.application)
   })
 })

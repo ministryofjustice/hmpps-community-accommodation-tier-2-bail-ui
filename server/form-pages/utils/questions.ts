@@ -718,7 +718,7 @@ export const getQuestions = (name: string) => {
       },
       'violence-and-arson': {},
       'living-in-the-community': {},
-      'risks-to-staff': {},
+      'safety-of-staff': {},
       'additional-concerns': {},
       'acct-data': {
         createdDate: {
