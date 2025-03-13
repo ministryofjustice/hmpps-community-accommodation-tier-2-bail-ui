@@ -215,7 +215,16 @@
   },
   "risk-information": {
     "concerns": {},
-    "self-harm": {},
+    "self-harm": {
+      "pastHarm": "no",
+      "pastHarmDetail": "",
+      "currentConcerns": "no",
+      "currentConcernsDetail": "",
+      "specificTriggers": "no",
+      "specificTriggersDetail": "",
+      "specificTriggersNotKnownDetail": "",
+      "currentlyPresenting": ""
+    },
     "violence-and-arson": {},
     "living-in-the-community": {},
     "risks-to-staff": {},

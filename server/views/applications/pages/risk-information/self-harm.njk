@@ -2,4 +2,181 @@
 {% set pageName = "self-harm" %}
 
 {% block questions %}
+  {% set pastHarmFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'pastHarmDetail',
+          label: {
+            text: page.questions.pastHarmDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set currentConcernsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'currentConcernsDetail',
+          label: {
+            text: page.questions.currentConcernsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set specificTriggersFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'specificTriggersDetail',
+          label: {
+            text: page.questions.specificTriggersDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set specificTriggersNotKnownFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'specificTriggersNotKnownDetail',
+          label: {
+            text: page.questions.specificTriggersNotKnownDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "pastHarm",
+        hint: {
+          text: page.questions.pastHarm.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.pastHarm.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: pastHarmFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "currentConcerns",
+        hint: {
+          text: page.questions.currentConcerns.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.currentConcerns.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: currentConcernsFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "specificTriggers",
+        hint: {
+          text: page.questions.specificTriggers.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.specificTriggers.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: specificTriggersFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            divider: 'or'
+          },
+          {
+            value: "dontKnow",
+            text: "Not known",
+            conditional: {
+              html: specificTriggersNotKnownFollowUp
+            }
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageTextArea(
+      {
+        fieldName: 'currentlyPresenting',
+        hint: page.questions.currentlyPresenting.hint,
+        label: {
+          text: page.questions.currentlyPresenting.question,
+          classes: "govuk-label--s"
+        }
+      },
+      fetchContext()
+    )
+  }}
+
 {% endblock %}

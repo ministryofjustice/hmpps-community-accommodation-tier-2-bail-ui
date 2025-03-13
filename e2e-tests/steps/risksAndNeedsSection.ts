@@ -124,12 +124,12 @@ async function completeOtherHealthPage(page: Page, name: string) {
   await otherHealthPage.clickSave()
 }
 
-export const completeRiskInformationTask = async (page: Page) => {
+export const completeRiskInformationTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add information about risks to the applicant and others')
 
   await completeConcernsPage(page)
-  await completeSelfHarmPage(page)
+  await completeSelfHarmPage(page, name)
   await addAnAcct(page)
   await completeViolenceAndArsonPage(page)
   await completeLivingInTheCommunityPage(page)
@@ -143,8 +143,12 @@ async function completeConcernsPage(page: Page) {
   concernsPage.clickSave()
 }
 
-async function completeSelfHarmPage(page: Page) {
-  const selfHarmPage = await ApplyPage.initialize(page, 'Self harm')
+async function completeSelfHarmPage(page: Page, name: string) {
+  const selfHarmPage = await ApplyPage.initialize(page, `Concerns of self-harm and suicide for ${name}`)
+
+  await selfHarmPage.checkRadioInGroup('in the past?', 'No')
+  await selfHarmPage.checkRadioInGroup('any current concerns of self-harm', 'No')
+  await selfHarmPage.checkRadioInGroup('have any specific triggers', 'No')
 
   selfHarmPage.clickSave()
 }

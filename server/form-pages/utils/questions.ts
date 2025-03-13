@@ -684,7 +684,38 @@ export const getQuestions = (name: string) => {
     },
     'risk-information': {
       concerns: {},
-      'self-harm': {},
+      'self-harm': {
+        pastHarm: {
+          question: 'Has the applicant self-harmed or attempted suicide in the past?',
+          hint: 'This includes any incidents prior to being held in custody',
+          answers: yesOrNo,
+        },
+        pastHarmDetail: {
+          question: 'Enter details including frequency and severity of self harm or suicide attempts and methods used',
+        },
+        currentConcerns: {
+          question: 'Based on the information you have, are there any current concerns of self-harm or suicide?',
+          hint: 'This includes any concerns whilst being held in custody',
+          answers: yesOrNo,
+        },
+        currentConcernsDetail: {
+          question: 'Enter the details of any current concerns',
+        },
+        specificTriggers: {
+          question: 'Does the applicant have any specific triggers related to self-harm or suicide?',
+          answers: yesNoOrIDontKnow,
+        },
+        specificTriggersDetail: {
+          question: 'Enter details about situations, topics or other triggers that might cause concern',
+        },
+        specificTriggersNotKnownDetail: {
+          question: 'Enter reason why it is not known',
+        },
+        currentlyPresenting: {
+          question: 'How are they currently presenting? (optional)',
+          hint: 'For example, how they appeared when you last spoke to them',
+        },
+      },
       'violence-and-arson': {},
       'living-in-the-community': {},
       'risks-to-staff': {},
