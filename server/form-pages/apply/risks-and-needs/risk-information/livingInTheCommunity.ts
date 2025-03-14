@@ -35,7 +35,7 @@ export default class LivingInTheCommunity implements TaskListPage {
   }
 
   next() {
-    return 'risks-to-staff'
+    return 'safety-of-staff'
   }
 
   errors() {

@@ -227,7 +227,12 @@
     },
     "violence-and-arson": {},
     "living-in-the-community": {},
-    "risks-to-staff": {},
+    "safety-of-staff": {
+      "pastRiskToStaff": "no",
+      "pastRiskToStaffDetail": "",
+      "currentConcerns": "no",
+      "currentConcernsDetail": ""
+    },
     "additional-concerns": {},
     "acct": {},
     "acct-data": [

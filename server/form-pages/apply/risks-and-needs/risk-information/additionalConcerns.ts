@@ -31,7 +31,7 @@ export default class AdditionalConcerns implements TaskListPage {
   }
 
   previous() {
-    return 'risks-to-staff'
+    return 'safety-of-staff'
   }
 
   next() {
