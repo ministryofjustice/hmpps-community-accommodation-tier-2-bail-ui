@@ -225,7 +225,12 @@
       "specificTriggersNotKnownDetail": "",
       "currentlyPresenting": ""
     },
-    "violence-and-arson": {},
+    "violence-and-arson": {
+      "pastConvictions": "no",
+      "pastConvictionsDetail": "",
+      "currentConcerns": "no",
+      "currentConcernsDetail": ""
+    },
     "living-in-the-community": {},
     "risks-to-staff": {},
     "additional-concerns": {},
