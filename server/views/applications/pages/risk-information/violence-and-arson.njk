@@ -2,4 +2,110 @@
 {% set pageName = "violence-and-arson" %}
 
 {% block questions %}
+
+  {% set pastConvictionsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'pastConvictionsDetail',
+          label: {
+            text: page.questions.pastConvictionsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set currentConcernsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'currentConcernsDetail',
+          label: {
+            text: page.questions.currentConcernsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <div data-testid="violence-and-arson-hint" class="govuk-hint govuk-!-margin-bottom-6">
+    <p class="govuk-hint govuk-!-margin-bottom-0">This can include:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-bottom-6">
+      <li>arson with or without intent</li>
+      <li>assault</li>
+      <li>criminal damage</li>
+      <li>domestic violence (perpetrator)</li>
+      <li>sexual violence</li>
+      <li>weapons</li>
+    </ul>
+    <p class="govuk-hint">This list is not exhaustive.</p>
+  </div>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "pastConvictions",
+        hint: {
+          text: page.questions.pastConvictions.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.pastConvictions.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: pastConvictionsFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "currentConcerns",
+        hint: {
+          text: page.questions.currentConcerns.hint
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.currentConcerns.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: currentConcernsFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
 {% endblock %}
