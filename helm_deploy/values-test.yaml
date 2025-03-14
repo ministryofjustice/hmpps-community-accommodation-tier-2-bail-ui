@@ -18,11 +18,6 @@ generic-service:
     ENVIRONMENT_NAME: TEST
     AUDIT_ENABLED: "false"
 
-  namespace_secrets:
-    hmpps-community-accommodation-tier-2-bail-ui:
-      AUTH_CODE_CLIENT_ID: 'API_CLIENT_ID'
-      AUTH_CODE_CLIENT_SECRET: 'API_CLIENT_SECRET'
-
   allowlist: null
 
 generic-prometheus-alerts:
