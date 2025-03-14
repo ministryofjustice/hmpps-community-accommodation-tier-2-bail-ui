@@ -1,16 +1,20 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type SafetyOfStaffBody = {}
+export type SafetyOfStaffBody = {
+  pastRiskToStaff: YesOrNo
+  pastRiskToStaffDetail: string
+  currentConcerns: YesOrNo
+  currentConcernsDetail: string
+}
 
 @Page({
   name: 'safety-of-staff',
-  bodyProperties: [],
+  bodyProperties: ['pastRiskToStaff', 'pastRiskToStaffDetail', 'currentConcerns', 'currentConcernsDetail'],
 })
 export default class SafetyOfStaff implements TaskListPage {
   documentTitle = 'Concerns related to the safety of staff'
@@ -41,6 +45,32 @@ export default class SafetyOfStaff implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.pastRiskToStaff) {
+      errors.pastRiskToStaff = 'Select if they have posed a risk to the safety of any staff'
+    }
+
+    if (this.body.pastRiskToStaff === 'yes' && !this.body.pastRiskToStaffDetail) {
+      errors.pastRiskToStaffDetail = 'Enter details of the incidents'
+    }
+
+    if (!this.body.currentConcerns) {
+      errors.currentConcerns = 'Select if there are any current concerns over the safety of any staff'
+    }
+
+    if (this.body.currentConcerns === 'yes' && !this.body.currentConcernsDetail) {
+      errors.currentConcernsDetail = 'Enter details of current concerns'
+    }
+
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.pastRiskToStaff !== 'yes') {
+      delete this.body.pastRiskToStaffDetail
+    }
+
+    if (this.body.currentConcerns !== 'yes') {
+      delete this.body.currentConcernsDetail
+    }
   }
 }
