@@ -687,7 +687,7 @@ export const getQuestions = (name: string) => {
       'self-harm': {
         pastHarm: {
           question: 'Has the applicant self-harmed or attempted suicide in the past?',
-          hint: 'This includes any incidents prior to being held in custody',
+          hint: 'This includes any incidents prior to being held in custody.',
           answers: yesOrNo,
         },
         pastHarmDetail: {
@@ -695,7 +695,7 @@ export const getQuestions = (name: string) => {
         },
         currentConcerns: {
           question: 'Based on the information you have, are there any current concerns of self-harm or suicide?',
-          hint: 'This includes any concerns whilst being held in custody',
+          hint: 'This includes any concerns whilst being held in custody.',
           answers: yesOrNo,
         },
         currentConcernsDetail: {
@@ -713,7 +713,7 @@ export const getQuestions = (name: string) => {
         },
         currentlyPresenting: {
           question: 'How are they currently presenting? (optional)',
-          hint: 'For example, how they appeared when you last spoke to them',
+          hint: 'For example, how they appeared when you last spoke to them.',
         },
       },
       'violence-and-arson': {
