@@ -169,7 +169,9 @@
     formPageTextArea(
       {
         fieldName: 'currentlyPresenting',
-        hint: page.questions.currentlyPresenting.hint,
+        hint: {
+          text: page.questions.currentlyPresenting.hint
+        },
         label: {
           text: page.questions.currentlyPresenting.question,
           classes: "govuk-label--s"
