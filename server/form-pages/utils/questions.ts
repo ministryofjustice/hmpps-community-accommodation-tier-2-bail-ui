@@ -716,7 +716,26 @@ export const getQuestions = (name: string) => {
           hint: 'For example, how they appeared when you last spoke to them',
         },
       },
-      'violence-and-arson': {},
+      'violence-and-arson': {
+        pastConvictions: {
+          question:
+            'Has the applicant had any convictions or behaviours noted related to violence or arson in the past?',
+          hint: 'This includes any incidents prior to being held in custody.',
+          answers: yesOrNo,
+        },
+        pastConvictionsDetail: {
+          question:
+            'Enter details of any incidents, including any known victims, their location and relationship to the applicant',
+        },
+        currentConcerns: {
+          question: 'Based on the information you have, are there any current concerns around violence or arson?',
+          hint: 'This includes any concerns whilst being held in custody.',
+          answers: yesOrNo,
+        },
+        currentConcernsDetail: {
+          question: 'Enter the details of any current concerns',
+        },
+      },
       'living-in-the-community': {},
       'risks-to-staff': {},
       'additional-concerns': {},
