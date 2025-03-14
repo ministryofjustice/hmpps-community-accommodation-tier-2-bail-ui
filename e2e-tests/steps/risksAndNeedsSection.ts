@@ -166,7 +166,9 @@ async function completeLivingInTheCommunityPage(page: Page) {
 }
 
 async function completeSafetyOfStaffPage(page: Page) {
-  const safetyOfStaffPage = await ApplyPage.initialize(page, 'Safety of staff')
+  const safetyOfStaffPage = await ApplyPage.initialize(page, 'Concerns related to the safety of staff')
+  await safetyOfStaffPage.checkRadioInGroup('in the past', 'No')
+  await safetyOfStaffPage.checkRadioInGroup('any current concerns', 'No')
 
   safetyOfStaffPage.clickSave()
 }
