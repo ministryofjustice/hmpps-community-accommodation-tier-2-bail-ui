@@ -14,5 +14,5 @@ describe('AdditionalConcerns', () => {
   })
 
   itShouldHaveNextValue(new AdditionalConcerns({}, application), '')
-  itShouldHavePreviousValue(new AdditionalConcerns({}, application), 'risks-to-staff')
+  itShouldHavePreviousValue(new AdditionalConcerns({}, application), 'safety-of-staff')
 })

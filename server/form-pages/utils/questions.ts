@@ -737,7 +737,24 @@ export const getQuestions = (name: string) => {
         },
       },
       'living-in-the-community': {},
-      'risks-to-staff': {},
+      'safety-of-staff': {
+        pastRiskToStaff: {
+          question: `Has ${name} posed a risk to the safety of any staff in the past?`,
+          hint: 'This includes any incidents prior to being held in custody.',
+          answers: yesOrNo,
+        },
+        pastRiskToStaffDetail: {
+          question: 'Enter details including a summary of the incidents, when they happened and any outcomes',
+        },
+        currentConcerns: {
+          question: 'Based on the information you have, are there any current concerns over the safety of any staff?',
+          hint: 'This includes any concerns over the safety of lone working female staff.',
+          answers: yesOrNo,
+        },
+        currentConcernsDetail: {
+          question: 'Enter the details of any current concerns',
+        },
+      },
       'additional-concerns': {},
       'acct-data': {
         createdDate: {

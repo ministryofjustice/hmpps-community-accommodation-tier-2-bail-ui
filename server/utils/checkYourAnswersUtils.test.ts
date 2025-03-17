@@ -521,7 +521,7 @@ describe('checkYourAnswersUtils', () => {
         'self-harm',
         'violence-and-arson',
         'living-in-the-community',
-        'risks-to-staff',
+        'safety-of-staff',
         'additional-concerns',
         'acct',
         'acct-data',

@@ -1,0 +1,105 @@
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "safety-of-staff" %}
+
+{% block questions %}
+
+  {% set pastRiskToStaffFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'pastRiskToStaffDetail',
+          label: {
+            text: page.questions.pastRiskToStaffDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set currentConcernsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'currentConcernsDetail',
+          label: {
+            text: page.questions.currentConcernsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+   <div class="guidance govuk-hint govuk-!-margin-bottom-6">
+    <p class="govuk-hint govuk-!-margin-bottom-1">Consider concerns towards:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-bottom-6">
+      <li>support and housing staff</li>
+      <li>probation workers</li>
+      <li>accommodation staff</li>
+      <li>police staff</li>
+      <li>custody staff</li>
+    </ul>
+  </div>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "pastRiskToStaff",
+        fieldset: {
+          legend: {
+            text: page.questions.pastRiskToStaff.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: { text: page.questions.pastRiskToStaff.hint },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: pastRiskToStaffFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "currentConcerns",
+        fieldset: {
+          legend: {
+            text: page.questions.currentConcerns.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: { text: page.questions.currentConcerns.hint },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: currentConcernsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
