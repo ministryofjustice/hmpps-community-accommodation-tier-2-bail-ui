@@ -2,4 +2,200 @@
 {% set pageName = "living-in-the-community" %}
 
 {% block questions %}
+
+  {% set convictionsRelatedToHateOrAggressionFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'convictionsDetail',
+          label: {
+            text: page.questions.convictionsDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.convictionsDetail.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set victimOfOthersFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'victimOfOthersDetail',
+          label: {
+            text: page.questions.victimOfOthersDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+    {% set otherConcernsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'otherConcernsDetail',
+          label: {
+            text: page.questions.otherConcernsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+    {% set cellSharingRiskAssessmentFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'cellSharingRiskAssessmentDetail',
+          label: {
+            text: page.questions.cellSharingRiskAssessmentDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+   <div class="guidance govuk-hint govuk-!-margin-bottom-6">
+    <p class="govuk-hint govuk-!-margin-bottom-1">This can include any behaviours that might impact any of the following groups:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-bottom-6">
+      <li>victims</li>
+      <li>known adults</li>
+      <li>children</li>
+      <li>other residents of shared accommodation</li>
+      <li>members of the LGBTQ+ community</li>
+      <li>the public</li>
+      <li>specific ethnic minorities or religious groups</li>
+    </ul>
+    <p class="govuk-hint">This list is not exhaustive.</p>
+  </div>
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "convictionsRelatedToHateOrAggression",
+        fieldset: {
+          legend: {
+            text: page.questions.convictionsRelatedToHateOrAggression.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: { text: page.questions.convictionsRelatedToHateOrAggression.hint },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: convictionsRelatedToHateOrAggressionFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "victimOfOthers",
+        fieldset: {
+          legend: {
+            text: page.questions.victimOfOthers.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: victimOfOthersFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "otherConcerns",
+        fieldset: {
+          legend: {
+            text: page.questions.otherConcerns.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: { text: page.questions.otherConcerns.hint },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: otherConcernsFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "cellSharingRiskAssessment",
+        fieldset: {
+          legend: {
+            text: page.questions.cellSharingRiskAssessment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: cellSharingRiskAssessmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          value: "notInPrisonCustody",
+          text: "No, the applicant is not in prison custody"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
 {% endblock %}
