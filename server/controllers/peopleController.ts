@@ -55,7 +55,7 @@ export default class PeopleController {
 
   findByCrn(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn } = req.body
+      const { crn, applicationOrigin } = req.body
 
       if (crn) {
         try {
@@ -66,6 +66,7 @@ export default class PeopleController {
             person,
             date: DateFormats.dateObjtoUIDate(new Date()),
             dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            applicationOrigin,
           })
         } catch (err) {
           if (err.status === 404) {

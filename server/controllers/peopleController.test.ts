@@ -174,7 +174,7 @@ describe('peopleController', () => {
   describe('findByCrn', () => {
     beforeEach(() => {
       request = createMock<Request>({
-        body: { crn, applicationOrigin },
+        body: { crn, applicationOrigin: 'courtBail' },
         user: { token },
         flash: flashSpy,
         headers: {
@@ -198,6 +198,7 @@ describe('peopleController', () => {
           person,
           date: DateFormats.dateObjtoUIDate(new Date()),
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          applicationOrigin: 'courtBail',
         })
       })
 
