@@ -13,10 +13,9 @@ import {
   applicationNoteFactory,
 } from '../../testutils/factories'
 import {
+  addErrorMessagesToFlash,
   catchValidationErrorOrPropogate,
   fetchErrorsAndUserInput,
-  errorMessage,
-  errorSummary as errorSummaryMock,
 } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, SubmittedApplicationService } from '../../services'
@@ -228,95 +227,208 @@ describe('applicationsController', () => {
   })
 
   describe('create', () => {
-    const applicationOrigin: ApplicationOrigin = 'courtBail'
-
     it('redirects to the new applications page on success', async () => {
       request.body = {
         crn: 'crn123',
         prisonNumber: 'prisonNumber123',
-        applicationOrigin,
+        applicationOrigin: 'prisonBail' as ApplicationOrigin,
       }
 
-      applicationService.createApplication.mockResolvedValue({} as Application)
+      applicationService.createApplication.mockResolvedValue({ id: 'application-id' } as Application)
 
       const requestHandler = applicationsController.create()
       await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.show({ id: 'application-id' }))
     })
 
-    it('handles a not found error if person not found', async () => {
-      request.body = {
-        crn: 'crn123',
-        prisonNumber: 'prisonNumber123',
-        applicationOrigin,
-      }
+    describe('when an error occurs', () => {
+      describe('when the applicationOrigin is not known', () => {
+        it('redirects to the application origin page', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: null,
+          }
 
-      const requestHandler = applicationsController.create()
+          const requestHandler = applicationsController.create()
 
-      const err = createHttpError(404)
+          const err = createHttpError(500)
 
-      applicationService.createApplication.mockImplementation(() => {
-        throw err
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'applicationOrigin',
+            'There was an error creating the application, please try again.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
+        })
+      })
+      describe('when the applicationOrigin is "prisonBail"', () => {
+        it('handles a not found error if person not found', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+          }
+
+          const requestHandler = applicationsController.create()
+
+          const err = createHttpError(404)
+
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'prisonNumber',
+            'No person found for prison number prisonNumber123, please try another number.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+        })
+
+        it('handles a forbidden error if person forbidden', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+          }
+
+          const requestHandler = applicationsController.create()
+
+          const err = createHttpError(403)
+
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'prisonNumber',
+            'You do not have permission to access the prison number prisonNumber123, please try another number.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+        })
+
+        it('throws a generic error if createApplication returns server error', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+          }
+
+          const requestHandler = applicationsController.create()
+
+          const err = createHttpError(500)
+
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'prisonNumber',
+            'There was an error creating the application, please try again.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+        })
       })
 
-      await requestHandler(request, response, next)
+      describe('when the applicationOrigin is "courtBail"', () => {
+        it('handles a not found error if person not found', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'courtBail' as ApplicationOrigin,
+          }
 
-      expect(errorSummaryMock).toHaveBeenCalledWith(
-        'prisonNumber',
-        'No person found for prison number prisonNumber123, please try another number.',
-      )
+          const requestHandler = applicationsController.create()
 
-      expect(errorMessage).toHaveBeenCalledWith(
-        'prisonNumber',
-        'No person found for prison number prisonNumber123, please try another number.',
-      )
+          const err = createHttpError(404)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
-    })
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
 
-    it('handles a forbidden error if person forbidden', async () => {
-      request.body = {
-        crn: 'crn123',
-        prisonNumber: 'prisonNumber123',
-        applicationOrigin,
-      }
+          await requestHandler(request, response, next)
 
-      const requestHandler = applicationsController.create()
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'crn',
+            'No person found for CRN crn123, please try another number.',
+          )
 
-      const err = createHttpError(403)
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+        })
 
-      applicationService.createApplication.mockImplementation(() => {
-        throw err
+        it('handles a forbidden error if person forbidden', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'courtBail' as ApplicationOrigin,
+          }
+
+          const requestHandler = applicationsController.create()
+
+          const err = createHttpError(403)
+
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'crn',
+            'You do not have permission to access the CRN crn123, please try another number.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+        })
+
+        it('throws a generic error if createApplication returns server error', async () => {
+          request.body = {
+            crn: 'crn123',
+            prisonNumber: 'prisonNumber123',
+            applicationOrigin: 'courtBail' as ApplicationOrigin,
+          }
+
+          const requestHandler = applicationsController.create()
+
+          const err = createHttpError(500)
+
+          applicationService.createApplication.mockImplementation(() => {
+            throw err
+          })
+
+          await requestHandler(request, response, next)
+
+          expect(addErrorMessagesToFlash).toHaveBeenCalledWith(
+            request,
+            'crn',
+            'There was an error creating the application, please try again.',
+          )
+
+          expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+        })
       })
-
-      await requestHandler(request, response, next)
-
-      expect(errorSummaryMock).toHaveBeenCalledWith(
-        'prisonNumber',
-        'You do not have permission to access the prison number prisonNumber123, please try another number.',
-      )
-
-      expect(errorMessage).toHaveBeenCalledWith(
-        'prisonNumber',
-        'You do not have permission to access the prison number prisonNumber123, please try another number.',
-      )
-
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
-    })
-
-    it('throws a generic error if createApplication returns server error', async () => {
-      const requestHandler = applicationsController.create()
-
-      const err = new Error()
-
-      applicationService.createApplication.mockImplementation(() => {
-        throw err
-      })
-
-      await requestHandler(request, response, next)
-
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
     })
   })
 

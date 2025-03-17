@@ -3,6 +3,7 @@ import { DataServices, ApplicationOrigin } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
+  addErrorMessagesToFlash,
   catchValidationErrorOrPropogate,
   errorMessage,
   errorSummary as buildErrorSummary,
@@ -124,38 +125,64 @@ export default class ApplicationsController {
 
   create(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { crn, prisonNumber, applicationOrigin } = req.body
-
+      const {
+        crn,
+        prisonNumber,
+        applicationOrigin,
+      }: { crn: string; prisonNumber: string; applicationOrigin: ApplicationOrigin } = req.body
       try {
         const application = await this.applicationService.createApplication(req.user.token, crn, applicationOrigin)
 
-        res.redirect(paths.applications.show({ id: application.id }))
+        return res.redirect(paths.applications.show({ id: application.id }))
       } catch (err) {
-        if (err.status === 404) {
-          this.addErrorMessagesToFlash(
-            req,
-            `No person found for prison number ${prisonNumber}, please try another number.`,
-          )
-        } else if (err.status === 403) {
-          this.addErrorMessagesToFlash(
-            req,
-            `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
-          )
-        } else {
-          this.addErrorMessagesToFlash(req, 'There was an error creating the application, please try again.')
+        if (applicationOrigin === 'prisonBail') {
+          if (err.status === 404) {
+            addErrorMessagesToFlash(
+              req,
+              'prisonNumber',
+              `No person found for prison number ${prisonNumber}, please try another number.`,
+            )
+          } else if (err.status === 403) {
+            addErrorMessagesToFlash(
+              req,
+              'prisonNumber',
+              `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
+            )
+          } else {
+            addErrorMessagesToFlash(
+              req,
+              'prisonNumber',
+              'There was an error creating the application, please try again.',
+            )
+          }
+
+          return res.redirect(paths.applications.searchByPrisonNumber({}))
         }
 
-        res.redirect(paths.applications.searchByPrisonNumber({}))
+        if (applicationOrigin === 'courtBail') {
+          if (err.status === 404) {
+            addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
+          } else if (err.status === 403) {
+            addErrorMessagesToFlash(
+              req,
+              'crn',
+              `You do not have permission to access the CRN ${crn}, please try another number.`,
+            )
+          } else {
+            addErrorMessagesToFlash(req, 'crn', 'There was an error creating the application, please try again.')
+          }
+
+          return res.redirect(paths.applications.searchByCrn({}))
+        }
+
+        addErrorMessagesToFlash(
+          req,
+          'applicationOrigin',
+          'There was an error creating the application, please try again.',
+        )
+        return res.redirect(paths.applications.applicationOrigin({}))
       }
     }
-  }
-
-  addErrorMessagesToFlash(request: Request, message: string) {
-    request.flash('errors', {
-      prisonNumber: errorMessage('prisonNumber', message),
-    })
-    request.flash('errorSummary', [buildErrorSummary('prisonNumber', message)])
-    request.flash('userInput', request.body)
   }
 
   applicationOrigin(): RequestHandler {
