@@ -78,6 +78,14 @@ export const errorSummary = (field: string, text: string): ErrorSummary => {
   }
 }
 
+export const addErrorMessagesToFlash = (request: Request, key: string, message: string): void => {
+  request.flash('errors', {
+    [key]: errorMessage(key, message),
+  })
+  request.flash('errorSummary', [errorSummary(key, message)])
+  request.flash('userInput', request.body)
+}
+
 export const generateErrorMessages = (errors: Record<string, string>): ErrorMessages => {
   return Object.keys(errors).reduce((obj, key) => {
     return {
