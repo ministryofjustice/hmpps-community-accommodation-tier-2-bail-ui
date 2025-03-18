@@ -25,7 +25,7 @@ export default class RiskManagementArrangements implements TaskListPage {
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Are there any multi-agency risk management arrangements for ${this.personName}?`
+  title = 'Risk management arrangements'
 
   body: RiskManagementArrangementsBody
 

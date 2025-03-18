@@ -248,6 +248,12 @@
       "currentConcernsDetail": ""
     },
     "additional-concerns": {},
+    "risk-management-arrangements": {
+      "arrangements": ["mappa", "marac", "iom"],
+      "mappaDetails": "mappa details",
+      "maracDetails": "marac details",
+      "iomDetails": "iom details"
+    },
     "acct": {},
     "acct-data": [
       {
