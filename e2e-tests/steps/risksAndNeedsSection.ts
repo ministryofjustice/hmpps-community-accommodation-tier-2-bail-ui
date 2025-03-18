@@ -131,7 +131,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeConcernsPage(page)
   await completeSelfHarmPage(page, name)
   await addAnAcct(page)
-  await completeViolenceAndArsonPage(page)
+  await completeViolenceAndArsonPage(page, name)
   await completeLivingInTheCommunityPage(page)
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
@@ -153,8 +153,11 @@ async function completeSelfHarmPage(page: Page, name: string) {
   selfHarmPage.clickSave()
 }
 
-async function completeViolenceAndArsonPage(page: Page) {
-  const violenceAndArsonPage = await ApplyPage.initialize(page, 'Violence and arson')
+async function completeViolenceAndArsonPage(page: Page, name: string) {
+  const violenceAndArsonPage = await ApplyPage.initialize(page, `Concerns related to violence or arson for ${name}`)
+
+  await violenceAndArsonPage.checkRadioInGroup('violence or arson in the past?', 'No')
+  await violenceAndArsonPage.checkRadioInGroup('around violence or arson?', 'No')
 
   violenceAndArsonPage.clickSave()
 }
