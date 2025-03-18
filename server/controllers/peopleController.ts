@@ -1,6 +1,6 @@
 import type { Request, RequestHandler, Response } from 'express'
 
-import { errorMessage, errorSummary } from '../utils/validation'
+import { addErrorMessagesToFlash } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
 import { DateFormats } from '../utils/dateUtils'
@@ -29,25 +29,25 @@ export default class PeopleController {
           })
         } catch (err) {
           if (err.status === 404) {
-            this.addErrorMessagesToFlash(
+            addErrorMessagesToFlash(
               req,
               'prisonNumber',
               `No person found for prison number ${prisonNumber}, please try another number.`,
             )
           } else if (err.status === 403) {
-            this.addErrorMessagesToFlash(
+            addErrorMessagesToFlash(
               req,
               'prisonNumber',
               `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
             )
           } else {
-            this.addErrorMessagesToFlash(req, 'prisonNumber', 'Something went wrong. Please try again later.')
+            addErrorMessagesToFlash(req, 'prisonNumber', 'Something went wrong. Please try again later.')
           }
 
           return res.redirect(paths.applications.searchByPrisonNumber({}))
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number')
+        addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number')
         return res.redirect(paths.applications.searchByPrisonNumber({}))
       }
     }
@@ -70,31 +70,23 @@ export default class PeopleController {
           })
         } catch (err) {
           if (err.status === 404) {
-            this.addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
+            addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
           } else if (err.status === 403) {
-            this.addErrorMessagesToFlash(
+            addErrorMessagesToFlash(
               req,
               'crn',
               `You do not have permission to access the CRN ${crn}, please try another number.`,
             )
           } else {
-            this.addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
+            addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
           }
 
           return res.redirect(paths.applications.searchByCrn({}))
         }
       } else {
-        this.addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
+        addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
         return res.redirect(paths.applications.searchByCrn({}))
       }
     }
-  }
-
-  addErrorMessagesToFlash(request: Request, key: string, message: string) {
-    request.flash('errors', {
-      [key]: errorMessage(key, message),
-    })
-    request.flash('errorSummary', [errorSummary(key, message)])
-    request.flash('userInput', request.body)
   }
 }
