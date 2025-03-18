@@ -7,6 +7,7 @@ import ViolenceAndArson from './violenceAndArson'
 import LivingInTheCommunity from './livingInTheCommunity'
 import SafetyOfStaff from './safetyOfStaff'
 import AdditionalConcerns from './additionalConcerns'
+import RiskManagementArrangements from './riskManagementArrangements'
 
 import { Task } from '../../../utils/decorators'
 
@@ -22,6 +23,7 @@ import { Task } from '../../../utils/decorators'
     LivingInTheCommunity,
     SafetyOfStaff,
     AdditionalConcerns,
+    RiskManagementArrangements,
   ],
 })
 export default class RiskToSelf {}
