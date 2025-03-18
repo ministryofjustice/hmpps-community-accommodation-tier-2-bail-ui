@@ -36,6 +36,11 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: install dependencies
+        if: steps.refresh-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          npm ci --no-audit
       - name: install playwright
         shell: bash
         run: |
