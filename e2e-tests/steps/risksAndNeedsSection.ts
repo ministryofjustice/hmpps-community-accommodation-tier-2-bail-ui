@@ -132,7 +132,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeSelfHarmPage(page, name)
   await addAnAcct(page)
   await completeViolenceAndArsonPage(page, name)
-  await completeLivingInTheCommunityPage(page)
+  await completeLivingInTheCommunityPage(page, name)
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
 }
@@ -162,8 +162,19 @@ async function completeViolenceAndArsonPage(page: Page, name: string) {
   violenceAndArsonPage.clickSave()
 }
 
-async function completeLivingInTheCommunityPage(page: Page) {
-  const livingInTheCommunityPage = await ApplyPage.initialize(page, 'Living in the community')
+async function completeLivingInTheCommunityPage(page: Page, name: string) {
+  const livingInTheCommunityPage = await ApplyPage.initialize(
+    page,
+    `Concerns related to ${name} living in the community`,
+  )
+
+  await livingInTheCommunityPage.checkRadioInGroup(
+    'convictions or behaviours noted related to aggression or hate',
+    'No',
+  )
+  await livingInTheCommunityPage.checkRadioInGroup('victim of violence, bullying, or intimidation', 'No')
+  await livingInTheCommunityPage.checkRadioInGroup('any other concerns', 'No')
+  await livingInTheCommunityPage.checkRadioInGroup('Cell Sharing Risk Assessment', 'No')
 
   livingInTheCommunityPage.clickSave()
 }
