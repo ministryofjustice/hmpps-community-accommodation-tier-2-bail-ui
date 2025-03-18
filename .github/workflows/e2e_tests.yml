@@ -36,20 +36,11 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Grep node_modules playwright
+      - name: install dependencies
+        if: steps.refresh-cache.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          ls -la node_modules/ | grep 'playwright'
-      - name: Log size of node_modules
-        shell: bash
-        run: |
-          du -sh node_modules/
-      - name: upload node_modules dump
-        uses: actions/upload-artifact@v4
-        with:
-          name: node_modules_dump
-          path: |
-            node_modules/
+          npm ci --no-audit
       - name: install playwright
         shell: bash
         run: |
