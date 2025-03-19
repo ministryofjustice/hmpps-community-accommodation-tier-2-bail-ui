@@ -1,9 +1,26 @@
-//  Feature: complete living in the community page
+//  Feature: Referrer completes 'Living in the community' page
+//    So that I can complete the "Risk" task
+//    As a referrer
+//    I want to complete the 'Living in the community' page
 //
+//  Background:
+//    Given an application exists
+//    And I am logged in
+//    And I am on the 'Living in the community' page
+//
+//  Scenario: view Living in the community page
+//    Then I see the "Living in the community" page
+//    And I see guidance text
+//
+//  Scenario: complete page and navigate to next page in risk task
+//    When I complete the Living in the community page
+//    And I continue to the next task / page
+//    Then I see the "safety of staff" page
 
 import LivingInTheCommunityPage from '../../../../pages/apply/risks-and-needs/risk-information/livingInTheCommunityPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import SafetyOfStaffPage from '../../../../pages/apply/risks-and-needs/risk-information/safetyOfStaffPage'
 
 context('Complete "Living in the community" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -34,13 +51,33 @@ context('Complete "Living in the community" page', () => {
     //---------------------
     cy.signIn()
 
-    // And I visit the Living in the community page
+    // And I am on the 'Living in the community' page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/risk-information/pages/living-in-the-community')
+    LivingInTheCommunityPage.visit(this.application)
   })
 
-  it('exists', function test() {
-    // Given I am on the Living in the community page
-    Page.verifyOnPage(LivingInTheCommunityPage, this.application)
+  //  Scenario: view Living in the community page
+  it('shows the page', function test() {
+    //  Then I see the Living in the community page
+    const page = Page.verifyOnPage(LivingInTheCommunityPage, this.application)
+
+    //  And I see guidance text
+    page.hasGuidanceText()
+  })
+
+  //  Scenario: complete page and navigate to next page in risk task
+  it('continues to the next page', function test() {
+    const page = Page.verifyOnPage(LivingInTheCommunityPage, this.application)
+    //  When I complete the Living in the community page
+    page.enterConvictionDetails()
+    page.enterVictimDetails()
+    page.enterOtherConcerns()
+    page.enterCSRADetails()
+
+    //  And I continue to the next task / page
+    page.clickSubmit()
+
+    //  Then I see the "safety of staff" page
+    Page.verifyOnPage(SafetyOfStaffPage, this.application)
   })
 })

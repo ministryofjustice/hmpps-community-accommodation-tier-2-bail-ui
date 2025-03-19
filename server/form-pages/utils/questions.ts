@@ -736,7 +736,6 @@ export const getQuestions = (name: string) => {
           question: 'Enter the details of any current concerns',
         },
       },
-      'living-in-the-community': {},
       'safety-of-staff': {
         pastRiskToStaff: {
           question: `Has ${name} posed a risk to the safety of any staff in the past?`,
@@ -755,6 +754,44 @@ export const getQuestions = (name: string) => {
           question: 'Enter the details of any current concerns',
         },
       },
+      'living-in-the-community': {
+        convictionsRelatedToHateOrAggression: {
+          question:
+            'Has the applicant had any convictions or behaviours noted related to aggression or hate towards others in the past?',
+          hint: 'This includes any incidents prior to being held in custody.',
+          answers: yesOrNo,
+        },
+        convictionsDetail: {
+          question:
+            'Enter details, including if they have a history of bullying, intimidation or controlling behaviour',
+          hint: 'This includes any discrimination or abuse based on identity. For example, ethnicity, religion or sexuality.',
+        },
+        victimOfOthers: {
+          question:
+            'Based on the information you have, has the applicant ever been a victim of violence, bullying, or intimidation from others?',
+          answers: yesOrNo,
+        },
+        victimOfOthersDetail: {
+          question: 'Enter details, including any vulnerabilities that might make them a target for harm',
+        },
+        otherConcerns: {
+          question:
+            'Based on the information you have, are there any other concerns with the applicant living in the community?',
+          hint: 'This includes any concerns whilst being held in custody.',
+          answers: yesOrNo,
+        },
+        otherConcernsDetail: {
+          question: 'Enter the details of any current concerns',
+        },
+        cellSharingRiskAssessment: {
+          question: 'Has a Cell Sharing Risk Assessment (CSRA) been done?',
+          answers: { yes: 'Yes', no: 'No', notInPrisonCustody: 'No, the applicant is not in prison custody' },
+        },
+        cellSharingRiskAssessmentDetail: {
+          question: 'Enter any concerns around the applicant sharing communal areas with other residents',
+        },
+      },
+      'risks-to-staff': {},
       'additional-concerns': {},
       'acct-data': {
         createdDate: {

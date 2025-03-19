@@ -231,7 +231,16 @@
       "currentConcerns": "no",
       "currentConcernsDetail": ""
     },
-    "living-in-the-community": {},
+    "living-in-the-community": {
+      "convictionsRelatedToHateOrAggression": "no",
+      "convictionsDetail": "",
+      "victimOfOthers": "no",
+      "victimOfOthersDetail": "",
+      "otherConcerns": "no",
+      "otherConcernsDetail": "",
+      "cellSharingRiskAssessment": "no",
+      "cellSharingRiskAssessmentDetail": ""
+    },
     "safety-of-staff": {
       "pastRiskToStaff": "no",
       "pastRiskToStaffDetail": "",
