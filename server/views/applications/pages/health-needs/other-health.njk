@@ -4,7 +4,7 @@
 {% block questions %}
 
   {% set healthConditionFollowUp %}
-  {{
+    {{
       formPageTextArea(
         {
           fieldName: 'healthConditionDetail',
@@ -16,34 +16,10 @@
         fetchContext()
       )
     }}
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasHadStroke",
-        fieldset: {
-          legend: {
-            text: page.questions.hasHadStroke.question,
-            classes: "govuk-fieldset__legend--s"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes"
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
   {% endset %}
 
   {% set seizuresFollowUp %}
-  {{
+    {{
       formPageTextArea(
         {
           fieldName: 'seizuresDetail',
@@ -56,6 +32,23 @@
       )
     }}
   {% endset %}
+
+  {% set otherHealthNeedsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'otherHealthNeedsDetail',
+          label: {
+            text: page.questions.otherHealthNeedsDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <p class="govuk-hint govuk-!-margin-bottom-6">These could be any other health needs that are relevant to the support the applicant might need when living in shared accommodation.</p>
 
   {{
     formPageRadios(
@@ -71,18 +64,18 @@
           }
         },
         items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: healthConditionFollowUp
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: healthConditionFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
           }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
+        ]
       },
       fetchContext()
     )
@@ -99,18 +92,43 @@
           }
         },
         items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: seizuresFollowUp
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: seizuresFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasHadStroke",
+        fieldset: {
+          legend: {
+            text: page.questions.hasHadStroke.question,
+            classes: "govuk-fieldset__legend--m"
           }
         },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
       },
       fetchContext()
     )
@@ -127,15 +145,46 @@
           }
         },
         items: [
-        {
-          value: "yes",
-          text: "Yes"
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "otherHealthNeeds",
+        hint: {
+          text: page.questions.otherHealthNeeds.hint
         },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
+        fieldset: {
+          legend: {
+            text: page.questions.otherHealthNeeds.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: otherHealthNeedsFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
       },
       fetchContext()
     )

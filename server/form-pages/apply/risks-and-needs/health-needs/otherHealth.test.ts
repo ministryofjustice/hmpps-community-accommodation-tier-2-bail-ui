@@ -53,19 +53,27 @@ describe('OtherHealth', () => {
       it('includes a validation error for _hasLongTermHealthCondition_', () => {
         expect(page.errors()).toHaveProperty(
           'hasLongTermHealthCondition',
-          'Confirm whether they have a long term health condition',
+          'Select if they are managing any long term health conditions',
         )
       })
 
       it('includes a validation error for _hasSeizures_', () => {
-        expect(page.errors()).toHaveProperty('hasSeizures', 'Confirm whether they have seizures')
+        expect(page.errors()).toHaveProperty('hasSeizures', 'Select if they experience seizures or epilepsy')
+      })
+
+      it('includes a validation error for _hasHadStroke_', () => {
+        expect(page.errors()).toHaveProperty('hasHadStroke', 'Select if they have experienced a stroke')
       })
 
       it('includes a validation error for _beingTreatedForCancer_', () => {
         expect(page.errors()).toHaveProperty(
           'beingTreatedForCancer',
-          'Confirm whether they are receiving cancer treatment',
+          'Select if they are receiving regular treatment for cancer',
         )
+      })
+
+      it('includes a validation error for _otherHealthNeeds_', () => {
+        expect(page.errors()).toHaveProperty('otherHealthNeeds', 'Select if they have any other health needs')
       })
     })
 
@@ -74,13 +82,7 @@ describe('OtherHealth', () => {
 
       describe('and _healthConditionDetail_ is UNANSWERED', () => {
         it('includes a validation error for _healthConditionDetail_', () => {
-          expect(page.errors()).toHaveProperty('healthConditionDetail', 'Provide details of their health conditions')
-        })
-      })
-
-      describe('and _hasHadStroke_ is UNANSWERED', () => {
-        it('includes a validation error for _hasHadStroke_', () => {
-          expect(page.errors()).toHaveProperty('hasHadStroke', 'Confirm whether they have had a stroke')
+          expect(page.errors()).toHaveProperty('healthConditionDetail', 'Enter details of their condition')
         })
       })
     })
@@ -90,7 +92,17 @@ describe('OtherHealth', () => {
 
       describe('and _seizuresDetail_ is UNANSWERED', () => {
         it('includes a validation error for _seizuresDetail_', () => {
-          expect(page.errors()).toHaveProperty('seizuresDetail', 'Provide details of the seizure type and treatment')
+          expect(page.errors()).toHaveProperty('seizuresDetail', 'Enter details of their last episode')
+        })
+      })
+    })
+
+    describe('when _otherHealthNeeds_ is YES', () => {
+      const page = new OtherHealth({ otherHealthNeeds: 'yes' }, application)
+
+      describe('and _otherHealthNeedsDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _otherHealthNeedsDetail_', () => {
+          expect(page.errors()).toHaveProperty('otherHealthNeedsDetail', 'Enter details of their other health needs')
         })
       })
     })
@@ -101,7 +113,6 @@ describe('OtherHealth', () => {
       const body: Partial<OtherHealthBody> = {
         hasLongTermHealthCondition: 'no',
         healthConditionDetail: 'Health condition detail',
-        hasHadStroke: 'yes',
       }
 
       const page = new OtherHealth(body, application)
@@ -125,6 +136,21 @@ describe('OtherHealth', () => {
 
       expect(page.body).toEqual({
         hasSeizures: 'no',
+      })
+    })
+
+    it('removes other health needs data when the question is set to "no"', () => {
+      const body: Partial<OtherHealthBody> = {
+        otherHealthNeeds: 'no',
+        otherHealthNeedsDetail: 'Other health needs detail',
+      }
+
+      const page = new OtherHealth(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        otherHealthNeeds: 'no',
       })
     })
   })

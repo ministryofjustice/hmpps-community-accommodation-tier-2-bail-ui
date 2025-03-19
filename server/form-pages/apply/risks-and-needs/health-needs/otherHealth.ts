@@ -12,6 +12,8 @@ export type OtherHealthBody = {
   hasSeizures: YesOrNo
   seizuresDetail: string
   beingTreatedForCancer: YesOrNo
+  otherHealthNeeds: YesOrNo
+  otherHealthNeedsDetail: string
 }
 
 @Page({
@@ -23,6 +25,8 @@ export type OtherHealthBody = {
     'hasSeizures',
     'seizuresDetail',
     'beingTreatedForCancer',
+    'otherHealthNeeds',
+    'otherHealthNeedsDetail',
   ],
 })
 export default class OtherHealth implements TaskListPage {
@@ -55,24 +59,28 @@ export default class OtherHealth implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasLongTermHealthCondition) {
-      errors.hasLongTermHealthCondition = `Confirm whether they have a long term health condition`
+      errors.hasLongTermHealthCondition = 'Select if they are managing any long term health conditions'
     }
     if (this.body.hasLongTermHealthCondition === 'yes' && !this.body.healthConditionDetail) {
-      errors.healthConditionDetail = 'Provide details of their health conditions'
+      errors.healthConditionDetail = 'Enter details of their condition'
     }
-    if (this.body.hasLongTermHealthCondition === 'yes' && !this.body.hasHadStroke) {
-      errors.hasHadStroke = 'Confirm whether they have had a stroke'
-    }
-
     if (!this.body.hasSeizures) {
-      errors.hasSeizures = `Confirm whether they have seizures`
+      errors.hasSeizures = 'Select if they experience seizures or epilepsy'
     }
     if (this.body.hasSeizures === 'yes' && !this.body.seizuresDetail) {
-      errors.seizuresDetail = 'Provide details of the seizure type and treatment'
+      errors.seizuresDetail = 'Enter details of their last episode'
     }
-
+    if (!this.body.hasHadStroke) {
+      errors.hasHadStroke = 'Select if they have experienced a stroke'
+    }
     if (!this.body.beingTreatedForCancer) {
-      errors.beingTreatedForCancer = `Confirm whether they are receiving cancer treatment`
+      errors.beingTreatedForCancer = 'Select if they are receiving regular treatment for cancer'
+    }
+    if (!this.body.otherHealthNeeds) {
+      errors.otherHealthNeeds = 'Select if they have any other health needs'
+    }
+    if (this.body.otherHealthNeeds === 'yes' && !this.body.otherHealthNeedsDetail) {
+      errors.otherHealthNeedsDetail = 'Enter details of their other health needs'
     }
 
     return errors
@@ -81,11 +89,14 @@ export default class OtherHealth implements TaskListPage {
   onSave(): void {
     if (this.body.hasLongTermHealthCondition !== 'yes') {
       delete this.body.healthConditionDetail
-      delete this.body.hasHadStroke
     }
 
     if (this.body.hasSeizures !== 'yes') {
       delete this.body.seizuresDetail
+    }
+
+    if (this.body.otherHealthNeeds !== 'yes') {
+      delete this.body.otherHealthNeedsDetail
     }
   }
 }
