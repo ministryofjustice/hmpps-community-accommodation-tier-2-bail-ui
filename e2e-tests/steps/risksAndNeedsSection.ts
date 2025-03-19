@@ -135,6 +135,13 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeLivingInTheCommunityPage(page, name)
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
+  await completeRiskManagementArrangementsPage(page)
+}
+
+async function completeRiskManagementArrangementsPage(page: Page) {
+  const riskManagementPage = await ApplyPage.initialize(page, `Risk management arrangements`)
+  await riskManagementPage.checkCheckboxes(['No, they do not have risk management arrangements'])
+  await riskManagementPage.clickSave()
 }
 
 async function completeConcernsPage(page: Page) {

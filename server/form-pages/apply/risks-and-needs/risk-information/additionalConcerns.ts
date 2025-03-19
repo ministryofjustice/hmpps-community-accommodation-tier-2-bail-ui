@@ -35,7 +35,7 @@ export default class AdditionalConcerns implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'risk-management-arrangements'
   }
 
   errors() {

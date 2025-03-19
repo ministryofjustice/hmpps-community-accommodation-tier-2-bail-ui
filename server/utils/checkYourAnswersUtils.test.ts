@@ -523,6 +523,7 @@ describe('checkYourAnswersUtils', () => {
         'living-in-the-community',
         'safety-of-staff',
         'additional-concerns',
+        'risk-management-arrangements',
         'acct',
         'acct-data',
       ])

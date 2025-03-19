@@ -1,0 +1,115 @@
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "risk-management-arrangements" %}
+
+{% block questions %}
+
+  {% set mappaDetails %}
+  {{
+        formPageTextArea(
+          {
+            label: { 
+              text: page.questions.mappaDetails.question, 
+              classes: "govuk-label--s"
+            },
+            fieldName: "mappaDetails",
+            hint: {
+              text: page.questions.mappaDetails.hint
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {% set maracDetails %}
+  {{
+        formPageTextArea(
+          {
+            label: { 
+              text: page.questions.maracDetails.question, 
+              classes: "govuk-label--s"
+            },
+            fieldName: "maracDetails",
+            hint: {
+              text: page.questions.maracDetails.hint
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {% set iomDetails %}
+  {{
+        formPageTextArea(
+          {
+            label: { 
+              text: page.questions.iomDetails.question, 
+              classes: "govuk-label--s"
+            },
+            fieldName: "iomDetails",
+            hint: {
+              text: page.questions.iomDetails.hint
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {{ 
+      formPageCheckboxes(
+          {
+            fieldName: "arrangements",
+            hint: {
+              text: page.questions.arrangements.hint
+            },
+            fieldset: {
+              legend: {
+                text: page.questions.arrangements.question,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: page.items(mappaDetails, maracDetails, iomDetails)
+          }, 
+          fetchContext()
+      ) 
+  }}
+
+{% endblock %}
+
+{% block extraScripts %}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+    function setCheckedToFalseByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .checked = false;
+      })
+    }
+
+    function clearValueByIds(ids) {
+      ids.forEach(id => {
+        document
+          .getElementById(id)
+          .value = ''
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 'no' checkbox sets the others to unchecked
+      document
+        .getElementById('arrangements-5')
+        .addEventListener('click', () => {
+          setCheckedToFalseByIds(['arrangements', 'arrangements-2', 'arrangements-3'])
+          clearValueByIds(['mappaDetails', 'maracDetails', 'iomDetails'])
+        });
+      // clicking any arrangement checkbox sets 'no' to unchecked
+      document
+        .querySelectorAll("[data-selector='arrangements']")
+        .forEach(checkbox => {
+          checkbox.addEventListener('click', () => setCheckedToFalseByIds(['arrangements-5']));
+        })
+    });
+  </script>
+{% endblock %}

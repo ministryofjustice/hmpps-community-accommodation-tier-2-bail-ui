@@ -793,6 +793,29 @@ export const getQuestions = (name: string) => {
       },
       'risks-to-staff': {},
       'additional-concerns': {},
+      'risk-management-arrangements': {
+        arrangements: {
+          question: `Are there any multi-agency risk management arrangements for ${name}?`,
+          answers: {
+            mappa: 'Multi-Agency Public Protection Arrangements (MAPPA)',
+            marac: 'Multi-Agency Risk Assessment Conference (MARAC)',
+            iom: 'Integrated Offender Management (IOM)',
+            no: 'No, they do not have risk management arrangements',
+          },
+        },
+        mappaDetails: {
+          question: 'Enter MAPPA details',
+          hint: 'Include lead contact details where possible.',
+        },
+        maracDetails: {
+          question: 'Enter MARAC details',
+          hint: 'Include lead contact details where possible.',
+        },
+        iomDetails: {
+          question: 'Enter IOM details',
+          hint: 'Include lead contact details where possible.',
+        },
+      },
       'acct-data': {
         createdDate: {
           question: 'When was the ACCT created?',
