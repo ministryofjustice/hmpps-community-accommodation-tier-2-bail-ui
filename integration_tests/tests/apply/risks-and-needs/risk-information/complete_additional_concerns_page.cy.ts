@@ -52,7 +52,7 @@ context('Complete "Additional concerns" page', () => {
 
     // And I visit the Additional concerns page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/risk-information/pages/additional-concerns')
+    AdditionalConcernsPage.visit(this.application)
   })
 
   //  Scenario: view additional concerns questions
@@ -66,7 +66,6 @@ context('Complete "Additional concerns" page', () => {
   //    And I continue to the next task / page
   //    Then I see the "risk management arrangements" page
   it('navigates to the next page (risk management arrangements)', function test() {
-    AdditionalConcernsPage.visit(this.application)
     const page = new AdditionalConcernsPage(this.application)
 
     page.describeAdditionalConcerns()

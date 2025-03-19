@@ -195,7 +195,12 @@ async function completeSafetyOfStaffPage(page: Page) {
 }
 
 async function completeAdditionalConcernsPage(page: Page) {
-  const additionalConcernsPage = await ApplyPage.initialize(page, 'Additional concerns')
+  const additionalConcernsPage = await ApplyPage.initialize(page, 'Add any additional concerns')
+
+  await additionalConcernsPage.checkRadioInGroup(
+    'any additional past or present concerns',
+    'No, they do not have any additional concerns',
+  )
 
   additionalConcernsPage.clickSave()
 }
