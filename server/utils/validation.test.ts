@@ -4,6 +4,7 @@ import type { ErrorMessages, ErrorSummary } from '@approved-premises/ui'
 import { SanitisedError } from 'server/sanitisedError'
 import TaskListPage from 'server/form-pages/taskListPage'
 import {
+  addErrorMessagesToFlash,
   catchAPIErrorOrPropogate,
   catchValidationErrorOrPropogate,
   fetchErrorsAndUserInput,
@@ -237,5 +238,29 @@ describe('firstFlashItem', () => {
 
       expect(result).toBe(undefined)
     })
+  })
+})
+
+describe('addErrorMessagesToFlash', () => {
+  it('adds error messages to flash object', () => {
+    const key = 'name'
+    const message = 'Please enter a name'
+
+    const request = createMock<Request>({})
+    request.flash = jest.fn()
+    request.body = { field: 'value' }
+
+    addErrorMessagesToFlash(request, key, message)
+
+    expect(request.flash).toHaveBeenCalledWith('errors', {
+      [key]: {
+        attributes: {
+          'data-cy-error-name': true,
+        },
+        text: 'Please enter a name',
+      },
+    })
+    expect(request.flash).toHaveBeenCalledWith('errorSummary', [{ href: '#name', text: 'Please enter a name' }])
+    expect(request.flash).toHaveBeenCalledWith('userInput', { field: 'value' })
   })
 })
