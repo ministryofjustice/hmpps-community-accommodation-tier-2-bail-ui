@@ -1,23 +1,25 @@
-import type { TaskListErrors } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type AdditionalConcernsBody = {}
+type AdditionalConcernsBody = {
+  additionalConcerns: YesOrNo
+  additionalConcernsDetail: string
+}
 
 @Page({
   name: 'additional-concerns',
-  bodyProperties: [],
+  bodyProperties: ['additionalConcerns', 'additionalConcernsDetail'],
 })
 export default class AdditionalConcerns implements TaskListPage {
-  documentTitle = 'Additional concerns'
+  documentTitle = 'Add any additional concerns'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = 'Additional concerns'
+  title = 'Add any additional concerns'
 
   questions = getQuestions(this.personName)['risk-information']['additional-concerns']
 
@@ -41,6 +43,20 @@ export default class AdditionalConcerns implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.additionalConcerns) {
+      errors.additionalConcerns = 'Select if there are any additional past or present concerns'
+    }
+
+    if (this.body.additionalConcerns === 'yes' && !this.body.additionalConcernsDetail) {
+      errors.additionalConcernsDetail = 'Enter details of additional concerns'
+    }
+
     return errors
+  }
+
+  onSave(): void {
+    if (this.body.additionalConcerns !== 'yes') {
+      delete this.body.additionalConcernsDetail
+    }
   }
 }

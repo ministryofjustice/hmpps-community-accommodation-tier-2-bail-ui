@@ -792,7 +792,15 @@ export const getQuestions = (name: string) => {
         },
       },
       'risks-to-staff': {},
-      'additional-concerns': {},
+      'additional-concerns': {
+        additionalConcerns: {
+          question: `Are there any additional past or present concerns related to ${name}?`,
+          answers: yesOrNo,
+        },
+        additionalConcernsDetail: {
+          question: 'Enter the details of any additional concerns',
+        },
+      },
       'risk-management-arrangements': {
         arrangements: {
           question: `Are there any multi-agency risk management arrangements for ${name}?`,

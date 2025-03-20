@@ -1,5 +1,95 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_risk-information-screen.njk" %}
 {% set pageName = "additional-concerns" %}
 
 {% block questions %}
+  {% set additionalConcernsHintHtml %}
+    <div data-testid="additional-concerns-detail-hint" class="govuk-hint govuk-!-margin-bottom-6 govuk-!-margin-top-4">
+      <p class="govuk-hint govuk-!-margin-bottom-0">Include:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-bottom-6">
+        <li>what has happened and when, including incident reports</li>
+        safeguarding concerns or support needed
+        <li>anything else that might be useful for assessors to know</li>
+        <li>any location information</li>
+        <li>who may be impacted by this concern</li>
+      </ul>
+    </div>
+  {% endset %}
+
+  {% set additionalConcernsFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'additionalConcernsDetail',
+          hint: {
+            html: additionalConcernsHintHtml
+          },
+          label: {
+            text: page.questions.additionalConcernsDetail.question,
+            classes: "govuk-label--m"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set additionalConcernsHint %}
+    <div data-testid="additional-concerns-hint">
+      <h2 class="govuk-heading-s">Important</h2>
+      <p>These include other categories that might impact staff, known adults, children or the applicant, such as:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>acquisitive offending</li>
+        <li>driving-related offences</li>
+        <li>drug supply and county lines involvement</li>
+        <li>exploitation (such as unpaid labour, modern slavery, human trafficking or cuckooing)</li>
+        <li>financial abuse or fraud</li>
+        <li>media and public relations</li>
+        <li>sex work</li>
+        <li>stalking and harassment</li>
+      </ul>
+      <p class="govuk-!-margin-bottom-0">This is because they are relevant to living in shared accommodation.</p>
+    </div>
+  {% endset %}
+
+  {% set additionalConcernsHintHtml %}
+    {{
+      govukInsetText({
+        html: additionalConcernsHint,
+        classes: "submission-guidance-panel"
+      })
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "additionalConcerns",
+        hint: {
+          html: additionalConcernsHintHtml
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.additionalConcerns.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: additionalConcernsFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No, they do not have any additional concerns"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
 {% endblock %}

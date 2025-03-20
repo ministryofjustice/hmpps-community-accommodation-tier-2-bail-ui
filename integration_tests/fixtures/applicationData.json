@@ -247,7 +247,10 @@
       "currentConcerns": "no",
       "currentConcernsDetail": ""
     },
-    "additional-concerns": {},
+    "additional-concerns": {
+      "additionalConcerns": "no",
+      "additionalConcernsDetail": ""
+    },
     "risk-management-arrangements": {
       "arrangements": ["mappa", "marac", "iom"],
       "mappaDetails": "mappa details",
