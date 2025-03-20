@@ -10,14 +10,12 @@ import OtherHealth from './otherHealth'
 import PhysicalHealth from './physicalHealth'
 import SubstanceMisuse from './substanceMisuse'
 import LiaisonAndDiversion from './liaisonAndDiversion'
-import IndependentLiving from './independentLiving'
 
 @Task({
   name: 'Add health needs',
   slug: 'health-needs',
   pages: [
     LiaisonAndDiversion,
-    IndependentLiving,
     HealthNeedsInformation,
     SubstanceMisuse,
     PhysicalHealth,

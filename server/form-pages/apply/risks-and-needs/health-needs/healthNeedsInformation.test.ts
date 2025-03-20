@@ -14,7 +14,7 @@ describe('HealthNeedsInformation', () => {
   })
 
   itShouldHaveNextValue(new HealthNeedsInformation({}, application), 'substance-misuse')
-  itShouldHavePreviousValue(new HealthNeedsInformation({}, application), 'independent-living')
+  itShouldHavePreviousValue(new HealthNeedsInformation({}, application), 'liaison-and-diversion')
 
   describe('errors', () => {
     it('returns no errors as this page has no questions/answers', () => {
