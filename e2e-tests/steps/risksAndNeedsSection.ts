@@ -6,7 +6,6 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await taskListPage.clickTask('Add health needs')
 
   await completeLiaisonAndDiversionPage(page, name)
-  await completeIndependentLivingPage(page, name)
   await completeHealthNeedsInformationPage(page, name)
   await completeSubstanceMisusePage(page, name)
   await completePhysicalHealthPage(page, name)
@@ -20,14 +19,6 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
 async function completeHealthNeedsInformationPage(page: Page, name: string) {
   const healthNeedsInformationPage = await ApplyPage.initialize(page, `Request health information for ${name}`)
   await healthNeedsInformationPage.clickContinue()
-}
-
-async function completeIndependentLivingPage(page: Page, name: string) {
-  const independentLivingPage = await ApplyPage.initialize(
-    page,
-    `Can ${name} live independently and in shared accommodation?`,
-  )
-  await independentLivingPage.clickContinue()
 }
 
 async function completeSubstanceMisusePage(page: Page, name: string) {

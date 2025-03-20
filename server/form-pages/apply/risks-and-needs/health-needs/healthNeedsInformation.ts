@@ -25,7 +25,7 @@ export default class Guidance implements TaskListPage {
   }
 
   previous() {
-    return 'independent-living'
+    return 'liaison-and-diversion'
   }
 
   next() {

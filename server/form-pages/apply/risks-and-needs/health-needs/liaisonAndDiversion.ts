@@ -36,7 +36,7 @@ export default class LiaisonAndDiversion implements TaskListPage {
   }
 
   next() {
-    return 'independent-living'
+    return 'health-needs-information'
   }
 
   errors() {
