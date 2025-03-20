@@ -506,36 +506,40 @@ export const getQuestions = (name: string) => {
     },
     'health-needs': {
       'substance-misuse': {
-        usesIllegalSubstances: {
-          question: 'Do they take any illegal substances in custody?',
+        substanceAndAlcoholUse: {
+          question: 'Do they have any issues related to substance and alcohol use?',
           answers: yesOrNo,
         },
-        substanceMisuse: { question: 'What substances do they take?' },
-        pastSubstanceMisuse: {
-          question: 'Did they have any past issues with substance misuse before custody?',
-          answers: yesOrNo,
+        substanceAndAlcoholUseDetail: {
+          question:
+            'Enter details about the substances they use, including when, the method used, the amount taken and if they have a formal diagnosis',
+          hint: 'This can include any issues in the past and present.',
         },
-        pastSubstanceMisuseDetail: {
-          question: 'Describe their previous substance misuse',
-          hint: 'Include previous substance misuse that support would be needed for or that could lead to potential issues in a CAS-2 placement. For example, relapse prevention support, substitute medication or risk of overdose',
-        },
-        engagedWithDrugAndAlcoholService: {
-          question: 'Are they engaged with a drug and alcohol service in custody?',
-          answers: yesOrNo,
-        },
-        intentToReferToServiceOnRelease: {
-          question: 'Is there an intention to refer them to a drug and alcohol service when they are released?',
-          answers: yesOrNo,
-        },
-        drugAndAlcoholServiceDetail: { question: 'Name the drug and alcohol service (optional)' },
         requiresSubstituteMedication: {
-          question: 'Do they require any substitute medication for misused substances?',
+          question: 'Do they require any substitute medication for used substances?',
           answers: yesOrNo,
         },
         substituteMedicationDetail: { question: 'What substitute medication do they take?' },
+        engagedWithDrugAndAlcoholService: {
+          question: 'Are they engaged with a drug and alcohol service?',
+          hint: 'This refers to any services they are currently engaged with either in custody or the community.',
+          answers: {
+            yes: 'Yes',
+            awaitingAssessment: 'They are awaiting assessment with a drug and alcohol service',
+            no: 'No',
+          },
+        },
+        serviceDetails: {
+          question: 'Enter the drug and alcohol service',
+        },
+        intentToReferToService: {
+          question: 'Is there an intention to refer them to a drug and alcohol service?',
+          hint: 'This refers to when they would be released into the community.',
+          answers: { yes: 'Yes', no: 'No', notInPrisonCustody: 'No, the applicant is not in prison custody' },
+        },
         releasedWithNaloxone: {
           question: 'Are they being released with naloxone?',
-          answers: yesNoOrIDontKnow,
+          answers: { yes: 'Yes', no: 'No', notInPrisonCustody: 'No, the applicant is not in prison custody' },
         },
       },
       'physical-health': {
