@@ -15,13 +15,13 @@
 //
 //  Scenario: continues to next page in "health needs" task
 //    When I continue to the next task/page
-//    Then I should be on the independent living page
+//    Then I should be on the health needs information page
 
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import LiaisonAndDiversionPage from '../../../../pages/apply/risks_and_needs/health-needs/liaisonAndDiversionPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
-import IndependentLivingPage from '../../../../pages/apply/risks_and_needs/health-needs/independentLivingPage'
+import HealthNeedsInformationPage from '../../../../pages/apply/risks_and_needs/health-needs/healthNeedsInformationPage'
 
 context('Visit Liaison and diversion assessment page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -72,7 +72,7 @@ context('Visit Liaison and diversion assessment page', () => {
     page.completeForm()
     page.clickSubmit()
 
-    //  Then I should be on the independent living page
-    Page.verifyOnPage(IndependentLivingPage, this.application)
+    //  Then I should be on the health needs information page
+    Page.verifyOnPage(HealthNeedsInformationPage, this.application)
   })
 })
