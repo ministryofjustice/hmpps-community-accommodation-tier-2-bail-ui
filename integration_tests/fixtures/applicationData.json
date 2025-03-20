@@ -209,7 +209,9 @@
       "healthConditionDetail": "",
       "hasSeizures": "no",
       "seizuresDetail": "",
-      "beingTreatedForCancer": "no"
+      "hasHadStroke": "no",
+      "beingTreatedForCancer": "no",
+      "otherHealthNeeds": "no"
     }
   },
   "risk-information": {
