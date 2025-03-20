@@ -5,29 +5,26 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type ConcernsBody = {}
-
 @Page({
   name: 'concerns',
   bodyProperties: [],
 })
 export default class Concerns implements TaskListPage {
-  documentTitle = 'Concerns'
+  documentTitle = 'Add information about concerns to the applicant and others'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = 'Concerns'
+  title = `Add information about concerns to ${this.personName} and others`
 
   questions = getQuestions(this.personName)['risk-information'].concerns
 
-  body: ConcernsBody
+  body: Record<string, unknown>
 
   constructor(
-    body: Partial<ConcernsBody>,
+    body: Partial<Record<string, unknown>>,
     private readonly application: Application,
   ) {
-    this.body = body as ConcernsBody
+    this.body = body as Record<string, unknown>
   }
 
   previous() {

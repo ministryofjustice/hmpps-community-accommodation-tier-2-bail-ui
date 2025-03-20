@@ -1,5 +1,70 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_risk-information-screen.njk" %}
 {% set pageName = "concerns" %}
 
 {% block questions %}
+  <div data-testid="concerns-guidance">
+    <p>We will now ask you to provide information about any concerns relevant to the applicant and others. For example, details of any:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>past and present concerns</li>
+      <li>safeguarding measures</li>
+      <li>triggers</li>
+    </ul>
+
+    <p>This information helps understand their needs while in shared accommodation.</p>
+  </div>
+
+  {% set insetGuidance %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">You are expected to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>use information available from any relevant systems you have access to</li>
+      <li>identify risk factors in support of information about the applicant’s current and historic circumstances</li>
+    </ul>
+  {% endset %}
+
+  {{
+    govukInsetText({
+      html: insetGuidance,
+      classes: "submission-guidance-panel govuk-!-margin-bottom-8",
+      attributes: {
+        "data-testid": "concerns-inset-guidance"
+      }
+    })
+  }}
+
+  {% set sourcesGuidanceHtml %}
+    <p>You can use any of the sources below, along with adding any information the applicant discloses to you:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>current or previous OASys that may present a current concern in CAS2</li>
+      <li>Common Platform</li>
+      <li>Liaison and Diversion service</li>
+      <li>national probation database (nDelius)</li>
+      <li>open or inactive ACCTs (for prison applicants)</li>
+      <li>Police National Computer (PNC)</li>
+      <li>Prison National Offender Management Information System (p-NOMIS)</li>
+      <li>Prisoner Escort Record (PER) form</li>
+    </ul>
+  {% endset %}
+
+  {{
+    govukDetails({
+      summaryText: "Sources you might use to add information about concerns",
+      html: sourcesGuidanceHtml,
+      attributes: {
+        "data-testid": "concerns-details-guidance"
+      }
+    })
+  }}
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+    text: "Confirm and continue"
+    }) }}
+
+    <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+  </div>
 {% endblock %}
