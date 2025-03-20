@@ -105,12 +105,11 @@ async function completeLiaisonAndDiversionPage(page: Page, name: string) {
 async function completeOtherHealthPage(page: Page, name: string) {
   const otherHealthPage = await ApplyPage.initialize(page, `Other health needs for ${name}`)
 
-  // we can't use the normal checkRadioInGroup() helper due to follow-on yes/no radios
-  // triggering Error: strict mode violation
-  await page.locator('css=input[name="hasLongTermHealthCondition"][value="no"]').click()
-
+  await otherHealthPage.checkRadioInGroup('any long term health conditions?', 'No')
   await otherHealthPage.checkRadioInGroup('seizures', 'No')
+  await otherHealthPage.checkRadioInGroup('experienced a stroke?', 'No')
   await otherHealthPage.checkRadioInGroup('treatment for cancer', 'No')
+  await otherHealthPage.checkRadioInGroup('any other health needs?', 'No')
 
   await otherHealthPage.clickSave()
 }
