@@ -1,6 +1,6 @@
-import { test } from '../test'
+import test from '../test'
 import { manageInformationReports, downloadReport, confirmColumnNames } from '../steps/reports'
-import { signIn } from '../steps/signIn'
+import signIn from '../steps/signIn'
 
 test.fail(
   'failing due to applicationOrigin error - Download submitted applications report',

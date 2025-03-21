@@ -27,7 +27,7 @@ import {
   completeCommunitySupervisionAndCurrentOffencesTask,
   completeOffenceHistoryTask,
 } from './offenceAndLicenceInformationSection'
-import { completeCheckAnswersTask } from './checkAnswersSection'
+import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
 import {
   completeBailConditionsAndSupportSessionsTask,

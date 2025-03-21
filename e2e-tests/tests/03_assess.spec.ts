@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test'
 import { updateStatus, viewSubmittedApplication, addNote, addAssessmentDetails } from '../steps/assess'
-import { test } from '../test'
-import { signIn } from '../steps/signIn'
+import test from '../test'
+import signIn from '../steps/signIn'
 
 test('view a submitted application as an assessor', async ({ page, assessorUser }) => {
   await signIn(page, assessorUser)

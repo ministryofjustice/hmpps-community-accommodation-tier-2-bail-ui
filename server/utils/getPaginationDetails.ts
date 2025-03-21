@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import type { Request } from 'express'
 import { createQueryString } from './utils'
 

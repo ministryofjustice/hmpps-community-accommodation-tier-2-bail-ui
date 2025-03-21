@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test'
-import { test } from '../test'
+import test from '../test'
 import {
   completeAboutThePersonSection,
   completeAreaAndFundingSection,
@@ -18,7 +18,7 @@ import {
   viewInProgressDashboard,
   createAnInProgressApplication,
 } from '../steps/apply'
-import { signIn } from '../steps/signIn'
+import signIn from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
 
 test('create a CAS-2 bail application', async ({ page, person, nomisCourtUser }) => {
