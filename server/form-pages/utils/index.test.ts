@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Request } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import 'reflect-metadata'
