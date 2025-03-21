@@ -193,6 +193,7 @@
   "overrides": {
     "csurf": {
       "cookie": "1.0.2"
-    }
+    },
+    "@babel/helpers": "^7.26.10"
   }
 }
