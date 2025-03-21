@@ -4,24 +4,22 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type GuidanceBody = Record<string, never>
-
 @Page({
   name: 'health-needs-information',
   bodyProperties: [],
 })
 export default class Guidance implements TaskListPage {
-  documentTitle = 'Request health information for the person'
+  documentTitle = "Provide information about the applicant's health needs"
 
-  title = `Request health information for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `Provide information about ${nameOrPlaceholderCopy(this.application.person)}'s health needs`
 
-  body: GuidanceBody
+  body: Record<string, unknown>
 
   constructor(
-    body: Partial<GuidanceBody>,
+    body: Partial<Record<string, unknown>>,
     private readonly application: Application,
   ) {
-    this.body = body as GuidanceBody
+    this.body = body as Record<string, unknown>
   }
 
   previous() {

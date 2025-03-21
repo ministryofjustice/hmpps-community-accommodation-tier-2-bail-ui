@@ -9,7 +9,7 @@ describe('HealthNeedsInformation', () => {
     it('personalises the page title', () => {
       const page = new HealthNeedsInformation({}, application)
 
-      expect(page.title).toEqual('Request health information for Roger Smith')
+      expect(page.title).toEqual("Provide information about Roger Smith's health needs")
     })
   })
 
