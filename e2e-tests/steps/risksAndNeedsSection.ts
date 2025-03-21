@@ -17,8 +17,11 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
 }
 
 async function completeHealthNeedsInformationPage(page: Page, name: string) {
-  const healthNeedsInformationPage = await ApplyPage.initialize(page, `Request health information for ${name}`)
-  await healthNeedsInformationPage.clickContinue()
+  const healthNeedsInformationPage = await ApplyPage.initialize(
+    page,
+    `Provide information about ${name}'s health needs`,
+  )
+  await healthNeedsInformationPage.clickButton('Confirm and continue')
 }
 
 async function completeSubstanceMisusePage(page: Page, name: string) {
