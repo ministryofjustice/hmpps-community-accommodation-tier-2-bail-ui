@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'applicant ID' page
 //    So that I can complete the "Funding information" task
 //    As a referrer

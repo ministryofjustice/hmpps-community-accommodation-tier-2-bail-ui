@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes "risk information: violence and arson" page
 //    So that I can complete the "risk information" task
 //    As a referrer

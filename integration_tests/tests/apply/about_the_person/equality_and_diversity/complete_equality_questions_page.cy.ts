@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Equality questions' page
 //    So that I can complete the first page of the Equality and Diversity task
 //    As a referrer
