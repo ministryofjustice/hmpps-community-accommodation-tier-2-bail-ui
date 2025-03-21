@@ -118,7 +118,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add information about risks to the applicant and others')
 
-  await completeConcernsPage(page)
+  await completeConcernsPage(page, name)
   await completeSelfHarmPage(page, name)
   await addAnAcct(page)
   await completeViolenceAndArsonPage(page, name)
@@ -134,10 +134,10 @@ async function completeRiskManagementArrangementsPage(page: Page) {
   await riskManagementPage.clickSave()
 }
 
-async function completeConcernsPage(page: Page) {
-  const concernsPage = await ApplyPage.initialize(page, 'Concerns')
+async function completeConcernsPage(page: Page, name: string) {
+  const concernsPage = await ApplyPage.initialize(page, `Add information about concerns to ${name} and others`)
 
-  concernsPage.clickSave()
+  concernsPage.clickButton('Confirm and continue')
 }
 
 async function completeSelfHarmPage(page: Page, name: string) {
