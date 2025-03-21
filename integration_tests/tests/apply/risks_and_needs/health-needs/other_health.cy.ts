@@ -83,7 +83,9 @@ context('Visit "other health" page', () => {
 
     page.describeLongTermHealthConditions()
     page.describeSeizures()
-    page.confirmCancerTreatment()
+    page.selectHasHadStroke()
+    page.selectBeingTreatedForCancer()
+    page.describeOtherHealthNeeds()
 
     page.clickSubmit()
 

@@ -12,7 +12,7 @@ export default class OtherHealthPage extends ApplyPage {
       'health-needs',
       'other-health',
     )
-    pageIsActiveInNavigation('Other health')
+    pageIsActiveInNavigation('Other health needs')
   }
 
   static visit(application: Application): void {
@@ -28,7 +28,6 @@ export default class OtherHealthPage extends ApplyPage {
   describeLongTermHealthConditions = (): void => {
     this.checkRadioByNameAndValue('hasLongTermHealthCondition', 'yes')
     this.getTextInputByIdAndEnterDetails('healthConditionDetail', 'Chronic arthritis')
-    this.checkRadioByNameAndValue('hasHadStroke', 'no')
   }
 
   describeSeizures = (): void => {
@@ -36,7 +35,16 @@ export default class OtherHealthPage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('seizuresDetail', 'Epilepsy: controlled by meds')
   }
 
-  confirmCancerTreatment = (): void => {
+  selectHasHadStroke = (): void => {
+    this.checkRadioByNameAndValue('hasHadStroke', 'no')
+  }
+
+  selectBeingTreatedForCancer = (): void => {
     this.checkRadioByNameAndValue('beingTreatedForCancer', 'no')
+  }
+
+  describeOtherHealthNeeds = (): void => {
+    this.checkRadioByNameAndValue('otherHealthNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('otherHealthNeedsDetail', 'Other health needs detail')
   }
 }
