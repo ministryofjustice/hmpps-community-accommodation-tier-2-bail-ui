@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'working mobile phone' page
 //    So that I can complete the "working mobile phone" task
 //    As a referrer

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import Section from './section.decorator'
 
 describe('Task', () => {

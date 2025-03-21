@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'pregnancy information' page
 //    So that I can complete the "pregnancy information" task
 //    As a referrer

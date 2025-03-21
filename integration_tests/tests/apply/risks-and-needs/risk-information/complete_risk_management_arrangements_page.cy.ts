@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'risk management arrangemnents' page
 //    So that I can complete the "Risk information" task
 //    As a referrer

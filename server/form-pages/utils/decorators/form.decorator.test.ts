@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import BaseForm from '../../baseForm'
 
 import Section from './section.decorator'

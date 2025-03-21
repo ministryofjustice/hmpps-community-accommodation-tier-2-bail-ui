@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { Key, pathToRegexp } from 'path-to-regexp'
 import logger from '../../logger'

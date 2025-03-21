@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable max-classes-per-file */
 import { Cas2v2Application } from '@approved-premises/api'
 import Page from './page.decorator'
 import { applicationFactory } from '../../../testutils/factories'

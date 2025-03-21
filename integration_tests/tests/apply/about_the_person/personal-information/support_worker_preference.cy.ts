@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'support worker preference' page
 //    So that I can complete the "support worker preference" task
 //    As a referrer

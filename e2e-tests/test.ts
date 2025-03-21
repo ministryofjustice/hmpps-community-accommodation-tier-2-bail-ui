@@ -2,7 +2,7 @@ import { test as base } from '@playwright/test'
 
 import { TestOptions } from './testOptions'
 
-export const test = base.extend<TestOptions>({
+export default base.extend<TestOptions>({
   person: [
     {
       name: 'Ben Davies',

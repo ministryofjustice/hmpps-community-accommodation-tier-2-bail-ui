@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Safety of staff' page
 //    So that I can complete the "Risk" task
 //    As a referrer

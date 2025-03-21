@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+
 export const getQuestions = (name: string) => {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
