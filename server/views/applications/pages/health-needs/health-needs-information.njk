@@ -1,18 +1,80 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_health-needs-screen.njk" %}
 {% set pageName = "health-needs-information" %}
 
 {% block questions %}
+  <div data-testid="health-needs-guidance">
+    <p>We will now ask you to provide information about any health needs that affect the applicant. For example, details of:</p>
 
-  <h2 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>their needs</li>
+      <li>the type of support they need</li>
+      <li>any diagnosis and treatment</li>
+      <li>how they are presenting during your interactions with them</li>
+    </ul>
 
+    <p>This information helps understand their needs while in shared accommodation.</p>
+  </div>
+
+  {% set insetGuidance %}
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">Important:</p>
+    <p>Any missing or incomplete information on health needs:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>will cause delays in processing the application</li>
+      <li>may impact the applicant's quality of life while in shared accommodation</li>
+    </ul>
+  {% endset %}
+
+  {{
+    govukInsetText({
+      html: insetGuidance,
+      classes: "guidance-panel govuk-!-margin-bottom-8",
+      attributes: {
+        "data-testid": "health-needs-inset-guidance"
+      }
+    })
+  }}
+
+  {% set sourcesGuidanceHtml %}
+    <p>You might use any of the methods below, along with asking the applicant.</p>
+
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">Check other systems</p>
+    <p class="govuk-!-margin-bottom-0">You might find some of this information in the:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Common Platform</li>
+      <li>national probation database (nDelius)</li>
+      <li>Police National Computer (PNC)</li>
+      <li>Prison National Offender Management Information System (p-NOMIS)</li>
+      <li>Prisoner Escort Record (PER) form</li>
+    </ul>
+
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">Get in touch with other services</p>
+    <p class="govuk-!-margin-bottom-0">You can speak to the following people:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>healthcare team</li>
+      <li>community or custody substance misuse team</li>
+      <li>substance use agency</li>
+      <li>mental health team</li>
+      <li>adult social care</li>
+    </ul>
+  {% endset %}
+
+  {{
+    govukDetails({
+      summaryText: "Where to find information about the applicant's health needs",
+      html: sourcesGuidanceHtml,
+      attributes: {
+        "data-testid": "health-needs-details-guidance"
+      }
+    })
+  }}
 {% endblock %}
 
 {% block button %}
   <div class="govuk-button-group">
     {{ govukButton({
-    text: "Continue"
-    }) }}
-
-    <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+        text: "Confirm and continue"
+        })}}
   </div>
 {% endblock %}

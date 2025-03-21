@@ -20,7 +20,7 @@
       <h1 class="govuk-heading-l">Are you sure you want to submit the application?</h1>
       {{ govukInsetText({
         html: "<p>Any incomplete or inaccurate information will cause delayes in processing the application.</p><p>Make sure you are happy with the information you have entered as you will not be able to make any changes after you submit it.</p>",
-        classes: "submission-guidance-panel"
+        classes: "guidance-panel"
         }) }}
           <form action="{{ paths.applications.submission({id: applicationId}) }}" method="post">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>

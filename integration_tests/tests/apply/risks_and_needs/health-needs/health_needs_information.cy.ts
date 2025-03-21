@@ -7,9 +7,9 @@
 //    Given there is a section with a task
 //    And an application exists
 //    And I am logged in
+//    And I am on the health needs information page
 //
 //  Scenario: view health needs information page
-//    When I visit the health needs information page
 //    Then I see the health needs information page
 //
 //  Scenario: continues to next page in "health needs" task
@@ -49,24 +49,27 @@ context('Visit health needs information page', () => {
     // Given I am logged in
     //---------------------
     cy.signIn()
+
+    //  And I am on the health needs information page
+    HealthNeedsInformationPage.visit(this.application)
   })
 
   //  Scenario: view health needs information page
   it('shows the page', function test() {
-    //  When I visit the health needs information page
-    HealthNeedsInformationPage.visit(this.application)
-
     //  Then I see the health needs information page
     Page.verifyOnPage(HealthNeedsInformationPage, this.application)
   })
 
-  //  Scenario: continues to next page in "health needs" task
-  it('continues to the next page', function test() {
-    //  When I continue to the next task/page
-    const page = HealthNeedsInformationPage.visit(this.application)
-    page.clickContinue()
+  //  Scenario: complete page and navigate to next page in health needs task
+  it('navigates to the next page (substance misuse)', function test() {
+    //  When I complete the health needs information page
+    const page = Page.verifyOnPage(HealthNeedsInformationPage, this.application)
+    page.hasGuidance()
 
-    //  Then I should be on the substance misuse page
+    //  And I continue to the next task / page
+    page.clickSubmit('Confirm and continue')
+
+    //  Then I see the substance misuse page
     Page.verifyOnPage(SubstanceMisusePage, this.application)
   })
 })
