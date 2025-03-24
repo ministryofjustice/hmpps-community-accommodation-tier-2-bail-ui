@@ -25,13 +25,12 @@ async function completeHealthNeedsInformationPage(page: Page, name: string) {
 }
 
 async function completeSubstanceMisusePage(page: Page, name: string) {
-  const substanceMisusePage = await ApplyPage.initialize(page, `Substance misuse needs for ${name}`)
+  const substanceMisusePage = await ApplyPage.initialize(page, `Substance misuse needs details for ${name}`)
 
-  await substanceMisusePage.checkRadioInGroup('take any illegal substances', 'No')
-  await substanceMisusePage.checkRadioInGroup('past issues with substance misuse', 'No')
-  await substanceMisusePage.checkRadioInGroup('drug and alcohol service in custody', 'No')
-  await substanceMisusePage.checkRadioInGroup('drug and alcohol service when they are released', 'No')
+  await substanceMisusePage.checkRadioInGroup('substance and alcohol use', 'No')
   await substanceMisusePage.checkRadioInGroup('substitute medication', 'No')
+  await substanceMisusePage.checkRadioInGroup('engaged with a drug and alcohol service', 'No')
+  await substanceMisusePage.checkRadioInGroup('intention to refer them to a drug and alcohol service', 'No')
   await substanceMisusePage.checkRadioInGroup('naloxone', 'No')
 
   await substanceMisusePage.clickSave()
