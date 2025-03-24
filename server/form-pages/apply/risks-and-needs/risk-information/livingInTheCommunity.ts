@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesNoOrNotInPrisonCustody, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -12,7 +12,7 @@ export type LivingInTheCommunityBody = {
   victimOfOthersDetail: string
   otherConcerns: YesOrNo
   otherConcernsDetail: string
-  cellSharingRiskAssessment: 'yes' | 'no' | 'notInPrisonCustody'
+  cellSharingRiskAssessment: YesNoOrNotInPrisonCustody
   cellSharingRiskAssessmentDetail: string
 }
 
