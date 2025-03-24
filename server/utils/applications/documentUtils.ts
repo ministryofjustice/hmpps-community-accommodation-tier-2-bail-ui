@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { ApplicationDocument, QuestionAndAnswer } from '@approved-premises/ui'
 import { getSections, getTaskAnswersAsSummaryListItems } from '../checkYourAnswersUtils'
 import { Cas2v2Application as Application } from '../../@types/shared'

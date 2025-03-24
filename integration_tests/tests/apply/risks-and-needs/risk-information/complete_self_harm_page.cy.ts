@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes "risk information: self harm" page
 //    So that I can complete the "risk information" task
 //    As a referrer

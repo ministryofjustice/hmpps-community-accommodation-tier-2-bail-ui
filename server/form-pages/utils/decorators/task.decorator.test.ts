@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import TaskListPage from '../../taskListPage'
 import Page from './page.decorator'
 import Task from './task.decorator'

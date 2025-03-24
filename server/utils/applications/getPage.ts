@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { JourneyType, FormPages } from '../../@types/ui'
 import { TaskListPageInterface } from '../../form-pages/taskListPage'
 import { UnknownPageError } from '../errors'

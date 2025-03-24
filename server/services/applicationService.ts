@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import type { Request } from 'express'
 import {
   Unit,

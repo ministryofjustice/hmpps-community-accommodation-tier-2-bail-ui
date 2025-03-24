@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Funding CAS-2 Accommodation' question page
 //    As a referrer,
 //    I want to confirm how the applicant is funding their CAS2 accommodation

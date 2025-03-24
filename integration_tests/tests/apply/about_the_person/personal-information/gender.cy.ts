@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'gender' page
 //    So that I can complete the "personal information" task
 //    As a referrer
