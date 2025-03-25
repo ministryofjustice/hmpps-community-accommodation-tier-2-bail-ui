@@ -71,8 +71,11 @@ context('Visit "mental health" page', () => {
     const page = new MentalHealthPage(this.application)
 
     page.describeNeeds()
-    page.describeEngagement()
-    page.describeMedication()
+    page.describeSupportNeeds()
+    page.describeTreatment()
+    page.enterServiceDetails()
+    page.confirmSupportReferral()
+    page.describeCurrentPresentation()
 
     page.clickSubmit()
 
