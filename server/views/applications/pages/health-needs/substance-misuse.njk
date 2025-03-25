@@ -3,50 +3,17 @@
 
 {% block questions %}
 
-  {% set illegalSubstancesFollowUp %}
+  {% set substanceAndAlcoholUseFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'substanceMisuse',
+          fieldName: 'substanceAndAlcoholUseDetail',
           label: {
-            text: page.questions.substanceMisuse.question,
+            text: page.questions.substanceAndAlcoholUseDetail.question,
             classes: "govuk-label--s"
           },
           hint: {
-            text: page.questions.substanceMisuse.hint
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set pastSubstanceMisuseFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'pastSubstanceMisuseDetail',
-          label: {
-            text: page.questions.pastSubstanceMisuseDetail.question,
-            classes: "govuk-label--s"
-          },
-          hint: {
-            text: page.questions.pastSubstanceMisuseDetail.hint
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set drugAndAlcoholFollowUp %}
-  {{
-      formPageInput(
-        {
-          fieldName: 'drugAndAlcoholServiceDetail',
-          label: {
-            text: page.questions.drugAndAlcoholServiceDetail.question,
-            classes: "govuk-label--s"
+            text: page.questions.substanceAndAlcoholUseDetail.hint
           }
         },
         fetchContext()
@@ -69,13 +36,32 @@
     }}
   {% endset %}
 
+  {% set engagedWithDrugAndAlcoholServiceFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'serviceDetails',
+          label: {
+            text: page.questions.serviceDetails.question,
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: page.questions.serviceDetails.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+
   {{
     formPageRadios(
       {
-        fieldName: "usesIllegalSubstances",
+        fieldName: "substanceAndAlcoholUse",
         fieldset: {
           legend: {
-            text: page.questions.usesIllegalSubstances.question,
+            text: page.questions.substanceAndAlcoholUse.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -84,88 +70,7 @@
           value: "yes",
           text: "Yes",
           conditional: {
-            html: illegalSubstancesFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "pastSubstanceMisuse",
-        fieldset: {
-          legend: {
-            text: page.questions.pastSubstanceMisuse.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: pastSubstanceMisuseFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "engagedWithDrugAndAlcoholService",
-        fieldset: {
-          legend: {
-            text: page.questions.engagedWithDrugAndAlcoholService.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes"
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "intentToReferToServiceOnRelease",
-        fieldset: {
-          legend: {
-            text: page.questions.intentToReferToServiceOnRelease.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: drugAndAlcoholFollowUp
+            html: substanceAndAlcoholUseFollowUp
           }
         },
         {
@@ -209,6 +114,73 @@
   {{
     formPageRadios(
       {
+        fieldName: "engagedWithDrugAndAlcoholService",
+        fieldset: {
+          legend: {
+            text: page.questions.engagedWithDrugAndAlcoholService.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: page.questions.engagedWithDrugAndAlcoholService.hint
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: engagedWithDrugAndAlcoholServiceFollowUp
+          }
+        },
+        {
+          value: "awaitingAssessment",
+          text: "They are awaiting assessment with a drug and alcohol service"
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "intentToReferToService",
+        fieldset: {
+          legend: {
+            text: page.questions.intentToReferToService.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: page.questions.intentToReferToService.hint
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          value: "notInPrisonCustody",
+          text: "No, the applicant is not in prison custody"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
         fieldName: "releasedWithNaloxone",
         fieldset: {
           legend: {
@@ -226,8 +198,8 @@
           text: "No"
         },
         {
-          value: "dontKnow",
-          text: "I don't know"
+          value: "notInPrisonCustody",
+          text: "No, the applicant is not in prison custody"
         }
       ]
       },

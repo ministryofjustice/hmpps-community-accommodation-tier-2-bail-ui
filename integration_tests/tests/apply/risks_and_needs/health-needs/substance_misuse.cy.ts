@@ -68,10 +68,10 @@ context('Visit "Substance misuse" page', () => {
   it('navigates to the next page (physical health) when complete', function test() {
     SubstanceMisusePage.visit(this.application)
     const page = new SubstanceMisusePage(this.application)
-    page.describeIllegalSubstanceUse()
-    page.describeSubstanceMisuseHistory()
-    page.nameDrugAndAlcoholService()
+    page.describeSubstanceAndAlcoholUse()
     page.provideSubstituteMedicationDetails()
+    page.nameDrugAndAlcoholService()
+    page.provideDrugAndAlcoholServiceIntentionDetails()
     page.provideNaloxoneDetails()
     page.clickSubmit()
 

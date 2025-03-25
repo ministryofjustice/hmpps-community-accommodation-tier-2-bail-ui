@@ -9,38 +9,7 @@ describe('SubstanceMisuse', () => {
     it('personalises the page title', () => {
       const page = new SubstanceMisuse({}, application)
 
-      expect(page.title).toEqual('Substance misuse needs for Roger Smith')
-    })
-  })
-
-  describe('Questions', () => {
-    const page = new SubstanceMisuse({}, application)
-
-    describe('usesIllegalSubstances', () => {
-      it('has a question', () => {
-        expect(page.questions.usesIllegalSubstances.question).toBeDefined()
-      })
-      it('has two follow-up questions', () => {
-        expect(page.questions.substanceMisuse.question).toBeDefined()
-      })
-    })
-
-    describe('engagedWithDrugAndAlcoholService', () => {
-      it('has a question', () => {
-        expect(page.questions.engagedWithDrugAndAlcoholService.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.drugAndAlcoholServiceDetail.question).toBeDefined()
-      })
-    })
-
-    describe('substituteMedication', () => {
-      it('has a question', () => {
-        expect(page.questions.requiresSubstituteMedication.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.substituteMedicationDetail.question).toBeDefined()
-      })
+      expect(page.title).toEqual('Substance misuse needs details for Roger Smith')
     })
   })
 
@@ -51,68 +20,48 @@ describe('SubstanceMisuse', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new SubstanceMisuse({}, application)
 
-      it('includes a validation error for _usesIllegalSubstances_', () => {
+      it('includes a validation error for _substanceAndAlcoholUse_', () => {
         expect(page.errors()).toHaveProperty(
-          'usesIllegalSubstances',
-          'Confirm whether they take any illegal substances',
-        )
-      })
-
-      it('includes a validation error for _pastSubstanceMisuse_', () => {
-        expect(page.errors()).toHaveProperty(
-          'pastSubstanceMisuse',
-          'Confirm whether they had past issues with substance misuse',
-        )
-      })
-
-      it('includes a validation error for _engagedWithDrugAndAlcoholService_', () => {
-        expect(page.errors()).toHaveProperty(
-          'engagedWithDrugAndAlcoholService',
-          'Confirm whether they are engaged with a drug and alcohol service',
-        )
-      })
-
-      it('includes a validation error for _intentToReferToServiceOnRelease_', () => {
-        expect(page.errors()).toHaveProperty(
-          'intentToReferToServiceOnRelease',
-          'Confirm whether they will be referred to a drug and alcohol service after release',
+          'substanceAndAlcoholUse',
+          'Select if they have any issues related to substance and alcohol use',
         )
       })
 
       it('includes a validation error for _requiresSubstituteMedication_', () => {
         expect(page.errors()).toHaveProperty(
           'requiresSubstituteMedication',
-          'Confirm whether they require substitute medication',
+          'Select if they require any substitute medication',
+        )
+      })
+
+      it('includes a validation error for _engagedWithDrugAndAlcoholService_', () => {
+        expect(page.errors()).toHaveProperty(
+          'engagedWithDrugAndAlcoholService',
+          'Select if they are engaged with a drug and alcohol service, or if awaiting an assessment',
+        )
+      })
+
+      it('includes a validation error for _intentToReferToService_', () => {
+        expect(page.errors()).toHaveProperty(
+          'intentToReferToService',
+          'Select if there is an intention to refer them to a drug and alcohol service, or if they are not in prison custody',
         )
       })
 
       it('includes a validation error for _releasedWithNaloxone_', () => {
         expect(page.errors()).toHaveProperty(
           'releasedWithNaloxone',
-          "Confirm whether they will be released with naloxone or select 'I don’t know'",
+          'Select if they are being released with naloxone, or if they are not in prison custody',
         )
       })
     })
 
-    describe('when _usesIllegalSubstances_ is YES', () => {
-      const page = new SubstanceMisuse({ usesIllegalSubstances: 'yes' }, application)
+    describe('when _substanceAndAlcoholUse_ is YES', () => {
+      const page = new SubstanceMisuse({ substanceAndAlcoholUse: 'yes' }, application)
 
-      describe('and _substanceMisuse_ is UNANSWERED', () => {
-        it('includes a validation error for _substanceMisuse_', () => {
-          expect(page.errors()).toHaveProperty('substanceMisuse', 'Name the illegal substances they take')
-        })
-      })
-    })
-
-    describe('when _pastSubstanceMisuse_ is YES', () => {
-      const page = new SubstanceMisuse({ pastSubstanceMisuse: 'yes' }, application)
-
-      describe('and _pastSubstanceMisuseDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _pastSubstanceMisuseDetail_', () => {
-          expect(page.errors()).toHaveProperty(
-            'pastSubstanceMisuseDetail',
-            'Provide details of their past issues with substance misuse',
-          )
+      describe('and _substanceAndAlcoholUseDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _substanceAndAlcoholUseDetail_', () => {
+          expect(page.errors()).toHaveProperty('substanceAndAlcoholUseDetail', 'Enter details of their issues')
         })
       })
     })
@@ -124,18 +73,28 @@ describe('SubstanceMisuse', () => {
         it('includes a validation error for _substituteMedicationDetail_', () => {
           expect(page.errors()).toHaveProperty(
             'substituteMedicationDetail',
-            'Provide details of their substitute medication',
+            'Enter the substitute medication they take',
           )
+        })
+      })
+    })
+
+    describe('when _engagedWithDrugAndAlcoholService_ is YES', () => {
+      const page = new SubstanceMisuse({ engagedWithDrugAndAlcoholService: 'yes' }, application)
+
+      describe('and _serviceDetails_ is UNANSWERED', () => {
+        it('includes a validation error for _serviceDetails_', () => {
+          expect(page.errors()).toHaveProperty('serviceDetails', 'Enter the drug and alcohol service')
         })
       })
     })
   })
 
   describe('onSave', () => {
-    it('removes illegal substance data if answer is no', () => {
+    it('removes substance and alcohol use data if answer is no', () => {
       const body: Partial<SubstanceMisuseBody> = {
-        usesIllegalSubstances: 'no',
-        substanceMisuse: 'Substance misuse',
+        substanceAndAlcoholUse: 'no',
+        substanceAndAlcoholUseDetail: 'Substance misuse',
       }
 
       const page = new SubstanceMisuse(body, application)
@@ -143,37 +102,7 @@ describe('SubstanceMisuse', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        usesIllegalSubstances: 'no',
-      })
-    })
-
-    it('removes past substance misuse data if answer is no', () => {
-      const body: Partial<SubstanceMisuseBody> = {
-        pastSubstanceMisuse: 'no',
-        pastSubstanceMisuseDetail: 'Substance misuse history',
-      }
-
-      const page = new SubstanceMisuse(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        pastSubstanceMisuse: 'no',
-      })
-    })
-
-    it('removes drug and alcohol service data if answer is no', () => {
-      const body: Partial<SubstanceMisuseBody> = {
-        intentToReferToServiceOnRelease: 'no',
-        drugAndAlcoholServiceDetail: 'Drug and alcohol service detail',
-      }
-
-      const page = new SubstanceMisuse(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        intentToReferToServiceOnRelease: 'no',
+        substanceAndAlcoholUse: 'no',
       })
     })
 
@@ -189,6 +118,21 @@ describe('SubstanceMisuse', () => {
 
       expect(page.body).toEqual({
         requiresSubstituteMedication: 'no',
+      })
+    })
+
+    it('removes drug and alcohol service data if answer is no', () => {
+      const body: Partial<SubstanceMisuseBody> = {
+        engagedWithDrugAndAlcoholService: 'no',
+        serviceDetails: 'service details',
+      }
+
+      const page = new SubstanceMisuse(body, application)
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        engagedWithDrugAndAlcoholService: 'no',
       })
     })
   })

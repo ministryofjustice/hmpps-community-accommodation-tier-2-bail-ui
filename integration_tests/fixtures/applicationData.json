@@ -141,15 +141,13 @@
     },
     "health-needs-information": {},
     "substance-misuse": {
-      "usesIllegalSubstances": "no",
-      "substanceMisuse": "",
-      "pastSubstanceMisuse": "no",
-      "pastSubstanceMisuseDetail": "",
-      "engagedWithDrugAndAlcoholService": "no",
-      "intentToReferToServiceOnRelease": "no",
-      "drugAndAlcoholServiceDetail": "",
+      "substanceAndAlcoholUse": "no",
+      "substanceAndAlcoholUseDetail": "",
       "requiresSubstituteMedication": "no",
       "substituteMedicationDetail": "",
+      "engagedWithDrugAndAlcoholService": "no",
+      "serviceDetails": "",
+      "intentToReferToService": "no",
       "releasedWithNaloxone": "no"
     },
     "physical-health": {
