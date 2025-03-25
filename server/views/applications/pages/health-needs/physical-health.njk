@@ -15,39 +15,16 @@
         fetchContext()
       )
     }}
-  {{
-      formPageRadios(
-        {
-          fieldName: 'canClimbStairs',
-          fieldset: {
-            legend: {
-              text: page.questions.canClimbStairs.question,
-              classes: "govuk-fieldset__legend--s"
-            }
-          },
-          items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-        },
-        fetchContext()
-      )
-    }}
+ 
   {% endset %}
 
-  {% set isReceivingMedicationOrTreatmentFollowUp %}
+  {% set requiresSupportFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'medicationOrTreatmentDetail',
+          fieldName: 'supportDetail',
           label: {
-            text: page.questions.medicationOrTreatmentDetail.question,
+            text: page.questions.supportDetail.question,
             classes: "govuk-label--s"
           }
         },
@@ -71,21 +48,6 @@
     }}
   {% endset %}
 
-  {% set addSupportFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'addSupportDetail',
-          label: {
-            text: page.questions.addSupportDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
   {{
     formPageRadios(
       {
@@ -96,13 +58,7 @@
             classes: "govuk-fieldset__legend--m"
           }
         },
-          hint: {
-            html: '
-              <div id="physical-health-needs-hint" class="govuk-hint">
-                <p class="govuk-hint">This includes needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps</p>
-              </div>
-            '
-          },
+        hint: { text: page.questions.hasPhyHealthNeeds.hint },
         items: [
         {
           value: "yes",
@@ -121,13 +77,13 @@
     )
   }}
 
-  {{
+   {{
     formPageRadios(
       {
-        fieldName: "isReceivingMedicationOrTreatment",
+        fieldName: "requiresSupport",
         fieldset: {
           legend: {
-            text: page.questions.isReceivingMedicationOrTreatment.question,
+            text: page.questions.requiresSupport.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -136,7 +92,7 @@
           value: "yes",
           text: "Yes",
           conditional: {
-            html: isReceivingMedicationOrTreatmentFollowUp
+            html: requiresSupportFollowUp
           }
         },
         {
@@ -148,6 +104,31 @@
       fetchContext()
     )
   }}
+
+   {{
+      formPageRadios(
+        {
+          fieldName: 'canClimbStairs',
+          fieldset: {
+            legend: {
+              text: page.questions.canClimbStairs.question,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+        },
+        fetchContext()
+      )
+    }}
 
   {{
     formPageRadios(
@@ -162,7 +143,7 @@
         hint: {
             html: '
                 <div id="live-independently-details-hint" class="govuk-hint">
-                  <p class="govuk-hint">Someone can live independently if they can:</p>
+                  <p class="govuk-hint">This means they can:</p>
                   <ul class="govuk-list govuk-list--bullet govuk-hint">
                     <li>cook for themselves</li>
                     <li>clean for themselves</li>
@@ -184,34 +165,6 @@
           conditional: {
             html: indyLivingFollowUp
           }
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "requiresAdditionalSupport",
-        fieldset: {
-          legend: {
-            text: page.questions.requiresAdditionalSupport.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: addSupportFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
         }
       ]
       },
