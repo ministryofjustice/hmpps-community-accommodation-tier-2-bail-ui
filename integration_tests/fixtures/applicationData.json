@@ -155,12 +155,11 @@
     "physical-health": {
       "hasPhyHealthNeeds": "no",
       "needsDetail": "",
-      "isReceivingMedicationOrTreatment": "no",
-      "medicationOrTreatmentDetail": "",
+      "requiresSupport": "no",
+      "supportDetail": "",
+      "canClimbStairs": "no",
       "canLiveIndependently": "yes",
-      "indyLivingDetail": "",
-      "requiresAdditionalSupport": "no",
-      "addSupportDetail": ""
+      "indyLivingDetail": ""
     },
     "mental-health": {
       "hasMentalHealthNeeds": "no",
