@@ -9,7 +9,7 @@ describe('MentalHealth', () => {
     it('personalises the page title', () => {
       const page = new MentalHealth({}, application)
 
-      expect(page.title).toEqual('Mental health needs for Roger Smith')
+      expect(page.title).toEqual('Mental health needs details for Roger Smith')
     })
   })
 
@@ -21,31 +21,28 @@ describe('MentalHealth', () => {
       const page = new MentalHealth({}, application)
 
       it('includes a validation error for _hasMentalHealthNeeds_', () => {
-        expect(page.errors()).toHaveProperty('hasMentalHealthNeeds', 'Confirm whether they have mental health needs')
+        expect(page.errors()).toHaveProperty('hasMentalHealthNeeds', 'Select if they have any mental health needs')
       })
 
-      it('includes a validation error for _isEngagedWithCommunity_', () => {
-        expect(page.errors()).toHaveProperty('isEngagedWithCommunity', 'Confirm whether they are engaged with services')
+      it('includes a validation error for _hasSupportNeeds_', () => {
+        expect(page.errors()).toHaveProperty('hasSupportNeeds', 'Select if they need any support')
       })
 
-      it('includes a validation error for _isEngagedWithServicesInCustody_', () => {
+      it('includes a validation error for _receivesTreatment_', () => {
+        expect(page.errors()).toHaveProperty('receivesTreatment', 'Select if they receive any treatment')
+      })
+
+      it('includes a validation error for _isEngagedWithService_', () => {
         expect(page.errors()).toHaveProperty(
-          'isEngagedWithServicesInCustody',
-          'Confirm whether they are engaged with mental health services in custody',
+          'isEngagedWithService',
+          'Select if they are engaged with a mental health service, or if awaiting an assessment',
         )
       })
 
-      it('includes a validation error for _areIntendingToEngageWithServicesAfterCustody_', () => {
+      it('includes a validation error for _willReferralBeMade_', () => {
         expect(page.errors()).toHaveProperty(
-          'areIntendingToEngageWithServicesAfterCustody',
-          'Confirm whether they are intending to engage with mental health services after custody',
-        )
-      })
-
-      it('includes a validation error for _canManageMedication_', () => {
-        expect(page.errors()).toHaveProperty(
-          'canManageMedication',
-          "Confirm whether they can manage their own mental health medication on release, or select 'They are not prescribed medication for their mental health'",
+          'willReferralBeMade',
+          'Select if a referral for support will be made, or if they are not in prison custody',
         )
       })
     })
@@ -55,51 +52,37 @@ describe('MentalHealth', () => {
 
       describe('and _needsDetail_ is UNANSWERED', () => {
         it('includes a validation error for _needsDetail_', () => {
-          expect(page.errors()).toHaveProperty('needsDetail', 'Describe mental health needs')
-        })
-      })
-      describe('and _needsPresentation_ is UNANSWERED', () => {
-        it('includes a validation error for _needsPresentation_', () => {
-          expect(page.errors()).toHaveProperty('needsPresentation', 'Describe how they are presenting')
+          expect(page.errors()).toHaveProperty('needsDetail', 'Enter details of their needs')
         })
       })
     })
 
-    describe('when _isEngagedWithCommunity_ is YES', () => {
-      const page = new MentalHealth({ isEngagedWithCommunity: 'yes' }, application)
+    describe('when _hasSupportNeeds_ is YES', () => {
+      const page = new MentalHealth({ hasSupportNeeds: 'yes' }, application)
 
-      describe('and _servicesDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _servicesDetail_', () => {
-          expect(page.errors()).toHaveProperty('servicesDetail', 'State the services with which they have engaged')
+      describe('and _supportNeedsDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _supportNeedsDetail_', () => {
+          expect(page.errors()).toHaveProperty('supportNeedsDetail', 'Enter the type of support needed')
         })
       })
     })
 
-    describe('when _canManageMedication_ is YES', () => {
-      const page = new MentalHealth({ canManageMedication: 'yes' }, application)
+    describe('when _receivesTreatment_ is YES', () => {
+      const page = new MentalHealth({ receivesTreatment: 'yes' }, application)
 
-      describe('and _canManageMedicationNotes_ is UNANSWERED', () => {
-        it('includes NO validation error for _canManageMedicationNotes_ (optional)', () => {
-          expect(page.errors()).not.toHaveProperty('canManageMedicationNotes')
+      describe('and _treatmentDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _treatmentDetail_', () => {
+          expect(page.errors()).toHaveProperty('treatmentDetail', 'Enter details about their treatment')
         })
       })
     })
 
-    describe('when _canManageMedication_ is NO', () => {
-      const page = new MentalHealth({ canManageMedication: 'no' }, application)
+    describe('when _isEngagedWithService_ is YES', () => {
+      const page = new MentalHealth({ isEngagedWithService: 'yes' }, application)
 
-      describe('and _medicationIssues_ is UNANSWERED', () => {
-        it('includes a validation error for _medicationIssues_', () => {
-          expect(page.errors()).toHaveProperty(
-            'medicationIssues',
-            "Describe the applicant's issues with taking their mental health medication",
-          )
-        })
-      })
-
-      describe('and _cantManageMedicationNotes_ is UNANSWERED', () => {
-        it('includes NO validation error for _cantManageMedicationNotes_ (optional)', () => {
-          expect(page.errors()).not.toHaveProperty('cantManageMedicationNotes')
+      describe('and _serviceDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _serviceDetail_', () => {
+          expect(page.errors()).toHaveProperty('serviceDetail', 'Enter the mental health service')
         })
       })
     })
@@ -121,10 +104,10 @@ describe('MentalHealth', () => {
       })
     })
 
-    it('removes community mental health data if the question is set to "no"', () => {
+    it('removes support needs data if the question is set to "no"', () => {
       const body: Partial<MentalHealthBody> = {
-        isEngagedWithCommunity: 'no',
-        servicesDetail: 'Services detail',
+        hasSupportNeeds: 'no',
+        supportNeedsDetail: 'Support needs detail',
       }
 
       const page = new MentalHealth(body, application)
@@ -132,15 +115,14 @@ describe('MentalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        isEngagedWithCommunity: 'no',
+        hasSupportNeeds: 'no',
       })
     })
 
-    it("removes can't manage own medication data if the question is not set to 'no'", () => {
+    it("removes treatment data if the question is set to 'no'", () => {
       const body: Partial<MentalHealthBody> = {
-        canManageMedication: 'notPrescribedMedication',
-        cantManageMedicationNotes: 'some notes',
-        medicationIssues: 'some issues',
+        receivesTreatment: 'no',
+        treatmentDetail: 'some treatment details',
       }
 
       const page = new MentalHealth(body, application)
@@ -148,14 +130,14 @@ describe('MentalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        canManageMedication: 'notPrescribedMedication',
+        receivesTreatment: 'no',
       })
     })
 
-    it('removes can manage own medication notes if the question is not set to "yes"', () => {
+    it('removes service details if the question is set to "no"', () => {
       const body: Partial<MentalHealthBody> = {
-        canManageMedication: 'no',
-        canManageMedicationNotes: 'some notes',
+        isEngagedWithService: 'no',
+        serviceDetail: 'some service',
       }
 
       const page = new MentalHealth(body, application)
@@ -163,7 +145,7 @@ describe('MentalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        canManageMedication: 'no',
+        isEngagedWithService: 'no',
       })
     })
   })

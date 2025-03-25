@@ -568,39 +568,33 @@ export const getQuestions = (name: string) => {
       },
       'mental-health': {
         hasMentalHealthNeeds: { question: 'Do they have any mental health needs?', answers: yesOrNo },
-        needsDetail: { question: 'Please describe their mental health needs.' },
-        needsPresentation: { question: 'How are they presenting?' },
-        isEngagedWithCommunity: {
-          question: 'Were they engaged in mental health services before custody?',
-          answers: yesOrNo,
+        needsDetail: { question: 'Enter details of their needs, including if they have a formal diagnosis' },
+        hasSupportNeeds: { question: 'Do they need any support as a result of this?', answers: yesOrNo },
+        supportNeedsDetail: {
+          question: 'Enter details of the type of support, including any support they have already or will need',
         },
-        servicesDetail: { question: 'Please state which services.' },
-        isEngagedWithServicesInCustody: {
-          question: 'Are they engaged with any mental health services in custody?',
-          answers: yesOrNo,
+        receivesTreatment: { question: 'Do they receive any treatment for this?', answers: yesOrNo },
+        treatmentDetail: {
+          question: 'Enter details about their treatment',
+          hint: 'Include if they have their medication and if they can manage it in the community.',
         },
-        areIntendingToEngageWithServicesAfterCustody: {
-          question: 'Are they intending to engage with mental health services after custody?',
-          answers: yesNoOrIDontKnow,
-        },
-        canManageMedication: {
-          question: 'Can they manage their own mental health medication on release?',
+        isEngagedWithService: {
+          question: 'Are they engaged with a mental health service?',
+          hint: 'This includes mental health services in custody or the community.',
           answers: {
             yes: 'Yes',
             no: 'No',
-            notPrescribedMedication: 'They are not prescribed medication for their mental health',
+            awaitingAssessment: 'They are awaiting assessment with a mental health service',
           },
         },
-        canManageMedicationNotes: {
-          question: 'Provide any relevant medication notes (optional)',
-          hint: 'For example, storage requirements',
+        serviceDetail: { question: 'Enter details about the mental health service' },
+        willReferralBeMade: {
+          question: 'Will a referral be made for support in the community when they are released?',
+          answers: { yes: 'Yes', no: 'No', notInPrisonCustody: 'No, the applicant is not in prison custody' },
         },
-        medicationIssues: {
-          question: 'Describe the issues they have with taking their medication',
-        },
-        cantManageMedicationNotes: {
-          question: 'Provide any relevant medication notes (optional)',
-          hint: 'For example, storage requirements',
+        needsPresentation: {
+          question: 'How are they currently presenting? (optional)',
+          hint: 'For example, how they appeared when you last spoke to them.',
         },
       },
       'communication-and-language': {
