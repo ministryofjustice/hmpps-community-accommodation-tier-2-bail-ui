@@ -9,47 +9,7 @@ describe('LearningDifficulties', () => {
     it('personalises the page title', () => {
       const page = new LearningDifficulties({}, application)
 
-      expect(page.title).toEqual('Learning difficulties and neurodiversity for Roger Smith')
-    })
-  })
-
-  describe('questions', () => {
-    const page = new LearningDifficulties({}, application)
-
-    describe('hasLearningNeeds', () => {
-      it('has a question', () => {
-        expect(page.questions.hasLearningNeeds.question).toBeDefined()
-      })
-      it('has one follow-up question', () => {
-        expect(page.questions.needsDetail.question).toBeDefined()
-      })
-    })
-
-    describe('isVulnerable', () => {
-      it('has a question', () => {
-        expect(page.questions.isVulnerable.question).toBeDefined()
-      })
-      it('has one follow-up question', () => {
-        expect(page.questions.vulnerabilityDetail.question).toBeDefined()
-      })
-    })
-
-    describe('hasDifficultyInteracting', () => {
-      it('has a question', () => {
-        expect(page.questions.hasDifficultyInteracting.question).toBeDefined()
-      })
-      it('has one follow-up question', () => {
-        expect(page.questions.interactionDetail.question).toBeDefined()
-      })
-    })
-
-    describe('requiresAdditionalSupport', () => {
-      it('has a question', () => {
-        expect(page.questions.requiresAdditionalSupport.question).toBeDefined()
-      })
-      it('has one follow-up question', () => {
-        expect(page.questions.addSupportDetail.question).toBeDefined()
-      })
+      expect(page.title).toEqual('Learning difficulties and neurodiversity needs details for Roger Smith')
     })
   })
 
@@ -61,37 +21,51 @@ describe('LearningDifficulties', () => {
       const page = new LearningDifficulties({}, application)
 
       it('includes a validation error for _hasLearningNeeds_', () => {
-        expect(page.errors()).toHaveProperty('hasLearningNeeds', 'Confirm whether they have additional needs')
+        expect(page.errors()).toHaveProperty(
+          'hasLearningNeeds',
+          'Select if they have any needs relating to learning difficulties or neurodiversity',
+        )
+      })
+
+      it('includes a validation error for _needsSupport_', () => {
+        expect(page.errors()).toHaveProperty('needsSupport', 'Select if they need any support')
+      })
+
+      it('includes a validation error for _receivesTreatment_', () => {
+        expect(page.errors()).toHaveProperty('receivesTreatment', 'Select if they receive any treatment')
       })
 
       it('includes a validation error for _isVulnerable_', () => {
-        expect(page.errors()).toHaveProperty('isVulnerable', 'Confirm whether they are vulnerable')
-      })
-
-      it('includes a validation error for _hasDifficultyInteracting_', () => {
-        expect(page.errors()).toHaveProperty(
-          'hasDifficultyInteracting',
-          'Confirm whether they have difficulties interacting',
-        )
-      })
-
-      it('includes a validation error for _requiresAdditionalSupport_', () => {
-        expect(page.errors()).toHaveProperty(
-          'requiresAdditionalSupport',
-          'Confirm whether additional support is required',
-        )
+        expect(page.errors()).toHaveProperty('isVulnerable', 'Select if they are vulnerable')
       })
     })
 
     describe('when _hasLearningNeeds_ is YES', () => {
       const page = new LearningDifficulties({ hasLearningNeeds: 'yes' }, application)
 
-      describe('and _needsDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _needsDetail_', () => {
-          expect(page.errors()).toHaveProperty(
-            'needsDetail',
-            'Describe their additional needs relating to learning difficulties or neurodiversity',
-          )
+      describe('and _learningNeedsDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _learningNeedsDetail_', () => {
+          expect(page.errors()).toHaveProperty('learningNeedsDetail', 'Enter details of their needs')
+        })
+      })
+    })
+
+    describe('when _needsSupport_ is YES', () => {
+      const page = new LearningDifficulties({ needsSupport: 'yes' }, application)
+
+      describe('and _interactionDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _supportDetail_', () => {
+          expect(page.errors()).toHaveProperty('supportDetail', 'Enter the type of support needed')
+        })
+      })
+    })
+
+    describe('when _receivesTreatment_ is YES', () => {
+      const page = new LearningDifficulties({ receivesTreatment: 'yes' }, application)
+
+      describe('and _treatmentDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _treatmentDetail_', () => {
+          expect(page.errors()).toHaveProperty('treatmentDetail', 'Enter details about their treatment')
         })
       })
     })
@@ -101,92 +75,71 @@ describe('LearningDifficulties', () => {
 
       describe('and _vulnerabilityDetail_ is UNANSWERED', () => {
         it('includes a validation error for _vulnerabilityDetail_', () => {
-          expect(page.errors()).toHaveProperty('vulnerabilityDetail', 'Describe their level of vulnerability')
-        })
-      })
-    })
-
-    describe('when _hasDifficultyInteracting_ is YES', () => {
-      const page = new LearningDifficulties({ hasDifficultyInteracting: 'yes' }, application)
-
-      describe('and _interactionDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _interactionDetail_', () => {
-          expect(page.errors()).toHaveProperty(
-            'interactionDetail',
-            'Describe their difficulties interacting with other people',
-          )
-        })
-      })
-    })
-
-    describe('when _requiresAdditionalSupport_ is YES', () => {
-      const page = new LearningDifficulties({ requiresAdditionalSupport: 'yes' }, application)
-
-      describe('and _addSupportDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _addSupportDetail_', () => {
-          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the type of support required')
+          expect(page.errors()).toHaveProperty('vulnerabilityDetail', 'Enter how they are vulnerable')
         })
       })
     })
   })
 
-  it('removes learning needs data when the question is set to "no"', () => {
-    const body: Partial<LearningDifficultiesBody> = {
-      hasLearningNeeds: 'no',
-      needsDetail: 'Learning needs detail',
-    }
+  describe('onSave', () => {
+    it('removes learning needs data when the question is set to "no"', () => {
+      const body: Partial<LearningDifficultiesBody> = {
+        hasLearningNeeds: 'no',
+        learningNeedsDetail: 'Learning needs detail',
+      }
 
-    const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficulties(body, application)
 
-    page.onSave()
+      page.onSave()
 
-    expect(page.body).toEqual({
-      hasLearningNeeds: 'no',
+      expect(page.body).toEqual({
+        hasLearningNeeds: 'no',
+      })
     })
-  })
 
-  it('removes vulnerability data when the question is set to "no"', () => {
-    const body: Partial<LearningDifficultiesBody> = {
-      isVulnerable: 'no',
-      vulnerabilityDetail: 'Vulnerability detail',
-    }
+    it('removes support data when the question is set to "no"', () => {
+      const body: Partial<LearningDifficultiesBody> = {
+        needsSupport: 'no',
+        supportDetail: 'support detail',
+      }
 
-    const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficulties(body, application)
 
-    page.onSave()
+      page.onSave()
 
-    expect(page.body).toEqual({
-      isVulnerable: 'no',
+      expect(page.body).toEqual({
+        needsSupport: 'no',
+      })
     })
-  })
 
-  it('removes interaction difficulty data when the question is set to "no"', () => {
-    const body: Partial<LearningDifficultiesBody> = {
-      hasDifficultyInteracting: 'no',
-      interactionDetail: 'Interaction detail',
-    }
+    it('removes treatment data when the question is set to "no"', () => {
+      const body: Partial<LearningDifficultiesBody> = {
+        receivesTreatment: 'no',
+        treatmentDetail: 'treatment detail',
+      }
 
-    const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficulties(body, application)
 
-    page.onSave()
+      page.onSave()
 
-    expect(page.body).toEqual({
-      hasDifficultyInteracting: 'no',
+      expect(page.body).toEqual({
+        receivesTreatment: 'no',
+      })
     })
-  })
 
-  it('removes additional support data when the question is set to "no"', () => {
-    const body: Partial<LearningDifficultiesBody> = {
-      requiresAdditionalSupport: 'no',
-      addSupportDetail: 'Additional support detail',
-    }
+    it('removes vulnerability data when the question is set to "no"', () => {
+      const body: Partial<LearningDifficultiesBody> = {
+        isVulnerable: 'no',
+        vulnerabilityDetail: 'Vulnerability detail',
+      }
 
-    const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficulties(body, application)
 
-    page.onSave()
+      page.onSave()
 
-    expect(page.body).toEqual({
-      requiresAdditionalSupport: 'no',
+      expect(page.body).toEqual({
+        isVulnerable: 'no',
+      })
     })
   })
 })
