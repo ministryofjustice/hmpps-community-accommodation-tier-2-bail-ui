@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class LearningDifficultiesPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Learning difficulties and neurodiversity for ${nameOrPlaceholderCopy(application.person)}`,
+      `Learning difficulties and neurodiversity needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'learning-difficulties',
@@ -32,23 +32,23 @@ export default class LearningDifficultiesPage extends ApplyPage {
     cy.get('.guidance').contains('This can overlap with learning difficulties')
   }
 
-  describeAdditionalNeeds = (): void => {
+  describeNeeds = (): void => {
     this.checkRadioByNameAndValue('hasLearningNeeds', 'yes')
-    this.getTextInputByIdAndEnterDetails('needsDetail', 'Has ADHD')
+    this.getTextInputByIdAndEnterDetails('learningNeedsDetail', 'Has ADHD')
+  }
+
+  describeSupportNeeds = (): void => {
+    this.checkRadioByNameAndValue('needsSupport', 'yes')
+    this.getTextInputByIdAndEnterDetails('supportDetail', 'Details of support')
+  }
+
+  describeTreatment = (): void => {
+    this.checkRadioByNameAndValue('receivesTreatment', 'yes')
+    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'treatment details')
   }
 
   describeVulnerability = (): void => {
     this.checkRadioByNameAndValue('isVulnerable', 'yes')
     this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: is prone to risky behaviour')
-  }
-
-  describeDifficultiesInteracting = (): void => {
-    this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
-    this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can be withdrawn')
-  }
-
-  describeAdditionalSupportNeeded = (): void => {
-    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
-    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Requires daily support')
   }
 }
