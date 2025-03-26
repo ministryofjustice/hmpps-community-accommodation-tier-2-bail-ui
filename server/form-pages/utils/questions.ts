@@ -630,28 +630,28 @@ export const getQuestions = (name: string) => {
       'brain-injury': {
         hasBrainInjury: {
           question: 'Do they have a brain injury?',
-          answers: yesNoOrIDontKnow,
+          answers: yesOrNo,
         },
         injuryDetail: {
           question: 'Enter details of their brain injury and needs, including if they have a formal diagnosis',
         },
-        supportNeeded: { question: 'Do they need any support as a result of this?', answers: yesNoOrIDontKnow },
+        supportNeeded: { question: 'Do they need any support as a result of this?', answers: yesOrNo },
         supportDetail: {
           question: 'Enter details of the type of support needed, including any support they have already or will need',
         },
-        receivingTreatment: { question: 'Do they receive any treatment or medication?', answers: yesNoOrIDontKnow },
+        receivingTreatment: { question: 'Do they receive any treatment for this?', answers: yesOrNo },
         treatmentDetail: {
-          question: 'Enter details about their treatment and medication',
-          hint: 'For example, if they have it and they can manage it in the community',
+          question: 'Enter details about their treatment',
+          hint: 'Include if they have their medication and if they can manage it in the community.',
         },
         isVulnerable: {
           question: 'Are they vulnerable as a result of this?',
-          answers: yesNoOrIDontKnow,
+          answers: yesOrNo,
         },
         vulnerabilityDetail: { question: 'Enter details of how they might be vulnerable' },
         hasDifficultyInteracting: {
           question: 'Do they have difficulties interacting with other people as a result of their injury?',
-          answers: yesNoOrIDontKnow,
+          answers: yesOrNo,
         },
         interactionDetail: { question: 'Enter details of the type of difficulties they have.' },
       },
