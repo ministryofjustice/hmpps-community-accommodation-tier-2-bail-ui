@@ -16,12 +16,15 @@
         fetchContext()
       )
     }}
+  {% endset %}
+
+  {% set hasSupportNeedsFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'needsPresentation',
+          fieldName: 'supportNeedsDetail',
           label: {
-            text: page.questions.needsPresentation.question,
+            text: page.questions.supportNeedsDetail.question,
             classes: "govuk-label--s"
           }
         },
@@ -30,32 +33,17 @@
     }}
   {% endset %}
 
-  {% set communityFollowUp %}
+  {% set receivesTreatmentFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'servicesDetail',
+          fieldName: 'treatmentDetail',
           label: {
-            text: page.questions.servicesDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set canManageMedsFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'canManageMedicationNotes',
-          label: {
-            text: page.questions.canManageMedicationNotes.question,
+            text: page.questions.treatmentDetail.question,
             classes: "govuk-label--s"
           },
           hint: {
-            text: page.questions.canManageMedicationNotes.hint
+            text: page.questions.treatmentDetail.hint
           }
         },
         fetchContext()
@@ -63,29 +51,14 @@
     }}
   {% endset %}
 
-  {% set cantManageMedsFollowUp %}
+  {% set isEngagedWithServiceFollowUp %}
   {{
       formPageTextArea(
         {
-          fieldName: 'medicationIssues',
+          fieldName: 'serviceDetail',
           label: {
-            text: page.questions.medicationIssues.question,
+            text: page.questions.serviceDetail.question,
             classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'cantManageMedicationNotes',
-          label: {
-            text: page.questions.cantManageMedicationNotes.question,
-            classes: "govuk-label--s"
-          },
-          hint: {
-            text: page.questions.cantManageMedicationNotes.hint
           }
         },
         fetchContext()
@@ -124,10 +97,10 @@
   {{
     formPageRadios(
       {
-        fieldName: "isEngagedWithCommunity",
+        fieldName: "hasSupportNeeds",
         fieldset: {
           legend: {
-            text: page.questions.isEngagedWithCommunity.question,
+            text: page.questions.hasSupportNeeds.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -136,7 +109,7 @@
           value: "yes",
           text: "Yes",
           conditional: {
-            html: communityFollowUp
+            html: hasSupportNeedsFollowUp
           }
         },
         {
@@ -152,17 +125,20 @@
   {{
     formPageRadios(
       {
-        fieldName: "isEngagedWithServicesInCustody",
+        fieldName: "receivesTreatment",
         fieldset: {
           legend: {
-            text: page.questions.isEngagedWithServicesInCustody.question,
+            text: page.questions.receivesTreatment.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
         items: [
         {
           value: "yes",
-          text: "Yes"
+          text: "Yes",
+          conditional: {
+            html: receivesTreatmentFollowUp
+          }
         },
         {
           value: "no",
@@ -177,28 +153,29 @@
   {{
     formPageRadios(
       {
-        fieldName: "areIntendingToEngageWithServicesAfterCustody",
+        fieldName: "isEngagedWithService",
         fieldset: {
           legend: {
-            text: page.questions.areIntendingToEngageWithServicesAfterCustody.question,
+            text: page.questions.isEngagedWithService.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
+        hint: { text: page.questions.isEngagedWithService.hint },
         items: [
           {
             value: "yes",
-            text: "Yes"
+            text: "Yes",
+            conditional: {
+              html: isEngagedWithServiceFollowUp
+            }
+          },
+          {
+            value: "awaitingAssessment",
+            text: "They are awaiting assessment with a mental health service"
           },
           {
             value: "no",
             text: "No"
-          },
-          {
-            divider: 'or'
-          },
-          {
-            value: "dontKnow",
-            text: "I don't know"
           }
       ]
       },
@@ -209,10 +186,10 @@
   {{
     formPageRadios(
       {
-        fieldName: "canManageMedication",
+        fieldName: "willReferralBeMade",
         fieldset: {
           legend: {
-            text: page.questions.canManageMedication.question,
+            text: page.questions.willReferralBeMade.question,
             classes: "govuk-fieldset__legend--m"
           }
         },
@@ -232,16 +209,27 @@
           }
         },
         {
-          divider: "or"
-        },
-        {
-          value: "notPrescribedMedication",
-          text: "They are not prescribed medication for their mental health"
+          value: "notInPrisonCustody",
+          text: "No, the applicant is not in prison custody"
         }
       ]
       },
       fetchContext()
     )
   }}
+
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'needsPresentation',
+          label: {
+            text: page.questions.needsPresentation.question,
+            classes: "govuk-label--s"
+          },
+          hint: { text: page.questions.needsPresentation.hint }
+        },
+        fetchContext()
+      )
+    }}
 
 {% endblock %}

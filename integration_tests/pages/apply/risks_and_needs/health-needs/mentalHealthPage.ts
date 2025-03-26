@@ -1,13 +1,13 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
-import { pageIsActiveInNavigation, fieldIsOptional } from '../utils'
+import { pageIsActiveInNavigation } from '../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class MentalHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Mental health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      `Mental health needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'mental-health',
@@ -28,20 +28,28 @@ export default class MentalHealthPage extends ApplyPage {
   describeNeeds = (): void => {
     this.checkRadioByNameAndValue('hasMentalHealthNeeds', 'yes')
     this.getTextInputByIdAndEnterDetails('needsDetail', 'Has depression')
-    this.getTextInputByIdAndEnterDetails('needsPresentation', 'Erratic behaviour')
   }
 
-  describeEngagement = (): void => {
-    this.checkRadioByNameAndValue('isEngagedWithCommunity', 'yes')
-    this.getTextInputByIdAndEnterDetails('servicesDetail', 'Attend the The Well Clinic')
-    this.checkRadioByNameAndValue('isEngagedWithServicesInCustody', 'yes')
-    this.checkRadioByNameAndValue('areIntendingToEngageWithServicesAfterCustody', 'yes')
+  describeSupportNeeds = (): void => {
+    this.checkRadioByNameAndValue('hasSupportNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('supportNeedsDetail', 'some support needs details')
   }
 
-  describeMedication = (): void => {
-    this.checkRadioByNameAndValue('canManageMedication', 'no')
-    this.getTextInputByIdAndEnterDetails('medicationIssues', 'Sometimes fails to take pills')
-    fieldIsOptional('cantManageMedicationNotes')
-    this.getTextInputByIdAndEnterDetails('cantManageMedicationNotes', 'struggles because x, y and z')
+  describeTreatment = (): void => {
+    this.checkRadioByNameAndValue('receivesTreatment', 'yes')
+    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'some treatment details')
+  }
+
+  enterServiceDetails = (): void => {
+    this.checkRadioByNameAndValue('isEngagedWithService', 'yes')
+    this.getTextInputByIdAndEnterDetails('serviceDetail', 'a service')
+  }
+
+  confirmSupportReferral = (): void => {
+    this.checkRadioByNameAndValue('willReferralBeMade', 'yes')
+  }
+
+  describeCurrentPresentation = (): void => {
+    this.getTextInputByIdAndEnterDetails('needsPresentation', 'some presentation details')
   }
 }

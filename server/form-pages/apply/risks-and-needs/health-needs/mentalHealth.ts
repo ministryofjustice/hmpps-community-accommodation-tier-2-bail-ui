@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -8,15 +8,14 @@ import { getQuestions } from '../../../utils/questions'
 export type MentalHealthBody = {
   hasMentalHealthNeeds: YesOrNo
   needsDetail: string
+  hasSupportNeeds: YesOrNo
+  supportNeedsDetail: string
+  receivesTreatment: YesOrNo
+  treatmentDetail: string
+  isEngagedWithService: YesOrNo | 'awaitingAssessment'
+  serviceDetail: string
+  willReferralBeMade: YesOrNo | 'notInPrisonCustody'
   needsPresentation: string
-  isEngagedWithCommunity: YesOrNo
-  servicesDetail: string
-  isEngagedWithServicesInCustody: YesOrNo
-  areIntendingToEngageWithServicesAfterCustody: YesNoOrDontKnow
-  canManageMedication: YesOrNo | 'notPrescribedMedication'
-  canManageMedicationNotes: string
-  medicationIssues: string
-  cantManageMedicationNotes: string
 }
 
 @Page({
@@ -24,23 +23,22 @@ export type MentalHealthBody = {
   bodyProperties: [
     'hasMentalHealthNeeds',
     'needsDetail',
+    'hasSupportNeeds',
+    'supportNeedsDetail',
+    'receivesTreatment',
+    'treatmentDetail',
+    'isEngagedWithService',
+    'serviceDetail',
+    'willReferralBeMade',
     'needsPresentation',
-    'isEngagedWithCommunity',
-    'servicesDetail',
-    'areIntendingToEngageWithServicesAfterCustody',
-    'isEngagedWithServicesInCustody',
-    'canManageMedication',
-    'canManageMedicationNotes',
-    'medicationIssues',
-    'cantManageMedicationNotes',
   ],
 })
 export default class MentalHealth implements TaskListPage {
-  documentTitle = 'Mental health needs for the person'
+  documentTitle = 'Mental health needs details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Mental health needs for ${this.personName}`
+  title = `Mental health needs details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['mental-health']
 
@@ -65,39 +63,36 @@ export default class MentalHealth implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasMentalHealthNeeds) {
-      errors.hasMentalHealthNeeds = 'Confirm whether they have mental health needs'
+      errors.hasMentalHealthNeeds = 'Select if they have any mental health needs'
     }
     if (this.body.hasMentalHealthNeeds === 'yes' && !this.body.needsDetail) {
-      errors.needsDetail = 'Describe mental health needs'
+      errors.needsDetail = 'Enter details of their needs'
     }
 
-    if (this.body.hasMentalHealthNeeds === 'yes' && !this.body.needsPresentation) {
-      errors.needsPresentation = 'Describe how they are presenting'
+    if (!this.body.hasSupportNeeds) {
+      errors.hasSupportNeeds = 'Select if they need any support'
+    }
+    if (this.body.hasSupportNeeds === 'yes' && !this.body.supportNeedsDetail) {
+      errors.supportNeedsDetail = 'Enter the type of support needed'
     }
 
-    if (!this.body.isEngagedWithCommunity) {
-      errors.isEngagedWithCommunity = 'Confirm whether they are engaged with services'
+    if (!this.body.receivesTreatment) {
+      errors.receivesTreatment = 'Select if they receive any treatment'
     }
-    if (this.body.isEngagedWithCommunity === 'yes' && !this.body.servicesDetail) {
-      errors.servicesDetail = 'State the services with which they have engaged'
-    }
-
-    if (!this.body.isEngagedWithServicesInCustody) {
-      errors.isEngagedWithServicesInCustody = 'Confirm whether they are engaged with mental health services in custody'
+    if (this.body.receivesTreatment === 'yes' && !this.body.treatmentDetail) {
+      errors.treatmentDetail = 'Enter details about their treatment'
     }
 
-    if (!this.body.areIntendingToEngageWithServicesAfterCustody) {
-      errors.areIntendingToEngageWithServicesAfterCustody =
-        'Confirm whether they are intending to engage with mental health services after custody'
+    if (!this.body.isEngagedWithService) {
+      errors.isEngagedWithService =
+        'Select if they are engaged with a mental health service, or if awaiting an assessment'
+    }
+    if (this.body.isEngagedWithService === 'yes' && !this.body.serviceDetail) {
+      errors.serviceDetail = 'Enter the mental health service'
     }
 
-    if (!this.body.canManageMedication) {
-      errors.canManageMedication =
-        "Confirm whether they can manage their own mental health medication on release, or select 'They are not prescribed medication for their mental health'"
-    }
-
-    if (this.body.canManageMedication === 'no' && !this.body.medicationIssues) {
-      errors.medicationIssues = "Describe the applicant's issues with taking their mental health medication"
+    if (!this.body.willReferralBeMade) {
+      errors.willReferralBeMade = 'Select if a referral for support will be made, or if they are not in prison custody'
     }
 
     return errors
@@ -106,20 +101,18 @@ export default class MentalHealth implements TaskListPage {
   onSave(): void {
     if (this.body.hasMentalHealthNeeds !== 'yes') {
       delete this.body.needsDetail
-      delete this.body.needsPresentation
     }
 
-    if (this.body.isEngagedWithCommunity !== 'yes') {
-      delete this.body.servicesDetail
+    if (this.body.hasSupportNeeds !== 'yes') {
+      delete this.body.supportNeedsDetail
     }
 
-    if (this.body.canManageMedication !== 'yes') {
-      delete this.body.canManageMedicationNotes
+    if (this.body.receivesTreatment !== 'yes') {
+      delete this.body.treatmentDetail
     }
 
-    if (this.body.canManageMedication !== 'no') {
-      delete this.body.medicationIssues
-      delete this.body.cantManageMedicationNotes
+    if (this.body.isEngagedWithService !== 'yes') {
+      delete this.body.serviceDetail
     }
   }
 }

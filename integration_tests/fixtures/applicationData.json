@@ -162,15 +162,14 @@
     "mental-health": {
       "hasMentalHealthNeeds": "no",
       "needsDetail": "",
-      "needsPresentation": "",
-      "isEngagedWithCommunity": "no",
-      "servicesDetail": "",
-      "isEngagedWithServicesInCustody": "no",
-      "areIntendingToEngageWithServicesAfterCustody": "no",
-      "canManageMedication": "notPrescribedMedication",
-      "canManageMedicationNotes": "",
-      "medicationIssues": "",
-      "cantManageMedicationNotes": ""
+      "hasSupportNeeds": "no",
+      "supportNeedsDetail": "",
+      "receivesTreatment": "no",
+      "treatmentDetail": "",
+      "isEngagedWithService": "no",
+      "serviceDetail": "",
+      "willReferralBeMade": "no",
+      "needsPresentation": ""
     },
     "communication-and-language": {
       "hasImpairments": "no",
