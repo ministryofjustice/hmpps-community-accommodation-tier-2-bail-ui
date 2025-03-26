@@ -60,7 +60,7 @@ async function completeMentalHealthPage(page: Page, name: string) {
 }
 
 async function completeCommunicationAndLanguagePage(page: Page, name: string) {
-  const communicationPage = await ApplyPage.initialize(page, `Communication and language needs for ${name}`)
+  const communicationPage = await ApplyPage.initialize(page, `Communication and language needs details for ${name}`)
 
   await communicationPage.checkRadioInGroup('impairments', 'No')
   await communicationPage.checkRadioInGroup('interpreter', 'No')

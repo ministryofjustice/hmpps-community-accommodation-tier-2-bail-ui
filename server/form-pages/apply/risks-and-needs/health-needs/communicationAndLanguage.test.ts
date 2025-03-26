@@ -15,15 +15,12 @@ describe('CommunicationAndLanguage', () => {
       it('includes a validation error for _hasImpairments_', () => {
         expect(page.errors()).toHaveProperty(
           'hasImpairments',
-          `Select if they have any literacy, visual or hearing impairments, or select 'I do not know'`,
+          `Select if they have any literacy, visual or hearing impairments`,
         )
       })
 
       it('includes a validation error for _requiresInterpreter_', () => {
-        expect(page.errors()).toHaveProperty(
-          'requiresInterpreter',
-          `Select if they need an interpreter, or select 'I do not know'`,
-        )
+        expect(page.errors()).toHaveProperty('requiresInterpreter', `Select if they need an interpreter`)
       })
     })
 

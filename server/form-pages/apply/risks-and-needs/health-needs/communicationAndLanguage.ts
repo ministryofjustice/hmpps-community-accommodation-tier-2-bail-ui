@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -6,7 +6,7 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type CommunicationAndLanguageBody = {
-  hasImpairments: YesNoOrDontKnow
+  hasImpairments: YesOrNo
   impairmentsDetail: string
   requiresInterpreter: YesOrNo
   interpretationDetail: string
@@ -17,11 +17,11 @@ export type CommunicationAndLanguageBody = {
   bodyProperties: ['hasImpairments', 'impairmentsDetail', 'requiresInterpreter', 'interpretationDetail'],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
-  documentTitle = 'Communication and language needs for the person'
+  documentTitle = 'Communication and language needs details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Communication and language needs for ${this.personName}`
+  title = `Communication and language needs details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['communication-and-language']
 
@@ -46,14 +46,14 @@ export default class CommunicationAndLanguage implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasImpairments) {
-      errors.hasImpairments = `Select if they have any literacy, visual or hearing impairments, or select 'I do not know'`
+      errors.hasImpairments = `Select if they have any literacy, visual or hearing impairments`
     }
     if (this.body.hasImpairments === 'yes' && !this.body.impairmentsDetail) {
       errors.impairmentsDetail = 'Enter details of their needs'
     }
 
     if (!this.body.requiresInterpreter) {
-      errors.requiresInterpreter = `Select if they need an interpreter, or select 'I do not know'`
+      errors.requiresInterpreter = `Select if they need an interpreter`
     }
     if (this.body.requiresInterpreter === 'yes' && !this.body.interpretationDetail) {
       errors.interpretationDetail = 'Enter the language they need an interpreter for'
