@@ -545,26 +545,26 @@ export const getQuestions = (name: string) => {
         },
       },
       'physical-health': {
-        hasPhyHealthNeeds: { question: 'Do they have any physical health needs?', answers: yesOrNo },
-        needsDetail: { question: 'Please describe their needs.' },
+        hasPhyHealthNeeds: {
+          question: 'Do they have any physical and mobility needs?',
+          hint: 'This includes needing a mobility scooter, stair lift, wet room, grip rails in the shower or bath, or wider door frames and ramps. This list is not exhaustive.',
+          answers: yesOrNo,
+        },
+        needsDetail: { question: 'Enter details of their needs, including if they have a formal diagnosis' },
+        requiresSupport: {
+          question: 'Do they need any support as a result of this?',
+          answers: yesOrNo,
+        },
+        supportDetail: {
+          question:
+            'Enter details of the type of support, including if they are receiving any treatment and medication',
+        },
         canClimbStairs: {
           question: 'Can they climb stairs?',
-        },
-        isReceivingMedicationOrTreatment: {
-          question: 'Are they currently receiving any medication or treatment for their physical health?',
           answers: yesOrNo,
         },
-        medicationOrTreatmentDetail: {
-          question: 'Describe the medication or treatment',
-        },
-        medicationDetail: { question: 'Describe the medication they receive for physical health needs' },
         canLiveIndependently: { question: 'Can they live independently?', answers: yesOrNo },
         indyLivingDetail: { question: 'Describe why they are unable to live independently' },
-        requiresAdditionalSupport: {
-          question: 'Do they require any additional support?',
-          answers: yesOrNo,
-        },
-        addSupportDetail: { question: 'Please describe the types of support.' },
       },
       'mental-health': {
         hasMentalHealthNeeds: { question: 'Do they have any mental health needs?', answers: yesOrNo },

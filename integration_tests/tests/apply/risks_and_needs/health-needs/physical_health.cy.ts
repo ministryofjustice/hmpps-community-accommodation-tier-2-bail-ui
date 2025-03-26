@@ -71,9 +71,9 @@ context('Visit "Physical health" page', () => {
     const page = new PhysicalHealthPage(this.application)
 
     page.describePhysicalNeeds()
-    page.describeTreatmentAndMedication()
+    page.describeSupportNeeded()
+    page.confirmCanClimbStairs()
     page.provideIndependentLivingInfo()
-    page.describeAdditionalSupportNeeded()
 
     page.clickSubmit()
 

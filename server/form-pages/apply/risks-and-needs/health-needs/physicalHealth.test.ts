@@ -9,78 +9,31 @@ describe('PhysicalHealth', () => {
     it('personalises the page title', () => {
       const page = new PhysicalHealth({}, application)
 
-      expect(page.title).toEqual('Physical health needs for Roger Smith')
+      expect(page.title).toEqual('Physical and mobility needs details for Roger Smith')
     })
   })
 
   itShouldHaveNextValue(new PhysicalHealth({}, application), 'mental-health')
   itShouldHavePreviousValue(new PhysicalHealth({}, application), 'substance-misuse')
 
-  describe('Questions', () => {
-    const page = new PhysicalHealth({}, application)
-
-    describe('hasPhyHealthNeeds', () => {
-      it('has a question', () => {
-        expect(page.questions.hasPhyHealthNeeds.question).toBeDefined()
-      })
-      it('has two follow-up questions', () => {
-        expect(page.questions.needsDetail.question).toBeDefined()
-        expect(page.questions.canClimbStairs.question).toBeDefined()
-      })
-    })
-
-    describe('isReceivingMedicationOrTreatment', () => {
-      it('has a question', () => {
-        expect(page.questions.isReceivingMedicationOrTreatment.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.medicationOrTreatmentDetail.question).toBeDefined()
-      })
-    })
-
-    describe('canLiveIndependently', () => {
-      it('has a question', () => {
-        expect(page.questions.canLiveIndependently.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.indyLivingDetail.question).toBeDefined()
-      })
-    })
-
-    describe('requiresAdditionalSupport', () => {
-      it('has a question', () => {
-        expect(page.questions.requiresAdditionalSupport.question).toBeDefined()
-      })
-      it('has a follow-up question', () => {
-        expect(page.questions.addSupportDetail.question).toBeDefined()
-      })
-    })
-  })
-
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
       const page = new PhysicalHealth({}, application)
 
       it('includes a validation error for _hasPhyHealthNeeds_', () => {
-        expect(page.errors()).toHaveProperty('hasPhyHealthNeeds', 'Confirm whether they have physical health needs')
+        expect(page.errors()).toHaveProperty('hasPhyHealthNeeds', 'Select if they have any physical and mobility needs')
       })
 
-      it('includes a validation error for _isReceivingMedicationOrTreatment_', () => {
-        expect(page.errors()).toHaveProperty(
-          'isReceivingMedicationOrTreatment',
-          'Confirm whether they are currently receiving any medication or treatment',
-        )
+      it('includes a validation error for _requiresSupport_', () => {
+        expect(page.errors()).toHaveProperty('requiresSupport', 'Select if they need any support')
+      })
+
+      it('includes a validation error for _canClimbStairs_', () => {
+        expect(page.errors()).toHaveProperty('canClimbStairs', 'Select if they can climb stairs')
       })
 
       it('includes a validation error for _canLiveIndependently_', () => {
-        expect(page.errors()).toHaveProperty('canLiveIndependently', 'Confirm whether they can live independently')
-      })
-
-      it('includes a validation error for _requiresAdditionalSupport_', () => {
-        expect(page.errors()).toHaveProperty(
-          'requiresAdditionalSupport',
-          'Confirm whether they require additional support',
-        )
+        expect(page.errors()).toHaveProperty('canLiveIndependently', 'Select if they can live independently')
       })
     })
 
@@ -89,23 +42,17 @@ describe('PhysicalHealth', () => {
 
       describe('and _needsDetail_ is UNANSWERED', () => {
         it('includes a validation error for _needsDetail_', () => {
-          expect(page.errors()).toHaveProperty('needsDetail', 'Describe physical health needs')
-        })
-      })
-
-      describe('and _canClimbStairs_ is UNANSWERED', () => {
-        it('includes a validation error for _canClimbStairs_', () => {
-          expect(page.errors()).toHaveProperty('canClimbStairs', 'Confirm whether they can climb stairs')
+          expect(page.errors()).toHaveProperty('needsDetail', 'Enter details of their needs')
         })
       })
     })
 
-    describe('when _isReceivingMedicationOrTreatment_ is YES', () => {
-      const page = new PhysicalHealth({ isReceivingMedicationOrTreatment: 'yes' }, application)
+    describe('when _requiresSupport_ is YES', () => {
+      const page = new PhysicalHealth({ requiresSupport: 'yes' }, application)
 
-      describe('and _medicationOrTreatmentDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _medicationOrTreatmentDetail_', () => {
-          expect(page.errors()).toHaveProperty('medicationOrTreatmentDetail', 'Describe the medication or treatment')
+      describe('and _addSupportDetail_ is UNANSWERED', () => {
+        it('includes a validation error for _supportDetail_', () => {
+          expect(page.errors()).toHaveProperty('supportDetail', 'Enter the type of support needed')
         })
       })
     })
@@ -115,17 +62,7 @@ describe('PhysicalHealth', () => {
 
       describe('and _indyLivingDetail_ is UNANSWERED', () => {
         it('includes a validation error for _indyLivingDetail_', () => {
-          expect(page.errors()).toHaveProperty('indyLivingDetail', 'Describe why they are unable to live independently')
-        })
-      })
-    })
-
-    describe('when _requiresAdditionalSupport_ is YES', () => {
-      const page = new PhysicalHealth({ requiresAdditionalSupport: 'yes' }, application)
-
-      describe('and _addSupportDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _addSupportDetail_', () => {
-          expect(page.errors()).toHaveProperty('addSupportDetail', 'Describe the support required')
+          expect(page.errors()).toHaveProperty('indyLivingDetail', 'Enter why they are unable to live independently')
         })
       })
     })
@@ -136,7 +73,6 @@ describe('PhysicalHealth', () => {
       const body: Partial<PhysicalHealthBody> = {
         hasPhyHealthNeeds: 'no',
         needsDetail: 'Needs detail',
-        canClimbStairs: 'yes',
       }
 
       const page = new PhysicalHealth(body, application)
@@ -148,10 +84,10 @@ describe('PhysicalHealth', () => {
       })
     })
 
-    it('removes medication and treatment data if the question is set to "no"', () => {
+    it('removes support data if the question is set to "no"', () => {
       const body: Partial<PhysicalHealthBody> = {
-        isReceivingMedicationOrTreatment: 'no',
-        medicationOrTreatmentDetail: 'Treatment detail',
+        requiresSupport: 'no',
+        supportDetail: 'Support detail',
       }
 
       const page = new PhysicalHealth(body, application)
@@ -159,7 +95,7 @@ describe('PhysicalHealth', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        isReceivingMedicationOrTreatment: 'no',
+        requiresSupport: 'no',
       })
     })
 
@@ -175,21 +111,6 @@ describe('PhysicalHealth', () => {
 
       expect(page.body).toEqual({
         canLiveIndependently: 'yes',
-      })
-    })
-
-    it('removes additional support data if the question is set to "no"', () => {
-      const body: Partial<PhysicalHealthBody> = {
-        requiresAdditionalSupport: 'no',
-        addSupportDetail: 'Additional support detail',
-      }
-
-      const page = new PhysicalHealth(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        requiresAdditionalSupport: 'no',
       })
     })
   })

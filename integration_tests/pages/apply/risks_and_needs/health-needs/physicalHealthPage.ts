@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class PhysicalHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Physical health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      `Physical and mobility needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'physical-health',
@@ -28,21 +28,19 @@ export default class PhysicalHealthPage extends ApplyPage {
   describePhysicalNeeds = (): void => {
     this.checkRadioByNameAndValue('hasPhyHealthNeeds', 'yes')
     this.getTextInputByIdAndEnterDetails('needsDetail', 'Has mobility problems')
-    this.checkRadioByNameAndValue('canClimbStairs', 'yes')
   }
 
-  describeTreatmentAndMedication = (): void => {
-    this.checkRadioByNameAndValue('isReceivingMedicationOrTreatment', 'yes')
-    this.getTextInputByIdAndEnterDetails('medicationOrTreatmentDetail', 'Having physiotherapy')
+  describeSupportNeeded = (): void => {
+    this.checkRadioByNameAndValue('requiresSupport', 'yes')
+    this.getTextInputByIdAndEnterDetails('supportDetail', 'Needs support with cooking and nutrition')
+  }
+
+  confirmCanClimbStairs = (): void => {
+    this.checkRadioByNameAndValue('canClimbStairs', 'no')
   }
 
   provideIndependentLivingInfo = (): void => {
     this.checkRadioByNameAndValue('canLiveIndependently', 'no')
     this.getTextInputByIdAndEnterDetails('indyLivingDetail', 'Needs help with bathing')
-  }
-
-  describeAdditionalSupportNeeded = (): void => {
-    this.checkRadioByNameAndValue('requiresAdditionalSupport', 'yes')
-    this.getTextInputByIdAndEnterDetails('addSupportDetail', 'Needs support with cooking and nutrition')
   }
 }

@@ -8,13 +8,11 @@ import { getQuestions } from '../../../utils/questions'
 export type PhysicalHealthBody = {
   hasPhyHealthNeeds: YesOrNo
   needsDetail: string
+  requiresSupport: YesOrNo
+  supportDetail: string
   canClimbStairs: YesOrNo
-  isReceivingMedicationOrTreatment: YesOrNo
-  medicationOrTreatmentDetail: string
   canLiveIndependently: YesOrNo
   indyLivingDetail: string
-  requiresAdditionalSupport: YesOrNo
-  addSupportDetail: string
 }
 
 @Page({
@@ -22,21 +20,19 @@ export type PhysicalHealthBody = {
   bodyProperties: [
     'hasPhyHealthNeeds',
     'needsDetail',
+    'requiresSupport',
+    'supportDetail',
     'canClimbStairs',
-    'isReceivingMedicationOrTreatment',
-    'medicationOrTreatmentDetail',
     'canLiveIndependently',
     'indyLivingDetail',
-    'requiresAdditionalSupport',
-    'addSupportDetail',
   ],
 })
 export default class PhysicalHealth implements TaskListPage {
-  documentTitle = 'Physical health needs for the person'
+  documentTitle = 'Physical and mobility needs details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Physical health needs for ${this.personName}`
+  title = `Physical and mobility needs details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['physical-health']
 
@@ -61,42 +57,31 @@ export default class PhysicalHealth implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasPhyHealthNeeds) {
-      errors.hasPhyHealthNeeds = 'Confirm whether they have physical health needs'
+      errors.hasPhyHealthNeeds = 'Select if they have any physical and mobility needs'
     }
 
-    if (this.body.hasPhyHealthNeeds === 'yes') {
-      if (!this.body.needsDetail) {
-        errors.needsDetail = 'Describe physical health needs'
-      }
-
-      if (!this.body.canClimbStairs) {
-        errors.canClimbStairs = 'Confirm whether they can climb stairs'
-      }
+    if (this.body.hasPhyHealthNeeds === 'yes' && !this.body.needsDetail) {
+      errors.needsDetail = 'Enter details of their needs'
     }
 
-    if (!this.body.isReceivingMedicationOrTreatment) {
-      errors.isReceivingMedicationOrTreatment =
-        'Confirm whether they are currently receiving any medication or treatment'
+    if (!this.body.requiresSupport) {
+      errors.requiresSupport = 'Select if they need any support'
     }
 
-    if (this.body.isReceivingMedicationOrTreatment === 'yes' && !this.body.medicationOrTreatmentDetail) {
-      errors.medicationOrTreatmentDetail = 'Describe the medication or treatment'
+    if (this.body.requiresSupport === 'yes' && !this.body.supportDetail) {
+      errors.supportDetail = 'Enter the type of support needed'
+    }
+
+    if (!this.body.canClimbStairs) {
+      errors.canClimbStairs = 'Select if they can climb stairs'
     }
 
     if (!this.body.canLiveIndependently) {
-      errors.canLiveIndependently = 'Confirm whether they can live independently'
+      errors.canLiveIndependently = 'Select if they can live independently'
     }
 
     if (this.body.canLiveIndependently === 'no' && !this.body.indyLivingDetail) {
-      errors.indyLivingDetail = 'Describe why they are unable to live independently'
-    }
-
-    if (!this.body.requiresAdditionalSupport) {
-      errors.requiresAdditionalSupport = 'Confirm whether they require additional support'
-    }
-
-    if (this.body.requiresAdditionalSupport === 'yes' && !this.body.addSupportDetail) {
-      errors.addSupportDetail = 'Describe the support required'
+      errors.indyLivingDetail = 'Enter why they are unable to live independently'
     }
 
     return errors
@@ -105,19 +90,14 @@ export default class PhysicalHealth implements TaskListPage {
   onSave(): void {
     if (this.body.hasPhyHealthNeeds !== 'yes') {
       delete this.body.needsDetail
-      delete this.body.canClimbStairs
     }
 
-    if (this.body.isReceivingMedicationOrTreatment !== 'yes') {
-      delete this.body.medicationOrTreatmentDetail
+    if (this.body.requiresSupport !== 'yes') {
+      delete this.body.supportDetail
     }
 
     if (this.body.canLiveIndependently !== 'no') {
       delete this.body.indyLivingDetail
-    }
-
-    if (this.body.requiresAdditionalSupport !== 'yes') {
-      delete this.body.addSupportDetail
     }
   }
 }
