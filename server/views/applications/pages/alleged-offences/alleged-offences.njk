@@ -19,55 +19,26 @@
     classes: "govuk-button--secondary"
   }) }}
 
-  {% if page.offences | length %}
-
-    {% for offence in page.offences %}
+  <p>{{ page.rows | length }}</p>
+  {% if page.offences %}
 
       {{ govukSummaryList({
           card: {
             title: {
-              text: offence.titleAndNumber,
+              text: 'Alleged offences',
               classes:  "govuk-summary-card__title-wrapper--flex-end"
             },
             actions: {
               items: [
                 {
-                  href: offence.removeLink,
-                  text: "Remove",
-                  visuallyHiddenText: offence.titleAndNumber +" offence"
+                  href: page.offences.removeLink,
+                  text: "Remove"
                 }
               ]
-            }  
-          },
-          rows: [
-            {
-              key: {
-                text: 'Type:'
-              },
-              value: {
-                html: offence.offenceCategoryTag
-              }
-            },
-            {
-              key: {
-                text: 'Offence date:'
-              },
-              value: {
-                text: offence.offenceDate
-              }
-            },
-            {
-              key: {
-                text: 'Offence details:'
-              },
-              value: {
-                text: offence.summary
-              }
             }
-          ]
+          },
+          rows: page.rows
         }) }}
-
-    {% endfor %}
 
   {% else %}
     <p class="govuk-body govuk-!-font-weight-bold">There are no alleged offences to show.</p>

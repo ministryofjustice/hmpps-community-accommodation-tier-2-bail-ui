@@ -11,11 +11,7 @@ import { getQuestions } from '../../../utils/questions'
 type AllegedOffencesBody = { offenceList: string }
 
 type AllegedOffencesUI = {
-  titleAndNumber: string
-  offenceCategoryTag: string
-  offenceCategoryText: string
-  offenceDate: string
-  summary: string
+  allegedOffencesData: Record<string, unknown>[]
   removeLink: string
 }
 
@@ -32,7 +28,7 @@ export default class AllegedOffences implements TaskListPage {
 
   body: AllegedOffencesBody
 
-  offences: AllegedOffencesUI[]
+  offences: AllegedOffencesUI
 
   pageName = 'alleged-offences'
 
@@ -40,43 +36,29 @@ export default class AllegedOffences implements TaskListPage {
 
   taskName = 'alleged-offences'
 
-  allegedOffenceQuestions = getQuestions('')['alleged-offences']['alleged-offence-data']
-
   constructor(
     body: Partial<AllegedOffencesBody>,
     private readonly application: Application,
   ) {
     if (application.data[this.taskName]?.[this.dataPageName]) {
-      const allegedOffencesData = application.data[this.taskName][this.dataPageName] as [AllegedOffenceDataBody]
+      const allegedOffencesData = application.data[this.taskName][this.dataPageName] as AllegedOffenceDataBody
+      const { allegedOffences } = allegedOffencesData
 
-      const query = {
-        redirectPage: this.pageName,
+      this.offences = {
+        allegedOffencesData: allegedOffences.map(offence => ({
+          name: offence.name,
+        })),
+        removeLink: 'remove-link',
       }
-
-      this.offences = allegedOffencesData.map((offence, index) => {
-        const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
-
-        const offenceCategoryText =
-          this.allegedOffenceQuestions.offenceCategory.answers[
-            offence.offenceCategory as keyof typeof this.allegedOffenceQuestions.offenceCategory.answers
-          ]
-
-        return {
-          titleAndNumber: offence.titleAndNumber,
-          offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
-          offenceCategoryText,
-          offenceDate,
-          summary: offence.summary,
-          removeLink: `${paths.applications.removeFromList({
-            id: application.id,
-            task: this.taskName,
-            page: this.dataPageName,
-            index: index.toString(),
-          })}?${createQueryString(query)}`,
-        }
-      })
     }
     this.body = body as AllegedOffencesBody
+  }
+
+  rows() {
+    return this.offences.allegedOffencesData.map((offence, i: number) => ({
+      key: { text: `Alleged offence ${i + 1}` },
+      value: { html: offence.name },
+    }))
   }
 
   static async initialize(body: Partial<AllegedOffenceDataBody>, application: Application) {
@@ -97,7 +79,7 @@ export default class AllegedOffences implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.application.data['alleged-offences']?.['alleged-offence-data'].length) {
+    if (!this.application.data['alleged-offences']?.['alleged-offence-data']?.allegedOffences.length) {
       errors.offenceList = 'Alleged offences must be added to the application'
     }
 
@@ -107,6 +89,7 @@ export default class AllegedOffences implements TaskListPage {
   response() {
     const response: Record<string, string> = {}
 
+    this.offences.
     this.offences?.forEach((offence, index) => {
       const { titleAndNumber, offenceCategoryText, offenceDate, summary } = offence
       response[`Alleged offence ${index + 1}`] =

@@ -1,54 +1,9 @@
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
-{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "govuk/components/fieldset/macro.njk" import govukFieldset -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
 
 {% extends "../layout.njk" %}
-
-{% set outstandingChargesFollowUpHintHtml %}
-<p class="govuk-hint">Include details where the applicant's behaviour could be a risk to:</p>
-
-<ul class="govuk-list govuk-list--bullet govuk-hint">
-  <li>
-        the applicant themselves
-      </li>
-  <li>
-        other people staying at the property
-      </li>
-  <li>
-        staff members
-      </li>
-  <li>
-        neighbours
-      </li>
-  <li>
-        visitors
-      </li>
-  <li>
-        contractors
-      </li>
-  <li>
-        the property (for example, arson)
-      </li>
-</ul>
-{% endset %}
-
-{% set outstandingChargesFollowUp %}
-{{
-      formPageTextArea(
-        {
-          fieldName: 'outstandingChargesDetail',
-          label: {
-            text: page.questions.outstandingChargesDetail.question,
-            classes: "govuk-label--s"
-          },
-          hint: { html: outstandingChargesFollowUpHintHtml }
-        },
-        fetchContext()
-      )
-    }}
-{% endset %}
 
 {% block content %}
 
@@ -70,113 +25,83 @@
         <p>Add one offence at a time. For example, you should record 3 drug-related offences as 3 separate offences.</p>
       </div>
 
-      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+      <div data-module="moj-add-another">
+        <form id="form" action="{{ paths.applications.pages.update({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
-        {{
-            formPageInput(
-              {
-                label: { 
-                  text: page.questions.titleAndNumber.question,
-                  classes: "govuk-label--m" 
-                },
-                classes: "govuk-input--width-20",
-                fieldName: "titleAndNumber",
-                hint: {
-                  text: page.questions.titleAndNumber.hint
+                <p>{{ errors.length }}</p>
+          {% if allegedOffences | length %}
+            {% for off in allegedOffences %}
+              {% call govukFieldset({
+                classes: "moj-add-another__item",
+                legend: {
+                  text: "Alleged Offence",
+                  classes: "moj-add-another__title govuk-fieldset__legend--m",
+                  isPageHeading: false
                 }
-              },
-              fetchContext()
-            )
-        }}
-
-        {{
-            govukSelect({
-                  label: { 
-                    text: page.questions.offenceCategory.question,
-                    classes: "govuk-label--m" 
+              }) %}
+                {{ govukInput({
+                  id: "allegedOffences[" + loop.index0 + "][name]",
+                  name: "allegedOffences[" + loop.index0 + "][name]",
+                  label: {
+                    html: "Current alleged offence name",
+                    classes: "govuk-!-font-weight-bold"
                   },
-                  hint: {
-                    text: page.questions.offenceCategory.hint
-                  },
-                  id: "offenceCategory",
-                  name: "offenceCategory",
-                  items: page.offenceCategories,
-                  errorMessage: errors.offenceCategory
-              })
-        }}
+                  value: allegedOffences[loop.index0].name,
+                  errorMessage: errors["allegedOffences[" + loop.index0 + "][name]"],
+                  attributes: {
+                    "data-name": "allegedOffences[%index%][name]",
+                    "data-id": "allegedOffences[%index%][name]"
+                  }
+                }) }}
 
-        {{ 
-          formPageDateInput( {
-            hint: {
-              text: page.questions.offenceDate.hint
-            },
-            fieldName: "offenceDate",
-            fieldset: {
+              {% endcall %}
+            {% endfor %}
+          {% else %}
+            {% call govukFieldset({
+              classes: "moj-add-another__item",
               legend: {
-                text: page.questions.offenceDate.question,
-                classes: "govuk-fieldset__legend--m"
+                text: "Alleged Offence",
+                classes: "moj-add-another__title govuk-fieldset__legend--m",
+                isPageHeading: false
               }
-            },
-            items: dateFieldValues('offenceDate', errors)
-            }, 
-            fetchContext()) 
-        }}
-
-        {{
-            formPageTextArea(
-              {
-                fieldName: "summary",
-                label: {
-                  text: page.questions.summary.question,
-                  classes: "govuk-label--m"
+            }) %}
+              {{ formPageInput(
+                {
+                  label: {
+                    html: "Current alleged offence name",
+                    classes: "govuk-!-font-weight-bold"
+                  },
+                  attributes: {
+                    "data-name": "allegedOffences[%index%][name]",
+                    "data-id": "allegedOffences[%index%][name]"
+                  },
+                  fieldName: "allegedOffences[0][name]"
                 },
-                hint: {
-                  html: page.questions.summary.hint
-                }
-              },
-              fetchContext()
-            )
-        }}
+                fetchContext()
+              ) }}
 
-        <div>
-          {{ govukButton({
-            id: "add-another",
-            text: "Save and add another",
-            classes: "govuk-button--secondary govuk-!-margin-bottom-4"
-          }) }}
-        </div>
+            {% endcall %}
+          {% endif %}
 
-        {% block button %}
-          <div class="govuk-button-group">
+          <div class="moj-button-action">
             {{ govukButton({
-                  text: "Save and continue"
-              }) }}
-
-            {%if page.hasPreviouslySavedAnAllegedOffence %}
-              <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'alleged-offences', page: 'alleged-offences' }) }}">
-                Cancel
-              </a>
-            {% endif %}
+              text: "Save and add another",
+              classes: "govuk-button--secondary moj-add-another__add-button govuk-!-margin-bottom-4",
+              type: "button"
+            }) }}
           </div>
-        {% endblock %}
-      </form>
+
+          {% block button %}
+            <div class="govuk-button-group">
+              {{ govukButton({
+                    text: "Save and continue"
+                }) }}
+            </div>
+          {% endblock %}
+        </form>
+      </div>
     </div>
   </div>
 
-{% endblock %}
-
-{% block extraScripts %}
-  <script type="text/javascript" nonce="{{ cspNonce }}">
-    function addRedirect(event) {
-      const form = document.getElementById('form')
-      form.action = form.action + '&redirectPage=alleged-offence-data'
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      document
-        .getElementById('add-another')
-        .addEventListener('click', (event) => addRedirect(event));
-    });
-  </script>
 {% endblock %}
