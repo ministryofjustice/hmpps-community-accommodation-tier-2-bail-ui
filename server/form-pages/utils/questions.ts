@@ -70,6 +70,12 @@ export const getQuestions = (name: string) => {
           hint: 'This will be used for any communication from the accommodation supplier',
         },
       },
+      location: {
+        location: {
+          question: 'Where are you based?',
+          hint: "For example, Sefton Magistrates' Court or Full Sutton Prison.",
+        },
+      },
     },
     'solicitor-details': {
       'has-solicitor': {
