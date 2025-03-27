@@ -5,7 +5,7 @@ import { applicationFactory, personFactory } from '../../../../testutils/factori
 describe('ContactNumber', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
-  itShouldHaveNextValue(new ContactNumber({}, application), '')
+  itShouldHaveNextValue(new ContactNumber({}, application), 'location')
   itShouldHavePreviousValue(new ContactNumber({}, application), 'job-title')
 
   describe('errors', () => {

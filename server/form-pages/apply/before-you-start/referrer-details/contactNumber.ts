@@ -41,7 +41,7 @@ export default class ContactNumber implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'location'
   }
 
   errors() {
