@@ -180,13 +180,13 @@
     },
     "learning-difficulties": {
       "hasLearningNeeds": "no",
-      "needsDetail": "",
+      "learningNeedsDetail": "",
+      "needsSupport": "no",
+      "supportDetail": "",
+      "receivesTreatment": "no",
+      "treatmentDetail": "",
       "isVulnerable": "no",
-      "vulnerabilityDetail": "",
-      "hasDifficultyInteracting": "no",
-      "interactionDetail": "",
-      "requiresAdditionalSupport": "no",
-      "addSupportDetail": ""
+      "vulnerabilityDetail": ""
     },
     "brain-injury": {
       "hasBrainInjury": "no",

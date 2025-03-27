@@ -610,22 +610,24 @@ export const getQuestions = (name: string) => {
       },
       'learning-difficulties': {
         hasLearningNeeds: {
-          question: 'Do they have any additional needs relating to learning difficulties or neurodiversity?',
+          question: 'Do they have any needs relating to learning difficulties or neurodiversity?',
           answers: yesOrNo,
         },
-        needsDetail: { question: 'Please describe their additional needs.' },
-        isVulnerable: {
-          question: 'Are they vulnerable as a result of this condition?',
+        learningNeedsDetail: { question: 'Enter details of their needs, including if they have a formal diagnosis' },
+        needsSupport: {
+          question: 'Do they need any support as a result of this?',
           answers: yesOrNo,
         },
-        vulnerabilityDetail: { question: 'Please describe their level of vulnerability.' },
-        hasDifficultyInteracting: {
-          question: 'Do they have difficulties interacting with other people as a result of this condition?',
-          answers: yesOrNo,
+        supportDetail: {
+          question: 'Enter details of the type of support needed, including any support they have already or will need',
         },
-        interactionDetail: { question: 'Please describe these difficulties.' },
-        requiresAdditionalSupport: { question: 'Is additional support required?', answers: yesOrNo },
-        addSupportDetail: { question: 'Please describe the type of support.' },
+        receivesTreatment: { question: 'Do they receive any treatment for this?', answers: yesOrNo },
+        treatmentDetail: {
+          question: 'Enter details about their treatment',
+          hint: 'Include if they have their medication and if they can manage it in the community.',
+        },
+        isVulnerable: { question: 'Are they vulnerable as a result of this?', answers: yesOrNo },
+        vulnerabilityDetail: { question: 'Enter details of how they might be vulnerable' },
       },
       'brain-injury': {
         hasBrainInjury: {

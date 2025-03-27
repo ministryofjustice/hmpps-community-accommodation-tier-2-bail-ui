@@ -7,11 +7,42 @@
   {{
       formPageTextArea(
         {
-          fieldName: 'needsDetail',
+          fieldName: 'learningNeedsDetail',
           label: {
-            text: page.questions.needsDetail.question,
+            text: page.questions.learningNeedsDetail.question,
             classes: "govuk-label--s"
           }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set supportFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'supportDetail',
+          label: {
+            text: page.questions.supportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set treatmentFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'treatmentDetail',
+          label: {
+            text: page.questions.treatmentDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: { text: page.questions.treatmentDetail.hint }
         },
         fetchContext()
       )
@@ -33,42 +64,12 @@
     }}
   {% endset %}
 
-  {% set interactionFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'interactionDetail',
-          label: {
-            text: page.questions.interactionDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set addSupportFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'addSupportDetail',
-          label: {
-            text: page.questions.addSupportDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
   <p class="govuk-body guidance">
     Neurodiversity covers Autism, ADHD, ADD, Dyslexia, Dyscalculia and Dyspraxia.
   </p>
 
   <p class="govuk-body guidance">
-    This can overlap with learning difficulties. For example, they might find it hard to understand or remember information, or have persistent problems with reading, writing or maths.
+    This can overlap with learning difficulties. For example, they might find it hard to understand or remember information, read or write, or interact with others.
   </p>
 
   {{
@@ -102,6 +103,62 @@
   {{
     formPageRadios(
       {
+        fieldName: "needsSupport",
+        fieldset: {
+          legend: {
+            text: page.questions.needsSupport.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: supportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "receivesTreatment",
+        fieldset: {
+          legend: {
+            text: page.questions.receivesTreatment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: treatmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
         fieldName: "isVulnerable",
         fieldset: {
           legend: {
@@ -115,62 +172,6 @@
           text: "Yes",
           conditional: {
             html: vulnerabilityFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasDifficultyInteracting",
-        fieldset: {
-          legend: {
-            text: page.questions.hasDifficultyInteracting.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: interactionFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "requiresAdditionalSupport",
-        fieldset: {
-          legend: {
-            text: page.questions.requiresAdditionalSupport.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: addSupportFollowUp
           }
         },
         {

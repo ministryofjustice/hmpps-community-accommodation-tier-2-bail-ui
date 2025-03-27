@@ -70,10 +70,10 @@ context('Visit "learning difficulties" page', () => {
     LearningDifficultiesPage.visit(this.application)
     const page = new LearningDifficultiesPage(this.application)
 
-    page.describeAdditionalNeeds()
+    page.describeNeeds()
+    page.describeSupportNeeds()
+    page.describeTreatment()
     page.describeVulnerability()
-    page.describeDifficultiesInteracting()
-    page.describeAdditionalSupportNeeded()
 
     page.clickSubmit()
 
