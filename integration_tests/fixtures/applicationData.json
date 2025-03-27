@@ -66,6 +66,9 @@
     }
   },
   "personal-information": {
+    "custody-location": {
+      "custodyLocation": "The Old Bailey"
+    },
     "working-mobile-phone": {
       "hasWorkingMobilePhone": "yes",
       "mobilePhoneNumber": "11111111111",

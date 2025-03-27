@@ -129,9 +129,17 @@ export const completePersonalInformationTask = async (page: Page, name: string) 
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add personal information')
 
+  await completeCustodyLocationPage(page, name)
   await completeWorkingMobilePhonePage(page, name)
   await completeImmigrationStatusPage(page, name)
   await completeGenderPage(page, name)
+}
+
+async function completeCustodyLocationPage(page: Page, name: string) {
+  const custodyLocationPage = await ApplyPage.initialize(page, `Where is ${name} being held in custody?`)
+
+  await custodyLocationPage.fillField(`Where is ${name} being held in custody?`, 'The Old Bailey')
+  await custodyLocationPage.clickSave()
 }
 
 async function completeGenderPage(page: Page, name: string) {

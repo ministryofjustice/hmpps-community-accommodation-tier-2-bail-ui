@@ -85,6 +85,12 @@ export const getQuestions = (name: string) => {
       },
     },
     'personal-information': {
+      'custody-location': {
+        custodyLocation: {
+          question: `Where is ${name} being held in custody?`,
+          hint: "For example, Sefton Magistrates' Court or Full Sutton Prison",
+        },
+      },
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
           question: `Will ${name} have a working mobile phone?`,

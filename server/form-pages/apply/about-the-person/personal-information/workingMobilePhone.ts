@@ -34,7 +34,7 @@ export default class WorkingMobilePhone implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'custody-location'
   }
 
   next() {
