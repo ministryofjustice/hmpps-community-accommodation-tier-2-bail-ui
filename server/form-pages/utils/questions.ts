@@ -600,12 +600,12 @@ export const getQuestions = (name: string) => {
       'communication-and-language': {
         hasImpairments: {
           question: 'Do they have any literacy, visual or hearing impairments?',
-          answers: yesNoOrIDontKnow,
+          answers: yesOrNo,
         },
         impairmentsDetail: {
           question: 'Enter details of their needs, including any support they have already or will need',
         },
-        requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesNoOrIDontKnow },
+        requiresInterpreter: { question: 'Do they need an interpreter?', answers: yesOrNo },
         interpretationDetail: { question: 'What language do they need an interpreter for?' },
       },
       'learning-difficulties': {
