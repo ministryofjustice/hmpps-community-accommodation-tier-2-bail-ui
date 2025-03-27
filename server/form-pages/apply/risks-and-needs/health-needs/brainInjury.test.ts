@@ -14,37 +14,28 @@ describe('BrainInjury', () => {
         const page = new BrainInjury({}, application)
 
         it('includes a validation error for _hasBrainInjury_', () => {
-          expect(page.errors()).toHaveProperty(
-            'hasBrainInjury',
-            `Select if they have a brain injury, or select 'I do not know'`,
-          )
+          expect(page.errors()).toHaveProperty('hasBrainInjury', `Select if they have a brain injury`)
         })
 
         it('includes a validation error for _supportNeeded_', () => {
-          expect(page.errors()).toHaveProperty(
-            'supportNeeded',
-            `Select if they need any support, or select 'I do not know'`,
-          )
+          expect(page.errors()).toHaveProperty('supportNeeded', `Select if they need any support`)
         })
 
         it('includes a validation error for _receivingTreatment_', () => {
           expect(page.errors()).toHaveProperty(
             'receivingTreatment',
-            `Select if they receive any treatment or medication, or select 'I do not know'`,
+            `Select if they receive any treatment or medication`,
           )
         })
 
         it('includes a validation error for _isVulnerable_', () => {
-          expect(page.errors()).toHaveProperty(
-            'isVulnerable',
-            `Select if they are vulnerable, or select 'I do not know'`,
-          )
+          expect(page.errors()).toHaveProperty('isVulnerable', `Select if they are vulnerable`)
         })
 
         it('includes a validation error for _hasDifficultyInteracting_', () => {
           expect(page.errors()).toHaveProperty(
             'hasDifficultyInteracting',
-            `Select if they have difficulties interacting with other people, or select 'I do not know'`,
+            `Select if they have difficulties interacting with other people`,
           )
         })
       })

@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class BrainInjuryPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Brain injury needs for ${nameOrPlaceholderCopy(application.person)}`,
+      `Brain injury details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'brain-injury',

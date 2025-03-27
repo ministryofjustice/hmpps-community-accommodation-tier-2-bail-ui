@@ -83,7 +83,7 @@ async function completeLearningDifficultiesPage(page: Page, name: string) {
 }
 
 async function completeBrainInjuryPage(page: Page, name: string) {
-  const brainInjuryPage = await ApplyPage.initialize(page, `Brain injury needs for ${name}`)
+  const brainInjuryPage = await ApplyPage.initialize(page, `Brain injury details for ${name}`)
 
   await brainInjuryPage.checkRadioInGroup('brain injury?', 'No')
   await brainInjuryPage.checkRadioInGroup('any support', 'No')

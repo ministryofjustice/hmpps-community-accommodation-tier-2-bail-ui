@@ -1,4 +1,4 @@
-import type { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
+import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -6,15 +6,15 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type BrainInjuryBody = {
-  hasBrainInjury: YesNoOrDontKnow
+  hasBrainInjury: YesOrNo
   injuryDetail: string
-  supportNeeded: YesNoOrDontKnow
+  supportNeeded: YesOrNo
   supportDetail: string
-  receivingTreatment: YesNoOrDontKnow
+  receivingTreatment: YesOrNo
   treatmentDetail: string
-  isVulnerable: YesNoOrDontKnow
+  isVulnerable: YesOrNo
   vulnerabilityDetail: string
-  hasDifficultyInteracting: YesNoOrDontKnow
+  hasDifficultyInteracting: YesOrNo
   interactionDetail: string
 }
 
@@ -34,11 +34,11 @@ export type BrainInjuryBody = {
   ],
 })
 export default class BrainInjury implements TaskListPage {
-  documentTitle = 'Brain injury needs for the person'
+  documentTitle = 'Brain injury details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Brain injury needs for ${this.personName}`
+  title = `Brain injury details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['brain-injury']
 
@@ -63,35 +63,35 @@ export default class BrainInjury implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasBrainInjury) {
-      errors.hasBrainInjury = `Select if they have a brain injury, or select 'I do not know'`
+      errors.hasBrainInjury = `Select if they have a brain injury`
     }
     if (this.body.hasBrainInjury === 'yes' && !this.body.injuryDetail) {
       errors.injuryDetail = 'Enter details of their brain injury and needs'
     }
 
     if (!this.body.supportNeeded) {
-      errors.supportNeeded = `Select if they need any support, or select 'I do not know'`
+      errors.supportNeeded = `Select if they need any support`
     }
     if (this.body.supportNeeded === 'yes' && !this.body.supportDetail) {
       errors.supportDetail = 'Enter the type of support needed'
     }
 
     if (!this.body.receivingTreatment) {
-      errors.receivingTreatment = `Select if they receive any treatment or medication, or select 'I do not know'`
+      errors.receivingTreatment = `Select if they receive any treatment or medication`
     }
     if (this.body.receivingTreatment === 'yes' && !this.body.treatmentDetail) {
       errors.treatmentDetail = 'Enter details about their treatment and medication'
     }
 
     if (!this.body.isVulnerable) {
-      errors.isVulnerable = `Select if they are vulnerable, or select 'I do not know'`
+      errors.isVulnerable = `Select if they are vulnerable`
     }
     if (this.body.isVulnerable === 'yes' && !this.body.vulnerabilityDetail) {
       errors.vulnerabilityDetail = 'Enter how they are vulnerable'
     }
 
     if (!this.body.hasDifficultyInteracting) {
-      errors.hasDifficultyInteracting = `Select if they have difficulties interacting with other people, or select 'I do not know'`
+      errors.hasDifficultyInteracting = `Select if they have difficulties interacting with other people`
     }
     if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
       errors.interactionDetail = 'Enter the type of difficulties they have'
