@@ -80,7 +80,7 @@ export default class AllegedOffences implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'alleged-offences-summary'
   }
 
   errors() {

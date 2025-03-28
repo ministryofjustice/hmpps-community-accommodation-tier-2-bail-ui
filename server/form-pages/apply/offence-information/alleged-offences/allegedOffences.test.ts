@@ -59,7 +59,7 @@ describe('AllegedOffences', () => {
     })
   })
 
-  itShouldHaveNextValue(new AllegedOffences({}, application), '')
+  itShouldHaveNextValue(new AllegedOffences({}, application), 'alleged-offences-summary')
   itShouldHavePreviousValue(new AllegedOffences({}, application), 'taskList')
 
   describe('errors', () => {

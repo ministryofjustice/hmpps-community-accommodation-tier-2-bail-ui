@@ -913,6 +913,11 @@ export const getQuestions = (name: string) => {
           hint: `For example, ${dateExample}`,
         },
       },
+      'alleged-offences-summary': {
+        summary: {
+          question: `Add a summary of ${name}'s current alleged offences`,
+        },
+      },
     },
     'offending-history': {
       'any-previous-convictions': {
