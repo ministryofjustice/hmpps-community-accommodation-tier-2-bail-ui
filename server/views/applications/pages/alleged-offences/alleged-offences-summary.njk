@@ -1,0 +1,24 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  {{
+      formPageTextArea(
+        {
+          fieldName: "summary",
+          label: {
+            text: page.questions.summary.question,
+            classes: "govuk-label--m"
+          }
+        },
+        fetchContext()
+      )
+  }}
+
+
+{% endblock %}
