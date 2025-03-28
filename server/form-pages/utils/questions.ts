@@ -908,14 +908,9 @@ export const getQuestions = (name: string) => {
           question: 'Offence title',
           hint: "For example, 'Stalking'",
         },
-        offenceCategory,
         offenceDate: {
           question: 'When is it alleged that they committed the offence?',
           hint: `For example, ${dateExample}`,
-        },
-        summary: {
-          question: 'Provide a summary of the allegations',
-          hint: allegationSummaryHintHtml,
         },
       },
     },

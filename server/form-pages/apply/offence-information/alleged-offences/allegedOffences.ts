@@ -12,10 +12,7 @@ type AllegedOffencesBody = { offenceList: string }
 
 type AllegedOffencesUI = {
   titleAndNumber: string
-  offenceCategoryTag: string
-  offenceCategoryText: string
   offenceDate: string
-  summary: string
   removeLink: string
 }
 
@@ -56,17 +53,9 @@ export default class AllegedOffences implements TaskListPage {
       this.offences = allegedOffencesData.map((offence, index) => {
         const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
 
-        const offenceCategoryText =
-          this.allegedOffenceQuestions.offenceCategory.answers[
-            offence.offenceCategory as keyof typeof this.allegedOffenceQuestions.offenceCategory.answers
-          ]
-
         return {
           titleAndNumber: offence.titleAndNumber,
-          offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
-          offenceCategoryText,
           offenceDate,
-          summary: offence.summary,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: this.taskName,
@@ -108,38 +97,11 @@ export default class AllegedOffences implements TaskListPage {
     const response: Record<string, string> = {}
 
     this.offences?.forEach((offence, index) => {
-      const { titleAndNumber, offenceCategoryText, offenceDate, summary } = offence
+      const { titleAndNumber, offenceDate } = offence
       response[`Alleged offence ${index + 1}`] =
-        `${titleAndNumber}\r\n${offenceCategoryText}\r\n${offenceDate}\r\n\nSummary: ${summary}`
+        `${titleAndNumber}\r\n${offenceDate}`
     })
 
     return response
-  }
-
-  getOffenceCategoryTag(offenceCategory: string, offenceCategoryText: string) {
-    return `<strong class="govuk-tag govuk-tag--${this.getOffenceTagColour(
-      offenceCategory,
-    )}">${offenceCategoryText}</strong>`
-  }
-
-  getOffenceTagColour(offenceCategory: string) {
-    switch (offenceCategory) {
-      case 'stalkingOrHarassment':
-        return 'blue'
-      case 'weaponsOrFirearms':
-        return 'red'
-      case 'arson':
-        return 'yellow'
-      case 'violence':
-        return 'pink'
-      case 'domesticAbuse':
-        return 'purple'
-      case 'hateCrime':
-        return 'green'
-      case 'drugs':
-        return 'custom-brown'
-      default:
-        return 'grey'
-    }
   }
 }

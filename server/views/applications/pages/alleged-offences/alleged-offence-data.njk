@@ -90,22 +90,6 @@
             )
         }}
 
-        {{
-            govukSelect({
-                  label: { 
-                    text: page.questions.offenceCategory.question,
-                    classes: "govuk-label--m" 
-                  },
-                  hint: {
-                    text: page.questions.offenceCategory.hint
-                  },
-                  id: "offenceCategory",
-                  name: "offenceCategory",
-                  items: page.offenceCategories,
-                  errorMessage: errors.offenceCategory
-              })
-        }}
-
         {{ 
           formPageDateInput( {
             hint: {
@@ -121,22 +105,6 @@
             items: dateFieldValues('offenceDate', errors)
             }, 
             fetchContext()) 
-        }}
-
-        {{
-            formPageTextArea(
-              {
-                fieldName: "summary",
-                label: {
-                  text: page.questions.summary.question,
-                  classes: "govuk-label--m"
-                },
-                hint: {
-                  html: page.questions.summary.hint
-                }
-              },
-              fetchContext()
-            )
         }}
 
         <div>
