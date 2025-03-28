@@ -8,11 +8,9 @@ describe('AllegedOffenceData', () => {
   const allegedOffenceData = [
     {
       titleAndNumber: 'Stalking',
-      offenceCategory: 'Arson',
       'offenceDate-day': '1',
       'offenceDate-month': '2',
       'offenceDate-year': '2023',
-      summary: 'summary detail',
     },
   ]
 
@@ -38,13 +36,11 @@ describe('AllegedOffenceData', () => {
     describe('when there are errors', () => {
       const requiredFields = [
         ['titleAndNumber', 'Enter the offence title'],
-        ['offenceCategory', 'Select the offence type'],
         ['offenceDate', 'Enter the date the offence was committed'],
-        ['summary', 'Enter a summary of the offence'],
       ]
 
       it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-        const page = new AllegedOffenceData({ offenceCategory: 'choose' }, application)
+        const page = new AllegedOffenceData({}, application)
         const errors = page.errors()
 
         expect(errors[field as keyof typeof errors]).toEqual(message)
