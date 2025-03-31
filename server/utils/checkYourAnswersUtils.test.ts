@@ -469,7 +469,7 @@ describe('checkYourAnswersUtils', () => {
 
     it('returns the answer string by default', () => {
       expect(getAnswer(application, questions, 'confirm-eligibility', 'confirm-eligibility', 'isEligible')).toEqual(
-        'Yes, I confirm Roger Smith is eligible',
+        'Yes, they are',
       )
     })
   })
