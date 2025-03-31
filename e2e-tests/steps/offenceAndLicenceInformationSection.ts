@@ -32,7 +32,7 @@ async function completeAllegedOffenceDetailsPage(page: Page, name: string) {
 }
 
 async function completeAllegedOffencesPage(page: Page, name: string) {
-  const allegedOffencesPage = await ApplyPage.initialize(page, `Alleged offences for ${name}`)
+  const allegedOffencesPage = await ApplyPage.initialize(page, `View ${name}'s current alleged offences`)
   await allegedOffencesPage.clickButton('Save and continue')
 }
 

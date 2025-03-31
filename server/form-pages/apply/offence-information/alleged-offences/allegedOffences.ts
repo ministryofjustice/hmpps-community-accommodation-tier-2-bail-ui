@@ -23,9 +23,9 @@ type AllegedOffencesUI = {
 export default class AllegedOffences implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  documentTitle = 'Alleged offences'
+  documentTitle = `View the applicant's current alleged offences`
 
-  title = `Alleged offences for ${this.personName}`
+  title = `View ${this.personName}'s current alleged offences`
 
   body: AllegedOffencesBody
 

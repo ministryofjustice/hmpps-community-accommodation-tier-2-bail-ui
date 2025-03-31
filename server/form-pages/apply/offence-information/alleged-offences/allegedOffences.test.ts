@@ -34,7 +34,7 @@ describe('AllegedOffences', () => {
     it('personalises the page title', () => {
       const page = new AllegedOffences({}, application)
 
-      expect(page.title).toEqual('Alleged offences for Roger Smith')
+      expect(page.title).toEqual("View Roger Smith's current alleged offences")
     })
   })
 
@@ -100,7 +100,7 @@ describe('AllegedOffences', () => {
     it('returns AllegedOffence page if there is alleged offences data', async () => {
       const page = (await AllegedOffences.initialize({}, applicationWithData)) as AllegedOffences
 
-      expect(page.title).toBe('Alleged offences for Roger Smith')
+      expect(page.title).toBe("View Roger Smith's current alleged offences")
     })
   })
 })

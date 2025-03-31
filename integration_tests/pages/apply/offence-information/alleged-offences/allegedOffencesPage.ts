@@ -6,7 +6,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class AllegedOffencesPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Alleged offences for ${nameOrPlaceholderCopy(application.person)}`,
+      `View ${nameOrPlaceholderCopy(application.person)}'s current alleged offences`,
       application,
       'alleged-offences',
       'alleged-offences',
@@ -24,7 +24,8 @@ export default class AllegedOffencesPage extends ApplyPage {
   }
 
   hasListOfOffences(): void {
-    cy.get('.govuk-summary-card__title').contains('Arson')
+    cy.get('.govuk-summary-list__value').contains('Arson')
+    cy.get('.govuk-summary-list__value').contains('5 June 1940')
   }
 
   hasNoOffences(): void {
