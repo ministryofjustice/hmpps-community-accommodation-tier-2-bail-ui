@@ -12,7 +12,7 @@ describe('ConfirmConsent', () => {
     it('personalises the page title', () => {
       const page = new ConfirmConsent({}, application)
 
-      expect(page.title).toEqual("Confirm Roger Smith's consent to apply for Short-Term Accommodation (CAS-2)")
+      expect(page.title).toEqual("Confirm Roger Smith's consent")
     })
   })
 
@@ -71,7 +71,7 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'yes', consentDate: '2023-11-01' }, application)
 
       expect(page.response()).toEqual({
-        'Has Roger Smith given their consent to apply for CAS-2?': 'Yes, Roger Smith has given their consent',
+        'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?': 'Yes',
         'When did they give consent?': '1 November 2023',
       })
     })
@@ -81,7 +81,8 @@ describe('ConfirmConsent', () => {
     const page = new ConfirmConsent({ hasGivenConsent: 'no', consentRefusalDetail: 'some reasons' }, application)
 
     expect(page.response()).toEqual({
-      'Has Roger Smith given their consent to apply for CAS-2?': 'No, Roger Smith has not given their consent',
+      'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?':
+        'No, they do not give verbal consent',
       'Why was consent refused?': 'some reasons',
     })
   })

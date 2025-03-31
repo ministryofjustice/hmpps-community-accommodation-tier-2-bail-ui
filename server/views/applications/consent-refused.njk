@@ -3,7 +3,7 @@
 {% extends "../partials/layout.njk" %}
 
 {% block pageTitle %}
-  CAS-2: Consent refused - This person cannot apply for CAS-2 accommodation
+        The applicant has not given consent
 {% endblock %}
 
 {% block beforeContent %}
@@ -22,7 +22,8 @@
       }) }}
 
       <p class="govuk-body-l">
-        {{application.person.name}} has not given their consent so you cannot apply for Short-Term Accommodation (CAS-2) on their behalf.
+
+        {{application.person.name}} has not given their consent so you cannot apply for short-term accommodation (CAS2) for bail on their behalf.
       </p>
 
       {{ govukButton({

@@ -22,27 +22,30 @@
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
   <div>
-    <p class="govuk-body">You need verbal consent from {{ page.application.person.name }} to send an application for Short-Term Accommodation (CAS-2) on their behalf.</p>
+    <p class="govuk-body">You need verbal consent from {{ page.application.person.name }} to send an application for short-term accommodation (CAS-2) on their behalf.</p>
 
-    <p class="govuk-body">Check that {{ page.application.person.name }} understands:</p>
+    <p class="govuk-body">Check that they understands:</p>
     <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
       <li>
         that CAS-2 provides short-term housing and weekly support
       </li>
       <li>
-        they are responsible for paying for CAS-2 accommodation and support
+        they are responsible for paying for CAS-2 short-term accommodation and support, either through their own means or with public funds
       </li>
       <li>
         what will be in the application form, including legal and confidential information about address history, offences, risks to themselves and others and health needs
       </li>
       <li>
-        how and why their personal data will be collected and used by reading the <a href="/privacy-notice" class="govuk-link" rel="noreferrer noopener" target="_blank">privacy notice (opens in new tab)</a>
+        how and why their data will be collected and used by reading the <a href="/privacy-notice" class="govuk-link" rel="noreferrer noopener" target="_blank">privacy notice (opens in new tab)</a>
       </li>
       <li>
-        their health needs will be collected from relevant sources, such as the prison drug and alcohol provider, mental health in-reach team and healthcare team
+        their health needs will be collected from relevant sources, such as drug and alcohol team, mental health in-reach team and healthcare team
       </li>
       <li>
-        their personal data will be used to assess their suitability and ensure their safety
+        their information will be used to assess their suitability and ensure their safety
+      </li>
+      <li>
+        they must leave the CAS-2 accommodation at the end of their Bail order period, and find accommodation to move on to with their support worker's help
       </li>
     </ul>
   </div>
@@ -101,6 +104,6 @@
 
 {% block button %}
   {{ govukButton({
-      text: "Save and continue"
+      text: "Confirm and continue"
     }) }}
 {% endblock %}
