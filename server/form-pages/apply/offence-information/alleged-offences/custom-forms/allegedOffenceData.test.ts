@@ -7,7 +7,7 @@ describe('AllegedOffenceData', () => {
 
   const allegedOffenceData = [
     {
-      titleAndNumber: 'Stalking',
+      offenceName: 'Stalking',
       'offenceDate-day': '1',
       'offenceDate-month': '2',
       'offenceDate-year': '2023',
@@ -18,7 +18,7 @@ describe('AllegedOffenceData', () => {
     it('has a page title', () => {
       const page = new AllegedOffenceData({}, application)
 
-      expect(page.title).toEqual(`Add Roger Smith's alleged offence details`)
+      expect(page.title).toEqual(`Add Roger Smith's current alleged offences`)
     })
   })
 
@@ -35,8 +35,8 @@ describe('AllegedOffenceData', () => {
 
     describe('when there are errors', () => {
       const requiredFields = [
-        ['titleAndNumber', 'Enter the offence title'],
-        ['offenceDate', 'Enter the date the offence was committed'],
+        ['offenceName', 'Enter the name of the current alleged offence'],
+        ['offenceDate', 'Enter when the alleged offence took place'],
       ]
 
       it.each(requiredFields)('it includes a validation error for %s', (field, message) => {

@@ -904,12 +904,12 @@ export const getQuestions = (name: string) => {
     },
     'alleged-offences': {
       'alleged-offence-data': {
-        titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+        offenceName: {
+          question: 'Current alleged offence name',
+          hint: 'For example, Theft',
         },
         offenceDate: {
-          question: 'When is it alleged that they committed the offence?',
+          question: 'When did the alleged offence take place?',
           hint: `For example, ${dateExample}`,
         },
       },

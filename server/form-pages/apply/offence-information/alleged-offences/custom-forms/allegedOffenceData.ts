@@ -7,7 +7,7 @@ import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type AllegedOffenceDataBody = {
-  titleAndNumber: string
+  offenceName: string
   offenceDate: string
   'offenceDate-day': string
   'offenceDate-month': string
@@ -16,19 +16,14 @@ export type AllegedOffenceDataBody = {
 
 @Page({
   name: 'alleged-offence-data',
-  bodyProperties: [
-    'titleAndNumber',
-    'offenceDate-day',
-    'offenceDate-month',
-    'offenceDate-year',
-  ],
+  bodyProperties: ['offenceName', 'offenceDate-day', 'offenceDate-month', 'offenceDate-year'],
 })
 export default class AllegedOffenceData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  documentTitle = 'Add a alleged offence'
+  documentTitle = `Add the applicant's current alleged offences`
 
-  title = `Add ${this.personName}'s alleged offence details`
+  title = `Add ${this.personName}'s current alleged offences`
 
   body: AllegedOffenceDataBody
 
@@ -61,11 +56,11 @@ export default class AllegedOffenceData implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.titleAndNumber) {
-      errors.titleAndNumber = 'Enter the offence title'
+    if (!this.body.offenceName) {
+      errors.offenceName = 'Enter the name of the current alleged offence'
     }
     if (!dateAndTimeInputsAreValidDates(this.body, 'offenceDate')) {
-      errors.offenceDate = 'Enter the date the offence was committed'
+      errors.offenceDate = 'Enter when the alleged offence took place'
     }
 
     return errors

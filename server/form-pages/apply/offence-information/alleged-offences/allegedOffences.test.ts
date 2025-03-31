@@ -14,13 +14,13 @@ describe('AllegedOffences', () => {
       'alleged-offences': {
         'alleged-offence-data': [
           {
-            titleAndNumber: 'Stalking',
+            offenceName: 'Stalking',
             'offenceDate-day': '1',
             'offenceDate-month': '2',
             'offenceDate-year': '2023',
           },
           {
-            titleAndNumber: 'Arson',
+            offenceName: 'Arson',
             'offenceDate-day': '5',
             'offenceDate-month': '6',
             'offenceDate-year': '1940',
@@ -45,12 +45,12 @@ describe('AllegedOffences', () => {
 
         expect(page.offences).toEqual([
           {
-            titleAndNumber: 'Stalking',
+            offenceName: 'Stalking',
             offenceDate: '1 February 2023',
             removeLink: `/applications/${applicationWithData.id}/tasks/alleged-offences/pages/alleged-offence-data/0/removeFromList?redirectPage=alleged-offences`,
           },
           {
-            titleAndNumber: 'Arson',
+            offenceName: 'Arson',
             offenceDate: '5 June 1940',
             removeLink: `/applications/${applicationWithData.id}/tasks/alleged-offences/pages/alleged-offence-data/1/removeFromList?redirectPage=alleged-offences`,
           },

@@ -26,7 +26,7 @@
       {{ govukSummaryList({
           card: {
             title: {
-              text: offence.titleAndNumber,
+              text: offence.offenceName,
               classes:  "govuk-summary-card__title-wrapper--flex-end"
             },
             actions: {
@@ -34,7 +34,7 @@
                 {
                   href: offence.removeLink,
                   text: "Remove",
-                  visuallyHiddenText: offence.titleAndNumber +" offence"
+                  visuallyHiddenText: offence.offenceName +" offence"
                 }
               ]
             }  

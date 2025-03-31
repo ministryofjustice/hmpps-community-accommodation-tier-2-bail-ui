@@ -11,7 +11,7 @@ import { getQuestions } from '../../../utils/questions'
 type AllegedOffencesBody = { offenceList: string }
 
 type AllegedOffencesUI = {
-  titleAndNumber: string
+  offenceName: string
   offenceDate: string
   removeLink: string
 }
@@ -54,7 +54,7 @@ export default class AllegedOffences implements TaskListPage {
         const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
 
         return {
-          titleAndNumber: offence.titleAndNumber,
+          offenceName: offence.offenceName,
           offenceDate,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
@@ -97,9 +97,8 @@ export default class AllegedOffences implements TaskListPage {
     const response: Record<string, string> = {}
 
     this.offences?.forEach((offence, index) => {
-      const { titleAndNumber, offenceDate } = offence
-      response[`Alleged offence ${index + 1}`] =
-        `${titleAndNumber}\r\n${offenceDate}`
+      const { offenceName, offenceDate } = offence
+      response[`Alleged offence ${index + 1}`] = `${offenceName}\r\n${offenceDate}`
     })
 
     return response
