@@ -23,7 +23,7 @@ export default class ConfirmConsent implements TaskListPage {
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Confirm ${this.personName}'s consent to apply for Short-Term Accommodation (CAS-2)`
+  title = `Confirm ${this.personName}'s consent`
 
   questions
 

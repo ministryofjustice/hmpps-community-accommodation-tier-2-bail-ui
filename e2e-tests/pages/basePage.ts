@@ -5,6 +5,10 @@ export default class BasePage {
     // noop
   }
 
+  async clickConfirm() {
+    await this.page.getByRole('button', { name: 'Confirm and continue' }).click()
+  }
+
   async clickSave() {
     await this.page.getByRole('button', { name: 'Save and continue' }).click()
   }

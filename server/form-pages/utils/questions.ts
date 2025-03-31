@@ -41,10 +41,10 @@ export const getQuestions = (name: string) => {
     'confirm-consent': {
       'confirm-consent': {
         hasGivenConsent: {
-          question: `Has ${name} given their consent to apply for CAS-2?`,
+          question: `Has ${name} given their verbal consent to apply for short-term accommodation (CAS2) for bail?`,
           answers: {
-            yes: `Yes, ${name} has given their consent`,
-            no: `No, ${name} has not given their consent`,
+            yes: `Yes`,
+            no: `No, they do not give verbal consent`,
           },
         },
         consentDate: {
