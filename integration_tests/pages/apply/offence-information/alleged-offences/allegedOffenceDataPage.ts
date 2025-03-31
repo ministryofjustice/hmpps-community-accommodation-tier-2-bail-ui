@@ -6,7 +6,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class AllegedOffenceDataPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Add ${nameOrPlaceholderCopy(application.person)}'s alleged offence details`,
+      `Add ${nameOrPlaceholderCopy(application.person)}'s current alleged offences`,
       application,
       'alleged-offences',
       'alleged-offence-data',
@@ -24,7 +24,7 @@ export default class AllegedOffenceDataPage extends ApplyPage {
   }
 
   addOffenceInformation(): void {
-    this.getTextInputByIdAndEnterDetails('titleAndNumber', 'Arson (01000)')
+    this.getTextInputByIdAndEnterDetails('offenceName', 'Arson')
     this.completeDateInputs('offenceDate', '2022-07-15')
   }
 
@@ -33,11 +33,11 @@ export default class AllegedOffenceDataPage extends ApplyPage {
   }
 
   clickAddAnother(): void {
-    cy.get('button').contains('Save and add another').click()
+    cy.get('button').contains('Add another alleged offence').click()
   }
 
   assertFormisEmpty(): void {
-    cy.get('#titleAndNumber').should('have.value', '')
+    cy.get('#offenceName').should('have.value', '')
     cy.get('#offenceDate-day').should('have.value', '')
   }
 }

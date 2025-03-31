@@ -318,13 +318,13 @@
   "alleged-offences": {
     "alleged-offence-data": [
       {
-        "titleAndNumber": "Arson",
+        "offenceName": "Arson",
         "offenceDate-day": "5",
         "offenceDate-month": "6",
         "offenceDate-year": "1940"
       },
       {
-        "titleAndNumber": "Stalking",
+        "offenceName": "Stalking",
         "offenceDate-day": "6",
         "offenceDate-month": "7",
         "offenceDate-year": "2023"
