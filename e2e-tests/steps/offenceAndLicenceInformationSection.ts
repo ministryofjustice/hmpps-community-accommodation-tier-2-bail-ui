@@ -21,9 +21,9 @@ export const completeAllegedOffencesTask = async (page: Page, name: string) => {
 }
 
 async function completeAllegedOffenceDetailsPage(page: Page, name: string) {
-  const allegedOffenceDetailsPage = await ApplyPage.initialize(page, `Add ${name}'s alleged offence details`)
-  await allegedOffenceDetailsPage.fillField('Offence title', 'Stalking')
-  await allegedOffenceDetailsPage.fillDateFieldInGroup('When is it alleged that they committed the offence?', {
+  const allegedOffenceDetailsPage = await ApplyPage.initialize(page, `Add ${name}'s current alleged offences`)
+  await allegedOffenceDetailsPage.fillField('Current alleged offence name', 'Stalking')
+  await allegedOffenceDetailsPage.fillDateFieldInGroup('When did the alleged offence take place?', {
     year: '2022',
     month: '3',
     day: '1',
