@@ -87,8 +87,8 @@ export const getApplicationTimelineEvents = (
 
 export const generateSuccessMessage = (pageName: string): string => {
   switch (pageName) {
-    case 'current-offence-data':
-      return 'The offence has been saved'
+    case 'alleged-offence-data':
+      return 'Alleged offence saved'
     case 'offence-history-data':
       return 'The offence has been saved'
     case 'acct-data':

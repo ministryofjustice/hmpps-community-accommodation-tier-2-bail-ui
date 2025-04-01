@@ -319,23 +319,22 @@
   "alleged-offences": {
     "alleged-offence-data": [
       {
-        "titleAndNumber": "Arson",
-        "offenceCategory": "Arson",
+        "offenceName": "Arson",
         "offenceDate-day": "5",
         "offenceDate-month": "6",
-        "offenceDate-year": "1940",
-        "summary": "summary detail"
+        "offenceDate-year": "1940"
       },
       {
-        "titleAndNumber": "Stalking",
-        "offenceCategory": "Stalking",
+        "offenceName": "Stalking",
         "offenceDate-day": "6",
         "offenceDate-month": "7",
-        "offenceDate-year": "2023",
-        "summary": "more summary detail"
+        "offenceDate-year": "2023"
       }
     ],
-    "alleged-offences": {}
+    "alleged-offences": {},
+    "alleged-offences-summary": {
+      "summary": "Current offences summary"
+    }
   },
   "offending-history": {
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yesRelevantRisk" },

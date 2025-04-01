@@ -23,9 +23,6 @@ export const getQuestions = (name: string) => {
   const offenceSummaryHintHtml =
     '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what happened (excluding names and other sensitive information)</li> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
 
-  const allegationSummaryHintHtml =
-    '<div id="allegation-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what is alleged to have happened (excluding names and other sensitive information)</li> <li>where it is alleged to have happened (excluding addresses)</li><li>when it is alleged to have happened</li><li>damage or injury alleged</li><li>alleged weapon type</li><li>alleged motivations for the offence</li><li>if a violent offence, the relationship to the alleged victim</li></ul></div>'
-
   return {
     'confirm-eligibility': {
       'confirm-eligibility': {
@@ -910,18 +907,18 @@ export const getQuestions = (name: string) => {
     },
     'alleged-offences': {
       'alleged-offence-data': {
-        titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+        offenceName: {
+          question: 'Current alleged offence name',
+          hint: 'For example, Theft',
         },
-        offenceCategory,
         offenceDate: {
-          question: 'When is it alleged that they committed the offence?',
+          question: 'When did the alleged offence take place?',
           hint: `For example, ${dateExample}`,
         },
+      },
+      'alleged-offences-summary': {
         summary: {
-          question: 'Provide a summary of the allegations',
-          hint: allegationSummaryHintHtml,
+          question: `Add a summary of ${name}'s current alleged offences`,
         },
       },
     },
