@@ -13,7 +13,6 @@ import {
   dateIsTodayOrInThePast,
   dateIsComplete,
 } from '../../../../utils/dateUtils'
-import logger from '../../../../../logger'
 
 type ConfirmConsentBody = {
   hasGivenConsent: YesOrNo
@@ -63,7 +62,6 @@ export default class ConfirmConsent implements TaskListPage {
   }
 
   errors() {
-    logger.info(this.body)
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasGivenConsent) {
       errors.hasGivenConsent = 'Select if the applicant has given their verbal consent'
