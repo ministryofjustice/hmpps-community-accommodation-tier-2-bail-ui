@@ -1,4 +1,5 @@
 {% extends "../layout.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block beforeContent %}
   {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
@@ -10,54 +11,55 @@
 {% endblock %}
 
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-  <div>
-    <p class="govuk-body">Check {{ page.application.person.name }} meets the requirements for Short-Term Accommodation (CAS-2).</p>
+        <h1 class="govuk-heading-l">Confirm {{ page.application.person.name }} is eligible for short-term accommodation (CAS2) for bail</h1>
 
-    <p class="govuk-body">The applicant must:</p>
-    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
-      <li>
-        be 18 years old or older
-      </li>
-      <li>
-        not be currently charged with, or have any past convictions of cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003
-      </li>
-      <li>
-        not be assessed as high or very high risk of serious harm
-      </li>
-      <li>
-        not have breached immigration law (other than over staying on approved period of leave to enter or remain in UK)
-      </li>
-      <li>
-        not have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or remain in the UK
-      </li>
-      <li>
-        be able to live independently. This means they are able to cook, clean and shop for themselves, and manage their own personal hygiene and medication
-      </li>
-    </ul>
-  </div>
+        {% call govukInsetText({
+          classes: "govuk-!-margin-0 guidance-panel"
+        }) %}
 
-  {{
-    formPageRadios(
-      {
-        fieldName: "isEligible",
-        fieldset: {
-          legend: {
-            html: '<h2 class="govuk-fieldset__heading">' + page.questions.isEligible + '</h2>',
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: page.items()
-      },
-      fetchContext()
-    )
-  }}
+        <p>To apply for short-term accommodation (CAS2) for bail, the applicant must:</p>
+
+        <h2 class="govuk-heading-s govuk-!-margin-0">Be:</h2>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>18 years old or older</li>
+          <li>able to live independently in shared accommodation
+          </li>
+        </ul>
+
+        <h2 class="govuk-heading-s govuk-!-margin-0">Not:</h2>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>be currently charged with, or have any past convictions or cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003</li>
+          <li>have breached immigration law (other than overstaying an approved period of leave to enter or remain in the UK)</li>
+          <li>have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or stay in the UK</li>
+          <li>be assessed as at high or very high risk of serious harm on OASys (Offender Assessment System)</li>
+        </ul>
+        {% endcall %}
+
+    <p>
+      {{
+        formPageRadios(
+          {
+            fieldName: "isEligible",
+            fieldset: {
+              legend: {
+                html: '<h2 class="govuk-fieldset__heading">' + page.questions.isEligible + '</h2>',
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: page.items()
+          },
+          fetchContext()
+        )
+      }}
+    </p>
 
 {% endblock %}
 
 {% block button %}
   {{ govukButton({
-      text: "Save and continue"
+      text: "Confirm and continue"
     }) }}
 {% endblock %}

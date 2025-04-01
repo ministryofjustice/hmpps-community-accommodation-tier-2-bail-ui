@@ -30,10 +30,10 @@ export const getQuestions = (name: string) => {
     'confirm-eligibility': {
       'confirm-eligibility': {
         isEligible: {
-          question: `Is ${name} eligible for Short-Term Accommodation (CAS-2)?`,
+          question: 'Is the applicant eligible for this service?',
           answers: {
-            yes: `Yes, I confirm ${name} is eligible`,
-            no: `No, ${name} is not eligible`,
+            yes: 'Yes, they are',
+            no: 'No, they are not',
           },
         },
       },
