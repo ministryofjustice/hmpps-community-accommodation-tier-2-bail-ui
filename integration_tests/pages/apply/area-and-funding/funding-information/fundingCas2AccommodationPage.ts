@@ -14,12 +14,6 @@ export default class FundingCas2AccommodationPage extends ApplyPage {
     this.enterBenefitsDetails()
   }
 
-  completeWithHousingBenefits(): void {
-    this.selectFundingSource('benefits')
-    this.enterNationalInsuranceNumber()
-    this.enterBenefitsDetails()
-  }
-
   private selectFundingSource(fundingSource: FundingSources): void {
     this.checkRadioByNameAndValue('fundingSource', fundingSource)
   }
