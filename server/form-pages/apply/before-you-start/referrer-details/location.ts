@@ -5,15 +5,15 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
-type ContactNumberBody = {
-  telephone: string
+type LocationBody = {
+  location: string
 }
 
 @Page({
-  name: 'contact-number',
-  bodyProperties: ['telephone'],
+  name: 'location',
+  bodyProperties: ['location'],
 })
-export default class ContactNumber implements TaskListPage {
+export default class Location implements TaskListPage {
   documentTitle: string
 
   personName = nameOrPlaceholderCopy(this.application.person)
@@ -22,33 +22,33 @@ export default class ContactNumber implements TaskListPage {
 
   questions
 
-  body: ContactNumberBody
+  body: LocationBody
 
   constructor(
-    body: Partial<ContactNumberBody>,
+    body: Partial<LocationBody>,
     private readonly application: Application,
   ) {
-    this.body = body as ContactNumberBody
+    this.body = body as LocationBody
 
     const applicationQuestions = getQuestions(this.personName)
-    this.questions = applicationQuestions['referrer-details']['contact-number']
-    this.documentTitle = this.questions.telephone.question
-    this.title = this.questions.telephone.question
+    this.questions = applicationQuestions['referrer-details'].location
+    this.documentTitle = this.questions.location.question
+    this.title = this.questions.location.question
   }
 
   previous() {
-    return 'job-title'
+    return 'contact-number'
   }
 
   next() {
-    return 'location'
+    return ''
   }
 
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.telephone) {
-      errors.telephone = 'Enter your contact telephone number'
+    if (!this.body.location) {
+      errors.location = 'Enter where you are based'
     }
 
     return errors

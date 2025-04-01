@@ -30,6 +30,7 @@ export const completeReferrerDetailsTask = async (page: Page) => {
   await completeConfirmDetailsPage(page)
   await completeJobTitlePage(page)
   await completeContactNumberPage(page)
+  await completeLocationPage(page)
 }
 
 async function completeConfirmDetailsPage(page: Page) {
@@ -52,6 +53,13 @@ async function completeContactNumberPage(page: Page) {
   await confirmDetailsPage.fillField('What is your contact telephone number?', '12345')
 
   await confirmDetailsPage.clickSave()
+}
+
+async function completeLocationPage(page: Page) {
+  const locationPage = await ApplyPage.initialize(page, `Where are you based?`)
+
+  await locationPage.fillField('Where are you based?', 'Here')
+  await locationPage.clickSave()
 }
 
 export const completeSolicitorDetailsTask = async (page: Page, name: string) => {
