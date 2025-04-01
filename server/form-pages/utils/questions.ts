@@ -905,6 +905,11 @@ export const getQuestions = (name: string) => {
         },
       },
     },
+    'provide-offences-and-convictions-details': {
+      'offences-and-convictions-guidance': {
+        question: `${name}'s current alleged offences and previous convictions`,
+      },
+    },
     'alleged-offences': {
       'alleged-offence-data': {
         offenceName: {

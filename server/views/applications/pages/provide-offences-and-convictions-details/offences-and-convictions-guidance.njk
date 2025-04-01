@@ -1,0 +1,111 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  <h2 class="govuk-heading-m">Before you start</h2>
+
+  <p>In this section, we’ll ask you for the details below.</p>
+
+  <h3 class="govuk-heading-s">1. Current alleged offences</h3>
+
+  <p>Any charges or accusations for which the applicant is currently being held in custody.</p>
+
+  {{
+    govukInsetText({
+      text: "Do not add any historical allegations that have no connection with the charges the applicant is being held for.",
+      classes: "guidance-panel"
+    })
+  }}
+
+  <h3 class="govuk-heading-s">2. Probation supervision</h3>
+
+  <p>This only applies to applicants who are being supervised by probation.</p>
+
+  <p>If they are, we’ll ask if an OASys risk assessment has been done in the last two years and if it’s been recently updated.</p>
+
+  <h3 class="govuk-heading-s">3. Previous unspent convictions</h3>
+
+  <p class="govuk-!-margin-bottom-0">These refer to any:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>active community orders or sentences that the applicant is currently serving</li>
+    <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
+  </ul>
+
+  <p>Most convictions or cautions become ‘spent’ after a specific amount of time.</p>
+
+  <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">Check if the applicant’s convictions or cautions are spent (opens in a new tab).</a>
+
+  {% set unspentConvictionsGuidanceHtml %}
+    <p class="govuk-!-font-weight-bold">Add only previous unspent convictions that:</p>
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+      <li>are relevant to the charges the applicant is being held for</li>
+      <li class="govuk-!-margin-bottom-0">
+        relate to the following categories:
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-0">
+          <li>arson</li>
+          <li>domestic abuse</li>
+          <li>drugs</li>
+          <li>hate-related attitudes</li>
+          <li>stalking and harassment</li>
+          <li>violence</li>
+          <li>weapons and firearms</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>You should also include any previous convictions that might raise concerns towards other adults and children.</p>
+  {% endset %}
+
+  {{
+    govukInsetText({
+      html: unspentConvictionsGuidanceHtml,
+      classes: "guidance-panel"
+    })
+  }}
+
+  {% set doNotAddGuidanceHtml %}
+    <p class="govuk-!-font-weight-bold">Do not add:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>any convictions or cautions that classify as ‘spent’</li>
+      <li>unspent convictions that do not relate to the relevant categories above</li>
+    </ul>
+  {% endset %}
+
+  {{
+    govukInsetText({
+      html: doNotAddGuidanceHtml,
+      classes: "guidance-panel"
+    })
+  }}
+
+  {% set exampleHtml %}
+    <p>Sarah Jones’s legal history:</p>
+
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">Current alleged offences</p>
+    <p>She has just been brought into custody for a reported incident of shoplifting and is awaiting the bail hearing. She has been charged with Theft by the Crown Prosecution Service (CPS).</p>
+
+    <p class="govuk-!-font-weight-bold govuk-!-margin-bottom-0">Previous unspent convictions</p>
+    <p>In 2024, she was charged with and found guilty of aggravated assault. As a consequence, she is serving a community order while on probation.</p>
+    <p>She also has an unspent conviction for possession of a prohibited knife for which she has completed a sentence for in 2021. This is still legally relevant (“unspent”).</p>
+    <p>Both previous unspent convictions are relevant to living in shared accommodation.</p>
+  {% endset %}
+
+  {{
+    govukDetails({
+      summaryText: "See an example of an applicant’s offences and convictions",
+      html: exampleHtml
+    })
+  }}
+
+  {{ govukWarningText({
+    text: "Applicants who are currently charged with, or have any past convictions of cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003 are ineligible for this service.",
+    iconFallbackText: "Warning"
+  }) }}
+{% endblock %}
