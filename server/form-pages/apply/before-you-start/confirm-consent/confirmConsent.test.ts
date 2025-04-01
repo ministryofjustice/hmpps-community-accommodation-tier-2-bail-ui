@@ -45,23 +45,69 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({}, application)
 
       expect(page.errors()).toEqual({
-        hasGivenConsent: 'Confirm whether the applicant gave their consent',
+        hasGivenConsent: 'Select if the applicant has given their verbal consent',
       })
     })
 
-    it('should return an error when yes is selected but no date is provided', () => {
-      const page = new ConfirmConsent({ hasGivenConsent: 'yes' }, application)
-
-      expect(page.errors()).toEqual({
-        consentDate: 'Enter date applicant gave their consent',
-      })
-    })
-
-    it('should return an error when no is selected but no detail is provided', () => {
+    it('should return an error when no is selected but no reason is provided', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'no' }, application)
 
       expect(page.errors()).toEqual({
         consentRefusalDetail: 'Enter the applicant’s reason for refusing consent',
+      })
+    })
+
+    it('should return an error when yes is selected but no day is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1234', 'consentDate-month': '12' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+
+    it('should return an error when yes is selected but no month is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1234', 'consentDate-day': '20' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+    it('should return an error when yes is selected but no year is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-month': '12', 'consentDate-day': '20' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+
+    it('should return an error when yes is selected but the date is invalid', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1122', 'consentDate-month': '13', 'consentDate-day': '32' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must be a real date',
+      })
+    })
+
+    it('should return an error when yes is selected but the date is in the future', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '2150', 'consentDate-month': '12', 'consentDate-day': '31' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must be today or in the past',
       })
     })
   })
