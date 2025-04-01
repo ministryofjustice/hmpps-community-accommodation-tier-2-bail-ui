@@ -11,7 +11,7 @@ import {
   format,
   isBefore,
   isFuture,
-  isToday,
+  isToday, isPast,
 } from 'date-fns'
 
 type DifferenceInDays = { ui: string; number: number }
@@ -172,6 +172,21 @@ export const dateIsTodayOrInTheFuture = <K extends string | number>(
   const date = DateFormats.isoToDateObj(dateIsoStrings[key])
 
   return isToday(date) || isFuture(date)
+}
+
+/**
+ * @param dateInputObj an object with date parts (i.e. `-month` `-day` `-year`), which come from a `govukDateInput`.
+ * @param key The date key for the date to check.
+ * @returns a boolean.
+ */
+export const dateIsTodayOrInThePast = <K extends string | number>(
+  dateInputObj: ObjectWithDateParts<K>,
+  key: K,
+): boolean => {
+  const dateIsoStrings = DateFormats.dateAndTimeInputsToIsoString(dateInputObj, key)
+  const date = DateFormats.isoToDateObj(dateIsoStrings[key])
+
+  return isToday(date) || isPast(date)
 }
 
 /**

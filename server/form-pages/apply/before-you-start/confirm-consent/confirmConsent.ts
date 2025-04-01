@@ -7,7 +7,12 @@ import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { dateBodyProperties } from '../../../utils'
-import { DateFormats, dateAndTimeInputsAreValidDates } from '../../../../utils/dateUtils'
+import {
+  DateFormats,
+  dateAndTimeInputsAreValidDates,
+  dateIsTodayOrInThePast,
+  dateIsComplete,
+} from '../../../../utils/dateUtils'
 
 type ConfirmConsentBody = {
   hasGivenConsent: YesOrNo
@@ -59,13 +64,15 @@ export default class ConfirmConsent implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasGivenConsent) {
-      errors.hasGivenConsent = 'Confirm whether the applicant gave their consent'
-    }
-    if (this.body.hasGivenConsent === 'yes' && !dateAndTimeInputsAreValidDates(this.body, 'consentDate')) {
-      errors.consentDate = 'Enter date applicant gave their consent'
-    }
-    if (this.body.hasGivenConsent === 'no' && !this.body.consentRefusalDetail) {
+      errors.hasGivenConsent = 'Select if the applicant has given their verbal consent'
+    } else if (this.body.hasGivenConsent === 'no' && !this.body.consentRefusalDetail) {
       errors.consentRefusalDetail = 'Enter the applicant’s reason for refusing consent'
+    } else if (this.body.hasGivenConsent === 'yes' && !dateIsComplete(this.body, 'consentDate')) {
+      errors.consentDate = 'Date of consent must include a day, month and year'
+    } else if (this.body.hasGivenConsent === 'yes' && !dateAndTimeInputsAreValidDates(this.body, 'consentDate')) {
+      errors.consentDate = 'Date of consent must be a real date'
+    } else if (this.body.hasGivenConsent === 'yes' && !dateIsTodayOrInThePast(this.body, 'consentDate')) {
+      errors.consentDate = 'Date of consent must be today or in the past'
     }
     return errors
   }
