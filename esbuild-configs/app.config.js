@@ -16,12 +16,12 @@ const buildApp = buildConfig => {
     platform: 'node',
     format: 'cjs',
     plugins: [
-      typecheckPlugin(),
+      process.argv.includes('--enable-typecheck') && typecheckPlugin(),
       copy({
         resolveFrom: 'cwd',
         assets: buildConfig.app.copy,
       }),
-    ],
+    ].filter(Boolean),
   })
 }
 
