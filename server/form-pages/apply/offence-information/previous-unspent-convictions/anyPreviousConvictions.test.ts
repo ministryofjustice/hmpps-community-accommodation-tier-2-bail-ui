@@ -9,7 +9,7 @@ describe('hasAnyPreviousConvictions', () => {
     it('personalises the page title', () => {
       const page = new AnyPreviousConvictions({}, application)
 
-      expect(page.title).toEqual('Does Roger Smith have any previous unspent convictions?')
+      expect(page.title).toEqual('Previous unspent convictions for Roger Smith')
     })
   })
 

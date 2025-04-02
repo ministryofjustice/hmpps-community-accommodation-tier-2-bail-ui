@@ -1,14 +1,61 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% extends "../layout.njk" %}
+
+  {% set whenIsAConvictionSpentGuidanceHtml %}
+    <p>Most convictions or cautions become ‘spent’ after a specific amount of time. This might be after a few months or years, or straight away.</p>
+
+    <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">Check if the applicant’s convictions or cautions are spent (opens in a new tab).</a>
+  {% endset %}
+
+  {% set unspentConvictionsGuidanceHtml %}
+    <p>Add any:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>active community orders or sentences that the applicant is currently serving</li>
+      <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
+    </ul>
+
+    <p>You only need to add any convictions that are unspent and meet one or more of the following criteria:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+
+      <li>are relevant to the charges the applicant is being held for</li>
+      <li>
+        relate to any of the following categories:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>arson</li>
+          <li>domestic abuse</li>
+          <li>drugs</li>
+          <li>hate-related attitudes</li>
+          <li>stalking and harassment</li>
+          <li>violence</li>
+          <li>weapons and firearms</li>
+        </ul>
+      </li>
+      <li>might raise concerns towards other adults and children</li>
+    </ul>
+
+    <p>This is because they are relevant to living in shared accommodation.</p>
+
+    {{
+      govukDetails({
+        summaryText: "When is a conviction spent?",
+        html: whenIsAConvictionSpentGuidanceHtml
+      })
+    }}
+  {% endset %}
+
 {% block questions %}
 
-  {% set hintHtml %}
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-visually-hidden">Warning</span>
-        Spent convictions are protected by law and should not be disclosed. <a href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" class="govuk-link govuk-link--no-visited-state" rel="noreferrer noopener" target="_blank">Check if a conviction is spent or unspent (opens in a new tab)</a>.           </strong>
-    </div>
-  {% endset %}
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  {{
+    govukInsetText({
+      html: unspentConvictionsGuidanceHtml,
+      classes: "guidance-panel"
+    })
+  }}
 
   {{
     formPageRadios(
@@ -17,27 +64,17 @@
         fieldset: {
           legend: {
             text: page.questions.hasAnyPreviousConvictions.question,
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
+            classes: "govuk-fieldset__legend--m"
           }
-        },
-        hint: {
-          html: hintHtml
         },
         items: [
           {
             value: 'yesRelevantRisk',
-            text: page.questions.hasAnyPreviousConvictions.answers.yesRelevantRisk,
-            hint: {
-              text: 'Includes stalking, harassment, weapons, firearms, arson, domestic abuse, hate crimes, drugs and any behaviour where the person is a risk to themselves or others.'
-            }
+            text: page.questions.hasAnyPreviousConvictions.answers.yesRelevantRisk
           },
           {
             value: 'yesNoRelevantRisk',
-            text: page.questions.hasAnyPreviousConvictions.answers.yesNoRelevantRisk,
-            hint: {
-              text: "For example, a theft offence with no violence would not be relevant when assessing the applicant's risk."
-            }
+            text: page.questions.hasAnyPreviousConvictions.answers.yesNoRelevantRisk
           },
           {
             value: 'no',

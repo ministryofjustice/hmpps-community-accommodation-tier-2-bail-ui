@@ -20,11 +20,11 @@ type AnyPreviousConvictionsBody = {
   bodyProperties: ['hasAnyPreviousConvictions'],
 })
 export default class AnyPreviousConvictions implements TaskListPage {
-  documentTitle = 'Does the person have any previous unspent convictions?'
+  documentTitle = `Previous unspent convictions for the applicant`
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Does ${this.personName} have any previous unspent convictions?`
+  title = `Previous unspent convictions for ${this.personName}`
 
   questions = getQuestions(this.personName)['previous-unspent-convictions']['any-previous-convictions']
 
