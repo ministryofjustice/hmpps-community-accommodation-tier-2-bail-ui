@@ -14,7 +14,7 @@ export default class ApplicationSubmittedPage extends Page {
     cy.get('h2').contains(person.name)
 
     cy.get('li').contains(
-      'Once you provide the requested information, the assessor will make a decision on the application within one hour. In some cases, it may take longer.',
+      'Once they have a fully completed application, they will make a decision within one hour. In some cases, it may take longer.',
     )
   }
 
@@ -25,7 +25,7 @@ export default class ApplicationSubmittedPage extends Page {
     cy.get('h2').contains(person.name)
 
     cy.get('li').contains(
-      'Once you provide the requested information, the assessor will make a decision on the application within 3 working days. In some cases, it may take longer.',
+      'Once they have a fully completed application, they will make a decision within 24 hours. In some cases, it may take longer.',
     )
   }
 }
