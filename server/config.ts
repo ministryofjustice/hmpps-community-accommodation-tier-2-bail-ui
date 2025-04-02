@@ -109,7 +109,7 @@ export default {
     audit: {
       region: get('AUDIT_SQS_REGION', 'eu-west-2'),
       queueUrl: get('AUDIT_SQS_QUEUE_URL', ''),
-      serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-ui'),
+      serviceName: get('AUDIT_SERVICE_NAME', 'hmpps-community-accommodation-tier-2-bail-ui'),
       logErrors: get('AUDIT_LOG_ERRORS', 'false') === 'true',
     },
   },
