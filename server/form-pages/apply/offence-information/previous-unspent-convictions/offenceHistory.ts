@@ -40,7 +40,7 @@ export default class OffenceHistory implements TaskListPage {
 
   taskName = 'offending-history'
 
-  offenceCategories = getQuestions('')['offending-history']['offence-history-data'].offenceCategory.answers
+  offenceCategories = getQuestions('')['previous-unspent-convictions']['offence-history-data'].offenceCategory.answers
 
   constructor(
     body: Partial<OffenceHistoryBody>,

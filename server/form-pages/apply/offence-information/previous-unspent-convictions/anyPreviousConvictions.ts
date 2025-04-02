@@ -26,7 +26,7 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   title = `Does ${this.personName} have any previous unspent convictions?`
 
-  questions = getQuestions(this.personName)['offending-history']['any-previous-convictions']
+  questions = getQuestions(this.personName)['previous-unspent-convictions']['any-previous-convictions']
 
   options: Record<string, string>
 
@@ -45,7 +45,7 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   next() {
     if (this.body.hasAnyPreviousConvictions === 'yesRelevantRisk') {
-      if (this.application.data['offending-history']?.['offence-history-data']?.length > 0) {
+      if (this.application.data['previous-unspent-convictions']?.['offence-history-data']?.length > 0) {
         return 'offence-history'
       }
       return 'offence-history-data'

@@ -30,7 +30,7 @@ export default class OffenceHistoryData implements TaskListPage {
 
   pageName = 'offence-history-data'
 
-  questions = getQuestions('')['offending-history']['offence-history-data']
+  questions = getQuestions('')['previous-unspent-convictions']['offence-history-data']
 
   offenceCategories: Array<SelectItem>
 

@@ -41,7 +41,9 @@ describe('hasAnyPreviousConvictions', () => {
           it('takes the user to the offence history page', () => {
             const applicationWithOffences = applicationFactory.build({
               person: personFactory.build({ name: 'Roger Smith' }),
-              data: { 'offending-history': { 'offence-history-data': [{ offenceGroupName: 'Stalking (08800)' }] } },
+              data: {
+                'previous-unspent-convictions': { 'offence-history-data': [{ offenceGroupName: 'Stalking (08800)' }] },
+              },
             })
             const page = new AnyPreviousConvictions(
               { hasAnyPreviousConvictions: PreviousConvictionsAnswers.YesRelevantRisk },

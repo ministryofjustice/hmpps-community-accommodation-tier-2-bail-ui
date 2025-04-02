@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { Section } from '../../utils/decorators'
-import OffendingHistory from './offending-history'
+import PreviousUnspentConvictions from './previous-unspent-convictions'
 import CommunitySupervisionAndCurrentOffences from './community-supervision-and-current-offences'
 import AllegedOffences from './alleged-offences'
 import ProvideOffencesAndConvictionsDetails from './provide-offences-and-convictions-details'
@@ -12,7 +12,7 @@ import ProvideOffencesAndConvictionsDetails from './provide-offences-and-convict
     ProvideOffencesAndConvictionsDetails,
     AllegedOffences,
     CommunitySupervisionAndCurrentOffences,
-    OffendingHistory,
+    PreviousUnspentConvictions,
   ],
 })
 export default class OffenceInformation {}
