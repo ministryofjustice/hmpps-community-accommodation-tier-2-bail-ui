@@ -4,7 +4,7 @@
 
 {% extends "../partials/layout.njk" %}
 
-{% set pageTitle = applicationName + " - " + pageHeading %}
+{% set pageTitle = "Submitted: " + ("Court" if application.applicationOrigin == "courtBail" else "Prison") + " applications" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
@@ -26,17 +26,18 @@
             <ol>
                 <li>An assessor will check the application for completeness.</li>
                 <li>They might get in touch with you for more clarity on some of the answers provided.</li>
+                <li>After you provide the requested information, the assessor will review the application for completeness.</li>
                 {% if application.applicationOrigin === "courtBail" %}
-                <li>Once you provide the requested information, the assessor will make a decision on the application within one hour. In some cases, it may take longer.</li>
+                <li>Once they have a fully completed application, they will make a decision within one hour. In some cases, it may take longer.</li>
                 {% else %}
-                <li>Once you provide the requested information, the assessor will make a decision on the application within 3 working days. In some cases, it may take longer.</li>
+                <li>Once they have a fully completed application, they will make a decision within 24 hours. In some cases, it may take longer.</li>
                 {% endif %}
                 <li>You'll receive an email confirming the decision.</li>
                 <li>You can also check the status of the application on your dashboard.</li>
             </ol>
 
             <h3>If the application is rejected</h3>
-            <p>The applicant can appeal the decision. You'll need to contact the assessor to start the appeal process. Once you appeal, you'll receive a decision within 10 working days.</p>
+            <p>The applicant can appeal the decision within 10 working days. The decision letter will include details on how to appeal.</p>
         
             <a href="{{paths.applications.index()}}">Return to applications dashboard</a>
         </div>

@@ -11,11 +11,8 @@ import { getQuestions } from '../../../utils/questions'
 type AllegedOffencesBody = { offenceList: string }
 
 type AllegedOffencesUI = {
-  titleAndNumber: string
-  offenceCategoryTag: string
-  offenceCategoryText: string
+  offenceName: string
   offenceDate: string
-  summary: string
   removeLink: string
 }
 
@@ -26,9 +23,9 @@ type AllegedOffencesUI = {
 export default class AllegedOffences implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  documentTitle = 'Alleged offences'
+  documentTitle = `View the applicant's current alleged offences`
 
-  title = `Alleged offences for ${this.personName}`
+  title = `View ${this.personName}'s current alleged offences`
 
   body: AllegedOffencesBody
 
@@ -56,17 +53,9 @@ export default class AllegedOffences implements TaskListPage {
       this.offences = allegedOffencesData.map((offence, index) => {
         const offenceDate = DateFormats.dateAndTimeInputsToUiDate(offence, 'offenceDate')
 
-        const offenceCategoryText =
-          this.allegedOffenceQuestions.offenceCategory.answers[
-            offence.offenceCategory as keyof typeof this.allegedOffenceQuestions.offenceCategory.answers
-          ]
-
         return {
-          titleAndNumber: offence.titleAndNumber,
-          offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
-          offenceCategoryText,
+          offenceName: offence.offenceName,
           offenceDate,
-          summary: offence.summary,
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: this.taskName,
@@ -91,7 +80,7 @@ export default class AllegedOffences implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'alleged-offences-summary'
   }
 
   errors() {
@@ -108,38 +97,10 @@ export default class AllegedOffences implements TaskListPage {
     const response: Record<string, string> = {}
 
     this.offences?.forEach((offence, index) => {
-      const { titleAndNumber, offenceCategoryText, offenceDate, summary } = offence
-      response[`Alleged offence ${index + 1}`] =
-        `${titleAndNumber}\r\n${offenceCategoryText}\r\n${offenceDate}\r\n\nSummary: ${summary}`
+      const { offenceName, offenceDate } = offence
+      response[`Alleged offence ${index + 1}`] = `${offenceName}\r\n${offenceDate}`
     })
 
     return response
-  }
-
-  getOffenceCategoryTag(offenceCategory: string, offenceCategoryText: string) {
-    return `<strong class="govuk-tag govuk-tag--${this.getOffenceTagColour(
-      offenceCategory,
-    )}">${offenceCategoryText}</strong>`
-  }
-
-  getOffenceTagColour(offenceCategory: string) {
-    switch (offenceCategory) {
-      case 'stalkingOrHarassment':
-        return 'blue'
-      case 'weaponsOrFirearms':
-        return 'red'
-      case 'arson':
-        return 'yellow'
-      case 'violence':
-        return 'pink'
-      case 'domesticAbuse':
-        return 'purple'
-      case 'hateCrime':
-        return 'green'
-      case 'drugs':
-        return 'custom-brown'
-      default:
-        return 'grey'
-    }
   }
 }

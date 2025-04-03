@@ -44,7 +44,7 @@ describe('WorkingMobilePhone', () => {
   })
 
   itShouldHaveNextValue(new WorkingMobilePhone(body, application), 'immigration-status')
-  itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'taskList')
+  itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'custody-location')
 
   describe('onSave', () => {
     it('removes mobile phone data if question is not set to "yes"', () => {

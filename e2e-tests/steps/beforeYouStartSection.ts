@@ -4,26 +4,23 @@ import { ApplyPage, TaskListPage } from '../pages/apply'
 export const completeEligibilityTask = async (page: Page, name: string) => {
   const confirmEligibilityPage = await ApplyPage.initialize(
     page,
-    `Check ${name} is eligible for Short-Term Accommodation (CAS-2)`,
+    `Confirm ${name} is eligible for short-term accommodation (CAS2) for bail`,
   )
 
   await confirmEligibilityPage.checkRadio('Yes')
-  await confirmEligibilityPage.clickSave()
+  await confirmEligibilityPage.clickConfirm()
 }
 
 export const completeConsentTask = async (page: Page, name: string) => {
-  const confirmConsentPage = await ApplyPage.initialize(
-    page,
-    `Confirm ${name}'s consent to apply for Short-Term Accommodation (CAS-2)`,
-  )
+  const confirmConsentPage = await ApplyPage.initialize(page, `Confirm ${name}'s consent`)
 
-  await confirmConsentPage.checkRadio(`Yes, ${name} has given their consent`)
+  await confirmConsentPage.checkRadio('Yes')
   await confirmConsentPage.fillDateFieldInGroup('When did they give consent?', {
     year: '2022',
     month: '3',
     day: '1',
   })
-  await confirmConsentPage.clickSave()
+  await confirmConsentPage.clickConfirm()
 }
 
 export const completeReferrerDetailsTask = async (page: Page) => {
@@ -33,6 +30,7 @@ export const completeReferrerDetailsTask = async (page: Page) => {
   await completeConfirmDetailsPage(page)
   await completeJobTitlePage(page)
   await completeContactNumberPage(page)
+  await completeLocationPage(page)
 }
 
 async function completeConfirmDetailsPage(page: Page) {
@@ -55,6 +53,13 @@ async function completeContactNumberPage(page: Page) {
   await confirmDetailsPage.fillField('What is your contact telephone number?', '12345')
 
   await confirmDetailsPage.clickSave()
+}
+
+async function completeLocationPage(page: Page) {
+  const locationPage = await ApplyPage.initialize(page, `Where are you based?`)
+
+  await locationPage.fillField('Where are you based?', 'Here')
+  await locationPage.clickSave()
 }
 
 export const completeSolicitorDetailsTask = async (page: Page, name: string) => {

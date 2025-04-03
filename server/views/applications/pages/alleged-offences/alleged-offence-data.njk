@@ -1,6 +1,7 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 {% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
 
@@ -34,21 +35,12 @@
 </ul>
 {% endset %}
 
-{% set outstandingChargesFollowUp %}
-{{
-      formPageTextArea(
-        {
-          fieldName: 'outstandingChargesDetail',
-          label: {
-            text: page.questions.outstandingChargesDetail.question,
-            classes: "govuk-label--s"
-          },
-          hint: { html: outstandingChargesFollowUpHintHtml }
-        },
-        fetchContext()
-      )
-    }}
-{% endset %}
+  {% set insetGuidance %}
+    <p>Add any charges or accusations for which the applicant is currently being held in custody.</p>
+    <p>Do not add any historical allegations that have no connection with the current alleged offences.</p>
+    <p class="govuk-!-font-weight-bold">How to add them</p>
+    <p>Add one alleged offence name and date at a time. You'll add one summary for all current allegations after you have added each alleged offence.</p>
+  {% endset %}
 
 {% block content %}
 
@@ -66,9 +58,13 @@
         {% endfor %}
       {% endif %}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
-      <div class="govuk-body">
-        <p>Add one offence at a time. For example, you should record 3 drug-related offences as 3 separate offences.</p>
-      </div>
+
+      {{
+        govukInsetText({
+          html: insetGuidance,
+          classes: "guidance-panel govuk-!-margin-bottom-6"
+        })
+      }}
 
       <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
@@ -77,33 +73,17 @@
             formPageInput(
               {
                 label: { 
-                  text: page.questions.titleAndNumber.question,
+                  text: page.questions.offenceName.question,
                   classes: "govuk-label--m" 
                 },
                 classes: "govuk-input--width-20",
-                fieldName: "titleAndNumber",
+                fieldName: "offenceName",
                 hint: {
-                  text: page.questions.titleAndNumber.hint
+                  text: page.questions.offenceName.hint
                 }
               },
               fetchContext()
             )
-        }}
-
-        {{
-            govukSelect({
-                  label: { 
-                    text: page.questions.offenceCategory.question,
-                    classes: "govuk-label--m" 
-                  },
-                  hint: {
-                    text: page.questions.offenceCategory.hint
-                  },
-                  id: "offenceCategory",
-                  name: "offenceCategory",
-                  items: page.offenceCategories,
-                  errorMessage: errors.offenceCategory
-              })
         }}
 
         {{ 
@@ -123,27 +103,11 @@
             fetchContext()) 
         }}
 
-        {{
-            formPageTextArea(
-              {
-                fieldName: "summary",
-                label: {
-                  text: page.questions.summary.question,
-                  classes: "govuk-label--m"
-                },
-                hint: {
-                  html: page.questions.summary.hint
-                }
-              },
-              fetchContext()
-            )
-        }}
-
         <div>
           {{ govukButton({
             id: "add-another",
-            text: "Save and add another",
-            classes: "govuk-button--secondary govuk-!-margin-bottom-4"
+            text: "Add another alleged offence",
+            classes: "govuk-button--secondary govuk-!-margin-top-8 govuk-!-margin-bottom-4"
           }) }}
         </div>
 

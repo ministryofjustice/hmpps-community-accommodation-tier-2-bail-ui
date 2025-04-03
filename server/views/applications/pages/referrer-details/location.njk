@@ -1,0 +1,23 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+{% block questions %}
+  {{
+      formPageInput(
+        {
+          label: {
+            text: page.questions.location.question,
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          hint: {
+            text: page.questions.location.hint 
+          },
+          classes: "govuk-!-width-two-thirds",
+          fieldName: "location"
+        },
+        fetchContext()
+      )
+  }}
+
+{% endblock %}

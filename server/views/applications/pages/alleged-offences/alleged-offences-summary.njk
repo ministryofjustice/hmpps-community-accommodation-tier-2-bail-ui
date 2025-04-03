@@ -1,0 +1,35 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+
+{% extends "../layout.njk" %}
+
+{% set guidanceHtml %}
+  <p class="govuk-!-margin-bottom-0 govuk-body">Include:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>what is alleged to have happened (excluding names and other sensitive information)</li>
+    <li>who was involved (for example, domestic violence victim or public)</li>
+    <li>the location where it happened (excluding addresses)</li>
+    <li>any damage or injuries caused (including severity or extent)</li>
+  </ul>
+{% endset %}
+
+{% block questions %}
+
+  {{
+      formPageTextArea(
+        {
+          fieldName: "summary",
+          hint: {
+            html: guidanceHtml
+          },
+          label: {
+            text: page.questions.summary.question,
+            classes: "govuk-label--l",
+            isPageHeading: true
+          }
+        },
+        fetchContext()
+      )
+  }}
+
+{% endblock %}

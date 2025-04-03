@@ -12,7 +12,7 @@ describe('ConfirmConsent', () => {
     it('personalises the page title', () => {
       const page = new ConfirmConsent({}, application)
 
-      expect(page.title).toEqual("Confirm Roger Smith's consent to apply for Short-Term Accommodation (CAS-2)")
+      expect(page.title).toEqual("Confirm Roger Smith's consent")
     })
   })
 
@@ -45,23 +45,69 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({}, application)
 
       expect(page.errors()).toEqual({
-        hasGivenConsent: 'Confirm whether the applicant gave their consent',
+        hasGivenConsent: 'Select if the applicant has given their verbal consent',
       })
     })
 
-    it('should return an error when yes is selected but no date is provided', () => {
-      const page = new ConfirmConsent({ hasGivenConsent: 'yes' }, application)
-
-      expect(page.errors()).toEqual({
-        consentDate: 'Enter date applicant gave their consent',
-      })
-    })
-
-    it('should return an error when no is selected but no detail is provided', () => {
+    it('should return an error when no is selected but no reason is provided', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'no' }, application)
 
       expect(page.errors()).toEqual({
         consentRefusalDetail: 'Enter the applicant’s reason for refusing consent',
+      })
+    })
+
+    it('should return an error when yes is selected but no day is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1234', 'consentDate-month': '12' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+
+    it('should return an error when yes is selected but no month is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1234', 'consentDate-day': '20' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+    it('should return an error when yes is selected but no year is provided', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-month': '12', 'consentDate-day': '20' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must include a day, month and year',
+      })
+    })
+
+    it('should return an error when yes is selected but the date is invalid', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '1122', 'consentDate-month': '13', 'consentDate-day': '32' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must be a real date',
+      })
+    })
+
+    it('should return an error when yes is selected but the date is in the future', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', 'consentDate-year': '2150', 'consentDate-month': '12', 'consentDate-day': '31' },
+        application,
+      )
+
+      expect(page.errors()).toEqual({
+        consentDate: 'Date of consent must be today or in the past',
       })
     })
   })
@@ -71,7 +117,7 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'yes', consentDate: '2023-11-01' }, application)
 
       expect(page.response()).toEqual({
-        'Has Roger Smith given their consent to apply for CAS-2?': 'Yes, Roger Smith has given their consent',
+        'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?': 'Yes',
         'When did they give consent?': '1 November 2023',
       })
     })
@@ -81,7 +127,8 @@ describe('ConfirmConsent', () => {
     const page = new ConfirmConsent({ hasGivenConsent: 'no', consentRefusalDetail: 'some reasons' }, application)
 
     expect(page.response()).toEqual({
-      'Has Roger Smith given their consent to apply for CAS-2?': 'No, Roger Smith has not given their consent',
+      'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?':
+        'No, they do not give verbal consent',
       'Why was consent refused?': 'some reasons',
     })
   })

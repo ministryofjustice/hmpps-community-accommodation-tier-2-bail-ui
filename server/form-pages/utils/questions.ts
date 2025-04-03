@@ -23,17 +23,14 @@ export const getQuestions = (name: string) => {
   const offenceSummaryHintHtml =
     '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what happened (excluding names and other sensitive information)</li> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
 
-  const allegationSummaryHintHtml =
-    '<div id="allegation-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what is alleged to have happened (excluding names and other sensitive information)</li> <li>where it is alleged to have happened (excluding addresses)</li><li>when it is alleged to have happened</li><li>damage or injury alleged</li><li>alleged weapon type</li><li>alleged motivations for the offence</li><li>if a violent offence, the relationship to the alleged victim</li></ul></div>'
-
   return {
     'confirm-eligibility': {
       'confirm-eligibility': {
         isEligible: {
-          question: `Is ${name} eligible for Short-Term Accommodation (CAS-2)?`,
+          question: 'Is the applicant eligible for this service?',
           answers: {
-            yes: `Yes, I confirm ${name} is eligible`,
-            no: `No, ${name} is not eligible`,
+            yes: 'Yes, they are',
+            no: 'No, they are not',
           },
         },
       },
@@ -41,10 +38,10 @@ export const getQuestions = (name: string) => {
     'confirm-consent': {
       'confirm-consent': {
         hasGivenConsent: {
-          question: `Has ${name} given their consent to apply for CAS-2?`,
+          question: `Has ${name} given their verbal consent to apply for short-term accommodation (CAS2) for bail?`,
           answers: {
-            yes: `Yes, ${name} has given their consent`,
-            no: `No, ${name} has not given their consent`,
+            yes: `Yes`,
+            no: `No, they do not give verbal consent`,
           },
         },
         consentDate: {
@@ -70,6 +67,12 @@ export const getQuestions = (name: string) => {
           hint: 'This will be used for any communication from the accommodation supplier',
         },
       },
+      location: {
+        location: {
+          question: 'Where are you based?',
+          hint: "For example, Sefton Magistrates' Court or Full Sutton Prison.",
+        },
+      },
     },
     'solicitor-details': {
       'has-solicitor': {
@@ -85,6 +88,12 @@ export const getQuestions = (name: string) => {
       },
     },
     'personal-information': {
+      'custody-location': {
+        custodyLocation: {
+          question: `Where is ${name} being held in custody?`,
+          hint: "For example, Sefton Magistrates' Court or Full Sutton Prison",
+        },
+      },
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
           question: `Will ${name} have a working mobile phone?`,
@@ -898,18 +907,18 @@ export const getQuestions = (name: string) => {
     },
     'alleged-offences': {
       'alleged-offence-data': {
-        titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
+        offenceName: {
+          question: 'Current alleged offence name',
+          hint: 'For example, Theft',
         },
-        offenceCategory,
         offenceDate: {
-          question: 'When is it alleged that they committed the offence?',
+          question: 'When did the alleged offence take place?',
           hint: `For example, ${dateExample}`,
         },
+      },
+      'alleged-offences-summary': {
         summary: {
-          question: 'Provide a summary of the allegations',
-          hint: allegationSummaryHintHtml,
+          question: `Add a summary of ${name}'s current alleged offences`,
         },
       },
     },
