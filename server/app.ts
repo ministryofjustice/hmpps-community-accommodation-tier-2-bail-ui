@@ -28,10 +28,6 @@ import type { Services } from './services'
 export default function createApp(controllers: Controllers, services: Services): express.Application {
   const app = express()
 
-  // Sentry.init({
-  //   dsn: 'https://2e3eb4db1159e47eb289c0f0f4f23345@o345774.ingest.us.sentry.io/4508992676233216',
-  // });
-
   app.set('json spaces', 2)
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
