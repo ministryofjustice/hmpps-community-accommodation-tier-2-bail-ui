@@ -3,7 +3,7 @@ generic-service:
   productId: 'HMPPS546' # productId for the product that this belongs too, i.e. DPS001, see README.md for details
 
   # the IRSA service account name for accessing AWS resources
-  # serviceAccountName: "hmpps-community-accommodation-tier-2-bail-ui"
+  serviceAccountName: "hmpps-community-accommodation-tier-2-bail-service-account"
 
   replicaCount: 4
 
