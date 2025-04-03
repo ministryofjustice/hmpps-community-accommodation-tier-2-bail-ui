@@ -19,6 +19,7 @@ import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import setUpMaintenancePageRedirect from './middleware/setUpMaintenancePageRedirect'
 import setUpProductInfo from './middleware/setUpProductInfo'
+import { setUpSentryRequestHandler, setUpSentryErrorHandler } from './middleware/setUpSentry'
 
 import { Controllers } from './controllers'
 import routes from './routes'
@@ -27,6 +28,10 @@ import type { Services } from './services'
 export default function createApp(controllers: Controllers, services: Services): express.Application {
   const app = express()
 
+  // Sentry.init({
+  //   dsn: 'https://2e3eb4db1159e47eb289c0f0f4f23345@o345774.ingest.us.sentry.io/4508992676233216',
+  // });
+
   app.set('json spaces', 2)
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
@@ -34,6 +39,8 @@ export default function createApp(controllers: Controllers, services: Services):
   // Add method-override to allow us to use PUT and DELETE methods
   app.use(methodOverride('_method'))
 
+  setUpSentryRequestHandler(app)
+  setUpSentryErrorHandler(app)
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(setUpProductInfo())
