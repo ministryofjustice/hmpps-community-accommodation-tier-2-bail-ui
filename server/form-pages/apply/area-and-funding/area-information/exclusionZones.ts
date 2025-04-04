@@ -44,11 +44,11 @@ export default class ExclusionZones implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasExclusionZones) {
-      errors.hasExclusionZones = 'Confirm whether they have any exclusion zones'
+      errors.hasExclusionZones = 'Select if they have any exclusion zones'
     }
 
     if (this.body.hasExclusionZones === 'yes' && !this.body.exclusionZonesDetail) {
-      errors.exclusionZonesDetail = 'Provide details about the exclusion zone'
+      errors.exclusionZonesDetail = 'Select if there are any exclusion zones or unsuitable areas'
     }
 
     return errors

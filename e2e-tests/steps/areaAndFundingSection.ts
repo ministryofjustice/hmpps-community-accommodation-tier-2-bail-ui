@@ -60,10 +60,7 @@ async function completeExclusionZonesPage(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Exclusion zones for ${name}`)
 
   await exclusionZonesPage.checkRadio('Yes')
-  await exclusionZonesPage.fillField(
-    'Provide the required safeguarding details about the exclusion zone',
-    'Avoid Liverpool',
-  )
+  await exclusionZonesPage.fillField('Enter any safeguarding details', 'Avoid Liverpool')
 
   await exclusionZonesPage.clickSave()
 }

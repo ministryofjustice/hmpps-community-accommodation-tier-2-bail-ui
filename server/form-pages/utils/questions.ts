@@ -398,11 +398,11 @@ export const getQuestions = (name: string) => {
       },
       'exclusion-zones': {
         hasExclusionZones: {
-          question: `Does ${name} have any exclusion zones?`,
+          question: `Are there any exclusion zones or areas where ${name} should not be placed?`,
           answers: yesOrNo,
         },
         exclusionZonesDetail: {
-          question: 'Provide the required safeguarding details about the exclusion zone',
+          question: 'Enter any safeguarding details',
         },
       },
       'gang-affiliations': {
