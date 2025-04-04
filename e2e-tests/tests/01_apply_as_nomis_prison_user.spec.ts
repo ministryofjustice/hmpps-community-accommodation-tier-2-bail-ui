@@ -34,7 +34,7 @@ test('create a CAS-2 bail application', async ({ page, person, nomisPrisonUser }
   await completeOffenceInformationSection(page, person.name)
   await completeBailInformationSection(page, person.name)
   await completeCheckAnswersSection(page, person.name)
-  await expect(page.getByText('You have completed 17 of 17 tasks')).toBeVisible()
+  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
   await submitApplication(page)
 })
 

@@ -1,6 +1,13 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
+export const completeProvideOffencesAndConvictionsDetailsTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Provide offences and convictions details')
+
+  await completeOffencesAndConvictionsGuidancePage(page, name)
+}
+
 export const completeCommunitySupervisionAndCurrentOffencesTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Community supervision and current offences')
@@ -18,6 +25,15 @@ export const completeAllegedOffencesTask = async (page: Page, name: string) => {
   await completeAllegedOffenceDetailsPage(page, name)
   await completeAllegedOffencesPage(page, name)
   await completeAllegedOffencesSummaryPage(page, name)
+}
+
+async function completeOffencesAndConvictionsGuidancePage(page: Page, name: string) {
+  const offencesAndConvictionsGuidancePage = await ApplyPage.initialize(
+    page,
+    `${name}'s current alleged offences and previous convictions`,
+  )
+
+  await offencesAndConvictionsGuidancePage.clickButton('Save and continue')
 }
 
 async function completeAllegedOffenceDetailsPage(page: Page, name: string) {

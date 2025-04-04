@@ -316,6 +316,9 @@
     ],
     "current-offences": {}
   },
+  "provide-offences-and-convictions-details": {
+    "offences-and-convictions-guidance": {}
+  },
   "alleged-offences": {
     "alleged-offence-data": [
       {

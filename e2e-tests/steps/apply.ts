@@ -23,6 +23,7 @@ import {
 import { completeHealthNeedsTask, completeRiskInformationTask } from './risksAndNeedsSection'
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
 import {
+  completeProvideOffencesAndConvictionsDetailsTask,
   completeAllegedOffencesTask,
   completeCommunitySupervisionAndCurrentOffencesTask,
   completeOffenceHistoryTask,
@@ -99,6 +100,7 @@ export const completeRisksAndNeedsSection = async (page: Page, name: string) => 
 }
 
 export const completeOffenceInformationSection = async (page: Page, name: string) => {
+  await completeProvideOffencesAndConvictionsDetailsTask(page, name)
   await completeAllegedOffencesTask(page, name)
   await completeCommunitySupervisionAndCurrentOffencesTask(page, name)
   await completeOffenceHistoryTask(page, name)
