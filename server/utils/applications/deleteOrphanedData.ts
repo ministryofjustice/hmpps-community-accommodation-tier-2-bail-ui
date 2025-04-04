@@ -4,11 +4,6 @@ import { lastKnownKeys, previousKeys } from '../../form-pages/apply/about-the-pe
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-information/offending-history/anyPreviousConvictions'
 
 export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
-  const deleteOrphanedFundingInformation = () => {
-    delete applicationData['funding-information']['applicant-id']
-    delete applicationData['funding-information']['alternative-applicant-id']
-  }
-
   const deleteOrphanedFundingAlternativeIdInformation = () => {
     delete applicationData['funding-information']['alternative-applicant-id']
   }
@@ -53,21 +48,8 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     return applicationData[taskName]?.[pageName]?.[questionKey] === answerToCheck
   }
 
-  if (
-    hasOrphanedInformation({
-      taskName: 'funding-information',
-      pageName: 'funding-cas2-accommodation',
-      questionKey: 'fundingSource',
-      answerToCheck: 'personalSavings',
-    })
-  ) {
-    deleteOrphanedFundingInformation()
-  }
-
-  if (
-    applicationData['funding-information']?.['funding-cas2-accommodation']?.fundingSource === 'benefits' &&
-    applicationData['funding-information']?.['applicant-id']?.idDocuments !== 'none'
-  ) {
+  const idDocs = applicationData['funding-information']?.['applicant-id']?.idDocuments
+  if (idDocs && idDocs !== 'none') {
     deleteOrphanedFundingAlternativeIdInformation()
   }
 

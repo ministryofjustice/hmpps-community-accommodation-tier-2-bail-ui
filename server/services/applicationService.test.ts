@@ -272,19 +272,18 @@ describe('ApplicationService', () => {
         })
       })
 
-      it('deletes conditional data if required for funding information', async () => {
+      it('deletes conditional data if required for ID documents', async () => {
         page = createMock<TaskListPage>({
           errors: () => {
             return {} as TaskListErrors<TaskListPage>
           },
-          body: { fundingSource: 'personalSavings' },
+          body: { idDocuments: ['passport'] },
         })
-        ;(getPageName as jest.Mock).mockImplementation(() => 'funding-cas2-accommodation')
+        ;(getPageName as jest.Mock).mockImplementation(() => 'applicant-id')
         ;(getTaskName as jest.Mock).mockImplementation(() => 'funding-information')
 
         application.data = {
           'funding-information': {
-            'applicant-id': { question: 'answer' },
             'alternative-applicant-id': { question: 'answer' },
           },
         }
@@ -295,7 +294,7 @@ describe('ApplicationService', () => {
         expect(getApplicationUpdateData).toHaveBeenCalledWith({
           ...application,
           data: {
-            'funding-information': { 'funding-cas2-accommodation': { fundingSource: 'personalSavings' } },
+            'funding-information': { 'applicant-id': { idDocuments: ['passport'] } },
           },
         })
       })
