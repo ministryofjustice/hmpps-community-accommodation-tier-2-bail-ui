@@ -52,7 +52,7 @@
       "receivedBenefitSanctions": "no"
     },
     "applicant-id": {
-      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip", "none"]
+      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip"]
     }
   },
   "solicitor-details": {

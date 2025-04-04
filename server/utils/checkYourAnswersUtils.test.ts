@@ -479,7 +479,7 @@ describe('checkYourAnswersUtils', () => {
       expect(
         arrayAnswersAsString(application, questions, 'funding-information', 'applicant-id', 'idDocuments'),
       ).toEqual(
-        'Passport,Travel pass with photograph,Birth certificate,Bank account or debit card,Bank, building society or Post Office card account statements,UK photo driving licence (full or provisional),Recent wage slip (with payee name and NI number),None of these options',
+        'Passport,Travel pass with photograph,Birth certificate,Bank account or debit card,Bank, building society or Post Office card account statements,UK photo driving licence (full or provisional),Recent wage slip (with payee name and NI number)',
       )
     })
   })
