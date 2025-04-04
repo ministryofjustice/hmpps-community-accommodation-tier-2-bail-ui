@@ -27,7 +27,7 @@ describe('ExclusionZones', () => {
       const page = new ExclusionZones({ ...body, hasExclusionZones: null }, application)
 
       expect(page.errors()).toEqual({
-        hasExclusionZones: 'Confirm whether they have any exclusion zones',
+        hasExclusionZones: 'Select if they have any exclusion zones',
       })
     })
 
@@ -36,7 +36,7 @@ describe('ExclusionZones', () => {
         const page = new ExclusionZones({ hasExclusionZones: 'yes', exclusionZonesDetail: null }, application)
 
         expect(page.errors()).toEqual({
-          exclusionZonesDetail: 'Provide details about the exclusion zone',
+          exclusionZonesDetail: 'Select if there are any exclusion zones or unsuitable areas',
         })
       })
     })
