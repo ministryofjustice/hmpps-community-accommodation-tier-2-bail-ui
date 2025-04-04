@@ -11,7 +11,6 @@ describe('BailHearingDate', () => {
   describe('response', () => {
     describe('when a date is provided', () => {
       const body: BailHearingDateBody = {
-        bailHearingDate: '2024-03-27',
         'bailHearingDate-month': '10',
         'bailHearingDate-year': '2023',
         'bailHearingDate-day': '01',
@@ -27,7 +26,6 @@ describe('BailHearingDate', () => {
 
     describe('when a date is not provided', () => {
       const body: BailHearingDateBody = {
-        bailHearingDate: '',
         'bailHearingDate-month': '',
         'bailHearingDate-year': '',
         'bailHearingDate-day': '',
