@@ -14,5 +14,10 @@ generic-service:
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
 
+  namespace_secrets:
+    sqs-hmpps-audit-secret:
+     AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
+     AUDIT_SQS_QUEUE_NAME: "sqs_queue_name"
+
 generic-prometheus-alerts:
   alertSeverity: hmpps-approved-premises

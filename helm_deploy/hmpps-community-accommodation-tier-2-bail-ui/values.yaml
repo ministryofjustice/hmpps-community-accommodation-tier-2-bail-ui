@@ -55,9 +55,6 @@ generic-service:
       REDIS_AUTH_TOKEN: 'auth_token'
     application-insights:
       APPINSIGHTS_INSTRUMENTATIONKEY: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-    sqs-hmpps-audit-secret:
-     AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
-     AUDIT_SQS_QUEUE_NAME: "sqs_queue_name"
 
   allowlist:
     groups:
