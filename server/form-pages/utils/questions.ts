@@ -939,22 +939,32 @@ export const getQuestions = (name: string) => {
         },
       },
       'offence-history-data': {
-        offenceGroupName: {
-          question: 'Offence group name',
-          hint: 'For example, grievous bodily harm (GBH)',
+        convictionType: {
+          ...offenceCategory,
+          question: 'Select the conviction type',
+          hint: 'For example, Arson or Drugs',
         },
-        offenceCategory,
-        numberOfOffences: {
-          question: 'Number of offences',
-          hint: 'The number of the same offence type. For example, 3',
+        numberOfConvictions: {
+          question: 'Number of convictions of this type',
+          hint: 'For example, 3',
         },
-        sentenceTypes: {
-          question: 'Sentence type(s)',
-          hint: 'For example, 1 custodial and 1 suspended',
+        currentlyServing: {
+          question: 'Are they currently serving a sentence for any of these convictions?',
+          answers: {
+            yes: 'Yes',
+            no: 'No, they have served their sentence',
+          },
         },
-        summary: {
-          question: 'Offence details',
-          hint: offenceSummaryHintHtml,
+        safeguarding: {
+          question: 'Are there any safeguarding details to add about these convictions?',
+          hint: 'For example, if there is an active restraining order or a child protection arrangement in place.',
+          answers: {
+            ...yesNoOrIDontKnow,
+            dontKnow: 'Not known',
+          },
+        },
+        safeguardingDetail: {
+          question: 'Enter details of the safeguarding measures',
         },
       },
     },
