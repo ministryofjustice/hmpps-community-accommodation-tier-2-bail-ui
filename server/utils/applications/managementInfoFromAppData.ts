@@ -1,4 +1,6 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
+import { ObjectWithDateParts } from '@approved-premises/ui'
+import { dateAndTimeInputsAreValidDates, DateFormats } from '../dateUtils'
 
 const preferredAreasFromAppData = (application: Application): string => {
   // @ts-expect-error Requires refactor to satisfy TS7053
@@ -23,4 +25,17 @@ const telephoneNumberFromAppData = (application: Application): string | null => 
   return telephoneNumber || null
 }
 
-export { preferredAreasFromAppData, telephoneNumberFromAppData }
+const bailHearingDateFromAppData = (application: Application): string | null => {
+  // @ts-expect-error Requires refactor to satisfy TS7053
+  const bailHearingDateObj: ObjectWithDateParts<'bailHearingDate'> = (application.data as Record<string, unknown>)?.[
+    'bail-hearing-information'
+  ]?.['bail-hearing-date']
+
+  if (dateAndTimeInputsAreValidDates(bailHearingDateObj, 'bailHearingDate')) {
+    return DateFormats.dateAndTimeInputsToIsoString(bailHearingDateObj, 'bailHearingDate').bailHearingDate
+  }
+
+  return null
+}
+
+export { preferredAreasFromAppData, telephoneNumberFromAppData, bailHearingDateFromAppData }

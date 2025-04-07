@@ -1,4 +1,8 @@
-import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managementInfoFromAppData'
+import {
+  preferredAreasFromAppData,
+  telephoneNumberFromAppData,
+  bailHearingDateFromAppData,
+} from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
 
@@ -84,6 +88,41 @@ describe('managementInfoFromAppData', () => {
         data,
       })
       expect(telephoneNumberFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('bailHearingDateFromAppData', () => {
+    it('returns the bail hearing date as an ISO string', () => {
+      const application = applicationFactory.build({
+        data: {
+          'bail-hearing-information': {
+            'bail-hearing-date': {
+              'bailHearingDate-year': '2025',
+              'bailHearingDate-month': '2',
+              'bailHearingDate-day': '2',
+            },
+          },
+        },
+      })
+      expect(bailHearingDateFromAppData(application)).toEqual('2025-02-02')
+    })
+
+    const noDateData = [
+      {
+        'bail-hearing-information': null,
+      },
+      {
+        'bail-hearing-information': { 'bail-hearing-date': null },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no contact number is given', data => {
+      const application = applicationFactory.build({
+        data,
+      })
+      expect(bailHearingDateFromAppData(application)).toEqual(null)
     })
   })
 })
