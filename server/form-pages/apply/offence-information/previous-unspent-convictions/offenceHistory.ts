@@ -2,7 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { OffenceHistoryDataBody } from './custom-forms/offenceHistoryData'
+import OffenceHistoryData, { OffenceHistoryDataBody } from './custom-forms/offenceHistoryData'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 import paths from '../../../../paths/apply'
 import { getQuestions } from '../../../utils/questions'
@@ -10,12 +10,11 @@ import { getQuestions } from '../../../utils/questions'
 type OffenceHistoryBody = Record<string, never>
 
 type OffenceHistoryUI = {
-  offenceGroupName: string
-  offenceCategoryTag: string
-  offenceCategoryText: string
-  numberOfOffences: string
-  sentenceTypes: string
-  summary: string
+  convictionTypeTag: string
+  convictionTypeText: string
+  numberOfConvictions: string
+  currentlyServing: string
+  safeguarding: string
   removeLink: string
 }
 
@@ -26,21 +25,21 @@ type OffenceHistoryUI = {
 export default class OffenceHistory implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  documentTitle = 'Offence history'
+  documentTitle = `View and add the applicant's previous unspent convictions`
 
-  title = `Offence history for ${this.personName}`
+  title = `View and add ${this.personName}'s previous unspent convictions`
 
   body: OffenceHistoryBody
 
-  offences: OffenceHistoryUI[]
+  unspentConvictions: OffenceHistoryUI[]
 
   pageName = 'offence-history'
 
   dataPageName = 'offence-history-data'
 
-  taskName = 'offending-history'
+  taskName = 'previous-unspent-convictions'
 
-  offenceCategories = getQuestions('')['previous-unspent-convictions']['offence-history-data'].offenceCategory.answers
+  convictionTypes = getQuestions('')['previous-unspent-convictions']['offence-history-data'].convictionType.answers
 
   constructor(
     body: Partial<OffenceHistoryBody>,
@@ -53,19 +52,18 @@ export default class OffenceHistory implements TaskListPage {
         redirectPage: this.pageName,
       }
 
-      this.offences = offenceHistoryData
-        .filter(offence => offence.numberOfOffences)
-        .map((offence, index) => {
-          const offenceCategoryText =
-            this.offenceCategories[offence.offenceCategory as keyof typeof this.offenceCategories]
+      this.unspentConvictions = offenceHistoryData
+        .filter(unspentConviction => unspentConviction.numberOfConvictions)
+        .map((unspentConviction, index) => {
+          const convictionTypeText =
+            this.convictionTypes[unspentConviction.convictionType as keyof typeof this.convictionTypes]
 
           return {
-            offenceGroupName: offence.offenceGroupName,
-            offenceCategoryTag: this.getOffenceCategoryTag(offence.offenceCategory, offenceCategoryText),
-            offenceCategoryText,
-            numberOfOffences: offence.numberOfOffences,
-            sentenceTypes: offence.sentenceTypes,
-            summary: offence.summary,
+            convictionTypeTag: this.getOffenceCategoryTag(unspentConviction.convictionType, convictionTypeText),
+            convictionTypeText,
+            numberOfConvictions: unspentConviction.numberOfConvictions,
+            currentlyServing: this.getCurrentlyServingAnswer(unspentConviction.currentlyServing),
+            safeguarding: this.getSafeguardingAnswer(unspentConviction),
             removeLink: `${paths.applications.removeFromList({
               id: application.id,
               task: this.taskName,
@@ -76,6 +74,13 @@ export default class OffenceHistory implements TaskListPage {
         })
     }
     this.body = body as OffenceHistoryBody
+  }
+
+  static async initialize(body: Partial<OffenceHistoryDataBody>, application: Application) {
+    if (!application.data['previous-unspent-convictions']?.['offence-history-data']) {
+      return new OffenceHistoryData(body, application)
+    }
+    return new OffenceHistory({}, application)
   }
 
   previous() {
@@ -95,24 +100,24 @@ export default class OffenceHistory implements TaskListPage {
   response() {
     const response: Record<string, string> = {}
 
-    this.offences?.forEach(offence => {
-      const { offenceCategoryTag, offenceGroupName, numberOfOffences, sentenceTypes, summary } = offence
+    this.unspentConvictions?.forEach(unspentConviction => {
+      const { convictionTypeTag, numberOfConvictions, currentlyServing, safeguarding } = unspentConviction
 
-      const offenceString = `${offenceGroupName}\r\nNumber of offences: ${numberOfOffences}\r\nSentence types: ${sentenceTypes}\r\n\nDetails: ${summary}`
-      response[offenceCategoryTag] = offenceString
+      const unspentConvictionString = `Number of convictions: ${numberOfConvictions}\r\nActive sentence: ${currentlyServing}\r\nSafeguarding: ${safeguarding}`
+      response[convictionTypeTag] = unspentConvictionString
     })
 
     return response
   }
 
-  getOffenceCategoryTag(offenceCategory: string, offenceCategoryText: string) {
+  getOffenceCategoryTag(convictionType: string, convictionTypeText: string) {
     return `<strong class="govuk-tag govuk-tag--${this.getOffenceTagColour(
-      offenceCategory,
-    )}">${offenceCategoryText}</strong>`
+      convictionType,
+    )}">${convictionTypeText}</strong><p class="govuk-visually-hidden">conviction information</p>`
   }
 
-  getOffenceTagColour(offenceCategory: string) {
-    switch (offenceCategory) {
+  getOffenceTagColour(convictionType: string) {
+    switch (convictionType) {
       case 'stalkingOrHarassment':
         return 'blue'
       case 'weaponsOrFirearms':
@@ -132,25 +137,19 @@ export default class OffenceHistory implements TaskListPage {
     }
   }
 
-  tableRows() {
-    if (this.offences) {
-      return this.offences.map(offence => {
-        return [
-          {
-            text: offence.offenceGroupName,
-          },
-          {
-            text: offence.offenceCategoryText,
-          },
-          {
-            text: offence.numberOfOffences,
-          },
-          {
-            html: `<a href=${offence.removeLink}>Remove</a>`,
-          },
-        ]
-      })
+  getSafeguardingAnswer(unspentConviction: OffenceHistoryDataBody): string {
+    if (!unspentConviction.safeguardingDetail) {
+      return 'No'
     }
-    return []
+
+    return unspentConviction.safeguardingDetail
+  }
+
+  getCurrentlyServingAnswer(answer: Pick<OffenceHistoryDataBody, 'currentlyServing'>['currentlyServing']): string {
+    if (answer === 'yes') {
+      return 'Yes'
+    }
+
+    return 'No'
   }
 }

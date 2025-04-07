@@ -1,6 +1,5 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
 
 {% extends "../layout.njk" %}
@@ -8,60 +7,64 @@
 {% block questions %}
 
   <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
-  <div class="govuk-body">
-    <p>
-      You only need to record unspent offences with risk relevant to placement in the community.
-    </p>
 
-    {{ govukDetails({
-      summaryText: "Offence types with relevant risk",
-      html: '<p>You should include offences relating to:
-        <ul class="govuk-!-margin-bottom-0">
-        <li>stalking or harassment</li>
-        <li>weapons or firearms</li>
-        <li>arson</li>
-        <li>violence</li>
-        <li>domestic abuse</li>
-        <li>hate crimes</li>
-        <li>drugs</li>
-        <li>any behaviour where the applicant is a risk to themselves or others</li>
-      </ul>
-      <p>'
-    }) }}
-  </div>
+  {% if page.unspentConvictions | length %}
 
-  {% if page.tableRows() | length %}
-
-    {% from "govuk/components/table/macro.njk" import govukTable %}
-
-    {{ govukTable({
-        firstCellIsHeader: true,
-        head: [
-          {
-            text: "Offence"
+    {% for unspentConviction in page.unspentConvictions %}
+      {{ govukSummaryList({
+          card: {
+            title: {
+              text: unspentConviction.convictionTypeText ,
+              classes:  "govuk-summary-card__title-wrapper--flex-end"
+            },
+            actions: {
+              items: [
+                {
+                  href: unspentConviction.removeLink,
+                  text: "Remove",
+                  visuallyHiddenText: unspentConviction.convictionTypeText
+                }
+              ]
+            }
           },
-          {
-            text: "Type"
-          },
-          {
-            text: "Number of offences"
-          },
-          {
-            text: ""
-          }
-        ],
-        rows: page.tableRows()
-      }) }}
-
+          rows: [
+            {
+              key: {
+                text: 'Number of convictions of the same type'
+              },
+              value: {
+                text: unspentConviction.numberOfConvictions
+              }
+            },
+            {
+              key: {
+                text: 'Are they currently serving a sentence for these convictions?'
+              },
+              value: {
+                text: unspentConviction.currentlyServing
+              }
+            },
+            {
+              key: {
+                text: 'Are there any safeguarding details to add about these convictions?'
+              },
+              value: {
+                text: unspentConviction.safeguarding
+              }
+            }
+          ]
+        })
+      }}
+    {% endfor %}
   {% else %}
-    <p class="govuk-body govuk-!-font-weight-bold">No previous offences have been added.</p>
+    <p class="govuk-body govuk-!-font-weight-bold">No unspent convictions have been added.</p>
   {% endif %}
 
   <div>
     {{ govukButton({
-            text: "Add a previous offence",
+            text: "Add another unspent conviction type",
             classes: "govuk-button--secondary",
-            href: paths.applications.pages.show({ id: applicationId, task: 'offending-history', page: 'offence-history-data' })
+            href: paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'offence-history-data' })
           }) }}
   </div>
 
