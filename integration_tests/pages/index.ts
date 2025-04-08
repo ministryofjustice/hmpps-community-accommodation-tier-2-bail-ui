@@ -2,7 +2,7 @@ import Page, { PageElement } from './page'
 
 export default class IndexPage extends Page {
   constructor() {
-    super('CAS-2: Bail Accommodation')
+    super('Short-term accommodation (CAS2) for bail')
   }
 
   headerUserName = (): PageElement => cy.get('[data-qa=header-user-name]')
