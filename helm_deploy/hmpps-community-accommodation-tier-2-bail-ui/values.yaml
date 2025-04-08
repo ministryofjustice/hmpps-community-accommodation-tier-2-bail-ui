@@ -45,10 +45,10 @@ generic-service:
     hmpps-community-accommodation-tier-2-bail-ui:
       AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
       AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
+      SENTRY_DSN: 'SENTRY_DSN'
     hmpps-community-accommodation-tier-2-bail-ui-client-creds:
       CLIENT_CREDS_CLIENT_ID: 'CLIENT_CREDS_CLIENT_ID'
       CLIENT_CREDS_CLIENT_SECRET: 'CLIENT_CREDS_CLIENT_SECRET'
-      SENTRY_DSN: 'SENTRY_DSN'
     session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
     elasticache-redis:
