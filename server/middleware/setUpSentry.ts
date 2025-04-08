@@ -56,7 +56,7 @@ export function setUpSentryRequestHandler(app: express.Express): void {
 }
 
 export function setUpSentryErrorHandler(app: express.Express): void {
-    if (config.sentry.dsn) {
-      app.use(Sentry.Handlers.errorHandler() as express.ErrorRequestHandler)
-    }
+  if (config.sentry.dsn) {
+    app.use(Sentry.Handlers.errorHandler() as express.ErrorRequestHandler)
   }
+}
