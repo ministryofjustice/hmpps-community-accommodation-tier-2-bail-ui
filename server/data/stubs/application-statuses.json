@@ -3,7 +3,7 @@
     "id": "f5cd423b-08eb-4efb-96ff-5cc6bb073905",
     "name": "moreInfoRequested",
     "label": "More information requested",
-    "description": "The prison offender manager (POM) must provide information requested for the application to progress.",
+    "description": "The referrer must provide information requested for the application to progress.",
     "statusDetails": [
       { "id": "fabbb8c0-344e-4a9d-a964-7987b22d09c6", "name": "personalInformation", "label": "Personal information" },
       {
@@ -82,7 +82,7 @@
     "id": "004e2419-9614-4c1e-a207-a8418009f23d",
     "name": "withdrawn",
     "label": "Referral withdrawn",
-    "description": "The prison offender manager (POM) withdrew the application.",
+    "description": "The referrer withdrew the application.",
     "statusDetails": [
       {
         "id": "e4a2391e-e847-427a-a913-51e0b0ad9f52",
