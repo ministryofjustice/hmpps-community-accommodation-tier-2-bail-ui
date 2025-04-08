@@ -45,17 +45,18 @@ export default class CheckYourAnswersPage extends ApplyPage {
       }
       const PageClass = getPage(task, pageKey)
       const page = new PageClass(this.application.data[task][pageKey], this.application)
+      const testId = `${task}-${pageKey}`
       if (hasResponseMethod(page)) {
         const response = page.response()
-        Object.keys(response).forEach(question => {
-          this.checkTermAndDescription(htmlToPlainText(question), response[question])
+        Object.keys(response).forEach((question, index) => {
+          this.checkTermAndDescriptionForAnswers(htmlToPlainText(question), response[question], `${testId}-${index}`)
         })
       } else {
         const pageData = this.application.data[task][pageKey]
         const questionKeys = Object.keys(pageData)
         const questions = getQuestions(nameOrPlaceholderCopy(this.application.person))[task][pageKey]
         cy.get(`[data-cy-check-your-answers-section="${task}"]`).within(() => {
-          questionKeys.forEach(questionKey => {
+          questionKeys.forEach((questionKey, index) => {
             if (!pageData[questionKey]) {
               return
             }
@@ -81,7 +82,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
               expectedAnswer = pageData[questionKey]
             }
 
-            this.checkTermAndDescription(questionText, expectedAnswer)
+            this.checkTermAndDescriptionForAnswers(questionText, expectedAnswer, `${testId}-${index}`)
           })
         })
       }

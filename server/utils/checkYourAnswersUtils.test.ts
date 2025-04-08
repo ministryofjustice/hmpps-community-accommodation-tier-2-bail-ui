@@ -108,6 +108,9 @@ describe('checkYourAnswersUtils', () => {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
                 text: 'Change',
                 visuallyHiddenText: 'A question',
+                attributes: {
+                  'data-testid': 'task1-page1-0',
+                },
               },
             ],
           },
@@ -121,6 +124,9 @@ describe('checkYourAnswersUtils', () => {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page2`,
                 text: 'Change',
                 visuallyHiddenText: 'Another question',
+                attributes: {
+                  'data-testid': 'task1-page2-0',
+                },
               },
             ],
           },
@@ -160,6 +166,9 @@ describe('checkYourAnswersUtils', () => {
                 href: `/applications/${mockApplication.id}/tasks/task1/pages/page1`,
                 text: 'Change',
                 visuallyHiddenText: 'A question',
+                attributes: {
+                  'data-testid': 'task1-page1-0',
+                },
               },
             ],
           },
@@ -217,6 +226,9 @@ describe('checkYourAnswersUtils', () => {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                   text: 'Change',
                   visuallyHiddenText: 'A question',
+                  attributes: {
+                    'data-testid': 'confirm-eligibility-page1-0',
+                  },
                 },
               ],
             },
@@ -230,6 +242,9 @@ describe('checkYourAnswersUtils', () => {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                   text: 'Change',
                   visuallyHiddenText: 'Another question',
+                  attributes: {
+                    'data-testid': 'confirm-eligibility-page1-1',
+                  },
                 },
               ],
             },
@@ -350,6 +365,9 @@ describe('checkYourAnswersUtils', () => {
                   href: `/applications/${mockApplication.id}/tasks/confirm-eligibility/pages/page1`,
                   text: 'Change',
                   visuallyHiddenText: 'foo',
+                  attributes: {
+                    'data-testid': 'confirm-eligibility-page1-0',
+                  },
                 },
               ],
             },
@@ -497,12 +515,15 @@ describe('checkYourAnswersUtils', () => {
               href: `/applications/${application.id}/tasks/task1/pages/page1`,
               text: 'Change',
               visuallyHiddenText: 'a question',
+              attributes: {
+                'data-testid': 'task1-page1-0',
+              },
             },
           ],
         },
       }
 
-      expect(summaryListItemForQuestion(application, 'task1', 'page1', question)).toEqual(expected)
+      expect(summaryListItemForQuestion(application, 'task1', 'page1', question, 0)).toEqual(expected)
     })
   })
 

@@ -76,10 +76,11 @@ export const addPageAnswersToItemsArray = (params: {
 
   if (hasResponseMethod(page)) {
     const response = page.response()
-
-    Object.keys(response).forEach(question => {
+    Object.keys(response).forEach((question, index) => {
       if (outputFormat === 'checkYourAnswers') {
-        items.push(summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }))
+        items.push(
+          summaryListItemForQuestion(application, task, pageKey, { question, answer: response[question] }, index),
+        )
       } else {
         items.push({ question, answer: response[question] })
       }
@@ -87,7 +88,7 @@ export const addPageAnswersToItemsArray = (params: {
   } else {
     const questionKeys = Object.keys(application.data[task][pageKey])
     if (containsQuestions(questionKeys)) {
-      questionKeys.forEach(questionKey => {
+      questionKeys.forEach((questionKey, index) => {
         const answer = getAnswer(application, questions, task, pageKey, questionKey)
         if (!answer) {
           return
@@ -101,7 +102,7 @@ export const addPageAnswersToItemsArray = (params: {
         }
 
         if (outputFormat === 'checkYourAnswers') {
-          items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }))
+          items.push(summaryListItemForQuestion(application, task, pageKey, { question: questionText, answer }, index))
         } else {
           items.push({ question: questionText, answer })
         }
@@ -148,6 +149,7 @@ export const summaryListItemForQuestion = (
   task: string,
   pageKey: string,
   questionAndAnswer: Record<string, string>,
+  index: number,
 ) => {
   const { question, answer } = questionAndAnswer
 
@@ -157,6 +159,7 @@ export const summaryListItemForQuestion = (
         href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
         text: 'Change',
         visuallyHiddenText: question,
+        attributes: { 'data-testid': `${task}-${pageKey}-${index}` },
       },
     ],
   }

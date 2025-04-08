@@ -119,6 +119,18 @@ export default abstract class Page {
       })
   }
 
+  checkTermAndDescriptionForAnswers(term: string, description: string, testId: string): void {
+    const formattedDescription = this.removeWhiteSpaceAndLineBreaks(description)
+    const formattedTerm = this.removeHtmlBreaks(term)
+
+    cy.get(`[data-testid=${testId}]`)
+      .parents('.govuk-summary-list__row')
+      .within(() => {
+        cy.get('dt').contains(formattedTerm)
+        cy.get('dd').invoke('text').should('contain', formattedDescription)
+      })
+  }
+
   removeWhiteSpaceAndLineBreaks(stringToReplace: string = ''): string {
     return stringToReplace.trim().replace(/(\r\n|\n|\r)/gm, '')
   }
