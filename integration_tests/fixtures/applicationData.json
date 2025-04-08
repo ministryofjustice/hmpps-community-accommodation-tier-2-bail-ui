@@ -52,7 +52,7 @@
       "receivedBenefitSanctions": "no"
     },
     "applicant-id": {
-      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip", "none"]
+      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip"]
     }
   },
   "solicitor-details": {
@@ -315,6 +315,9 @@
       }
     ],
     "current-offences": {}
+  },
+  "provide-offences-and-convictions-details": {
+    "offences-and-convictions-guidance": {}
   },
   "alleged-offences": {
     "alleged-offence-data": [

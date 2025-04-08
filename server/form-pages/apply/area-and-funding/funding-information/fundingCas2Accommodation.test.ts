@@ -36,7 +36,6 @@ describe('FundingCas2Accommodation', () => {
     } as FundingCas2AccommodationBody)
   })
 
-  itShouldHaveNextValue(new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application), '')
   itShouldHaveNextValue(new FundingCas2Accommodation({ fundingSource: 'benefits' }, application), 'applicant-id')
   itShouldHavePreviousValue(new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application), 'taskList')
 

@@ -5,12 +5,26 @@ export const completeFundingInformationTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Confirm funding and ID')
 
+  await completeFundingInformationPage(page)
+  await completeIDPage(page)
+}
+
+async function completeFundingInformationPage(page: Page) {
   const fundingInformationPage = await ApplyPage.initialize(page, 'Funding CAS-2 accommodation')
+
   await fundingInformationPage.checkRadio('Personal savings, salary or pension', true)
   await fundingInformationPage.checkRadioInGroup('Does the applicant have a National Insurance number?', 'Yes')
   await fundingInformationPage.checkRadioByTestId('receiving-benefits-radio-yes')
   await fundingInformationPage.checkRadioByTestId('received-benefit-sanctions-radio-yes')
+
   await fundingInformationPage.clickSave()
+}
+
+async function completeIDPage(page: Page) {
+  const idPage = await ApplyPage.initialize(page, 'What identity document (ID) does the applicant have?')
+
+  await idPage.checkCheckboxes(['Passport'])
+  await idPage.clickSave()
 }
 
 export const completeAreaInformationTask = async (page: Page, name: string) => {
@@ -46,10 +60,7 @@ async function completeExclusionZonesPage(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Exclusion zones for ${name}`)
 
   await exclusionZonesPage.checkRadio('Yes')
-  await exclusionZonesPage.fillField(
-    'Provide the required safeguarding details about the exclusion zone',
-    'Avoid Liverpool',
-  )
+  await exclusionZonesPage.fillField('Enter any safeguarding details', 'Avoid Liverpool')
 
   await exclusionZonesPage.clickSave()
 }

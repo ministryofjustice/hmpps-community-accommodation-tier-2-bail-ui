@@ -34,7 +34,7 @@ test('create a CAS-2 bail application', async ({ page, person, nomisCourtUser })
   await completeOffenceInformationSection(page, person.name)
   await completeBailInformationSection(page, person.name)
   await completeCheckAnswersSection(page, person.name)
-  await expect(page.getByText('You have completed 17 of 17 tasks')).toBeVisible()
+  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
   await submitApplication(page)
 })
 
@@ -49,10 +49,9 @@ test('cancel an in progress application from the task list', async ({ page, nomi
   await signIn(page, nomisCourtUser)
   await createAnInProgressApplication(page, person, 'courtBail')
   await viewInProgressDashboard(page)
-  const numberOfApplicationsBeforeCancellation = (await page.locator('tr').all()).length
   await clickCancel(page, person.name)
   await cancelAnApplication(page, person.name)
-  const numberOfApplicationsAfterCancellation = (await page.locator('tr').all()).length
   await expect(page.getByText('Your CAS-2 applications')).toBeVisible()
-  expect(numberOfApplicationsBeforeCancellation - numberOfApplicationsAfterCancellation).toEqual(1)
+  await expect(page.locator('h2').first()).toContainText('Success')
+  await expect(page.locator('h3').first()).toContainText(`The application for ${person.name} has been cancelled.`)
 })

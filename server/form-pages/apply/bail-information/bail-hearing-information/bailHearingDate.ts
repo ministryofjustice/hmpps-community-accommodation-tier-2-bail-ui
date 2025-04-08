@@ -5,7 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { dateBodyProperties } from '../../../utils'
-import { DateFormats } from '../../../../utils/dateUtils'
+import { dateAndTimeInputsAreValidDates, DateFormats } from '../../../../utils/dateUtils'
 
 export type BailHearingDateBody = ObjectWithDateParts<'bailHearingDate'>
 
@@ -49,7 +49,7 @@ export default class BailHearingDate implements TaskListPage {
 
   response() {
     return {
-      [this.questions.bailHearingDate.question]: this.body.bailHearingDate
+      [this.questions.bailHearingDate.question]: dateAndTimeInputsAreValidDates(this.body, 'bailHearingDate')
         ? DateFormats.dateAndTimeInputsToUiDate(this.body, 'bailHearingDate')
         : '',
     }
