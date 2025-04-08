@@ -58,7 +58,7 @@ describe('Gender', () => {
   itShouldHavePreviousValue(new Gender(body, application), 'support-worker-preference')
 
   describe('onSave', () => {
-    it('removes gender identity data if question is not set to "yes"', () => {
+    it('removes gender identity data if question is not set to "no"', () => {
       const pageBody: GenderBody = {
         gender: 'preferNotToSay',
         genderIdentity: 'Man',

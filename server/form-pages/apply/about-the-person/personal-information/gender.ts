@@ -57,7 +57,7 @@ export default class Gender implements TaskListPage {
   }
 
   onSave(): void {
-    if (this.body.gender !== 'yes') {
+    if (this.body.gender !== 'no') {
       delete this.body.genderIdentity
     }
   }
