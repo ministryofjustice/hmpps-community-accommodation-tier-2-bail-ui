@@ -57,9 +57,7 @@ generic-service:
     application-insights:
       APPINSIGHTS_INSTRUMENTATIONKEY: 'APPINSIGHTS_INSTRUMENTATIONKEY'
 
-  allowlist:
-    groups:
-      - internal
+  allowlist: null
 
 generic-prometheus-alerts:
   targetApplication: hmpps-community-accommodation-tier-2-bail-ui
