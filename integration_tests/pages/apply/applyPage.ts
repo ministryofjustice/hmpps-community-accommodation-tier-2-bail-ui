@@ -44,4 +44,8 @@ export default class ApplyPage extends Page {
       cy.get('h3').contains(message)
     })
   }
+
+  shouldShowPrintButton(text = 'Download as a PDF'): void {
+    cy.get('button').contains(text)
+  }
 }

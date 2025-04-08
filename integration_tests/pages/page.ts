@@ -1,5 +1,6 @@
 import 'cypress-axe'
 import { Result } from 'axe-core'
+import { FullPerson, Cas2v2SubmittedApplication as SubmittedApplication } from '@approved-premises/api'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
 
@@ -104,5 +105,51 @@ export default abstract class Page {
     cy.get(`#${prefix}-day`).type(parsedDate.getDate().toString())
     cy.get(`#${prefix}-month`).type(`${parsedDate.getMonth() + 1}`)
     cy.get(`#${prefix}-year`).type(parsedDate.getFullYear().toString())
+  }
+
+  checkTermAndDescription(term: string, description: string): void {
+    const formattedDescription = this.removeWhiteSpaceAndLineBreaks(description)
+    const formattedTerm = this.removeHtmlBreaks(term)
+
+    cy.get('dt')
+      .contains(formattedTerm)
+      .parents('.govuk-summary-list__row')
+      .within(() => {
+        cy.get('dd').invoke('text').should('contain', formattedDescription)
+      })
+  }
+
+  removeWhiteSpaceAndLineBreaks(stringToReplace: string = ''): string {
+    return stringToReplace.trim().replace(/(\r\n|\n|\r)/gm, '')
+  }
+
+  removeHtmlBreaks(stringToReplace: string): string {
+    return stringToReplace.replace(/<br \/>/g, '')
+  }
+
+  hasApplicantDetails(application: SubmittedApplication): void {
+    const person = application.person as FullPerson
+    cy.get(`[data-cy-check-your-answers-section="applicant-details"]`).within(() => {
+      this.checkTermAndDescription(
+        'Application type',
+        application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
+      )
+      this.checkTermAndDescription('Full name', person.name)
+      this.checkTermAndDescription(
+        'Date of birth',
+        DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+      )
+      this.checkTermAndDescription('Nationality', person.nationality)
+      this.checkTermAndDescription('Sex', person.sex)
+      this.checkTermAndDescription('Prison number', person.nomsNumber)
+      cy.get('dt')
+        .contains(/Prison $/)
+        .parent()
+        .within(() => {
+          cy.get('dd').invoke('text').should('contain', person.prisonName)
+        })
+      this.checkTermAndDescription('PNC number', person.pncNumber)
+      this.checkTermAndDescription('CRN from NDelius', person.crn)
+    })
   }
 }
