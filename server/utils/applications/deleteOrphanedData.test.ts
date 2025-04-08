@@ -110,7 +110,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               summary: 'more summary detail',
             },
           ],
-          'offence-history': {},
+          'unspent-convictions': {},
         },
       }
 
@@ -118,7 +118,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
-            'offence-history': {},
+            'unspent-convictions': {},
           },
         })
       })
@@ -148,7 +148,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               summary: 'more summary detail',
             },
           ],
-          'offence-history': {},
+          'unspent-convictions': {},
         },
       }
 
@@ -156,7 +156,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
-            'offence-history': {},
+            'unspent-convictions': {},
           },
         })
       })

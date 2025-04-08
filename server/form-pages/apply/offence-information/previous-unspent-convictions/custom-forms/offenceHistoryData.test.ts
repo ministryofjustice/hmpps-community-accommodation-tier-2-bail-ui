@@ -23,8 +23,8 @@ describe('OffenceHistoryData', () => {
     })
   })
 
-  itShouldHaveNextValue(new OffenceHistoryData({}, application), 'offence-history')
-  itShouldHavePreviousValue(new OffenceHistoryData({}, application), 'offence-history')
+  itShouldHaveNextValue(new OffenceHistoryData({}, application), 'unspent-convictions')
+  itShouldHavePreviousValue(new OffenceHistoryData({}, application), 'unspent-convictions')
 
   describe('errors', () => {
     describe('when there are no errors', () => {

@@ -1,8 +1,8 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import OffenceHistory from './offenceHistory'
+import UnspentConvictions from './unspentConvictions'
 
-describe('OffenceHistory', () => {
+describe('UnspentConvictions', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   const applicationWithData = applicationFactory.build({
@@ -31,7 +31,7 @@ describe('OffenceHistory', () => {
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new OffenceHistory({}, application)
+      const page = new UnspentConvictions({}, application)
 
       expect(page.title).toEqual(`View and add Roger Smith's previous unspent convictions`)
     })
@@ -40,7 +40,7 @@ describe('OffenceHistory', () => {
   describe('offence history data', () => {
     describe('when there is offence history data on the application', () => {
       it('assigns them to the offences field on the page', () => {
-        const page = new OffenceHistory({}, applicationWithData)
+        const page = new UnspentConvictions({}, applicationWithData)
 
         expect(page.unspentConvictions).toEqual([
           {
@@ -50,7 +50,7 @@ describe('OffenceHistory', () => {
             numberOfConvictions: '3',
             currentlyServing: 'Yes',
             safeguarding: 'Safeguarding detail',
-            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=unspent-convictions`,
           },
           {
             convictionTypeTag:
@@ -59,7 +59,7 @@ describe('OffenceHistory', () => {
             numberOfConvictions: '2',
             currentlyServing: 'No',
             safeguarding: 'No',
-            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/1/removeFromList?redirectPage=offence-history`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/1/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
       })
@@ -93,7 +93,7 @@ describe('OffenceHistory', () => {
           },
         })
 
-        const page = new OffenceHistory({}, applicationWithMixedData)
+        const page = new UnspentConvictions({}, applicationWithMixedData)
 
         expect(page.unspentConvictions).toEqual([
           {
@@ -103,25 +103,25 @@ describe('OffenceHistory', () => {
             convictionTypeTag:
               '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>',
             convictionTypeText: 'Stalking or Harassment',
-            removeLink: `/applications/${applicationWithMixedData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=offence-history`,
+            removeLink: `/applications/${applicationWithMixedData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
       })
     })
 
-    itShouldHaveNextValue(new OffenceHistory({}, application), '')
-    itShouldHavePreviousValue(new OffenceHistory({}, application), 'any-previous-convictions')
+    itShouldHaveNextValue(new UnspentConvictions({}, application), '')
+    itShouldHavePreviousValue(new UnspentConvictions({}, application), 'any-previous-convictions')
 
     describe('errors', () => {
       it('returns empty object', () => {
-        const page = new OffenceHistory({}, application)
+        const page = new UnspentConvictions({}, application)
         expect(page.errors()).toEqual({})
       })
     })
 
     describe('response', () => {
       it('returns the unspent conviction information', () => {
-        const page = new OffenceHistory({}, applicationWithData)
+        const page = new UnspentConvictions({}, applicationWithData)
         expect(page.response()).toEqual({
           '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>':
             'Number of convictions: 3\r\nActive sentence: Yes\r\nSafeguarding: Safeguarding detail',
@@ -131,7 +131,7 @@ describe('OffenceHistory', () => {
       })
 
       it('returns empty object when there are no unspent convictions', () => {
-        const page = new OffenceHistory({}, application)
+        const page = new UnspentConvictions({}, application)
         expect(page.response()).toEqual({})
       })
     })
@@ -149,7 +149,7 @@ describe('OffenceHistory', () => {
         ['undefinedCategory', 'grey'],
       ]
       it.each(categories)('returns correct colour for category %s', (category, colour) => {
-        const page = new OffenceHistory({}, applicationWithData)
+        const page = new UnspentConvictions({}, applicationWithData)
         expect(page.getOffenceTagColour(category)).toEqual(colour)
       })
     })

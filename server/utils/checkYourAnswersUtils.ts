@@ -310,7 +310,8 @@ export const removeAnyOldPageKeys = (questions: any, task: string, applicationPa
   const latestPageKeys = Object.keys(questions[task])
   const matchedKeys = applicationPageKeys.filter(
     key =>
-      latestPageKeys.includes(key) || ['acct', 'current-offences', 'alleged-offences', 'offence-history'].includes(key),
+      latestPageKeys.includes(key) ||
+      ['acct', 'current-offences', 'alleged-offences', 'unspent-convictions'].includes(key),
   )
   return matchedKeys
 }

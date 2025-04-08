@@ -3,11 +3,11 @@
 import { Task } from '../../../utils/decorators'
 import AnyPreviousConvictions from './anyPreviousConvictions'
 import OffenceHistoryData from './custom-forms/offenceHistoryData'
-import OffenceHistory from './offenceHistory'
+import UnspentConvictions from './unspentConvictions'
 
 @Task({
   name: 'Add previous unspent convictions',
   slug: 'previous-unspent-convictions',
-  pages: [AnyPreviousConvictions, OffenceHistoryData, OffenceHistory],
+  pages: [AnyPreviousConvictions, OffenceHistoryData, UnspentConvictions],
 })
 export default class PreviousUnspentConvictions {}

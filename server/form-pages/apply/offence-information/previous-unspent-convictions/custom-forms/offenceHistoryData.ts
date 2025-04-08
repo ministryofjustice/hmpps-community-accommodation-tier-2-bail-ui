@@ -69,11 +69,11 @@ export default class OffenceHistoryData implements TaskListPage {
   }
 
   previous() {
-    return 'offence-history'
+    return 'unspent-convictions'
   }
 
   next() {
-    return 'offence-history'
+    return 'unspent-convictions'
   }
 
   errors() {

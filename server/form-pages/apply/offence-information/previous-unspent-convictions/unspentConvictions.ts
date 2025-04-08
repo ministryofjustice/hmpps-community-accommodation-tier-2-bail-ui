@@ -7,9 +7,9 @@ import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/util
 import paths from '../../../../paths/apply'
 import { getQuestions } from '../../../utils/questions'
 
-type OffenceHistoryBody = Record<string, never>
+type UnspentConvictionsBody = Record<string, never>
 
-type OffenceHistoryUI = {
+type UnspentConvictionsUI = {
   convictionTypeTag: string
   convictionTypeText: string
   numberOfConvictions: string
@@ -19,21 +19,21 @@ type OffenceHistoryUI = {
 }
 
 @Page({
-  name: 'offence-history',
+  name: 'unspent-convictions',
   bodyProperties: [''],
 })
-export default class OffenceHistory implements TaskListPage {
+export default class UnspentConvictions implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
   documentTitle = `View and add the applicant's previous unspent convictions`
 
   title = `View and add ${this.personName}'s previous unspent convictions`
 
-  body: OffenceHistoryBody
+  body: UnspentConvictionsBody
 
-  unspentConvictions: OffenceHistoryUI[]
+  unspentConvictions: UnspentConvictionsUI[]
 
-  pageName = 'offence-history'
+  pageName = 'unspent-convictions'
 
   dataPageName = 'offence-history-data'
 
@@ -42,7 +42,7 @@ export default class OffenceHistory implements TaskListPage {
   convictionTypes = getQuestions('')['previous-unspent-convictions']['offence-history-data'].convictionType.answers
 
   constructor(
-    body: Partial<OffenceHistoryBody>,
+    body: Partial<UnspentConvictionsBody>,
     private readonly application: Application,
   ) {
     if (application.data[this.taskName]?.[this.dataPageName]) {
@@ -73,14 +73,14 @@ export default class OffenceHistory implements TaskListPage {
           }
         })
     }
-    this.body = body as OffenceHistoryBody
+    this.body = body as UnspentConvictionsBody
   }
 
   static async initialize(body: Partial<OffenceHistoryDataBody>, application: Application) {
     if (!application.data['previous-unspent-convictions']?.['offence-history-data']) {
       return new OffenceHistoryData(body, application)
     }
-    return new OffenceHistory({}, application)
+    return new UnspentConvictions({}, application)
   }
 
   previous() {
