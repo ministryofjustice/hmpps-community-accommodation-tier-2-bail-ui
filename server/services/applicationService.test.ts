@@ -343,10 +343,10 @@ describe('ApplicationService', () => {
           body: { hasAnyPreviousConvictions: 'no' },
         })
         ;(getPageName as jest.Mock).mockImplementation(() => 'any-previous-convictions')
-        ;(getTaskName as jest.Mock).mockImplementation(() => 'offending-history')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'previous-unspent-convictions')
 
         application.data = {
-          'offending-history': {
+          'previous-unspent-convictions': {
             'any-previous-convictions': {
               hasAnyPreviousConvictions: 'no',
             },
@@ -360,7 +360,7 @@ describe('ApplicationService', () => {
         expect(getApplicationUpdateData).toHaveBeenCalledWith({
           ...application,
           data: {
-            'offending-history': {
+            'previous-unspent-convictions': {
               'any-previous-convictions': {
                 hasAnyPreviousConvictions: 'no',
               },

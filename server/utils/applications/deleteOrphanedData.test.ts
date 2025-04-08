@@ -85,10 +85,10 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('offending-history', () => {
+  describe('previous-unspent-convictions', () => {
     describe('when hasAnyPreviousConvictions is set to no', () => {
       const applicationData = {
-        'offending-history': {
+        'previous-unspent-convictions': {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
           'offence-history-data': [
             {
@@ -116,7 +116,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
 
       it('removes offence history data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'offending-history': {
+          'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
             'offence-history': {},
           },
@@ -126,7 +126,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
 
     describe('when hasAnyPreviousConvictions is set to yesNoRelevantRisk', () => {
       const applicationData = {
-        'offending-history': {
+        'previous-unspent-convictions': {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
           'offence-history-data': [
             {
@@ -154,7 +154,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
 
       it('removes offence history data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'offending-history': {
+          'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
             'offence-history': {},
           },

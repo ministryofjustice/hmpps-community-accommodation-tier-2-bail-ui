@@ -17,7 +17,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   }
 
   const deleteOrphanedOffendingHistoryInformation = () => {
-    delete applicationData['offending-history']['offence-history-data']
+    delete applicationData['previous-unspent-convictions']['offence-history-data']
   }
 
   const deleteAddressHistoryInformation = () => {
@@ -66,7 +66,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   if (
     hasOrphanedInformation({
-      taskName: 'offending-history',
+      taskName: 'previous-unspent-convictions',
       pageName: 'any-previous-convictions',
       questionKey: 'hasAnyPreviousConvictions',
       answerToCheck: PreviousConvictionsAnswers.No,
@@ -77,7 +77,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   if (
     hasOrphanedInformation({
-      taskName: 'offending-history',
+      taskName: 'previous-unspent-convictions',
       pageName: 'any-previous-convictions',
       questionKey: 'hasAnyPreviousConvictions',
       answerToCheck: PreviousConvictionsAnswers.YesNoRelevantRisk,
