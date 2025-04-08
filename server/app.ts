@@ -19,6 +19,7 @@ import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import setUpMaintenancePageRedirect from './middleware/setUpMaintenancePageRedirect'
 import setUpProductInfo from './middleware/setUpProductInfo'
+import { setUpSentryRequestHandler, setUpSentryErrorHandler } from './middleware/setUpSentry'
 
 import { Controllers } from './controllers'
 import routes from './routes'
@@ -34,6 +35,8 @@ export default function createApp(controllers: Controllers, services: Services):
   // Add method-override to allow us to use PUT and DELETE methods
   app.use(methodOverride('_method'))
 
+  setUpSentryRequestHandler(app)
+  setUpSentryErrorHandler(app)
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(setUpProductInfo())
