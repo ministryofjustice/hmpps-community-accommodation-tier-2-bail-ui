@@ -6,7 +6,7 @@ import CPPDetails from './cppDetails'
 
 @Task({
   name: 'Add probation supervision details',
-  slug: 'community-supervision-and-current-offences',
+  slug: 'add-probation-supervision-details',
   pages: [CommunitySupervision, CPPDetails],
 })
-export default class CommunitySupervisionAndCurrentOffences {}
+export default class ProbationSupervisionDetails {}

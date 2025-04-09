@@ -281,7 +281,7 @@
       }
     ]
   },
-  "community-supervision-and-current-offences": {
+  "add-probation-supervision-details": {
     "community-supervision": {
       "probationSupervision": "yes"
     },

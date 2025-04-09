@@ -21,7 +21,7 @@ export default class CommunitySupervision implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['community-supervision-and-current-offences']['community-supervision']
+  questions = getQuestions(this.personName)['add-probation-supervision-details']['community-supervision']
 
   body: CommunitySupervisionBody
 

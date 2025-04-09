@@ -864,7 +864,7 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'community-supervision-and-current-offences': {
+    'add-probation-supervision-details': {
       'community-supervision': {
         probationSupervision: {
           question: `Is ${name} currently supervised by probation?`,

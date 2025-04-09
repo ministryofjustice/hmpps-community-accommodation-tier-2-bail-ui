@@ -23,7 +23,7 @@ export default class CPPDetails implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['community-supervision-and-current-offences']['cpp-details']
+  questions = getQuestions(this.personName)['add-probation-supervision-details']['cpp-details']
 
   options: Record<string, string>
 
