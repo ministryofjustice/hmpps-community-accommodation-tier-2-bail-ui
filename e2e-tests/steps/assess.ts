@@ -7,6 +7,9 @@ export const updateStatus = async (page: Page) => {
   await page.getByLabel('More information requested').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
   await page.getByLabel('Health needs').check()
+  await page.getByLabel('Applicant details').check()
+  await page.getByLabel('Concerns to others').check()
+  await page.getByLabel('Concerns to the applicant').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
 }
 
