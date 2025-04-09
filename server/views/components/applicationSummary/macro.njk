@@ -11,11 +11,12 @@
         {{ summary.name }}'s application
         {% endif %}
       <br>
-      <span class="govuk-body-l submitted-application-panel__text">
-        <strong>Prison number:</strong>
-        {{ summary.prisonNumber }}</span>
+      {% if (summary.applicationOrigin == "courtBail") %}
+        <span class="govuk-body-l submitted-application-panel__text"><strong>CRN:</strong>{{ summary.crn }}</span>
+      {% else %}
+        <span class="govuk-body-l submitted-application-panel__text"><strong>Prison number:</strong>{{ summary.prisonNumber }}</span>
+      {% endif %}
     </h1>
-
     <ul class="govuk-list govuk-list--spaced submitted-application-panel__text">
       <li>
         <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ summary.referrerName }}
