@@ -53,7 +53,6 @@ export default class UnspentConvictions implements TaskListPage {
       }
 
       this.unspentConvictions = unspentConvictionsData
-        .filter(unspentConviction => unspentConviction.numberOfConvictions)
         .map((unspentConviction, index) => {
           const convictionTypeText =
             this.convictionTypes[unspentConviction.convictionType as keyof typeof this.convictionTypes]

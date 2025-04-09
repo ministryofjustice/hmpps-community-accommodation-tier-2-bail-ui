@@ -65,50 +65,6 @@ describe('UnspentConvictions', () => {
       })
     })
 
-    describe('when there is offence data using the previous data model', () => {
-      it('ignores the outdated data', () => {
-        const applicationWithMixedData = applicationFactory.build({
-          person: personFactory.build({ name: 'Roger Smith' }),
-          data: {
-            'previous-unspent-convictions': {
-              'unspent-convictions-data': [
-                {
-                  convictionType: 'stalkingOrHarassment',
-                  numberOfConvictions: '3',
-                  currentlyServing: 'yes',
-                  safeguarding: 'no',
-                  safeguardingDetail: '',
-                },
-                {
-                  offenceGroupName: 'Arson',
-                  offenceCategory: 'Arson',
-                  'offenceDate-day': '5',
-                  'offenceDate-month': '6',
-                  'offenceDate-year': '1940',
-                  sentenceLength: '3 years',
-                  summary: 'summary detail',
-                },
-              ],
-            },
-          },
-        })
-
-        const page = new UnspentConvictions({}, applicationWithMixedData)
-
-        expect(page.unspentConvictions).toEqual([
-          {
-            numberOfConvictions: '3',
-            currentlyServing: 'Yes',
-            safeguarding: 'No',
-            convictionTypeTag:
-              '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>',
-            convictionTypeText: 'Stalking or Harassment',
-            removeLink: `/applications/${applicationWithMixedData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/0/removeFromList?redirectPage=unspent-convictions`,
-          },
-        ])
-      })
-    })
-
     itShouldHaveNextValue(new UnspentConvictions({}, application), '')
     itShouldHavePreviousValue(new UnspentConvictions({}, application), 'any-previous-convictions')
 
