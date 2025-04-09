@@ -99,18 +99,15 @@ async function completeCurrentOffencesPage(page: Page, name: string) {
   await currentOffenceDetailsPage.clickButton('Save and continue')
 }
 
-export const completeOffenceHistoryTask = async (page: Page, name: string) => {
+export const completePreviousUnspentConvictionsTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add offending history')
+  await taskListPage.clickTask('Add previous unspent convictions')
 
   await completeAnyPreviousConvictionsPage(page, name)
 }
 
 async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
-  const anyPreviousConvictionsPage = await ApplyPage.initialize(
-    page,
-    `Does ${name} have any previous unspent convictions?`,
-  )
+  const anyPreviousConvictionsPage = await ApplyPage.initialize(page, `Previous unspent convictions for ${name}`)
   await anyPreviousConvictionsPage.checkRadio('No, they do not have any previous unspent convictions')
   await anyPreviousConvictionsPage.clickSave()
 }

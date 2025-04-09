@@ -26,7 +26,7 @@ import {
   completeProvideOffencesAndConvictionsDetailsTask,
   completeAllegedOffencesTask,
   completeCommunitySupervisionAndCurrentOffencesTask,
-  completeOffenceHistoryTask,
+  completePreviousUnspentConvictionsTask,
 } from './offenceAndLicenceInformationSection'
 import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
@@ -103,7 +103,7 @@ export const completeOffenceInformationSection = async (page: Page, name: string
   await completeProvideOffencesAndConvictionsDetailsTask(page, name)
   await completeAllegedOffencesTask(page, name)
   await completeCommunitySupervisionAndCurrentOffencesTask(page, name)
-  await completeOffenceHistoryTask(page, name)
+  await completePreviousUnspentConvictionsTask(page, name)
 }
 
 export const completeBailInformationSection = async (page: Page, name: string) => {
