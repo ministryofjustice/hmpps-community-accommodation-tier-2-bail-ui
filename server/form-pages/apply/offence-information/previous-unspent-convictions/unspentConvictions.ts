@@ -52,25 +52,24 @@ export default class UnspentConvictions implements TaskListPage {
         redirectPage: this.pageName,
       }
 
-      this.unspentConvictions = unspentConvictionsData
-        .map((unspentConviction, index) => {
-          const convictionTypeText =
-            this.convictionTypes[unspentConviction.convictionType as keyof typeof this.convictionTypes]
+      this.unspentConvictions = unspentConvictionsData.map((unspentConviction, index) => {
+        const convictionTypeText =
+          this.convictionTypes[unspentConviction.convictionType as keyof typeof this.convictionTypes]
 
-          return {
-            convictionTypeTag: this.getOffenceCategoryTag(unspentConviction.convictionType, convictionTypeText),
-            convictionTypeText,
-            numberOfConvictions: unspentConviction.numberOfConvictions,
-            currentlyServing: this.getCurrentlyServingAnswer(unspentConviction.currentlyServing),
-            safeguarding: unspentConviction.safeguardingDetail || 'No',
-            removeLink: `${paths.applications.removeFromList({
-              id: application.id,
-              task: this.taskName,
-              page: this.dataPageName,
-              index: index.toString(),
-            })}?${createQueryString(query)}`,
-          }
-        })
+        return {
+          convictionTypeTag: this.getOffenceCategoryTag(unspentConviction.convictionType, convictionTypeText),
+          convictionTypeText,
+          numberOfConvictions: unspentConviction.numberOfConvictions,
+          currentlyServing: this.getCurrentlyServingAnswer(unspentConviction.currentlyServing),
+          safeguarding: unspentConviction.safeguardingDetail || 'No',
+          removeLink: `${paths.applications.removeFromList({
+            id: application.id,
+            task: this.taskName,
+            page: this.dataPageName,
+            index: index.toString(),
+          })}?${createQueryString(query)}`,
+        }
+      })
     }
     this.body = body as UnspentConvictionsBody
   }
