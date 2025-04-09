@@ -15,7 +15,7 @@ generic-service:
     APPROVED_PREMISES_API_URL: "https://approved-premises-api-dev.hmpps.service.justice.gov.uk"
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
-    ENVIRONMENT_NAME: DEV
+    ENVIRONMENT_NAME: dev
 
   namespace_secrets:
     sqs-hmpps-audit-secret:
