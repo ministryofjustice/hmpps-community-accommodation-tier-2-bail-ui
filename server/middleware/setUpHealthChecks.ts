@@ -21,6 +21,10 @@ export default function setUpHealthChecks(applicationInfo: ApplicationInfo): Rou
     })
   })
 
+  router.get('/debug-sentry', (_req, res) => {
+    throw new Error('Test Sentry error thrown.')
+  })
+
   router.get('/info', (req, res) => {
     res.json({
       git: {

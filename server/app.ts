@@ -36,7 +36,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(methodOverride('_method'))
 
   setUpSentryRequestHandler(app)
-  setUpSentryErrorHandler(app)
+
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(setUpProductInfo())
@@ -61,6 +61,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(routes(controllers, services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
+  setUpSentryErrorHandler(app)
 
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
 
