@@ -335,7 +335,7 @@ describe('ApplicationService', () => {
         })
       })
 
-      it('deletes conditional data if required for offence history data', async () => {
+      it('deletes conditional data if required for unspent convictions data', async () => {
         page = createMock<TaskListPage>({
           errors: () => {
             return {} as TaskListErrors<TaskListPage>
@@ -350,7 +350,7 @@ describe('ApplicationService', () => {
             'any-previous-convictions': {
               hasAnyPreviousConvictions: 'no',
             },
-            'offence-history-data': [{ example: 'example' }],
+            'unspent-convictions-data': [{ example: 'example' }],
           },
         }
 

@@ -5,7 +5,7 @@ import TaskListPage from '../../../../taskListPage'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
-export type OffenceHistoryDataBody = {
+export type UnspentConvictionsDataBody = {
   convictionType: string
   numberOfConvictions: string
   currentlyServing: YesOrNo
@@ -14,36 +14,36 @@ export type OffenceHistoryDataBody = {
 }
 
 @Page({
-  name: 'offence-history-data',
+  name: 'unspent-convictions-data',
   bodyProperties: ['convictionType', 'numberOfConvictions', 'currentlyServing', 'safeguarding', 'safeguardingDetail'],
 })
-export default class OffenceHistoryData implements TaskListPage {
+export default class UnspentConvictionsData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
 
   documentTitle = 'Add previous unspent convictions for the applicant'
 
   title = `Add previous unspent convictions for ${this.personName}`
 
-  body: OffenceHistoryDataBody
+  body: UnspentConvictionsDataBody
 
   taskName = 'previous-unspent-convictions'
 
-  pageName = 'offence-history-data'
+  pageName = 'unspent-convictions-data'
 
-  questions = getQuestions('')['previous-unspent-convictions']['offence-history-data']
+  questions = getQuestions('')['previous-unspent-convictions']['unspent-convictions-data']
 
   convictionTypes: Array<SelectItem>
 
   hasPreviouslySavedAnUnspentConviction: boolean
 
   constructor(
-    body: Partial<OffenceHistoryDataBody>,
+    body: Partial<UnspentConvictionsDataBody>,
     private readonly application: Cas2v2Application,
   ) {
-    this.body = body as OffenceHistoryDataBody
+    this.body = body as UnspentConvictionsDataBody
     this.convictionTypes = this.getConvictionTypeAsItemsForSelect(this.body.convictionType)
     this.hasPreviouslySavedAnUnspentConviction = Boolean(
-      application.data['previous-unspent-convictions']?.['offence-history-data'],
+      application.data['previous-unspent-convictions']?.['unspent-convictions-data'],
     )
   }
 

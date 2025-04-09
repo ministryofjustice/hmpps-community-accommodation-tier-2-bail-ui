@@ -90,7 +90,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       const applicationData = {
         'previous-unspent-convictions': {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
-          'offence-history-data': [
+          'unspent-convictions-data': [
             {
               offenceGroupName: 'Arson (09000)',
               offenceCategory: 'Arson',
@@ -114,7 +114,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
         },
       }
 
-      it('removes offence history data', () => {
+      it('removes unspent convictions data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
@@ -128,7 +128,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       const applicationData = {
         'previous-unspent-convictions': {
           'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
-          'offence-history-data': [
+          'unspent-convictions-data': [
             {
               offenceGroupName: 'Arson (09000)',
               offenceCategory: 'Arson',
@@ -152,7 +152,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
         },
       }
 
-      it('removes offence history data', () => {
+      it('removes unspent convictions data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },

@@ -938,7 +938,7 @@ export const getQuestions = (name: string) => {
           },
         },
       },
-      'offence-history-data': {
+      'unspent-convictions-data': {
         convictionType: {
           ...offenceCategory,
           question: 'Select the conviction type',

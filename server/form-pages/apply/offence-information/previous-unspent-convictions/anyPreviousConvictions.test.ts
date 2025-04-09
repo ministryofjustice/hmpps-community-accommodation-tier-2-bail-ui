@@ -33,7 +33,7 @@ describe('hasAnyPreviousConvictions', () => {
               { hasAnyPreviousConvictions: PreviousConvictionsAnswers.YesRelevantRisk },
               application,
             )
-            expect(page.next()).toEqual('offence-history-data')
+            expect(page.next()).toEqual('unspent-convictions-data')
           })
         })
 
@@ -42,7 +42,7 @@ describe('hasAnyPreviousConvictions', () => {
             const applicationWithOffences = applicationFactory.build({
               person: personFactory.build({ name: 'Roger Smith' }),
               data: {
-                'previous-unspent-convictions': { 'offence-history-data': [{ convictionType: 'Stalking' }] },
+                'previous-unspent-convictions': { 'unspent-convictions-data': [{ convictionType: 'Stalking' }] },
               },
             })
             const page = new AnyPreviousConvictions(

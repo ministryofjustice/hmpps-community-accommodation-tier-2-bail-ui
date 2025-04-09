@@ -45,10 +45,10 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   next() {
     if (this.body.hasAnyPreviousConvictions === 'yesRelevantRisk') {
-      if (this.application.data['previous-unspent-convictions']?.['offence-history-data']?.length > 0) {
+      if (this.application.data['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0) {
         return 'unspent-convictions'
       }
-      return 'offence-history-data'
+      return 'unspent-convictions-data'
     }
     return ''
   }

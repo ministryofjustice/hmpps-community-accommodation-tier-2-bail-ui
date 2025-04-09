@@ -9,7 +9,7 @@ describe('UnspentConvictions', () => {
     person: personFactory.build({ name: 'Roger Smith' }),
     data: {
       'previous-unspent-convictions': {
-        'offence-history-data': [
+        'unspent-convictions-data': [
           {
             convictionType: 'stalkingOrHarassment',
             numberOfConvictions: '3',
@@ -37,9 +37,9 @@ describe('UnspentConvictions', () => {
     })
   })
 
-  describe('offence history data', () => {
-    describe('when there is offence history data on the application', () => {
-      it('assigns them to the offences field on the page', () => {
+  describe('unspent convictions data', () => {
+    describe('when there is unspent convictions data on the application', () => {
+      it('assigns them to the convictions field on the page', () => {
         const page = new UnspentConvictions({}, applicationWithData)
 
         expect(page.unspentConvictions).toEqual([
@@ -50,7 +50,7 @@ describe('UnspentConvictions', () => {
             numberOfConvictions: '3',
             currentlyServing: 'Yes',
             safeguarding: 'Safeguarding detail',
-            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=unspent-convictions`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/0/removeFromList?redirectPage=unspent-convictions`,
           },
           {
             convictionTypeTag:
@@ -59,7 +59,7 @@ describe('UnspentConvictions', () => {
             numberOfConvictions: '2',
             currentlyServing: 'No',
             safeguarding: 'No',
-            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/1/removeFromList?redirectPage=unspent-convictions`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/1/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
       })
@@ -71,7 +71,7 @@ describe('UnspentConvictions', () => {
           person: personFactory.build({ name: 'Roger Smith' }),
           data: {
             'previous-unspent-convictions': {
-              'offence-history-data': [
+              'unspent-convictions-data': [
                 {
                   convictionType: 'stalkingOrHarassment',
                   numberOfConvictions: '3',
@@ -103,7 +103,7 @@ describe('UnspentConvictions', () => {
             convictionTypeTag:
               '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>',
             convictionTypeText: 'Stalking or Harassment',
-            removeLink: `/applications/${applicationWithMixedData.id}/tasks/previous-unspent-convictions/pages/offence-history-data/0/removeFromList?redirectPage=unspent-convictions`,
+            removeLink: `/applications/${applicationWithMixedData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/0/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
       })

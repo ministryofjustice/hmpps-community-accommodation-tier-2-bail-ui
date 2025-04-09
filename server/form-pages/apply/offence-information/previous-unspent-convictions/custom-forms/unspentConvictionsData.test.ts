@@ -1,11 +1,11 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../../testutils/factories/index'
-import OffenceHistoryData, { OffenceHistoryDataBody } from './offenceHistoryData'
+import UnspentConvictionsData, { UnspentConvictionsDataBody } from './unspentConvictionsData'
 
-describe('OffenceHistoryData', () => {
+describe('UnspentConvictionsData', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
-  const offenceHistoryData: OffenceHistoryDataBody[] = [
+  const unspentConvictionsData: UnspentConvictionsDataBody[] = [
     {
       convictionType: 'Arson',
       numberOfConvictions: '3',
@@ -17,19 +17,19 @@ describe('OffenceHistoryData', () => {
 
   describe('title', () => {
     it('has a page title', () => {
-      const page = new OffenceHistoryData({}, application)
+      const page = new UnspentConvictionsData({}, application)
 
       expect(page.title).toEqual('Add previous unspent convictions for Roger Smith')
     })
   })
 
-  itShouldHaveNextValue(new OffenceHistoryData({}, application), 'unspent-convictions')
-  itShouldHavePreviousValue(new OffenceHistoryData({}, application), 'unspent-convictions')
+  itShouldHaveNextValue(new UnspentConvictionsData({}, application), 'unspent-convictions')
+  itShouldHavePreviousValue(new UnspentConvictionsData({}, application), 'unspent-convictions')
 
   describe('errors', () => {
     describe('when there are no errors', () => {
       it('returns empty object', () => {
-        const page = new OffenceHistoryData(offenceHistoryData[0], application)
+        const page = new UnspentConvictionsData(unspentConvictionsData[0], application)
         expect(page.errors()).toEqual({})
       })
     })
@@ -42,14 +42,14 @@ describe('OffenceHistoryData', () => {
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-      const page = new OffenceHistoryData({ convictionType: 'choose' }, application)
+      const page = new UnspentConvictionsData({ convictionType: 'choose' }, application)
       const errors = page.errors()
 
       expect(errors[field as keyof typeof errors]).toEqual(message)
     })
 
     it('includes validation error for safeguardingDetail when not supplied and safeguarding is "yes"', () => {
-      const page = new OffenceHistoryData({ safeguarding: 'yes' }, application)
+      const page = new UnspentConvictionsData({ safeguarding: 'yes' }, application)
       const errors = page.errors()
 
       expect(errors.safeguardingDetail).toEqual('Enter details of the safeguarding measures')
@@ -58,7 +58,7 @@ describe('OffenceHistoryData', () => {
 
   describe('response', () => {
     it('returns empty object', () => {
-      const page = new OffenceHistoryData({}, application)
+      const page = new UnspentConvictionsData({}, application)
       expect(page.response()).toEqual({})
     })
   })

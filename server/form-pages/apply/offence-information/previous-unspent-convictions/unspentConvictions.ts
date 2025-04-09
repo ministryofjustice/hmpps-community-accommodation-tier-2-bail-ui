@@ -2,7 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import OffenceHistoryData, { OffenceHistoryDataBody } from './custom-forms/offenceHistoryData'
+import UnspentConvictionsData, { UnspentConvictionsDataBody } from './custom-forms/unspentConvictionsData'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 import paths from '../../../../paths/apply'
 import { getQuestions } from '../../../utils/questions'
@@ -35,24 +35,24 @@ export default class UnspentConvictions implements TaskListPage {
 
   pageName = 'unspent-convictions'
 
-  dataPageName = 'offence-history-data'
+  dataPageName = 'unspent-convictions-data'
 
   taskName = 'previous-unspent-convictions'
 
-  convictionTypes = getQuestions('')['previous-unspent-convictions']['offence-history-data'].convictionType.answers
+  convictionTypes = getQuestions('')['previous-unspent-convictions']['unspent-convictions-data'].convictionType.answers
 
   constructor(
     body: Partial<UnspentConvictionsBody>,
     private readonly application: Application,
   ) {
     if (application.data[this.taskName]?.[this.dataPageName]) {
-      const offenceHistoryData = application.data[this.taskName][this.dataPageName] as [OffenceHistoryDataBody]
+      const unspentConvictionsData = application.data[this.taskName][this.dataPageName] as [UnspentConvictionsDataBody]
 
       const query = {
         redirectPage: this.pageName,
       }
 
-      this.unspentConvictions = offenceHistoryData
+      this.unspentConvictions = unspentConvictionsData
         .filter(unspentConviction => unspentConviction.numberOfConvictions)
         .map((unspentConviction, index) => {
           const convictionTypeText =
@@ -76,9 +76,9 @@ export default class UnspentConvictions implements TaskListPage {
     this.body = body as UnspentConvictionsBody
   }
 
-  static async initialize(body: Partial<OffenceHistoryDataBody>, application: Application) {
-    if (!application.data['previous-unspent-convictions']?.['offence-history-data']) {
-      return new OffenceHistoryData(body, application)
+  static async initialize(body: Partial<UnspentConvictionsDataBody>, application: Application) {
+    if (!application.data['previous-unspent-convictions']?.['unspent-convictions-data']) {
+      return new UnspentConvictionsData(body, application)
     }
     return new UnspentConvictions({}, application)
   }
@@ -137,7 +137,7 @@ export default class UnspentConvictions implements TaskListPage {
     }
   }
 
-  getSafeguardingAnswer(unspentConviction: OffenceHistoryDataBody): string {
+  getSafeguardingAnswer(unspentConviction: UnspentConvictionsDataBody): string {
     if (!unspentConviction.safeguardingDetail) {
       return 'No'
     }
@@ -145,7 +145,7 @@ export default class UnspentConvictions implements TaskListPage {
     return unspentConviction.safeguardingDetail
   }
 
-  getCurrentlyServingAnswer(answer: Pick<OffenceHistoryDataBody, 'currentlyServing'>['currentlyServing']): string {
+  getCurrentlyServingAnswer(answer: Pick<UnspentConvictionsDataBody, 'currentlyServing'>['currentlyServing']): string {
     if (answer === 'yes') {
       return 'Yes'
     }

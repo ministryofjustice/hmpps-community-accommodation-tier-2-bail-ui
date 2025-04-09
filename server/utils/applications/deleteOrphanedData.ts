@@ -17,7 +17,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   }
 
   const deleteOrphanedOffendingHistoryInformation = () => {
-    delete applicationData['previous-unspent-convictions']['offence-history-data']
+    delete applicationData['previous-unspent-convictions']['unspent-convictions-data']
   }
 
   const deleteAddressHistoryInformation = () => {
