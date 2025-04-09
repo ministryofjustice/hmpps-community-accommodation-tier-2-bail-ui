@@ -7,12 +7,12 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class SubstanceMisusePage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Substance misuse needs details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Substance and alcohol use needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'substance-misuse',
     )
-    pageIsActiveInNavigation('Substance misuse')
+    pageIsActiveInNavigation('Substance and alcohol')
   }
 
   static visit(application: Application): void {

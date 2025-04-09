@@ -25,7 +25,7 @@ async function completeHealthNeedsInformationPage(page: Page, name: string) {
 }
 
 async function completeSubstanceMisusePage(page: Page, name: string) {
-  const substanceMisusePage = await ApplyPage.initialize(page, `Substance misuse needs details for ${name}`)
+  const substanceMisusePage = await ApplyPage.initialize(page, `Substance and alcohol use needs details for ${name}`)
 
   await substanceMisusePage.checkRadioInGroup('substance and alcohol use', 'No')
   await substanceMisusePage.checkRadioInGroup('substitute medication', 'No')
