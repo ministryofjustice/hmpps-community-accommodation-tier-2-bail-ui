@@ -335,7 +335,7 @@ describe('ApplicationService', () => {
         })
       })
 
-      it('deletes conditional data if required for offence history data', async () => {
+      it('deletes conditional data if required for unspent convictions data', async () => {
         page = createMock<TaskListPage>({
           errors: () => {
             return {} as TaskListErrors<TaskListPage>
@@ -343,14 +343,14 @@ describe('ApplicationService', () => {
           body: { hasAnyPreviousConvictions: 'no' },
         })
         ;(getPageName as jest.Mock).mockImplementation(() => 'any-previous-convictions')
-        ;(getTaskName as jest.Mock).mockImplementation(() => 'offending-history')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'previous-unspent-convictions')
 
         application.data = {
-          'offending-history': {
+          'previous-unspent-convictions': {
             'any-previous-convictions': {
               hasAnyPreviousConvictions: 'no',
             },
-            'offence-history-data': [{ example: 'example' }],
+            'unspent-convictions-data': [{ example: 'example' }],
           },
         }
 
@@ -360,7 +360,7 @@ describe('ApplicationService', () => {
         expect(getApplicationUpdateData).toHaveBeenCalledWith({
           ...application,
           data: {
-            'offending-history': {
+            'previous-unspent-convictions': {
               'any-previous-convictions': {
                 hasAnyPreviousConvictions: 'no',
               },

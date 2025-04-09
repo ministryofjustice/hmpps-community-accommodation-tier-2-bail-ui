@@ -25,11 +25,11 @@
 //    When I continue to the next task / page
 //    Then I see the "alleged offences summary" page
 
-import AllegedOffencesPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffencesPage'
-import AllegedOffenceDataPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffenceDataPage'
-import AllegedOffencesSummaryPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffencesSummaryPage'
-import Page from '../../../pages/page'
-import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
+import AllegedOffencesPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffencesPage'
+import AllegedOffenceDataPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffenceDataPage'
+import AllegedOffencesSummaryPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffencesSummaryPage'
+import Page from '../../../../pages/page'
+import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Offence information" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })

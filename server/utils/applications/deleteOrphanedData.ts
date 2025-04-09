@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { Unit } from '@approved-premises/api'
 import { lastKnownKeys, previousKeys } from '../../form-pages/apply/about-the-person/address-history/previousAddress'
-import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-information/offending-history/anyPreviousConvictions'
+import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-information/previous-unspent-convictions/anyPreviousConvictions'
 
 export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
   const deleteOrphanedFundingAlternativeIdInformation = () => {
@@ -17,7 +17,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   }
 
   const deleteOrphanedOffendingHistoryInformation = () => {
-    delete applicationData['offending-history']['offence-history-data']
+    delete applicationData['previous-unspent-convictions']['unspent-convictions-data']
   }
 
   const deleteAddressHistoryInformation = () => {
@@ -66,7 +66,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   if (
     hasOrphanedInformation({
-      taskName: 'offending-history',
+      taskName: 'previous-unspent-convictions',
       pageName: 'any-previous-convictions',
       questionKey: 'hasAnyPreviousConvictions',
       answerToCheck: PreviousConvictionsAnswers.No,
@@ -77,7 +77,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   if (
     hasOrphanedInformation({
-      taskName: 'offending-history',
+      taskName: 'previous-unspent-convictions',
       pageName: 'any-previous-convictions',
       questionKey: 'hasAnyPreviousConvictions',
       answerToCheck: PreviousConvictionsAnswers.YesNoRelevantRisk,

@@ -9,7 +9,7 @@ describe('hasAnyPreviousConvictions', () => {
     it('personalises the page title', () => {
       const page = new AnyPreviousConvictions({}, application)
 
-      expect(page.title).toEqual('Does Roger Smith have any previous unspent convictions?')
+      expect(page.title).toEqual('Previous unspent convictions for Roger Smith')
     })
   })
 
@@ -27,27 +27,29 @@ describe('hasAnyPreviousConvictions', () => {
   describe('next', () => {
     describe('when the applicant has previous unspent convictions with relevant risk', () => {
       describe('offence history', () => {
-        describe('when no offences have been added yet', () => {
+        describe('when no unspent convictions have been added yet', () => {
           it('takes the user to the offence history data page', () => {
             const page = new AnyPreviousConvictions(
               { hasAnyPreviousConvictions: PreviousConvictionsAnswers.YesRelevantRisk },
               application,
             )
-            expect(page.next()).toEqual('offence-history-data')
+            expect(page.next()).toEqual('unspent-convictions-data')
           })
         })
 
-        describe('when some offences have been added', () => {
-          it('takes the user to the offence history page', () => {
+        describe('when some unspent convictions have been added', () => {
+          it('takes the user to the unspent convictions page', () => {
             const applicationWithOffences = applicationFactory.build({
               person: personFactory.build({ name: 'Roger Smith' }),
-              data: { 'offending-history': { 'offence-history-data': [{ offenceGroupName: 'Stalking (08800)' }] } },
+              data: {
+                'previous-unspent-convictions': { 'unspent-convictions-data': [{ convictionType: 'Stalking' }] },
+              },
             })
             const page = new AnyPreviousConvictions(
               { hasAnyPreviousConvictions: PreviousConvictionsAnswers.YesRelevantRisk },
               applicationWithOffences,
             )
-            expect(page.next()).toEqual('offence-history')
+            expect(page.next()).toEqual('unspent-convictions')
           })
         })
       })

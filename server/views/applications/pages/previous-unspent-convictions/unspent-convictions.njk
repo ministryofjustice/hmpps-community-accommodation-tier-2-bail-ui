@@ -1,0 +1,72 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  {% if page.unspentConvictions | length %}
+
+    {% for unspentConviction in page.unspentConvictions %}
+      {{ govukSummaryList({
+          card: {
+            title: {
+              text: unspentConviction.convictionTypeText ,
+              classes:  "govuk-summary-card__title-wrapper--flex-end"
+            },
+            actions: {
+              items: [
+                {
+                  href: unspentConviction.removeLink,
+                  text: "Remove",
+                  visuallyHiddenText: unspentConviction.convictionTypeText
+                }
+              ]
+            }
+          },
+          rows: [
+            {
+              key: {
+                text: 'Number of convictions of the same type'
+              },
+              value: {
+                text: unspentConviction.numberOfConvictions
+              }
+            },
+            {
+              key: {
+                text: 'Are they currently serving a sentence for these convictions?'
+              },
+              value: {
+                text: unspentConviction.currentlyServing
+              }
+            },
+            {
+              key: {
+                text: 'Are there any safeguarding details to add about these convictions?'
+              },
+              value: {
+                text: unspentConviction.safeguarding
+              }
+            }
+          ]
+        })
+      }}
+    {% endfor %}
+  {% else %}
+    <p class="govuk-body govuk-!-font-weight-bold">No unspent convictions have been added.</p>
+  {% endif %}
+
+  <div>
+    {{ govukButton({
+            text: "Add another unspent conviction type",
+            attributes: { 'data-testid': 'add-another-unspent-conviction-button' },
+            classes: "govuk-button--secondary",
+            href: paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'unspent-convictions-data' })
+          }) }}
+  </div>
+
+{% endblock %}

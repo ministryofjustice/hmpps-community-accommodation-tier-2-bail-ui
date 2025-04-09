@@ -1,0 +1,219 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "../layout.njk" %}
+
+{% set safeguardingFollowUpHtml %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: "safeguardingDetail",
+          label: {
+            text: page.questions.safeguardingDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+  }}
+{% endset %}
+
+{% set whenIsAConvictionSpentGuidanceHtml %}
+  <p>Most convictions or cautions become ‘spent’ after a specific amount of time. This might be after a few months or years, or straight away.</p>
+
+  <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">Check if the applicant’s convictions or cautions are spent (opens in a new tab).</a>
+{% endset %}
+
+{% set convictionTypesGuidanceHtml %}
+  <p>You only need to add any convictions that are unspent and meet one or more of the following criteria:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>are relevant to the charges the applicant is being held for</li>
+    <li>
+      relate to any of the following categories:
+      <ul class="govuk-list govuk-list--bullet">
+        <li>arson</li>
+        <li>domestic abuse</li>
+        <li>drugs</li>
+        <li>hate-related attitudes</li>
+        <li>stalking and harassment</li>
+        <li>violence</li>
+        <li>weapons and firearms</li>
+      </ul>
+    </li>
+    <li>might raise concerns towards other adults and children</li>
+  </ul>
+
+  <p>This is because they are relevant to living in shared accommodation.</p>
+{% endset %}
+
+{% set unspentConvictionsGuidanceHtml %}
+  <p>Add any:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>active community orders or sentences that the applicant is currently serving</li>
+    <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
+  </ul>
+
+  {{
+    govukDetails({
+      summaryText: "Which types of convictions to add",
+      html: convictionTypesGuidanceHtml
+    })
+  }}
+
+  {{
+    govukDetails({
+      summaryText: "When is a conviction spent?",
+      html: whenIsAConvictionSpentGuidanceHtml
+    })
+  }}
+
+  <p class="govuk-!-font-weight-bold">How to add convictions</p>
+
+  <p>Add any convictions of the same type together. You only need to add details about any  safeguarding measures once.</p>
+{% endset %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="{{ columnClasses | default("govuk-grid-column-two-thirds") }}">
+      {{ showErrorSummary(errorSummary) }}
+
+      {% if successMessages %}
+        {% for message in successMessages %}
+          {{ govukNotificationBanner({
+                html: '<h3 class="govuk-!-margin-top-2">' + message + '</h3>',
+                type: 'success',
+                titleId: 'success-title'
+              }) }}
+        {% endfor %}
+      {% endif %}
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+      {{
+        govukInsetText({
+          html: unspentConvictionsGuidanceHtml,
+          classes: "guidance-panel"
+        })
+      }}
+
+      <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
+
+        {{
+            govukSelect({
+                  label: { 
+                    text: page.questions.convictionType.question,
+                    classes: "govuk-label--m" 
+                  },
+                  hint: {
+                    text: page.questions.convictionType.hint
+                  },
+                  id: "convictionType",
+                  name: "convictionType",
+                  items: page.convictionTypes,
+                  errorMessage: errors.convictionType
+              })
+        }}
+
+        {{
+            formPageInput(
+              {
+                label: { 
+                  text: page.questions.numberOfConvictions.question,
+                  classes: "govuk-label--m" 
+                },
+                classes: "govuk-input--width-2",
+                fieldName: "numberOfConvictions",
+                hint: {
+                  text: page.questions.numberOfConvictions.hint
+                }
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            formPageRadios(
+              {
+                fieldName: "currentlyServing",
+                fieldset: {
+                  legend: {
+                    text: page.questions.currentlyServing.question,
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                classes: "govuk-input--width-20",
+                items: [
+                  {
+                    value: "yes",
+                    text: page.questions.currentlyServing.answers.yes
+                  },
+                  {
+                    value: "no",
+                    text: page.questions.currentlyServing.answers.no
+                  }
+                ]
+              },
+              fetchContext()
+            )
+        }}
+
+        {{
+            formPageRadios(
+              {
+                fieldName: "safeguarding",
+                fieldset: {
+                  legend: {
+                    text: page.questions.safeguarding.question,
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                hint: {
+                  text: page.questions.safeguarding.hint
+                },
+                items: [
+                  {
+                    value: "yes",
+                    text: page.questions.safeguarding.answers.yes,
+                    conditional: {
+                      html: safeguardingFollowUpHtml
+                    }
+                  },
+                  {
+                    value: "no",
+                    text: page.questions.safeguarding.answers.no
+                  },
+                  {
+                    value: "dontKnow",
+                    text: page.questions.safeguarding.answers.dontKnow
+                  }
+                ]
+              },
+              fetchContext()
+            )
+        }}
+
+        {% block button %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+                  text: "Save and continue"
+              }) }}
+            {%if page.hasPreviouslySavedAnUnspentConviction %}
+              <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'unspent-convictions' }) }}">
+                  Exit without saving
+              </a>
+            {% endif %}
+          </div>
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

@@ -18,10 +18,10 @@
 //    Then I am taken to a blank "Add alleged offence" page
 //    And I see a success message
 
-import AllegedOffencesDataPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffenceDataPage'
-import AllegedOffencesPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffencesPage'
-import Page from '../../../pages/page'
-import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
+import AllegedOffencesDataPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffenceDataPage'
+import AllegedOffencesPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffencesPage'
+import Page from '../../../../pages/page'
+import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Offence information" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })

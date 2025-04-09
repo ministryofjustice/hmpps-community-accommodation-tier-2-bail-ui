@@ -89,8 +89,8 @@ export const generateSuccessMessage = (pageName: string): string => {
   switch (pageName) {
     case 'alleged-offence-data':
       return 'Alleged offence saved'
-    case 'offence-history-data':
-      return 'The offence has been saved'
+    case 'unspent-convictions-data':
+      return 'Unspent conviction saved'
     case 'acct-data':
       return 'The ACCT has been saved'
     default:

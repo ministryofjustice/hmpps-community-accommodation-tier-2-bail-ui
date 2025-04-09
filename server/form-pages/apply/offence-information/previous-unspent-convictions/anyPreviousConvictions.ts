@@ -20,13 +20,13 @@ type AnyPreviousConvictionsBody = {
   bodyProperties: ['hasAnyPreviousConvictions'],
 })
 export default class AnyPreviousConvictions implements TaskListPage {
-  documentTitle = 'Does the person have any previous unspent convictions?'
+  documentTitle = `Previous unspent convictions for the applicant`
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Does ${this.personName} have any previous unspent convictions?`
+  title = `Previous unspent convictions for ${this.personName}`
 
-  questions = getQuestions(this.personName)['offending-history']['any-previous-convictions']
+  questions = getQuestions(this.personName)['previous-unspent-convictions']['any-previous-convictions']
 
   options: Record<string, string>
 
@@ -45,10 +45,10 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   next() {
     if (this.body.hasAnyPreviousConvictions === 'yesRelevantRisk') {
-      if (this.application.data['offending-history']?.['offence-history-data']?.length > 0) {
-        return 'offence-history'
+      if (this.application.data['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0) {
+        return 'unspent-convictions'
       }
-      return 'offence-history-data'
+      return 'unspent-convictions-data'
     }
     return ''
   }
