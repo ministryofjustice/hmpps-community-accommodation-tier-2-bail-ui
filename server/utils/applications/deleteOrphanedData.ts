@@ -30,8 +30,6 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   const deleteOrphanedCPPAndCurrentOffenceData = () => {
     delete applicationData['community-supervision-and-current-offences']['cpp-details']
-    delete applicationData['community-supervision-and-current-offences']['current-offence-data']
-    delete applicationData['community-supervision-and-current-offences']['current-offences']
   }
 
   const hasOrphanedInformation = ({
