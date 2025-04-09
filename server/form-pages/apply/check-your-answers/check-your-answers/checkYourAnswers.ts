@@ -17,6 +17,8 @@ type ApplicationSummary = {
   referrerName: string
   contactEmail?: string
   view: string
+  applicationOrigin: string
+  crn: string
 }
 
 @Page({ name: 'check-your-answers', bodyProperties: ['checkYourAnswers'] })
@@ -46,6 +48,8 @@ export default class CheckYourAnswers implements TaskListPage {
       prisonName: isFullPerson(this.application.person) ? this.application.person.prisonName : null,
       referrerName: this.application.createdBy.name,
       contactEmail: this.application.createdBy.email,
+      applicationOrigin: this.application.applicationOrigin,
+      crn: isFullPerson(this.application.person) ? this.application.person.crn : null,
       view: 'checkYourAnswers',
     }
   }

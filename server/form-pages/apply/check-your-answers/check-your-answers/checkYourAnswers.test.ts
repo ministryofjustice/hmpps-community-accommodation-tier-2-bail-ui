@@ -39,6 +39,8 @@ describe('CheckYourAnswers', () => {
       expect(page.applicationSummary()).toEqual({
         id: application.id,
         name: person.name,
+        applicationOrigin: application.applicationOrigin,
+        crn: person.crn,
         prisonNumber: person.nomsNumber,
         prisonName: person.prisonName,
         referrerName: application.createdBy.name,
@@ -59,6 +61,8 @@ describe('CheckYourAnswers', () => {
 
         expect(page.applicationSummary()).toEqual({
           id: application.id,
+          applicationOrigin: application.applicationOrigin,
+          crn: null,
           name: null,
           prisonNumber: null,
           prisonName: null,
