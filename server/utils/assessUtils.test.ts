@@ -95,7 +95,7 @@ describe('applicationStatusUpdateDetailCheckboxes', () => {
     {
       id: 'b7636e4e-bf05-4c35-a79f-41c1089cb578',
       name: 'risksAndNeeds',
-      label: 'Risks and needs',
+      label: 'Concerns and health needs',
     },
   ] as Array<Cas2v2ApplicationStatusDetail>
 
@@ -113,7 +113,7 @@ describe('applicationStatusUpdateDetailCheckboxes', () => {
       },
       {
         value: 'risksAndNeeds',
-        text: 'Risks and needs',
+        text: 'Concerns and health needs',
         checked: false,
       },
     ]
@@ -145,7 +145,7 @@ describe('applicationStatusUpdateDetailCheckboxes', () => {
       },
       {
         value: 'risksAndNeeds',
-        text: 'Risks and needs',
+        text: 'Concerns and health needs',
         checked: false,
       },
     ]

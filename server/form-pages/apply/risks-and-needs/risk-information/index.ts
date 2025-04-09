@@ -12,7 +12,7 @@ import RiskManagementArrangements from './riskManagementArrangements'
 import { Task } from '../../../utils/decorators'
 
 @Task({
-  name: 'Add information about risks to the applicant and others',
+  name: 'Add information about concerns to the applicant and others',
   slug: 'risk-information',
   pages: [
     Concerns,
