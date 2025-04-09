@@ -29,6 +29,8 @@
       {{ applicationSummary({
         id: application.id,
         name: application.person.name,
+        applicationOrigin: application.applicationOrigin,
+        crn: application.person.crn,
         prisonNumber: application.person.nomsNumber,
         prisonName: application.person.prisonName,
         referrerName: application.submittedBy.name,
