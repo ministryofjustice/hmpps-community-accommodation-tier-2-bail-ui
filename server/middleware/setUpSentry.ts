@@ -29,7 +29,7 @@ export function setUpSentryRequestHandler(app: express.Express): void {
           return 0
         }
 
-        if (config.environmentName === 'PROD') {
+        if (config.environmentName === 'prod') {
           return 1
         }
 

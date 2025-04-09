@@ -15,7 +15,7 @@ generic-service:
     APPROVED_PREMISES_API_URL: "https://approved-premises-api-test.hmpps.service.justice.gov.uk"
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_RESPONSE: 30000
     COMMUNITY_ACCOMMODATION_API_TIMEOUT_DEADLINE: 30000
-    ENVIRONMENT_NAME: TEST
+    ENVIRONMENT_NAME: test
 
 generic-prometheus-alerts:
   alertSeverity: hmpps-approved-premises
