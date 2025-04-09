@@ -94,7 +94,7 @@ export default class UnspentConvictions implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.application.data['unspent-convictions']?.['unspent-convictions-data'].length) {
+    if (!this.application.data['previous-unspent-convictions']?.['unspent-convictions-data'].length) {
       errors.convictionsList = 'Unspent convictions must be added to the application'
     }
 

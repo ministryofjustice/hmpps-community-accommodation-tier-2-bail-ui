@@ -116,7 +116,7 @@ describe('UnspentConvictions', () => {
       it('returns an error when no unspent convictions are added', () => {
         const page = new UnspentConvictions({}, application)
         expect(page.errors()).toEqual({
-          convictionsList: 'Unspent convictions must be added to the application'
+          convictionsList: 'Unspent convictions must be added to the application',
         })
       })
     })
