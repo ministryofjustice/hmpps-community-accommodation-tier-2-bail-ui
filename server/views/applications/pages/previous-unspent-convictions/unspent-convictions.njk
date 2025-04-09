@@ -63,6 +63,7 @@
   <div>
     {{ govukButton({
             text: "Add another unspent conviction type",
+            attributes: { 'data-testid': 'add-another-unspent-conviction-button' },
             classes: "govuk-button--secondary",
             href: paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'unspent-convictions-data' })
           }) }}

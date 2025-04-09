@@ -339,25 +339,18 @@
       "summary": "Current offences summary"
     }
   },
-  "offending-history": {
+  "previous-unspent-convictions": {
     "any-previous-convictions": { "hasAnyPreviousConvictions": "yesRelevantRisk" },
-    "offence-history-data": [
+    "unspent-convictions-data": [
       {
-        "offenceGroupName": "Arson",
-        "offenceCategory": "arson",
-        "numberOfOffences": "3",
-        "sentenceTypes": "1 custodial",
-        "summary": "summary detail"
-      },
-      {
-        "offenceGroupName": "Stalking",
-        "offenceCategory": "stalkingOrHarassment",
-        "numberOfOffences": "3",
-        "sentenceTypes": "1 suspended",
-        "summary": "more summary detail"
+        "convictionType": "arson",
+        "numberOfConvictions": "3",
+        "currentlyServing": "no",
+        "safeguarding": "yes",
+        "safeguardingDetail": "safeguarding detail"
       }
     ],
-    "offence-history": {}
+    "unspent-convictions": {}
   },
   "bail-conditions-and-support-sessions": {
     "non-standard-bail-conditions": {
