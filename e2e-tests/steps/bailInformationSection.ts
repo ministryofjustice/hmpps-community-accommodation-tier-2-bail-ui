@@ -13,7 +13,6 @@ export const completeBailHearingInformationTask = async (page: Page, name: strin
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add bail hearing information')
 
-  await completeBailHearingArrangerPage(page)
   await completeBailHearingDatePage(page, name)
   await completeCourtNamePage(page, name)
   await completeBailHearingMediumPage(page, name)
@@ -63,11 +62,4 @@ async function completeMandatorySupportSessionsPage(page: Page, name: string) {
   )
   await mandatorySupportSessionsPage.checkRadio('No')
   await mandatorySupportSessionsPage.clickButton('Save and continue')
-}
-
-async function completeBailHearingArrangerPage(page: Page) {
-  const bailHearingArrangerPage = await ApplyPage.initialize(page, 'Who will arrange the bail hearing?')
-
-  await bailHearingArrangerPage.checkRadio('Solicitor')
-  await bailHearingArrangerPage.clickButton('Save and continue')
 }
