@@ -116,7 +116,7 @@ async function completeOtherHealthPage(page: Page, name: string) {
 
 export const completeRiskInformationTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add information about risks to the applicant and others')
+  await taskListPage.clickTask('Add information about concerns to the applicant and others')
 
   await completeConcernsPage(page, name)
   await completeSelfHarmPage(page, name)

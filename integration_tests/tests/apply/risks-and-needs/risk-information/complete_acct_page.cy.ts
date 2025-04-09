@@ -30,7 +30,7 @@ import ViolenceAndArsonPage from '../../../../pages/apply/risks-and-needs/risk-i
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
-context('Visit "Risks and needs" section', () => {
+context('Visit "Concerns and health needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {

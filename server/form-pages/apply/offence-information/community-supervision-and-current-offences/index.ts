@@ -7,7 +7,7 @@ import CurrentOffenceData from './custom-forms/currentOffenceData'
 import CurrentOffencesIndexPage from './currentOffences'
 
 @Task({
-  name: 'Community supervision and current offences',
+  name: 'Add probation supervision details',
   slug: 'community-supervision-and-current-offences',
   pages: [CommunitySupervision, CPPDetails, CurrentOffencesIndexPage, CurrentOffenceData],
 })

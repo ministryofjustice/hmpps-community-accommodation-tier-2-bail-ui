@@ -10,7 +10,7 @@ export const completeProvideOffencesAndConvictionsDetailsTask = async (page: Pag
 
 export const completeCommunitySupervisionAndCurrentOffencesTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Community supervision and current offences')
+  await taskListPage.clickTask('Add probation supervision details')
 
   await completeCommunitySupervisionPage(page, name)
   await completeCPPDetailsPage(page, name)

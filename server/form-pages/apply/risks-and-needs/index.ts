@@ -5,7 +5,7 @@ import HealthNeeds from './health-needs'
 import RiskInformation from './risk-information'
 
 @Section({
-  title: 'Risks and needs',
+  title: 'Concerns and health needs',
   tasks: [HealthNeeds, RiskInformation],
 })
 export default class RisksAndNeeds {}
