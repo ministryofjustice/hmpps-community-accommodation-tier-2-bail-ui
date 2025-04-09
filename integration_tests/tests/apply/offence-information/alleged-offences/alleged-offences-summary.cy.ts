@@ -17,10 +17,10 @@
 //    When I continue to the next task / page
 //    Then I see the "task list" page
 
-import AllegedOffencesSummaryPage from '../../../pages/apply/offence-information/alleged-offences/allegedOffencesSummaryPage'
-import TaskListPage from '../../../pages/apply/taskListPage'
-import Page from '../../../pages/page'
-import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
+import AllegedOffencesSummaryPage from '../../../../pages/apply/offence-information/alleged-offences/allegedOffencesSummaryPage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
+import Page from '../../../../pages/page'
+import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "Offence information" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
