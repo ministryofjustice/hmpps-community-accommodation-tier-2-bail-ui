@@ -113,9 +113,11 @@ describe('UnspentConvictions', () => {
     itShouldHavePreviousValue(new UnspentConvictions({}, application), 'any-previous-convictions')
 
     describe('errors', () => {
-      it('returns empty object', () => {
+      it('returns an error when no unspent convictions are added', () => {
         const page = new UnspentConvictions({}, application)
-        expect(page.errors()).toEqual({})
+        expect(page.errors()).toEqual({
+          convictionsList: 'Unspent convictions must be added to the application'
+        })
       })
     })
 

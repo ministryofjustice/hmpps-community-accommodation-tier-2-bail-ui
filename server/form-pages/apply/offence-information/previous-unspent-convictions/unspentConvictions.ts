@@ -7,7 +7,7 @@ import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/util
 import paths from '../../../../paths/apply'
 import { getQuestions } from '../../../utils/questions'
 
-type UnspentConvictionsBody = Record<string, never>
+type UnspentConvictionsBody = { convictionsList: string }
 
 type UnspentConvictionsUI = {
   convictionTypeTag: string
@@ -93,6 +93,10 @@ export default class UnspentConvictions implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    if (!this.application.data['unspent-convictions']?.['unspent-convictions-data'].length) {
+      errors.convictionsList = 'Unspent convictions must be added to the application'
+    }
 
     return errors
   }
