@@ -97,12 +97,14 @@ export const getQuestions = (name: string) => {
       'working-mobile-phone': {
         hasWorkingMobilePhone: {
           question: `Will ${name} have a working mobile phone?`,
+          answers: yesNoOrIDontKnow,
         },
         mobilePhoneNumber: {
           question: 'What is their mobile number? (Optional)',
         },
         isSmartPhone: {
           question: 'Is their mobile a smart phone?',
+          answers: yesOrNo,
         },
       },
       'immigration-status': {

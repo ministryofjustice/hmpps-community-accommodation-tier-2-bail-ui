@@ -76,7 +76,7 @@
       "isSmartPhone": "yes"
     },
     "immigration-status": {
-      "immigrationStatus": "UK citizen"
+      "immigrationStatus": "ukCitizen"
     },
     "gender": {
       "gender": "no",

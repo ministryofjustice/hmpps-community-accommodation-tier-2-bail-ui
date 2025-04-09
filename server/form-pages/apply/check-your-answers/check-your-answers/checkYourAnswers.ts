@@ -59,7 +59,7 @@ export default class CheckYourAnswers implements TaskListPage {
 
     if (this.body?.checkYourAnswers !== 'confirmed') {
       errors.checkYourAnswers =
-        'You must confirm the information provided is accurate and, where required, it has been verified by all relevant prison departments.'
+        'I confirm to the best of my knowledge, the information provided in this referral is accurate and, where required, it has been verified by all relevant teams and services.'
     }
 
     return errors
