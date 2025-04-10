@@ -28,10 +28,8 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     }
   }
 
-  const deleteOrphanedCPPAndCurrentOffenceData = () => {
-    delete applicationData['community-supervision-and-current-offences']['cpp-details']
-    delete applicationData['community-supervision-and-current-offences']['current-offence-data']
-    delete applicationData['community-supervision-and-current-offences']['current-offences']
+  const deleteOrphanedProbationSupervisionDetailsData = () => {
+    delete applicationData['add-probation-supervision-details']['cpp-details']
   }
 
   const hasOrphanedInformation = ({
@@ -92,13 +90,13 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   if (
     hasOrphanedInformation({
-      taskName: 'community-supervision-and-current-offences',
+      taskName: 'add-probation-supervision-details',
       pageName: 'community-supervision',
       questionKey: 'probationSupervision',
       answerToCheck: 'no',
     })
   ) {
-    deleteOrphanedCPPAndCurrentOffenceData()
+    deleteOrphanedProbationSupervisionDetailsData()
   }
 
   return applicationData

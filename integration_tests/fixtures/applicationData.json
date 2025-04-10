@@ -281,7 +281,7 @@
       }
     ]
   },
-  "community-supervision-and-current-offences": {
+  "add-probation-supervision-details": {
     "community-supervision": {
       "probationSupervision": "yes"
     },
@@ -290,31 +290,7 @@
         "probationRegion": "some region",
         "email": "cpp@moj.gov.uk",
         "telephone": "012345"
-    },
-    "current-offence-data": [
-      {
-        "titleAndNumber": "Arson",
-        "offenceCategory": "Arson",
-        "offenceDate-day": "5",
-        "offenceDate-month": "6",
-        "offenceDate-year": "1940",
-        "sentenceLength": "3 years",
-        "summary": "summary detail",
-        "outstandingCharges": "yes",
-        "outstandingChargesDetail": "outstanding charges detail"
-      },
-      {
-        "titleAndNumber": "Stalking",
-        "offenceCategory": "Stalking",
-        "offenceDate-day": "6",
-        "offenceDate-month": "7",
-        "offenceDate-year": "2023",
-        "sentenceLength": "2 months",
-        "summary": "more summary detail",
-        "outstandingCharges": "no"
-      }
-    ],
-    "current-offences": {}
+    }
   },
   "provide-offences-and-convictions-details": {
     "offences-and-convictions-guidance": {}

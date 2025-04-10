@@ -218,7 +218,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
   describe('cpp-details and current offences', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
-        'community-supervision-and-current-offences': {
+        'add-probation-supervision-details': {
           'community-supervision': {
             probationSupervision: 'no',
           },
@@ -230,36 +230,12 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               telephone: '012345',
             },
           },
-          'current-offence-data': [
-            {
-              titleAndNumber: 'Arson',
-              offenceCategory: 'Arson',
-              'offenceDate-day': '5',
-              'offenceDate-month': '6',
-              'offenceDate-year': '1940',
-              sentenceLength: '3 years',
-              summary: 'summary detail',
-              outstandingCharges: 'yes',
-              outstandingChargesDetail: 'outstanding charges detail',
-            },
-            {
-              titleAndNumber: 'Stalking',
-              offenceCategory: 'Stalking',
-              'offenceDate-day': '6',
-              'offenceDate-month': '7',
-              'offenceDate-year': '2023',
-              sentenceLength: '2 months',
-              summary: 'more summary detail',
-              outstandingCharges: 'no',
-            },
-          ],
-          'current-offences': {},
         },
       }
 
       it('removes cpp details and current offence data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'community-supervision-and-current-offences': {
+          'add-probation-supervision-details': {
             'community-supervision': {
               probationSupervision: 'no',
             },

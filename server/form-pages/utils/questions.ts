@@ -20,9 +20,6 @@ export const getQuestions = (name: string) => {
     },
   }
 
-  const offenceSummaryHintHtml =
-    '<div id="offence-details-hint" class="govuk-hint"> <p class="govuk-hint">Include:</p> <ul class="govuk-list govuk-list--bullet govuk-hint"> <li>what happened (excluding names and other sensitive information)</li> <li>where it happened (excluding addresses)</li><li>when it happened</li><li>damage or injury caused</li><li>weapon type</li><li>motivations for the offence</li><li>if a violent offence, the relationship to the victim</li></ul></div>'
-
   return {
     'confirm-eligibility': {
       'confirm-eligibility': {
@@ -867,7 +864,7 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'community-supervision-and-current-offences': {
+    'add-probation-supervision-details': {
       'community-supervision': {
         probationSupervision: {
           question: `Is ${name} currently supervised by probation?`,
@@ -878,32 +875,6 @@ export const getQuestions = (name: string) => {
         cppDetails: {
           question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
           hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
-        },
-      },
-      'current-offence-data': {
-        titleAndNumber: {
-          question: 'Offence title',
-          hint: "For example, 'Stalking'",
-        },
-        offenceCategory,
-        offenceDate: {
-          question: 'When did they commit the offence?',
-          hint: `For example, ${dateExample}`,
-        },
-        sentenceLength: {
-          question: 'How long were they sentenced for?',
-          hint: 'For example, 6 months',
-        },
-        summary: {
-          question: 'Provide a summary of the offence',
-          hint: offenceSummaryHintHtml,
-        },
-        outstandingCharges: {
-          question: `Are there outstanding charges committed prior to the current sentence?`,
-          answers: yesOrNo,
-        },
-        outstandingChargesDetail: {
-          question: 'Details of any outstanding charges',
         },
       },
     },
