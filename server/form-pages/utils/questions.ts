@@ -1032,15 +1032,6 @@ export const getQuestions = (name: string) => {
           question: 'What are they?',
         },
       },
-      'mandatory-support-sessions': {
-        mandatorySupportSessions: {
-          question: `Does the court require more than one mandatory support session per week for ${name}?`,
-          answers: yesOrNo,
-        },
-        mandatorySupportSessionsDetail: {
-          question: 'Provide additional information on how many sessions are required',
-        },
-      },
     },
     'bail-hearing-information': {
       'court-name': {

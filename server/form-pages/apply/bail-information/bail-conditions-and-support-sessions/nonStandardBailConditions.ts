@@ -40,7 +40,7 @@ export default class NonStandardBailConditions implements TaskListPage {
   }
 
   next() {
-    return 'mandatory-support-sessions'
+    return ''
   }
 
   items(detailConditionalHtml: string) {
