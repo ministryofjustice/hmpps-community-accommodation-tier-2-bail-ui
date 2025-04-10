@@ -36,7 +36,7 @@ export default class SubstanceMisuse implements TaskListPage {
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Substance misuse needs details for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `Substance and alcohol use needs details for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = getQuestions(this.personName)['health-needs']['substance-misuse']
 

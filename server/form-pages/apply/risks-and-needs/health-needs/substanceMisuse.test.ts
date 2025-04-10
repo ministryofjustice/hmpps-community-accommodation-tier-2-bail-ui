@@ -9,7 +9,7 @@ describe('SubstanceMisuse', () => {
     it('personalises the page title', () => {
       const page = new SubstanceMisuse({}, application)
 
-      expect(page.title).toEqual('Substance misuse needs details for Roger Smith')
+      expect(page.title).toEqual('Substance and alcohol use needs details for Roger Smith')
     })
   })
 
@@ -94,7 +94,7 @@ describe('SubstanceMisuse', () => {
     it('removes substance and alcohol use data if answer is no', () => {
       const body: Partial<SubstanceMisuseBody> = {
         substanceAndAlcoholUse: 'no',
-        substanceAndAlcoholUseDetail: 'Substance misuse',
+        substanceAndAlcoholUseDetail: 'Substance and alcohol',
       }
 
       const page = new SubstanceMisuse(body, application)
