@@ -38,7 +38,7 @@ export default class CPPDetails implements TaskListPage {
   }
 
   previous() {
-    return 'community-supervision'
+    return 'supervised-by-probation'
   }
 
   next() {

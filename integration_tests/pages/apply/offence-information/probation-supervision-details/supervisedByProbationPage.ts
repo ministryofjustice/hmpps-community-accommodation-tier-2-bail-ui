@@ -3,13 +3,13 @@ import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class CommunitySupervisionPage extends ApplyPage {
+export default class SupervisedByProbationPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
       `Is ${nameOrPlaceholderCopy(application.person)} currently supervised by probation?`,
       application,
       'add-probation-supervision-details',
-      'community-supervision',
+      'supervised-by-probation',
     )
   }
 
@@ -18,7 +18,7 @@ export default class CommunitySupervisionPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'add-probation-supervision-details',
-        page: 'community-supervision',
+        page: 'supervised-by-probation',
       }),
     )
   }

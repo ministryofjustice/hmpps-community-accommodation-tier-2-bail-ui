@@ -13,7 +13,7 @@ describe('CPPDetails', () => {
     })
   })
 
-  itShouldHavePreviousValue(new CPPDetails({}, application), 'community-supervision')
+  itShouldHavePreviousValue(new CPPDetails({}, application), 'supervised-by-probation')
   itShouldHaveNextValue(new CPPDetails({}, application), 'oasys-risk-assessment')
 
   describe('errors', () => {

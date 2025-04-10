@@ -78,7 +78,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   if (
     hasOrphanedInformation({
       taskName: 'add-probation-supervision-details',
-      pageName: 'community-supervision',
+      pageName: 'supervised-by-probation',
       questionKey: 'probationSupervision',
       answerToCheck: 'no',
     })

@@ -12,7 +12,7 @@ export const completeAddProbationSupervisionDetailsTask = async (page: Page, nam
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add probation supervision details')
 
-  await completeCommunitySupervisionPage(page, name)
+  await completeSupervisedByProbationPage(page, name)
   await completeCPPDetailsPage(page, name)
   await completeOASysRiskAssessmentPage(page)
 }
@@ -63,10 +63,10 @@ async function completeAllegedOffencesSummaryPage(page: Page, name: string) {
   await allegedOffencesSummaryPage.clickButton('Save and continue')
 }
 
-async function completeCommunitySupervisionPage(page: Page, name: string) {
-  const communitySupervisionPage = await ApplyPage.initialize(page, `Is ${name} currently supervised by probation?`)
-  await communitySupervisionPage.checkRadio('Yes')
-  await communitySupervisionPage.clickButton('Save and continue')
+async function completeSupervisedByProbationPage(page: Page, name: string) {
+  const supervisedByProbationPage = await ApplyPage.initialize(page, `Is ${name} currently supervised by probation?`)
+  await supervisedByProbationPage.checkRadio('Yes')
+  await supervisedByProbationPage.clickButton('Save and continue')
 }
 
 async function completeCPPDetailsPage(page: Page, name: string) {

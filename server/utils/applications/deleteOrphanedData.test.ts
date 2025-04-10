@@ -167,7 +167,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
         'add-probation-supervision-details': {
-          'community-supervision': {
+          'supervised-by-probation': {
             probationSupervision: 'no',
           },
           'cpp-details': {
@@ -184,7 +184,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       it('removes cpp details and current offence data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'add-probation-supervision-details': {
-            'community-supervision': {
+            'supervised-by-probation': {
               probationSupervision: 'no',
             },
           },

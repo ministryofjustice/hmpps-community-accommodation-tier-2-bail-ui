@@ -279,7 +279,7 @@
     ]
   },
   "add-probation-supervision-details": {
-    "community-supervision": {
+    "supervised-by-probation": {
       "probationSupervision": "yes"
     },
     "cpp-details": {
