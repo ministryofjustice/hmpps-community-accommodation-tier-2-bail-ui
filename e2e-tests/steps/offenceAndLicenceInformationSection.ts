@@ -14,6 +14,7 @@ export const completeAddProbationSupervisionDetailsTask = async (page: Page, nam
 
   await completeCommunitySupervisionPage(page, name)
   await completeCPPDetailsPage(page, name)
+  await completeOASysRiskAssessmentPage(page)
 }
 
 export const completeAllegedOffencesTask = async (page: Page, name: string) => {
@@ -75,6 +76,16 @@ async function completeCPPDetailsPage(page: Page, name: string) {
   await cppDetailsPage.fillField('Contact email address', 'an@email.gov.uk')
   await cppDetailsPage.fillField('Contact number', '12345')
   await cppDetailsPage.clickSave()
+}
+
+async function completeOASysRiskAssessmentPage(page: Page) {
+  const oasysRiskAssessmentPage = await ApplyPage.initialize(
+    page,
+    'Has an OASys risk assessment been done in the last two years?',
+  )
+  await oasysRiskAssessmentPage.checkRadioByTestId('riskAssessment-yes')
+  await oasysRiskAssessmentPage.checkRadioByTestId('oasysHasBeenUpdated-yes')
+  await oasysRiskAssessmentPage.clickSave()
 }
 
 export const completePreviousUnspentConvictionsTask = async (page: Page, name: string) => {

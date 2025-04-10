@@ -287,6 +287,10 @@
         "probationRegion": "some region",
         "email": "cpp@moj.gov.uk",
         "telephone": "012345"
+    },
+    "oasys-risk-assessment": {
+      "riskAssessment": "yes",
+      "oasysHasBeenUpdated": "yes"
     }
   },
   "provide-offences-and-convictions-details": {

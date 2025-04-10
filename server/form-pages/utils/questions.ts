@@ -894,6 +894,17 @@ export const getQuestions = (name: string) => {
           hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
         },
       },
+      'oasys-risk-assessment': {
+        riskAssessment: {
+          question: 'Has an OASys risk assessment been done in the last two years?',
+          answers: yesOrNo,
+        },
+        oasysHasBeenUpdated: {
+          question:
+            'Has OASys been updated by a Community Probation Practitioner (CPP) since the alleged offence took place?',
+          answers: yesOrNo,
+        },
+      },
     },
     'provide-offences-and-convictions-details': {
       'offences-and-convictions-guidance': {

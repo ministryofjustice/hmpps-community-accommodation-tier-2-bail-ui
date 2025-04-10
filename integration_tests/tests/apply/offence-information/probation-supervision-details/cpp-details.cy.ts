@@ -11,10 +11,10 @@
 //
 //  Scenario: complete page and navigate to next page
 //    When I continue to the next task / page
-//    Then I see the "task list" page
+//    Then I see the "oasys risk assessment" page
 
 import CPPDetailsPage from '../../../../pages/apply/offence-information/probation-supervision-details/cppDetailsPage'
-import TaskListPage from '../../../../pages/apply/taskListPage'
+import OASysRiskAssessmentPage from '../../../../pages/apply/offence-information/probation-supervision-details/oasysRiskAssessmentPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -54,14 +54,14 @@ context('Visit "Offence information" section', () => {
 
   //  Scenario: complete page and navigate to next page
   //    When I continue to the next task / page
-  //    Then I see the "task list" page
-  it('navigates to the next page (task list)', function test() {
+  //    Then I see the "oasys risk assessment" page
+  it('navigates to the next page (oasys-risk-assessment)', function test() {
     const page = new CPPDetailsPage(this.application)
 
     page.completeForm()
 
     page.clickSubmit()
 
-    Page.verifyOnPage(TaskListPage, this.application)
+    Page.verifyOnPage(OASysRiskAssessmentPage, this.application)
   })
 })
