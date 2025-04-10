@@ -160,20 +160,37 @@ export const getQuestions = (name: string) => {
     'address-history': {
       'previous-address': {
         hasPreviousAddress: {
-          question: `Did ${name} have an address before entering custody?`,
+          question: `Did ${name} have a fixed address before being arrested?`,
           answers: {
             yes: 'Yes',
-            no: 'No fixed address',
+            no: 'No',
           },
         },
-        knownAddress: {
-          question: 'What was the address?',
+        previousAddress: {
+          question: 'Enter their last fixed address',
         },
         lastKnownAddress: {
-          question: 'What was their last known address? (Optional)',
+          question: 'Enter their last known fixed address (optional)',
         },
         howLong: {
-          question: 'How long did the applicant have no fixed address for?',
+          question: 'How long have they had no fixed address for?',
+          hint: 'For example, one year or six weeks',
+        },
+        latestLivingSituation: {
+          question: 'Which of the following best describes their latest living situation?',
+          answers: {
+            rentalOrOwnedAlone: 'Living on their own in a rented or owned property (house, flat, trainler, etc)',
+            rentalOrOwnedWithOthers: 'Living in a rented or owned property with other people',
+            supportedAccommodation: 'Living in supported accommodation',
+            sharedAccommodation: 'Living in shared accommodation',
+            withRelativeOrFriend: 'Living with a relative or friend',
+            temporaryAccommodation: 'Living in temporary accommodation',
+            homeless: 'Homeless',
+            other: 'Other',
+          },
+        },
+        otherLivingSituation: {
+          question: 'Enter details',
         },
       },
     },

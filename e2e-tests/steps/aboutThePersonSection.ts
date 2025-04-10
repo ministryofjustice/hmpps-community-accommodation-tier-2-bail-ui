@@ -116,11 +116,13 @@ export const completeAddressHistoryTask = async (page: Page, name: string) => {
 }
 
 async function completePreviousAddressPage(page: Page, name: string) {
-  const previousAddressPage = await ApplyPage.initialize(page, `Did ${name} have an address before entering custody?`)
+  const previousAddressPage = await ApplyPage.initialize(
+    page,
+    `Did ${name} have a fixed address before being arrested?`,
+  )
   await previousAddressPage.checkRadio('Yes')
-  await previousAddressPage.fillFieldByGroupAndLabel('What was the address?', 'Address line 1', '1 Example Road')
-  await previousAddressPage.fillFieldByGroupAndLabel('What was the address?', 'Town or city', 'Anytown')
-  await previousAddressPage.fillFieldByGroupAndLabel('What was the address?', 'Postcode', 'AB1 2CD')
+  await previousAddressPage.fillField('Enter their last fixed address', '1 Example Road, Anytown, AB1 2CD')
+  await previousAddressPage.checkRadio('supported accommodation')
 
   await previousAddressPage.clickSave()
 }

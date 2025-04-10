@@ -96,11 +96,8 @@
   "address-history": {
     "previous-address": {
       "hasPreviousAddress": "yes",
-      "previousAddressLine1": "1 Example Road",
-      "previousAddressLine2": "Pretend Close",
-      "previousTownOrCity": "Aberdeen",
-      "previousCounty": "Gloucestershire",
-      "previousPostcode": "AB1 2CD"
+      "previousAddress": "1 Example Road, Pretend Close, Aberdeen, Gloucestershire, AB1 2CD",
+      "latestLivingSituation": "temporaryAccommodation"
     }
   },
   "equality-and-diversity-monitoring": {

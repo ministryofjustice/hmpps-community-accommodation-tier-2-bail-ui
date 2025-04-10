@@ -1,39 +1,15 @@
-import { Cas2v2Application } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import PreviousAddress, { PreviousAddressBody } from './previousAddress'
+import PreviousAddress from './previousAddress'
 
 describe('PreviousAddress', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
-
-  const previousAddress = {
-    hasPreviousAddress: 'yes',
-    previousAddressLine1: '1 Example Road',
-    previousAddressLine2: 'Pretend Close',
-    previousTownOrCity: 'Aberdeen',
-    previousCounty: 'Gloucestershire',
-    previousPostcode: 'AB1 2CD',
-  } as PreviousAddressBody
-
-  const lastKnownAddress = {
-    hasPreviousAddress: 'no',
-    howLong: '6 months',
-    lastKnownAddressLine1: '2 Example Road',
-    lastKnownAddressLine2: '2 Pretend Close',
-    lastKnownTownOrCity: 'Bristol',
-    lastKnownCounty: 'Shropshire',
-    lastKnownPostcode: 'EF1 GHD',
-  } as PreviousAddressBody
-
-  const noLastKnownAddress = {
-    hasPreviousAddress: 'no',
-  } as PreviousAddressBody
 
   describe('title', () => {
     it('has a page title', () => {
       const page = new PreviousAddress({}, application)
 
-      expect(page.title).toEqual('Did Roger Smith have a previous address before entering custody?')
+      expect(page.title).toEqual('Did Roger Smith have a fixed address before being arrested?')
     })
   })
 
@@ -42,121 +18,169 @@ describe('PreviousAddress', () => {
 
   describe('errors', () => {
     describe('when the previous address question has not been answered', () => {
-      it('it includes returns an error', () => {
+      it('returns an error', () => {
         const page = new PreviousAddress({}, application)
         const errors = page.errors()
 
-        expect(errors.hasPreviousAddress).toEqual('Select whether applicant had an address before entering custody')
+        expect(errors.hasPreviousAddress).toEqual('Select yes if the applicant had a fixed address before being held')
       })
     })
-    describe('when there is a previous address', () => {
-      describe('when there are no errors', () => {
-        it('returns empty object', () => {
-          const page = new PreviousAddress(previousAddress, application)
-          expect(page.errors()).toEqual({})
-        })
-      })
-      const requiredFields = [
-        ['previousAddressLine1', 'Enter the first line of the address'],
-        ['previousTownOrCity', 'Enter a town or city'],
-        ['previousPostcode', 'Enter a postcode'],
-      ]
 
-      it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-        const page = new PreviousAddress({ hasPreviousAddress: 'yes' }, application)
+    describe('when the latestLivingSituation question has not been answered', () => {
+      it('returns an error', () => {
+        const page = new PreviousAddress({}, application)
         const errors = page.errors()
 
-        expect(errors[field as keyof typeof errors]).toEqual(message)
+        expect(errors.latestLivingSituation).toEqual('Select their living situation')
       })
     })
 
-    describe('when there is not a previous address', () => {
-      it('includes a validation error for howLong field', () => {
-        const page = new PreviousAddress(noLastKnownAddress, application)
-        expect(page.errors()).toEqual({ howLong: 'Enter how long the person has had no fixed address' })
-      })
-    })
-  })
+    describe('when hasPreviousAddress is _YES_', () => {
+      describe('when previousAddress is empty', () => {
+        it('returns an error', () => {
+          const page = new PreviousAddress({ hasPreviousAddress: 'yes' }, application)
+          const errors = page.errors()
 
-  describe('response', () => {
-    it('returns empty object', () => {
-      const applicationWithNoData = { ...application, data: undefined } as Cas2v2Application
-      const page = new PreviousAddress({}, applicationWithNoData)
-      expect(page.response()).toEqual({})
-    })
-
-    describe('when there is a previous address', () => {
-      const applicationWithData = {
-        ...application,
-        data: { 'address-history': { 'previous-address': { ...previousAddress } } },
-      }
-      const page = new PreviousAddress({}, applicationWithData)
-      expect(page.response()).toEqual({
-        'Did Roger Smith have an address before entering custody?': 'Yes',
-        'What was the address?': `1 Example Road\r\nPretend Close\r\nAberdeen\r\nGloucestershire\r\nAB1 2CD\r\n`,
+          expect(errors.previousAddress).toEqual('Enter their last fixed address')
+        })
       })
     })
 
-    describe('when there is no previous address, but there is a last known address', () => {
-      const applicationWithData = {
-        ...application,
-        data: { 'address-history': { 'previous-address': { ...lastKnownAddress } } },
-      }
-      const page = new PreviousAddress({}, applicationWithData)
-      expect(page.response()).toEqual({
-        'Did Roger Smith have an address before entering custody?': 'No fixed address',
-        'How long did the applicant have no fixed address for?': '6 months',
-        'What was their last known address? (Optional)': `2 Example Road\r\n2 Pretend Close\r\nBristol\r\nShropshire\r\nEF1 GHD\r\n`,
+    describe('when hasPreviousAddress is _NO_', () => {
+      describe('when howLong is empty', () => {
+        it('returns an error', () => {
+          const page = new PreviousAddress({ hasPreviousAddress: 'no' }, application)
+          const errors = page.errors()
+
+          expect(errors.howLong).toEqual('Enter how long they have had no fixed address for')
+        })
       })
     })
 
-    describe('when there is no previous address or last known address', () => {
-      const applicationWithData = {
-        ...application,
-        data: { 'address-history': { 'previous-address': { ...noLastKnownAddress, howLong: '6 months' } } },
-      }
-      const page = new PreviousAddress({}, applicationWithData)
-      expect(page.response()).toEqual({
-        'Did Roger Smith have an address before entering custody?': 'No fixed address',
-        'How long did the applicant have no fixed address for?': '6 months',
-        'What was their last known address? (Optional)': 'Not applicable',
-      })
-    })
+    describe('when latestLivingSituation is _OTHER_', () => {
+      describe('when otherLivingSituation is empty', () => {
+        it('returns an error', () => {
+          const page = new PreviousAddress({ latestLivingSituation: 'other' }, application)
+          const errors = page.errors()
 
-    describe('when there is no previous address and a partial last known address', () => {
-      const applicationWithData = {
-        ...application,
-        data: {
-          'address-history': {
-            'previous-address': {
-              hasPreviousAddress: 'no',
-              howLong: '6 months',
-              lastKnownCounty: 'Shropshire',
-              lastKnownPostcode: 'EF1 GHD',
-            },
-          },
-        },
-      }
-      const page = new PreviousAddress({}, applicationWithData)
-      expect(page.response()).toEqual({
-        'Did Roger Smith have an address before entering custody?': 'No fixed address',
-        'How long did the applicant have no fixed address for?': '6 months',
-        'What was their last known address? (Optional)': `Shropshire\r\nEF1 GHD\r\n`,
+          expect(errors.otherLivingSituation).toEqual('Enter details of other living situation')
+        })
       })
     })
   })
 
-  describe('items', () => {
-    it('returns the checkboxs as expected', () => {
+  describe('addressItems', () => {
+    it('returns the radio buttons as expected', () => {
       const page = new PreviousAddress({}, application)
 
       const knownAddressHtml = 'known address'
       const lastKnownHtml = 'last known'
 
-      expect(page.items(knownAddressHtml, lastKnownHtml)).toEqual([
+      expect(page.addressItems(knownAddressHtml, lastKnownHtml)).toEqual([
         { value: 'yes', text: 'Yes', checked: false, conditional: { html: knownAddressHtml } },
-        { value: 'no', text: 'No fixed address', checked: false, conditional: { html: lastKnownHtml } },
+        { value: 'no', text: 'No', checked: false, conditional: { html: lastKnownHtml } },
       ])
+    })
+  })
+
+  describe('latestLivingSituationItems', () => {
+    it('returns the radio buttons as expected', () => {
+      const page = new PreviousAddress({ latestLivingSituation: 'homeless' }, application)
+
+      const otherLivingSituationHtml = 'other living situation'
+
+      expect(page.latestLivingSituationItems(otherLivingSituationHtml)).toEqual([
+        {
+          checked: false,
+          text: 'Living on their own in a rented or owned property (house, flat, trainler, etc)',
+          value: 'rentalOrOwnedAlone',
+        },
+        {
+          checked: false,
+          text: 'Living in a rented or owned property with other people',
+          value: 'rentalOrOwnedWithOthers',
+        },
+        {
+          checked: false,
+          text: 'Living in supported accommodation',
+          value: 'supportedAccommodation',
+        },
+        {
+          checked: false,
+          text: 'Living in shared accommodation',
+          value: 'sharedAccommodation',
+        },
+        {
+          checked: false,
+          text: 'Living with a relative or friend',
+          value: 'withRelativeOrFriend',
+        },
+        {
+          checked: false,
+          text: 'Living in temporary accommodation',
+          value: 'temporaryAccommodation',
+        },
+        {
+          checked: true,
+          text: 'Homeless',
+          value: 'homeless',
+        },
+        {
+          divider: 'or',
+        },
+        {
+          checked: false,
+          conditional: {
+            html: 'other living situation',
+          },
+          text: 'Other',
+          value: 'other',
+        },
+      ])
+    })
+  })
+
+  describe('onSave', () => {
+    describe('when hasPreviousAddress is set to _YES_', () => {
+      it('removes data relating to the last know address', () => {
+        const page = new PreviousAddress(
+          { hasPreviousAddress: 'yes', lastKnownAddress: '123 last address street', howLong: 'very long' },
+          application,
+        )
+        page.onSave()
+
+        expect(page.body).toEqual({
+          hasPreviousAddress: 'yes',
+        })
+      })
+    })
+
+    describe('when hasPreviousAddress is set to _NO_', () => {
+      it('removes data relating to the last know address', () => {
+        const page = new PreviousAddress(
+          { hasPreviousAddress: 'no', previousAddress: '456 previous address street' },
+          application,
+        )
+        page.onSave()
+
+        expect(page.body).toEqual({
+          hasPreviousAddress: 'no',
+        })
+      })
+    })
+
+    describe('when latestLivingSituation is not set to _OTHER_', () => {
+      it('removes data relating to the other living situation', () => {
+        const page = new PreviousAddress(
+          { latestLivingSituation: 'withRelativeOrFriend', otherLivingSituation: 'an unusual living situation' },
+          application,
+        )
+        page.onSave()
+
+        expect(page.body).toEqual({
+          latestLivingSituation: 'withRelativeOrFriend',
+        })
+      })
     })
   })
 })

@@ -1,71 +1,45 @@
 /* eslint-disable no-param-reassign */
-import type { Radio, TaskListErrors } from '@approved-premises/ui'
+import type { Radio, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
-import errorLookups from '../../../../i18n/en/errors.json'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 
 const applicationQuestions = getQuestions('')
 
-const options = applicationQuestions['address-history']['previous-address'].hasPreviousAddress.answers
-
-export const lastKnownKeys = [
-  'howLong',
-  'lastKnownAddressLine1',
-  'lastKnownAddressLine2',
-  'lastKnownTownOrCity',
-  'lastKnownCounty',
-  'lastKnownPostcode',
-]
-
-export const previousKeys = [
-  'previousAddressLine1',
-  'previousAddressLine2',
-  'previousTownOrCity',
-  'previousCounty',
-  'previousPostcode',
-]
+const latestLivingSituationOptions =
+  applicationQuestions['address-history']['previous-address'].latestLivingSituation.answers
 
 export type PreviousAddressBody = {
-  hasPreviousAddress: keyof typeof options
-  previousAddressLine1: string
-  previousAddressLine2?: string
-  previousTownOrCity: string
-  previousCounty?: string
-  previousPostcode: string
+  hasPreviousAddress: YesOrNo
+  previousAddress: string
   howLong: string
-  lastKnownAddressLine1: string
-  lastKnownAddressLine2?: string
-  lastKnownTownOrCity: string
-  lastKnownCounty?: string
-  lastKnownPostcode: string
+  lastKnownAddress: string
+  latestLivingSituation: keyof typeof latestLivingSituationOptions
+  otherLivingSituation: string
 }
 
 @Page({
   name: 'previous-address',
-  bodyProperties: ['hasPreviousAddress', ...previousKeys, ...lastKnownKeys],
+  bodyProperties: [
+    'hasPreviousAddress',
+    'previousAddress',
+    'howLong',
+    'lastKnownAddress',
+    'latestLivingSituation',
+    'otherLivingSituation',
+  ],
 })
 export default class PreviousAddress implements TaskListPage {
-  documentTitle = 'Did the person have a previous address before entering custody?'
+  documentTitle = 'Did the person have a fixed address before being arrested?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Did ${this.personName} have a previous address before entering custody?`
+  title = `Did ${this.personName} have a fixed address before being arrested?`
 
   questions = getQuestions(this.personName)['address-history']['previous-address']
-
-  addressLabels = {
-    addressLine1: 'Address line 1',
-    addressLine2: 'Address line 2',
-    addressLine2Optional: 'Address line 2 (optional)',
-    townOrCity: 'Town or city',
-    county: 'County',
-    countyOptional: 'County (optional)',
-    postcode: 'Postcode',
-  }
 
   body: PreviousAddressBody
 
@@ -85,35 +59,56 @@ export default class PreviousAddress implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasPreviousAddress) {
-      errors.hasPreviousAddress = errorLookups.hasPreviousAddress.empty
+      errors.hasPreviousAddress = 'Select yes if the applicant had a fixed address before being held'
     }
 
-    if (this.body.hasPreviousAddress === 'yes') {
-      if (!this.body.previousAddressLine1) {
-        errors.previousAddressLine1 = errorLookups.addressLine1.empty
-      }
-      if (!this.body.previousTownOrCity) {
-        errors.previousTownOrCity = errorLookups.townOrCity.empty
-      }
-      if (!this.body.previousPostcode) {
-        errors.previousPostcode = errorLookups.postCode.empty
-      }
+    if (this.body.hasPreviousAddress === 'yes' && !this.body.previousAddress) {
+      errors.previousAddress = 'Enter their last fixed address'
     }
 
     if (this.body.hasPreviousAddress === 'no' && !this.body.howLong) {
-      errors.howLong = 'Enter how long the person has had no fixed address'
+      errors.howLong = 'Enter how long they have had no fixed address for'
+    }
+
+    if (!this.body.latestLivingSituation) {
+      errors.latestLivingSituation = 'Select their living situation'
+    }
+
+    if (this.body.latestLivingSituation === 'other' && !this.body.otherLivingSituation) {
+      errors.otherLivingSituation = 'Enter details of other living situation'
     }
 
     return errors
   }
 
-  items(knownAddress: string, lastKnownAddress: string) {
-    const items = convertKeyValuePairToRadioItems(options, this.body.hasPreviousAddress) as [Radio]
+  latestLivingSituationItems(otherLivingSituation: string) {
+    const items = convertKeyValuePairToRadioItems(latestLivingSituationOptions, this.body.latestLivingSituation) as [
+      Radio,
+    ]
+
+    items.forEach(item => {
+      if (item.value === 'other') {
+        item.conditional = {
+          html: otherLivingSituation,
+        }
+      }
+    })
+
+    const other = items.pop()
+
+    return [...items, { divider: 'or' }, { ...other }]
+  }
+
+  addressItems(previousAddress: string, lastKnownAddress: string) {
+    const items = convertKeyValuePairToRadioItems(
+      this.questions.hasPreviousAddress.answers,
+      this.body.hasPreviousAddress,
+    ) as [Radio]
 
     items.forEach(item => {
       if (item.value === 'yes') {
         item.conditional = {
-          html: knownAddress,
+          html: previousAddress,
         }
       }
       if (item.value === 'no') {
@@ -126,34 +121,18 @@ export default class PreviousAddress implements TaskListPage {
     return items
   }
 
-  response(): Record<string, string> {
-    const response: Record<string, string> = {}
-
-    const answerData: PreviousAddressBody = this.application.data?.['address-history']?.['previous-address']
-
-    if (answerData) {
-      response[this.questions.hasPreviousAddress.question] =
-        this.questions.hasPreviousAddress.answers[answerData.hasPreviousAddress]
-
-      let address = ''
-      if (answerData.hasPreviousAddress === 'yes') {
-        previousKeys.forEach(key => {
-          address += `${answerData[key as keyof typeof answerData]}\r\n`
-        })
-        response[this.questions.knownAddress.question] = address
-      } else if (answerData.hasPreviousAddress === 'no') {
-        response[this.questions.howLong.question] = answerData.howLong
-
-        lastKnownKeys.slice(1).forEach(key => {
-          if (answerData[key as keyof typeof answerData]) {
-            address += `${answerData[key as keyof typeof answerData]}\r\n`
-          }
-        })
-
-        response[this.questions.lastKnownAddress.question] = address || 'Not applicable'
-      }
+  onSave(): void {
+    if (this.body.hasPreviousAddress !== 'no') {
+      delete this.body.lastKnownAddress
+      delete this.body.howLong
     }
 
-    return response
+    if (this.body.hasPreviousAddress !== 'yes') {
+      delete this.body.previousAddress
+    }
+
+    if (this.body.latestLivingSituation !== 'other') {
+      delete this.body.otherLivingSituation
+    }
   }
 }
