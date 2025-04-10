@@ -20,7 +20,7 @@ export const viewSubmittedApplication = async (page: Page) => {
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
   await expect(page.locator('h1')).toContainText(`application`)
-  await expect(page.locator('h2').first()).toContainText('Applicant details')
+  await expect(page.getByTestId('applicant-details-card')).toContainText('Applicant details')
 }
 
 export const addNote = async (page: Page) => {
