@@ -22,7 +22,7 @@ type AcctUI = {
   bodyProperties: ['acctDetail'],
 })
 export default class Acct implements TaskListPage {
-  documentTitle = "The person's ACCT notes"
+  documentTitle = 'Assessment, Care in Custody and Teamwork (ACCT) notes for the person'
 
   title = `Assessment, Care in Custody and Teamwork (ACCT) notes for ${nameOrPlaceholderCopy(this.application.person)}`
 
