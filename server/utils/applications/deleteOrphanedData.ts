@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { Unit } from '@approved-premises/api'
-import { lastKnownKeys, previousKeys } from '../../form-pages/apply/about-the-person/address-history/previousAddress'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-information/previous-unspent-convictions/anyPreviousConvictions'
 
 export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
@@ -18,14 +17,6 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   const deleteOrphanedOffendingHistoryInformation = () => {
     delete applicationData['previous-unspent-convictions']['unspent-convictions-data']
-  }
-
-  const deleteAddressHistoryInformation = () => {
-    if (applicationData['address-history']['previous-address'].hasPreviousAddress === 'yes') {
-      lastKnownKeys.forEach(key => delete applicationData['address-history']['previous-address'][key])
-    } else if (applicationData['address-history']['previous-address'].hasPreviousAddress === 'no') {
-      previousKeys.forEach(key => delete applicationData['address-history']['previous-address'][key])
-    }
   }
 
   const deleteOrphanedProbationSupervisionDetailsData = () => {
@@ -82,10 +73,6 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedOffendingHistoryInformation()
-  }
-
-  if (applicationData['address-history']?.['previous-address']?.hasPreviousAddress) {
-    deleteAddressHistoryInformation()
   }
 
   if (

@@ -163,58 +163,6 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('address-history', () => {
-    describe('when hasPreviousAddresses is set to no', () => {
-      const applicationData = {
-        'address-history': {
-          'previous-address': {
-            hasPreviousAddress: 'no',
-            previousAddressLine1: '1 Example Road',
-            previousAddressLine2: 'Pretend Close',
-            previousTownOrCity: 'Aberdeen',
-            previousCounty: 'Gloucestershire',
-            previousPostcode: 'AB1 2CD',
-          },
-        },
-      }
-
-      it('removes previous address history data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'address-history': {
-            'previous-address': {
-              hasPreviousAddress: 'no',
-            },
-          },
-        })
-      })
-    })
-
-    describe('when hasPreviousAddresses is set to yes', () => {
-      const applicationData = {
-        'address-history': {
-          'previous-address': {
-            hasPreviousAddress: 'yes',
-            howLong: '6 months',
-            lastKnownAddressLine1: '1 Example Road',
-            lastKnownAddressLine2: 'Pretend Close',
-            lastKnownTownOrCity: 'Aberdeen',
-            lastKnownCounty: 'Gloucestershire',
-            lastKnownPostcode: 'AB1 2CD',
-          },
-        },
-      }
-
-      it('removes last known address history data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'address-history': {
-            'previous-address': {
-              hasPreviousAddress: 'yes',
-            },
-          },
-        })
-      })
-    })
-  })
   describe('cpp-details and current offences', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
