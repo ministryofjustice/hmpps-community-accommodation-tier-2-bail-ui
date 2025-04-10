@@ -39,7 +39,7 @@ export default class SupervisedByProbation implements TaskListPage {
 
   next() {
     if (this.body.probationSupervision === 'yes') {
-      return 'cpp-details'
+      return 'community-probation-practitioner-details'
     }
     return ''
   }

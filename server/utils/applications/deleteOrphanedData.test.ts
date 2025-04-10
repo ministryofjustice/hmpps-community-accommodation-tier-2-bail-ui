@@ -163,14 +163,14 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('cpp-details and oasys risk assessment', () => {
+  describe('community-probation-practitioner-details and oasys risk assessment', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
         'add-probation-supervision-details': {
           'supervised-by-probation': {
             probationSupervision: 'no',
           },
-          'cpp-details': {
+          'community-probation-practitioner-details': {
             cppDetails: {
               name: 'A. CPP',
               probationRegion: 'some region',

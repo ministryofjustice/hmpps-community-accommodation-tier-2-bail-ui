@@ -6,7 +6,10 @@ describe('Community supervision', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('when the applicant is under probation supervision', () => {
-    itShouldHaveNextValue(new SupervisedByProbation({ probationSupervision: 'yes' }, application), 'cpp-details')
+    itShouldHaveNextValue(
+      new SupervisedByProbation({ probationSupervision: 'yes' }, application),
+      'community-probation-practitioner-details',
+    )
   })
 
   describe('when the applicant is not under probation supervision', () => {

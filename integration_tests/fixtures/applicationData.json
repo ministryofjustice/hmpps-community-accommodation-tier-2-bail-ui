@@ -282,7 +282,7 @@
     "supervised-by-probation": {
       "probationSupervision": "yes"
     },
-    "cpp-details": {
+    "community-probation-practitioner-details": {
         "name": "A. CPP",
         "probationRegion": "some region",
         "email": "cpp@moj.gov.uk",

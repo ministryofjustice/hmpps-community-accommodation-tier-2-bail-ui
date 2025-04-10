@@ -13,7 +13,7 @@ type CPPDetailsBody = {
 }
 
 @Page({
-  name: 'cpp-details',
+  name: 'community-probation-practitioner-details',
   bodyProperties: ['name', 'probationRegion', 'email', 'telephone'],
 })
 export default class CPPDetails implements TaskListPage {
@@ -23,7 +23,9 @@ export default class CPPDetails implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['add-probation-supervision-details']['cpp-details']
+  questions = getQuestions(this.personName)['add-probation-supervision-details'][
+    'community-probation-practitioner-details'
+  ]
 
   options: Record<string, string>
 

@@ -889,7 +889,7 @@ export const getQuestions = (name: string) => {
           answers: yesOrNo,
         },
       },
-      'cpp-details': {
+      'community-probation-practitioner-details': {
         cppDetails: {
           question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
         },

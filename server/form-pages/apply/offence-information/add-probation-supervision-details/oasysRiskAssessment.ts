@@ -34,7 +34,7 @@ export default class OASysRiskAssessment implements TaskListPage {
   }
 
   previous() {
-    return 'cpp-details'
+    return 'community-probation-practitioner-details'
   }
 
   next() {

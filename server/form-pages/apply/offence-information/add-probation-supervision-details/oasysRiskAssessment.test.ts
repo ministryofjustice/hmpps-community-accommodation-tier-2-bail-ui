@@ -31,7 +31,7 @@ describe('OASysRiskAssessment', () => {
     itShouldHaveNextValue(new OASysRiskAssessment({ riskAssessment: 'no' }, application), '')
   })
 
-  itShouldHavePreviousValue(new OASysRiskAssessment({}, application), 'cpp-details')
+  itShouldHavePreviousValue(new OASysRiskAssessment({}, application), 'community-probation-practitioner-details')
 
   describe('errors', () => {
     describe('when they have not provided an answer for risk assessment', () => {

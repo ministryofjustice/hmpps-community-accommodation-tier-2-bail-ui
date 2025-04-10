@@ -27,7 +27,7 @@ context('Visit "Offence information" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['add-probation-supervision-details']['cpp-details']
+      delete applicationData['add-probation-supervision-details']['community-probation-practitioner-details']
       const application = applicationFactory.build({
         id: 'abc123',
         person,

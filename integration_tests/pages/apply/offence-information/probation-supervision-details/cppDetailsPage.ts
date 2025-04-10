@@ -9,7 +9,7 @@ export default class CPPDetailsPage extends ApplyPage {
       `Who is ${nameOrPlaceholderCopy(application.person)}'s Community Probation Practitioner (CPP)?`,
       application,
       'add-probation-supervision-details',
-      'cpp-details',
+      'community-probation-practitioner-details',
     )
   }
 
@@ -18,7 +18,7 @@ export default class CPPDetailsPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'add-probation-supervision-details',
-        page: 'cpp-details',
+        page: 'community-probation-practitioner-details',
       }),
     )
   }
