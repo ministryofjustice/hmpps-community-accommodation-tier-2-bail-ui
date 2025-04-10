@@ -1,0 +1,68 @@
+{% from "../../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+
+{% extends "../layout.njk" %}
+
+{% set riskAssessmentFollowUp %}
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.oasysHasBeenUpdated.question
+          }
+        },
+        fieldName: "oasysHasBeenUpdated",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            attributes: {
+              'data-testid': 'oasysHasBeenUpdated-yes'
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endset %}
+
+{% block questions %}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.riskAssessment.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        fieldName: "riskAssessment",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            attributes: {
+              'data-testid': 'riskAssessment-yes'
+            },
+            conditional: {
+              html: riskAssessmentFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

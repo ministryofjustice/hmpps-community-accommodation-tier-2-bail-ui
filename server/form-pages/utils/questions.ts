@@ -882,16 +882,27 @@ export const getQuestions = (name: string) => {
       },
     },
     'add-probation-supervision-details': {
-      'community-supervision': {
+      'supervised-by-probation': {
         probationSupervision: {
           question: `Is ${name} currently supervised by probation?`,
+          hint: 'This includes if they are currently serving a community order or other non-custodial sentence.',
           answers: yesOrNo,
         },
       },
-      'cpp-details': {
+      'community-probation-practitioner-details': {
         cppDetails: {
           question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
-          hint: 'A Community Probation Practitioner (CPP) is also known as Community Offender Manager (COM).',
+        },
+      },
+      'oasys-risk-assessment': {
+        riskAssessment: {
+          question: 'Has an OASys risk assessment been done in the last two years?',
+          answers: yesOrNo,
+        },
+        oasysHasBeenUpdated: {
+          question:
+            'Has OASys been updated by a Community Probation Practitioner (CPP) since the alleged offence took place?',
+          answers: yesOrNo,
         },
       },
     },

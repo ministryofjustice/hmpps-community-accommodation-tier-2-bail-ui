@@ -1,23 +1,26 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import CommunitySupervision from './communitySupervision'
+import SupervisedByProbation from './supervisedByProbation'
 
 describe('Community supervision', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('when the applicant is under probation supervision', () => {
-    itShouldHaveNextValue(new CommunitySupervision({ probationSupervision: 'yes' }, application), 'cpp-details')
+    itShouldHaveNextValue(
+      new SupervisedByProbation({ probationSupervision: 'yes' }, application),
+      'community-probation-practitioner-details',
+    )
   })
 
   describe('when the applicant is not under probation supervision', () => {
-    itShouldHaveNextValue(new CommunitySupervision({ probationSupervision: 'no' }, application), '')
+    itShouldHaveNextValue(new SupervisedByProbation({ probationSupervision: 'no' }, application), '')
   })
 
-  itShouldHavePreviousValue(new CommunitySupervision({}, application), 'taskList')
+  itShouldHavePreviousValue(new SupervisedByProbation({}, application), 'taskList')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
-      const page = new CommunitySupervision({ probationSupervision: 'yes' }, application)
+      const page = new SupervisedByProbation({ probationSupervision: 'yes' }, application)
       expect(page.items()).toEqual([
         {
           checked: true,
@@ -35,7 +38,7 @@ describe('Community supervision', () => {
 
   describe('errors', () => {
     it('should return errors when the questions are blank', () => {
-      const page = new CommunitySupervision({}, application)
+      const page = new SupervisedByProbation({}, application)
 
       expect(page.errors()).toEqual({
         probationSupervision: 'Confirm whether the applicant is currently supervised by probation',

@@ -6,30 +6,30 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
-export type CommunitySupervisionBody = {
+export type SupervisedByProbationBody = {
   probationSupervision: YesOrNo
 }
 
 @Page({
-  name: 'community-supervision',
+  name: 'supervised-by-probation',
   bodyProperties: ['probationSupervision'],
 })
-export default class CommunitySupervision implements TaskListPage {
+export default class SupervisedByProbation implements TaskListPage {
   documentTitle = 'Is the person currently supervised by probation?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title
 
-  questions = getQuestions(this.personName)['add-probation-supervision-details']['community-supervision']
+  questions = getQuestions(this.personName)['add-probation-supervision-details']['supervised-by-probation']
 
-  body: CommunitySupervisionBody
+  body: SupervisedByProbationBody
 
   constructor(
-    body: Partial<CommunitySupervisionBody>,
+    body: Partial<SupervisedByProbationBody>,
     private readonly application: Application,
   ) {
-    this.body = body as CommunitySupervisionBody
+    this.body = body as SupervisedByProbationBody
     this.title = this.questions.probationSupervision.question
   }
 
@@ -39,7 +39,7 @@ export default class CommunitySupervision implements TaskListPage {
 
   next() {
     if (this.body.probationSupervision === 'yes') {
-      return 'cpp-details'
+      return 'community-probation-practitioner-details'
     }
     return ''
   }

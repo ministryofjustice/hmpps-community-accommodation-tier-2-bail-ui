@@ -20,7 +20,8 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   }
 
   const deleteOrphanedProbationSupervisionDetailsData = () => {
-    delete applicationData['add-probation-supervision-details']['cpp-details']
+    delete applicationData['add-probation-supervision-details']['community-probation-practitioner-details']
+    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment']
   }
 
   const hasOrphanedInformation = ({
@@ -78,7 +79,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   if (
     hasOrphanedInformation({
       taskName: 'add-probation-supervision-details',
-      pageName: 'community-supervision',
+      pageName: 'supervised-by-probation',
       questionKey: 'probationSupervision',
       answerToCheck: 'no',
     })

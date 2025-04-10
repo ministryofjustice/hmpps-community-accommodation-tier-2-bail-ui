@@ -163,14 +163,14 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('cpp-details and current offences', () => {
+  describe('community-probation-practitioner-details and oasys risk assessment', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
         'add-probation-supervision-details': {
-          'community-supervision': {
+          'supervised-by-probation': {
             probationSupervision: 'no',
           },
-          'cpp-details': {
+          'community-probation-practitioner-details': {
             cppDetails: {
               name: 'A. CPP',
               probationRegion: 'some region',
@@ -178,13 +178,17 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               telephone: '012345',
             },
           },
+          'oasys-risk-assessment': {
+            riskAssessment: 'yes',
+            oasysHasBeenUpdated: 'yes',
+          },
         },
       }
 
       it('removes cpp details and current offence data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'add-probation-supervision-details': {
-            'community-supervision': {
+            'supervised-by-probation': {
               probationSupervision: 'no',
             },
           },

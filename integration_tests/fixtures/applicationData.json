@@ -279,14 +279,18 @@
     ]
   },
   "add-probation-supervision-details": {
-    "community-supervision": {
+    "supervised-by-probation": {
       "probationSupervision": "yes"
     },
-    "cpp-details": {
+    "community-probation-practitioner-details": {
         "name": "A. CPP",
         "probationRegion": "some region",
         "email": "cpp@moj.gov.uk",
         "telephone": "012345"
+    },
+    "oasys-risk-assessment": {
+      "riskAssessment": "yes",
+      "oasysHasBeenUpdated": "yes"
     }
   },
   "provide-offences-and-convictions-details": {
