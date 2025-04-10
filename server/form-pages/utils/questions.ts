@@ -385,7 +385,7 @@ export const getQuestions = (name: string) => {
         },
         preferenceReason: {
           question: 'Reason for first preference',
-          hint: 'Include the type of local connection the applicant has with the area',
+          hint: 'Include a reason why the applicant prefers this area',
         },
       },
       'second-preferred-area': {
@@ -395,7 +395,7 @@ export const getQuestions = (name: string) => {
         },
         preferenceReason: {
           question: 'Reason for second preference',
-          hint: 'Include the type of local connection the applicant has with the area',
+          hint: 'Include a reason why the applicant prefers this area',
         },
       },
       'exclusion-zones': {
