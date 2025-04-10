@@ -1,6 +1,10 @@
 import { Cas2v2Application as Application, SubmitCas2v2Application, UpdateApplication } from '@approved-premises/api'
 
-import { preferredAreasFromAppData, telephoneNumberFromAppData } from './managementInfoFromAppData'
+import {
+  preferredAreasFromAppData,
+  telephoneNumberFromAppData,
+  bailHearingDateFromAppData,
+} from './managementInfoFromAppData'
 
 export const getApplicationUpdateData = (application: Application): UpdateApplication => {
   return {
@@ -16,5 +20,6 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
     applicationOrigin: application.applicationOrigin,
     preferredAreas: preferredAreasFromAppData(application),
     telephoneNumber: telephoneNumberFromAppData(application),
+    bailHearingDate: bailHearingDateFromAppData(application),
   }
 }

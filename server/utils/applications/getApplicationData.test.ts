@@ -22,6 +22,7 @@ describe('getApplicationSubmissionData', () => {
       translatedDocument: mockApplication.document,
       preferredAreas: 'London | Birmingham',
       telephoneNumber: '1234567',
+      bailHearingDate: '2025-02-02',
     })
   })
 })
