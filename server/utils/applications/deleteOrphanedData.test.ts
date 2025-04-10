@@ -163,7 +163,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('cpp-details and current offences', () => {
+  describe('cpp-details and oasys risk assessment', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
         'add-probation-supervision-details': {
@@ -177,6 +177,10 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               email: 'cpp@moj.gov.uk',
               telephone: '012345',
             },
+          },
+          'oasys-risk-assessment': {
+            riskAssessment: 'yes',
+            oasysHasBeenUpdated: 'yes',
           },
         },
       }
