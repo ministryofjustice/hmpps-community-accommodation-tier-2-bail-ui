@@ -48,6 +48,7 @@ export default class RestClient {
     private readonly token: string,
   ) {
     this.agent = config.url.startsWith('https') ? new HttpsAgent(config.agent) : new Agent(config.agent)
+    this.defaultHeaders = { 'X-SERVICE-NAME': 'cas2v2' }
   }
 
   private apiUrl() {
