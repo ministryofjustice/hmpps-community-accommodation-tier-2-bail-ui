@@ -202,4 +202,60 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('oasys risk assessment details', () => {
+    describe('oasys risk assessment has not been updated', () => {
+      const applicationData = {
+        'add-probation-supervision-details': {
+          'oasys-risk-assessment': {
+            riskAssessment: 'yes',
+            oasysHasBeenUpdated: 'no',
+          },
+          'oasys-risk-assessment-details': {
+            inTheCommunity: ['public'],
+            inCustody: ['public'],
+            inTheCommunityPublicRisk: 'high',
+            inCustodyPublicRisk: 'low',
+          },
+        },
+      }
+
+      it('removes oasys risk assessment details data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'add-probation-supervision-details': {
+            'oasys-risk-assessment': {
+              riskAssessment: 'yes',
+              oasysHasBeenUpdated: 'no',
+            },
+          },
+        })
+      })
+    })
+
+    describe('oasys risk assessment has not been completed', () => {
+      const applicationData = {
+        'add-probation-supervision-details': {
+          'oasys-risk-assessment': {
+            riskAssessment: 'no',
+          },
+          'oasys-risk-assessment-details': {
+            inTheCommunity: ['public'],
+            inCustody: ['public'],
+            inTheCommunityPublicRisk: 'high',
+            inCustodyPublicRisk: 'low',
+          },
+        },
+      }
+
+      it('removes oasys risk assessment details data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'add-probation-supervision-details': {
+            'oasys-risk-assessment': {
+              riskAssessment: 'no',
+            },
+          },
+        })
+      })
+    })
+  })
 })

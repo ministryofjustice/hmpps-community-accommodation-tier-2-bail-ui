@@ -25,6 +25,10 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
   }
 
+  const deleteOrphanedOASysRiskAssessmentDetailsData = () => {
+    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -86,6 +90,28 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedProbationSupervisionDetailsData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'add-probation-supervision-details',
+      pageName: 'oasys-risk-assessment',
+      questionKey: 'oasysHasBeenUpdated',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedOASysRiskAssessmentDetailsData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'add-probation-supervision-details',
+      pageName: 'oasys-risk-assessment',
+      questionKey: 'riskAssessment',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedOASysRiskAssessmentDetailsData()
   }
 
   return applicationData
