@@ -15,6 +15,7 @@ export const completeAddProbationSupervisionDetailsTask = async (page: Page, nam
   await completeSupervisedByProbationPage(page, name)
   await completeCPPDetailsPage(page, name)
   await completeOASysRiskAssessmentPage(page)
+  await completeOASysRiskAssessmentDetailsPage(page)
 }
 
 export const completeAllegedOffencesTask = async (page: Page, name: string) => {
@@ -86,6 +87,17 @@ async function completeOASysRiskAssessmentPage(page: Page) {
   await oasysRiskAssessmentPage.checkRadioByTestId('riskAssessment-yes')
   await oasysRiskAssessmentPage.checkRadioByTestId('oasysHasBeenUpdated-yes')
   await oasysRiskAssessmentPage.clickSave()
+}
+
+async function completeOASysRiskAssessmentDetailsPage(page: Page) {
+  const oasysRiskAssessmentDetailsPage = await ApplyPage.initialize(page, 'Provide details of the OASys assessment')
+  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inTheCommunityChildren')
+  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inTheCommunityChildrenRisk-medium')
+
+  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inCustodyPublic')
+  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inCustodyPublicRisk-medium')
+
+  await oasysRiskAssessmentDetailsPage.clickSave()
 }
 
 export const completePreviousUnspentConvictionsTask = async (page: Page, name: string) => {

@@ -291,6 +291,13 @@
     "oasys-risk-assessment": {
       "riskAssessment": "yes",
       "oasysHasBeenUpdated": "yes"
+    },
+    "oasys-risk-assessment-details": {
+      "inTheCommunity": ["public", "children"],
+      "inCustody": ["knownAdult"],
+      "inTheCommunityPublicRisk": "high",
+      "inTheCommunityChildrenRisk": "medium",
+      "inCustodyKnownAdultRisk": "medium"
     }
   },
   "provide-offences-and-convictions-details": {

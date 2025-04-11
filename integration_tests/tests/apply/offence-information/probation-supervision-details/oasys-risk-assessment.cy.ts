@@ -9,12 +9,12 @@
 //    And I am logged in
 //    And I am on the "oasys risk assessment" page
 //
-//  Scenario: complete page and navigate to task list page
+//  Scenario: complete page and navigate to risk assessment details page
 //    Given I am on the oasys risk assessment page
 //    And I answer yes to the risk assessment question
 //    And I answer yes to the OASys having been updated question
 //    When I continue to the next task / page
-//    Then I see the "task list" page
+//    Then I see the "risk assessment details" page
 //
 //  Scenario: complete page and navigate to task list page
 //    Given I am on the oasys risk assessment page
@@ -30,6 +30,7 @@
 //    Then I see the "task list" page
 
 import OASysRiskAssessmentPage from '../../../../pages/apply/offence-information/probation-supervision-details/oasysRiskAssessmentPage'
+import OASysRiskAssessmentDetailsPage from '../../../../pages/apply/offence-information/probation-supervision-details/oasysRiskAssessmentDetailsPage'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -82,7 +83,7 @@ context('Visit "Offence information" section', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(TaskListPage, this.application)
+    Page.verifyOnPage(OASysRiskAssessmentDetailsPage, this.application)
   })
 
   //  Scenario: complete page and navigate to task list page
