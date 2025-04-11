@@ -34,7 +34,7 @@ export default class BailHearingDate implements TaskListPage {
   }
 
   previous() {
-    return 'bail-hearing-arranger'
+    return 'taskList'
   }
 
   next() {

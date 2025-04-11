@@ -340,9 +340,6 @@
     }
   },
   "bail-hearing-information": {
-    "bail-hearing-arranger": {
-      "bailHearingArranger": "solicitor"
-    },
     "bail-hearing-date": {
       "bailHearingDate-year": "2025",
       "bailHearingDate-month": "2",
