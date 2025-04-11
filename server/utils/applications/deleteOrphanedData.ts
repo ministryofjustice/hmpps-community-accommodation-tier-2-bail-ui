@@ -22,6 +22,7 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   const deleteOrphanedProbationSupervisionDetailsData = () => {
     delete applicationData['add-probation-supervision-details']['community-probation-practitioner-details']
     delete applicationData['add-probation-supervision-details']['oasys-risk-assessment']
+    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
   }
 
   const hasOrphanedInformation = ({
