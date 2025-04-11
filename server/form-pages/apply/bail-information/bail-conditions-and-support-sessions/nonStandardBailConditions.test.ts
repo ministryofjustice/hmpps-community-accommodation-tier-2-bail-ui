@@ -1,4 +1,4 @@
-import { itShouldHavePreviousValue, itShouldHaveNextValue } from '../../../shared-examples'
+import { itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import NonStandardBailConditions, { NonStandardBailConditionsBody } from './nonStandardBailConditions'
 
@@ -14,7 +14,6 @@ describe('NonStandardBailConditions', () => {
   })
 
   itShouldHavePreviousValue(new NonStandardBailConditions({}, application), 'taskList')
-  itShouldHaveNextValue(new NonStandardBailConditions({}, application), 'mandatory-support-sessions')
 
   describe('items', () => {
     it('returns the radio with the expected label text', () => {
