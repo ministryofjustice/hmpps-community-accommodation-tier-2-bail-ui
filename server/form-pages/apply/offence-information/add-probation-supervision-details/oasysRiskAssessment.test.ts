@@ -16,7 +16,7 @@ describe('OASysRiskAssessment', () => {
   describe('when a risk assessment has been done and OASys has been updated', () => {
     itShouldHaveNextValue(
       new OASysRiskAssessment({ riskAssessment: 'yes', oasysHasBeenUpdated: 'yes' }, application),
-      '',
+      'oasys-risk-assessment-details',
     )
   })
 

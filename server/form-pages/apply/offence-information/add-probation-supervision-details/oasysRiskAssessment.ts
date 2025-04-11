@@ -39,7 +39,7 @@ export default class OASysRiskAssessment implements TaskListPage {
 
   next() {
     if (this.body.riskAssessment === 'yes' && this.body.oasysHasBeenUpdated === 'yes') {
-      return ''
+      return 'oasys-risk-assessment-details'
     }
 
     return ''
