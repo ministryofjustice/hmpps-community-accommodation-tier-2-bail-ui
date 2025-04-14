@@ -21,6 +21,13 @@ describe('UnspentConvictions', () => {
             convictionType: 'arson',
             numberOfConvictions: '2',
             currentlyServing: 'no',
+            safeguarding: 'dontKnow',
+            safeguardingDetail: '',
+          },
+          {
+            convictionType: 'drugs',
+            numberOfConvictions: '2',
+            currentlyServing: 'no',
             safeguarding: 'no',
             safeguardingDetail: '',
           },
@@ -58,8 +65,17 @@ describe('UnspentConvictions', () => {
             convictionTypeText: 'Arson',
             numberOfConvictions: '2',
             currentlyServing: 'No',
-            safeguarding: 'No',
+            safeguarding: 'Not known',
             removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/1/removeFromList?redirectPage=unspent-convictions`,
+          },
+          {
+            convictionTypeTag:
+              '<strong class="govuk-tag govuk-tag--custom-brown">Drugs</strong><p class="govuk-visually-hidden">conviction information</p>',
+            convictionTypeText: 'Drugs',
+            numberOfConvictions: '2',
+            currentlyServing: 'No',
+            safeguarding: 'No',
+            removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/2/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
       })
@@ -84,6 +100,8 @@ describe('UnspentConvictions', () => {
           '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>':
             'Number of convictions: 3\r\nActive sentence: Yes\r\nSafeguarding: Safeguarding detail',
           '<strong class="govuk-tag govuk-tag--yellow">Arson</strong><p class="govuk-visually-hidden">conviction information</p>':
+            'Number of convictions: 2\r\nActive sentence: No\r\nSafeguarding: Not known',
+          '<strong class="govuk-tag govuk-tag--custom-brown">Drugs</strong><p class="govuk-visually-hidden">conviction information</p>':
             'Number of convictions: 2\r\nActive sentence: No\r\nSafeguarding: No',
         })
       })
