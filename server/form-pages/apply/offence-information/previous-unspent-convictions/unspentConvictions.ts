@@ -61,7 +61,7 @@ export default class UnspentConvictions implements TaskListPage {
           convictionTypeText,
           numberOfConvictions: unspentConviction.numberOfConvictions,
           currentlyServing: this.getCurrentlyServingAnswer(unspentConviction.currentlyServing),
-          safeguarding: unspentConviction.safeguardingDetail || 'No',
+          safeguarding: this.getSafeguardingAnswer(unspentConviction),
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: this.taskName,
@@ -145,5 +145,17 @@ export default class UnspentConvictions implements TaskListPage {
     }
 
     return 'No'
+  }
+
+  getSafeguardingAnswer(unspentConviction: UnspentConvictionsDataBody) {
+    if (unspentConviction.safeguardingDetail) {
+      return unspentConviction.safeguardingDetail
+    }
+
+    if (unspentConviction.safeguarding === 'no') {
+      return 'No'
+    }
+
+    return 'Not known'
   }
 }
