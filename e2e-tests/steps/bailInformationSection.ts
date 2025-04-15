@@ -37,10 +37,10 @@ async function completeBailHearingDatePage(page: Page, name: string) {
 async function completeCourtNamePage(page: Page, name: string) {
   const courtNamePage = await ApplyPage.initialize(
     page,
-    `What's the name of the court where ${name}'s bail hearing will take place?`,
+    `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
   )
   await courtNamePage.fillField(
-    `What's the name of the court where ${name}'s bail hearing will take place?`,
+    `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
     'Barnsley Magistrates Court',
   )
   await courtNamePage.clickButton('Save and continue')
