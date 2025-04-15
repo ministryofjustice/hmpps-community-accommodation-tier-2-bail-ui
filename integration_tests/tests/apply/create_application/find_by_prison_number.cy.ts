@@ -205,11 +205,11 @@ context('Find by prison number', () => {
     // I see a not found error message
     cy.get('.govuk-error-summary').should(
       'contain',
-      `No person found for prison number ${person.nomsNumber}, please try another number.`,
+      `No person found for prison number ${person.nomsNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
     )
     cy.get(`[data-cy-error-prisonNumber]`).should(
       'contain',
-      `No person found for prison number ${person.nomsNumber}, please try another number.`,
+      `No person found for prison number ${person.nomsNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
     )
   })
 
