@@ -186,6 +186,7 @@ describe('fetchErrorsAndUserInput', () => {
   let userInput: Record<string, unknown>
   let errorSummary: ErrorSummary
   let errorTitle: string
+  let errorStatusCode: string
 
   beforeEach(() => {
     ;(request.flash as jest.Mock).mockImplementation((message: string) => {
@@ -194,6 +195,7 @@ describe('fetchErrorsAndUserInput', () => {
         userInput: [userInput],
         errorSummary,
         errorTitle: [errorTitle],
+        errorStatusCode: [errorStatusCode],
       }[message]
     })
   })
@@ -201,7 +203,13 @@ describe('fetchErrorsAndUserInput', () => {
   it('returns default values if there is nothing present', () => {
     const result = fetchErrorsAndUserInput(request)
 
-    expect(result).toEqual({ errors: {}, errorSummary: [], userInput: {}, errorTitle: undefined })
+    expect(result).toEqual({
+      errors: {},
+      errorSummary: [],
+      userInput: {},
+      errorTitle: undefined,
+      errorStatusCode: undefined,
+    })
   })
 
   it('fetches the values from the flash', () => {
@@ -209,10 +217,11 @@ describe('fetchErrorsAndUserInput', () => {
     errorSummary = createMock<ErrorSummary>()
     userInput = { foo: 'bar' }
     errorTitle = 'Some title'
+    errorStatusCode = '404'
 
     const result = fetchErrorsAndUserInput(request)
 
-    expect(result).toEqual({ errors, errorSummary, userInput, errorTitle })
+    expect(result).toEqual({ errors, errorSummary, userInput, errorTitle, errorStatusCode })
   })
 })
 
@@ -245,12 +254,13 @@ describe('addErrorMessagesToFlash', () => {
   it('adds error messages to flash object', () => {
     const key = 'name'
     const message = 'Please enter a name'
+    const errorStatusCode = '404'
 
     const request = createMock<Request>({})
     request.flash = jest.fn()
     request.body = { field: 'value' }
 
-    addErrorMessagesToFlash(request, key, message)
+    addErrorMessagesToFlash(request, key, message, errorStatusCode)
 
     expect(request.flash).toHaveBeenCalledWith('errors', {
       [key]: {
@@ -262,5 +272,6 @@ describe('addErrorMessagesToFlash', () => {
     })
     expect(request.flash).toHaveBeenCalledWith('errorSummary', [{ href: '#name', text: 'Please enter a name' }])
     expect(request.flash).toHaveBeenCalledWith('userInput', { field: 'value' })
+    expect(request.flash).toHaveBeenCalledWith('errorStatusCode', '404')
   })
 })
