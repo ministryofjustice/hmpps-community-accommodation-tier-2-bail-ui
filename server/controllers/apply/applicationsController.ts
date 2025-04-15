@@ -246,7 +246,10 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
+      const applicationOrigin: ApplicationOrigin = req.query.usePrisonBailApplicationOrigin ? 'prisonBail' : 'courtBail'
+
       return res.render('applications/search-by-crn', {
+        applicationOrigin,
         errors,
         errorSummary,
         ...userInput,

@@ -22,7 +22,7 @@
     <div class="govuk-grid-column-three-quarters">
       <form action="{{ paths.applications.people.findByCrn() }}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
-        <input type="hidden" name="applicationOrigin" value="courtBail"/>
+        <input type="hidden" name="applicationOrigin" value="{{ applicationOrigin }}"/>
 
         {{ showErrorSummary(errorSummary) }}
 

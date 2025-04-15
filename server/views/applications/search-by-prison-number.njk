@@ -51,7 +51,7 @@
                 text: "Search for applicant"
             }) }}
 
-            <a href="{{ paths.applications.searchByCrn() }}">Search by case reference number (CRN)</a>
+            <a href="{{ paths.applications.searchByCrn() }}?usePrisonBailApplicationOrigin=true">Search by case reference number (CRN)</a>
           </div>
         {% else %}
           {{ govukButton({
