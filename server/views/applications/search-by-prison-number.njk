@@ -44,10 +44,21 @@
           )
         }}
 
-        {{ govukButton({
-            name: 'submit',
-            text: "Search for applicant"
-        }) }}
+        {% if errorStatusCode === '404' %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+                name: 'submit',
+                text: "Search for applicant"
+            }) }}
+
+            <a href="{{ paths.applications.searchByCrn() }}">Search by case reference number (CRN)</a>
+          </div>
+        {% else %}
+          {{ govukButton({
+              name: 'submit',
+              text: "Search for applicant"
+          }) }}
+        {% endif %}
       </form>
     </div>
   </div>

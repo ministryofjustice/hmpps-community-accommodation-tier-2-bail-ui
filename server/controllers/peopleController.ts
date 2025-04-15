@@ -32,7 +32,8 @@ export default class PeopleController {
             addErrorMessagesToFlash(
               req,
               'prisonNumber',
-              `No person found for prison number ${prisonNumber}, please try another number.`,
+              `No person found for prison number ${prisonNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
+              '404',
             )
           } else if (err.status === 403) {
             addErrorMessagesToFlash(

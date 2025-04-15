@@ -562,6 +562,7 @@ describe('applicationsController', () => {
         pageHeading: "Enter the person's prison number",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
+        errorStatusCode: errorsAndUserInput.errorStatusCode,
         ...errorsAndUserInput.userInput,
       })
     })
