@@ -19,7 +19,7 @@ export type Cas2v2ApplicationSummary = {
     hdcEligibilityDate?: string;
     personName: string;
     crn: string;
-    nomsNumber: string;
+    nomsNumber?: string;
     applicationOrigin: ApplicationOrigin;
     bailHearingDate?: string;
 };
