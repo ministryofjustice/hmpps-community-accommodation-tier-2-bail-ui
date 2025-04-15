@@ -1045,7 +1045,7 @@ export const getQuestions = (name: string) => {
     'bail-hearing-information': {
       'court-name': {
         courtName: {
-          question: `What's the name of the court where ${name}'s bail hearing will take place?`,
+          question: `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
         },
       },
       'bail-hearing-date': {
@@ -1056,7 +1056,7 @@ export const getQuestions = (name: string) => {
       },
       'bail-hearing-medium': {
         bailHearingMedium: {
-          question: `How will ${name}'s bail hearing be heard?`,
+          question: `How will ${name}'s bail hearing be heard? (optional)`,
           answers: {
             inCourt: 'In court',
             videoLink: 'Video link',
