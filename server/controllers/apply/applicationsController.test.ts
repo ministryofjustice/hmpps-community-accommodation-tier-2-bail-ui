@@ -562,12 +562,19 @@ describe('applicationsController', () => {
         pageHeading: "Enter the person's prison number",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
+        errorStatusCode: errorsAndUserInput.errorStatusCode,
         ...errorsAndUserInput.userInput,
       })
     })
   })
 
   describe('searchByCrn', () => {
+    beforeEach(() => {
+      request = createMock<Request>({
+        user: { token },
+        query: {},
+      })
+    })
     it('renders the enter CRN template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
@@ -577,6 +584,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        applicationOrigin: 'courtBail',
         errors: {},
         errorSummary: [],
         pageHeading: "Enter the person's CRN",
@@ -591,10 +599,34 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        applicationOrigin: 'courtBail',
         pageHeading: "Enter the person's CRN",
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
+      })
+    })
+
+    describe('applicationOrigin', () => {
+      it('sets the applicationOrigin to "prisonBail" when the query param is set', async () => {
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
+
+        request = createMock<Request>({
+          user: { token },
+          query: { usePrisonBailApplicationOrigin: 'true' },
+        })
+
+        const requestHandler = applicationsController.searchByCrn()
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+          applicationOrigin: 'prisonBail',
+          errors: {},
+          errorSummary: [],
+          pageHeading: "Enter the person's CRN",
+        })
       })
     })
   })

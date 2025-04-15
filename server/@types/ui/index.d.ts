@@ -61,6 +61,7 @@ export interface ErrorsAndUserInput {
   errors: ErrorMessages
   errorSummary: Array<string>
   userInput: Record<string, unknown>
+  errorStatusCode?: string
 }
 
 export interface ErrorMessage {

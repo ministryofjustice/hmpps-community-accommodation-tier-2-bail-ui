@@ -22,8 +22,9 @@ export const fetchErrorsAndUserInput = (request: Request): ErrorsAndUserInput =>
   const errorSummary = request.flash('errorSummary') || []
   const userInput = firstFlashItem(request, 'userInput') || {}
   const errorTitle = firstFlashItem(request, 'errorTitle')
+  const errorStatusCode = firstFlashItem(request, 'errorStatusCode')
 
-  return { errors, errorTitle, errorSummary, userInput }
+  return { errors, errorTitle, errorSummary, userInput, errorStatusCode }
 }
 
 export const catchAPIErrorOrPropogate = (request: Request, response: Response, error: SanitisedError | Error): void => {
@@ -78,12 +79,13 @@ export const errorSummary = (field: string, text: string): ErrorSummary => {
   }
 }
 
-export const addErrorMessagesToFlash = (request: Request, key: string, message: string): void => {
+export const addErrorMessagesToFlash = (request: Request, key: string, message: string, statusCode?: string): void => {
   request.flash('errors', {
     [key]: errorMessage(key, message),
   })
   request.flash('errorSummary', [errorSummary(key, message)])
   request.flash('userInput', request.body)
+  request.flash('errorStatusCode', statusCode)
 }
 
 export const generateErrorMessages = (errors: Record<string, string>): ErrorMessages => {

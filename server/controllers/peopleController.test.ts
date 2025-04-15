@@ -84,15 +84,16 @@ describe('peopleController', () => {
             expect(request.flash).toHaveBeenCalledWith('errors', {
               prisonNumber: errorMessage(
                 'prisonNumber',
-                `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
+                `No person found for prison number ${request.body.prisonNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
               ),
             })
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
               errorSummary(
                 'prisonNumber',
-                `No person found for prison number ${request.body.prisonNumber}, please try another number.`,
+                `No person found for prison number ${request.body.prisonNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
               ),
             ])
+            expect(request.flash).toHaveBeenCalledWith('errorStatusCode', '404')
             expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
           })
         })
