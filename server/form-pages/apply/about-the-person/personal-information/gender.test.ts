@@ -55,7 +55,7 @@ describe('Gender', () => {
     })
   })
 
-  itShouldHavePreviousValue(new Gender(body, application), 'support-worker-preference')
+  itShouldHavePreviousValue(new Gender(body, application), '')
 
   describe('onSave', () => {
     it('removes gender identity data if question is not set to "no"', () => {

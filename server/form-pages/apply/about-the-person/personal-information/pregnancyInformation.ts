@@ -41,7 +41,7 @@ export default class PregnancyInformation implements TaskListPage {
   }
 
   next() {
-    return 'support-worker-preference'
+    return ''
   }
 
   errors() {

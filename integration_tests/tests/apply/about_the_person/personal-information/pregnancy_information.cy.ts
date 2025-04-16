@@ -20,7 +20,7 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import PregnancyInformationPage from '../../../../pages/apply/about_the_person/personal_information/pregnancyInformationPage'
-import SupportWorkerPreferencePage from '../../../../pages/apply/about_the_person/personal_information/supportWorkerPreferencePage'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Visit "pregnancy information" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -75,6 +75,6 @@ context('Visit "pregnancy information" page', () => {
     page.clickSubmit()
 
     //    Then I am taken to the support worker preference next page
-    Page.verifyOnPage(SupportWorkerPreferencePage, this.application)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })

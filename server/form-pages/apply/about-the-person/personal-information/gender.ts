@@ -35,7 +35,7 @@ export default class Gender implements TaskListPage {
   }
 
   previous() {
-    return 'support-worker-preference'
+    return ''
   }
 
   next() {
