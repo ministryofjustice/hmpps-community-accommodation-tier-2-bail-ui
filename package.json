@@ -107,7 +107,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "exceljs": "^4.4.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "express-session": "^1.18.1",
     "fishery": "^2.2.3",
     "govuk-frontend": "^5.9.0",
