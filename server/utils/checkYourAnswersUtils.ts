@@ -294,7 +294,7 @@ export const getApplicantDetails = (application: Application | Cas2v2SubmittedAp
         text: 'PNC number',
       },
       value: {
-        html: pncNumber,
+        html: pncNumber || 'Unable to import',
       },
     },
     {
