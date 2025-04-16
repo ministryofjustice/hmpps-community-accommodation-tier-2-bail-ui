@@ -6,7 +6,6 @@ export const completeBailConditionsAndSupportSessionsTask = async (page: Page, n
   await taskListPage.clickTask('Add bail conditions and support sessions')
 
   await completeNonStandardBailConditionsPage(page, name)
-  await completeMandatorySupportSessionsPage(page, name)
 }
 
 export const completeBailHearingInformationTask = async (page: Page, name: string) => {
@@ -53,13 +52,4 @@ async function completeNonStandardBailConditionsPage(page: Page, name: string) {
   )
   await nonStandardBailConditionsPage.checkRadio('No')
   await nonStandardBailConditionsPage.clickButton('Save and continue')
-}
-
-async function completeMandatorySupportSessionsPage(page: Page, name: string) {
-  const mandatorySupportSessionsPage = await ApplyPage.initialize(
-    page,
-    `Does the court require more than one mandatory support session per week for ${name}?`,
-  )
-  await mandatorySupportSessionsPage.checkRadio('No')
-  await mandatorySupportSessionsPage.clickButton('Save and continue')
 }

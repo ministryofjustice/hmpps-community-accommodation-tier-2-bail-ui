@@ -340,10 +340,6 @@
     "non-standard-bail-conditions": {
       "nonStandardBailConditions": "yes",
       "nonStandardBailConditionsDetail": "some non standard condition"
-    },
-    "mandatory-support-sessions": {
-      "mandatorySupportSessions": "yes",
-      "mandatorySupportSessionsDetail": "2 sessions per week"
     }
   },
   "bail-hearing-information": {
