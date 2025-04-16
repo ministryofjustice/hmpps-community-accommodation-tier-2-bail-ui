@@ -37,7 +37,6 @@ export type { AssessmentStatus } from './models/AssessmentStatus';
 export type { AssessmentSummary } from './models/AssessmentSummary';
 export type { AssessmentTask } from './models/AssessmentTask';
 export type { Bed } from './models/Bed';
-export type { BedDetail } from './models/BedDetail';
 export type { BedSearchAttributes } from './models/BedSearchAttributes';
 export type { BedSearchResultBedSummary } from './models/BedSearchResultBedSummary';
 export type { BedSearchResultPremisesSummary } from './models/BedSearchResultPremisesSummary';
