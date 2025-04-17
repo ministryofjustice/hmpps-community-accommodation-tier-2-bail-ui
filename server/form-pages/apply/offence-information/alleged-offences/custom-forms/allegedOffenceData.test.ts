@@ -23,7 +23,7 @@ describe('AllegedOffenceData', () => {
   })
 
   itShouldHaveNextValue(new AllegedOffenceData({}, application), 'alleged-offences')
-  itShouldHavePreviousValue(new AllegedOffenceData({}, application), 'alleged-offences')
+  itShouldHavePreviousValue(new AllegedOffenceData({}, application), 'taskList')
 
   describe('errors', () => {
     describe('when there are no errors', () => {
