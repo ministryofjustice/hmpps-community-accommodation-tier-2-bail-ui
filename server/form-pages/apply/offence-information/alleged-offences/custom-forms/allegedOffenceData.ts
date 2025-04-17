@@ -46,7 +46,7 @@ export default class AllegedOffenceData implements TaskListPage {
   }
 
   previous() {
-    return 'alleged-offences'
+    return 'taskList'
   }
 
   next() {
