@@ -547,7 +547,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         errors: {},
         errorSummary: [],
-        pageHeading: "Enter the person's prison number",
+        pageHeading: 'Enter the applicant’s prison number',
       })
     })
 
@@ -559,7 +559,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
-        pageHeading: "Enter the person's prison number",
+        pageHeading: 'Enter the applicant’s prison number',
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         errorStatusCode: errorsAndUserInput.errorStatusCode,

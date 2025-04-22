@@ -179,7 +179,7 @@ context('Find by prison number', () => {
 
   //  Scenario: answer is enforced
   // ----------------------------------------------
-  it('enforces an enswer', () => {
+  it('enforces an answer', () => {
     // I'm on the enter prison number page
     const page = FindByPrisonNumberPage.visit(person.name)
 
