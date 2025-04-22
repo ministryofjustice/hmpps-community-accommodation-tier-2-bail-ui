@@ -92,7 +92,7 @@ describe('PreviousAddress', () => {
       expect(page.latestLivingSituationItems(otherLivingSituationHtml)).toEqual([
         {
           checked: false,
-          text: 'Living on their own in a rented or owned property (house, flat, trainler, etc)',
+          text: 'Living on their own in a rented or owned property (house, flat, trailer, etc)',
           value: 'rentalOrOwnedAlone',
         },
         {

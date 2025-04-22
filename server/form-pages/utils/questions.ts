@@ -175,7 +175,7 @@ export const getQuestions = (name: string) => {
         latestLivingSituation: {
           question: 'Which of the following best describes their latest living situation?',
           answers: {
-            rentalOrOwnedAlone: 'Living on their own in a rented or owned property (house, flat, trainler, etc)',
+            rentalOrOwnedAlone: 'Living on their own in a rented or owned property (house, flat, trailer, etc)',
             rentalOrOwnedWithOthers: 'Living in a rented or owned property with other people',
             supportedAccommodation: 'Living in supported accommodation',
             sharedAccommodation: 'Living in shared accommodation',
