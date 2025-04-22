@@ -237,7 +237,7 @@ export default class ApplicationsController {
         errorSummary,
         errorStatusCode,
         ...userInput,
-        pageHeading: "Enter the person's prison number",
+        pageHeading: 'Enter the applicant’s prison number',
       })
     }
   }
