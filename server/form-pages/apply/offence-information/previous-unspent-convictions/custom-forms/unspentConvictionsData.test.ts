@@ -24,7 +24,7 @@ describe('UnspentConvictionsData', () => {
   })
 
   itShouldHaveNextValue(new UnspentConvictionsData({}, application), 'unspent-convictions')
-  itShouldHavePreviousValue(new UnspentConvictionsData({}, application), 'unspent-convictions')
+  itShouldHavePreviousValue(new UnspentConvictionsData({}, application), 'any-previous-convictions')
 
   describe('errors', () => {
     describe('when there are no errors', () => {

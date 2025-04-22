@@ -69,7 +69,7 @@ export default class UnspentConvictionsData implements TaskListPage {
   }
 
   previous() {
-    return 'unspent-convictions'
+    return 'any-previous-convictions'
   }
 
   next() {
