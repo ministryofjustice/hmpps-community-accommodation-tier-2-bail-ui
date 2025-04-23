@@ -1,0 +1,28 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "./_area-information-screen.njk" %}
+{% set pageName = "other-area-preferences" %}
+
+{% block questions %}
+
+  {{ govukInsetText({
+    classes: "govuk-!-margin-top-0 guidance-panel",
+    text: "Accommodation staff will use this information to help match applicants to the most suitable available rooms."
+  }) }}
+
+  {{
+    formPageTextArea(
+      {
+        label: {
+          text: page.questions.preferenceInformation.question,
+          classes: "govuk-label--m"
+        },
+        fieldName: "preferenceInformation",
+        hint: {
+          text: page.questions.preferenceInformation.hint
+        }
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
