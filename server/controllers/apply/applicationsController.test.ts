@@ -444,7 +444,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
         errors: {},
         errorSummary: [],
-        pageHeading: 'You are applying for:',
+        pageHeading: 'Where are you making the application from?',
       })
     })
 
@@ -456,7 +456,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
-        pageHeading: 'You are applying for:',
+        pageHeading: 'Where are you making the application from?',
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
