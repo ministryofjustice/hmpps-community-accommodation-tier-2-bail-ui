@@ -28,6 +28,9 @@
       "preferredArea": "Birmingham",
       "preferenceReason": "They have a job there"
     },
+    "other-area-preferences": {
+      "preferenceInformation": "Preference information"
+    },
     "exclusion-zones": {
       "hasExclusionZones": "yes",
       "exclusionZonesDetail": "Avoid Liverpool"
