@@ -58,7 +58,7 @@ export function getBody(
   if (userInput && Object.keys(userInput).length) {
     return userInput
   }
-  if (Object.keys(request.body).length) {
+  if (request.body && Object.keys(request.body).length) {
     return request.body
   }
   return pageDataFromApplication(Page, application)
