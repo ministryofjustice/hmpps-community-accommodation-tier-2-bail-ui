@@ -18,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Repository is specified to run the workflow from the API repository
+          repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-bail-ui'
       - name: Use Node.js ${{ inputs.node_version_file }}
         uses: actions/setup-node@v4
         with:
@@ -66,3 +69,11 @@ jobs:
           path: |
             e2e-tests/test_results/
             e2e-tests/playwright-report/
+
+      - name: Send Slack notification
+        if: failure()
+        uses: ministryofjustice/hmpps-approved-premises-ui/.github/actions/slack_failure_notification@main
+        with:
+          title: "CAS2 Bail E2E Tests"
+          channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }}
+          slack_bot_token: ${{ secrets.HMPPS_SRE_SLACK_BOT_TOKEN }}
