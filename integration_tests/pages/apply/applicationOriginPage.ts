@@ -2,7 +2,7 @@ import Page from '../page'
 
 export default class ApplicationOriginPage extends Page {
   constructor(name: string) {
-    super(`You are applying for:`, name)
+    super(`Where are you making the application from?`, name)
   }
 
   static visit(name: string): ApplicationOriginPage {
