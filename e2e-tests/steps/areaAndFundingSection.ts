@@ -33,6 +33,7 @@ export const completeAreaInformationTask = async (page: Page, name: string) => {
 
   await completeFirstAreaInformationPage(page, name)
   await completeSecondAreaInformationPage(page, name)
+  await completeOtherAreaPreferencesPage(page, name)
   await completeExclusionZonesPage(page, name)
   await completeGangAffiliations(page, name)
   await completeFamilyAccommodationPage(page, name)
@@ -54,6 +55,14 @@ async function completeSecondAreaInformationPage(page: Page, name: string) {
   await secondAreaInformationPage.fillField('Reason for second preference', 'Job')
 
   await secondAreaInformationPage.clickSave()
+}
+
+async function completeOtherAreaPreferencesPage(page: Page, name: string) {
+  const otherAreaPreferencesPage = await ApplyPage.initialize(page, `Other area preferences for ${name}`)
+
+  await otherAreaPreferencesPage.fillField('Enter any other preference information', 'Preference information')
+
+  await otherAreaPreferencesPage.clickSave()
 }
 
 async function completeExclusionZonesPage(page: Page, name: string) {
