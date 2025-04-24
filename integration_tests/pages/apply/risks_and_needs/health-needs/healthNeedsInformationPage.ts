@@ -2,7 +2,7 @@ import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
-import { pageIsActiveInNavigation } from '../utils'
+import { pageIsActiveInNavigation } from '../../../utils'
 
 export default class HealthNeedsInformationPage extends ApplyPage {
   constructor(private readonly application: Application) {

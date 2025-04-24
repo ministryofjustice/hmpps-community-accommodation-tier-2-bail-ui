@@ -1,6 +1,7 @@
 import { Cas2v2Application as Application } from '../../../../../server/@types/shared/models/Cas2v2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class AcctPage extends ApplyPage {
@@ -11,6 +12,7 @@ export default class AcctPage extends ApplyPage {
       'risk-information',
       'acct',
     )
+    pageIsActiveInNavigation('ACCT notes')
   }
 
   static visit(application: Application): void {

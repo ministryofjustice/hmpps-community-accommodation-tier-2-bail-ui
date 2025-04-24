@@ -1,10 +1,12 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
+import { pageIsActiveInNavigation } from '../../../utils'
 import paths from '../../../../../server/paths/apply'
 
 export default class RiskManagementArrangementsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(`Risk management arrangements`, application, 'risk-information', 'risk-management-arrangements')
+    pageIsActiveInNavigation('Risk management arrangements')
   }
 
   static visit(application: Application): void {

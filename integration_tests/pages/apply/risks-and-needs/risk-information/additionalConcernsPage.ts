@@ -1,7 +1,7 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import paths from '../../../../../server/paths/apply'
 import ApplyPage from '../../applyPage'
-import { pageIsActiveInNavigation } from '../../risks_and_needs/utils'
+import { pageIsActiveInNavigation } from '../../../utils'
 
 export default class AdditionalConcernsPage extends ApplyPage {
   constructor(private readonly application: Application) {

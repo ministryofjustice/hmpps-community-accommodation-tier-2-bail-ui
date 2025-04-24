@@ -1,9 +1,11 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
+import { pageIsActiveInNavigation } from '../../../utils'
 import ApplyPage from '../../applyPage'
 
 export default class SafetyOfStaffPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super('Concerns related to the safety of staff', application, 'risk-information', 'safety-of-staff')
+    pageIsActiveInNavigation('Safety of staff')
   }
 
   enterPastRiskDetails(): void {
