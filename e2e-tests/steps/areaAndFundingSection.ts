@@ -77,13 +77,9 @@ async function completeExclusionZonesPage(page: Page, name: string) {
 async function completeGangAffiliations(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Does ${name} have any gang affiliations?`)
 
-  await exclusionZonesPage.checkRadio('Yes')
-  await exclusionZonesPage.fillField('What is the name of the gang?', 'Gang name')
-  await exclusionZonesPage.fillField('Where do they operate?', 'Derby')
-  await exclusionZonesPage.fillField(
-    'Name any known rival gangs and where they operate (optional)',
-    'Rival gang detail',
-  )
+  await exclusionZonesPage.checkRadioInGroup('any gang affiliations', 'Yes')
+  await exclusionZonesPage.fillField('details of the gang', 'Gang name')
+  await exclusionZonesPage.checkRadioInGroup('rival gangs', 'Yes')
 
   await exclusionZonesPage.clickSave()
 }
