@@ -1,6 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
-import 'dotenv/config'
+import { config } from 'dotenv'
 import { TestOptions } from './e2e-tests/testOptions'
+
+config({
+  path: `e2e.env`,
+  override: true,
+})
 
 export default defineConfig<TestOptions>({
   testDir: './e2e-tests/tests',
@@ -35,31 +40,6 @@ export default defineConfig<TestOptions>({
       testMatch: /.*\.setup\.ts/,
       use: {
         baseURL: 'http://localhost:3000',
-        lcaUser: {
-          name: 'LCA User',
-          username: 'CAS2_LICENCE_USER',
-          password: 'password123456',
-        },
-        adminUser: {
-          name: 'CAS2 Admin',
-          username: 'CAS2_ADMIN_USER',
-          password: 'password123456',
-        },
-        assessorUser: {
-          name: 'CAS2 Assessor',
-          username: 'CAS2_ASSESSOR_USER',
-          password: 'password123456',
-        },
-        nomisCourtUser: {
-          name: 'CAS2 Bail NOMIS Court',
-          username: 'CAS2V2_NOMIS_CB',
-          password: 'password123456',
-        },
-        nomisPrisonUser: {
-          name: 'CAS2 Bail NOMIS Prison',
-          username: 'CAS2V2_NOMIS_PB',
-          password: 'password123456',
-        },
       },
     },
     {
@@ -67,46 +47,6 @@ export default defineConfig<TestOptions>({
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'http://localhost:3000',
-        person: {
-          name: 'Aadland Bertrand',
-          crn: 'X320741',
-          nomsNumber: 'A1234AI',
-        },
-        personWithoutOasys: {
-          name: 'James Brown',
-          crn: 'C246139',
-          nomsNumber: 'A1234AJ',
-        },
-        lcaUser: {
-          name: 'Licence Case-Admin',
-          username: 'CAS2_LICENCE_USER',
-          password: 'password123456',
-        },
-        adminUser: {
-          name: 'CAS2 Admin',
-          username: 'CAS2_ADMIN_USER',
-          password: 'password123456',
-        },
-        assessorUser: {
-          name: 'CAS2 Assessor',
-          username: 'CAS2_ASSESSOR_USER',
-          password: 'password123456',
-        },
-        miUser: {
-          name: 'MI User',
-          username: 'CAS2_MI_USER',
-          password: 'password123456',
-        },
-        nomisCourtUser: {
-          name: 'CAS2 Bail NOMIS Court',
-          username: 'CAS2V2_NOMIS_CB',
-          password: 'password123456',
-        },
-        nomisPrisonUser: {
-          name: 'CAS2 Bail NOMIS Prison',
-          username: 'CAS2V2_NOMIS_PB',
-          password: 'password123456',
-        },
       },
       dependencies: ['setupLocal'],
     },
