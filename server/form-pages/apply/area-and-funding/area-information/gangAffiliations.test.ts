@@ -1,75 +1,130 @@
-import { YesOrNo } from '@approved-premises/ui'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
-import GangAffiliations, { GangAffiliationsBody } from './gangAffiliations'
+import GangAffiliations from './gangAffiliations'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 
 describe('GangAffiliations', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Sue Smith' }) })
-  const body = {
-    hasGangAffiliations: 'yes' as YesOrNo,
-    gangName: 'Gang name',
-    gangOperationArea: 'Derby',
-    rivalGangDetail: 'Rival gang name and detail',
-  }
 
   it('sets the question as the page title', () => {
-    const page = new GangAffiliations(body, application)
+    const page = new GangAffiliations({}, application)
 
     expect(page.title).toEqual('Does Sue Smith have any gang affiliations?')
   })
 
-  it('sets the body', () => {
-    const page = new GangAffiliations(body, application)
-
-    expect(page.body).toEqual(body)
-  })
-
   describe('errors', () => {
-    it('returns an error if hasGangAffiliations is not set', () => {
-      const page = new GangAffiliations({ ...body, hasGangAffiliations: null }, application)
+    describe('when top level fields are unanswered', () => {
+      it('returns an error for hasGangAffiliations', () => {
+        const page = new GangAffiliations({ hasGangAffiliations: null }, application)
 
-      expect(page.errors()).toEqual({
-        hasGangAffiliations: 'Select yes if they have gang affiliations',
+        expect(page.errors()).toHaveProperty(
+          'hasGangAffiliations',
+          'Select if they have any gang affiliations, or it is not known',
+        )
+      })
+
+      it('returns an error for rivalGangsOrCountyLines', () => {
+        const page = new GangAffiliations({ rivalGangsOrCountyLines: null }, application)
+
+        expect(page.errors()).toHaveProperty(
+          'rivalGangsOrCountyLines',
+          'Select if there are any rival gangs or county lines, or it is not known',
+        )
       })
     })
 
     describe('when hasGangAffiliations is set to yes', () => {
-      it('returns an error if gangName is not set', () => {
-        const page = new GangAffiliations({ ...body, hasGangAffiliations: 'yes', gangName: null }, application)
+      it('returns an error if gangDetails is not set', () => {
+        const page = new GangAffiliations({ hasGangAffiliations: 'yes', gangDetails: null }, application)
 
-        expect(page.errors()).toEqual({
-          gangName: `Enter the gang's name`,
-        })
+        expect(page.errors()).toHaveProperty('gangDetails', 'Enter details of the gang')
       })
+    })
 
-      it('returns an error if gangOperationArea is not set', () => {
-        const page = new GangAffiliations({ ...body, hasGangAffiliations: 'yes', gangOperationArea: null }, application)
+    describe('when hasGangAffiliations is set to not known', () => {
+      it('returns an error if gangNotKnownDetails is not set', () => {
+        const page = new GangAffiliations({ hasGangAffiliations: 'dontKnow', gangNotKnownDetails: null }, application)
 
-        expect(page.errors()).toEqual({
-          gangOperationArea: 'Describe the area the gang operates in',
-        })
+        expect(page.errors()).toHaveProperty('gangNotKnownDetails', 'Enter why it is not known')
+      })
+    })
+
+    describe('when rivalGangsOrCountyLines is set to not known', () => {
+      it('returns an error if rivalGangNotKnownDetail is not set', () => {
+        const page = new GangAffiliations(
+          { rivalGangsOrCountyLines: 'dontKnow', rivalGangNotKnownDetail: null },
+          application,
+        )
+
+        expect(page.errors()).toHaveProperty('rivalGangNotKnownDetail', 'Enter why it is not known')
       })
     })
   })
 
-  itShouldHaveNextValue(new GangAffiliations(body, application), 'family-accommodation')
-  itShouldHavePreviousValue(new GangAffiliations(body, application), 'exclusion-zones')
+  itShouldHaveNextValue(new GangAffiliations({}, application), 'family-accommodation')
+  itShouldHavePreviousValue(new GangAffiliations({}, application), 'exclusion-zones')
 
   describe('onSave', () => {
-    it('removes gang affiliation data if question is set to "no"', () => {
-      const pageBody: GangAffiliationsBody = {
-        hasGangAffiliations: 'no',
-        gangName: 'Gang name',
-        gangOperationArea: 'Gang operation area',
-        rivalGangDetail: 'Rival gang detail',
-      }
-
-      const page = new GangAffiliations(pageBody, application)
+    it('removes gang affiliation data if hasGangAffiliations not set to "yes"', () => {
+      const page = new GangAffiliations(
+        {
+          hasGangAffiliations: 'no',
+          gangDetails: 'Gang name',
+        },
+        application,
+      )
 
       page.onSave()
 
       expect(page.body).toEqual({
         hasGangAffiliations: 'no',
+      })
+    })
+
+    it('removes gangNotKnownDetails data if hasGangAffiliations is not set to "dontKnow"', () => {
+      const page = new GangAffiliations(
+        {
+          hasGangAffiliations: 'no',
+          gangNotKnownDetails: 'some reasons',
+        },
+        application,
+      )
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        hasGangAffiliations: 'no',
+      })
+    })
+
+    it('removes rivalGangsOrCountyLinesDetail data if rivalGangsOrCountyLines is not set to "yes"', () => {
+      const page = new GangAffiliations(
+        {
+          rivalGangsOrCountyLines: 'dontKnow',
+          rivalGangsOrCountyLinesDetail: 'Gang name',
+        },
+        application,
+      )
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        rivalGangsOrCountyLines: 'dontKnow',
+      })
+    })
+
+    it('removes rivalGangNotKnownDetail data if rivalGangsOrCountyLines is not set to "dontKnow"', () => {
+      const page = new GangAffiliations(
+        {
+          rivalGangsOrCountyLines: 'yes',
+          rivalGangNotKnownDetail: 'some reasons',
+        },
+        application,
+      )
+
+      page.onSave()
+
+      expect(page.body).toEqual({
+        rivalGangsOrCountyLines: 'yes',
       })
     })
   })

@@ -4,38 +4,56 @@
 {% block questions %}
   {% set gangAffiliationDetailHtml %}
     {{
-      formPageInput(
-        {
-          fieldName: "gangName",
-          label: {
-            text: page.questions.gangName.question,
-            classes: "govuk-label--s"
-          },
-          classes: "govuk-input--width-20"
-        },
-        fetchContext()
-      )
-    }}
-
-    {{
       formPageTextArea(
         {
-          fieldName: "gangOperationArea",
+          fieldName: "gangDetails",
           label: {
-            text: page.questions.gangOperationArea.question,
+            text: page.questions.gangDetails.question,
             classes: "govuk-label--s"
           }
         },
         fetchContext()
       )
     }}
+  {% endset %}
 
+  {% set gangNotKnownDetailHtml %}
     {{
       formPageTextArea(
         {
-          fieldName: "rivalGangDetail",
+          fieldName: "gangNotKnownDetails",
           label: {
-            text: page.questions.rivalGangDetail.question,
+            text: page.questions.gangNotKnownDetails.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set rivalGangDetailHtml %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: "rivalGangsOrCountyLinesDetail",
+          label: {
+            text: page.questions.rivalGangsOrCountyLinesDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set rivalGangNotKnownDetailHtml %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: "rivalGangNotKnownDetail",
+          label: {
+            text: page.questions.rivalGangNotKnownDetail.question,
             classes: "govuk-label--s"
           }
         },
@@ -65,6 +83,48 @@
           {
             value: "no",
             text: "No"
+          },
+          {
+            value: "dontKnow",
+            text: "Not known",
+            conditional: {
+              html: gangNotKnownDetailHtml
+            }
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "rivalGangsOrCountyLines",
+        fieldset: {
+          legend: {
+            text: page.questions.rivalGangsOrCountyLines.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: rivalGangDetailHtml
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          },
+          {
+            value: "dontKnow",
+            text: "Not known",
+            conditional: {
+              html: rivalGangNotKnownDetailHtml
+            }
           }
         ]
       },

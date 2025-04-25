@@ -1,20 +1,29 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
-import { TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type GangAffiliationsBody = {
-  hasGangAffiliations: YesOrNo
-  gangName: string
-  gangOperationArea: string
-  rivalGangDetail: string
+  hasGangAffiliations: YesNoOrDontKnow
+  gangDetails: string
+  gangNotKnownDetails: string
+  rivalGangsOrCountyLines: YesNoOrDontKnow
+  rivalGangsOrCountyLinesDetail: string
+  rivalGangNotKnownDetail: string
 }
 
 @Page({
   name: 'gang-affiliations',
-  bodyProperties: ['hasGangAffiliations', 'gangName', 'gangOperationArea', 'rivalGangDetail'],
+  bodyProperties: [
+    'hasGangAffiliations',
+    'gangDetails',
+    'gangNotKnownDetails',
+    'rivalGangsOrCountyLines',
+    'rivalGangsOrCountyLinesDetail',
+    'rivalGangNotKnownDetail',
+  ],
 })
 export default class GangAffiliations implements TaskListPage {
   documentTitle = 'Does the person have any gang affiliations?'
@@ -46,15 +55,23 @@ export default class GangAffiliations implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasGangAffiliations) {
-      errors.hasGangAffiliations = 'Select yes if they have gang affiliations'
+      errors.hasGangAffiliations = 'Select if they have any gang affiliations, or it is not known'
     }
 
-    if (this.body.hasGangAffiliations === 'yes' && !this.body.gangName) {
-      errors.gangName = `Enter the gang's name`
+    if (!this.body.rivalGangsOrCountyLines) {
+      errors.rivalGangsOrCountyLines = 'Select if there are any rival gangs or county lines, or it is not known'
     }
 
-    if (this.body.hasGangAffiliations === 'yes' && !this.body.gangOperationArea) {
-      errors.gangOperationArea = 'Describe the area the gang operates in'
+    if (this.body.hasGangAffiliations === 'yes' && !this.body.gangDetails) {
+      errors.gangDetails = `Enter details of the gang`
+    }
+
+    if (this.body.hasGangAffiliations === 'dontKnow' && !this.body.gangNotKnownDetails) {
+      errors.gangNotKnownDetails = `Enter why it is not known`
+    }
+
+    if (this.body.rivalGangsOrCountyLines === 'dontKnow' && !this.body.rivalGangNotKnownDetail) {
+      errors.rivalGangNotKnownDetail = `Enter why it is not known`
     }
 
     return errors
@@ -62,9 +79,16 @@ export default class GangAffiliations implements TaskListPage {
 
   onSave(): void {
     if (this.body.hasGangAffiliations !== 'yes') {
-      delete this.body.gangName
-      delete this.body.gangOperationArea
-      delete this.body.rivalGangDetail
+      delete this.body.gangDetails
+    }
+    if (this.body.hasGangAffiliations !== 'dontKnow') {
+      delete this.body.gangNotKnownDetails
+    }
+    if (this.body.rivalGangsOrCountyLines !== 'yes') {
+      delete this.body.rivalGangsOrCountyLinesDetail
+    }
+    if (this.body.rivalGangsOrCountyLines !== 'dontKnow') {
+      delete this.body.rivalGangNotKnownDetail
     }
   }
 }

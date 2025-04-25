@@ -426,16 +426,24 @@ export const getQuestions = (name: string) => {
       'gang-affiliations': {
         hasGangAffiliations: {
           question: `Does ${name} have any gang affiliations?`,
-          answers: yesOrNo,
+          answers: { ...yesNoOrIDontKnow, dontKnow: 'Not known' },
         },
-        gangName: {
-          question: 'What is the name of the gang?',
+        gangDetails: {
+          question:
+            'Enter details of the gang, including its names, the areas it operates in and the nature of their involvement',
         },
-        gangOperationArea: {
-          question: 'Where do they operate?',
+        gangNotKnownDetails: {
+          question: 'Enter the reason why it is not known',
         },
-        rivalGangDetail: {
-          question: 'Name any known rival gangs and where they operate (optional)',
+        rivalGangsOrCountyLines: {
+          question: 'Are there any rival gangs or county lines?',
+          answers: { ...yesNoOrIDontKnow, dontKnow: 'Not known' },
+        },
+        rivalGangsOrCountyLinesDetail: {
+          question: 'Enter the name and the area(s) they operate in (optional)',
+        },
+        rivalGangNotKnownDetail: {
+          question: 'Enter the reason why it is not known',
         },
       },
       'family-accommodation': {
