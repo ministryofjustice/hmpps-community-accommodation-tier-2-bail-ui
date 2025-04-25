@@ -1,26 +1,30 @@
 /* eslint-disable no-param-reassign */
-//  Feature: Referrer completes 'Area information: gang affiliations' page
-//    So that I can complete the "Area information" task
+//  Feature: Referrer completes 'Gang affiliations' page
+//    So that I can complete the 'Area information' task
 //    As a referrer
-//    I want to complete the "gang affiliations" page
+//    I want to complete the 'Gang affiliations' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I am on the gang affiliations page
+//    And I visit the 'Gang affiliations' page
 //
-//  Scenario: complete page and navigate to next page in area information task
-//    When I complete the gang affiliations page questions
+//  Scenario: view 'Gang affiliations' page
+//    Then I see the "Gang affiliations" page
+//
+//  Scenario: navigates to the next task on completion of task
+//    When I complete the "Gang affiliations" page
 //    And I continue to the next task / page
-//    Then I see the "gang affiliations" page
+//    Then I am taken to the "Family accommodation" page
+//    And I see that the area information task is complete
 
 import Page from '../../../../pages/page'
-import GangAffiliationsPage from '../../../../pages/apply/area-and-funding/area-information/gangAffiliationsPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import GangAffiliationsPage from '../../../../pages/apply/area-and-funding/area-information/gangAffiliationsPage'
 import FamilyAccommodationPage from '../../../../pages/apply/area-and-funding/area-information/familyAccommodationPage'
 
 context('Visit "Gang affiliations" page', () => {
-  const person = personFactory.build({ name: 'Roger Smith' })
+  const person = personFactory.build({ name: 'Sue Smith' })
 
   beforeEach(function test() {
     cy.task('reset')
@@ -28,7 +32,7 @@ context('Visit "Gang affiliations" page', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['area-information'] = {}
+      delete applicationData['area-information']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -48,18 +52,41 @@ context('Visit "Gang affiliations" page', () => {
     //---------------------
     cy.signIn()
 
+    // And I visit the 'Gang affiliations' page
+    // --------------------------------
     GangAffiliationsPage.visit(this.application)
   })
 
-  //  Scenario: complete page and navigate to next page in area information task
-  //    When I complete the gang affiliations page questions
-  //    And I continue to the next task / page
-  //    Then I see the "family accommodation" page
-  it('navigates to the next page (family accommodation) when complete', function test() {
-    const page = new GangAffiliationsPage(this.application)
+  // Scenario: view 'Gang affiliations' page
+  // ----------------------------------------------
 
-    page.completePage()
+  it('displays the page', function test() {
+    // Then I see the "Gang affiliations" page
+    Page.verifyOnPage(GangAffiliationsPage, this.application)
+  })
 
+  // Scenario: navigate to task list on completion of task
+  // ----------------------------------------------
+  it('navigates to the next page', function test() {
+    // So that the status of the task will be complete we set application.data
+    // to the full set
+    cy.fixture('applicationData.json').then(applicationData => {
+      const answered = {
+        ...this.application,
+        data: applicationData,
+      }
+      cy.task('stubApplicationGet', { application: answered })
+    })
+
+    //  When I complete the "Gang affiliations" page
+    const page = Page.verifyOnPage(GangAffiliationsPage, this.application)
+    page.answerGangAffiliationQuestions()
+    page.answerRivalGangAffiliationQuestions()
+
+    // When I continue to the next task / page
+    page.clickSubmit()
+
+    // Then I am taken to the "Family accommodation" page
     Page.verifyOnPage(FamilyAccommodationPage, this.application)
   })
 })
