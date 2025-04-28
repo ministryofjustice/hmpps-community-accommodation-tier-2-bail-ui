@@ -12,6 +12,7 @@
     "start:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild-configs/esbuild.config.js --build --watch\" \"node esbuild-configs/esbuild.config.js --dev-server\"",
     "start-feature": " node $NODE_DEBUG_OPTION --env-file=feature.env dist/server.js | bunyan -o short",
     "start-feature:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild-configs/esbuild.config.js  --build --watch \" \"node esbuild-configs/esbuild.config.js --dev-test-server\"",
+    "start-test-wiremock": "docker-compose -f docker-compose-test.yml up -d",
     "lint": "eslint . --cache --max-warnings 0",
     "lint-fix": "eslint . --cache --max-warnings 0 --fix",
     "typecheck": "tsc && tsc -p integration_tests",
