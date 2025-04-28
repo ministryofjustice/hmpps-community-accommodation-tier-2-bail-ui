@@ -153,41 +153,53 @@ The template app is, by default, configured not to use REDIS when running locall
 
 ## Running the app via docker-compose
 
-The easiest way to run the app is to use docker compose to create the service and all dependencies.
+## Setup
 
-`docker compose pull`
+When running the application for the first time, run the generate-dotenv-files.sh script by executing this command from root in a Terminal:
 
-`docker compose up`
+```
+./script/generate-dotenv-files.sh
+```
 
-### Running the app for development
+Running the above script will generate two .env files required by the application:
 
-To start the main services excluding the example typescript template app:
 
-`docker compose up --scale=app=0`
+ * .env - this is blank initially but is required for the application to deploy as we use dotenv as an npm lib in this repo. This blank file will also enable you to override properties set in the .env.cas2-ui file in AP tools where we deploy the application (see the Running the application section below for more details on this)
+ * e2e.env - this is used to load properties for the Playwright e2e suite (see the E2E tests section below for more details on this)
 
-Create an environment file by copying `.env.example` -> `.env`
-Environment variables set in here will be available when running `start:dev`
+## Running the application
 
-Install dependencies using `npm install`, ensuring you are using `node v20`
+### Using AP Tools
 
-Note: Using `nvm` (or [fnm](https://github.com/Schniz/fnm)), run `nvm install --latest-npm` within the repository folder
-to use the correct version of node, and the latest version of npm. This matches the `engines` config in `package.json`
-and the CircleCI build config.
+In order to spin up a full local stack with the API (integrating with dependent services) use AP Tools.
 
-And then, to build the assets and start the app with esbuild:
+NB. This project is the focus of our development tooling across all CAS services and is likely to receive future updates.
 
-`npm run start:dev`
+After following the setup the common commands are:
 
-### Logging in with a test user
+When running the API as a docker container and deploying everything (inc. this UI):
 
-Once the application is running you should then be able to login with:
+```
+ap-tools server start --cas2v2 --local-ui
+```
 
-username: AUTH_USER
-password: password123456
+When running the API locally and deploying everything (inc. this UI):
 
-To request specific users and roles then raise a PR
-to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
-for the in-memory DB used by Auth
+```
+ap-tools server start --cas2v2 --local-ui --local-api
+```
+
+The service should then be available at http://localhost:3000
+
+The same credentials used to login to the dev instance of the CAS2 UI should be used. For more information, see the Dev & Test Users documentation
+
+For a quick glance at the user logins see the e2e.env file (see the E2E tests section below for more details on this file)
+
+To stop the deployment:
+
+```
+ap-tools server stop
+```
 
 ### Run linter
 
