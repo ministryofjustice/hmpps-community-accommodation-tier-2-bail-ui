@@ -1,6 +1,7 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class LivingInTheCommunityPage extends ApplyPage {
@@ -11,6 +12,7 @@ export default class LivingInTheCommunityPage extends ApplyPage {
       'risk-information',
       'living-in-the-community',
     )
+    pageIsActiveInNavigation('Living in the community')
   }
 
   static visit(application: Application): LivingInTheCommunityPage {

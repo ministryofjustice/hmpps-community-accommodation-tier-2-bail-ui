@@ -1,6 +1,7 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class LiaisonAndDiversionPage extends ApplyPage {
@@ -11,6 +12,7 @@ export default class LiaisonAndDiversionPage extends ApplyPage {
       'health-needs',
       'liaison-and-diversion',
     )
+    pageIsActiveInNavigation('Liaison & Diversion')
   }
 
   static visit(application: Application): LiaisonAndDiversionPage {

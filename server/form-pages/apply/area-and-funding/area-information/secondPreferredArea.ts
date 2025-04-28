@@ -37,7 +37,7 @@ export default class SecondPreferredArea implements TaskListPage {
   }
 
   next() {
-    return 'exclusion-zones'
+    return 'other-area-preferences'
   }
 
   errors() {

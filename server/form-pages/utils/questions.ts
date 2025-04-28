@@ -408,6 +408,12 @@ export const getQuestions = (name: string) => {
           hint: 'Include a reason why the applicant prefers this area',
         },
       },
+      'other-area-preferences': {
+        preferenceInformation: {
+          question: 'Enter any other preference information',
+          hint: 'For example, the applicant is happy to be placed anywhere. Include a reason for any preferences.',
+        },
+      },
       'exclusion-zones': {
         hasExclusionZones: {
           question: `Are there any exclusion zones or areas where ${name} should not be placed?`,

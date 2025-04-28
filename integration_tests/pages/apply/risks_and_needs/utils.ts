@@ -1,7 +1,4 @@
-export const pageIsActiveInNavigation = (linkText: string): void => {
-  cy.get('.moj-side-navigation__item--active a').contains(linkText)
-}
-
+/* eslint-disable import/prefer-default-export */
 export const fieldIsOptional = (labelId: string): void => {
   cy.get(`label[for="${labelId}"]`).contains('(optional)')
 }
