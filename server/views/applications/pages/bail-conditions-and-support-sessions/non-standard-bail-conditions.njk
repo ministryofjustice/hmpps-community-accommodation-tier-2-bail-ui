@@ -2,15 +2,11 @@
 
 {% block questions %}
 
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
-
-  <p>{{page.questions.nonStandardBailConditions.hint}}</p>
-
-  {% set nonStandardBailConditionsDetail %}
+ {% set nonStandardBailConditionsDetail %}
   {{
       formPageTextArea(
         {
-          label: { text: page.questions.nonStandardBailConditionsDetail.question, classes: "govuk-label--m"},
+          label: { text: page.questions.nonStandardBailConditionsDetail.question, classes: "govuk-label--s"},
           fieldName: "nonStandardBailConditionsDetail"
         },
         fetchContext()
@@ -22,6 +18,16 @@
     formPageRadios(
       {
         fieldName: "nonStandardBailConditions",
+        fieldset: {
+          legend: {
+            text: page.questions.nonStandardBailConditions.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: page.questions.nonStandardBailConditions.hint
+        },
         items: page.items(nonStandardBailConditionsDetail)
       },
       fetchContext()

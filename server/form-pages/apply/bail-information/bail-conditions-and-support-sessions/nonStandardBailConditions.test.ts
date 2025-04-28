@@ -9,7 +9,7 @@ describe('NonStandardBailConditions', () => {
     it('personalises the page title', () => {
       const page = new NonStandardBailConditions({}, application)
 
-      expect(page.title).toEqual('Are there any non-standard bail conditions being considered for Roger Smith?')
+      expect(page.title).toEqual('Are there any non-standard bail conditions being considered?')
     })
   })
 
@@ -36,6 +36,11 @@ describe('NonStandardBailConditions', () => {
           value: 'no',
           text: 'No',
           checked: true,
+        },
+        {
+          value: 'dontKnow',
+          text: 'I do not know',
+          checked: false,
         },
       ])
     })
