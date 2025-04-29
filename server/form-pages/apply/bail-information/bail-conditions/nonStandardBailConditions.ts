@@ -23,7 +23,7 @@ export default class NonStandardBailConditions implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['bail-conditions-and-support-sessions']['non-standard-bail-conditions']
+  questions = getQuestions(this.personName)['bail-conditions']['non-standard-bail-conditions']
 
   body: NonStandardBailConditionsBody
 

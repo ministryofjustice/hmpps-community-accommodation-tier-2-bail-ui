@@ -4,8 +4,8 @@ import { Task } from '../../../utils/decorators'
 import NonStandardBailConditions from './nonStandardBailConditions'
 
 @Task({
-  name: 'Add bail conditions and support sessions',
-  slug: 'bail-conditions-and-support-sessions',
+  name: 'Add bail conditions',
+  slug: 'bail-conditions',
   pages: [NonStandardBailConditions],
 })
-export default class BailConditionsAndSupportSessions {}
+export default class BailConditions {}

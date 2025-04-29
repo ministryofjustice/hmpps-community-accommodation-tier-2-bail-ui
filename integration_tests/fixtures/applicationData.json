@@ -335,7 +335,7 @@
     ],
     "unspent-convictions": {}
   },
-  "bail-conditions-and-support-sessions": {
+  "bail-conditions": {
     "non-standard-bail-conditions": {
       "nonStandardBailConditions": "yes",
       "nonStandardBailConditionsDetail": "some non standard condition"

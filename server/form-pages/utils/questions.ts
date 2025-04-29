@@ -1026,7 +1026,7 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'bail-conditions-and-support-sessions': {
+    'bail-conditions': {
       'non-standard-bail-conditions': {
         nonStandardBailConditions: {
           question: `Are there any non-standard bail conditions being considered?`,

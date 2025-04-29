@@ -1,9 +1,9 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeBailConditionsAndSupportSessionsTask = async (page: Page, name: string) => {
+export const completeBailConditionsTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add bail conditions and support sessions')
+  await taskListPage.clickTask('Add bail conditions')
 
   await completeNonStandardBailConditionsPage(page, name)
 }

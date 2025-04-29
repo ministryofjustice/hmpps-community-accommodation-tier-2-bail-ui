@@ -30,10 +30,7 @@ import {
 } from './offenceAndLicenceInformationSection'
 import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
-import {
-  completeBailConditionsAndSupportSessionsTask,
-  completeBailHearingInformationTask,
-} from './bailInformationSection'
+import { completeBailConditionsTask, completeBailHearingInformationTask } from './bailInformationSection'
 
 export const startAnApplication = async (page: Page) => {
   // Start page
@@ -107,7 +104,7 @@ export const completeOffenceInformationSection = async (page: Page, name: string
 }
 
 export const completeBailInformationSection = async (page: Page, name: string) => {
-  await completeBailConditionsAndSupportSessionsTask(page, name)
+  await completeBailConditionsTask(page, name)
   await completeBailHearingInformationTask(page, name)
 }
 
