@@ -8,7 +8,7 @@ describe('GangAffiliations', () => {
   it('sets the question as the page title', () => {
     const page = new GangAffiliations({}, application)
 
-    expect(page.title).toEqual('Does Sue Smith have any gang affiliations?')
+    expect(page.title).toEqual('Gang affiliation details for Sue Smith')
   })
 
   describe('errors', () => {

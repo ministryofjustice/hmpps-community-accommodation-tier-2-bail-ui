@@ -7,7 +7,7 @@ import { pageIsActiveInNavigation } from '../../../utils'
 export default class GangAffiliationsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Does ${nameOrPlaceholderCopy(application.person)} have any gang affiliations?`,
+      `Gang affiliation details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'area-information',
       'gang-affiliations',

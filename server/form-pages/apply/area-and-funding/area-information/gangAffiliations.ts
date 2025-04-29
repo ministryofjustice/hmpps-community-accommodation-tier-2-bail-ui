@@ -26,11 +26,11 @@ export type GangAffiliationsBody = {
   ],
 })
 export default class GangAffiliations implements TaskListPage {
-  documentTitle = 'Does the person have any gang affiliations?'
+  documentTitle = 'Gang affiliation details'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Does ${nameOrPlaceholderCopy(this.application.person)} have any gang affiliations?`
+  title = `Gang affiliation details for ${nameOrPlaceholderCopy(this.application.person)}`
 
   questions = getQuestions(this.personName)['area-information']['gang-affiliations']
 
