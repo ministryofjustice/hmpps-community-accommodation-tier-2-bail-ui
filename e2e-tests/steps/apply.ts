@@ -104,7 +104,7 @@ export const completeOffenceInformationSection = async (page: Page, name: string
 }
 
 export const completeBailInformationSection = async (page: Page, name: string) => {
-  await completeBailConditionsTask(page, name)
+  await completeBailConditionsTask(page)
   await completeBailHearingInformationTask(page, name)
 }
 
