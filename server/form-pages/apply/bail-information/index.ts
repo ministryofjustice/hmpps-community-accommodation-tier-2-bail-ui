@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 
 import { Section } from '../../utils/decorators'
-import BailConditionsAndSupportSessions from './bail-conditions-and-support-sessions'
+import BailConditions from './bail-conditions'
 import BailHearingInformation from './bail-hearing-information'
 
 @Section({
   title: 'Bail information',
-  tasks: [BailConditionsAndSupportSessions, BailHearingInformation],
+  tasks: [BailConditions, BailHearingInformation],
 })
 export default class BailInformation {}

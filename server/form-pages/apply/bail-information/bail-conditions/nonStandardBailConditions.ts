@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Radio, TaskListErrors, YesOrNo } from '@approved-premises/ui'
+import { Radio, TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
@@ -8,7 +8,7 @@ import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
 export type NonStandardBailConditionsBody = {
-  nonStandardBailConditions: YesOrNo
+  nonStandardBailConditions: YesNoOrDontKnow
   nonStandardBailConditionsDetail: string
 }
 
@@ -23,7 +23,7 @@ export default class NonStandardBailConditions implements TaskListPage {
 
   title
 
-  questions = getQuestions(this.personName)['bail-conditions-and-support-sessions']['non-standard-bail-conditions']
+  questions = getQuestions(this.personName)['bail-conditions']['non-standard-bail-conditions']
 
   body: NonStandardBailConditionsBody
 

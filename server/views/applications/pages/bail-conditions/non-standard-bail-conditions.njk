@@ -1,0 +1,36 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+ {% set nonStandardBailConditionsDetail %}
+  {{
+      formPageTextArea(
+        {
+          label: { text: page.questions.nonStandardBailConditionsDetail.question, classes: "govuk-label--s"},
+          fieldName: "nonStandardBailConditionsDetail"
+        },
+        fetchContext()
+      )
+    }}
+  {% endset -%}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "nonStandardBailConditions",
+        fieldset: {
+          legend: {
+            text: page.questions.nonStandardBailConditions.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: page.questions.nonStandardBailConditions.hint
+        },
+        items: page.items(nonStandardBailConditionsDetail)
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

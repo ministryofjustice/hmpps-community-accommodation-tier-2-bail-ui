@@ -1,11 +1,11 @@
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeBailConditionsAndSupportSessionsTask = async (page: Page, name: string) => {
+export const completeBailConditionsTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Add bail conditions and support sessions')
+  await taskListPage.clickTask('Add bail conditions')
 
-  await completeNonStandardBailConditionsPage(page, name)
+  await completeNonStandardBailConditionsPage(page)
 }
 
 export const completeBailHearingInformationTask = async (page: Page, name: string) => {
@@ -45,11 +45,11 @@ async function completeCourtNamePage(page: Page, name: string) {
   await courtNamePage.clickButton('Save and continue')
 }
 
-async function completeNonStandardBailConditionsPage(page: Page, name: string) {
+async function completeNonStandardBailConditionsPage(page: Page) {
   const nonStandardBailConditionsPage = await ApplyPage.initialize(
     page,
-    `Are there any non-standard bail conditions being considered for ${name}?`,
+    `Are there any non-standard bail conditions being considered?`,
   )
-  await nonStandardBailConditionsPage.checkRadio('No')
+  await nonStandardBailConditionsPage.checkRadioInGroup('bail conditions', 'No')
   await nonStandardBailConditionsPage.clickButton('Save and continue')
 }

@@ -1026,14 +1026,18 @@ export const getQuestions = (name: string) => {
         },
       },
     },
-    'bail-conditions-and-support-sessions': {
+    'bail-conditions': {
       'non-standard-bail-conditions': {
         nonStandardBailConditions: {
-          question: `Are there any non-standard bail conditions being considered for ${name}?`,
-          answers: yesOrNo,
+          question: `Are there any non-standard bail conditions being considered?`,
+          hint: 'These can include any restrictions such as curfews or limitations on contact with specific individuals.',
+          answers: {
+            ...yesNoOrIDontKnow,
+            dontKnow: 'I do not know',
+          },
         },
         nonStandardBailConditionsDetail: {
-          question: 'What are they?',
+          question: 'Enter details of any non-standard conditions being considered',
         },
       },
     },
