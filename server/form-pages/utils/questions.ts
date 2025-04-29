@@ -887,7 +887,7 @@ export const getQuestions = (name: string) => {
           hint: 'Include lead contact details where possible.',
         },
       },
-      'acct-data': {
+      'add-acct-note': {
         createdDate: {
           question: 'When was the ACCT created?',
           hint: 'For example, 22 4 2003',

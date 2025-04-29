@@ -4,7 +4,7 @@ import paths from '../../../../../server/paths/apply'
 
 export default class AcctDataPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Add an ACCT entry', application, 'risk-information', 'acct-data')
+    super('Add an ACCT entry', application, 'risk-information', 'add-acct-note')
   }
 
   static visit(application: Application): void {
@@ -12,7 +12,7 @@ export default class AcctDataPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'risk-information',
-        page: 'acct-data',
+        page: 'add-acct-note',
       }),
     )
   }

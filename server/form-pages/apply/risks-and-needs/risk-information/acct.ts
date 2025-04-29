@@ -2,7 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { AcctDataBody } from './custom-forms/acctData'
+import { AddAcctNoteBody } from './custom-forms/addAcctNote'
 import { DateFormats } from '../../../../utils/dateUtils'
 import paths from '../../../../paths/apply'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -34,8 +34,8 @@ export default class Acct implements TaskListPage {
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
-    if (application.data['risk-information'] && application.data['risk-information']['acct-data']) {
-      const acctData = application.data['risk-information']['acct-data'] as [AcctDataBody]
+    if (application.data['risk-information'] && application.data['risk-information']['add-acct-note']) {
+      const acctData = application.data['risk-information']['add-acct-note'] as [AddAcctNoteBody]
 
       this.accts = acctData.map((acct, index) => {
         const query = {
@@ -54,7 +54,7 @@ export default class Acct implements TaskListPage {
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: 'risk-information',
-            page: 'acct-data',
+            page: 'add-acct-note',
             index: index.toString(),
           })}?${createQueryString(query)}`,
         }

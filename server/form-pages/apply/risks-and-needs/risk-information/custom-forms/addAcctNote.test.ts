@@ -1,8 +1,8 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../../testutils/factories/index'
-import AcctData from './acctData'
+import AddAcctNote from './addAcctNote'
 
-describe('AcctData', () => {
+describe('AddAcctNote ', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   const acctData = [
@@ -21,19 +21,19 @@ describe('AcctData', () => {
 
   describe('title', () => {
     it('has a page title', () => {
-      const page = new AcctData({}, application)
+      const page = new AddAcctNote({}, application)
 
       expect(page.title).toEqual('Add an ACCT entry')
     })
   })
 
-  itShouldHaveNextValue(new AcctData({}, application), 'acct')
-  itShouldHavePreviousValue(new AcctData({}, application), 'acct')
+  itShouldHaveNextValue(new AddAcctNote({}, application), 'acct')
+  itShouldHavePreviousValue(new AddAcctNote({}, application), 'acct')
 
   describe('errors', () => {
     describe('when there are no errors', () => {
       it('returns empty object', () => {
-        const page = new AcctData(acctData[0], application)
+        const page = new AddAcctNote(acctData[0], application)
         expect(page.errors()).toEqual({})
       })
     })
@@ -46,7 +46,7 @@ describe('AcctData', () => {
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
-      const page = new AcctData(
+      const page = new AddAcctNote(
         {
           'createdDate-day': '',
           'createdDate-month': '',
@@ -67,7 +67,7 @@ describe('AcctData', () => {
 
     describe('when an ACCT is ongoing but a closed date has not been given', () => {
       it('throws an error', () => {
-        const page = new AcctData(
+        const page = new AddAcctNote(
           {
             isOngoing: 'no',
           },
@@ -82,7 +82,7 @@ describe('AcctData', () => {
 
   describe('response', () => {
     it('returns empty object', () => {
-      const page = new AcctData({}, application)
+      const page = new AddAcctNote({}, application)
       expect(page.response()).toEqual({})
     })
   })

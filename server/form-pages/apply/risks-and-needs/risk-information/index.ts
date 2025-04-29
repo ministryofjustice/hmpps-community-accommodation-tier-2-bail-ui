@@ -2,7 +2,7 @@
 import Concerns from './concerns'
 import SelfHarm from './selfHarm'
 import Acct from './acct'
-import AcctData from './custom-forms/acctData'
+import AddAcctNote from './custom-forms/addAcctNote'
 import ViolenceAndArson from './violenceAndArson'
 import LivingInTheCommunity from './livingInTheCommunity'
 import SafetyOfStaff from './safetyOfStaff'
@@ -19,7 +19,7 @@ import { Task } from '../../../utils/decorators'
     Concerns,
     SelfHarm,
     Acct,
-    AcctData,
+    AddAcctNote,
     ViolenceAndArson,
     LivingInTheCommunity,
     SafetyOfStaff,

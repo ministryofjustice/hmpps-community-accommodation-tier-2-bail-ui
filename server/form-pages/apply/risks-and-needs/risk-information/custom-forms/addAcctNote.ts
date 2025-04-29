@@ -5,7 +5,7 @@ import TaskListPage from '../../../../taskListPage'
 import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 
-export type AcctDataBody = {
+export type AddAcctNoteBody = {
   referringInstitution: string
   createdDate: string
   'createdDate-day': string
@@ -20,7 +20,7 @@ export type AcctDataBody = {
 }
 
 @Page({
-  name: 'acct-data',
+  name: 'add-acct-note',
   bodyProperties: [
     'referringInstitution',
     'createdDate-day',
@@ -38,19 +38,19 @@ export default class AcctData implements TaskListPage {
 
   documentTitle = this.title
 
-  body: AcctDataBody
+  body: AddAcctNoteBody
 
-  questions = getQuestions('')['risk-information']['acct-data']
+  questions = getQuestions('')['risk-information']['add-acct-note']
 
   taskName = 'risk-information'
 
-  pageName = 'acct-data'
+  pageName = 'add-acct-note'
 
   constructor(
-    body: Partial<AcctDataBody>,
+    body: Partial<AddAcctNoteBody>,
     private readonly application: Cas2v2Application,
   ) {
-    this.body = body as AcctDataBody
+    this.body = body as AddAcctNoteBody
   }
 
   previous() {
