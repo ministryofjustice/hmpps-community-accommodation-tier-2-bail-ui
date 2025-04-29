@@ -37,9 +37,9 @@
     },
     "gang-affiliations": {
       "hasGangAffiliations": "yes",
-      "gangName": "Gang name",
-      "gangOperationArea": "Derby",
-      "rivalGangDetail": "Rival gang detail"
+      "gangDetails": "Gang name",
+      "rivalGangsOrCountyLines": "yes",
+      "rivalGangsOrCountyLinesDetail": "Rival gang detail"
     },
     "family-accommodation": {
       "familyProperty": "yes"

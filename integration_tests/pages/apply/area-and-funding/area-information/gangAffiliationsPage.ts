@@ -1,7 +1,7 @@
-import { Cas2v2Application as Application } from '../../../../../server/@types/shared/models/Cas2v2Application'
+import { Cas2v2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
-import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
+import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
 
 export default class GangAffiliationsPage extends ApplyPage {
@@ -12,6 +12,7 @@ export default class GangAffiliationsPage extends ApplyPage {
       'area-information',
       'gang-affiliations',
     )
+
     pageIsActiveInNavigation('Gang affiliations')
   }
 
@@ -25,11 +26,13 @@ export default class GangAffiliationsPage extends ApplyPage {
     )
   }
 
-  completePage() {
+  answerGangAffiliationQuestions(): void {
     this.checkRadioByNameAndValue('hasGangAffiliations', 'yes')
-    this.getTextInputByIdAndEnterDetails('gangName', 'Name of gang')
-    this.getTextInputByIdAndEnterDetails('gangOperationArea', 'North East')
-    this.getTextInputByIdAndEnterDetails('rivalGangDetail', 'Rival gang detail')
-    this.clickSubmit()
+    this.getTextInputByIdAndEnterDetails('gangDetails', 'Gang name')
+  }
+
+  answerRivalGangAffiliationQuestions(): void {
+    this.checkRadioByNameAndValue('rivalGangsOrCountyLines', 'yes')
+    this.getTextInputByIdAndEnterDetails('rivalGangsOrCountyLinesDetail', 'Second gang name')
   }
 }

@@ -29,8 +29,8 @@ export default class BasePage {
     await this.page.getByRole('link', { name }).click()
   }
 
-  async fillField(label: string, value: string) {
-    await this.page.getByLabel(label, { exact: true }).fill(value)
+  async fillField(label: string, value: string, beExact = false) {
+    await this.page.getByLabel(label, { exact: beExact }).fill(value)
   }
 
   async fillFieldByGroupAndLabel(group: string, label: string, value: string) {
