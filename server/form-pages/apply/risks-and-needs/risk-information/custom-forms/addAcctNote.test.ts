@@ -23,7 +23,7 @@ describe('AddAcctNote ', () => {
     it('has a page title', () => {
       const page = new AddAcctNote({}, application)
 
-      expect(page.title).toEqual('Add an ACCT entry')
+      expect(page.title).toEqual('Add an ACCT note for Roger Smith')
     })
   })
 

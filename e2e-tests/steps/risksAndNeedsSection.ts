@@ -217,9 +217,9 @@ async function completeAcctDataPage(page: Page) {
   const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT entry')
   await acctDataPage.fillDateFieldInGroup('When was the ACCT created?', { year: '2022', month: '3', day: '1' })
   await acctDataPage.checkRadio('Yes')
-  await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
-  await acctDataPage.fillField('Details about the ACCT', 'some details')
-  await acctDataPage.clickButton('Save and add ACCT')
+  await acctDataPage.fillField('What was the referring institution?', 'HMPPS Sheffield')
+  await acctDataPage.fillField('Enter details about the ACCT', 'some details')
+  await acctDataPage.clickButton('Save ACCT note and add another')
 }
 
 async function completeRiskInformationSourcesPage(page: Page) {

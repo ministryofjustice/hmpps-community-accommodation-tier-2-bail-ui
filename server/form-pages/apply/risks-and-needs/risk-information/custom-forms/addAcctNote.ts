@@ -4,6 +4,7 @@ import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
+import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
 export type AddAcctNoteBody = {
   referringInstitution: string
@@ -34,9 +35,9 @@ export type AddAcctNoteBody = {
   ],
 })
 export default class AcctData implements TaskListPage {
-  title = 'Add an ACCT entry'
+  title = `Add an ACCT note for ${nameOrPlaceholderCopy(this.application.person)}`
 
-  documentTitle = this.title
+  documentTitle = 'Add an ACCT note for the applicant'
 
   body: AddAcctNoteBody
 

@@ -39,8 +39,6 @@
         {% endfor %}
       {% endif %}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
-      <p class="govuk-body">An Assessment, Care in Custody and Teamwork (ACCT) 
-          is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
       <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
@@ -97,10 +95,7 @@
                   classes: "govuk-label--m" 
                 },
                 classes: "govuk-input--width-20",
-                fieldName: "referringInstitution",
-                hint: {
-                  text: page.questions.referringInstitution.hint
-                }
+                fieldName: "referringInstitution"
               },
               fetchContext()
             )
@@ -122,7 +117,7 @@
         <div>
           {{ govukButton({
             id: "add-another",
-            text: "Save and add another",
+            text: "Save ACCT note and add another",
             classes: "govuk-button--secondary"
           }) }}
         </div>
@@ -130,11 +125,11 @@
         {% block button %}
           <div class="govuk-button-group">
             {{ govukButton({
-                text: "Save and add ACCT"
+                text: "Save and continue"
             }) }}
 
             <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }) }}">
-                Cancel
+              Cancel
             </a>
           </div>
         {% endblock %}
