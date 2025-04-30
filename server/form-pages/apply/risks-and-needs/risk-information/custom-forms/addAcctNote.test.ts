@@ -27,6 +27,34 @@ describe('AddAcctNote ', () => {
     })
   })
 
+  describe('hasExistingAcctNotes', () => {
+    it('returns true when ACCT notes exist', () => {
+      const applicationWithACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {
+            'add-acct-note': acctData,
+          },
+        },
+      })
+
+      const page = new AddAcctNote({}, applicationWithACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(true)
+    })
+
+    it('returns false when ACCT notes do not exist', () => {
+      const applicationWithoutACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {},
+        },
+      })
+
+      const page = new AddAcctNote({}, applicationWithoutACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(false)
+    })
+  })
+
   itShouldHaveNextValue(new AddAcctNote({}, application), 'acct')
   itShouldHavePreviousValue(new AddAcctNote({}, application), 'does-the-applicant-have-acct-notes')
 

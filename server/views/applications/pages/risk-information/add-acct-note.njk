@@ -128,9 +128,11 @@
                 text: "Save and continue"
             }) }}
 
-            <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }) }}">
-              Cancel
-            </a>
+            {% if page.hasExistingAcctNotes %}
+              <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct' }) }}">
+                Cancel
+              </a>
+            {% endif %}
           </div>
         {% endblock %}
       </form>

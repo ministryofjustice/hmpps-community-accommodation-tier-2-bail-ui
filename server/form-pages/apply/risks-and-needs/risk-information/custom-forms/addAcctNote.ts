@@ -47,11 +47,14 @@ export default class AcctData implements TaskListPage {
 
   pageName = 'add-acct-note'
 
+  hasExistingAcctNotes: boolean
+
   constructor(
     body: Partial<AddAcctNoteBody>,
     private readonly application: Cas2v2Application,
   ) {
     this.body = body as AddAcctNoteBody
+    this.hasExistingAcctNotes = Boolean(application.data['risk-information']?.['add-acct-note']?.length)
   }
 
   previous() {
