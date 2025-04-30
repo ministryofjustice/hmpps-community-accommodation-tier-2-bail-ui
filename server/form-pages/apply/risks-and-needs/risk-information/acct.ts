@@ -64,7 +64,7 @@ export default class Acct implements TaskListPage {
   }
 
   previous() {
-    return 'self-harm'
+    return 'does-the-applicant-have-acct-notes'
   }
 
   next() {

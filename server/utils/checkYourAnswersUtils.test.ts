@@ -545,6 +545,7 @@ describe('checkYourAnswersUtils', () => {
         'safety-of-staff',
         'additional-concerns',
         'risk-management-arrangements',
+        'does-the-applicant-have-acct-notes',
         'acct',
         'add-acct-note',
         'information-sources',

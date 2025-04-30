@@ -70,7 +70,7 @@ describe('Acct', () => {
   })
 
   itShouldHaveNextValue(new Acct({}, application), 'violence-and-arson')
-  itShouldHavePreviousValue(new Acct({}, application), 'self-harm')
+  itShouldHavePreviousValue(new Acct({}, application), 'does-the-applicant-have-acct-notes')
 
   describe('response', () => {
     it('returns formatted ACCTs', () => {

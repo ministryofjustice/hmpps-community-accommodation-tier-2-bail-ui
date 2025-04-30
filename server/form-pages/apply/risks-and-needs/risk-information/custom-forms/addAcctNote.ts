@@ -55,7 +55,7 @@ export default class AcctData implements TaskListPage {
   }
 
   previous() {
-    return 'acct'
+    return 'does-the-applicant-have-acct-notes'
   }
 
   next() {

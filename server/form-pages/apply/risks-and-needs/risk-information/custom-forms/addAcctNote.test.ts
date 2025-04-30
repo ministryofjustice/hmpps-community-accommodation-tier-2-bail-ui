@@ -28,7 +28,7 @@ describe('AddAcctNote ', () => {
   })
 
   itShouldHaveNextValue(new AddAcctNote({}, application), 'acct')
-  itShouldHavePreviousValue(new AddAcctNote({}, application), 'acct')
+  itShouldHavePreviousValue(new AddAcctNote({}, application), 'does-the-applicant-have-acct-notes')
 
   describe('errors', () => {
     describe('when there are no errors', () => {

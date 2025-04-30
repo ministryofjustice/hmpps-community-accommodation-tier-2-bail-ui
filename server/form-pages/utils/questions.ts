@@ -887,6 +887,15 @@ export const getQuestions = (name: string) => {
           hint: 'Include lead contact details where possible.',
         },
       },
+      'does-the-applicant-have-acct-notes': {
+        applicantHasAcctNotes: {
+          question: 'Does the applicant have any ACCT notes?',
+          answers: {
+            ...yesOrNo,
+            notInPrisonCustody: 'No, the applicant is not in prison custody',
+          },
+        },
+      },
       'add-acct-note': {
         createdDate: {
           question: 'When was the ACCT created?',

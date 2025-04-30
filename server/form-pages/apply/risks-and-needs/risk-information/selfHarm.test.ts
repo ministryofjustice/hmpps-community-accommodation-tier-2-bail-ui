@@ -13,7 +13,7 @@ describe('SelfHarm', () => {
     })
   })
 
-  itShouldHaveNextValue(new SelfHarm({}, application), 'acct')
+  itShouldHaveNextValue(new SelfHarm({}, application), 'does-the-applicant-have-acct-notes')
   itShouldHavePreviousValue(new SelfHarm({}, application), 'concerns')
 
   describe('errors', () => {

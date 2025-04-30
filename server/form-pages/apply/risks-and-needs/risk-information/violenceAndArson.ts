@@ -35,7 +35,7 @@ export default class ViolenceAndArson implements TaskListPage {
   }
 
   previous() {
-    return 'acct'
+    return 'does-the-applicant-have-acct-notes'
   }
 
   next() {
