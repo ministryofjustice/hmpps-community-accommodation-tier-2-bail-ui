@@ -813,8 +813,7 @@ export const getQuestions = (name: string) => {
           hint: 'This includes any discrimination or abuse based on identity. For example, ethnicity, religion or sexuality.',
         },
         victimOfOthers: {
-          question:
-            'Has the applicant ever been a victim of violence, bullying, or intimidation from others?',
+          question: 'Has the applicant ever been a victim of violence, bullying, or intimidation from others?',
           answers: yesOrNo,
         },
         victimOfOthersDetail: {
