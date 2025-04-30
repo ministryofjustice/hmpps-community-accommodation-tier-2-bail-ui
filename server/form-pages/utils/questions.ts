@@ -814,7 +814,7 @@ export const getQuestions = (name: string) => {
         },
         victimOfOthers: {
           question:
-            'Based on the information you have, has the applicant ever been a victim of violence, bullying, or intimidation from others?',
+            'Has the applicant ever been a victim of violence, bullying, or intimidation from others?',
           answers: yesOrNo,
         },
         victimOfOthersDetail: {
