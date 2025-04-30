@@ -258,4 +258,72 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('ACCT notes', () => {
+    describe('when the applicant is not in prison custody', () => {
+      const applicationData = {
+        'risk-information': {
+          'does-the-applicant-have-acct-notes': {
+            applicantHasAcctNotes: 'notInPrisonCustody',
+          },
+          'add-acct-note': [
+            {
+              'createdDate-day': '1',
+              'createdDate-month': '2',
+              'createdDate-year': '2012',
+              isOngoing: 'no',
+              'closedDate-day': '10',
+              'closedDate-month': '10',
+              'closedDate-year': '2013',
+              referringInstitution: 'HMPPS prison',
+              acctDetails: 'ACCT details\nsome more details on another line',
+            },
+          ],
+        },
+      }
+
+      it('removes the ACCT notes', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'risk-information': {
+            'does-the-applicant-have-acct-notes': {
+              applicantHasAcctNotes: 'notInPrisonCustody',
+            },
+          },
+        })
+      })
+    })
+
+    describe('when the applicant does not have ACCT notes', () => {
+      const applicationData = {
+        'risk-information': {
+          'does-the-applicant-have-acct-notes': {
+            applicantHasAcctNotes: 'no',
+          },
+          'add-acct-note': [
+            {
+              'createdDate-day': '1',
+              'createdDate-month': '2',
+              'createdDate-year': '2012',
+              isOngoing: 'no',
+              'closedDate-day': '10',
+              'closedDate-month': '10',
+              'closedDate-year': '2013',
+              referringInstitution: 'HMPPS prison',
+              acctDetails: 'ACCT details\nsome more details on another line',
+            },
+          ],
+        },
+      }
+
+      it('removes the ACCT notes', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'risk-information': {
+            'does-the-applicant-have-acct-notes': {
+              applicantHasAcctNotes: 'no',
+            },
+          },
+        })
+      })
+    })
+  })
 })

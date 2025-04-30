@@ -29,6 +29,10 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
   }
 
+  const deleteOrphanedACCTNotesData = () => {
+    delete applicationData['risk-information']['add-acct-note']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -112,6 +116,28 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedOASysRiskAssessmentDetailsData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'risk-information',
+      pageName: 'does-the-applicant-have-acct-notes',
+      questionKey: 'applicantHasAcctNotes',
+      answerToCheck: 'notInPrisonCustody',
+    })
+  ) {
+    deleteOrphanedACCTNotesData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'risk-information',
+      pageName: 'does-the-applicant-have-acct-notes',
+      questionKey: 'applicantHasAcctNotes',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedACCTNotesData()
   }
 
   return applicationData
