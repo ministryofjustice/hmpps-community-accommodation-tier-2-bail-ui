@@ -9,7 +9,7 @@ describe('Acct', () => {
     it('personalises the page title', () => {
       const page = new Acct({}, application)
 
-      expect(page.title).toEqual('Assessment, Care in Custody and Teamwork (ACCT) notes for Roger Smith')
+      expect(page.title).toEqual(`Roger Smith's ACCT`)
     })
   })
 
@@ -93,7 +93,7 @@ describe('Acct', () => {
       ]
 
       expect(page.response()).toEqual({
-        'ACCT<br />Created: created date<br />Expiry: closed date': 'some details',
+        'ACCT<br />Created: created date<br />Closed: closed date': 'some details',
         'ACCT<br />Created: created date 2<br />Ongoing': 'some different details',
       })
     })

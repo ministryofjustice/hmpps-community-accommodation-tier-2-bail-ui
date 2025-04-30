@@ -22,9 +22,9 @@ type AcctUI = {
   bodyProperties: ['acctDetail'],
 })
 export default class Acct implements TaskListPage {
-  documentTitle = 'Assessment, Care in Custody and Teamwork (ACCT) notes for the person'
+  documentTitle = `The person's ACCT`
 
-  title = `Assessment, Care in Custody and Teamwork (ACCT) notes for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `${nameOrPlaceholderCopy(this.application.person)}'s ACCT`
 
   body: AcctBody
 
@@ -93,7 +93,7 @@ const getAcctMetadata = (acct: AcctUI): string => {
   let key = `ACCT<br />Created: ${acct.createdDate}`
 
   if (acct.closedDate) {
-    key += `<br />Expiry: ${acct.closedDate}`
+    key += `<br />Closed: ${acct.closedDate}`
     return key
   }
 
