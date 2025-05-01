@@ -208,6 +208,9 @@
       "hasHadStroke": "no",
       "beingTreatedForCancer": "no",
       "otherHealthNeeds": "no"
+    },
+    "information-sources": {
+      "informationSources": ["nomis", "casework"]
     }
   },
   "risk-information": {
