@@ -14,6 +14,7 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await completeLearningDifficultiesPage(page, name)
   await completeBrainInjuryPage(page, name)
   await completeOtherHealthPage(page, name)
+  await completeInformationSourcesPage(page)
 }
 
 async function completeHealthNeedsInformationPage(page: Page, name: string) {
@@ -112,6 +113,15 @@ async function completeOtherHealthPage(page: Page, name: string) {
   await otherHealthPage.checkRadioInGroup('any other health needs?', 'No')
 
   await otherHealthPage.clickSave()
+}
+
+async function completeInformationSourcesPage(page: Page) {
+  const informationSourcesPage = await ApplyPage.initialize(
+    page,
+    "Where did you get the information on the applicant's health needs from?",
+  )
+  await informationSourcesPage.checkCheckboxes(['Case work'])
+  await informationSourcesPage.clickSave()
 }
 
 export const completeRiskInformationTask = async (page: Page, name: string) => {
