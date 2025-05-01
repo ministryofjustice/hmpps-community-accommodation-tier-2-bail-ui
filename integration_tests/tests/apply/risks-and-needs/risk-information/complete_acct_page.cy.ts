@@ -16,8 +16,11 @@
 //    When I remove an ACCT
 //    Then the ACCT is no longer in the list of ACCTs
 //
-//  Scenario: there are no existing ACCTs in the application
-//    Then I see the "ACCT" page
+//  Scenario: change my answer when no ACCTs exist
+//    Given no ACCTs exist
+//    And I am on the ACCT page
+//    When I click "Change your answer about existing ACCT notes"
+//    Then I am taken to the "Does the applicant have ACCT notes" page
 //
 //  Scenario: when I go to select another ACCT
 //    Then I see the "ACCT data" page
@@ -29,6 +32,7 @@ import AcctPage from '../../../../pages/apply/risks-and-needs/risk-information/a
 import ViolenceAndArsonPage from '../../../../pages/apply/risks-and-needs/risk-information/violenceAndArsonPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import ApplicantAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/applicantAcctNotes'
 
 context('Visit "Concerns and health needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -72,16 +76,10 @@ context('Visit "Concerns and health needs" section', () => {
     AcctPage.visit(this.application)
   })
 
-  //  Scenario: there are no existing ACCTs in the application
-  //    Then I see the "ACCT" page
-  it('presents ACCT page', function test() {
-    Page.verifyOnPage(AcctPage, this.application)
-  })
-
   //  Scenario: there are existing ACCTs in the application
   //    Then I see a list of existing ACCTs on the "ACCT" page
   it('presents ACCT page with existing ACCTs', function test() {
-    // When there is already imported data
+    // When there is existing data
     cy.task('stubApplicationGet', { application: this.applicationWithData })
 
     AcctPage.visit(this.applicationWithData)
@@ -93,7 +91,7 @@ context('Visit "Concerns and health needs" section', () => {
   //  Scenario: remove an ACCT
 
   it('removes an ACCT', function test() {
-    // When there is already imported data
+    // When there is existing data
     cy.task('stubApplicationGet', { application: this.applicationWithData })
 
     AcctPage.visit(this.applicationWithData)
@@ -109,12 +107,36 @@ context('Visit "Concerns and health needs" section', () => {
     page.hasNoAccts()
   })
 
+  //  Scenario: change my answer when no ACCTs exist
+  //    Given no ACCTs exist
+  //    And I am on the ACCT page
+  //    When I click "Change your answer about existing ACCT notes"
+  //    Then I am taken to the "Does the applicant have ACCT notes" page
+  it('navigates to the "Does the applicant have ACCT notes" page', function test() {
+    // cy.task('stubApplicationGet', { application: this.application })
+    // AcctPage.visit(this.application)
+
+    const page = new AcctPage(this.application)
+
+    //    Given no ACCTs exist
+    page.hasNoAccts()
+
+    //    When I click "Change your answer about existing ACCT notes"
+    page.clickLink('Change your answer about existing ACCT notes')
+
+    //    Then I can navigate to the "Does the applicant have ACCT notes" page
+    Page.verifyOnPage(ApplicantAcctNotesPage, this.application)
+  })
+
   //  Scenario: complete page and navigate to next page in health needs task
   //    When I continue to the next task / page
   //    Then I see the "violence and arson" page
   it('navigates to the next page (violence and arson)', function test() {
-    AcctPage.visit(this.application)
-    const page = new AcctPage(this.application)
+    // When there is existing data
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+
+    AcctPage.visit(this.applicationWithData)
+    const page = new AcctPage(this.applicationWithData)
 
     page.clickSubmit()
 

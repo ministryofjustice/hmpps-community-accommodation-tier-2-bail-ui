@@ -257,6 +257,9 @@
       "maracDetails": "marac details",
       "iomDetails": "iom details"
     },
+    "does-the-applicant-have-acct-notes": {
+      "applicantHasAcctNotes": "yes"
+    },
     "acct": {},
     "add-acct-note": [
       {

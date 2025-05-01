@@ -18,9 +18,15 @@
 //    When I save and add another
 //    Then I am taken to a blank "Add an ACCT" page
 //    And I see a success message
+//
+//  Scenario: Cancel adding another ACCT
+//    Given an ACCT exists
+//    And I visit the "Add an ACCT" page
+//    When I cancel
+//    Then I am taken to the "ACCT" page
 
 import AcctPage from '../../../../pages/apply/risks-and-needs/risk-information/acctPage'
-import AcctDataPage from '../../../../pages/apply/risks-and-needs/risk-information/acctDataPage'
+import AddAcctNotePage from '../../../../pages/apply/risks-and-needs/risk-information/addAcctNotePage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -63,14 +69,14 @@ context('Visit "Concerns and health needs" section', () => {
 
     // And I am on the "Add an ACCT" page
     // --------------------------------
-    AcctDataPage.visit(this.application)
+    AddAcctNotePage.visit(this.application)
   })
 
   //  Scenario: I fill in required information for an ACCT
   //    When I continue to the next task / page
   //    Then I see the "ACCT" page
   it('navigates to the next page (ACCT page)', function test() {
-    const page = new AcctDataPage(this.application)
+    const page = new AddAcctNotePage(this.application)
 
     page.addACCTInformation()
 
@@ -81,7 +87,7 @@ context('Visit "Concerns and health needs" section', () => {
 
   //  Scenario: Add another ACCT
   it('returns to form when adding another', function test() {
-    const page = new AcctDataPage(this.application)
+    const page = new AddAcctNotePage(this.application)
 
     //    Given I have filled in required information for an ACCT
     page.addACCTInformation()
@@ -90,10 +96,26 @@ context('Visit "Concerns and health needs" section', () => {
     page.clickAddAnother()
 
     //    Then I am taken to a blank "Add an ACCT" page
-    Page.verifyOnPage(AcctDataPage, this.application)
+    Page.verifyOnPage(AddAcctNotePage, this.application)
     page.assertFormisEmpty()
 
     //  And I see a success message
     page.shouldShowSuccessMessage('The ACCT has been saved')
+  })
+
+  //  Scenario: Cancel adding another ACCT
+  it('navigates to ACCT page when cancelling adding another', function test() {
+    //    Given an ACCT exists
+    cy.task('stubApplicationGet', { application: this.applicationWithData })
+    AddAcctNotePage.visit(this.applicationWithData)
+
+    //    And I visit the "Add an ACCT" page
+    const page = new AddAcctNotePage(this.application)
+
+    //    When I cancel
+    page.clickLink('Cancel')
+
+    //    Then I am taken to the "ACCT" page
+    Page.verifyOnPage(AcctPage, this.application)
   })
 })
