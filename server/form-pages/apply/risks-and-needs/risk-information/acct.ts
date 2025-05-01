@@ -7,7 +7,7 @@ import { DateFormats } from '../../../../utils/dateUtils'
 import paths from '../../../../paths/apply'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type AcctBody = Record<string, never>
+type AcctBody = { acctList: string }
 
 type AcctUI = {
   title: string
@@ -19,7 +19,7 @@ type AcctUI = {
 
 @Page({
   name: 'acct',
-  bodyProperties: ['acctDetail'],
+  bodyProperties: ['acctList'],
 })
 export default class Acct implements TaskListPage {
   documentTitle = `The person's ACCT`
@@ -73,6 +73,10 @@ export default class Acct implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    if (!this.application.data['risk-information']?.['add-acct-note'].length) {
+      errors.acctList = 'ACCT notes must be added to the application'
+    }
 
     return errors
   }

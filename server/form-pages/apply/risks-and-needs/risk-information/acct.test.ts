@@ -105,9 +105,19 @@ describe('Acct', () => {
   })
 
   describe('errors', () => {
-    it('returns empty object', () => {
-      const page = new Acct({}, application)
-      expect(page.errors()).toEqual({})
+    it('returns an error when no ACCT notes are present', () => {
+      const applicationWithoutACCTNotes = applicationFactory.build({
+        data: {
+          'risk-information': {
+            'add-acct-note': [],
+          },
+        },
+      })
+
+      const page = new Acct({}, applicationWithoutACCTNotes)
+      expect(page.errors()).toEqual({
+        acctList: 'ACCT notes must be added to the application',
+      })
     })
   })
 })
