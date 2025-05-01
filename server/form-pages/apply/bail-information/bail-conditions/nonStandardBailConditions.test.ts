@@ -48,15 +48,17 @@ describe('NonStandardBailConditions', () => {
 
   describe('errors', () => {
     describe('when they have not provided any answer', () => {
-      it('does not return an error', () => {
+      it('returns an error for nonStandardBailConditions', () => {
         const page = new NonStandardBailConditions({}, application)
-        expect(page.errors()).toEqual({})
+        expect(page.errors()).toEqual({
+          nonStandardBailConditions: "Select if there are any non-standard bail conditions, or select 'I do not know'",
+        })
       })
     })
     describe('when they have not provided detail', () => {
-      it('does not return an error', () => {
+      it('returns an error', () => {
         const page = new NonStandardBailConditions({ nonStandardBailConditions: 'yes' }, application)
-        expect(page.errors()).toEqual({})
+        expect(page.errors()).toEqual({ nonStandardBailConditionsDetail: 'Enter the non-standard bail conditions' })
       })
     })
   })

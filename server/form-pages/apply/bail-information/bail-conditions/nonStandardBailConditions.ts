@@ -61,6 +61,15 @@ export default class NonStandardBailConditions implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
+    if (!this.body.nonStandardBailConditions) {
+      errors.nonStandardBailConditions =
+        "Select if there are any non-standard bail conditions, or select 'I do not know'"
+    }
+
+    if (this.body.nonStandardBailConditions === 'yes' && !this.body.nonStandardBailConditionsDetail) {
+      errors.nonStandardBailConditionsDetail = 'Enter the non-standard bail conditions'
+    }
+
     return errors
   }
 
