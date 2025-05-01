@@ -67,10 +67,10 @@ describe('AddAcctNote ', () => {
     })
 
     const requiredFields = [
-      ['createdDate', 'Add a valid created date, for example 2 3 2013'],
-      ['isOngoing', 'Select whether this ACCT is ongoing'],
-      ['referringInstitution', 'Add a referring institution'],
-      ['acctDetails', 'Enter the details of the ACCT'],
+      ['createdDate', 'Enter when the ACCT was created'],
+      ['isOngoing', 'Select if the ACCT is ongoing'],
+      ['referringInstitution', 'Enter the referring institution'],
+      ['acctDetails', 'Enter details about the ACCT'],
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
@@ -93,6 +93,22 @@ describe('AddAcctNote ', () => {
       expect(errors[field as keyof typeof errors]).toEqual(message)
     })
 
+    describe('when the given created date is in the future', () => {
+      it('throws an error', () => {
+        const page = new AddAcctNote(
+          {
+            'createdDate-day': '01',
+            'createdDate-month': '01',
+            'createdDate-year': '3000',
+          },
+          application,
+        )
+        const errors = page.errors()
+
+        expect(errors.createdDate).toEqual('Date created must be today or in the past')
+      })
+    })
+
     describe('when an ACCT is ongoing but a closed date has not been given', () => {
       it('throws an error', () => {
         const page = new AddAcctNote(
@@ -103,7 +119,24 @@ describe('AddAcctNote ', () => {
         )
         const errors = page.errors()
 
-        expect(errors.closedDate).toEqual('Add a valid closed date, for example 2 3 2013')
+        expect(errors.closedDate).toEqual('Enter when the ACCT was closed')
+      })
+    })
+
+    describe('when an ACCT is ongoing but the given closed date is in the future', () => {
+      it('throws an error', () => {
+        const page = new AddAcctNote(
+          {
+            isOngoing: 'no',
+            'closedDate-day': '01',
+            'closedDate-month': '01',
+            'closedDate-year': '3000',
+          },
+          application,
+        )
+        const errors = page.errors()
+
+        expect(errors.closedDate).toEqual('Date closed must be today or in the past')
       })
     })
   })

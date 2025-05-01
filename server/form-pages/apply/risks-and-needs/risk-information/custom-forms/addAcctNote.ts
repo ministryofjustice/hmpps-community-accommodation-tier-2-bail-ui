@@ -2,7 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
-import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
+import { dateIsTodayOrInThePast, dateIsComplete } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
@@ -68,20 +68,33 @@ export default class AcctData implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!dateAndTimeInputsAreValidDates(this.body, 'createdDate')) {
-      errors.createdDate = 'Add a valid created date, for example 2 3 2013'
+    if (!dateIsComplete(this.body, 'createdDate')) {
+      errors.createdDate = 'Enter when the ACCT was created'
+    }
+
+    if (dateIsComplete(this.body, 'createdDate') && !dateIsTodayOrInThePast(this.body, 'createdDate')) {
+      errors.createdDate = 'Date created must be today or in the past'
     }
     if (!this.body.isOngoing) {
-      errors.isOngoing = 'Select whether this ACCT is ongoing'
+      errors.isOngoing = 'Select if the ACCT is ongoing'
     }
-    if (this.body.isOngoing === 'no' && !dateAndTimeInputsAreValidDates(this.body, 'closedDate')) {
-      errors.closedDate = 'Add a valid closed date, for example 2 3 2013'
+
+    if (this.body.isOngoing === 'no' && !dateIsComplete(this.body, 'closedDate')) {
+      errors.closedDate = 'Enter when the ACCT was closed'
+    }
+
+    if (
+      this.body.isOngoing === 'no' &&
+      dateIsComplete(this.body, 'closedDate') &&
+      !dateIsTodayOrInThePast(this.body, 'closedDate')
+    ) {
+      errors.closedDate = 'Date closed must be today or in the past'
     }
     if (!this.body.referringInstitution) {
-      errors.referringInstitution = 'Add a referring institution'
+      errors.referringInstitution = 'Enter the referring institution'
     }
     if (!this.body.acctDetails) {
-      errors.acctDetails = 'Enter the details of the ACCT'
+      errors.acctDetails = 'Enter details about the ACCT'
     }
 
     return errors
