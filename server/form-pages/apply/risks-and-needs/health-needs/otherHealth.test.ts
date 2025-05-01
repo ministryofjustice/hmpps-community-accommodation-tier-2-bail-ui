@@ -43,7 +43,7 @@ describe('OtherHealth', () => {
     })
   })
 
-  itShouldHaveNextValue(new OtherHealth({}, application), '')
+  itShouldHaveNextValue(new OtherHealth({}, application), 'information-sources')
   itShouldHavePreviousValue(new OtherHealth({}, application), 'brain-injury')
 
   describe('errors', () => {

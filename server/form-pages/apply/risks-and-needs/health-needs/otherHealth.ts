@@ -52,7 +52,7 @@ export default class OtherHealth implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'information-sources'
   }
 
   errors() {

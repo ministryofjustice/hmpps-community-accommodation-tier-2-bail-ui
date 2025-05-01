@@ -1,0 +1,70 @@
+import type { TaskListErrors } from '@approved-premises/ui'
+import { Cas2v2Application as Application } from '@approved-premises/api'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
+import { Page } from '../../../utils/decorators'
+import TaskListPage from '../../../taskListPage'
+import { getQuestions } from '../../../utils/questions'
+import { convertKeyValuePairToCheckboxItems } from '../../../../utils/formUtils'
+
+const applicationQuestions = getQuestions('')
+
+export const options = applicationQuestions['health-needs']['information-sources'].informationSources.answers
+
+export type InformationSourcesBody = {
+  informationSources: Array<keyof typeof options>
+  otherSourcesDetail: string
+}
+
+@Page({
+  name: 'information-sources',
+  bodyProperties: ['informationSources', 'otherSourcesDetail'],
+})
+export default class InformationSources implements TaskListPage {
+  documentTitle = "Where did you get the information on the applicant's health needs from?"
+
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = "Where did you get the information on the applicant's health needs from?"
+
+  questions = getQuestions(this.personName)['health-needs']['information-sources']
+
+  body: InformationSourcesBody
+
+  constructor(
+    body: Partial<InformationSourcesBody>,
+    private readonly application: Application,
+  ) {
+    this.body = body as InformationSourcesBody
+  }
+
+  previous() {
+    return 'other-health'
+  }
+
+  next() {
+    return ''
+  }
+
+  items(otherSourcesDetail: string) {
+    const items = convertKeyValuePairToCheckboxItems(options, this.body.informationSources)
+    const other = items.pop()
+
+    return [...items, { ...other, conditional: { html: otherSourcesDetail } }]
+  }
+
+  errors() {
+    const errors: TaskListErrors<this> = {}
+
+    if (!this.body.informationSources) {
+      errors.informationSources = 'Select where you got the information on health needs from'
+    }
+
+    return errors
+  }
+
+  onSave(): void {
+    if (!this.body.informationSources.includes('other')) {
+      delete this.body.otherSourcesDetail
+    }
+  }
+}
