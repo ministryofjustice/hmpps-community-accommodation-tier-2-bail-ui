@@ -130,7 +130,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
 
   await completeConcernsPage(page, name)
   await completeSelfHarmPage(page, name)
-  await addAnAcct(page)
+  await addAnAcct(page, name)
   await completeViolenceAndArsonPage(page, name)
   await completeLivingInTheCommunityPage(page, name)
   await completeSafetyOfStaffPage(page)
@@ -206,20 +206,29 @@ async function completeAdditionalConcernsPage(page: Page) {
   additionalConcernsPage.clickSave()
 }
 
-async function addAnAcct(page: Page) {
-  const acctsPage = await ApplyPage.initialize(page, undefined)
-  await acctsPage.clickButton('Add an Acct note')
-  await completeAcctDataPage(page)
+async function addAnAcct(page: Page, name: string) {
+  await completeApplicantAcctNotesPage(page, name)
+  await completeAcctDataPage(page, name)
+  const acctsPage = await ApplyPage.initialize(page, `${name}'s ACCT`)
   await acctsPage.clickSave()
 }
 
-async function completeAcctDataPage(page: Page) {
-  const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT entry')
+async function completeApplicantAcctNotesPage(page: Page, name: string) {
+  const applicantAcctNotesPage = await ApplyPage.initialize(
+    page,
+    `Assessment, Care in Custody and Teamwork (ACCT) notes for ${name}`,
+  )
+  await applicantAcctNotesPage.checkRadio('Yes')
+  await applicantAcctNotesPage.clickSave()
+}
+
+async function completeAcctDataPage(page: Page, name: string) {
+  const acctDataPage = await ApplyPage.initialize(page, `Add an ACCT note for ${name}`)
   await acctDataPage.fillDateFieldInGroup('When was the ACCT created?', { year: '2022', month: '3', day: '1' })
   await acctDataPage.checkRadio('Yes')
   await acctDataPage.fillField('What was the referring institution?', 'HMPPS Sheffield')
   await acctDataPage.fillField('Enter details about the ACCT', 'some details')
-  await acctDataPage.clickButton('Save ACCT note and add another')
+  await acctDataPage.clickButton('Save and continue')
 }
 
 async function completeRiskInformationSourcesPage(page: Page) {
