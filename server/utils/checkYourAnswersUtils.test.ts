@@ -547,6 +547,7 @@ describe('checkYourAnswersUtils', () => {
         'risk-management-arrangements',
         'acct',
         'acct-data',
+        'information-sources',
       ])
     })
   })

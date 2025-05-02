@@ -44,7 +44,7 @@ export default class RiskManagementArrangements implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'information-sources'
   }
 
   errors() {

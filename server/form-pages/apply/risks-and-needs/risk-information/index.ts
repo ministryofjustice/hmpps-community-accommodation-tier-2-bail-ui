@@ -8,6 +8,7 @@ import LivingInTheCommunity from './livingInTheCommunity'
 import SafetyOfStaff from './safetyOfStaff'
 import AdditionalConcerns from './additionalConcerns'
 import RiskManagementArrangements from './riskManagementArrangements'
+import InformationSources from './informationSources'
 
 import { Task } from '../../../utils/decorators'
 
@@ -24,6 +25,7 @@ import { Task } from '../../../utils/decorators'
     SafetyOfStaff,
     AdditionalConcerns,
     RiskManagementArrangements,
+    InformationSources,
   ],
 })
 export default class RiskToSelf {}
