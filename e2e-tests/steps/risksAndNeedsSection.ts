@@ -136,6 +136,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
   await completeRiskManagementArrangementsPage(page)
+  await completeRiskInformationSourcesPage(page)
 }
 
 async function completeRiskManagementArrangementsPage(page: Page) {
@@ -219,4 +220,13 @@ async function completeAcctDataPage(page: Page) {
   await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
   await acctDataPage.fillField('Details about the ACCT', 'some details')
   await acctDataPage.clickButton('Save and add ACCT')
+}
+
+async function completeRiskInformationSourcesPage(page: Page) {
+  const informationSourcesPage = await ApplyPage.initialize(
+    page,
+    'Where did you get the information on concerns about the applicant from?',
+  )
+  await informationSourcesPage.checkCheckboxes(['Case work'])
+  await informationSourcesPage.clickSave()
 }
