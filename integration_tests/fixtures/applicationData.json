@@ -278,7 +278,10 @@
         "referringInstitution": "HMPPS prison 2",
         "acctDetails": "ACCT details 2"
       }
-    ]
+    ],
+    "information-sources": {
+      "informationSources": ["nomis", "casework"]
+    }
   },
   "add-probation-supervision-details": {
     "supervised-by-probation": {
