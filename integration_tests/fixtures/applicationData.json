@@ -208,6 +208,9 @@
       "hasHadStroke": "no",
       "beingTreatedForCancer": "no",
       "otherHealthNeeds": "no"
+    },
+    "information-sources": {
+      "informationSources": ["nomis", "casework"]
     }
   },
   "risk-information": {
@@ -275,7 +278,10 @@
         "referringInstitution": "HMPPS prison 2",
         "acctDetails": "ACCT details 2"
       }
-    ]
+    ],
+    "information-sources": {
+      "informationSources": ["nomis", "casework"]
+    }
   },
   "add-probation-supervision-details": {
     "supervised-by-probation": {

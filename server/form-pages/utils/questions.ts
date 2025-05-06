@@ -727,6 +727,24 @@ export const getQuestions = (name: string) => {
           question: 'Enter details of their other health needs',
         },
       },
+      'information-sources': {
+        informationSources: {
+          question: "Where did you get the information on the applicant's health needs from?",
+          answers: {
+            interview: 'In person interview with applicant',
+            nomis: 'NOMIS (National Offender Management Information System)',
+            healthcare: 'Healthcare teams',
+            casework: 'Case work',
+            ndelius: 'NDelius (National probation database)',
+            police: 'Police and Safeguarding teams',
+            oasys: 'Previous or current OASys',
+            other: 'Other',
+          },
+        },
+        otherSourcesDetail: {
+          question: 'Enter other sources (optional)',
+        },
+      },
     },
     'risk-information': {
       concerns: {},
@@ -887,6 +905,24 @@ export const getQuestions = (name: string) => {
         },
         acctDetail: {
           question: 'Details about the ACCT',
+        },
+      },
+      'information-sources': {
+        informationSources: {
+          question: 'Where did you get the information on concerns about the applicant from?',
+          answers: {
+            interview: 'In person interview with applicant',
+            nomis: 'NOMIS (National Offender Management Information System)',
+            healthcare: 'Healthcare teams',
+            casework: 'Case work',
+            ndelius: 'NDelius (National probation database)',
+            police: 'Police and Safeguarding teams',
+            oasys: 'Previous or current OASys',
+            other: 'Other',
+          },
+        },
+        otherSourcesDetail: {
+          question: 'Enter other sources (optional)',
         },
       },
     },

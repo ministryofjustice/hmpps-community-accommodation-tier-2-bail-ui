@@ -14,6 +14,7 @@ export const completeHealthNeedsTask = async (page: Page, name: string) => {
   await completeLearningDifficultiesPage(page, name)
   await completeBrainInjuryPage(page, name)
   await completeOtherHealthPage(page, name)
+  await completeInformationSourcesPage(page)
 }
 
 async function completeHealthNeedsInformationPage(page: Page, name: string) {
@@ -114,6 +115,15 @@ async function completeOtherHealthPage(page: Page, name: string) {
   await otherHealthPage.clickSave()
 }
 
+async function completeInformationSourcesPage(page: Page) {
+  const informationSourcesPage = await ApplyPage.initialize(
+    page,
+    "Where did you get the information on the applicant's health needs from?",
+  )
+  await informationSourcesPage.checkCheckboxes(['Case work'])
+  await informationSourcesPage.clickSave()
+}
+
 export const completeRiskInformationTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add information about concerns to the applicant and others')
@@ -126,6 +136,7 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
   await completeRiskManagementArrangementsPage(page)
+  await completeRiskInformationSourcesPage(page)
 }
 
 async function completeRiskManagementArrangementsPage(page: Page) {
@@ -209,4 +220,13 @@ async function completeAcctDataPage(page: Page) {
   await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
   await acctDataPage.fillField('Details about the ACCT', 'some details')
   await acctDataPage.clickButton('Save and add ACCT')
+}
+
+async function completeRiskInformationSourcesPage(page: Page) {
+  const informationSourcesPage = await ApplyPage.initialize(
+    page,
+    'Where did you get the information on concerns about the applicant from?',
+  )
+  await informationSourcesPage.checkCheckboxes(['Case work'])
+  await informationSourcesPage.clickSave()
 }

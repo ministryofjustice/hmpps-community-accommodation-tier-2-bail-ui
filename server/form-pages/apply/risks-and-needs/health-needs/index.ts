@@ -10,6 +10,7 @@ import OtherHealth from './otherHealth'
 import PhysicalHealth from './physicalHealth'
 import SubstanceMisuse from './substanceMisuse'
 import LiaisonAndDiversion from './liaisonAndDiversion'
+import InformationSources from './informationSources'
 
 @Task({
   name: 'Add health needs',
@@ -24,6 +25,7 @@ import LiaisonAndDiversion from './liaisonAndDiversion'
     LearningDifficulties,
     BrainInjury,
     OtherHealth,
+    InformationSources,
   ],
 })
 export default class HealthNeeds {}

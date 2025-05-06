@@ -15,8 +15,7 @@
 //  Scenario: navigate to next page in "Risk information" task
 //    When I complete the questions in the task
 //    And I continue to the next task / page
-//    Then I am returned to the task list
-//    And I see that the risk information task is complete
+//    Then I am on the "Information sources" page
 //
 //  Scenario: Toggle between selected arrangements and no arrangements
 //    Given I have selected that there are arrangements
@@ -27,7 +26,7 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import RiskManagementArrangementsPage from '../../../../pages/apply/risks-and-needs/risk-information/riskManagementArrangementsPage'
-import TaskListPage from '../../../../pages/apply/taskListPage'
+import InformationSourcesPage from '../../../../pages/apply/risks-and-needs/risk-information/informationSourcesPage'
 
 context('Visit "risk management arrangemnents" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -82,11 +81,8 @@ context('Visit "risk management arrangemnents" page', () => {
     //  And I continue to the next task / page
     page.clickSubmit()
 
-    //  Then I am returned to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
-
-    //  And I see that the risk information task is complete
-    taskListPage.shouldShowTaskStatus('risk-information', 'Completed')
+    //  Then I am on the "Information sources" page
+    Page.verifyOnPage(InformationSourcesPage, this.application)
   })
 
   //  Scenario: Toggle between selected arrangements and no arrangements

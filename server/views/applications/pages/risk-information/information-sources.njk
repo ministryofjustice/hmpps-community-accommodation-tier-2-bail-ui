@@ -1,0 +1,38 @@
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "information-sources" %}
+
+{% block questions %}
+
+  {% set otherSourcesFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'otherSourcesDetail',
+          label: {
+            text: page.questions.otherSourcesDetail.question,
+            classes: "govuk-label--s govuk-!-font-weight-regular"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {{ 
+    formPageCheckboxes(
+        {
+          fieldName: "informationSources",
+          fieldset: {
+            legend: {
+              text: page.questions.question,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: page.items(otherSourcesFollowUp)
+        }, 
+        fetchContext()
+    ) 
+  }}
+
+{% endblock %}

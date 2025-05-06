@@ -13,7 +13,7 @@ describe('RiskManagementArrangements', () => {
     })
   })
 
-  itShouldHaveNextValue(new RiskManagementArrangements({}, application), '')
+  itShouldHaveNextValue(new RiskManagementArrangements({}, application), 'information-sources')
   itShouldHavePreviousValue(new RiskManagementArrangements({}, application), 'additional-concerns')
 
   describe('errors', () => {
