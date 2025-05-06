@@ -4,7 +4,7 @@ import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class ApplicantAcctNotesPage extends ApplyPage {
+export default class DoesTheApplicantHaveAcctNotesPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
       `Assessment, Care in Custody and Teamwork (ACCT) notes for ${nameOrPlaceholderCopy(application.person, 'The person')}`,

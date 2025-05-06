@@ -9,7 +9,7 @@ import SafetyOfStaff from './safetyOfStaff'
 import AdditionalConcerns from './additionalConcerns'
 import RiskManagementArrangements from './riskManagementArrangements'
 import InformationSources from './informationSources'
-import ApplicantAcctNotes from './applicantAcctNotes'
+import DoesTheApplicantHaveAcctNotes from './doesTheApplicantHaveAcctNotes'
 
 import { Task } from '../../../utils/decorators'
 
@@ -19,7 +19,7 @@ import { Task } from '../../../utils/decorators'
   pages: [
     Concerns,
     SelfHarm,
-    ApplicantAcctNotes,
+    DoesTheApplicantHaveAcctNotes,
     Acct,
     AddAcctNote,
     ViolenceAndArson,

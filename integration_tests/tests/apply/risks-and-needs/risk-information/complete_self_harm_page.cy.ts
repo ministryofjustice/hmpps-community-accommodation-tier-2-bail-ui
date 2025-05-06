@@ -20,7 +20,7 @@
 import SelfHarmPage from '../../../../pages/apply/risks-and-needs/risk-information/selfHarmPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import ApplicantAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/applicantAcctNotes'
+import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/doesTheApplicantHaveAcctNotesPage'
 
 context('Complete "Self harm" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -77,6 +77,6 @@ context('Complete "Self harm" page', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(ApplicantAcctNotesPage, this.application)
+    Page.verifyOnPage(DoesTheApplicantHaveAcctNotesPage, this.application)
   })
 })

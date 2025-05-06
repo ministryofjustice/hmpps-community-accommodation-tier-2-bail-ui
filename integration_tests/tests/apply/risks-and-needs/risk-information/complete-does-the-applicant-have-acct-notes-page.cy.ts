@@ -27,7 +27,7 @@
 //    When I save and contnue
 //    Then I am taken back to the Violence and arson page
 
-import ApplicantAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/applicantAcctNotes'
+import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/doesTheApplicantHaveAcctNotesPage'
 import AddAcctNotePage from '../../../../pages/apply/risks-and-needs/risk-information/addAcctNotePage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -72,7 +72,7 @@ context('Visit "Concerns and health needs" section', () => {
 
     // And I am on the "Add an ACCT" page
     // --------------------------------
-    ApplicantAcctNotesPage.visit(this.application)
+    DoesTheApplicantHaveAcctNotesPage.visit(this.application)
   })
 
   //  Scenario: The applicant has ACCT notes
@@ -81,7 +81,7 @@ context('Visit "Concerns and health needs" section', () => {
   //    When I save and contnue
   //    Then I am taken back to the Add ACCT notes page
   it('navigates to the next page (Add ACCT notes)', function test() {
-    const page = new ApplicantAcctNotesPage(this.application)
+    const page = new DoesTheApplicantHaveAcctNotesPage(this.application)
 
     page.selectApplicantHasAcctNotes()
 
@@ -96,7 +96,7 @@ context('Visit "Concerns and health needs" section', () => {
   //    When I save and contnue
   //    Then I am taken back to the Violence and arson page
   it('navigates to the next page (Violence and arson)', function test() {
-    const page = new ApplicantAcctNotesPage(this.application)
+    const page = new DoesTheApplicantHaveAcctNotesPage(this.application)
 
     page.selectApplicantDoesNotHaveAcctNotes()
 
@@ -111,7 +111,7 @@ context('Visit "Concerns and health needs" section', () => {
   //    When I save and contnue
   //    Then I am taken back to the Violence and arson page
   it('navigates to the next page (Violence and arson)', function test() {
-    const page = new ApplicantAcctNotesPage(this.application)
+    const page = new DoesTheApplicantHaveAcctNotesPage(this.application)
 
     page.selectApplicantIsNotInPrisonCustody()
 

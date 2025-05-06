@@ -32,7 +32,7 @@ import AcctPage from '../../../../pages/apply/risks-and-needs/risk-information/a
 import ViolenceAndArsonPage from '../../../../pages/apply/risks-and-needs/risk-information/violenceAndArsonPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import ApplicantAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/applicantAcctNotes'
+import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/doesTheApplicantHaveAcctNotesPage'
 
 context('Visit "Concerns and health needs" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -125,7 +125,7 @@ context('Visit "Concerns and health needs" section', () => {
     page.clickLink('Change your answer about existing ACCT notes')
 
     //    Then I can navigate to the "Does the applicant have ACCT notes" page
-    Page.verifyOnPage(ApplicantAcctNotesPage, this.application)
+    Page.verifyOnPage(DoesTheApplicantHaveAcctNotesPage, this.application)
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
