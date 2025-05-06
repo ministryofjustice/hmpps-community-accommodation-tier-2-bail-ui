@@ -30,6 +30,8 @@ export default class Acct implements TaskListPage {
 
   accts: AcctUI[]
 
+  hasExistingAcctNotes: boolean
+
   constructor(
     body: Partial<AcctBody>,
     private readonly application: Application,
@@ -61,6 +63,7 @@ export default class Acct implements TaskListPage {
       })
     }
     this.body = body as AcctBody
+    this.hasExistingAcctNotes = Boolean(application.data['risk-information']?.['add-acct-note']?.length)
   }
 
   previous() {
@@ -74,7 +77,7 @@ export default class Acct implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.application.data['risk-information']?.['add-acct-note'].length) {
+    if (!this.hasExistingAcctNotes) {
       errors.acctList = 'ACCT notes must be added to the application'
     }
 

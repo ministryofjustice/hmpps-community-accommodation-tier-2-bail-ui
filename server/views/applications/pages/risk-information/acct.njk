@@ -52,7 +52,7 @@
   <div>
     {{ govukButton({
       text: "Add an ACCT note",
-      classes: "govuk-button--secondary",
+      classes: 'govuk-button--secondary' if page.hasExistingAcctNotes else 'govuk-button--primary',
       href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'add-acct-note' })
     }) }}
   </div>
@@ -61,9 +61,17 @@
 
 {% block button %}
   <div class="govuk-button-group">
-    {{ govukButton({
+    {% if page.hasExistingAcctNotes %}
+      {{ govukButton({
         text: "Save and continue"
-        })}}
+      })}}
+    {% else %}
+      {{ govukButton({
+        text: "Change your answer about existing ACCT notes",
+        classes: "govuk-button--secondary",
+        href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'does-the-applicant-have-acct-notes' })
+      })}}
+    {% endif %}
 
     <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
   </div>

@@ -69,6 +69,54 @@ describe('Acct', () => {
     })
   })
 
+  describe('hasExistingAcctNotes', () => {
+    it('returns true when ACCT notes exist', () => {
+      const applicationWithACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {
+            'add-acct-note': [
+              {
+                referringInstitution: 'institution',
+                'createdDate-day': '1',
+                'createdDate-month': '2',
+                'createdDate-year': '2012',
+                isOngoing: 'no',
+                'closedDate-day': '10',
+                'closedDate-month': '10',
+                'closedDate-year': '2013',
+                acctDetails: 'detail info',
+              },
+              {
+                referringInstitution: 'institution 2',
+                'createdDate-day': '2',
+                'createdDate-month': '3',
+                'createdDate-year': '2012',
+                isOngoing: 'yes',
+                acctDetails: 'detail info 2',
+              },
+            ],
+          },
+        },
+      })
+
+      const page = new Acct({}, applicationWithACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(true)
+    })
+
+    it('returns false when ACCT notes do not exist', () => {
+      const applicationWithoutACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {},
+        },
+      })
+
+      const page = new Acct({}, applicationWithoutACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(false)
+    })
+  })
+
   itShouldHaveNextValue(new Acct({}, application), 'violence-and-arson')
   itShouldHavePreviousValue(new Acct({}, application), 'does-the-applicant-have-acct-notes')
 
