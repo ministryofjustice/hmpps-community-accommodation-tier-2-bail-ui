@@ -69,7 +69,7 @@ export default class OASysRiskAssessmentDetails implements TaskListPage {
   }
 
   previous() {
-    return 'oasys-risk-assessment'
+    return 'contacted-cpp-about-current-risk-levels'
   }
 
   next() {

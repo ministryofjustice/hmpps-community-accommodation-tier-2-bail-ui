@@ -44,7 +44,7 @@ export default class CPPDetails implements TaskListPage {
   }
 
   next() {
-    return 'oasys-risk-assessment'
+    return 'contacted-cpp-about-current-risk-levels'
   }
 
   response() {

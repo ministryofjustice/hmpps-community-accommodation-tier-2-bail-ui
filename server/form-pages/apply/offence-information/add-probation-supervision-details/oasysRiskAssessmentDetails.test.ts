@@ -13,7 +13,7 @@ describe('OASysRiskAssessmentDetails', () => {
     })
   })
 
-  itShouldHavePreviousValue(new OASysRiskAssessmentDetails({}, application), 'oasys-risk-assessment')
+  itShouldHavePreviousValue(new OASysRiskAssessmentDetails({}, application), 'contacted-cpp-about-current-risk-levels')
   itShouldHaveNextValue(new OASysRiskAssessmentDetails({}, application), '')
 
   describe('errors', () => {

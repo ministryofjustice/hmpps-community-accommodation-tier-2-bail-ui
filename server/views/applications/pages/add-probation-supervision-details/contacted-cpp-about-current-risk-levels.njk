@@ -1,0 +1,69 @@
+{% from "../../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+{% from "../../../components/formFields/form-page-date-input/macro.njk" import formPageDateInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "../layout.njk" %}
+
+{% set guidanceHtml %}
+  {{
+    govukInsetText({
+      text: "You must consult the CPP on the most current levels of risk of serious harm.",
+      classes: "guidance-panel govuk-!-margin-0"
+    })
+  }}
+{% endset %}
+
+{% set contactedCppDateHtml %}
+  {{ 
+    formPageDateInput( {
+      hint: {
+        text: page.questions.contactDate.hint
+      },
+      fieldName: "contactDate",
+      fieldset: {
+        legend: {
+          text: page.questions.contactDate.question,
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      items: dateFieldValues('contactDate', errors)
+      }, 
+      fetchContext()) 
+  }}
+{% endset %}
+
+{% block questions %}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.title,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          html: guidanceHtml
+        },
+        fieldName: "hasContactedCppAboutCurrentRiskLevels",
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: contactedCppDateHtml
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
