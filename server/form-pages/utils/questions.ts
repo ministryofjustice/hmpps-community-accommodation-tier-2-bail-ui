@@ -947,15 +947,14 @@ export const getQuestions = (name: string) => {
           question: `Who is ${name}'s Community Probation Practitioner (CPP)?`,
         },
       },
-      'oasys-risk-assessment': {
-        riskAssessment: {
-          question: 'Has an OASys risk assessment been done in the last two years?',
+      'contacted-cpp-about-current-risk-levels': {
+        hasContactedCppAboutCurrentRiskLevels: {
+          question: `Have you contacted the CPP about ${name}'s current risk levels?`,
           answers: yesOrNo,
         },
-        oasysHasBeenUpdated: {
-          question:
-            'Has OASys been updated by a Community Probation Practitioner (CPP) since the alleged offence took place?',
-          answers: yesOrNo,
+        contactDate: {
+          hint: 'For example, 24 5 2024',
+          question: 'When did you contact them?',
         },
       },
       'oasys-risk-assessment-details': {
