@@ -54,7 +54,7 @@ export default class ContactedCppAboutCurrentRiskLevels implements TaskListPage 
       return 'oasys-risk-assessment-details'
     }
 
-    return ''
+    return 'you-must-contact-the-cpp'
   }
 
   errors() {

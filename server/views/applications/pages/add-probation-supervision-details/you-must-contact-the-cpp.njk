@@ -1,0 +1,25 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {{ govukPanel({
+    titleText: "You must contact the CPP before entering the risk levels",
+    classes: "govuk-panel--fail govuk-!-margin-bottom-6"
+  }) }}
+
+  <p class="govuk-body">You must contact the applicant's CPP to discuss their current risk levels.<p>
+
+  <p class="govuk-body govuk-!-margin-bottom-6">This is because they might have up to date information on their risk levels that you cannot see on other systems.</p>
+
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+    text: "Change your answer about contacting the CPP",
+    href: paths.applications.pages.show({ id: applicationId, task: 'add-probation-supervision-details', page: 'contacted-cpp-about-current-risk-levels' })
+  }) }}
+
+  <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+  </div>
+{% endblock %}
