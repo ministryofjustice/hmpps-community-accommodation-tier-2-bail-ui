@@ -351,16 +351,17 @@
     }
   },
   "bail-hearing-information": {
-    "bail-hearing-date": {
-      "bailHearingDate-year": "2025",
+    "bail-hearing-information": {
+      "isBailHearingDateKnown": "yes",
+      "bailHearingDate-year": "3000",
       "bailHearingDate-month": "2",
-      "bailHearingDate-day": "2"
-    },
-    "court-name": {
-      "courtName": "Chelmsford Supreme Court"
-    },
-    "bail-hearing-medium": {
-      "bailHearingMedium": "videoLink"
+      "bailHearingDate-day": "2",
+      "court-name": {
+        "courtName": "Chelmsford Supreme Court"
+      },
+      "bail-hearing-medium": {
+        "bailHearingMedium": "videoLink"
+      }
     }
   },
   "check-your-answers": {
