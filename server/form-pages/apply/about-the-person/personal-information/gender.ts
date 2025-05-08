@@ -50,7 +50,8 @@ export default class Gender implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.gender) {
-      errors.gender = `Choose either Yes, No or Prefer not to say`
+      errors.gender =
+        "Select if the gender they identify with is the same as the sex registered at birth or 'Prefer not to say'"
     }
 
     return errors
