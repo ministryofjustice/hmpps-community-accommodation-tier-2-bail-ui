@@ -1085,24 +1085,25 @@ export const getQuestions = (name: string) => {
       },
     },
     'bail-hearing-information': {
-      'court-name': {
-        courtName: {
-          question: `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
+      'bail-hearing-information': {
+        isBailHearingDateKnown: {
+          question: `Do you know when the applicant's bail hearing is?`,
+          answers: yesOrNo,
         },
-      },
-      'bail-hearing-date': {
         bailHearingDate: {
-          question: `When is ${name}'s bail hearing?`,
+          question: 'When is the bail hearing?',
           hint: `For example, ${dateExample}`,
         },
-      },
-      'bail-hearing-medium': {
+        courtName: {
+          question: `What's the name of the court where their bail hearing will take place? (optional)`,
+          hint: `For example, Manchester Crown Court`,
+        },
         bailHearingMedium: {
-          question: `How will ${name}'s bail hearing be heard? (optional)`,
+          question: `How will their bail hearing be heard? (optional)`,
           answers: {
             inCourt: 'In court',
-            videoLink: 'Video link',
-            judgeInChambers: 'Judge in Chambers',
+            videoLink: 'Remotely via video conference',
+            judgeInChambers: 'Judge in chambers',
           },
         },
       },
