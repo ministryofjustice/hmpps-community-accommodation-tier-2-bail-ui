@@ -96,7 +96,7 @@ describe('managementInfoFromAppData', () => {
       const application = applicationFactory.build({
         data: {
           'bail-hearing-information': {
-            'bail-hearing-date': {
+            'bail-hearing-information': {
               'bailHearingDate-year': '2025',
               'bailHearingDate-month': '2',
               'bailHearingDate-day': '2',
@@ -112,7 +112,7 @@ describe('managementInfoFromAppData', () => {
         'bail-hearing-information': null,
       },
       {
-        'bail-hearing-information': { 'bail-hearing-date': null },
+        'bail-hearing-information': { 'bail-hearing-information': null },
       },
       {},
       null,
