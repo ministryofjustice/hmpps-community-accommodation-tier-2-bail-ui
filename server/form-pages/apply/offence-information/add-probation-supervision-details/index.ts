@@ -5,10 +5,17 @@ import SupervisedByProbation from './supervisedByProbation'
 import CPPDetails from './cppDetails'
 import OASysRiskAssessmentDetails from './oasysRiskAssessmentDetails'
 import ContactedCppAboutCurrentRiskLevels from './contactedCppAboutCurrentRiskLevels'
+import YouMustContactTheCpp from './youMustContactTheCpp'
 
 @Task({
   name: 'Add probation supervision details',
   slug: 'add-probation-supervision-details',
-  pages: [SupervisedByProbation, CPPDetails, ContactedCppAboutCurrentRiskLevels, OASysRiskAssessmentDetails],
+  pages: [
+    SupervisedByProbation,
+    CPPDetails,
+    ContactedCppAboutCurrentRiskLevels,
+    YouMustContactTheCpp,
+    OASysRiskAssessmentDetails,
+  ],
 })
 export default class ProbationSupervisionDetails {}

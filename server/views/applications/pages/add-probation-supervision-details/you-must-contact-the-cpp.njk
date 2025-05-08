@@ -1,0 +1,10 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  {{ govukPanel({
+    titleText: "You must contact the CPP before entering the risk levels",
+    classes: "govuk-panel--fail"
+  }) }}
+
+{% endblock %}

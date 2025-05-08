@@ -23,7 +23,7 @@ describe('ContactedCppAboutCurrentRiskLevels', () => {
   describe('when the referrer has not contacted the CPP', () => {
     itShouldHaveNextValue(
       new ContactedCppAboutCurrentRiskLevels({ hasContactedCppAboutCurrentRiskLevels: 'no' }, application),
-      '',
+      'you-must-contact-the-cpp',
     )
   })
 
