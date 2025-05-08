@@ -2,12 +2,12 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { AcctDataBody } from './custom-forms/acctData'
+import { AddAcctNoteBody } from './custom-forms/addAcctNote'
 import { DateFormats } from '../../../../utils/dateUtils'
 import paths from '../../../../paths/apply'
 import { createQueryString, nameOrPlaceholderCopy } from '../../../../utils/utils'
 
-type AcctBody = Record<string, never>
+type AcctBody = { acctList: string }
 
 type AcctUI = {
   title: string
@@ -19,23 +19,25 @@ type AcctUI = {
 
 @Page({
   name: 'acct',
-  bodyProperties: ['acctDetail'],
+  bodyProperties: ['acctList'],
 })
 export default class Acct implements TaskListPage {
-  documentTitle = 'Assessment, Care in Custody and Teamwork (ACCT) notes for the person'
+  documentTitle = `The person's ACCT`
 
-  title = `Assessment, Care in Custody and Teamwork (ACCT) notes for ${nameOrPlaceholderCopy(this.application.person)}`
+  title = `${nameOrPlaceholderCopy(this.application.person)}'s ACCT`
 
   body: AcctBody
 
   accts: AcctUI[]
 
+  hasExistingAcctNotes: boolean
+
   constructor(
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
-    if (application.data['risk-information'] && application.data['risk-information']['acct-data']) {
-      const acctData = application.data['risk-information']['acct-data'] as [AcctDataBody]
+    if (application.data['risk-information'] && application.data['risk-information']['add-acct-note']) {
+      const acctData = application.data['risk-information']['add-acct-note'] as [AddAcctNoteBody]
 
       this.accts = acctData.map((acct, index) => {
         const query = {
@@ -54,17 +56,18 @@ export default class Acct implements TaskListPage {
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: 'risk-information',
-            page: 'acct-data',
+            page: 'add-acct-note',
             index: index.toString(),
           })}?${createQueryString(query)}`,
         }
       })
     }
     this.body = body as AcctBody
+    this.hasExistingAcctNotes = Boolean(application.data['risk-information']?.['add-acct-note']?.length)
   }
 
   previous() {
-    return 'self-harm'
+    return 'does-the-applicant-have-acct-notes'
   }
 
   next() {
@@ -73,6 +76,10 @@ export default class Acct implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
+
+    if (!this.hasExistingAcctNotes) {
+      errors.acctList = 'ACCT notes must be added to the application'
+    }
 
     return errors
   }
@@ -93,7 +100,7 @@ const getAcctMetadata = (acct: AcctUI): string => {
   let key = `ACCT<br />Created: ${acct.createdDate}`
 
   if (acct.closedDate) {
-    key += `<br />Expiry: ${acct.closedDate}`
+    key += `<br />Closed: ${acct.closedDate}`
     return key
   }
 

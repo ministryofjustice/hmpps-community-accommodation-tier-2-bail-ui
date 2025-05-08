@@ -6,12 +6,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class AcctPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(
-      `Assessment, Care in Custody and Teamwork (ACCT) notes for ${nameOrPlaceholderCopy(application.person, 'The person')}`,
-      application,
-      'risk-information',
-      'acct',
-    )
+    super(`${nameOrPlaceholderCopy(application.person, 'The person')}'s ACCT`, application, 'risk-information', 'acct')
     pageIsActiveInNavigation('ACCT notes')
   }
 

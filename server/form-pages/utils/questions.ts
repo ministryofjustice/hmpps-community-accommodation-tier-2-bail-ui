@@ -887,24 +887,32 @@ export const getQuestions = (name: string) => {
           hint: 'Include lead contact details where possible.',
         },
       },
-      'acct-data': {
+      'does-the-applicant-have-acct-notes': {
+        applicantHasAcctNotes: {
+          question: 'Does the applicant have any ACCT notes?',
+          answers: {
+            ...yesOrNo,
+            notInPrisonCustody: 'No, the applicant is not in prison custody',
+          },
+        },
+      },
+      'add-acct-note': {
         createdDate: {
           question: 'When was the ACCT created?',
-          hint: 'For example, 22 4 2003',
+          hint: 'For example, 31 3 1980',
         },
         isOngoing: {
           question: 'Is the ACCT ongoing?',
         },
         closedDate: {
           question: 'When was the ACCT closed?',
-          hint: 'For example, 22 4 2003',
+          hint: 'For example, 31 3 1980',
         },
         referringInstitution: {
-          question: 'Referring institution',
-          hint: 'Where the applicant was based at the time the ACCT was created',
+          question: 'What was the referring institution?',
         },
         acctDetail: {
-          question: 'Details about the ACCT',
+          question: 'Enter details about the ACCT',
         },
       },
       'information-sources': {

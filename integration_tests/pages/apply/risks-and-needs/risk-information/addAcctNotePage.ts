@@ -1,10 +1,16 @@
 import { Cas2v2Application as Application } from '../../../../../server/@types/shared/models/Cas2v2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
+import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class AcctDataPage extends ApplyPage {
+export default class AddAcctNotePage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Add an ACCT entry', application, 'risk-information', 'acct-data')
+    super(
+      `Add an ACCT note for ${nameOrPlaceholderCopy(application.person, 'The person')}`,
+      application,
+      'risk-information',
+      'add-acct-note',
+    )
   }
 
   static visit(application: Application): void {
@@ -12,7 +18,7 @@ export default class AcctDataPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'risk-information',
-        page: 'acct-data',
+        page: 'add-acct-note',
       }),
     )
   }
@@ -26,11 +32,11 @@ export default class AcctDataPage extends ApplyPage {
   }
 
   clickSubmit(): void {
-    cy.get('button').contains('Save and add ACCT').click()
+    cy.get('button').contains('Save and continue').click()
   }
 
   clickAddAnother(): void {
-    cy.get('button').contains('Save and add another').click()
+    cy.get('button').contains('Save ACCT note and add another').click()
   }
 
   assertFormisEmpty(): void {

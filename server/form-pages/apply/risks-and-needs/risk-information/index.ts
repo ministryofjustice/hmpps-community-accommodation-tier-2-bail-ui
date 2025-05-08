@@ -2,13 +2,14 @@
 import Concerns from './concerns'
 import SelfHarm from './selfHarm'
 import Acct from './acct'
-import AcctData from './custom-forms/acctData'
+import AddAcctNote from './custom-forms/addAcctNote'
 import ViolenceAndArson from './violenceAndArson'
 import LivingInTheCommunity from './livingInTheCommunity'
 import SafetyOfStaff from './safetyOfStaff'
 import AdditionalConcerns from './additionalConcerns'
 import RiskManagementArrangements from './riskManagementArrangements'
 import InformationSources from './informationSources'
+import DoesTheApplicantHaveAcctNotes from './doesTheApplicantHaveAcctNotes'
 
 import { Task } from '../../../utils/decorators'
 
@@ -18,8 +19,9 @@ import { Task } from '../../../utils/decorators'
   pages: [
     Concerns,
     SelfHarm,
+    DoesTheApplicantHaveAcctNotes,
     Acct,
-    AcctData,
+    AddAcctNote,
     ViolenceAndArson,
     LivingInTheCommunity,
     SafetyOfStaff,

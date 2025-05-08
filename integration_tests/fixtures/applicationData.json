@@ -257,8 +257,11 @@
       "maracDetails": "marac details",
       "iomDetails": "iom details"
     },
+    "does-the-applicant-have-acct-notes": {
+      "applicantHasAcctNotes": "yes"
+    },
     "acct": {},
-    "acct-data": [
+    "add-acct-note": [
       {
         "createdDate-day": "1",
         "createdDate-month": "2",

@@ -9,7 +9,7 @@ describe('Acct', () => {
     it('personalises the page title', () => {
       const page = new Acct({}, application)
 
-      expect(page.title).toEqual('Assessment, Care in Custody and Teamwork (ACCT) notes for Roger Smith')
+      expect(page.title).toEqual(`Roger Smith's ACCT`)
     })
   })
 
@@ -20,7 +20,7 @@ describe('Acct', () => {
           person: personFactory.build({ name: 'Roger Smith' }),
           data: {
             'risk-information': {
-              'acct-data': [
+              'add-acct-note': [
                 {
                   referringInstitution: 'institution',
                   'createdDate-day': '1',
@@ -53,7 +53,7 @@ describe('Acct', () => {
             acctDetails: 'detail info',
             closedDate: '10 October 2013',
             createdDate: '1 February 2012',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/acct-data/0/removeFromList?redirectPage=acct`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/add-acct-note/0/removeFromList?redirectPage=acct`,
             title: '1 February 2012 - 10 October 2013',
           },
           {
@@ -61,7 +61,7 @@ describe('Acct', () => {
             acctDetails: 'detail info 2',
             closedDate: false,
             createdDate: '2 March 2012',
-            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/acct-data/1/removeFromList?redirectPage=acct`,
+            removeLink: `/applications/${applicationWithData.id}/tasks/risk-information/pages/add-acct-note/1/removeFromList?redirectPage=acct`,
             title: '2 March 2012 - Ongoing',
           },
         ])
@@ -69,8 +69,56 @@ describe('Acct', () => {
     })
   })
 
+  describe('hasExistingAcctNotes', () => {
+    it('returns true when ACCT notes exist', () => {
+      const applicationWithACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {
+            'add-acct-note': [
+              {
+                referringInstitution: 'institution',
+                'createdDate-day': '1',
+                'createdDate-month': '2',
+                'createdDate-year': '2012',
+                isOngoing: 'no',
+                'closedDate-day': '10',
+                'closedDate-month': '10',
+                'closedDate-year': '2013',
+                acctDetails: 'detail info',
+              },
+              {
+                referringInstitution: 'institution 2',
+                'createdDate-day': '2',
+                'createdDate-month': '3',
+                'createdDate-year': '2012',
+                isOngoing: 'yes',
+                acctDetails: 'detail info 2',
+              },
+            ],
+          },
+        },
+      })
+
+      const page = new Acct({}, applicationWithACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(true)
+    })
+
+    it('returns false when ACCT notes do not exist', () => {
+      const applicationWithoutACCTData = applicationFactory.build({
+        data: {
+          'risk-information': {},
+        },
+      })
+
+      const page = new Acct({}, applicationWithoutACCTData)
+
+      expect(page.hasExistingAcctNotes).toEqual(false)
+    })
+  })
+
   itShouldHaveNextValue(new Acct({}, application), 'violence-and-arson')
-  itShouldHavePreviousValue(new Acct({}, application), 'self-harm')
+  itShouldHavePreviousValue(new Acct({}, application), 'does-the-applicant-have-acct-notes')
 
   describe('response', () => {
     it('returns formatted ACCTs', () => {
@@ -93,7 +141,7 @@ describe('Acct', () => {
       ]
 
       expect(page.response()).toEqual({
-        'ACCT<br />Created: created date<br />Expiry: closed date': 'some details',
+        'ACCT<br />Created: created date<br />Closed: closed date': 'some details',
         'ACCT<br />Created: created date 2<br />Ongoing': 'some different details',
       })
     })
@@ -105,9 +153,19 @@ describe('Acct', () => {
   })
 
   describe('errors', () => {
-    it('returns empty object', () => {
-      const page = new Acct({}, application)
-      expect(page.errors()).toEqual({})
+    it('returns an error when no ACCT notes are present', () => {
+      const applicationWithoutACCTNotes = applicationFactory.build({
+        data: {
+          'risk-information': {
+            'add-acct-note': [],
+          },
+        },
+      })
+
+      const page = new Acct({}, applicationWithoutACCTNotes)
+      expect(page.errors()).toEqual({
+        acctList: 'ACCT notes must be added to the application',
+      })
     })
   })
 })

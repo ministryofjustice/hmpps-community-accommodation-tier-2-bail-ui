@@ -1,0 +1,46 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "acct" %}
+
+{% block questions %}
+
+  {% call govukInsetText({
+    classes: "guidance-panel govuk-!-margin-top-0"
+  }) %}
+  <p class="govuk-body">An ACCT is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
+  {%  endcall %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "applicantHasAcctNotes",
+        fieldset: {
+          legend: {
+            text: page.questions.applicantHasAcctNotes.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          divider: 'or'
+        },
+        {
+          value: "notInPrisonCustody",
+          text: page.questions.applicantHasAcctNotes.answers.notInPrisonCustody
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
+

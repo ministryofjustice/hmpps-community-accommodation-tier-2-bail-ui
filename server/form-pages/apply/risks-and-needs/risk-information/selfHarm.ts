@@ -52,7 +52,7 @@ export default class SelfHarm implements TaskListPage {
   }
 
   next() {
-    return 'acct'
+    return 'does-the-applicant-have-acct-notes'
   }
 
   errors() {

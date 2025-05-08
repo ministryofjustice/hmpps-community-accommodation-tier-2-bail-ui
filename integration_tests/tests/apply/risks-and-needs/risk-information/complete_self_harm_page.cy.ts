@@ -15,12 +15,12 @@
 //  Scenario: complete page and navigate to next page in risk information task
 //    When I complete the self harm page
 //    And I continue to the next task / page
-//    Then I see the "ACCT" page
+//    Then I see the "Applicant ACCT note page" page
 
 import SelfHarmPage from '../../../../pages/apply/risks-and-needs/risk-information/selfHarmPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import AcctPage from '../../../../pages/apply/risks-and-needs/risk-information/acctPage'
+import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/risks-and-needs/risk-information/doesTheApplicantHaveAcctNotesPage'
 
 context('Complete "Self harm" page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -65,8 +65,8 @@ context('Complete "Self harm" page', () => {
   //  Scenario: complete page and navigate to next page in risk information task
   //    When I complete the self harm page
   //    And I continue to the next task / page
-  //    Then I see the "ACCT" page
-  it('navigates to the next page (ACCT)', function test() {
+  //    Then I see the "Applicant ACCT notes" page
+  it('navigates to the next page (Applicant ACCT notes)', function test() {
     SelfHarmPage.visit(this.application)
     const page = new SelfHarmPage(this.application)
 
@@ -77,6 +77,6 @@ context('Complete "Self harm" page', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(AcctPage, this.application)
+    Page.verifyOnPage(DoesTheApplicantHaveAcctNotesPage, this.application)
   })
 })

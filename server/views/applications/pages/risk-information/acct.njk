@@ -1,21 +1,8 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "./_risk-information-screen.njk" %}
 {% set pageName = "acct" %}
 
 {% block questions %}
-
-  {% call govukInsetText({
-    classes: "guidance-panel"
-  }) %}
-  <p class="govuk-body">An ACCT is a tailored plan to support someone in prison at risk of self harm or suicide.</p>
-
-  <p class="govuk-body">
-    If the applicant does not have an ACCT note or is not in prison custody, you can skip this question by selecting &quot;Save and Continue&quot;.
-  </p>
-  {%  endcall %}
-
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
   {% if page.accts | length %}
 
@@ -65,8 +52,8 @@
   <div>
     {{ govukButton({
       text: "Add an ACCT note",
-      classes: "govuk-button--secondary",
-      href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'acct-data' })
+      classes: 'govuk-button--secondary' if page.hasExistingAcctNotes else 'govuk-button--primary',
+      href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'add-acct-note' })
     }) }}
   </div>
 
@@ -74,8 +61,18 @@
 
 {% block button %}
   <div class="govuk-button-group">
-    {{ govukButton({
+    {% if page.hasExistingAcctNotes %}
+      {{ govukButton({
         text: "Save and continue"
-        })}}
+      })}}
+    {% else %}
+      {{ govukButton({
+        text: "Change your answer about existing ACCT notes",
+        classes: "govuk-button--secondary",
+        href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'does-the-applicant-have-acct-notes' })
+      })}}
+    {% endif %}
+
+    <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
   </div>
 {% endblock %}

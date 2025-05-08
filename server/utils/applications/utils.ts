@@ -91,7 +91,7 @@ export const generateSuccessMessage = (pageName: string): string => {
       return 'Alleged offence saved'
     case 'unspent-convictions-data':
       return 'Unspent conviction saved'
-    case 'acct-data':
+    case 'add-acct-note':
       return 'The ACCT has been saved'
     default:
       return ''
