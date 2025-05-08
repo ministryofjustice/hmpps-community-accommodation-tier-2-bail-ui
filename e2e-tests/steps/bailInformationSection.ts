@@ -8,41 +8,18 @@ export const completeBailConditionsTask = async (page: Page) => {
   await completeNonStandardBailConditionsPage(page)
 }
 
-export const completeBailHearingInformationTask = async (page: Page, name: string) => {
+export const completeBailHearingInformationTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add bail hearing information')
 
-  await completeBailHearingDatePage(page, name)
-  await completeCourtNamePage(page, name)
-  await completeBailHearingMediumPage(page, name)
+  await completeBailHearingInformationPage(page)
 }
 
-async function completeBailHearingMediumPage(page: Page, name: string) {
-  const bailHearingMediumPage = await ApplyPage.initialize(page, `How will ${name}'s bail hearing be heard?`)
-  await bailHearingMediumPage.checkRadio('Video link')
-  await bailHearingMediumPage.clickButton('Save and continue')
-}
+async function completeBailHearingInformationPage(page: Page) {
+  const bailHearingInformationPage = await ApplyPage.initialize(page, `Add bail hearing information`)
+  await bailHearingInformationPage.checkRadioInGroup('when', 'No')
 
-async function completeBailHearingDatePage(page: Page, name: string) {
-  const bailHearingDatePage = await ApplyPage.initialize(page, `When is ${name}'s bail hearing?`)
-  await bailHearingDatePage.fillDateFieldInGroup(`When is ${name}'s bail hearing?`, {
-    year: '2022',
-    month: '3',
-    day: '1',
-  })
-  await bailHearingDatePage.clickButton('Save and continue')
-}
-
-async function completeCourtNamePage(page: Page, name: string) {
-  const courtNamePage = await ApplyPage.initialize(
-    page,
-    `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
-  )
-  await courtNamePage.fillField(
-    `What's the name of the court where ${name}'s bail hearing will take place? (optional)`,
-    'Barnsley Magistrates Court',
-  )
-  await courtNamePage.clickButton('Save and continue')
+  await bailHearingInformationPage.clickButton('Save and continue')
 }
 
 async function completeNonStandardBailConditionsPage(page: Page) {
