@@ -210,7 +210,8 @@
       "otherHealthNeeds": "no"
     },
     "information-sources": {
-      "informationSources": ["nomis", "casework"]
+      "informationSources": ["nomis", "casework"],
+      "otherSourcesDetail": "Another source"
     }
   },
   "risk-information": {
@@ -283,7 +284,8 @@
       }
     ],
     "information-sources": {
-      "informationSources": ["nomis", "casework"]
+      "informationSources": ["nomis", "casework"],
+      "otherSourcesDetail": "Another source"
     }
   },
   "add-probation-supervision-details": {
