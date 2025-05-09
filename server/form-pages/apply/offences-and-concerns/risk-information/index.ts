@@ -30,4 +30,4 @@ import { Task } from '../../../utils/decorators'
     InformationSources,
   ],
 })
-export default class RiskToSelf {}
+export default class RiskInformation {}

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Unit } from '@approved-premises/api'
-import { PreviousConvictionsAnswers } from '../../form-pages/apply/offence-information/previous-unspent-convictions/anyPreviousConvictions'
+import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
 
 export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
   const deleteOrphanedFundingAlternativeIdInformation = () => {

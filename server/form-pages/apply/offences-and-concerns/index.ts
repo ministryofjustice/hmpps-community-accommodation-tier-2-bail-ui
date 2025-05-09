@@ -5,14 +5,16 @@ import PreviousUnspentConvictions from './previous-unspent-convictions'
 import AddProbationSupervisionDetails from './add-probation-supervision-details'
 import AllegedOffences from './alleged-offences'
 import ProvideOffencesAndConvictionsDetails from './provide-offences-and-convictions-details'
+import RiskInformation from './risk-information'
 
 @Section({
-  title: 'Offence information',
+  title: 'Offences and concerns',
   tasks: [
     ProvideOffencesAndConvictionsDetails,
     AllegedOffences,
-    AddProbationSupervisionDetails,
     PreviousUnspentConvictions,
+    AddProbationSupervisionDetails,
+    RiskInformation,
   ],
 })
-export default class OffenceInformation {}
+export default class OffencesAndConcerns {}

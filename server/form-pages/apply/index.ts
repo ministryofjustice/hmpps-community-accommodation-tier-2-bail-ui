@@ -3,9 +3,9 @@ import BaseForm from '../baseForm'
 import BeforeYouStart from './before-you-start'
 import AreaAndFunding from './area-and-funding'
 import AboutPerson from './about-the-person'
-import RisksAndNeeds from './risks-and-needs'
+import OffencesAndConcerns from './offences-and-concerns'
 import CheckYourAnswers from './check-your-answers'
-import OffenceInformation from './offence-information'
+import HealthNeeds from './health-needs'
 import BailInformation from './bail-information'
 
 @Form({
@@ -13,8 +13,8 @@ import BailInformation from './bail-information'
     BeforeYouStart,
     AboutPerson,
     AreaAndFunding,
-    RisksAndNeeds,
-    OffenceInformation,
+    OffencesAndConcerns,
+    HealthNeeds,
     BailInformation,
     CheckYourAnswers,
   ],
