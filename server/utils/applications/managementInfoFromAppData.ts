@@ -29,7 +29,7 @@ const bailHearingDateFromAppData = (application: Application): string | null => 
   // @ts-expect-error Requires refactor to satisfy TS7053
   const bailHearingDateObj: ObjectWithDateParts<'bailHearingDate'> = (application.data as Record<string, unknown>)?.[
     'bail-hearing-information'
-  ]?.['bail-hearing-date']
+  ]?.['bail-hearing-information']
 
   if (dateAndTimeInputsAreValidDates(bailHearingDateObj, 'bailHearingDate')) {
     return DateFormats.dateAndTimeInputsToIsoString(bailHearingDateObj, 'bailHearingDate').bailHearingDate

@@ -1,13 +1,11 @@
 /* istanbul ignore file */
 
 import { Task } from '../../../utils/decorators'
-import CourtName from './courtName'
-import BailHearingDate from './bailHearingDate'
-import BailHearingMedium from './bailHearingMedium'
+import BailHearingInformationPage from './bailHearingInformation'
 
 @Task({
   name: 'Add bail hearing information',
   slug: 'bail-hearing-information',
-  pages: [BailHearingDate, CourtName, BailHearingMedium],
+  pages: [BailHearingInformationPage],
 })
 export default class BailHearingInformation {}
