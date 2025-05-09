@@ -24,7 +24,8 @@ describe('Gender', () => {
       const page = new Gender({ gender: null }, application)
 
       expect(page.errors()).toEqual({
-        gender: `Choose either Yes, No or Prefer not to say`,
+        gender:
+          "Select if the gender they identify with is the same as the sex registered at birth or 'Prefer not to say'",
       })
     })
   })
