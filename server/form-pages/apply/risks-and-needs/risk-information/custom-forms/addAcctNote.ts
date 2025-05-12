@@ -2,7 +2,7 @@ import type { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
-import { dateIsTodayOrInThePast, dateIsComplete } from '../../../../../utils/dateUtils'
+import { dateIsTodayOrInThePast, dateIsComplete, dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
 import { getQuestions } from '../../../../utils/questions'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 
@@ -72,24 +72,38 @@ export default class AcctData implements TaskListPage {
       errors.createdDate = 'Enter when the ACCT was created'
     }
 
-    if (dateIsComplete(this.body, 'createdDate') && !dateIsTodayOrInThePast(this.body, 'createdDate')) {
+    if (dateIsComplete(this.body, 'createdDate') && !dateAndTimeInputsAreValidDates(this.body, 'createdDate')) {
+      errors.createdDate = 'Date created must be a real date'
+    }
+
+    if (
+      dateIsComplete(this.body, 'createdDate') &&
+      dateAndTimeInputsAreValidDates(this.body, 'createdDate') &&
+      !dateIsTodayOrInThePast(this.body, 'createdDate')
+    ) {
       errors.createdDate = 'Date created must be today or in the past'
     }
+
     if (!this.body.isOngoing) {
       errors.isOngoing = 'Select if the ACCT is ongoing'
     }
 
-    if (this.body.isOngoing === 'no' && !dateIsComplete(this.body, 'closedDate')) {
-      errors.closedDate = 'Enter when the ACCT was closed'
+    if (this.body.isOngoing === 'no') {
+      if (!dateIsComplete(this.body, 'closedDate')) {
+        errors.closedDate = 'Enter when the ACCT was closed'
+      }
+      if (dateIsComplete(this.body, 'closedDate') && !dateAndTimeInputsAreValidDates(this.body, 'closedDate')) {
+        errors.closedDate = 'Date closed must be a real date'
+      }
+      if (
+        dateIsComplete(this.body, 'closedDate') &&
+        dateAndTimeInputsAreValidDates(this.body, 'closedDate') &&
+        !dateIsTodayOrInThePast(this.body, 'closedDate')
+      ) {
+        errors.closedDate = 'Date closed must be today or in the past'
+      }
     }
 
-    if (
-      this.body.isOngoing === 'no' &&
-      dateIsComplete(this.body, 'closedDate') &&
-      !dateIsTodayOrInThePast(this.body, 'closedDate')
-    ) {
-      errors.closedDate = 'Date closed must be today or in the past'
-    }
     if (!this.body.referringInstitution) {
       errors.referringInstitution = 'Enter the referring institution'
     }
