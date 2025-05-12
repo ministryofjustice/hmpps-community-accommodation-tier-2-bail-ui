@@ -89,7 +89,7 @@ export default class Acct implements TaskListPage {
 
     this.accts?.forEach(acct => {
       const key = getAcctMetadata(acct)
-      response[key] = acct.acctDetails
+      response[key] = `Referring institution: ${acct.referringInstitution}\nDetails: ${acct.acctDetails}`
     })
 
     return response

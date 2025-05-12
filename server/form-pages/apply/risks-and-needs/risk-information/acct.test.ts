@@ -141,8 +141,10 @@ describe('Acct', () => {
       ]
 
       expect(page.response()).toEqual({
-        'ACCT<br />Created: created date<br />Closed: closed date': 'some details',
-        'ACCT<br />Created: created date 2<br />Ongoing': 'some different details',
+        'ACCT<br />Created: created date<br />Closed: closed date':
+          'Referring institution: hmp 1\nDetails: some details',
+        'ACCT<br />Created: created date 2<br />Ongoing':
+          'Referring institution: hmp 2\nDetails: some different details',
       })
     })
 
