@@ -34,7 +34,7 @@ import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/offences-and-concerns/risk-information/doesTheApplicantHaveAcctNotesPage'
 
-context('Visit "Concerns and health needs" section', () => {
+context('Visit ""Offences and concerns" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {

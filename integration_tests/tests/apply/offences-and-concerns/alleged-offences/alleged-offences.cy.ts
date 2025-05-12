@@ -31,7 +31,7 @@ import AllegedOffencesSummaryPage from '../../../../pages/apply/offences-and-con
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
-context('Visit "Offence information" section', () => {
+context('Visit "Offences and concerns" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {

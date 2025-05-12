@@ -33,7 +33,7 @@ import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import ViolenceAndArsonPage from '../../../../pages/apply/offences-and-concerns/risk-information/violenceAndArsonPage'
 
-context('Visit "Concerns and health needs" section', () => {
+context('Visit ""Offences and concerns" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
 
   beforeEach(function test() {
