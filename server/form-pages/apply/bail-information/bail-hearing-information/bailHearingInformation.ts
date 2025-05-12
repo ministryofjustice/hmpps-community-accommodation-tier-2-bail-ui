@@ -96,8 +96,6 @@ export default class BailHearingInformation implements TaskListPage {
       delete this.body['bailHearingDate-day']
       delete this.body['bailHearingDate-month']
       delete this.body['bailHearingDate-year']
-      delete this.body.courtName
-      delete this.body.bailHearingMedium
     }
   }
 

@@ -126,11 +126,13 @@ describe('BailHearingInformation', () => {
         application,
       )
 
-      it('deletes all other fields', () => {
+      it('deletes the date fields', () => {
         page.onSave()
 
         expect(page.body).toEqual({
           isBailHearingDateKnown: 'no',
+          courtName: 'some court',
+          bailHearingMedium: 'judgeInChambers',
         })
       })
     })
