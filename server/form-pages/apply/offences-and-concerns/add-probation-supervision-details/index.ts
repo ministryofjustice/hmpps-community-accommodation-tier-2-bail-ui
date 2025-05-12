@@ -3,7 +3,7 @@
 import { Task } from '../../../utils/decorators'
 import SupervisedByProbation from './supervisedByProbation'
 import CPPDetails from './cppDetails'
-import OASysRiskAssessmentDetails from './oasysRiskAssessmentDetails'
+import SeriousHarmRiskLevels from './seriousHarmRiskLevels'
 import ContactedCppAboutCurrentRiskLevels from './contactedCppAboutCurrentRiskLevels'
 import YouMustContactTheCpp from './youMustContactTheCpp'
 
@@ -15,7 +15,7 @@ import YouMustContactTheCpp from './youMustContactTheCpp'
     CPPDetails,
     ContactedCppAboutCurrentRiskLevels,
     YouMustContactTheCpp,
-    OASysRiskAssessmentDetails,
+    SeriousHarmRiskLevels,
   ],
 })
 export default class ProbationSupervisionDetails {}

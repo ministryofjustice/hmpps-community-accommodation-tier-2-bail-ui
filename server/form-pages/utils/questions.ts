@@ -3,11 +3,11 @@
 export const getQuestions = (name: string) => {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
-  const OASysRiskAnswers = {
-    low: 'Low risk',
-    medium: 'Medium risk',
-    high: 'High risk',
+  const riskLevelAnswers = {
     veryHigh: 'Very high risk',
+    high: 'High risk',
+    medium: 'Medium risk',
+    low: 'Low risk',
   }
 
   const dateExample = '27 3 2023'
@@ -958,51 +958,26 @@ export const getQuestions = (name: string) => {
         },
       },
       'you-must-contact-the-cpp': {},
-      'oasys-risk-assessment-details': {
-        inTheCommunity: {
-          question: 'Is the applicant a risk to any of the following in the community?',
-          answers: {
-            children: 'Children',
-            public: 'Public',
-            knownAdult: 'Known adult',
-          },
+      'serious-harm-risk-levels': {
+        riskToChildren: {
+          question: 'What is their level of risk to children?',
+          answers: riskLevelAnswers,
         },
-        inTheCommunityChildrenRisk: {
-          question: 'Select their OASys risk level for children in the community',
-          answers: OASysRiskAnswers,
+        riskToPublic: {
+          question: 'What is their level of risk to the public?',
+          answers: riskLevelAnswers,
         },
-        inTheCommunityPublicRisk: {
-          question: 'Select their OASys risk level for the public in the community',
-          answers: OASysRiskAnswers,
+        riskToKnownAdults: {
+          question: 'What is their level of risk to known adults?',
+          answers: riskLevelAnswers,
         },
-        inTheCommunityKnownAdultRisk: {
-          question: 'Select  their OASys risk level for known adults in the community',
-          answers: OASysRiskAnswers,
+        riskToStaff: {
+          question: 'What is their level of risk to staff?',
+          answers: riskLevelAnswers,
         },
-        inCustody: {
-          question: 'Is the applicant a risk to any of the following in custody?',
-          answers: {
-            public: 'Public',
-            knownAdult: 'Known adult',
-            staff: 'Staff',
-            prisoners: 'Prisoners',
-          },
-        },
-        inCustodyStaffRisk: {
-          question: 'Select their OASys risk level for staff in custody',
-          answers: OASysRiskAnswers,
-        },
-        inCustodyPrisonersRisk: {
-          question: 'Select their OASys risk level for prisoners in custody',
-          answers: OASysRiskAnswers,
-        },
-        inCustodyKnownAdultRisk: {
-          question: 'Select their OASys risk level for known adults in custody',
-          answers: OASysRiskAnswers,
-        },
-        inCustodyPublicRisk: {
-          question: 'Select their OASys risk level for the public in custody',
-          answers: OASysRiskAnswers,
+        overallRiskLevel: {
+          question: 'What is their overall risk level?',
+          answers: riskLevelAnswers,
         },
       },
     },

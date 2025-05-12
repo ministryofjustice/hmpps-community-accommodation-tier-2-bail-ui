@@ -16,7 +16,7 @@ describe('ContactedCppAboutCurrentRiskLevels', () => {
   describe('when the referrer has contacted the CPP', () => {
     itShouldHaveNextValue(
       new ContactedCppAboutCurrentRiskLevels({ hasContactedCppAboutCurrentRiskLevels: 'yes' }, application),
-      'oasys-risk-assessment-details',
+      'serious-harm-risk-levels',
     )
   })
 

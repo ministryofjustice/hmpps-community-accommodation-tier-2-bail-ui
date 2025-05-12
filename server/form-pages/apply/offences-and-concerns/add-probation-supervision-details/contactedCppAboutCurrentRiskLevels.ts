@@ -51,7 +51,7 @@ export default class ContactedCppAboutCurrentRiskLevels implements TaskListPage 
 
   next() {
     if (this.body.hasContactedCppAboutCurrentRiskLevels === 'yes') {
-      return 'oasys-risk-assessment-details'
+      return 'serious-harm-risk-levels'
     }
 
     return 'you-must-contact-the-cpp'
