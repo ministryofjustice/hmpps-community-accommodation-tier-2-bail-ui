@@ -67,4 +67,22 @@ export default class InformationSources implements TaskListPage {
       delete this.body.otherSourcesDetail
     }
   }
+
+  response() {
+    const response: Record<string, string> = {}
+
+    const sourcesArr = Array.isArray(this.body.informationSources)
+      ? this.body.informationSources
+      : [this.body.informationSources]
+
+    let sourceList = ''
+    sourcesArr.forEach(source => {
+      sourceList += `${this.questions.informationSources.answers[source]}\r\n`
+    })
+
+    response[this.questions.informationSources.question] = sourceList
+    response[this.questions.otherSourcesDetail.question] = this.body.otherSourcesDetail ?? ''
+
+    return response
+  }
 }

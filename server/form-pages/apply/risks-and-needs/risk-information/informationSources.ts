@@ -26,7 +26,7 @@ export default class InformationSources implements TaskListPage {
 
   title = 'Where did you get the information on concerns about the applicant from?'
 
-  questions = getQuestions(this.personName)['health-needs']['information-sources']
+  questions = getQuestions(this.personName)['risk-information']['information-sources']
 
   body: InformationSourcesBody
 
@@ -66,5 +66,23 @@ export default class InformationSources implements TaskListPage {
     if (!this.body.informationSources.includes('other')) {
       delete this.body.otherSourcesDetail
     }
+  }
+
+  response() {
+    const response: Record<string, string> = {}
+
+    const sourcesArr = Array.isArray(this.body.informationSources)
+      ? this.body.informationSources
+      : [this.body.informationSources]
+
+    let sourceList = ''
+    sourcesArr.forEach(source => {
+      sourceList += `${this.questions.informationSources.answers[source]}\r\n`
+    })
+
+    response[this.questions.informationSources.question] = sourceList
+    response[this.questions.otherSourcesDetail.question] = this.body.otherSourcesDetail ?? ''
+
+    return response
   }
 }
