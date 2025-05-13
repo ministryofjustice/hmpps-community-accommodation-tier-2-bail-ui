@@ -91,16 +91,16 @@ export const completeAboutThePersonSection = async (page: Page, name: string) =>
   await completeAddressHistoryTask(page, name)
 }
 
-export const completeRisksAndNeedsSection = async (page: Page, name: string) => {
+export const completeHealthNeedsSection = async (page: Page, name: string) => {
   await completeHealthNeedsTask(page, name)
-  await completeRiskInformationTask(page, name)
 }
 
-export const completeOffenceInformationSection = async (page: Page, name: string) => {
+export const completeOffencesAndConcernsSection = async (page: Page, name: string) => {
   await completeProvideOffencesAndConvictionsDetailsTask(page, name)
   await completeAllegedOffencesTask(page, name)
-  await completeAddProbationSupervisionDetailsTask(page, name)
   await completePreviousUnspentConvictionsTask(page, name)
+  await completeAddProbationSupervisionDetailsTask(page, name)
+  await completeRiskInformationTask(page, name)
 }
 
 export const completeBailInformationSection = async (page: Page) => {

@@ -5,8 +5,8 @@ import {
   completeAreaAndFundingSection,
   completeBeforeYouStartSection,
   completeCheckAnswersSection,
-  completeOffenceInformationSection,
-  completeRisksAndNeedsSection,
+  completeOffencesAndConcernsSection,
+  completeHealthNeedsSection,
   completeBailInformationSection,
   confirmApplicant,
   enterCrn,
@@ -28,10 +28,10 @@ test('create a CAS-2 bail application', async ({ page, person, nomisCourtUser })
   await enterCrn(page, person.crn)
   await confirmApplicant(page)
   await completeBeforeYouStartSection(page, person.name)
-  await completeAreaAndFundingSection(page, person.name)
   await completeAboutThePersonSection(page, person.name)
-  await completeRisksAndNeedsSection(page, person.name)
-  await completeOffenceInformationSection(page, person.name)
+  await completeAreaAndFundingSection(page, person.name)
+  await completeOffencesAndConcernsSection(page, person.name)
+  await completeHealthNeedsSection(page, person.name)
   await completeBailInformationSection(page)
   await completeCheckAnswersSection(page, person.name)
   await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
