@@ -15,6 +15,9 @@ export default function reportRoutes(controllers: Controllers, router: Router, s
   get(paths.report.new.pattern, reportController.new(), {
     auditEvent: 'LIST_REPORTS',
   })
+  get(paths.report.unauthorised.pattern, reportController.unauthorised(), {
+    auditEvent: 'LIST_REPORTS_UNAUTHORISED',
+  })
   get(paths.report.create.pattern, reportController.create(), {
     auditEvent: 'DOWNLOAD_REPORT',
   })

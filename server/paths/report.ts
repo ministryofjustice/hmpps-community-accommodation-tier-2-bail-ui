@@ -7,5 +7,6 @@ export default {
   report: {
     new: reportPath,
     create: singleReportPath,
+    unauthorised: reportPath.path('unauthorised'),
   },
 }
