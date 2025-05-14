@@ -134,26 +134,13 @@ These credentials are configured using the following env variables:
 
 ### Dependencies
 
-### HMPPS Auth
-
-To allow authenticated users to access your application you need to point it to a running instance of `hmpps-auth`.
-By default the application is configured to run against an instance running in docker that can be started
-via `docker-compose`.
-
-**NB:** It's common for developers to run against the instance of auth running in the development/T3 environment for
-local development.
-Most APIs don't have images with cached data that you can run with docker: setting up realistic stubbed data in sync
-across a variety of services is very difficult.
-
-### REDIS
-
-When deployed to an environment with multiple pods we run applications with an instance of REDIS/Elasticache to provide
-a distributed cache of sessions.
-The template app is, by default, configured not to use REDIS when running locally.
-
 ## Running the app via docker-compose
 
+**WIP:** Currently there is no docker-compose for this repo, in this repo, you will need to use the [ap tools](#using-ap-tools) repo.
+
 ## Setup
+
+You will need to be authenticated against the HMPPS Kubernetes cluster. The guide for that is here: https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html. This will be used to grab the secrets from dev, which is where your local stack will look for dependent services.
 
 When running the application for the first time, run the generate-dotenv-files.sh script by executing this command from root in a Terminal:
 
@@ -163,7 +150,6 @@ When running the application for the first time, run the generate-dotenv-files.s
 
 Running the above script will generate two .env files required by the application:
 
-
  * .env - this is blank initially but is required for the application to deploy as we use dotenv as an npm lib in this repo. This blank file will also enable you to override properties set in the .env.cas2-ui file in AP tools where we deploy the application (see the Running the application section below for more details on this)
  * e2e.env - this is used to load properties for the Playwright e2e suite (see the E2E tests section below for more details on this)
 
@@ -171,7 +157,7 @@ Running the above script will generate two .env files required by the applicatio
 
 ### Using AP Tools
 
-In order to spin up a full local stack with the API (integrating with dependent services) use AP Tools.
+In order to spin up a full local stack with the API use AP Tools.
 
 NB. This project is the focus of our development tooling across all CAS services and is likely to receive future updates.
 
