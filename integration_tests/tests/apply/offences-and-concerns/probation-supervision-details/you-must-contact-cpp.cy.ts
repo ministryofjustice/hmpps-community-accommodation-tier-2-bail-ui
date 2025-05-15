@@ -1,19 +1,20 @@
 /* eslint-disable no-param-reassign */
-//  Feature: Referrer completes 'cpp details' page
-//    So that I can complete the "cpp details" task
+//  Feature: Referrer completes 'you must contact cpp' page
+//    So that I can complete the "add probation supervision" task
 //    As a referrer
-//    I want to complete the 'cpp details' page
+//    I want to complete the 'you must contact cpp' page
 //
 //  Background:
 //    Given an application exists
 //    And I am logged in
-//    And I am on the "cpp details" page
+//    And I am on the "you must contact cpp" page
 //
-//  Scenario: complete page and navigate to next page
-//    When I continue to the next task / page
-//    Then I see the "contacted CPP about current risks" page
+//  Scenario: navigate to change your answer regarding contacting the CPP
+//    Given I am on the you must contact cpp page
+//    And I click the "Change your answer about contacting the CPP" link
+//    Then I see the "contacted CPP about current risk levels" page
 
-import CPPDetailsPage from '../../../../pages/apply/offences-and-concerns/probation-supervision-details/cppDetailsPage'
+import YouMustContactTheCppPage from '../../../../pages/apply/offences-and-concerns/probation-supervision-details/youMustContactTheCppPage'
 import ContactedCppAboutCurrentRiskLevelsPage from '../../../../pages/apply/offences-and-concerns/probation-supervision-details/contactedCppAboutCurrentRiskLevelsPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -27,7 +28,7 @@ context('Visit "Offences and concerns" section', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(applicationData => {
-      delete applicationData['add-probation-supervision-details']['community-probation-practitioner-details']
+      delete applicationData['add-probation-supervision-details']['serious-harm-risk-levels']
       const application = applicationFactory.build({
         id: 'abc123',
         person,
@@ -47,20 +48,19 @@ context('Visit "Offences and concerns" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the cpp details page
+    // And I am on the you must contact cpp page
     // --------------------------------
-    CPPDetailsPage.visit(this.application)
+    YouMustContactTheCppPage.visit(this.application)
   })
 
-  //  Scenario: complete page and navigate to next page
-  //    When I continue to the next task / page
-  //    Then I see the "contacted CPP about current risks" page
-  it('navigates to the next page (contacted CPP about current risks)', function test() {
-    const page = new CPPDetailsPage(this.application)
+  //  Scenario: navigate to change your answer regarding contacting the CPP
+  //    Given I am on the you must contact cpp page
+  //    And I click the "Change your answer about contacting the CPP" link
+  //    Then I see the "contacted CPP about current risk levels" page
+  it('navigates to the next page (contacted CPP about current risk levels)', function test() {
+    const page = new YouMustContactTheCppPage(this.application)
 
-    page.completeForm()
-
-    page.clickSubmit()
+    page.clickChangeYourAnswer()
 
     Page.verifyOnPage(ContactedCppAboutCurrentRiskLevelsPage, this.application)
   })

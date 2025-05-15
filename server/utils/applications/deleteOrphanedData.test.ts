@@ -163,7 +163,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('community-probation-practitioner-details and oasys risk assessment pages', () => {
+  describe('community-probation-practitioner-details and serious harm risk level pages', () => {
     describe('when probation supervision is set to no', () => {
       const applicationData = {
         'add-probation-supervision-details': {
@@ -178,20 +178,24 @@ describe('deleteOrphanedFollowOnAnswers', () => {
               telephone: '012345',
             },
           },
-          'oasys-risk-assessment': {
-            riskAssessment: 'yes',
-            oasysHasBeenUpdated: 'yes',
+          'contacted-cpp-about-current-risk-levels': {
+            hasContactedCppAboutCurrentRiskLevels: 'yes',
+            contactDate: '2024-10-01',
+            'contactDate-day': '01',
+            'contactDate-month': '10',
+            'contactDate-year': '2024',
           },
-          'oasys-risk-assessment-details': {
-            inTheCommunity: ['public'],
-            inCustody: ['public'],
-            inTheCommunityPublicRisk: 'high',
-            inCustodyPublicRisk: 'low',
+          'serious-harm-risk-levels': {
+            riskToChildren: 'low',
+            riskToPublic: 'low',
+            riskToKnownAdults: 'low',
+            riskToStaff: 'low',
+            overallRiskLevel: 'low',
           },
         },
       }
 
-      it('community-probation-practitioner-details and oasys risk assessment pages data', () => {
+      it('removes community-probation-practitioner-details and serious harm risk level pages data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'add-probation-supervision-details': {
             'supervised-by-probation': {
@@ -203,55 +207,28 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('oasys risk assessment details', () => {
-    describe('oasys risk assessment has not been updated', () => {
+  describe('serious harm risk levels', () => {
+    describe('when the CPP has not been contacted ', () => {
       const applicationData = {
         'add-probation-supervision-details': {
-          'oasys-risk-assessment': {
-            riskAssessment: 'yes',
-            oasysHasBeenUpdated: 'no',
+          'contacted-cpp-about-current-risk-levels': {
+            hasContactedCppAboutCurrentRiskLevels: 'no',
           },
-          'oasys-risk-assessment-details': {
-            inTheCommunity: ['public'],
-            inCustody: ['public'],
-            inTheCommunityPublicRisk: 'high',
-            inCustodyPublicRisk: 'low',
+          'serious-harm-risk-levels': {
+            riskToChildren: 'low',
+            riskToPublic: 'low',
+            riskToKnownAdults: 'low',
+            riskToStaff: 'low',
+            overallRiskLevel: 'low',
           },
         },
       }
 
-      it('removes oasys risk assessment details data', () => {
+      it('removes the risk level data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
           'add-probation-supervision-details': {
-            'oasys-risk-assessment': {
-              riskAssessment: 'yes',
-              oasysHasBeenUpdated: 'no',
-            },
-          },
-        })
-      })
-    })
-
-    describe('oasys risk assessment has not been completed', () => {
-      const applicationData = {
-        'add-probation-supervision-details': {
-          'oasys-risk-assessment': {
-            riskAssessment: 'no',
-          },
-          'oasys-risk-assessment-details': {
-            inTheCommunity: ['public'],
-            inCustody: ['public'],
-            inTheCommunityPublicRisk: 'high',
-            inCustodyPublicRisk: 'low',
-          },
-        },
-      }
-
-      it('removes oasys risk assessment details data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
-          'add-probation-supervision-details': {
-            'oasys-risk-assessment': {
-              riskAssessment: 'no',
+            'contacted-cpp-about-current-risk-levels': {
+              hasContactedCppAboutCurrentRiskLevels: 'no',
             },
           },
         })

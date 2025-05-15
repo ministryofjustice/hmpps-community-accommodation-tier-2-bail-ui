@@ -21,12 +21,12 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
 
   const deleteOrphanedProbationSupervisionDetailsData = () => {
     delete applicationData['add-probation-supervision-details']['community-probation-practitioner-details']
-    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment']
-    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
+    delete applicationData['add-probation-supervision-details']['contacted-cpp-about-current-risk-levels']
+    delete applicationData['add-probation-supervision-details']['serious-harm-risk-levels']
   }
 
-  const deleteOrphanedOASysRiskAssessmentDetailsData = () => {
-    delete applicationData['add-probation-supervision-details']['oasys-risk-assessment-details']
+  const deleteOrphanedSeriousHarmRiskLevelsData = () => {
+    delete applicationData['add-probation-supervision-details']['serious-harm-risk-levels']
   }
 
   const deleteOrphanedACCTNotesData = () => {
@@ -99,23 +99,12 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
   if (
     hasOrphanedInformation({
       taskName: 'add-probation-supervision-details',
-      pageName: 'oasys-risk-assessment',
-      questionKey: 'oasysHasBeenUpdated',
+      pageName: 'contacted-cpp-about-current-risk-levels',
+      questionKey: 'hasContactedCppAboutCurrentRiskLevels',
       answerToCheck: 'no',
     })
   ) {
-    deleteOrphanedOASysRiskAssessmentDetailsData()
-  }
-
-  if (
-    hasOrphanedInformation({
-      taskName: 'add-probation-supervision-details',
-      pageName: 'oasys-risk-assessment',
-      questionKey: 'riskAssessment',
-      answerToCheck: 'no',
-    })
-  ) {
-    deleteOrphanedOASysRiskAssessmentDetailsData()
+    deleteOrphanedSeriousHarmRiskLevelsData()
   }
 
   if (

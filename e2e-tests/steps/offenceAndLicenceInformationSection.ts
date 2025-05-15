@@ -14,8 +14,8 @@ export const completeAddProbationSupervisionDetailsTask = async (page: Page, nam
 
   await completeSupervisedByProbationPage(page, name)
   await completeCPPDetailsPage(page, name)
-  await completeOASysRiskAssessmentPage(page)
-  await completeOASysRiskAssessmentDetailsPage(page)
+  await completeContactedCppAboutCurrentRiskLevelsPage(page, name)
+  await completeSeriousHarmRiskLevelsPage(page)
 }
 
 export const completeAllegedOffencesTask = async (page: Page, name: string) => {
@@ -79,25 +79,32 @@ async function completeCPPDetailsPage(page: Page, name: string) {
   await cppDetailsPage.clickSave()
 }
 
-async function completeOASysRiskAssessmentPage(page: Page) {
-  const oasysRiskAssessmentPage = await ApplyPage.initialize(
+async function completeContactedCppAboutCurrentRiskLevelsPage(page: Page, name: string) {
+  const contactedCppAboutCurrentRiskLevelsPage = await ApplyPage.initialize(
     page,
-    'Has an OASys risk assessment been done in the last two years?',
+    `Have you contacted the CPP about ${name}'s current risk levels?`,
   )
-  await oasysRiskAssessmentPage.checkRadioByTestId('riskAssessment-yes')
-  await oasysRiskAssessmentPage.checkRadioByTestId('oasysHasBeenUpdated-yes')
-  await oasysRiskAssessmentPage.clickSave()
+  await contactedCppAboutCurrentRiskLevelsPage.checkRadio('Yes')
+  await contactedCppAboutCurrentRiskLevelsPage.fillDateFieldInGroup('When did you contact them?', {
+    year: '2024',
+    month: '10',
+    day: '11',
+  })
+  await contactedCppAboutCurrentRiskLevelsPage.clickSave()
 }
 
-async function completeOASysRiskAssessmentDetailsPage(page: Page) {
-  const oasysRiskAssessmentDetailsPage = await ApplyPage.initialize(page, 'Provide details of the OASys assessment')
-  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inTheCommunityChildren')
-  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inTheCommunityChildrenRisk-medium')
+async function completeSeriousHarmRiskLevelsPage(page: Page) {
+  const seriousHarmRiskLevelsPage = await ApplyPage.initialize(
+    page,
+    'Confirm the current risk levels as discussed with the CPP',
+  )
+  await seriousHarmRiskLevelsPage.checkRadioInGroup('risk to children', 'Low risk')
+  await seriousHarmRiskLevelsPage.checkRadioInGroup('risk to the public', 'Medium risk')
+  await seriousHarmRiskLevelsPage.checkRadioInGroup('risk to known adults', 'High risk')
+  await seriousHarmRiskLevelsPage.checkRadioInGroup('risk to staff', 'Very high risk')
+  await seriousHarmRiskLevelsPage.checkRadioInGroup('overall risk', 'High risk')
 
-  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inCustodyPublic')
-  await oasysRiskAssessmentDetailsPage.checkRadioByTestId('inCustodyPublicRisk-medium')
-
-  await oasysRiskAssessmentDetailsPage.clickSave()
+  await seriousHarmRiskLevelsPage.clickSave()
 }
 
 export const completePreviousUnspentConvictionsTask = async (page: Page, name: string) => {

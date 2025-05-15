@@ -298,16 +298,19 @@
         "email": "cpp@moj.gov.uk",
         "telephone": "012345"
     },
-    "oasys-risk-assessment": {
-      "riskAssessment": "yes",
-      "oasysHasBeenUpdated": "yes"
+    "contacted-cpp-about-current-risk-levels": {
+      "hasContactedCppAboutCurrentRiskLevels": "yes",
+      "contactDate": "2024-10-01",
+      "contactDate-day": "01",
+      "contactDate-month": "10",
+      "contactDate-year": "2024"
     },
-    "oasys-risk-assessment-details": {
-      "inTheCommunity": ["public", "children"],
-      "inCustody": ["knownAdult"],
-      "inTheCommunityPublicRisk": "high",
-      "inTheCommunityChildrenRisk": "medium",
-      "inCustodyKnownAdultRisk": "medium"
+    "serious-harm-risk-levels": {
+      "riskToChildren": "medium",
+      "riskToPublic": "high",
+      "riskToKnownAdults": "low",
+      "riskToStaff": "veryHigh",
+      "overallRiskLevel": "high"
     }
   },
   "provide-offences-and-convictions-details": {

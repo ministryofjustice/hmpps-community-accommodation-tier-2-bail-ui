@@ -1,0 +1,105 @@
+{% from "../../../components/formFields/form-page-radios/macro.njk" import formPageRadios %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "../layout.njk" %}
+
+{% set guidanceHtml %}
+  <div>
+    <p>You are expected to only select the levels of risks of serious harm as assessed by the CPP.</p>
+
+    <p class="govuk-!-margin-bottom-0">You do not need to use your professional judgement to answer these questions.</p>
+  </div>
+{% endset %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  {{
+    govukInsetText({
+      html: guidanceHtml,
+      classes: "guidance-panel"
+    })
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.riskToChildren.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "riskToChildren",
+        items: page.items("riskToChildren")
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.riskToPublic.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "riskToPublic",
+        items: page.items("riskToPublic")
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.riskToKnownAdults.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "riskToKnownAdults",
+        items: page.items("riskToKnownAdults")
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.riskToStaff.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "riskToStaff",
+        items: page.items("riskToStaff")
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldset: {
+          legend: {
+            text: page.questions.overallRiskLevel.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        fieldName: "overallRiskLevel",
+        items: page.items("overallRiskLevel")
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

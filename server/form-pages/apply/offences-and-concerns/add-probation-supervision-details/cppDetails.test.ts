@@ -14,7 +14,7 @@ describe('CPPDetails', () => {
   })
 
   itShouldHavePreviousValue(new CPPDetails({}, application), 'supervised-by-probation')
-  itShouldHaveNextValue(new CPPDetails({}, application), 'oasys-risk-assessment')
+  itShouldHaveNextValue(new CPPDetails({}, application), 'contacted-cpp-about-current-risk-levels')
 
   describe('errors', () => {
     describe('when they have not provided any answer', () => {
