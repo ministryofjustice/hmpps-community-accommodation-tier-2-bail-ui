@@ -56,7 +56,23 @@ describe('ContactedCppAboutCurrentRiskLevels', () => {
         )
 
         expect(page.errors()).toEqual({
-          contactDate: 'Enter the date the CPP was contacted',
+          contactDate: 'Date of contact must include a day, month and year',
+        })
+      })
+
+      it('returns an error if the contact date is partially filled in', () => {
+        const page = new ContactedCppAboutCurrentRiskLevels(
+          {
+            hasContactedCppAboutCurrentRiskLevels: 'yes',
+            'contactDate-day': '22',
+            'contactDate-month': '07',
+            'contactDate-year': '',
+          },
+          application,
+        )
+
+        expect(page.errors()).toEqual({
+          contactDate: 'Date of contact must include a day, month and year',
         })
       })
 
@@ -72,7 +88,7 @@ describe('ContactedCppAboutCurrentRiskLevels', () => {
         )
 
         expect(page.errors()).toEqual({
-          contactDate: 'Date of contact must include a day, month and year',
+          contactDate: 'Date of contact must be a real date',
         })
       })
 

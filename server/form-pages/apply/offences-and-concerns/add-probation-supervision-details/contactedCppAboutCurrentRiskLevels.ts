@@ -66,9 +66,9 @@ export default class ContactedCppAboutCurrentRiskLevels implements TaskListPage 
 
     if (this.body.hasContactedCppAboutCurrentRiskLevels === 'yes') {
       if (!dateIsComplete(this.body, 'contactDate')) {
-        errors.contactDate = 'Enter the date the CPP was contacted'
-      } else if (!dateAndTimeInputsAreValidDates(this.body, 'contactDate')) {
         errors.contactDate = 'Date of contact must include a day, month and year'
+      } else if (!dateAndTimeInputsAreValidDates(this.body, 'contactDate')) {
+        errors.contactDate = 'Date of contact must be a real date'
       } else if (!dateIsTodayOrInThePast(this.body, 'contactDate')) {
         errors.contactDate = 'Date of contact must be today or in the past'
       }
