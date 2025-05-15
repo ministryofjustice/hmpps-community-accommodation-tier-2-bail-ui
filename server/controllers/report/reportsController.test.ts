@@ -27,12 +27,28 @@ describe('reportsController', () => {
   })
 
   describe('new', () => {
-    it('renders the template', async () => {
-      const requestHandler = reportsController.new()
+    describe('when user has ROLE_MI', () => {
+      it('renders the template', async () => {
+        response.locals.user.userRoles = ['CAS2_MI', 'CAS2_ASSESSOR']
 
-      await requestHandler(request, response, next)
+        const requestHandler = reportsController.new()
 
-      expect(response.render).toHaveBeenCalledWith('reports/new', {})
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('reports/new', {})
+      })
+    })
+
+    describe('when user does not have ROLE_MI', () => {
+      it('redirects to the unauthorised page', async () => {
+        response.locals.user.userRoles = ['CAS2_COURT_BAIL_REFERRER', 'CAS2_ASSESSOR']
+
+        const requestHandler = reportsController.new()
+
+        await requestHandler(request, response, next)
+
+        expect(response.redirect).toHaveBeenCalledWith(paths.report.unauthorised({}))
+      })
     })
   })
 
@@ -55,6 +71,18 @@ describe('reportsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.report.new({}))
+    })
+  })
+
+  describe('unauthorised', () => {
+    it('renders the template', async () => {
+      const requestHandler = reportsController.unauthorised()
+
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('reports/unauthorised', {
+        pageHeading: 'You are not authorised to view this page.',
+      })
     })
   })
 })
