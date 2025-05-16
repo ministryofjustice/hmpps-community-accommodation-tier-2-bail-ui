@@ -1,16 +1,37 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "../../../components/formFields/form-page-text-area/macro.njk" import formPageTextArea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% extends "../layout.njk" %}
 
+{% set summaryHtml %}
+  <p>This case involves an evidence-led prosecution for alleged domestic violence, including assault ABH, common assault, and assault of emergency workers.</p>
+  <p>The incident occurred on 29 December 2024, when police responded at the applicant’s home address in King’s Lynn to a breach of bail conditions. The applicant was reported to have made repeated verbal threats to his wife, physically assaulting her by hitting her over the head repeatedly. This resulted in bruises to her hands and a laceration to her scalp.</p>
+  <p>Whilst with Police officers, the applicant became aggressive and resisted arrest. He assaulted the two officers by kicking and hitting them in the face with handcuffs.</p>
+  <p>While in custody, the applicant was tested and was found to be under the influence of Class A drugs - cocaine.</p>
+{% endset %}
+
 {% set guidanceHtml %}
+  {{ govukInsetText({
+    text: "Use the information in the case summary available on Common Platform.",
+    classes: "guidance-panel govuk-!-margin-top-0"
+  }) }}
   <p class="govuk-!-margin-bottom-0 govuk-body">Include:</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>what is alleged to have happened (excluding names and other sensitive information)</li>
-    <li>who was involved (for example, domestic violence victim or public)</li>
-    <li>the location where it happened (excluding addresses)</li>
-    <li>any damage or injuries caused (including severity or extent)</li>
+    <li>what is alleged to have happened</li>
+    <li>who was involved: for example, if any victims are known to the applicant or members of the public</li>
+    <li>the location where it happened</li>
+    <li>any damage or injuries caused: include the severity or extent</li>
+    <li>how the applicant was presenting at the time the alleged offences took place: for example, if they were under the influence of substance or showing signs of mental health issues</li>
   </ul>
+
+  {{
+    govukDetails({
+      summaryText: "See an example of a good summary",
+      html: summaryHtml
+    })
+  }}
 {% endset %}
 
 {% block questions %}
