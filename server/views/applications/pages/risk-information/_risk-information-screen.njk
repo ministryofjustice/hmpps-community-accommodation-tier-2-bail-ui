@@ -27,6 +27,10 @@
             href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'does-the-applicant-have-acct-notes' }),
             active: (pageName === 'acct')
           }, {
+            text: 'Domestic abuse',
+            href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'domestic-abuse-concerns' }),
+            active: (pageName === 'domestic-abuse-concerns') or (pageName === 'details-of-domestic-abuse-concerns')
+          }, {
             text: 'Violence and arson',
             href: paths.applications.pages.show({ id: applicationId, task: 'risk-information', page: 'violence-and-arson' }),
             active: (pageName === 'violence-and-arson')
