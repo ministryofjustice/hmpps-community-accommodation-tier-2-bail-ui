@@ -210,7 +210,7 @@ describe('arePreTaskListTasksIncomplete', () => {
     const application = applicationFactory.build({
       data: {
         'referrer-details': {
-          'confirm-details': { name: 'Eric Dier', email: 'eric.dier@moj.gov.uk' },
+          'confirm-details': { name: 'Ashley Referrer', email: 'a.referrer@moj.gov.uk' },
           'job-title': { jobTitle: 'POM' },
           'contact-number': { telephone: '1234567' },
         },
