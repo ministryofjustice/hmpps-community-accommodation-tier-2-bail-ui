@@ -75,7 +75,7 @@
         items: [
           {
             value: "yes",
-            text: "Yes",
+            html: "Yes <span class='govuk-visually-hidden'>You selected yes. Answer one additional question.</span>",
             conditional: {
               html: gangAffiliationDetailHtml
             }
@@ -86,7 +86,7 @@
           },
           {
             value: "dontKnow",
-            text: "Not known",
+            html: "Not known <span class='govuk-visually-hidden'>You selected not known. Answer one additional question.</span>",
             conditional: {
               html: gangNotKnownDetailHtml
             }
@@ -110,7 +110,7 @@
         items: [
           {
             value: "yes",
-            text: "Yes",
+            html: "Yes <span class='govuk-visually-hidden'>You selected yes. Answer one additional question.</span>",
             conditional: {
               html: rivalGangDetailHtml
             }
@@ -121,7 +121,7 @@
           },
           {
             value: "dontKnow",
-            text: "Not known",
+            html: "Not known <span class='govuk-visually-hidden'>You selected not known. Answer one additional question.</span>",
             conditional: {
               html: rivalGangNotKnownDetailHtml
             }
