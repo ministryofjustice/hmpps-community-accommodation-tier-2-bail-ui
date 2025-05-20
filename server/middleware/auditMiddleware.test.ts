@@ -51,7 +51,7 @@ describe('auditMiddleware', () => {
 
     expect(handler).not.toHaveBeenCalled()
     expect(response.redirect).toHaveBeenCalledWith('/authError')
-    expect(logger.error).toHaveBeenCalledWith('User without a username is attempt to access an audited path')
+    expect(logger.error).toHaveBeenCalledWith('User is not authorised')
   })
 
   it('returns an audited request handler, that sends an audit message that includes the request parameters', async () => {

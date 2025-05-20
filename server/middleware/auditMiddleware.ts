@@ -55,7 +55,7 @@ const wrapHandler =
     const userUuid = res?.locals?.user?.username
 
     if (!userUuid) {
-      logger.error('User without a username is attempt to access an audited path')
+      logger.error('User is not authorised')
       res.redirect('/authError')
       return
     }
