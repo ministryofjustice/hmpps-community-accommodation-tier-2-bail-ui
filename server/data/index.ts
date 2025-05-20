@@ -12,10 +12,6 @@ initialiseAppInsights()
 buildAppInsightsClient(applicationInfo)
 
 import HmppsAuthClient from './hmppsAuthClient'
-import { createRedisClient } from './redisClient'
-import RedisTokenStore from './tokenStore/redisTokenStore'
-import InMemoryTokenStore from './tokenStore/inMemoryTokenStore'
-import config from '../config'
 import ApplicationClient from './applicationClient'
 import AssessmentClient from './assessmentClient'
 import SubmittedApplicationClient from './submittedApplicationClient'
@@ -26,9 +22,7 @@ type RestClientBuilder<T> = (token: string) => T
 
 export const dataAccess = () => ({
   applicationInfo,
-  hmppsAuthClient: new HmppsAuthClient(
-    config.redis.enabled ? new RedisTokenStore(createRedisClient()) : new InMemoryTokenStore(),
-  ),
+  hmppsAuthClient: new HmppsAuthClient(),
   personClient: ((token: string) => new PersonClient(token)) as RestClientBuilder<PersonClient>,
   applicationClient: ((token: string) => new ApplicationClient(token)) as RestClientBuilder<ApplicationClient>,
   assessmentClient: ((token: string) => new AssessmentClient(token)) as RestClientBuilder<AssessmentClient>,
