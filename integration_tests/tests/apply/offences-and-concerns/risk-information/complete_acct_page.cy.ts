@@ -26,13 +26,13 @@
 //    Then I see the "ACCT data" page
 //
 //  Scenario: When I continue to the next task / page
-//    Then I see the "Violence and arson" page
+//    Then I see the "Domestic abuse" page
 
 import AcctPage from '../../../../pages/apply/offences-and-concerns/risk-information/acctPage'
-import ViolenceAndArsonPage from '../../../../pages/apply/offences-and-concerns/risk-information/violenceAndArsonPage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/offences-and-concerns/risk-information/doesTheApplicantHaveAcctNotesPage'
+import DomesticAbuseConcernsPage from '../../../../pages/apply/offences-and-concerns/risk-information/domesticAbuseConcernsPage'
 
 context('Visit ""Offences and concerns" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -130,8 +130,8 @@ context('Visit ""Offences and concerns" section', () => {
 
   //  Scenario: complete page and navigate to next page in health needs task
   //    When I continue to the next task / page
-  //    Then I see the "violence and arson" page
-  it('navigates to the next page (violence and arson)', function test() {
+  //    Then I see the "Domestic abuse" page
+  it('navigates to the next page (Domestic abuse)', function test() {
     // When there is existing data
     cy.task('stubApplicationGet', { application: this.applicationWithData })
 
@@ -140,6 +140,6 @@ context('Visit ""Offences and concerns" section', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(ViolenceAndArsonPage, this.application)
+    Page.verifyOnPage(DomesticAbuseConcernsPage, this.application)
   })
 })
