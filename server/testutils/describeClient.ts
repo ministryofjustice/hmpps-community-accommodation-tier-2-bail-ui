@@ -17,8 +17,7 @@ const describeClient = (consumer: string, fn: (provider: Pact) => void) => {
       fn(pact)
     })
 
-    // Temporarily disable test due to swagger-mock-validator error
-    xit('meets the contract for the service', () => {
+    it('meets the contract for the service', () => {
       const pactPath = `${dir}/${consumer}-${provider}.json`
       expect(pactPath).toMatchOpenAPISpec()
     })

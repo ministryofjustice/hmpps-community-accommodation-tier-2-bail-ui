@@ -176,6 +176,7 @@ describeClient('ApplicationClient', provider => {
         translatedDocument: application.document,
         applicationId: application.id,
         telephoneNumber: '123',
+        applicationOrigin: 'courtBail',
       } as SubmitCas2v2Application
 
       provider.addInteraction({
