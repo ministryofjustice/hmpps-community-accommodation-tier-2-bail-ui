@@ -10,6 +10,7 @@ import AdditionalConcerns from './additionalConcerns'
 import RiskManagementArrangements from './riskManagementArrangements'
 import InformationSources from './informationSources'
 import DoesTheApplicantHaveAcctNotes from './doesTheApplicantHaveAcctNotes'
+import DetailsOfDomesticAbuseConcerns from './detailsOfDomesticAbuseConcerns'
 
 import { Task } from '../../../utils/decorators'
 
@@ -22,6 +23,7 @@ import { Task } from '../../../utils/decorators'
     DoesTheApplicantHaveAcctNotes,
     Acct,
     AddAcctNote,
+    DetailsOfDomesticAbuseConcerns,
     ViolenceAndArson,
     LivingInTheCommunity,
     SafetyOfStaff,
