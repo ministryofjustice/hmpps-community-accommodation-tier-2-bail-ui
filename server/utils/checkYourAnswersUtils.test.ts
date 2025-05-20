@@ -547,6 +547,8 @@ describe('checkYourAnswersUtils', () => {
       expect(getKeysForPages(application, 'risk-information')).toEqual([
         'concerns',
         'self-harm',
+        'domestic-abuse-concerns',
+        'details-of-domestic-abuse-concerns',
         'violence-and-arson',
         'living-in-the-community',
         'safety-of-staff',
