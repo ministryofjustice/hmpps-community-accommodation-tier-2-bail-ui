@@ -1,0 +1,89 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "details-of-domestic-abuse-concerns" %}
+
+{% block questions %}
+  {% set safeguardingDetailHintHtml %}
+    <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-4">
+      <p class="govuk-!-margin-bottom-1">Include details about any:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>child protection orders or non-contact requirements</li>
+        <li>safeguarding teams involved: for example, a named social worker, independent domestic violence advocate or Police Public Protection Unit</li>
+      </ul>
+    </div>
+  {% endset %}
+
+  {% set safeguardingFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'safeguardingDetail',
+          hint: {
+            html: safeguardingDetailHintHtml
+          },
+          label: {
+            text: page.questions.safeguardingDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set knownVictimsHintHtml %}
+    <div>
+      <p class="govuk-!-margin-bottom-1">Include their:</p>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
+        <li>names and if they are adults or children</li>
+        <li>relationship to the applicant: for example, partner or family member</li>
+        <li>current or last known location or area</li>
+      </ul>
+    </div>
+  {% endset %}
+
+    {{
+        formPageTextArea(
+        {
+            fieldName: 'victimDetails',
+            hint: {
+            html: knownVictimsHintHtml
+            },
+            label: {
+            text: page.questions.victimDetails.question,
+            classes: "govuk-label--m"
+            }
+        },
+        fetchContext()
+        )
+    }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "safeguarding",
+        fieldset: {
+          legend: {
+            text: page.questions.safeguarding.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: safeguardingFollowUp
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

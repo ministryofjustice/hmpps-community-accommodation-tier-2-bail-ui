@@ -931,6 +931,18 @@ export const getQuestions = (name: string) => {
           question: 'Enter details about the ACCT',
         },
       },
+      'details-of-domestic-abuse-concerns': {
+        victimDetails: {
+          question: 'Enter details of any known victims',
+        },
+        safeguarding: {
+          question: 'Are there any safeguarding measures or professional teams involved that relate to domestic abuse?',
+          answers: yesOrNo,
+        },
+        safeguardingDetail: {
+          question: 'Enter any safeguarding details',
+        },
+      },
       'information-sources': {
         informationSources: {
           question: 'Where did you get the information on concerns about the applicant from?',
