@@ -32,7 +32,7 @@ export default function setUpCurrentUser() {
 
       next()
     } catch (error) {
-      logger.error(error, `Failed to populate user details for: ${res.locals.user && res.locals.user.username}`)
+      logger.error(error, `Failed to populate user details for: ${res.locals.user?.userId}`)
       next(error)
     }
   })

@@ -49,6 +49,7 @@ export default {
   production,
   https: process.env.NO_HTTPS === 'true' ? false : production,
   staticResourceCacheDuration: '1h',
+  logLevel: get('LOG_LEVEL', 'info'),
   sentry: {
     dsn: get('SENTRY_DSN', null, requiredInProduction),
   },
