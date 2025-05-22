@@ -79,7 +79,7 @@ async function completeGangAffiliations(page: Page, name: string) {
 
   await exclusionZonesPage.checkRadioInGroup('any gang affiliations', 'Yes', false)
   await exclusionZonesPage.fillField('details of the gang', 'Gang name')
-  await exclusionZonesPage.checkRadioInGroup('rival gangs', 'Yes', false)
+  await exclusionZonesPage.checkRadioInGroup('rival gangs', 'Yes')
 
   await exclusionZonesPage.clickSave()
 }
