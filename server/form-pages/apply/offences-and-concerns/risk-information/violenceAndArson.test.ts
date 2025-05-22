@@ -14,7 +14,7 @@ describe('ViolenceAndArson', () => {
   })
 
   itShouldHaveNextValue(new ViolenceAndArson({}, application), 'living-in-the-community')
-  itShouldHavePreviousValue(new ViolenceAndArson({}, application), 'does-the-applicant-have-acct-notes')
+  itShouldHavePreviousValue(new ViolenceAndArson({}, application), 'domestic-abuse-concerns')
 
   describe('errors', () => {
     describe('pastConvictions', () => {

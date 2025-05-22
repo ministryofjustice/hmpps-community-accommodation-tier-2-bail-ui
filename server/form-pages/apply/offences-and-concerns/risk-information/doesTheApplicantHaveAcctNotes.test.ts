@@ -26,11 +26,11 @@ describe('DoesTheApplicantHaveAcctNotes', () => {
   )
   itShouldHaveNextValue(
     new DoesTheApplicantHaveAcctNotes({ applicantHasAcctNotes: 'no' }, application),
-    'violence-and-arson',
+    'domestic-abuse-concerns',
   )
   itShouldHaveNextValue(
     new DoesTheApplicantHaveAcctNotes({ applicantHasAcctNotes: 'notInPrisonCustody' }, application),
-    'violence-and-arson',
+    'domestic-abuse-concerns',
   )
   itShouldHavePreviousValue(new DoesTheApplicantHaveAcctNotes({}, application), 'self-harm')
 
