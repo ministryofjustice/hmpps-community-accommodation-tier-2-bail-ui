@@ -15,7 +15,6 @@ import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
-import { validateReferer } from '../../utils/viewUtils'
 import { hasRole } from '../../utils/userUtils'
 
 export default class ApplicationsController {
@@ -86,14 +85,6 @@ export default class ApplicationsController {
     }
   }
 
-  consentRefused(): RequestHandler {
-    return async (req: Request, res: Response) => {
-      const application = await this.applicationService.findApplication(req.user.token, req.params.id)
-
-      return res.render('applications/consent-refused', this.consentRefusedViewParams(application, req))
-    }
-  }
-
   private ineligibleViewParams(application: Cas2v2Application): Record<string, string | Cas2v2Application> {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
@@ -106,21 +97,6 @@ export default class ApplicationsController {
     })
     const newApplicationPath = paths.applications.applicationOrigin({})
     return { application, panelText, changeAnswerPath, newApplicationPath }
-  }
-
-  private consentRefusedViewParams(
-    application: Cas2v2Application,
-    req: Request,
-  ): Record<string, string | Cas2v2Application> {
-    const panelText = `${nameOrPlaceholderCopy(application.person, 'The person')} has not given their consent`
-    const changeAnswerPath = paths.applications.pages.show({
-      id: application.id,
-      task: 'confirm-consent',
-      page: 'confirm-consent',
-    })
-    const newApplicationPath = paths.applications.applicationOrigin({})
-    const backLink = validateReferer(req.headers.referer)
-    return { application, panelText, changeAnswerPath, newApplicationPath, backLink }
   }
 
   create(): RequestHandler {

@@ -36,7 +36,6 @@ const paths = {
     appendToList: appendToListPath,
     removeFromList: removeFromListPath,
     ineligible: singleApplicationPath.path('not-eligible'),
-    consentRefused: singleApplicationPath.path('no-consent-given'),
     addNote: singleApplicationPath.path('add-note'),
     cancel: singleApplicationPath.path('cancel'),
   },
