@@ -58,6 +58,9 @@ export default class ConfirmConsent implements TaskListPage {
   }
 
   next() {
+    if (this.body.hasGivenConsent === 'no') {
+      return 'consent-refused'
+    }
     return ''
   }
 
@@ -104,6 +107,12 @@ export default class ConfirmConsent implements TaskListPage {
       ...(this.body.hasGivenConsent === 'no' && {
         [this.questions.consentRefusalDetail.question]: this.body.consentRefusalDetail,
       }),
+    }
+  }
+
+  onSave() {
+    if (this.body.hasGivenConsent === 'no') {
+      this.body = {} as ConfirmConsentBody
     }
   }
 }
