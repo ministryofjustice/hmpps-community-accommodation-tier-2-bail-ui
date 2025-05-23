@@ -314,28 +314,6 @@ describe('utils', () => {
       })
     })
 
-    describe('when the person is confirmed ELIGIBLE but consent has been DENIED', () => {
-      it('redirects to the _consent refused_ page', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'no',
-                consentRefusalDetail: 'some reason',
-              },
-            },
-          },
-        })
-
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
-
-        expect(actual).toEqual(response.redirect(paths.applications.consentRefused({ id: application.id })))
-      })
-    })
-
     describe('when the person is confirmed ELIGIBLE but the consent task has not been completed', () => {
       it('redirects to the _confirm consent_ page', async () => {
         const application = applicationFactory.build({
@@ -359,7 +337,8 @@ describe('utils', () => {
         )
       })
     })
-    describe('when the person is confirmed ELIGIBLE and consent is confirmed', () => {
+
+    describe('when the person is confirmed ELIGIBLE and there is a key for "Confirm consent" data, indicating that the page has been completed', () => {
       it('redirects to the task list page', async () => {
         const application = applicationFactory.build({
           data: {
@@ -367,13 +346,7 @@ describe('utils', () => {
               'confirm-eligibility': { isEligible: 'yes' },
             },
             'confirm-consent': {
-              'confirm-consent': {
-                hasGivenConsent: 'yes',
-                consentDate: '2022-02-22',
-                'consentDate-year': '2022',
-                'consentDate-month': '2',
-                'consentDate-day': '22',
-              },
+              'confirm-consent': {},
             },
           },
         })
