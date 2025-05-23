@@ -16,12 +16,11 @@ import {
 
 type ConfirmConsentBody = {
   hasGivenConsent: YesOrNo
-  consentRefusalDetail: string
 } & ObjectWithDateParts<'consentDate'>
 
 @Page({
   name: 'confirm-consent',
-  bodyProperties: ['hasGivenConsent', ...dateBodyProperties('consentDate'), 'consentRefusalDetail'],
+  bodyProperties: ['hasGivenConsent', ...dateBodyProperties('consentDate')],
 })
 export default class ConfirmConsent implements TaskListPage {
   documentTitle = "Confirm the person's consent to apply for Short-Term Accommodation (CAS-2)"
@@ -38,9 +37,6 @@ export default class ConfirmConsent implements TaskListPage {
     body: Partial<ConfirmConsentBody>,
     private readonly application: Application,
   ) {
-    if (body.hasGivenConsent === 'yes') {
-      body.consentRefusalDetail = ''
-    }
     if (body.hasGivenConsent === 'no') {
       body.consentDate = ''
       body['consentDate-day'] = ''
@@ -68,8 +64,6 @@ export default class ConfirmConsent implements TaskListPage {
     const errors: TaskListErrors<this> = {}
     if (!this.body.hasGivenConsent) {
       errors.hasGivenConsent = 'Select if the applicant has given their verbal consent'
-    } else if (this.body.hasGivenConsent === 'no' && !this.body.consentRefusalDetail) {
-      errors.consentRefusalDetail = 'Enter the applicant’s reason for refusing consent'
     } else if (this.body.hasGivenConsent === 'yes' && !dateIsComplete(this.body, 'consentDate')) {
       errors.consentDate = 'Date of consent must include a day, month and year'
     } else if (this.body.hasGivenConsent === 'yes' && !dateAndTimeInputsAreValidDates(this.body, 'consentDate')) {
@@ -80,7 +74,7 @@ export default class ConfirmConsent implements TaskListPage {
     return errors
   }
 
-  items(dateHtml: string, refusalDetailHtml: string) {
+  items(dateHtml: string) {
     const items = convertKeyValuePairToRadioItems(
       this.questions.hasGivenConsent.answers,
       this.body.hasGivenConsent,
@@ -89,9 +83,6 @@ export default class ConfirmConsent implements TaskListPage {
     items.forEach(item => {
       if (item.value === 'yes') {
         item.conditional = { html: dateHtml }
-      }
-      if (item.value === 'no') {
-        item.conditional = { html: refusalDetailHtml }
       }
     })
 
@@ -103,9 +94,6 @@ export default class ConfirmConsent implements TaskListPage {
       [this.questions.hasGivenConsent.question]: this.questions.hasGivenConsent.answers[this.body.hasGivenConsent],
       ...(this.body.hasGivenConsent === 'yes' && {
         [this.questions.consentDate.question]: DateFormats.isoDateToUIDate(this.body.consentDate, { format: 'medium' }),
-      }),
-      ...(this.body.hasGivenConsent === 'no' && {
-        [this.questions.consentRefusalDetail.question]: this.body.consentRefusalDetail,
       }),
     }
   }

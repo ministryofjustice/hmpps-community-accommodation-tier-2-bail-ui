@@ -24,7 +24,7 @@ describe('ConfirmConsent', () => {
     it('returns the radio with the expected label text', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'no' }, application)
 
-      expect(page.items('dateHtml', 'refusalDetailHtml')).toEqual([
+      expect(page.items('dateHtml')).toEqual([
         {
           value: 'yes',
           text: questions['confirm-consent']['confirm-consent'].hasGivenConsent.answers.yes,
@@ -34,7 +34,6 @@ describe('ConfirmConsent', () => {
         {
           value: 'no',
           text: questions['confirm-consent']['confirm-consent'].hasGivenConsent.answers.no,
-          conditional: { html: 'refusalDetailHtml' },
           checked: true,
         },
       ])
@@ -47,14 +46,6 @@ describe('ConfirmConsent', () => {
 
       expect(page.errors()).toEqual({
         hasGivenConsent: 'Select if the applicant has given their verbal consent',
-      })
-    })
-
-    it('should return an error when no is selected but no reason is provided', () => {
-      const page = new ConfirmConsent({ hasGivenConsent: 'no' }, application)
-
-      expect(page.errors()).toEqual({
-        consentRefusalDetail: 'Enter the applicant’s reason for refusing consent',
       })
     })
 
@@ -121,16 +112,6 @@ describe('ConfirmConsent', () => {
         'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?': 'Yes',
         'When did they give consent?': '1 November 2023',
       })
-    })
-  })
-
-  it('should return the consent refusal detail if consent has been refused', () => {
-    const page = new ConfirmConsent({ hasGivenConsent: 'no', consentRefusalDetail: 'some reasons' }, application)
-
-    expect(page.response()).toEqual({
-      'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?':
-        'No, they do not give verbal consent',
-      'Why was consent refused?': 'some reasons',
     })
   })
 })
