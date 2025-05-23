@@ -1,0 +1,26 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+
+      {{ govukPanel({
+        titleText: page.title,
+        classes: "govuk-!-margin-bottom-6 govuk-panel--fail"
+      }) }}
+
+      <p class="govuk-body-l">You can still continue with the application and come back to this later.</p>
+      <p class="govuk-body-l">You'll need to enter if the applicant has given their consent to submit the application.</p>
+
+{% endblock %}
+
+{% block button %}
+  {{ govukButton({
+      text: "Save and continue"
+    }) }}
+
+  {{ govukButton({
+    text: "Change your answer about consent",
+    classes: "govuk-button--secondary govuk-!-margin-left-5",
+    href: paths.applications.pages.show({ id: applicationId, task: 'confirm-consent', page: 'confirm-consent' })
+  }) }}
+{% endblock %}
