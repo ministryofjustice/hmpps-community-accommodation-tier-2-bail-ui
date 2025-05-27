@@ -158,6 +158,7 @@ export const summaryListItemForQuestion = (
       {
         href: paths.applications.pages.show({ task, page: pageKey, id: application.id }),
         text: 'Change',
+        classes: 'print__hidden',
         visuallyHiddenText: question,
         attributes: { 'data-testid': `${task}-${pageKey}-${index}` },
       },
