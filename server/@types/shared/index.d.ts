@@ -66,6 +66,7 @@ export type { Cas1SpaceBookingSummary } from './models/Cas1SpaceBookingSummary';
 export type { Cas1SpaceBookingSummaryStatus } from './models/Cas1SpaceBookingSummaryStatus';
 export type { Cas1SpaceCharacteristic } from './models/Cas1SpaceCharacteristic';
 export type { Cas2TimelineEvent } from './models/Cas2TimelineEvent';
+export type { Cas2User } from './models/Cas2User';
 export type { Cas2v2Application } from './models/Cas2v2Application';
 export type { Cas2v2ApplicationNote } from './models/Cas2v2ApplicationNote';
 export type { Cas2v2ApplicationStatus } from './models/Cas2v2ApplicationStatus';
