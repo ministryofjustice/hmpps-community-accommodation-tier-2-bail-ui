@@ -19,4 +19,12 @@
     box-shadow: 0 2px 0 #505a5f;
     border-color: #fff;
   }
+
+  @media print {
+    color: govuk-colour('black');
+
+    &__text {
+      color: govuk-colour('black') !important;
+    }
+  }
 }
