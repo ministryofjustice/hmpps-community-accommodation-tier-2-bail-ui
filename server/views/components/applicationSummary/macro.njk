@@ -2,7 +2,7 @@
 {% from "../../components/printButton/macro.njk" import printButton %}
 
 {% macro applicationSummary(summary) %}
-  <div id="application-summary" class="submitted-application-panel govuk-panel govuk-!-margin-bottom-7">
+  <div id="application-summary" class="application-summary-panel govuk-panel govuk-!-margin-bottom-7">
 
     <h1 class="govuk-panel__title govuk-!-margin-bottom-5">
       {%if summary.view == 'checkYourAnswers'%}
@@ -12,12 +12,12 @@
         {% endif %}
       <br>
       {% if (summary.applicationOrigin == "courtBail") %}
-        <span class="govuk-body-l submitted-application-panel__text"><strong>CRN:</strong>{{ summary.crn }}</span>
+        <span class="govuk-body-l application-summary-panel__text"><strong>CRN:</strong>{{ summary.crn }}</span>
       {% else %}
-        <span class="govuk-body-l submitted-application-panel__text"><strong>Prison number:</strong>{{ summary.prisonNumber }}</span>
+        <span class="govuk-body-l application-summary-panel__text"><strong>Prison number:</strong>{{ summary.prisonNumber }}</span>
       {% endif %}
     </h1>
-    <ul class="govuk-list govuk-list--spaced submitted-application-panel__text">
+    <ul class="govuk-list govuk-list--spaced application-summary-panel__text">
       <li>
         <span class="govuk-!-font-weight-bold">Referrer name: </span>{{ summary.referrerName }}
       </li>
@@ -29,13 +29,13 @@
       {% if summary.contactEmail %}
         <li>
           <span class="govuk-!-font-weight-bold">Contact email address:</span>
-          <a href="mailto:{{ summary.contactEmail }}" class="submitted-application-panel__text">{{ summary.contactEmail }}</a>
+          <a href="mailto:{{ summary.contactEmail }}" class="application-summary-panel__text">{{ summary.contactEmail }}</a>
         </li>
       {% endif %}
       {% if summary.contactNumber %}
         <li>
           <span class="govuk-!-font-weight-bold">Contact number: </span>
-          <a class="submitted-application-panel__text" href="tel:{{ summary.contactNumber }}">{{ summary.contactNumber }}</a>
+          <a class="application-summary-panel__text" href="tel:{{ summary.contactNumber }}">{{ summary.contactNumber }}</a>
         </li>
       {% endif %}
       <li>
@@ -48,12 +48,12 @@
         {{ govukButton({
             text: "Update application status",
             href: paths.statusUpdate.new({id: summary.id}),
-            classes: "govuk-button govuk-!-margin-bottom-0 submitted-application-panel__update-status-button"
+            classes: "govuk-button govuk-!-margin-bottom-0 application-summary-panel__update-status-button"
           })
         }}
       {% endif %}
 
-      {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary govuk-!-margin-bottom-0 submitted-application-panel__download-pdf-button print__hidden') }}
+      {{ printButton('Download as a PDF', 'govuk-button govuk-button--secondary govuk-!-margin-bottom-0 application-summary-panel__download-pdf-button print__hidden') }}
     </div>
   </div>
 {% endmacro %}
