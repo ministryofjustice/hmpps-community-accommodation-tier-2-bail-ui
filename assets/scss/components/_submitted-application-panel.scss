@@ -7,6 +7,10 @@
     color: govuk-colour('white') !important;
   }
 
+  &__text:focus {
+    color: govuk-colour('black') !important;
+  }
+
   &__update-status-button {
     background-color: govuk-colour('white') !important;
     color: $govuk-link-colour !important;
