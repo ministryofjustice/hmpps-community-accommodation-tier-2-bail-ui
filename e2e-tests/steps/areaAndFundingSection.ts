@@ -77,7 +77,7 @@ async function completeExclusionZonesPage(page: Page, name: string) {
 async function completeGangAffiliations(page: Page, name: string) {
   const exclusionZonesPage = await ApplyPage.initialize(page, `Gang affiliation details for ${name}`)
 
-  await exclusionZonesPage.checkRadioInGroup('any gang affiliations', 'Yes', false)
+  await exclusionZonesPage.checkRadioInGroup('any gang affiliations', 'Yes')
   await exclusionZonesPage.fillField('details of the gang', 'Gang name')
   await exclusionZonesPage.checkRadioInGroup('rival gangs', 'Yes')
 
