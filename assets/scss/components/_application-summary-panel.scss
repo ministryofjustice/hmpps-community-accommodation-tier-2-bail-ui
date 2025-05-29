@@ -1,10 +1,14 @@
-.submitted-application-panel {
+.application-summary-panel {
   text-align: left;
   background: govuk-colour('blue');
   color: govuk-colour('white');
 
   &__text {
     color: govuk-colour('white') !important;
+  }
+
+  &__text:focus {
+    color: govuk-colour('black') !important;
   }
 
   &__update-status-button {
