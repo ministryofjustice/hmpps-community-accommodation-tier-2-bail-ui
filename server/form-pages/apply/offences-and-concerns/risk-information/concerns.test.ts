@@ -14,5 +14,5 @@ describe('Concerns', () => {
   })
 
   itShouldHaveNextValue(new Concerns({}, application), 'self-harm')
-  itShouldHavePreviousValue(new Concerns({}, application), '')
+  itShouldHavePreviousValue(new Concerns({}, application), 'taskList')
 })
