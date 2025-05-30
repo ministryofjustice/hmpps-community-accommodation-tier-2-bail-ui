@@ -207,9 +207,11 @@
               }) }}
             {%if page.hasPreviouslySavedAnUnspentConviction %}
               <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'unspent-convictions' }) }}">
-                Back to task list
+                Cancel
               </a>
             {% endif %}
+
+            <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
           </div>
         {% endblock %}
       </form>
