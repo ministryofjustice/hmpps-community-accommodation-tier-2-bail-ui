@@ -52,10 +52,10 @@ export default class PagesController {
       const page = await this.applicationService.initializePage(Page, req, this.dataServices)
 
       try {
-        await this.applicationService.save(page, req)
         const next = page.next()
+        await this.applicationService.save(page, req)
         if (next) {
-          res.redirect(paths.applications.pages.show({ id: req.params.id, task: taskName, page: page.next() }))
+          res.redirect(paths.applications.pages.show({ id: req.params.id, task: taskName, page: next }))
         } else {
           res.redirect(paths.applications.show({ id: req.params.id }))
         }

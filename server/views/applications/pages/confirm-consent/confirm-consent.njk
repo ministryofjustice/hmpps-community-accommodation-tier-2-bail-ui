@@ -69,21 +69,6 @@
   }}
   {% endset %}
 
-  {% set consentRefusalDetailHtml %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'consentRefusalDetail',
-          label: {
-            text: page.questions.consentRefusalDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
   {{
     formPageRadios(
       {
@@ -94,7 +79,7 @@
             classes: "govuk-fieldset__legend--m"
           }
         },
-        items: page.items(consentDateHtml, consentRefusalDetailHtml)
+        items: page.items(consentDateHtml)
       },
       fetchContext()
     )

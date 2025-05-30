@@ -51,9 +51,6 @@ export const getQuestions = (name: string) => {
           question: 'When did they give consent?',
           hint: `For example, ${dateExample}`,
         },
-        consentRefusalDetail: {
-          question: 'Why was consent refused?',
-        },
       },
     },
     'referrer-details': {

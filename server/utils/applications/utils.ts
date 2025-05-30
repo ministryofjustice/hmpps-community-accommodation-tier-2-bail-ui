@@ -42,15 +42,8 @@ export const firstPageOfConsentTask = (application: Application) => {
   return paths.applications.pages.show({ id: application.id, task: 'confirm-consent', page: 'confirm-consent' })
 }
 
-export const consentIsConfirmed = (application: Application): boolean => {
-  return consentAnswer(application) === 'yes'
-}
-export const consentIsDenied = (application: Application): boolean => {
-  return consentAnswer(application) === 'no'
-}
-
-const consentAnswer = (application: Application): string => {
-  return application.data?.['confirm-consent']?.['confirm-consent']?.hasGivenConsent
+export const consentIsAnswered = (application: Application): boolean => {
+  return application.data?.['confirm-consent']
 }
 
 export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Array<UiTimelineEvent> => {
@@ -122,15 +115,12 @@ export const getSideNavLinksForApplication = () => {
 
 export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application) => {
   if (eligibilityIsConfirmed(application)) {
-    if (consentIsConfirmed(application)) {
+    if (consentIsAnswered(application)) {
       const { errors, errorSummary } = fetchErrorsAndUserInput(req)
 
       const referer = validateReferer(req.headers.referer)
       const taskList = new TaskListService(application)
       return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
-    }
-    if (consentIsDenied(application)) {
-      return res.redirect(paths.applications.consentRefused({ id: application.id }))
     }
     return res.redirect(firstPageOfConsentTask(application))
   }

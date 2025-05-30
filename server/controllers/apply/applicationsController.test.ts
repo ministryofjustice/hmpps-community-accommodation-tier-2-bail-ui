@@ -23,7 +23,6 @@ import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
 import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
-import { validateReferer } from '../../utils/viewUtils'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
@@ -192,37 +191,6 @@ describe('applicationsController', () => {
         changeAnswerPath,
         newApplicationPath,
       })
-    })
-  })
-
-  describe('consentRefused', () => {
-    it('renders the consent refused page', async () => {
-      ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
-      const application = applicationFactory.build({
-        person: personFactory.build({ name: 'Roger Smith' }),
-      })
-
-      const panelText = `Roger Smith has not given their consent`
-      const changeAnswerPath = paths.applications.pages.show({
-        id: application.id,
-        task: 'confirm-consent',
-        page: 'confirm-consent',
-      })
-      const newApplicationPath = paths.applications.applicationOrigin({})
-
-      applicationService.findApplication.mockResolvedValue(application)
-
-      const requestHandler = applicationsController.consentRefused()
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/consent-refused', {
-        application,
-        panelText,
-        changeAnswerPath,
-        newApplicationPath,
-        backLink: 'some-validated-referer',
-      })
-      expect(validateReferer).toHaveBeenCalledWith('some-referer/')
     })
   })
 
