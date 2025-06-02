@@ -14,13 +14,17 @@
 {% endblock %}
 
 {% block button %}
+  <div class="govuk-button-group">
   {{ govukButton({
       text: "Save and continue"
     }) }}
 
   {{ govukButton({
     text: "Change your answer about consent",
-    classes: "govuk-button--secondary govuk-!-margin-left-5",
+    classes: "govuk-button--secondary",
     href: paths.applications.pages.show({ id: applicationId, task: 'confirm-consent', page: 'confirm-consent' })
   }) }}
+
+  <a href="{{ paths.applications.index({}) }}" class="govuk-link">Back to application dashboard</a>
+  </div>
 {% endblock %}
