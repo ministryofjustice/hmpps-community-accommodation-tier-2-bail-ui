@@ -28,7 +28,7 @@ export default class Concerns implements TaskListPage {
   }
 
   previous() {
-    return ''
+    return 'taskList'
   }
 
   next() {
