@@ -1,0 +1,32 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "communication-and-language" %}
+
+{% block questions %}
+
+   {{
+    formPageRadios(
+      {
+        fieldName: "hasCommunicationAndLanguageNeeds",
+        fieldset: {
+          legend: {
+            text: page.questions.hasCommunicationAndLanguageNeeds.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}

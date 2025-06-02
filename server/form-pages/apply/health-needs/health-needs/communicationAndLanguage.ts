@@ -35,7 +35,7 @@ export default class CommunicationAndLanguage implements TaskListPage {
   }
 
   previous() {
-    return 'mental-health'
+    return 'communication-and-language-relevance-check'
   }
 
   next() {

@@ -6,7 +6,7 @@ describe('CommunicationAndLanguage', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHaveNextValue(new CommunicationAndLanguage({}, application), 'learning-difficulties')
-  itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'mental-health')
+  itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'communication-and-language-relevance-check')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {

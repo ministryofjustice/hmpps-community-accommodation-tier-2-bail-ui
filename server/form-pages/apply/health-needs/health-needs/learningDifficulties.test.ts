@@ -14,7 +14,7 @@ describe('LearningDifficulties', () => {
   })
 
   itShouldHaveNextValue(new LearningDifficulties({}, application), 'brain-injury')
-  itShouldHavePreviousValue(new LearningDifficulties({}, application), 'communication-and-language')
+  itShouldHavePreviousValue(new LearningDifficulties({}, application), 'communication-and-language-relevance-check')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {

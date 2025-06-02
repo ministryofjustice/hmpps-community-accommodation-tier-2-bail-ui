@@ -56,7 +56,7 @@ export default class MentalHealth implements TaskListPage {
   }
 
   next() {
-    return 'communication-and-language'
+    return 'communication-and-language-relevance-check'
   }
 
   errors() {
