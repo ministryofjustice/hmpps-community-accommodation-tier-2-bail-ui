@@ -45,12 +45,12 @@ export default class BasePage {
     await this.page.getByTestId(testId).check()
   }
 
-  async checkRadioInGroup(group: string, label: string, exact: boolean = true) {
+  async checkRadioInGroup(group: string, label: string) {
     await this.page
       .getByRole('group', {
         name: group,
       })
-      .getByLabel(label, { exact })
+      .getByLabel(label, { exact: true })
       .check()
   }
 
