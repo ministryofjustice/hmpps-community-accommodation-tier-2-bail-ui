@@ -49,4 +49,24 @@ describe('StaticController', () => {
       expect(response.render).toHaveBeenCalledWith('static/accessibility-statement')
     })
   })
+
+  describe('HTML format interview questions', () => {
+    it('should render the page', () => {
+      const requestHandler = staticController.interviewQuestionsHtml()
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('static/interview-questions-sheet.html')
+    })
+  })
+
+  describe('DOCX format interview questions', () => {
+    it('should download the file', () => {
+      const requestHandler = staticController.interviewQuestionsDocx()
+      requestHandler(request, response, next)
+
+      expect(response.sendFile).toHaveBeenCalledWith(
+        expect.stringMatching(/server\/views\/static\/interview-questions-sheet\.docx$/),
+      )
+    })
+  })
 })
