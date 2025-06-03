@@ -33,6 +33,10 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     delete applicationData['risk-information']['add-acct-note']
   }
 
+  const deleteOrphanedCommunicationAndLanguageNeedsData = () => {
+    delete applicationData['health-needs']['communication-and-language']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -127,6 +131,17 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedACCTNotesData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'health-needs',
+      pageName: 'communication-and-language-relevance-check',
+      questionKey: 'hasCommunicationAndLanguageNeeds',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedCommunicationAndLanguageNeedsData()
   }
 
   return applicationData
