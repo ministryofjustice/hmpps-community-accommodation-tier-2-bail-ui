@@ -1,0 +1,57 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "brain-injury" %}
+
+{% block questions %}
+
+  {% set brainInjuryHintHtml %}
+    <p>{{ page.questions.hasBrainInjury.hint }}</p>
+
+    {% call govukInsetText({
+      classes: "guidance-panel govuk-!-margin-top-0",
+      attributes: {
+        "data-testid": "brain-injury-guidance"
+      }
+    }) %}
+      <p class="govuk-body govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+      <ul class="govuk-body">
+        <li>about their needs and if they have a diagnosis</li>
+        <li>any support they need</li>
+        <li>any treatment and medication they receive</li>
+        <li>any vulnerability they have</li>
+        <li>any difficulties they experience interacting with other people</li>
+      </ul>
+    {%  endcall %}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasBrainInjury",
+        hint: {
+          html: brainInjuryHintHtml
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.hasBrainInjury.question,
+            classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+            isPageHeading: true
+          }
+        },  
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

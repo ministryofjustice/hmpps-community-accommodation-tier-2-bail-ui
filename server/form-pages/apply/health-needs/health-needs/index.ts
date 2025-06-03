@@ -26,6 +26,7 @@ import InformationSources from './informationSources'
     CommunicationAndLanguageRelevanceCheck,
     CommunicationAndLanguage,
     LearningDifficulties,
+    BrainInjury,
     BrainInjuryDetails,
     OtherHealth,
     InformationSources,
