@@ -38,7 +38,7 @@ export default class HomePage extends Page {
       'href',
       paths.static.interviewQuestionsDocx({}),
     )
-    cy.contains('interview questions sheet (HTML, 21KB)(opens in a new window)').should(
+    cy.contains('interview questions sheet (HTML, 21KB)(opens in new tab)').should(
       'have.attr',
       'href',
       paths.static.interviewQuestionsHtml({}),
@@ -47,6 +47,6 @@ export default class HomePage extends Page {
 
   shouldNotShowInterviewQuestionLinks(): void {
     cy.contains('interview questions sheet (DOCX, 124KB)').should('not.exist')
-    cy.contains('interview questions sheet (HTML, 21KB)(opens in a new window)').should('not.exist')
+    cy.contains('interview questions sheet (HTML, 21KB)(opens in new tab)').should('not.exist')
   }
 }
