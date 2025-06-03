@@ -23,4 +23,16 @@
 
   </div>
 
+  {% if isReferrer %}
+
+    <h2 class="govuk-heading-m">Print resources to interview applicants</h2>
+
+    <p>Use any of these resources to collect information from the applicant when you cannot access the digital service:</p>
+    <ul>
+      <li><a href="{{paths.static.interviewQuestionsDocx({})}}" target="_blank" rel="noreferrer noopener">interview questions sheet (DOCX, 124KB)</a></li>
+      <li><a href="{{paths.static.interviewQuestionsHtml({})}}" target="_blank" rel="noreferrer noopener">interview questions sheet (HTML, 21KB)(opens in a new window)</a></li>
+    </ul>
+
+  {% endif %}
+
 {% endblock %}

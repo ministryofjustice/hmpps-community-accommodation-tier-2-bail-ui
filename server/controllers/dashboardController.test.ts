@@ -22,7 +22,7 @@ describe('DashboardController', () => {
     ;(sectionsForUser as jest.Mock).mockReturnValue(sections)
 
     it('should render the dashboard template', () => {
-      const response = createMock<Response>()
+      const response = createMock<Response>({ locals: { user: { userRoles: 'CAS2_MI' } } })
 
       const requestHandler = dashboardController.index()
 
@@ -31,6 +31,35 @@ describe('DashboardController', () => {
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
         pageHeading: 'Short-term accommodation (CAS2) for bail',
         sections,
+        isReferrer: false,
+      })
+    })
+
+    it('should render the dashboard for a court bail referrer', () => {
+      const response = createMock<Response>({ locals: { user: { userRoles: 'CAS2_COURT_BAIL_REFERRER' } } })
+
+      const requestHandler = dashboardController.index()
+
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('dashboard/index', {
+        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        sections,
+        isReferrer: true,
+      })
+    })
+
+    it('should render the dashboard template for a prison bail referrer', () => {
+      const response = createMock<Response>({ locals: { user: { userRoles: 'CAS2_PRISON_BAIL_REFERRER' } } })
+
+      const requestHandler = dashboardController.index()
+
+      requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('dashboard/index', {
+        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        sections,
+        isReferrer: true,
       })
     })
   })
