@@ -171,6 +171,9 @@
       "willReferralBeMade": "no",
       "needsPresentation": ""
     },
+    "communication-and-language-relevance-check": {
+      "hasCommunicationAndLanguageNeeds": "no"
+    },
     "communication-and-language": {
       "hasImpairments": "no",
       "impairmentsDetail": "",
