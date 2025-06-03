@@ -96,7 +96,10 @@ async function completeBrainInjuryPage(page: Page, name: string) {
 }
 
 async function completeLiaisonAndDiversionPage(page: Page, name: string) {
-  const liaisonAndDiversionPage = await ApplyPage.initialize(page, `Liaison and Diversion Assessment for ${name}`)
+  const liaisonAndDiversionPage = await ApplyPage.initialize(
+    page,
+    `Has a Liaison and Diversion Assessment been carried out for ${name}?`,
+  )
 
   await liaisonAndDiversionPage.checkRadioInGroup('Liaison and Diversion Assessment', 'No')
 

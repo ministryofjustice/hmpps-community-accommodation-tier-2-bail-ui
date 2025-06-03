@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class LiaisonAndDiversionPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Liaison and Diversion Assessment for ${nameOrPlaceholderCopy(application.person)}`,
+      `Has a Liaison and Diversion Assessment been carried out for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'liaison-and-diversion',
