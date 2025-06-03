@@ -1,0 +1,63 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "./_risk-information-screen.njk" %}
+{% set pageName = "domestic-abuse-concerns" %}
+
+{% block questions %}
+
+  {% set domesticAbuseConcernsHintHtml %}
+    <p class="govuk-hint">This refers to the applicant being the perpetrator of physical or emotional abuse.</p>
+
+    {% call govukInsetText({
+      classes: "guidance-panel govuk-!-margin-top-0",
+      attributes: {
+        "data-testid": "domestic-abuse-concerns-guidance"
+      }
+    }) %}
+      <p class="govuk-body govuk-!-font-weight-bold">If you select 'Yes', we'll ask you for the following details:</p>
+      <ul class="govuk-body">
+        <li>names of any known victims and if they are adults or children</li>
+        <li>their relationship to the applicant</li>
+        <li>their location or area</li>
+        <li>any safeguarding details</li>
+      </ul>
+    {%  endcall %}
+
+    {{ govukDetails({
+      summaryText: "What if the applicant is a victim of domestic abuse",
+      text: "You can add information about the applicant as a victim of domestic abuse later in the application.",
+      attributes: {
+        "data-testid": "victim-of-domestic-abuse-guidance"
+      }
+    }) }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "areConcerns",
+        hint: {
+          html: domesticAbuseConcernsHintHtml
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.areConcerns.question,
+            classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-6"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

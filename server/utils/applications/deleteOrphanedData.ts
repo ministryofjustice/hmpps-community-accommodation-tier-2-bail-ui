@@ -33,6 +33,10 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     delete applicationData['risk-information']['add-acct-note']
   }
 
+  const deleteOrphanedDomesticAbuseData = () => {
+    delete applicationData['risk-information']['details-of-domestic-abuse-concerns']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -127,6 +131,17 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedACCTNotesData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'risk-information',
+      pageName: 'domestic-abuse-concerns',
+      questionKey: 'areConcerns',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedDomesticAbuseData()
   }
 
   return applicationData
