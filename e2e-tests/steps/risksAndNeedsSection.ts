@@ -70,7 +70,7 @@ async function completeCommunicationAndLanguagePage(page: Page, name: string) {
 
   communicationRelevancePage.clickSave()
 
-  const communicationPage = await ApplyPage.initialize(page, `Communication and language needs details for ${name}?`)
+  const communicationPage = await ApplyPage.initialize(page, `Add communication and language needs details for ${name}`)
 
   await communicationPage.checkRadioInGroup('impairments', 'No')
   await communicationPage.checkRadioInGroup('interpreter', 'No')

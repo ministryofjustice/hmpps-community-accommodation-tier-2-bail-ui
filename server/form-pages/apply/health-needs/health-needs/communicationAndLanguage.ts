@@ -17,11 +17,11 @@ export type CommunicationAndLanguageBody = {
   bodyProperties: ['hasImpairments', 'impairmentsDetail', 'requiresInterpreter', 'interpretationDetail'],
 })
 export default class CommunicationAndLanguage implements TaskListPage {
-  documentTitle = 'Communication and language needs details for the person'
+  documentTitle = 'Add communication and language needs details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Communication and language needs details for ${this.personName}`
+  title = `Add communication and language needs details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['communication-and-language']
 

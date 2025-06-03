@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class CommunicationAndLanguagePage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Communication and language needs details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Add communication and language needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'communication-and-language',
