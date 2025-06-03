@@ -13,7 +13,7 @@ describe('MentalHealth', () => {
     })
   })
 
-  itShouldHaveNextValue(new MentalHealth({}, application), 'communication-and-language')
+  itShouldHaveNextValue(new MentalHealth({}, application), 'communication-and-language-relevance-check')
   itShouldHavePreviousValue(new MentalHealth({}, application), 'physical-health')
 
   describe('errors', () => {

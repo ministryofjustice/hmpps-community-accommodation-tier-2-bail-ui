@@ -629,6 +629,12 @@ export const getQuestions = (name: string) => {
           hint: 'For example, how they appeared when you last spoke to them.',
         },
       },
+      'communication-and-language-relevance-check': {
+        hasCommunicationAndLanguageNeeds: {
+          question: `Does ${name} have any communication and language needs?`,
+          answers: yesOrNo,
+        },
+      },
       'communication-and-language': {
         hasImpairments: {
           question: 'Do they have any literacy, visual or hearing impairments?',

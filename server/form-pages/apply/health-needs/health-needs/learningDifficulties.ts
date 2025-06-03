@@ -48,7 +48,7 @@ export default class LearningDifficulties implements TaskListPage {
   }
 
   previous() {
-    return 'communication-and-language'
+    return 'communication-and-language-relevance-check'
   }
 
   next() {

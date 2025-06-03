@@ -303,4 +303,32 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('health needs relevancy checks', () => {
+    describe('communication and language needs', () => {
+      it('removes communication and language needs data when it is no longer relevant', () => {
+        const applicationData = {
+          'health-needs': {
+            'communication-and-language-relevance-check': {
+              hasCommunicationAndLanguageNeeds: 'no',
+            },
+            'communication-and-language': {
+              hasImpairments: 'yes',
+              impairmentsDetail: 'impairments detail',
+              requiresInterpreter: 'yes',
+              interpretationDetail: 'interpretation detail',
+            },
+          },
+        }
+
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'health-needs': {
+            'communication-and-language-relevance-check': {
+              hasCommunicationAndLanguageNeeds: 'no',
+            },
+          },
+        })
+      })
+    })
+  })
 })

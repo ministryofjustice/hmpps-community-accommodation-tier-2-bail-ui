@@ -4,13 +4,13 @@ import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class CommunicationAndLanguagePage extends ApplyPage {
+export default class CommunicationAndLanguageRelevanceCheckPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Add communication and language needs details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have any communication and language needs?`,
       application,
       'health-needs',
-      'communication-and-language',
+      'communication-and-language-relevance-check',
     )
     pageIsActiveInNavigation('Communication and language')
   }
@@ -20,18 +20,16 @@ export default class CommunicationAndLanguagePage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'health-needs',
-        page: 'communication-and-language',
+        page: 'communication-and-language-relevance-check',
       }),
     )
   }
 
-  specifyInterpretationNeeds = (): void => {
-    this.checkRadioByNameAndValue('requiresInterpreter', 'yes')
-    this.getTextInputByIdAndEnterDetails('interpretationDetail', 'Welsh')
+  selectApplicantDoesHaveCommunicationAndLanguageNeeds(): void {
+    this.checkRadioByNameAndValue('hasCommunicationAndLanguageNeeds', 'yes')
   }
 
-  describeImpairments = (): void => {
-    this.checkRadioByNameAndValue('hasImpairments', 'yes')
-    this.getTextInputByIdAndEnterDetails('impairmentsDetail', 'Struggles with written comprehension')
+  selectApplicantDoesNotHaveCommunicationAndLanguageNeeds(): void {
+    this.checkRadioByNameAndValue('hasCommunicationAndLanguageNeeds', 'no')
   }
 }

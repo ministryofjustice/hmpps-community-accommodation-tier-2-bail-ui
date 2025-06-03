@@ -6,7 +6,15 @@ describe('CommunicationAndLanguage', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   itShouldHaveNextValue(new CommunicationAndLanguage({}, application), 'learning-difficulties')
-  itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'mental-health')
+  itShouldHavePreviousValue(new CommunicationAndLanguage({}, application), 'communication-and-language-relevance-check')
+
+  describe('title', () => {
+    it('sets the title', () => {
+      const page = new CommunicationAndLanguage({}, application)
+
+      expect(page.title).toEqual('Add communication and language needs details for Roger Smith')
+    })
+  })
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {

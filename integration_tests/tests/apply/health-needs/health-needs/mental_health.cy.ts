@@ -15,11 +15,11 @@
 //  Scenario: complete page and navigate to next page in health needs task
 //    When I complete the mental health page
 //    And I continue to the next task / page
-//    Then I see the "communication and language" page
+//    Then I see the "communication and language relevance check" page
 
 import Page from '../../../../pages/page'
 import MentalHealthPage from '../../../../pages/apply/health_needs/health-needs/mentalHealthPage'
-import CommunicationAndLanguagePage from '../../../../pages/apply/health_needs/health-needs/communicationAndLanguagePage'
+import CommunicationAndLanguageRelevanceCheckPage from '../../../../pages/apply/health_needs/health-needs/communicationAndLanguageRelevanceCheckPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "mental health" page', () => {
@@ -65,8 +65,8 @@ context('Visit "mental health" page', () => {
   //  Scenario: complete page and navigate to next page in health needs task
   //    When I complete the mental health page
   //    And I continue to the next task / page
-  //    Then I see the "communication and language" page
-  it('navigates to the next page (communication and language)', function test() {
+  //    Then I see the "communication and language relevance check" page
+  it('navigates to the next page (communication and language relevance check)', function test() {
     MentalHealthPage.visit(this.application)
     const page = new MentalHealthPage(this.application)
 
@@ -79,6 +79,6 @@ context('Visit "mental health" page', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(CommunicationAndLanguagePage, this.application)
+    Page.verifyOnPage(CommunicationAndLanguageRelevanceCheckPage, this.application)
   })
 })
