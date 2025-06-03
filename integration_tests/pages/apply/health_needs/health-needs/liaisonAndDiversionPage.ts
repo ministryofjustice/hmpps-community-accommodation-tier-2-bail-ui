@@ -12,7 +12,7 @@ export default class LiaisonAndDiversionPage extends ApplyPage {
       'health-needs',
       'liaison-and-diversion',
     )
-    pageIsActiveInNavigation('Liaison & Diversion')
+    pageIsActiveInNavigation('Liaison and diversion assessment')
   }
 
   static visit(application: Application): LiaisonAndDiversionPage {
