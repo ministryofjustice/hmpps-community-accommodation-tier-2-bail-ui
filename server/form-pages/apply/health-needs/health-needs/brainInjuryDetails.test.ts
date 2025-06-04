@@ -7,15 +7,11 @@ describe('BrainInjuryDetails', () => {
 
   describe('title', () => {
     itShouldHaveNextValue(new BrainInjuryDetails({}, application), 'other-health')
-    itShouldHavePreviousValue(new BrainInjuryDetails({}, application), 'learning-difficulties')
+    itShouldHavePreviousValue(new BrainInjuryDetails({}, application), 'brain-injury')
 
     describe('errors', () => {
       describe('when top-level questions are unanswered', () => {
         const page = new BrainInjuryDetails({}, application)
-
-        it('includes a validation error for _hasBrainInjury_', () => {
-          expect(page.errors()).toHaveProperty('hasBrainInjury', `Select if they have a brain injury`)
-        })
 
         it('includes a validation error for _supportNeeded_', () => {
           expect(page.errors()).toHaveProperty('supportNeeded', `Select if they need any support`)
@@ -40,13 +36,11 @@ describe('BrainInjuryDetails', () => {
         })
       })
 
-      describe('when _hasBrainInjury_ is YES', () => {
-        const page = new BrainInjuryDetails({ hasBrainInjury: 'yes' }, application)
+      describe('when _injuryDetail_ is UNANSWERED', () => {
+        const page = new BrainInjuryDetails({}, application)
 
-        describe('and _injuryDetail_ is UNANSWERED', () => {
-          it('includes a validation error for _injuryDetail_', () => {
-            expect(page.errors()).toHaveProperty('injuryDetail', 'Enter details of their brain injury and needs')
-          })
+        it('includes a validation error for _injuryDetail_', () => {
+          expect(page.errors()).toHaveProperty('injuryDetail', 'Enter details of their brain injury and needs')
         })
       })
 
@@ -95,21 +89,6 @@ describe('BrainInjuryDetails', () => {
     })
 
     describe('onSave', () => {
-      it('removes brain injury data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryDetailsBody> = {
-          hasBrainInjury: 'no',
-          injuryDetail: 'Injury detail',
-        }
-
-        const page = new BrainInjuryDetails(body, application)
-
-        page.onSave()
-
-        expect(page.body).toEqual({
-          hasBrainInjury: 'no',
-        })
-      })
-
       it('removes support data when the question is set to "no"', () => {
         const body: Partial<BrainInjuryDetailsBody> = {
           supportNeeded: 'no',

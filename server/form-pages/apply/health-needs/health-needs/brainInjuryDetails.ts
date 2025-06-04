@@ -6,7 +6,6 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type BrainInjuryDetailsBody = {
-  hasBrainInjury: YesOrNo
   injuryDetail: string
   supportNeeded: YesOrNo
   supportDetail: string
@@ -21,7 +20,6 @@ export type BrainInjuryDetailsBody = {
 @Page({
   name: 'brain-injury-details',
   bodyProperties: [
-    'hasBrainInjury',
     'injuryDetail',
     'supportNeeded',
     'supportDetail',
@@ -34,11 +32,11 @@ export type BrainInjuryDetailsBody = {
   ],
 })
 export default class BrainInjuryDetails implements TaskListPage {
-  documentTitle = 'Brain injury details for the person'
+  documentTitle = 'Add brain injury details for the applicant'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Brain injury details for ${this.personName}`
+  title = `Add brain injury details for ${this.personName}`
 
   questions = getQuestions(this.personName)['health-needs']['brain-injury-details']
 
@@ -52,7 +50,7 @@ export default class BrainInjuryDetails implements TaskListPage {
   }
 
   previous() {
-    return 'learning-difficulties'
+    return 'brain-injury'
   }
 
   next() {
@@ -62,10 +60,7 @@ export default class BrainInjuryDetails implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.hasBrainInjury) {
-      errors.hasBrainInjury = `Select if they have a brain injury`
-    }
-    if (this.body.hasBrainInjury === 'yes' && !this.body.injuryDetail) {
+    if (!this.body.injuryDetail) {
       errors.injuryDetail = 'Enter details of their brain injury and needs'
     }
 
@@ -101,10 +96,6 @@ export default class BrainInjuryDetails implements TaskListPage {
   }
 
   onSave(): void {
-    if (this.body.hasBrainInjury !== 'yes') {
-      delete this.body.injuryDetail
-    }
-
     if (this.body.supportNeeded !== 'yes') {
       delete this.body.supportDetail
     }
