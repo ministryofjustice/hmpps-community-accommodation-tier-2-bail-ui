@@ -7,14 +7,13 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class BrainInjuryDetailsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Brain injury details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Add brain injury details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'brain-injury-details',
     )
 
     pageIsActiveInNavigation('Brain injury')
-    this.pageHasBrainInjuryGuidance()
   }
 
   static visit(application: Application): void {
@@ -31,8 +30,7 @@ export default class BrainInjuryDetailsPage extends ApplyPage {
     cy.get('p').contains('This could be as a result of accident')
   }
 
-  describeInjuryAndNeeds = (): void => {
-    this.checkRadioByNameAndValue('hasBrainInjury', 'yes')
+  describeInjury = (): void => {
     this.getTextInputByIdAndEnterDetails('injuryDetail', 'Has frontal lobe damange')
   }
 

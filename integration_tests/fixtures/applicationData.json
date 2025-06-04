@@ -191,17 +191,8 @@
       "isVulnerable": "no",
       "vulnerabilityDetail": ""
     },
-    "brain-injury-details": {
-      "hasBrainInjury": "no",
-      "injuryDetail": "",
-      "supportNeeded": "no",
-      "supportDetail": "",
-      "receivingTreatment": "no",
-      "treatmentDetail": "",
-      "isVulnerable": "no",
-      "vulnerabilityDetail": "",
-      "hasDifficultyInteracting": "no",
-      "interactionDetail": ""
+    "brain-injury": {
+      "hasBrainInjury": "no"
     },
     "other-health": {
       "hasLongTermHealthCondition": "no",
