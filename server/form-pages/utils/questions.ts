@@ -667,7 +667,7 @@ export const getQuestions = (name: string) => {
         isVulnerable: { question: 'Are they vulnerable as a result of this?', answers: yesOrNo },
         vulnerabilityDetail: { question: 'Enter details of how they might be vulnerable' },
       },
-      'brain-injury': {
+      'brain-injury-details': {
         hasBrainInjury: {
           question: 'Do they have a brain injury?',
           answers: yesOrNo,

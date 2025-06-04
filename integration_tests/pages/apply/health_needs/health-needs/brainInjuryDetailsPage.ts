@@ -4,13 +4,13 @@ import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class BrainInjuryPage extends ApplyPage {
+export default class BrainInjuryDetailsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
       `Brain injury details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
-      'brain-injury',
+      'brain-injury-details',
     )
 
     pageIsActiveInNavigation('Brain injury')
@@ -22,7 +22,7 @@ export default class BrainInjuryPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'health-needs',
-        page: 'brain-injury',
+        page: 'brain-injury-details',
       }),
     )
   }

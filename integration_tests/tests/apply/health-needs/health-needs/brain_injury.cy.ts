@@ -18,7 +18,7 @@
 //    Then I see the "other health" page
 
 import Page from '../../../../pages/page'
-import BrainInjuryPage from '../../../../pages/apply/health_needs/health-needs/brainInjuryPage'
+import BrainInjuryDetailsPage from '../../../../pages/apply/health_needs/health-needs/brainInjuryDetailsPage'
 import OtherHealthPage from '../../../../pages/apply/health_needs/health-needs/otherHealthPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
@@ -53,13 +53,13 @@ context('Visit "brain injury" page', () => {
 
     // And I am on the brain injury page
     // --------------------------------
-    BrainInjuryPage.visit(this.application)
+    BrainInjuryDetailsPage.visit(this.application)
   })
 
   //  Scenario: view brain injury questions
   //    Then I see the "brain injury" page
   it('presents brain injury page', function test() {
-    Page.verifyOnPage(BrainInjuryPage, this.application)
+    Page.verifyOnPage(BrainInjuryDetailsPage, this.application)
   })
 
   //  Scenario: complete page and navigate to next page in health needs task
@@ -67,8 +67,8 @@ context('Visit "brain injury" page', () => {
   //    And I continue to the next task / page
   //    Then I see the "other health" page
   it('navigates to the next page (other health)', function test() {
-    BrainInjuryPage.visit(this.application)
-    const page = new BrainInjuryPage(this.application)
+    BrainInjuryDetailsPage.visit(this.application)
+    const page = new BrainInjuryDetailsPage(this.application)
 
     page.describeInjuryAndNeeds()
     page.describeSupportNeeded()

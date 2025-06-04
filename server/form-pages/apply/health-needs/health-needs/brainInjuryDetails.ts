@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-export type BrainInjuryBody = {
+export type BrainInjuryDetailsBody = {
   hasBrainInjury: YesOrNo
   injuryDetail: string
   supportNeeded: YesOrNo
@@ -19,7 +19,7 @@ export type BrainInjuryBody = {
 }
 
 @Page({
-  name: 'brain-injury',
+  name: 'brain-injury-details',
   bodyProperties: [
     'hasBrainInjury',
     'injuryDetail',
@@ -33,22 +33,22 @@ export type BrainInjuryBody = {
     'interactionDetail',
   ],
 })
-export default class BrainInjury implements TaskListPage {
+export default class BrainInjuryDetails implements TaskListPage {
   documentTitle = 'Brain injury details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Brain injury details for ${this.personName}`
 
-  questions = getQuestions(this.personName)['health-needs']['brain-injury']
+  questions = getQuestions(this.personName)['health-needs']['brain-injury-details']
 
-  body: BrainInjuryBody
+  body: BrainInjuryDetailsBody
 
   constructor(
-    body: Partial<BrainInjuryBody>,
+    body: Partial<BrainInjuryDetailsBody>,
     private readonly application: Application,
   ) {
-    this.body = body as BrainInjuryBody
+    this.body = body as BrainInjuryDetailsBody
   }
 
   previous() {

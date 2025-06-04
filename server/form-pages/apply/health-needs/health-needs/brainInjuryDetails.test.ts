@@ -1,17 +1,17 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import BrainInjury, { BrainInjuryBody } from './brainInjury'
+import BrainInjuryDetails, { BrainInjuryDetailsBody } from './brainInjuryDetails'
 
-describe('BrainInjury', () => {
+describe('BrainInjuryDetails', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
-    itShouldHaveNextValue(new BrainInjury({}, application), 'other-health')
-    itShouldHavePreviousValue(new BrainInjury({}, application), 'learning-difficulties')
+    itShouldHaveNextValue(new BrainInjuryDetails({}, application), 'other-health')
+    itShouldHavePreviousValue(new BrainInjuryDetails({}, application), 'learning-difficulties')
 
     describe('errors', () => {
       describe('when top-level questions are unanswered', () => {
-        const page = new BrainInjury({}, application)
+        const page = new BrainInjuryDetails({}, application)
 
         it('includes a validation error for _hasBrainInjury_', () => {
           expect(page.errors()).toHaveProperty('hasBrainInjury', `Select if they have a brain injury`)
@@ -41,7 +41,7 @@ describe('BrainInjury', () => {
       })
 
       describe('when _hasBrainInjury_ is YES', () => {
-        const page = new BrainInjury({ hasBrainInjury: 'yes' }, application)
+        const page = new BrainInjuryDetails({ hasBrainInjury: 'yes' }, application)
 
         describe('and _injuryDetail_ is UNANSWERED', () => {
           it('includes a validation error for _injuryDetail_', () => {
@@ -51,7 +51,7 @@ describe('BrainInjury', () => {
       })
 
       describe('when _supportNeeded_ is YES', () => {
-        const page = new BrainInjury({ supportNeeded: 'yes' }, application)
+        const page = new BrainInjuryDetails({ supportNeeded: 'yes' }, application)
 
         describe('and _supportDetail_ is UNANSWERED', () => {
           it('includes a validation error for _supportDetail_', () => {
@@ -61,7 +61,7 @@ describe('BrainInjury', () => {
       })
 
       describe('when _receivingTreatment_ is YES', () => {
-        const page = new BrainInjury({ receivingTreatment: 'yes' }, application)
+        const page = new BrainInjuryDetails({ receivingTreatment: 'yes' }, application)
 
         describe('and _treatmentDetail_ is UNANSWERED', () => {
           it('includes a validation error for _treatmentDetail_', () => {
@@ -74,7 +74,7 @@ describe('BrainInjury', () => {
       })
 
       describe('when _isVulnerable_ is YES', () => {
-        const page = new BrainInjury({ isVulnerable: 'yes' }, application)
+        const page = new BrainInjuryDetails({ isVulnerable: 'yes' }, application)
 
         describe('and _vulnerabilityDetail_ is UNANSWERED', () => {
           it('includes a validation error for _vulnerabilityDetail_', () => {
@@ -84,7 +84,7 @@ describe('BrainInjury', () => {
       })
 
       describe('when _hasDifficultyInteracting_ is YES', () => {
-        const page = new BrainInjury({ hasDifficultyInteracting: 'yes' }, application)
+        const page = new BrainInjuryDetails({ hasDifficultyInteracting: 'yes' }, application)
 
         describe('and _interactionDetail_ is UNANSWERED', () => {
           it('includes a validation error for _interactionDetail_', () => {
@@ -96,12 +96,12 @@ describe('BrainInjury', () => {
 
     describe('onSave', () => {
       it('removes brain injury data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryBody> = {
+        const body: Partial<BrainInjuryDetailsBody> = {
           hasBrainInjury: 'no',
           injuryDetail: 'Injury detail',
         }
 
-        const page = new BrainInjury(body, application)
+        const page = new BrainInjuryDetails(body, application)
 
         page.onSave()
 
@@ -111,12 +111,12 @@ describe('BrainInjury', () => {
       })
 
       it('removes support data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryBody> = {
+        const body: Partial<BrainInjuryDetailsBody> = {
           supportNeeded: 'no',
           supportDetail: 'Support detail',
         }
 
-        const page = new BrainInjury(body, application)
+        const page = new BrainInjuryDetails(body, application)
 
         page.onSave()
 
@@ -126,12 +126,12 @@ describe('BrainInjury', () => {
       })
 
       it('removes treatment data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryBody> = {
+        const body: Partial<BrainInjuryDetailsBody> = {
           receivingTreatment: 'no',
           treatmentDetail: 'Treatment detail',
         }
 
-        const page = new BrainInjury(body, application)
+        const page = new BrainInjuryDetails(body, application)
 
         page.onSave()
 
@@ -141,12 +141,12 @@ describe('BrainInjury', () => {
       })
 
       it('removes vulnerability data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryBody> = {
+        const body: Partial<BrainInjuryDetailsBody> = {
           isVulnerable: 'no',
           vulnerabilityDetail: 'Vulnerability detail',
         }
 
-        const page = new BrainInjury(body, application)
+        const page = new BrainInjuryDetails(body, application)
 
         page.onSave()
 
@@ -156,12 +156,12 @@ describe('BrainInjury', () => {
       })
 
       it('removes interaction difficulty data when the question is set to "no"', () => {
-        const body: Partial<BrainInjuryBody> = {
+        const body: Partial<BrainInjuryDetailsBody> = {
           hasDifficultyInteracting: 'no',
           interactionDetail: 'Interaction detail',
         }
 
-        const page = new BrainInjury(body, application)
+        const page = new BrainInjuryDetails(body, application)
 
         page.onSave()
 

@@ -191,7 +191,7 @@
       "isVulnerable": "no",
       "vulnerabilityDetail": ""
     },
-    "brain-injury": {
+    "brain-injury-details": {
       "hasBrainInjury": "no",
       "injuryDetail": "",
       "supportNeeded": "no",
