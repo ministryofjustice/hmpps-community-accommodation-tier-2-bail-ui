@@ -93,15 +93,19 @@ async function completeLearningDifficultiesPage(page: Page, name: string) {
 }
 
 async function completeBrainInjuryPage(page: Page, name: string) {
-  const brainInjuryPage = await ApplyPage.initialize(page, `Brain injury details for ${name}`)
+  const brainInjuryPage = await ApplyPage.initialize(page, `Does ${name} have a brain injury?`)
 
-  await brainInjuryPage.checkRadioInGroup('brain injury?', 'No')
-  await brainInjuryPage.checkRadioInGroup('any support', 'No')
-  await brainInjuryPage.checkRadioInGroup('treatment', 'No')
-  await brainInjuryPage.checkRadioInGroup('vulnerable', 'No')
-  await brainInjuryPage.checkRadioInGroup('difficulties interacting', 'No')
-
+  await brainInjuryPage.checkRadioInGroup('brain injury?', 'Yes')
   await brainInjuryPage.clickSave()
+
+  const brainInjuryDetailsPage = await ApplyPage.initialize(page, `Add brain injury details for ${name}`)
+  await brainInjuryDetailsPage.fillField('Enter details of their brain injury', 'some details')
+  await brainInjuryDetailsPage.checkRadioInGroup('any support', 'No')
+  await brainInjuryDetailsPage.checkRadioInGroup('treatment', 'No')
+  await brainInjuryDetailsPage.checkRadioInGroup('vulnerable', 'No')
+  await brainInjuryDetailsPage.checkRadioInGroup('difficulties interacting', 'No')
+
+  await brainInjuryDetailsPage.clickSave()
 }
 
 async function completeLiaisonAndDiversionPage(page: Page, name: string) {
