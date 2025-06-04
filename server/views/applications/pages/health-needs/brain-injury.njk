@@ -1,228 +1,57 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% extends "./_health-needs-screen.njk" %}
 {% set pageName = "brain-injury" %}
 
 {% block questions %}
 
-  {% set injuryAndNeedsFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'injuryDetail',
-          label: {
-            text: page.questions.injuryDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
+  {% set brainInjuryHintHtml %}
+    <p>{{ page.questions.hasBrainInjury.hint }}</p>
+
+    {% call govukInsetText({
+      classes: "guidance-panel govuk-!-margin-top-0",
+      attributes: {
+        "data-testid": "brain-injury-guidance"
+      }
+    }) %}
+      <p class="govuk-body govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+      <ul class="govuk-body">
+        <li>about their needs and if they have a diagnosis</li>
+        <li>any support they need</li>
+        <li>any treatment and medication they receive</li>
+        <li>any vulnerability they have</li>
+        <li>any difficulties they experience interacting with other people</li>
+      </ul>
+    {%  endcall %}
   {% endset %}
-
-  {% set supportFollowUp %}
-    {{
-      formPageTextArea(
-        {
-          fieldName: 'supportDetail',
-          label: {
-            text: page.questions.supportDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set treatmentFollowUp %}
-    {{
-      formPageTextArea(
-        {
-          fieldName: 'treatmentDetail',
-          label: {
-            text: page.questions.treatmentDetail.question,
-            classes: "govuk-label--s"
-          },
-          hint: { text: page.questions.treatmentDetail.hint }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set vulnerabilityFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'vulnerabilityDetail',
-          label: {
-            text: page.questions.vulnerabilityDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set interactionFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'interactionDetail',
-          label: {
-            text: page.questions.interactionDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
-
-  <p class="govuk-hint">
-    This could be as a result of accident, drug and alcohol use or an inherited or pre-existing condition.
-  </p>
 
   {{
     formPageRadios(
       {
         fieldName: "hasBrainInjury",
+        hint: {
+          html: brainInjuryHintHtml
+        },
         fieldset: {
           legend: {
             text: page.questions.hasBrainInjury.question,
-            classes: "govuk-fieldset__legend--m"
+            classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+            isPageHeading: true
           }
-        },
+        },  
         items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: injuryAndNeedsFollowUp
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
           }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
+        ]
       },
       fetchContext()
     )
   }}
-
-    {{
-    formPageRadios(
-      {
-        fieldName: "supportNeeded",
-        fieldset: {
-          legend: {
-            text: page.questions.supportNeeded.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: supportFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-    {{
-    formPageRadios(
-      {
-        fieldName: "receivingTreatment",
-        fieldset: {
-          legend: {
-            text: page.questions.receivingTreatment.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: treatmentFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "isVulnerable",
-        fieldset: {
-          legend: {
-            text: page.questions.isVulnerable.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: vulnerabilityFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasDifficultyInteracting",
-        fieldset: {
-          legend: {
-            text: page.questions.hasDifficultyInteracting.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: interactionFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
 {% endblock %}

@@ -1,8 +1,9 @@
 /* istanbul ignore file */
 
 import { Task } from '../../../utils/decorators'
-import BrainInjury from './brainInjury'
 import CommunicationAndLanguageRelevanceCheck from './communicationAndLanguageRelevanceCheck'
+import BrainInjury from './brainInjury'
+import BrainInjuryDetails from './brainInjuryDetails'
 import CommunicationAndLanguage from './communicationAndLanguage'
 import HealthNeedsInformation from './healthNeedsInformation'
 import LearningDifficulties from './learningDifficulties'
@@ -26,6 +27,7 @@ import InformationSources from './informationSources'
     CommunicationAndLanguage,
     LearningDifficulties,
     BrainInjury,
+    BrainInjuryDetails,
     OtherHealth,
     InformationSources,
   ],

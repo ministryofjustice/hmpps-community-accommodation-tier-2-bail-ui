@@ -331,4 +331,35 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('when the referrer confirms the applicant does not have a brain injury', () => {
+    const applicationData = {
+      'health-needs': {
+        'brain-injury': {
+          hasBrainInjury: 'no',
+        },
+        'brain-injury-details': {
+          injuryDetail: 'some details',
+          supportNeeded: 'no',
+          supportDetail: '',
+          receivingTreatment: 'yes',
+          treatmentDetail: 'some treatment details',
+          isVulnerable: 'no',
+          vulnerabilityDetail: '',
+          hasDifficultyInteracting: 'no',
+          interactionDetail: '',
+        },
+      },
+    }
+
+    it('removes the brain injury details', () => {
+      expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        'health-needs': {
+          'brain-injury': {
+            hasBrainInjury: 'no',
+          },
+        },
+      })
+    })
+  })
 })

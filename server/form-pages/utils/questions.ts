@@ -669,11 +669,15 @@ export const getQuestions = (name: string) => {
       },
       'brain-injury': {
         hasBrainInjury: {
-          question: 'Do they have a brain injury?',
+          question: `Does ${name} have a brain injury?`,
+          hint: 'This could be as a result of an accident, drug and alcohol use or an inherited or pre-existing condition.',
           answers: yesOrNo,
         },
+      },
+      'brain-injury-details': {
         injuryDetail: {
-          question: 'Enter details of their brain injury and needs, including if they have a formal diagnosis',
+          question: 'Enter details of their brain injury',
+          hint: 'Include if they have a formal diagnosis.',
         },
         supportNeeded: { question: 'Do they need any support as a result of this?', answers: yesOrNo },
         supportDetail: {

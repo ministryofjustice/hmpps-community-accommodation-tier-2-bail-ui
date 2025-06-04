@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class BrainInjuryPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Brain injury details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have a brain injury?`,
       application,
       'health-needs',
       'brain-injury',
@@ -28,31 +28,15 @@ export default class BrainInjuryPage extends ApplyPage {
   }
 
   pageHasBrainInjuryGuidance = (): void => {
-    cy.get('p').contains('This could be as a result of accident')
+    cy.get('p').contains('This could be as a result of an accident')
+    cy.get('[data-testid="brain-injury-guidance"]').should('be.visible')
   }
 
-  describeInjuryAndNeeds = (): void => {
+  confirmBrainInjury = (): void => {
     this.checkRadioByNameAndValue('hasBrainInjury', 'yes')
-    this.getTextInputByIdAndEnterDetails('injuryDetail', 'Has frontal lobe damange')
   }
 
-  describeSupportNeeded = (): void => {
-    this.checkRadioByNameAndValue('supportNeeded', 'yes')
-    this.getTextInputByIdAndEnterDetails('supportDetail', 'Requires regular support')
-  }
-
-  describeTreatment = (): void => {
-    this.checkRadioByNameAndValue('receivingTreatment', 'yes')
-    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'Lots of treatment')
-  }
-
-  describeVulnerability = (): void => {
-    this.checkRadioByNameAndValue('isVulnerable', 'yes')
-    this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: can put themselves in danger')
-  }
-
-  describeDifficultiesInteracting = (): void => {
-    this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
-    this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can misunderstand situations')
+  confirmNoBrainInjury = (): void => {
+    this.checkRadioByNameAndValue('hasBrainInjury', 'no')
   }
 }

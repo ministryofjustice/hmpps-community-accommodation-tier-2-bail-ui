@@ -40,7 +40,7 @@
           }, {
             text: 'Brain injury',
             href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'brain-injury' }),
-            active: (pageName === 'brain-injury')
+            active: (pageName === 'brain-injury') or (pageName === 'brain-injury-details')
           }, {
             text: 'Other health needs',
             href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'other-health' }),

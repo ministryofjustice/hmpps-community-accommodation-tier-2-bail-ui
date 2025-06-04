@@ -1,0 +1,196 @@
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "brain-injury-details" %}
+
+{% block questions %}
+  {% set supportFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'supportDetail',
+          label: {
+            text: page.questions.supportDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set treatmentFollowUp %}
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'treatmentDetail',
+          label: {
+            text: page.questions.treatmentDetail.question,
+            classes: "govuk-label--s"
+          },
+          hint: { text: page.questions.treatmentDetail.hint }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set vulnerabilityFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'vulnerabilityDetail',
+          label: {
+            text: page.questions.vulnerabilityDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  {% set interactionFollowUp %}
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'interactionDetail',
+          label: {
+            text: page.questions.interactionDetail.question,
+            classes: "govuk-label--s"
+          }
+        },
+        fetchContext()
+      )
+    }}
+  {% endset %}
+
+  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+  {{
+      formPageTextArea(
+        {
+          fieldName: 'injuryDetail',
+          label: {
+            text: page.questions.injuryDetail.question,
+            classes: "govuk-label--m"
+          },
+          hint: {
+            text: page.questions.injuryDetail.hint
+          }
+        },
+        fetchContext()
+      )
+    }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "supportNeeded",
+        fieldset: {
+          legend: {
+            text: page.questions.supportNeeded.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: supportFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+    {{
+    formPageRadios(
+      {
+        fieldName: "receivingTreatment",
+        fieldset: {
+          legend: {
+            text: page.questions.receivingTreatment.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: treatmentFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "isVulnerable",
+        fieldset: {
+          legend: {
+            text: page.questions.isVulnerable.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: vulnerabilityFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasDifficultyInteracting",
+        fieldset: {
+          legend: {
+            text: page.questions.hasDifficultyInteracting.question,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+        {
+          value: "yes",
+          text: "Yes",
+          conditional: {
+            html: interactionFollowUp
+          }
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
+      },
+      fetchContext()
+    )
+  }}
+
+{% endblock %}
