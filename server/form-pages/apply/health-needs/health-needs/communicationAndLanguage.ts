@@ -46,14 +46,14 @@ export default class CommunicationAndLanguage implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.hasImpairments) {
-      errors.hasImpairments = `Select if they have any literacy, visual or hearing impairments`
+      errors.hasImpairments = `Select yes if they have any literacy, visual or hearing impairments`
     }
     if (this.body.hasImpairments === 'yes' && !this.body.impairmentsDetail) {
       errors.impairmentsDetail = 'Enter details of their needs'
     }
 
     if (!this.body.requiresInterpreter) {
-      errors.requiresInterpreter = `Select if they need an interpreter`
+      errors.requiresInterpreter = `Select yes if they need an interpreter`
     }
     if (this.body.requiresInterpreter === 'yes' && !this.body.interpretationDetail) {
       errors.interpretationDetail = 'Enter the language they need an interpreter for'
