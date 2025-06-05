@@ -1,7 +1,29 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_health-needs-screen.njk" %}
 {% set pageName = "communication-and-language" %}
 
 {% block questions %}
+
+  {% set guidanceHtml %}
+    <div>
+      <p class="govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-0">
+        <li>about their needs related to any literacy, visual or hearing impairments</li>
+        <li class="govuk-!-margin-bottom-0">if they need an interpreter and what language for</li>
+      </ul>
+    </div>
+  {% endset %}
+
+  {% set hintHtml %}
+    {{
+      govukInsetText({
+        html: guidanceHtml,
+        classes: "guidance-panel govuk-!-margin-top-3"
+      })
+    }}
+  {% endset %}
 
    {{
     formPageRadios(
@@ -13,6 +35,9 @@
             classes: "govuk-fieldset__legend--l",
             isPageHeading: true
           }
+        },
+        hint: {
+          html: hintHtml
         },
         items: [
           {
