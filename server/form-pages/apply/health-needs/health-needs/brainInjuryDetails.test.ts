@@ -14,24 +14,24 @@ describe('BrainInjuryDetails', () => {
         const page = new BrainInjuryDetails({}, application)
 
         it('includes a validation error for _supportNeeded_', () => {
-          expect(page.errors()).toHaveProperty('supportNeeded', `Select if they need any support`)
+          expect(page.errors()).toHaveProperty('supportNeeded', `Select yes if they need any support`)
         })
 
         it('includes a validation error for _receivingTreatment_', () => {
           expect(page.errors()).toHaveProperty(
             'receivingTreatment',
-            `Select if they receive any treatment or medication`,
+            `Select yes if they receive any treatment or medication`,
           )
         })
 
         it('includes a validation error for _isVulnerable_', () => {
-          expect(page.errors()).toHaveProperty('isVulnerable', `Select if they are vulnerable`)
+          expect(page.errors()).toHaveProperty('isVulnerable', `Select yes if they are vulnerable`)
         })
 
         it('includes a validation error for _hasDifficultyInteracting_', () => {
           expect(page.errors()).toHaveProperty(
             'hasDifficultyInteracting',
-            `Select if they have difficulties interacting with other people`,
+            `Select yes if they have difficulties interacting with other people`,
           )
         })
       })
@@ -40,7 +40,7 @@ describe('BrainInjuryDetails', () => {
         const page = new BrainInjuryDetails({}, application)
 
         it('includes a validation error for _injuryDetail_', () => {
-          expect(page.errors()).toHaveProperty('injuryDetail', 'Enter details of their brain injury and needs')
+          expect(page.errors()).toHaveProperty('injuryDetail', 'Enter details of their brain injury')
         })
       })
 

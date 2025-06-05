@@ -697,7 +697,7 @@ export const getQuestions = (name: string) => {
           question: 'Do they have difficulties interacting with other people as a result of their injury?',
           answers: yesOrNo,
         },
-        interactionDetail: { question: 'Enter details of the type of difficulties they have.' },
+        interactionDetail: { question: 'Enter details of the type of difficulties they have' },
       },
       'liaison-and-diversion': {
         liaisonAndDiversionAssessment: {
