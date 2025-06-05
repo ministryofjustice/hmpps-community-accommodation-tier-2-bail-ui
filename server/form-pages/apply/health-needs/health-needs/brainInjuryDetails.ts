@@ -61,32 +61,32 @@ export default class BrainInjuryDetails implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.injuryDetail) {
-      errors.injuryDetail = 'Enter details of their brain injury and needs'
+      errors.injuryDetail = 'Enter details of their brain injury'
     }
 
     if (!this.body.supportNeeded) {
-      errors.supportNeeded = `Select if they need any support`
+      errors.supportNeeded = `Select yes if they need any support`
     }
     if (this.body.supportNeeded === 'yes' && !this.body.supportDetail) {
       errors.supportDetail = 'Enter the type of support needed'
     }
 
     if (!this.body.receivingTreatment) {
-      errors.receivingTreatment = `Select if they receive any treatment or medication`
+      errors.receivingTreatment = `Select yes if they receive any treatment or medication`
     }
     if (this.body.receivingTreatment === 'yes' && !this.body.treatmentDetail) {
       errors.treatmentDetail = 'Enter details about their treatment and medication'
     }
 
     if (!this.body.isVulnerable) {
-      errors.isVulnerable = `Select if they are vulnerable`
+      errors.isVulnerable = `Select yes if they are vulnerable`
     }
     if (this.body.isVulnerable === 'yes' && !this.body.vulnerabilityDetail) {
       errors.vulnerabilityDetail = 'Enter how they are vulnerable'
     }
 
     if (!this.body.hasDifficultyInteracting) {
-      errors.hasDifficultyInteracting = `Select if they have difficulties interacting with other people`
+      errors.hasDifficultyInteracting = `Select yes if they have difficulties interacting with other people`
     }
     if (this.body.hasDifficultyInteracting === 'yes' && !this.body.interactionDetail) {
       errors.interactionDetail = 'Enter the type of difficulties they have'
