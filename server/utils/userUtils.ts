@@ -3,6 +3,7 @@ import { ServiceSection } from 'server/@types/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportsPaths from '../paths/report'
+import config from '../config'
 
 export const sections = {
   applications: {
@@ -34,6 +35,13 @@ export const sections = {
     shortTitle: 'Management information reports',
     href: reportsPaths.report.new.pattern,
   },
+  prisonApplications: {
+    id: 'prison-applications',
+    title: 'View your prison’s applications',
+    description: 'View recently submitted CAS-2 bail applications from your prison.',
+    shortTitle: 'View your prison’s applications',
+    href: applyPaths.applications.prison.pattern,
+  },
 }
 
 export const hasRole = (userRoles: Array<string>, role: string): boolean => {
@@ -46,6 +54,9 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER') || hasRole(userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
     items.push(sections.applications)
     items.push(sections.newApplication)
+  }
+  if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER') && config.flags.enablePrisonDashboard) {
+    items.push(sections.prisonApplications)
   }
   if (hasRole(userRoles, 'CAS2_ADMIN')) {
     items.push(sections.submittedApplications)
