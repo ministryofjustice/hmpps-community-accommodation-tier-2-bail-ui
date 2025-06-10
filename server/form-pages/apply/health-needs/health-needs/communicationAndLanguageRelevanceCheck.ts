@@ -52,4 +52,30 @@ export default class CommunicationAndLanguageRelevanceCheck implements TaskListP
 
     return errors
   }
+
+  response() {
+    const response: Record<string, string> = {}
+
+    response[this.questions.hasCommunicationAndLanguageNeeds.question] =
+      this.questions.hasCommunicationAndLanguageNeeds.answers[this.body.hasCommunicationAndLanguageNeeds]
+
+    if (this.body.hasCommunicationAndLanguageNeeds === 'yes') {
+      const detailsPageQuestions = getQuestions(this.personName)['health-needs']['communication-and-language']
+      const detailsPageData = this.application.data['health-needs']['communication-and-language']
+
+      response[detailsPageQuestions.hasImpairments.question] =
+        detailsPageQuestions.hasImpairments.answers[detailsPageData.hasImpairments as YesOrNo]
+      if (detailsPageData.hasImpairments === 'yes') {
+        response[detailsPageQuestions.impairmentsDetail.question] = detailsPageData.impairmentsDetail
+      }
+
+      response[detailsPageQuestions.requiresInterpreter.question] =
+        detailsPageQuestions.requiresInterpreter.answers[detailsPageData.requiresInterpreter as YesOrNo]
+      if (detailsPageData.requiresInterpreter === 'yes') {
+        response[detailsPageQuestions.interpretationDetail.question] = detailsPageData.interpretationDetail
+      }
+    }
+
+    return response
+  }
 }
