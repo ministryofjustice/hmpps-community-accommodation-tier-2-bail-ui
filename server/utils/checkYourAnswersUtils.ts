@@ -319,5 +319,5 @@ export const removeAnyOldPageKeys = (questions: any, task: string, applicationPa
 }
 
 const pagesWeNeverWantToPresent = (key: string): boolean => {
-  return ['brain-injury-details'].includes(key)
+  return ['brain-injury-details', 'communication-and-language'].includes(key)
 }
