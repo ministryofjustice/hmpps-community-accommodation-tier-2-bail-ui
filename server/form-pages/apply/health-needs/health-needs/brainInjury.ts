@@ -51,4 +51,43 @@ export default class BrainInjury implements TaskListPage {
 
     return errors
   }
+
+  response() {
+    const response: Record<string, string> = {}
+
+    response[this.questions.hasBrainInjury.question] = this.questions.hasBrainInjury.answers[this.body.hasBrainInjury]
+
+    if (this.body.hasBrainInjury === 'yes') {
+      const detailsPageQuestions = getQuestions(this.personName)['health-needs']['brain-injury-details']
+      const detailsPageData = this.application.data['health-needs']['brain-injury-details']
+
+      response[detailsPageQuestions.injuryDetail.question] = detailsPageData.injuryDetail
+
+      response[detailsPageQuestions.supportNeeded.question] =
+        detailsPageQuestions.supportNeeded.answers[detailsPageData.supportNeeded as YesOrNo]
+      if (detailsPageData.supportNeeded === 'yes') {
+        response[detailsPageQuestions.supportDetail.question] = detailsPageData.supportDetail
+      }
+
+      response[detailsPageQuestions.receivingTreatment.question] =
+        detailsPageQuestions.receivingTreatment.answers[detailsPageData.receivingTreatment as YesOrNo]
+      if (detailsPageData.receivingTreatment === 'yes') {
+        response[detailsPageQuestions.treatmentDetail.question] = detailsPageData.treatmentDetail
+      }
+
+      response[detailsPageQuestions.isVulnerable.question] =
+        detailsPageQuestions.isVulnerable.answers[detailsPageData.isVulnerable as YesOrNo]
+      if (detailsPageData.isVulnerable === 'yes') {
+        response[detailsPageQuestions.vulnerabilityDetail.question] = detailsPageData.vulnerabilityDetail
+      }
+
+      response[detailsPageQuestions.hasDifficultyInteracting.question] =
+        detailsPageQuestions.hasDifficultyInteracting.answers[detailsPageData.hasDifficultyInteracting as YesOrNo]
+      if (detailsPageData.hasDifficultyInteracting === 'yes') {
+        response[detailsPageQuestions.interactionDetail.question] = detailsPageData.interactionDetail
+      }
+    }
+
+    return response
+  }
 }

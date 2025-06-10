@@ -35,9 +35,8 @@ export default class CheckYourAnswersPage extends ApplyPage {
     })
   }
 
-  shouldShowQuestionsAndAnswers(task: string, pagesWithQuestionsToExclude: Array<string> = []) {
-    const pagesWithoutQuestions = ['add-acct-note']
-    const pagesToExclude = pagesWithoutQuestions.concat(pagesWithQuestionsToExclude)
+  shouldShowQuestionsAndAnswers(task: string) {
+    const pagesToExclude = ['add-acct-note', 'brain-injury-details', 'communication-and-language']
     const pageKeys = Object.keys(this.application.data[task])
     pageKeys.forEach(pageKey => {
       if (pagesToExclude.includes(pageKey)) {
