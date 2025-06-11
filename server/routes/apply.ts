@@ -22,6 +22,10 @@ export default function applyRoutes(controllers: Controllers, router: Router, se
     { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
   )
 
+  get(paths.applications.prison.pattern, applicationsController.prisonApplications(), {
+    auditEvent: 'VIEW_PRISON_DASHBOARD',
+  })
+
   get(paths.applications.applicationOrigin.pattern, applicationsController.applicationOrigin(), {
     auditEvent: 'VIEW_APPLICATION_ORIGIN',
   })

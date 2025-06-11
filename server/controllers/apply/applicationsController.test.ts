@@ -88,6 +88,22 @@ describe('applicationsController', () => {
     })
   })
 
+  describe('prisonApplications', () => {
+    it('renders the prison applications page', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.prisonApplications()
+
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
+        pageHeading: 'All CAS-2 Bail applications',
+      })
+    })
+  })
+
   describe('show', () => {
     describe('when application is submitted', () => {
       it('renders the submitted view', async () => {
