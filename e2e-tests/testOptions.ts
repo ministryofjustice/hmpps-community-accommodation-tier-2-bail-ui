@@ -9,11 +9,6 @@ export type TestOptions = {
     name: string
     nomsNumber: string
   }
-  lcaUser: {
-    name: string
-    username: string
-    password: string
-  }
   adminUser: {
     name: string
     username: string

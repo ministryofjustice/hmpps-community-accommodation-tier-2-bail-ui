@@ -35,14 +35,6 @@ export default base.extend<TestOptions>({
     },
     { option: true },
   ],
-  lcaUser: [
-    {
-      name: 'Licence Case-admin',
-      username: process.env.CAS2_LCA_USERNAME as string,
-      password: process.env.CAS2_LCA_PASSWORD as string,
-    },
-    { option: true },
-  ],
   adminUser: [
     {
       name: 'CAS2 admin',
