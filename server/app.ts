@@ -48,7 +48,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(setUpAuthentication())
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
-  app.use(setUpCurrentUser())
+  app.use(setUpCurrentUser(services.userService))
 
   app.use(setUpMaintenancePageRedirect())
   app.use((req, res, next) => {

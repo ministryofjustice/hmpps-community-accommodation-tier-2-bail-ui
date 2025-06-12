@@ -67,6 +67,6 @@ describe('populateCurrentUser', () => {
 
     await populateCurrentUser(userService)(request, response, next)
 
-    expect(response.locals.user.roles).toEqual(['role_1', 'role_2'])
+    expect(response.locals.user.userRoles).toEqual(['1', '2'])
   })
 })
