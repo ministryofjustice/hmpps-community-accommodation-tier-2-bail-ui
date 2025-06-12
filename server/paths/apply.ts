@@ -9,10 +9,13 @@ const appendToListPath = pagesPath.path('/appendToList')
 
 const removeFromListPath = pagesPath.path(':index/removeFromList')
 
+const prisonDashboardPath = applicationsPath.path('prison')
+
 const paths = {
   applications: {
     create: applicationsPath.path('create'),
     index: applicationsPath,
+    prison: prisonDashboardPath,
     searchByPrisonNumber: applicationsPath.path('search-by-prison-number'),
     searchByCrn: applicationsPath.path('search-by-crn'),
     unauthorisedCourtBailApplication: applicationsPath.path('unauthorised-court-bail-application'),

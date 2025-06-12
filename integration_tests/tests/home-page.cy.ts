@@ -37,7 +37,7 @@ context('Home', () => {
   })
 
   //  Scenario: viewing the home page as a referrer
-  it('shows the referrer cards', () => {
+  it('shows the court bail referrer cards', () => {
     // Given I am logged in as a referrer
     cy.task('stubSignIn', { roles: ['ROLE_CAS2_COURT_BAIL_REFERRER'] })
     cy.task('stubAuthUser')
@@ -49,6 +49,27 @@ context('Home', () => {
 
     //  Then see the correct cards
     page.shouldShowCards(['applications', 'new-application'])
+    page.shouldNotShowCards(['prison-applications'])
+
+    //  And I see the links to the interview question sheets
+    page.shouldShowInterviewQuestionLinks()
+
+    //  And I see the sign out button
+    page.shouldShowSignOutButton()
+  })
+
+  it('shows the prison bail referrer cards', () => {
+    // Given I am logged in as a referrer
+    cy.task('stubSignIn', { roles: ['ROLE_CAS2_PRISON_BAIL_REFERRER'] })
+    cy.task('stubAuthUser')
+    cy.signIn()
+
+    //  When I visit the home page
+    HomePage.visit()
+    const page = Page.verifyOnPage(HomePage)
+
+    //  Then see the correct cards
+    page.shouldShowCards(['applications', 'new-application', 'prison-applications'])
 
     //  And I see the links to the interview question sheets
     page.shouldShowInterviewQuestionLinks()

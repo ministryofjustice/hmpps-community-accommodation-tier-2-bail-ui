@@ -41,6 +41,14 @@ export default class ApplicationsController {
     }
   }
 
+  prisonApplications(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      return res.render('applications/prison-applications', {
+        pageHeading: 'All CAS-2 Bail applications',
+      })
+    }
+  }
+
   show(): RequestHandler {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
