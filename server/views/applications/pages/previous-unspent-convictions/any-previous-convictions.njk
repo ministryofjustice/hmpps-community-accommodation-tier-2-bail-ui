@@ -1,59 +1,46 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% extends "../layout.njk" %}
 
-  {% set whenIsAConvictionSpentGuidanceHtml %}
-    <p>Most convictions or cautions become ‘spent’ after a specific amount of time. This might be after a few months or years, or straight away.</p>
-
-    <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">Check if the applicant’s convictions or cautions are spent (opens in a new tab).</a>
-  {% endset %}
-
-  {% set unspentConvictionsGuidanceHtml %}
-    <p>Add any:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>active community orders or sentences that the applicant is currently serving</li>
-      <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
-    </ul>
-
-    <p>You only need to add any convictions that are unspent and meet one or more of the following criteria:</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-
-      <li>are relevant to the charges the applicant is being held for</li>
-      <li>
-        relate to any of the following categories:
-        <ul class="govuk-list govuk-list--bullet">
-          <li>arson</li>
-          <li>domestic abuse</li>
-          <li>drugs</li>
-          <li>hate-related attitudes</li>
-          <li>stalking and harassment</li>
-          <li>violence</li>
-          <li>weapons and firearms</li>
-        </ul>
-      </li>
-      <li>might raise concerns towards other adults and children</li>
-    </ul>
-
-    <p>This is because they are relevant to living in shared accommodation.</p>
-
-    {{
-      govukDetails({
-        summaryText: "When is a conviction spent?",
-        html: whenIsAConvictionSpentGuidanceHtml
-      })
-    }}
-  {% endset %}
+{% set exampleHtml %}
+  <p>Sarah Jones is currently serving a community order while on probation for being charged with aggravated assault in 2024.</p>
+  <p>She also has an unspent conviction for possession of a prohibited knife for which she completed a sentence in 2021.</p>
+  <p>She has a spent conviction for shoplifting from 2015, for which she received an absolute discharged.</p>
+  <p class="govuk-!-margin-bottom-1">You should add both the community order and the conviction because they:</p>
+  <ul class="govuk-!-margin-top-0">
+    <li>are unspent</li>
+    <li>relate to violence and weapons - which are two relevant categories</li>
+  </ul>
+  <p class="govuk-!-margin-bottom-1">Do not add the shoplifting conviction because it:</p>
+  <ul class="govuk-!-margin-top-0">
+    <li>is spent</li>
+    <li>does not relate to any of the relevant charges</li>
+  </ul>
+{% endset %}
 
 {% block questions %}
 
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
+  <p>Previous unspent convictions include any:</p>
+    <ul>
+      <li>active community orders or sentences that the applicant is currently serving</li>
+      <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
+    </ul>
+
+    {{ govukWarningText({
+      text: "Spent convictions are protected by law and should not be disclosed.",
+      iconFallbackText: "Warning"
+    }) }}
+
+ {% include "../../../partials/unspentConvictionsGuidance.njk" %}
+
   {{
-    govukInsetText({
-      html: unspentConvictionsGuidanceHtml,
-      classes: "guidance-panel"
+    govukDetails({
+      summaryText: 'See an example of what convictions to add',
+      html: exampleHtml
     })
   }}
 
