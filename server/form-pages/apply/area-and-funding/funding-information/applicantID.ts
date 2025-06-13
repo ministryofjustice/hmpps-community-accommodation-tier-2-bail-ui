@@ -46,7 +46,7 @@ export default class ApplicantID implements TaskListPage {
   }
 
   next() {
-    if (this.body.idDocuments.includes('none')) {
+    if (this.body.idDocuments?.includes('none')) {
       return 'alternative-applicant-id'
     }
     return ''
