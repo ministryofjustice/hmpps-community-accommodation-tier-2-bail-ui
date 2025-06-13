@@ -8,6 +8,10 @@
 //    And I am logged in
 //    And I am on the "any previous convictions" page
 //
+//  Scenario: view any previous convictions page
+//    Then I see the "unspent convictions" page
+//    And I see the guidance on unspent convictions
+//
 //  Scenario: complete page and navigate to next page
 //    When I continue to the next task / page
 //    Then I see the "unspent convictions" page
@@ -48,6 +52,16 @@ context('Visit "Offences and concerns" section', () => {
     // And I am on the any previous convictions page
     // --------------------------------
     AnyPreviousConvictionsPage.visit(this.application)
+  })
+
+  //  Scenario: view any previous convictions page
+
+  it('shows the page', function test() {
+    //  Then I see the "unspent convictions" page
+    const page = Page.verifyOnPage(AnyPreviousConvictionsPage, this.application)
+
+    //  And I see the guidance on unspent convictions
+    page.hasGuidance()
   })
 
   //  Scenario: complete page and navigate to next page
