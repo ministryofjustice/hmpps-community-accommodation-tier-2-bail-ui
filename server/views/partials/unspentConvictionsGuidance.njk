@@ -1,0 +1,56 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+<div class="nhsuk-do-dont-list">
+  <h2 class="nhsuk-do-dont-list__label govuk-!-font-size-19">Add any unspent convictions that meet one or more of the following criteria:</h2>
+  <ul class="nhsuk-list nhsuk-list--tick" role="list">
+    <li> <svg class="nhsuk-icon nhsuk-icon__tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" width="34" height="34">
+        <path stroke-width="4" stroke-linecap="round" d="M18.4 7.8l-8.5 8.4L5.6 12" stroke="#007f3b"></path>
+      </svg>they are relevant to the charges the applicant is being held for
+    </li>
+    <li> <svg class="nhsuk-icon nhsuk-icon__tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" width="34" height="34">
+        <path stroke-width="4" stroke-linecap="round" d="M18.4 7.8l-8.5 8.4L5.6 12" stroke="#007f3b"></path>
+      </svg>they relate to the following categories:
+      <ul>
+        <li>arson</li>
+        <li>domestic abuse</li>
+        <li>drugs</li>
+        <li>hate-related attitudes</li>
+        <li>stalking and harassment</li>
+        <li>violence</li>
+        <li>weapons and firearms</li>
+      </ul>
+    </li>
+    <li> <svg class="nhsuk-icon nhsuk-icon__tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" width="34" height="34">
+        <path stroke-width="4" stroke-linecap="round" d="M18.4 7.8l-8.5 8.4L5.6 12" stroke="#007f3b"></path>
+      </svg>they might raise concerns towards other adults and children
+    </li>
+    <li> <svg class="nhsuk-icon nhsuk-icon__tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" width="34" height="34">
+        <path stroke-width="4" stroke-linecap="round" d="M18.4 7.8l-8.5 8.4L5.6 12" stroke="#007f3b"></path>
+      </svg>where the applicant is currently serving a sentence
+    </li>
+  </ul>
+</div>
+
+<div class="nhsuk-do-dont-list">
+  <h2 class="nhsuk-do-dont-list__label govuk-!-font-size-19">Do not add any:</h2>
+  <ul class="nhsuk-list nhsuk-list--cross" role="list">
+    <li> <svg class="nhsuk-icon nhsuk-icon__cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
+        <path d="M17 18.5c-.4 0-.8-.1-1.1-.4l-10-10c-.6-.6-.6-1.6 0-2.1.6-.6 1.5-.6 2.1 0l10 10c.6.6.6 1.5 0 2.1-.3.3-.6.4-1 .4z" fill="#d5281b"></path>
+        <path d="M7 18.5c-.4 0-.8-.1-1.1-.4-.6-.6-.6-1.5 0-2.1l10-10c.6-.6 1.5-.6 2.1 0 .6.6.6 1.5 0 2.1l-10 10c-.3.3-.6.4-1 .4z" fill="#d5281b"></path>
+      </svg><span class="govuk-!-font-weight-bold">spent</span> convictions
+    </li>
+    <li> <svg class="nhsuk-icon nhsuk-icon__cross" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
+        <path d="M17 18.5c-.4 0-.8-.1-1.1-.4l-10-10c-.6-.6-.6-1.6 0-2.1.6-.6 1.5-.6 2.1 0l10 10c.6.6.6 1.5 0 2.1-.3.3-.6.4-1 .4z" fill="#d5281b"></path>
+        <path d="M7 18.5c-.4 0-.8-.1-1.1-.4-.6-.6-.6-1.5 0-2.1l10-10c.6-.6 1.5-.6 2.1 0 .6.6.6 1.5 0 2.1l-10 10c-.3.3-.6.4-1 .4z" fill="#d5281b"></path>
+      </svg>unspent convictions that do not meet any of the criteria listed
+    </li>
+  </ul>
+
+    {{
+    govukDetails({
+      summaryText: 'How to check if a conviction is spent',
+      html: '<p>You can <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">check if the applicant’s convictions or cautions are spent (opens in a new tab).</a></p>',
+      classes: "govuk-!-margin-top-4"
+    })
+  }}
+</div>
