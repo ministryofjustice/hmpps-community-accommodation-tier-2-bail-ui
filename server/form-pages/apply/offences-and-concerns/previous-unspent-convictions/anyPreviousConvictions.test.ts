@@ -9,7 +9,7 @@ describe('hasAnyPreviousConvictions', () => {
     it('personalises the page title', () => {
       const page = new AnyPreviousConvictions({}, application)
 
-      expect(page.title).toEqual('Previous unspent convictions for Roger Smith')
+      expect(page.title).toEqual('Check any previous unspent convictions')
     })
   })
 
@@ -71,7 +71,7 @@ describe('hasAnyPreviousConvictions', () => {
       it('returns an error', () => {
         const page = new AnyPreviousConvictions({}, application)
         expect(page.errors()).toEqual({
-          hasAnyPreviousConvictions: 'Confirm whether the applicant has any previous unspent convictions',
+          hasAnyPreviousConvictions: 'Select if they have any previous unspent convictions',
         })
       })
     })
@@ -83,7 +83,7 @@ describe('hasAnyPreviousConvictions', () => {
           application,
         )
         expect(page.errors()).toEqual({
-          hasAnyPreviousConvictions: 'Confirm whether the applicant has any previous unspent convictions',
+          hasAnyPreviousConvictions: 'Select if they have any previous unspent convictions',
         })
       })
     })

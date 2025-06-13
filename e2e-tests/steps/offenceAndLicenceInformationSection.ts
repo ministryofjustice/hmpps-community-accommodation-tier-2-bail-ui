@@ -107,15 +107,15 @@ async function completeSeriousHarmRiskLevelsPage(page: Page) {
   await seriousHarmRiskLevelsPage.clickSave()
 }
 
-export const completePreviousUnspentConvictionsTask = async (page: Page, name: string) => {
+export const completePreviousUnspentConvictionsTask = async (page: Page) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add previous unspent convictions')
 
-  await completeAnyPreviousConvictionsPage(page, name)
+  await completeAnyPreviousConvictionsPage(page)
 }
 
-async function completeAnyPreviousConvictionsPage(page: Page, name: string) {
-  const anyPreviousConvictionsPage = await ApplyPage.initialize(page, `Previous unspent convictions for ${name}`)
+async function completeAnyPreviousConvictionsPage(page: Page) {
+  const anyPreviousConvictionsPage = await ApplyPage.initialize(page, `Check any previous unspent convictions`)
   await anyPreviousConvictionsPage.checkRadio('No, they do not have any previous unspent convictions')
   await anyPreviousConvictionsPage.clickSave()
 }
