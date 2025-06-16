@@ -744,9 +744,13 @@ export const getQuestions = (name: string) => {
             casework: 'Case work',
             ndelius: 'NDelius (National probation database)',
             police: 'Police and Safeguarding teams',
-            oasys: 'Previous or current OASys',
+            previousOasys: 'Previous OASys',
+            currentOasys: 'Current OASys',
             other: 'Other',
           },
+        },
+        previousOasysDate: {
+          question: 'Enter date of previous OASys',
         },
         otherSourcesDetail: {
           question: 'Enter other sources (optional)',
@@ -932,9 +936,13 @@ export const getQuestions = (name: string) => {
             casework: 'Case work',
             ndelius: 'NDelius (National probation database)',
             police: 'Police and Safeguarding teams',
-            oasys: 'Previous or current OASys',
+            previousOasys: 'Previous OASys',
+            currentOasys: 'Current OASys',
             other: 'Other',
           },
+        },
+        previousOasysDate: {
+          question: 'Enter date of previous OASys',
         },
         otherSourcesDetail: {
           question: 'Enter other sources (optional)',
