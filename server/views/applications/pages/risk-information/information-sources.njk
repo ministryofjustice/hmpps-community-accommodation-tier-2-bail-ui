@@ -3,6 +3,22 @@
 
 {% block questions %}
 
+  {% set previousOasysFollowUp %}
+      {{ 
+          formPageDateInput( {
+          fieldName: "previousOasysDate",
+          fieldset: {
+              legend: {
+                  text: page.questions.previousOasysDate.question,
+                  classes: "govuk-fieldset__legend--s"
+              }
+          },
+          items: dateFieldValues('previousOasysDate', errors)
+          }, 
+          fetchContext()) 
+      }}
+  {% endset -%}
+
   {% set otherSourcesFollowUp %}
     {{
       formPageTextArea(
@@ -29,7 +45,7 @@
               classes: "govuk-fieldset__legend--l"
             }
           },
-          items: page.items(otherSourcesFollowUp)
+          items: page.items(otherSourcesFollowUp, previousOasysFollowUp)
         }, 
         fetchContext()
     ) 
