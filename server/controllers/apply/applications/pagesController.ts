@@ -52,8 +52,17 @@ export default class PagesController {
       const page = await this.applicationService.initializePage(Page, req, this.dataServices)
 
       try {
-        const next = page.next()
-        await this.applicationService.save(page, req)
+        let next = ''
+        // For the confirm consent page, we need to call page.next() before save because if the answer is 'no', it will be removed on save and we will be unable to calculate the next page
+        if (pageName === 'confirm-consent') {
+          next = page.next()
+          // If there are errors on this page, they will still be handled by the save call
+          await this.applicationService.save(page, req)
+          // For other pages we need to call save and check for errors before we calculate the next page
+        } else {
+          await this.applicationService.save(page, req)
+          next = page.next()
+        }
         if (next) {
           res.redirect(paths.applications.pages.show({ id: req.params.id, task: taskName, page: next }))
         } else {
