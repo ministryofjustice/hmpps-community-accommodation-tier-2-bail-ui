@@ -36,6 +36,17 @@ export const submittedApplicationTableRows = (
   })
 }
 
+export const prisonApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
+  return applications.map(application => {
+    return [
+      nameAnchorElement(application.personName, application.id),
+      textValue(application.nomsNumber),
+      textValue(application.createdByUserName),
+      htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
+    ]
+  })
+}
+
 export const assessmentsTableRows = (applications: Array<Cas2v2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [

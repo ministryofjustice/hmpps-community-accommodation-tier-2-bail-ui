@@ -17,6 +17,7 @@ import {
   submittedApplicationTableRows,
   assessmentsTableRows,
   arePreTaskListTasksIncomplete,
+  prisonApplicationTableRows,
 } from './applicationUtils'
 import {
   getApplicationTimelineEvents,
@@ -80,6 +81,7 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('submittedApplicationTableRows', submittedApplicationTableRows)
   njkEnv.addGlobal('assessmentsTableRows', assessmentsTableRows)
   njkEnv.addGlobal('documentSummaryListRows', documentSummaryListRows)
+  njkEnv.addGlobal('prisonApplicationTableRows', prisonApplicationTableRows)
 
   njkEnv.addGlobal('dateFieldValues', function sendContextToDateFieldValues(fieldName: string, errors: ErrorMessages) {
     return dateFieldValues(fieldName, this.ctx, errors)

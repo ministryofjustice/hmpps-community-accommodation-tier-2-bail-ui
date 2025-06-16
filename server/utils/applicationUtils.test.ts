@@ -6,6 +6,7 @@ import {
   documentSummaryListRows,
   inProgressApplicationTableRows,
   submittedApplicationTableRows,
+  prisonApplicationTableRows,
   assessmentsTableRows,
   getStatusTag,
   arePreTaskListTasksIncomplete,
@@ -95,6 +96,46 @@ describe('submittedApplicationTableRows', () => {
         },
         {
           text: '11 December 2022',
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+    ])
+  })
+})
+
+describe('prisonApplicationTableRows', () => {
+  it('returns an array of applications as table rows', async () => {
+    const applicationA = applicationSummaryFactory.build({ personName: 'A', submittedAt: '2022-12-10T21:47:28Z' })
+    const applicationB = applicationSummaryFactory.build({ personName: 'B', submittedAt: '2022-12-11T21:47:28Z' })
+
+    const result = prisonApplicationTableRows([applicationA, applicationB])
+
+    expect(result).toEqual([
+      [
+        {
+          html: `<a href=/applications/${applicationA.id}/overview data-cy-id="${applicationA.id}">A</a>`,
+        },
+        {
+          text: applicationA.nomsNumber,
+        },
+        {
+          text: applicationA.createdByUserName,
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
+        },
+      ],
+      [
+        {
+          html: `<a href=/applications/${applicationB.id}/overview data-cy-id="${applicationB.id}">B</a>`,
+        },
+        {
+          text: applicationB.nomsNumber,
+        },
+        {
+          text: applicationB.createdByUserName,
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
