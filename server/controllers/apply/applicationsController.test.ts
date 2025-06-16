@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2v2Application as Application } from '@approved-premises/api'
-import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications } from '@approved-premises/ui'
+import { Cas2v2Application as Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { getPage } from '../../utils/applications/getPage'
@@ -30,7 +30,6 @@ jest.mock('../../utils/applications/getPage')
 jest.mock('../../utils/applications/documentUtils')
 jest.mock('../../utils/applications/utils')
 jest.mock('../../utils/viewUtils')
-jest.mock('../../utils/getPaginationDetails')
 
 describe('applicationsController', () => {
   const token = 'SOME_TOKEN'
@@ -47,7 +46,17 @@ describe('applicationsController', () => {
 
   const applications = { inProgress: applicationSummaryFactory.buildList(3), submitted: [] } as GroupedApplications
 
+  const prisonApplications = {
+    data: applicationSummaryFactory.buildList(3),
+    pageNumber: '1',
+    totalPages: '1',
+    totalResults: '3',
+    pageSize: '10',
+  } as PaginatedResponse<Cas2v2ApplicationSummary>
+
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
+
+  applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
 
   beforeEach(() => {
     applicationsController = new ApplicationsController(
@@ -90,8 +99,14 @@ describe('applicationsController', () => {
 
   describe('prisonApplications', () => {
     it('renders the prison applications page', async () => {
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
+      request = createMock<Request>({
+        user: { token },
+        headers: {
+          referer: 'some-referer/',
+        },
+        query: {
+          page: '1',
+        },
       })
 
       const requestHandler = applicationsController.prisonApplications()
@@ -100,6 +115,10 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
         pageHeading: 'All CAS-2 Bail applications',
+        applications: prisonApplications.data,
+        hrefPrefix: '/applications/prison?',
+        pageNumber: 1,
+        totalPages: 1,
       })
     })
   })

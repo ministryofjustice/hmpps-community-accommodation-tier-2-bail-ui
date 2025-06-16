@@ -13,6 +13,7 @@ import { ApplicationService, SubmittedApplicationService } from '../../services'
 import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
+import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { hasRole } from '../../utils/userUtils'
@@ -43,7 +44,19 @@ export default class ApplicationsController {
 
   prisonApplications(): RequestHandler {
     return async (req: Request, res: Response) => {
+      const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}))
+
+      const result = await this.applicationService.getAllByPrison(
+        req.user.token,
+        res.locals.user.activeCaseLoadId,
+        pageNumber,
+      )
+
       return res.render('applications/prison-applications', {
+        applications: result.data,
+        pageNumber: Number(result.pageNumber),
+        totalPages: Number(result.totalPages),
+        hrefPrefix,
         pageHeading: 'All CAS-2 Bail applications',
       })
     }
