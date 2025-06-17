@@ -107,8 +107,16 @@ describe('submittedApplicationTableRows', () => {
 
 describe('prisonApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
-    const applicationA = applicationSummaryFactory.build({ personName: 'A', submittedAt: '2022-12-10T21:47:28Z' })
-    const applicationB = applicationSummaryFactory.build({ personName: 'B', submittedAt: '2022-12-11T21:47:28Z' })
+    const applicationA = applicationSummaryFactory.build({
+      personName: 'A',
+      submittedAt: '2022-12-10T21:47:28Z',
+      applicationOrigin: 'prisonBail',
+    })
+    const applicationB = applicationSummaryFactory.build({
+      personName: 'B',
+      submittedAt: '2022-12-11T21:47:28Z',
+      applicationOrigin: 'prisonBail',
+    })
 
     const result = prisonApplicationTableRows([applicationA, applicationB])
 
@@ -124,6 +132,9 @@ describe('prisonApplicationTableRows', () => {
           text: applicationA.createdByUserName,
         },
         {
+          text: 'Prison bail',
+        },
+        {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
         },
       ],
@@ -136,6 +147,9 @@ describe('prisonApplicationTableRows', () => {
         },
         {
           text: applicationB.createdByUserName,
+        },
+        {
+          text: 'Prison bail',
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',

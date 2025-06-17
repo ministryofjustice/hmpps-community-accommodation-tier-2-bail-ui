@@ -8,6 +8,7 @@ import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
+import { camelCaseToCapitaliseFirstWordAndAddSpaces } from './utils'
 
 export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
@@ -42,6 +43,7 @@ export const prisonApplicationTableRows = (applications: Array<Cas2v2Application
       nameAnchorElement(application.personName, application.id),
       textValue(application.nomsNumber),
       textValue(application.createdByUserName),
+      textValue(camelCaseToCapitaliseFirstWordAndAddSpaces(application.applicationOrigin)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
