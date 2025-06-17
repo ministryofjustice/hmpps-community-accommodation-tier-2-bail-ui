@@ -98,7 +98,12 @@ export default class InformationSources implements TaskListPage {
       : [this.body.informationSources]
 
     let sourceList = ''
+
     sourcesArr.forEach(source => {
+      if (this.isOasys(source)) {
+        sourceList += `Previous or current OASys\r\n`
+        return
+      }
       sourceList += `${this.questions.informationSources.answers[source]}\r\n`
     })
 
@@ -114,5 +119,9 @@ export default class InformationSources implements TaskListPage {
     response[this.questions.otherSourcesDetail.question] = this.body.otherSourcesDetail ?? ''
 
     return response
+  }
+
+  isOasys(value: string): value is typeof value {
+    return value === 'oasys'
   }
 }
