@@ -27,6 +27,57 @@ describe('InformationSources', () => {
         )
       })
     })
+
+    describe('when previous OASys is selected', () => {
+      describe('and no previous OASys date is entered', () => {
+        const body: Partial<InformationSourcesBody> = {
+          informationSources: ['previousOasys'],
+        }
+
+        it('includes a validation error for _previousOasysDate_', () => {
+          const page = new InformationSources(body, application)
+
+          expect(page.errors()).toHaveProperty(
+            'previousOasysDate',
+            'Previous OASys date must include a day, month and year',
+          )
+        })
+      })
+    })
+
+    describe('when previous OASys is selected', () => {
+      describe('and the previous OASys date is not a valid date', () => {
+        const body: Partial<InformationSourcesBody> = {
+          informationSources: ['previousOasys'],
+          'previousOasysDate-year': '1122',
+          'previousOasysDate-month': '13',
+          'previousOasysDate-day': '32',
+        }
+
+        it('includes a validation error for _previousOasysDate_', () => {
+          const page = new InformationSources(body, application)
+
+          expect(page.errors()).toHaveProperty('previousOasysDate', 'Previous OASys date must be a real date')
+        })
+      })
+    })
+
+    describe('when previous OASys is selected', () => {
+      describe('and the previous OASys date is in the future', () => {
+        const body: Partial<InformationSourcesBody> = {
+          informationSources: ['previousOasys'],
+          'previousOasysDate-year': '3000',
+          'previousOasysDate-month': '11',
+          'previousOasysDate-day': '03',
+        }
+
+        it('includes a validation error for _previousOasysDate_', () => {
+          const page = new InformationSources(body, application)
+
+          expect(page.errors()).toHaveProperty('previousOasysDate', 'Previous OASys date must be in the past')
+        })
+      })
+    })
   })
 
   describe('onSave', () => {
@@ -49,7 +100,20 @@ describe('InformationSources', () => {
   describe('response', () => {
     it('returns formatted data', () => {
       const body: Partial<InformationSourcesBody> = {
-        informationSources: ['interview', 'police', 'casework', 'healthcare', 'ndelius', 'nomis', 'oasys', 'other'],
+        informationSources: [
+          'interview',
+          'police',
+          'casework',
+          'healthcare',
+          'ndelius',
+          'nomis',
+          'previousOasys',
+          'currentOasys',
+          'other',
+        ],
+        'previousOasysDate-month': '10',
+        'previousOasysDate-year': '2023',
+        'previousOasysDate-day': '01',
         otherSourcesDetail: 'some other sources',
       }
 
@@ -57,7 +121,8 @@ describe('InformationSources', () => {
 
       expect(page.response()).toEqual({
         'Where did you get the information on concerns about the applicant from?':
-          'In person interview with applicant\r\nPolice and Safeguarding teams\r\nCase work\r\nHealthcare teams\r\nNDelius (National probation database)\r\nNOMIS (National Offender Management Information System)\r\nPrevious or current OASys\r\nOther\r\n',
+          'In person interview with applicant\r\nPolice and Safeguarding teams\r\nCase work\r\nHealthcare teams\r\nNDelius (National probation database)\r\nNOMIS (National Offender Management Information System)\r\nPrevious OASys\r\nCurrent OASys\r\nOther\r\n',
+        'Enter date of previous OASys': '1 October 2023',
         'Enter other sources (optional)': 'some other sources',
       })
     })

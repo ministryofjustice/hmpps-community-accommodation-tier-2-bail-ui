@@ -29,7 +29,9 @@ export default class InformationSourcesPage extends ApplyPage {
 
   completeForm(): void {
     this.checkCheckboxByValue('healthcare')
+    this.checkCheckboxByValue('previousOasys')
     this.checkCheckboxByValue('other')
+    this.completeDateInputs('previousOasysDate', '2022-10-04')
     this.getTextInputByIdAndEnterDetails('otherSourcesDetail', 'some other sources')
   }
 }
