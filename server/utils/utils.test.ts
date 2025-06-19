@@ -1,4 +1,4 @@
-import { convertToTitleCase, initialiseName } from './utils'
+import { convertToTitleCase, initialiseName, camelCaseToCapitaliseFirstWordAndAddSpaces } from './utils'
 
 describe('convert to title case', () => {
   it.each([
@@ -26,5 +26,17 @@ describe('initialise name', () => {
     ['Double barrelled', 'Robert-John Smith-Jones-Wilson', 'R. Smith-Jones-Wilson'],
   ])('%s initialiseName(%s, %s)', (_: string, a: string, expected: string) => {
     expect(initialiseName(a)).toEqual(expected)
+  })
+})
+
+describe('camelCaseToCapitaliseFirstWordAndAddSpaces', () => {
+  it.each([
+    [null, null],
+    ['camelCase', 'Camel case'],
+    ['prisonBail', 'Prison bail'],
+    ['courtBail', 'Court bail'],
+    ['homeDetentionCurfew', 'Home detention curfew'],
+  ])('camelCaseToCapitaliseFirstWordAndAddSpaces(%s, %s)', (a: string, expected: string) => {
+    expect(camelCaseToCapitaliseFirstWordAndAddSpaces(a)).toEqual(expected)
   })
 })

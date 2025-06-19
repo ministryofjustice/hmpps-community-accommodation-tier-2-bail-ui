@@ -92,6 +92,30 @@ export const camelToKebabCase = (str: string) => {
 }
 
 /**
+ * Transforms 'camelCase' into 'Camel case'
+ * @param str a string that is formatted in camelCase
+ * @returns string formatted with spaces and capitalisation of first word
+ */
+export const camelCaseToCapitaliseFirstWordAndAddSpaces = (str: string) => {
+  if (!str) return null
+
+  const strWithSpaces = str.replace(/([a-z])([A-Z])/g, '$1 $2')
+  const arr = strWithSpaces.split(' ')
+
+  let formattedStr = ''
+
+  arr.forEach((word, i) => {
+    if (i === 0) {
+      formattedStr += `${word.charAt(0).toUpperCase()}${word.substring(1, word.length)}`
+    } else {
+      formattedStr += ` ${word.charAt(0).toLowerCase()}${word.substring(1, word.length)}`
+    }
+  })
+
+  return formattedStr
+}
+
+/**
  * Substitutes commas in a comma separated list with HTML linebreaks
  * example: "This, is, a, list" --> "This<br>is<br>a<br>list<br>"
  * @param str
