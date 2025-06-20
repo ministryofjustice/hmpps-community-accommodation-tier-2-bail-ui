@@ -14,22 +14,23 @@ describe('UnspentConvictions', () => {
             convictionType: 'stalkingOrHarassment',
             numberOfConvictions: '3',
             currentlyServing: 'yes',
-            safeguarding: 'yes',
-            safeguardingDetail: 'Safeguarding detail',
+            convictionDetails: 'some conviction details',
+            areOtherDetails: 'yes',
+            otherDetails: 'some other detail',
           },
           {
             convictionType: 'arson',
             numberOfConvictions: '2',
             currentlyServing: 'no',
-            safeguarding: 'dontKnow',
-            safeguardingDetail: '',
+            convictionDetails: 'some arson details',
+            areOtherDetails: 'no',
           },
           {
             convictionType: 'drugs',
             numberOfConvictions: '2',
             currentlyServing: 'no',
-            safeguarding: 'no',
-            safeguardingDetail: '',
+            convictionDetails: 'some drug details',
+            areOtherDetails: 'no',
           },
         ],
       },
@@ -56,7 +57,8 @@ describe('UnspentConvictions', () => {
             convictionTypeText: 'Stalking or Harassment',
             numberOfConvictions: '3',
             currentlyServing: 'Yes',
-            safeguarding: 'Safeguarding detail',
+            convictionDetails: 'some conviction details',
+            otherDetails: 'some other detail',
             removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/0/removeFromList?redirectPage=unspent-convictions`,
           },
           {
@@ -65,7 +67,8 @@ describe('UnspentConvictions', () => {
             convictionTypeText: 'Arson',
             numberOfConvictions: '2',
             currentlyServing: 'No',
-            safeguarding: 'Not known',
+            convictionDetails: 'some arson details',
+            otherDetails: 'No',
             removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/1/removeFromList?redirectPage=unspent-convictions`,
           },
           {
@@ -74,7 +77,8 @@ describe('UnspentConvictions', () => {
             convictionTypeText: 'Drugs',
             numberOfConvictions: '2',
             currentlyServing: 'No',
-            safeguarding: 'No',
+            convictionDetails: 'some drug details',
+            otherDetails: 'No',
             removeLink: `/applications/${applicationWithData.id}/tasks/previous-unspent-convictions/pages/unspent-convictions-data/2/removeFromList?redirectPage=unspent-convictions`,
           },
         ])
@@ -98,11 +102,11 @@ describe('UnspentConvictions', () => {
         const page = new UnspentConvictions({}, applicationWithData)
         expect(page.response()).toEqual({
           '<strong class="govuk-tag govuk-tag--blue">Stalking or Harassment</strong><p class="govuk-visually-hidden">conviction information</p>':
-            'Number of convictions: 3\r\nActive sentence: Yes\r\nSafeguarding: Safeguarding detail',
+            'Number of convictions: 3\r\nActive sentence: Yes\r\nConviction details: some conviction details\r\nOther details: some other detail',
           '<strong class="govuk-tag govuk-tag--yellow">Arson</strong><p class="govuk-visually-hidden">conviction information</p>':
-            'Number of convictions: 2\r\nActive sentence: No\r\nSafeguarding: Not known',
+            'Number of convictions: 2\r\nActive sentence: No\r\nConviction details: some arson details\r\nOther details: No',
           '<strong class="govuk-tag govuk-tag--custom-brown">Drugs</strong><p class="govuk-visually-hidden">conviction information</p>':
-            'Number of convictions: 2\r\nActive sentence: No\r\nSafeguarding: No',
+            'Number of convictions: 2\r\nActive sentence: No\r\nConviction details: some drug details\r\nOther details: No',
         })
       })
 
