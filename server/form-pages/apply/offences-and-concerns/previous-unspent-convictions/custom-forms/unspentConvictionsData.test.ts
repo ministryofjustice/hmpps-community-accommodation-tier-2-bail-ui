@@ -10,8 +10,9 @@ describe('UnspentConvictionsData', () => {
       convictionType: 'Arson',
       numberOfConvictions: '3',
       currentlyServing: 'yes',
-      safeguarding: 'yes',
-      safeguardingDetail: 'safeguarding detail',
+      convictionDetails: 'some details',
+      areOtherDetails: 'yes',
+      otherDetails: 'other detail',
     },
   ]
 
@@ -37,8 +38,9 @@ describe('UnspentConvictionsData', () => {
     const requiredFields = [
       ['convictionType', 'Select the type of conviction'],
       ['numberOfConvictions', 'Enter the number of convictions of this type'],
-      ['currentlyServing', 'Select if they are serving a sentence for any of these convictions'],
-      ['safeguarding', 'Select if there are any safeguarding details to add, or if it is not known'],
+      ['currentlyServing', 'Select yes if they are serving a sentence'],
+      ['convictionDetails', 'Enter what the convictions were and when they happened'],
+      ['areOtherDetails', 'Select yes if there are other details to add'],
     ]
 
     it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
@@ -48,11 +50,11 @@ describe('UnspentConvictionsData', () => {
       expect(errors[field as keyof typeof errors]).toEqual(message)
     })
 
-    it('includes validation error for safeguardingDetail when not supplied and safeguarding is "yes"', () => {
-      const page = new UnspentConvictionsData({ safeguarding: 'yes' }, application)
+    it('includes validation error for otherDetails when not supplied and areOtherDetails is "yes"', () => {
+      const page = new UnspentConvictionsData({ areOtherDetails: 'yes' }, application)
       const errors = page.errors()
 
-      expect(errors.safeguardingDetail).toEqual('Enter details of the safeguarding measures')
+      expect(errors.otherDetails).toEqual('Enter more details')
     })
   })
 

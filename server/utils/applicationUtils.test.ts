@@ -1,5 +1,6 @@
 import { QuestionAndAnswer } from '@approved-premises/ui'
 
+import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
 import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 
 import {
@@ -10,6 +11,7 @@ import {
   assessmentsTableRows,
   getStatusTag,
   arePreTaskListTasksIncomplete,
+  unspentConvictionsCardRows,
 } from './applicationUtils'
 import submittedApplicationSummary from '../testutils/factories/submittedApplicationSummary'
 
@@ -287,5 +289,54 @@ describe('arePreTaskListTasksIncomplete', () => {
     })
 
     expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
+  })
+
+  describe('unspentConvictionsCardRows', () => {
+    it('returns an array of summary list items for an unspent conviction', () => {
+      const conviction = {
+        convictionTypeTag: null,
+        convictionTypeText: null,
+        numberOfConvictions: '2',
+        currentlyServing: 'Yes',
+        convictionDetails: 'some details about the convictions',
+        otherDetails: 'some other details',
+        removeLink: null,
+      } as UnspentConvictionsUI
+
+      expect(unspentConvictionsCardRows(conviction)).toEqual([
+        {
+          key: {
+            text: 'Number of convictions of the same type',
+          },
+          value: {
+            text: '2',
+          },
+        },
+        {
+          key: {
+            text: 'Are they currently serving a sentence for these convictions?',
+          },
+          value: {
+            text: 'Yes',
+          },
+        },
+        {
+          key: {
+            text: 'What were the convictions and when did they happen?',
+          },
+          value: {
+            text: 'some details about the convictions',
+          },
+        },
+        {
+          key: {
+            text: 'Are there any other details about these convictions to add?',
+          },
+          value: {
+            text: 'some other details',
+          },
+        },
+      ])
+    })
   })
 })
