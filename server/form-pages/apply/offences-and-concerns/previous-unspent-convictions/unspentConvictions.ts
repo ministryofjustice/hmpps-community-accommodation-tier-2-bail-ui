@@ -9,12 +9,13 @@ import { getQuestions } from '../../../utils/questions'
 
 type UnspentConvictionsBody = { convictionsList: string }
 
-type UnspentConvictionsUI = {
+export type UnspentConvictionsUI = {
   convictionTypeTag: string
   convictionTypeText: string
   numberOfConvictions: string
   currentlyServing: string
-  safeguarding: string
+  convictionDetails: string
+  otherDetails: string
   removeLink: string
 }
 
@@ -60,8 +61,9 @@ export default class UnspentConvictions implements TaskListPage {
           convictionTypeTag: this.getOffenceCategoryTag(unspentConviction.convictionType, convictionTypeText),
           convictionTypeText,
           numberOfConvictions: unspentConviction.numberOfConvictions,
-          currentlyServing: this.getCurrentlyServingAnswer(unspentConviction.currentlyServing),
-          safeguarding: this.getSafeguardingAnswer(unspentConviction),
+          currentlyServing: unspentConviction.currentlyServing === 'yes' ? 'Yes' : 'No',
+          convictionDetails: unspentConviction.convictionDetails,
+          otherDetails: unspentConviction.otherDetails || 'No',
           removeLink: `${paths.applications.removeFromList({
             id: application.id,
             task: this.taskName,
@@ -103,9 +105,10 @@ export default class UnspentConvictions implements TaskListPage {
     const response: Record<string, string> = {}
 
     this.unspentConvictions?.forEach(unspentConviction => {
-      const { convictionTypeTag, numberOfConvictions, currentlyServing, safeguarding } = unspentConviction
+      const { convictionTypeTag, numberOfConvictions, currentlyServing, convictionDetails, otherDetails } =
+        unspentConviction
 
-      const unspentConvictionString = `Number of convictions: ${numberOfConvictions}\r\nActive sentence: ${currentlyServing}\r\nSafeguarding: ${safeguarding}`
+      const unspentConvictionString = `Number of convictions: ${numberOfConvictions}\r\nActive sentence: ${currentlyServing}\r\nConviction details: ${convictionDetails}\r\nOther details: ${otherDetails}`
       response[convictionTypeTag] = unspentConvictionString
     })
 
@@ -137,25 +140,5 @@ export default class UnspentConvictions implements TaskListPage {
       default:
         return 'grey'
     }
-  }
-
-  getCurrentlyServingAnswer(answer: Pick<UnspentConvictionsDataBody, 'currentlyServing'>['currentlyServing']): string {
-    if (answer === 'yes') {
-      return 'Yes'
-    }
-
-    return 'No'
-  }
-
-  getSafeguardingAnswer(unspentConviction: UnspentConvictionsDataBody) {
-    if (unspentConviction.safeguardingDetail) {
-      return unspentConviction.safeguardingDetail
-    }
-
-    if (unspentConviction.safeguarding === 'no') {
-      return 'No'
-    }
-
-    return 'Not known'
   }
 }
