@@ -1,4 +1,4 @@
-import type { SelectItem, TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
+import type { SelectItem, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
@@ -9,13 +9,21 @@ export type UnspentConvictionsDataBody = {
   convictionType: string
   numberOfConvictions: string
   currentlyServing: YesOrNo
-  safeguarding: YesNoOrDontKnow
-  safeguardingDetail: string
+  convictionDetails: string
+  areOtherDetails: YesOrNo
+  otherDetails: string
 }
 
 @Page({
   name: 'unspent-convictions-data',
-  bodyProperties: ['convictionType', 'numberOfConvictions', 'currentlyServing', 'safeguarding', 'safeguardingDetail'],
+  bodyProperties: [
+    'convictionType',
+    'numberOfConvictions',
+    'currentlyServing',
+    'convictionDetails',
+    'areOtherDetails',
+    'otherDetails',
+  ],
 })
 export default class UnspentConvictionsData implements TaskListPage {
   personName = nameOrPlaceholderCopy(this.application.person)
@@ -86,13 +94,16 @@ export default class UnspentConvictionsData implements TaskListPage {
       errors.numberOfConvictions = 'Enter the number of convictions of this type'
     }
     if (!this.body.currentlyServing) {
-      errors.currentlyServing = 'Select if they are serving a sentence for any of these convictions'
+      errors.currentlyServing = 'Select yes if they are serving a sentence'
     }
-    if (!this.body.safeguarding) {
-      errors.safeguarding = 'Select if there are any safeguarding details to add, or if it is not known'
+    if (!this.body.convictionDetails) {
+      errors.convictionDetails = 'Enter what the convictions were and when they happened'
     }
-    if (this.body.safeguarding === 'yes' && !this.body.safeguardingDetail) {
-      errors.safeguardingDetail = 'Enter details of the safeguarding measures'
+    if (!this.body.areOtherDetails) {
+      errors.areOtherDetails = 'Select yes if there are other details to add'
+    }
+    if (this.body.areOtherDetails === 'yes' && !this.body.otherDetails) {
+      errors.otherDetails = 'Enter more details'
     }
 
     return errors

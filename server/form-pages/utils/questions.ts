@@ -1046,16 +1046,20 @@ export const getQuestions = (name: string) => {
             no: 'No, they have served their sentence',
           },
         },
-        safeguarding: {
-          question: 'Are there any safeguarding details to add about these convictions?',
+        convictionDetails: {
+          question: 'What were the convictions and when did they happen?',
+          hint: 'For example, Actual Bodily Harm on 20 9 2023.',
+        },
+        areOtherDetails: {
+          question: 'Are there any other details about these convictions to add?',
           hint: 'For example, if there is an active restraining order or a child protection arrangement in place.',
           answers: {
-            ...yesNoOrIDontKnow,
-            dontKnow: 'Not known',
+            yes: 'Yes',
+            no: 'No, there are no other details available',
           },
         },
-        safeguardingDetail: {
-          question: 'Enter details of the safeguarding measures',
+        otherDetails: {
+          question: 'Enter the details',
         },
       },
     },
