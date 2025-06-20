@@ -337,8 +337,9 @@
         "convictionType": "arson",
         "numberOfConvictions": "3",
         "currentlyServing": "no",
-        "safeguarding": "yes",
-        "safeguardingDetail": "safeguarding detail"
+        "convictionDetails": "some conviction details",
+        "areOtherDetails": "yes",
+        "otherDetails": "other details"
       }
     ],
     "unspent-convictions": {}
