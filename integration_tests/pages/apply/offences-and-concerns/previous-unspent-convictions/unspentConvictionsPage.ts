@@ -27,7 +27,8 @@ export default class UnspentConvictionsPage extends ApplyPage {
     cy.get('.govuk-summary-card__title').contains('Arson')
     cy.get('.govuk-summary-list__value').contains('3')
     cy.get('.govuk-summary-list__value').contains('No')
-    cy.get('.govuk-summary-list__value').contains('safeguarding detail')
+    cy.get('.govuk-summary-list__value').contains('some conviction details')
+    cy.get('.govuk-summary-list__value').contains('other details')
   }
 
   clickAddAnotherUnspentConviction(): void {
