@@ -3,12 +3,14 @@ import type {
   Cas2v2ApplicationSummary,
   Cas2v2Application,
 } from '@approved-premises/api'
-import type { QuestionAndAnswer, TableRow } from '@approved-premises/ui'
+import type { QuestionAndAnswer, SummaryListItem, TableRow } from '@approved-premises/ui'
+import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 import { camelCaseToCapitaliseFirstWordAndAddSpaces } from './utils'
+import { summaryListItem } from './formUtils'
 
 export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
@@ -136,4 +138,13 @@ export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): b
     return false
   }
   return true
+}
+
+export const unspentConvictionsCardRows = (unspentConviction: UnspentConvictionsUI): Array<SummaryListItem> => {
+  return [
+    summaryListItem('Number of convictions of the same type', unspentConviction.numberOfConvictions),
+    summaryListItem('Are they currently serving a sentence for these convictions?', unspentConviction.currentlyServing),
+    summaryListItem('What were the convictions and when did they happen?', unspentConviction.convictionDetails),
+    summaryListItem('Are there any other details about these convictions to add?', unspentConviction.otherDetails),
+  ]
 }
