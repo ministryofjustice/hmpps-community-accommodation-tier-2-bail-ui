@@ -6,6 +6,7 @@ import BrainInjury from './brainInjury'
 import BrainInjuryDetails from './brainInjuryDetails'
 import CommunicationAndLanguage from './communicationAndLanguage'
 import HealthNeedsInformation from './healthNeedsInformation'
+import LearningDifficulties from './learningDifficulties'
 import LearningDifficultiesDetails from './learningDifficultiesDetails'
 import MentalHealth from './mentalHealth'
 import OtherHealth from './otherHealth'
@@ -25,6 +26,7 @@ import InformationSources from './informationSources'
     MentalHealth,
     CommunicationAndLanguageRelevanceCheck,
     CommunicationAndLanguage,
+    LearningDifficulties,
     LearningDifficultiesDetails,
     BrainInjury,
     BrainInjuryDetails,

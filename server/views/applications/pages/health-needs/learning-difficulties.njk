@@ -1,0 +1,61 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "./_health-needs-screen.njk" %}
+{% set pageName = "learning-difficulties" %}
+
+{% block questions %}
+
+  {% set learningDifficultiesHintHtml %}
+    <p>For example, conditions such as:</p>
+    <ul class="govuk-body">
+      <li>autism</li>
+      <li>ADHD</li>
+      <li>any learning difficulties that make it hard for applicants to understand or remember information, read or write, or interact with others.</li>
+    </ul>
+
+    {% call govukInsetText({
+      classes: "guidance-panel govuk-!-margin-top-0",
+      attributes: {
+        "data-testid": "learning-difficulties-guidance"
+      }
+    }) %}
+      <p class="govuk-body govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+      <ul class="govuk-body">
+        <li>about their needs and if they have a diagnosis</li>
+        <li>any support they need</li>
+        <li>any treatment and medication they receive</li>
+        <li>any vulnerability they have</li>
+      </ul>
+    {%  endcall %}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasLearningDifficultiesOrNeurodiversityNeeds",
+        hint: {
+          html: learningDifficultiesHintHtml
+        },
+        fieldset: {
+          legend: {
+            text: page.questions.hasLearningDifficultiesOrNeurodiversityNeeds.question,
+            classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+            isPageHeading: true
+          }
+        },  
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
