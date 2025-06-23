@@ -1,5 +1,5 @@
 import * as nunjucks from 'nunjucks'
-import { RadioItem, CheckboxItem, ErrorMessages } from '@approved-premises/ui'
+import { RadioItem, CheckboxItem, ErrorMessages, HtmlItem, TextItem, SummaryListItem } from '@approved-premises/ui'
 
 export const escape = (text: string): string => {
   const escapeFilter = new nunjucks.Environment().getFilter('escape')
@@ -50,4 +50,19 @@ export const dateFieldValues = (fieldName: string, context: Record<string, unkno
       value: context[`${fieldName}-year`],
     },
   ]
+}
+
+export const summaryListItem = (
+  label: string,
+  value: string,
+  renderAs: keyof TextItem | keyof HtmlItem | 'textBlock' = 'text',
+  supressBlank = false,
+): SummaryListItem => {
+  const htmlValue = renderAs === 'textBlock' ? `<span class="govuk-summary-list__textblock">${value}</span>` : value
+  return !supressBlank || value
+    ? {
+        key: { text: label },
+        value: renderAs === 'text' ? { text: value } : { html: htmlValue },
+      }
+    : undefined
 }
