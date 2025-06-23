@@ -8,13 +8,25 @@
 
 {% extends "../layout.njk" %}
 
-{% set safeguardingFollowUpHtml %}
+{% set otherDetailsHintHtml %}
+  <p class="govuk-body govuk-!-margin-bottom-1">For example:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>what happened (excluding names and sensitive information)</li>
+    <li>where it happened (excluding addresses)</li>
+    <li>any weapons used or injuries caused</li>
+  </ul>
+{% endset %}
+
+{% set areOtherDetailsFollowUpHtml %}
   {{
       formPageTextArea(
         {
-          fieldName: "safeguardingDetail",
+          fieldName: "otherDetails",
+          hint: {
+            html: otherDetailsHintHtml
+          },
           label: {
-            text: page.questions.safeguardingDetail.question,
+            text: page.questions.otherDetails.question,
             classes: "govuk-label--s"
           }
         },
@@ -23,60 +35,8 @@
   }}
 {% endset %}
 
-{% set whenIsAConvictionSpentGuidanceHtml %}
-  <p>Most convictions or cautions become ‘spent’ after a specific amount of time. This might be after a few months or years, or straight away.</p>
-
-  <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">Check if the applicant’s convictions or cautions are spent (opens in a new tab).</a>
-{% endset %}
-
-{% set convictionTypesGuidanceHtml %}
-  <p>You only need to add any convictions that are unspent and meet one or more of the following criteria:</p>
-
-  <ul class="govuk-list govuk-list--bullet">
-
-    <li>are relevant to the charges the applicant is being held for</li>
-    <li>
-      relate to any of the following categories:
-      <ul class="govuk-list govuk-list--bullet">
-        <li>arson</li>
-        <li>domestic abuse</li>
-        <li>drugs</li>
-        <li>hate-related attitudes</li>
-        <li>stalking and harassment</li>
-        <li>violence</li>
-        <li>weapons and firearms</li>
-      </ul>
-    </li>
-    <li>might raise concerns towards other adults and children</li>
-  </ul>
-
-  <p>This is because they are relevant to living in shared accommodation.</p>
-{% endset %}
-
 {% set unspentConvictionsGuidanceHtml %}
-  <p>Add any:</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>active community orders or sentences that the applicant is currently serving</li>
-    <li>past offences for which the applicant has been convicted and has already served the sentence for</li>
-  </ul>
-
-  {{
-    govukDetails({
-      summaryText: "Which types of convictions to add",
-      html: convictionTypesGuidanceHtml
-    })
-  }}
-
-  {{
-    govukDetails({
-      summaryText: "When is a conviction spent?",
-      html: whenIsAConvictionSpentGuidanceHtml
-    })
-  }}
-
-  <p class="govuk-!-font-weight-bold">How to add convictions</p>
-
-  <p>Add any convictions of the same type together. You only need to add details about any  safeguarding measures once.</p>
+ {% include "../../../partials/unspentConvictionsGuidanceDetails.njk" %}
 {% endset %}
 
 {% block content %}
@@ -97,11 +57,23 @@
       <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
 
       {{
-        govukInsetText({
-          html: unspentConvictionsGuidanceHtml,
-          classes: "guidance-panel"
+        govukDetails({
+          summaryText: 'Which types of convictions to add',
+          html: unspentConvictionsGuidanceHtml
         })
       }}
+
+      {{
+        govukDetails({
+          summaryText: 'How to check if a conviction is spent',
+          html: '<p>You can <a class="govuk-link" href="https://www.gov.uk/tell-employer-or-college-about-criminal-record/check-your-conviction-caution" target="_blank">check if the applicant’s convictions or cautions are spent (opens in a new tab).</a></p>',
+          classes: "govuk-!-margin-top-4"
+        })
+      }}
+
+      <h2>How to add convictions</h2>
+
+      <p>Add any convictions of the same type together. You only need to add a summary of convictions of the same type once.</p>
 
       <form id="form" action="{{ paths.applications.appendToList({ id: applicationId, task: page.taskName, page: page.name }) }}?_method=PUT" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
@@ -166,33 +138,42 @@
         }}
 
         {{
+          formPageTextArea(
+            {
+              fieldName: "convictionDetails",
+              hint: {
+                html: page.questions.convictionDetails.hint
+              },
+              label: {
+                text: page.questions.convictionDetails.question,
+                classes: "govuk-label--m"
+              }
+            },
+            fetchContext()
+          )
+        }}
+
+        {{
             formPageRadios(
               {
-                fieldName: "safeguarding",
+                fieldName: "areOtherDetails",
                 fieldset: {
                   legend: {
-                    text: page.questions.safeguarding.question,
+                    text: page.questions.areOtherDetails.question,
                     classes: "govuk-fieldset__legend--m"
                   }
-                },
-                hint: {
-                  text: page.questions.safeguarding.hint
                 },
                 items: [
                   {
                     value: "yes",
-                    text: page.questions.safeguarding.answers.yes,
+                    text: page.questions.areOtherDetails.answers.yes,
                     conditional: {
-                      html: safeguardingFollowUpHtml
+                      html: areOtherDetailsFollowUpHtml
                     }
                   },
                   {
                     value: "no",
-                    text: page.questions.safeguarding.answers.no
-                  },
-                  {
-                    value: "dontKnow",
-                    text: page.questions.safeguarding.answers.dontKnow
+                    text: page.questions.areOtherDetails.answers.no
                   }
                 ]
               },

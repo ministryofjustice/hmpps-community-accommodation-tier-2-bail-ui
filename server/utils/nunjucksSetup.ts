@@ -18,6 +18,7 @@ import {
   assessmentsTableRows,
   arePreTaskListTasksIncomplete,
   prisonApplicationTableRows,
+  unspentConvictionsCardRows,
 } from './applicationUtils'
 import {
   getApplicationTimelineEvents,
@@ -115,4 +116,6 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('PhaseBannerUtils', PhaseBannerUtils)
 
   njkEnv.addFilter('assetMap', (url: string) => assetManifest[url] || url)
+
+  njkEnv.addGlobal('unspentConvictionsCardRows', unspentConvictionsCardRows)
 }

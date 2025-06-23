@@ -27,7 +27,8 @@ export default class UnspentConvictionsDataPage extends ApplyPage {
     this.getSelectInputByIdAndSelectAnEntry('convictionType', 'Arson')
     this.getTextInputByIdAndEnterDetails('numberOfConvictions', '4')
     this.checkRadioByNameAndValue('currentlyServing', 'yes')
-    this.checkRadioByNameAndValue('safeguarding', 'yes')
-    this.getTextInputByIdAndEnterDetails('safeguardingDetail', 'detail')
+    this.getTextInputByIdAndEnterDetails('convictionDetails', 'details about convictions')
+    this.checkRadioByNameAndValue('areOtherDetails', 'yes')
+    this.getTextInputByIdAndEnterDetails('otherDetails', 'other details')
   }
 }

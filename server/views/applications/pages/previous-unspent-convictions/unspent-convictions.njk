@@ -27,32 +27,7 @@
               ]
             }
           },
-          rows: [
-            {
-              key: {
-                text: 'Number of convictions of the same type'
-              },
-              value: {
-                text: unspentConviction.numberOfConvictions
-              }
-            },
-            {
-              key: {
-                text: 'Are they currently serving a sentence for these convictions?'
-              },
-              value: {
-                text: unspentConviction.currentlyServing
-              }
-            },
-            {
-              key: {
-                text: 'Are there any safeguarding details to add about these convictions?'
-              },
-              value: {
-                text: unspentConviction.safeguarding
-              }
-            }
-          ]
+          rows: unspentConvictionsCardRows(unspentConviction)
         })
       }}
     {% endfor %}
