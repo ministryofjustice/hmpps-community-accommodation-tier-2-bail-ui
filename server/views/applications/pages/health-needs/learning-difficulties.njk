@@ -1,186 +1,59 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 {% extends "./_health-needs-screen.njk" %}
 {% set pageName = "learning-difficulties" %}
 
 {% block questions %}
 
-  {% set learningNeedsFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'learningNeedsDetail',
-          label: {
-            text: page.questions.learningNeedsDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
+  {% set learningDifficultiesHintHtml %}
+    <p>For example, conditions such as:</p>
+    <ul class="govuk-body">
+      <li>autism</li>
+      <li>ADHD</li>
+      <li>any learning difficulties that make it hard for applicants to understand or remember information, read or write, or interact with others.</li>
+    </ul>
+
+    {% call govukInsetText({
+      classes: "guidance-panel govuk-!-margin-top-0",
+      attributes: {
+        "data-testid": "learning-difficulties-guidance"
+      }
+    }) %}
+      <p class="govuk-body govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+      <ul class="govuk-body">
+        <li>about their needs and if they have a diagnosis</li>
+        <li>any support they need</li>
+        <li>any treatment and medication they receive</li>
+        <li>any vulnerability they have</li>
+      </ul>
+    {%  endcall %}
   {% endset %}
 
-  {% set supportFollowUp %}
   {{
-      formPageTextArea(
-        {
-          fieldName: 'supportDetail',
-          label: {
-            text: page.questions.supportDetail.question,
-            classes: "govuk-label--s"
-          }
+    formPageRadios(
+      {
+        fieldName: "hasLearningDifficultiesOrNeurodiversityNeeds",
+        hint: {
+          html: learningDifficultiesHintHtml
         },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set treatmentFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'treatmentDetail',
-          label: {
-            text: page.questions.treatmentDetail.question,
-            classes: "govuk-label--s"
+        fieldset: {
+          legend: {
+            text: page.questions.hasLearningDifficultiesOrNeurodiversityNeeds.question,
+            classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6",
+            isPageHeading: true
+          }
+        },  
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
           },
-          hint: { text: page.questions.treatmentDetail.hint }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  {% set vulnerabilityFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'vulnerabilityDetail',
-          label: {
-            text: page.questions.vulnerabilityDetail.question,
-            classes: "govuk-label--s"
+          {
+            value: "no",
+            text: "No"
           }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
-
-  <p class="govuk-body guidance">
-    Neurodiversity covers Autism, ADHD, ADD, Dyslexia, Dyscalculia and Dyspraxia.
-  </p>
-
-  <p class="govuk-body guidance">
-    This can overlap with learning difficulties. For example, they might find it hard to understand or remember information, read or write, or interact with others.
-  </p>
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasLearningNeeds",
-        fieldset: {
-          legend: {
-            text: page.questions.hasLearningNeeds.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: learningNeedsFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "needsSupport",
-        fieldset: {
-          legend: {
-            text: page.questions.needsSupport.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: supportFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "receivesTreatment",
-        fieldset: {
-          legend: {
-            text: page.questions.receivesTreatment.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: treatmentFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "isVulnerable",
-        fieldset: {
-          legend: {
-            text: page.questions.isVulnerable.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: vulnerabilityFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
+        ]
       },
       fetchContext()
     )

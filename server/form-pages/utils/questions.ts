@@ -647,11 +647,16 @@ export const getQuestions = (name: string) => {
         interpretationDetail: { question: 'What language do they need an interpreter for?' },
       },
       'learning-difficulties': {
-        hasLearningNeeds: {
-          question: 'Do they have any needs relating to learning difficulties or neurodiversity?',
+        hasLearningDifficultiesOrNeurodiversityNeeds: {
+          question: `Does ${name} have any learning difficulties or neurodiversity needs?`,
           answers: yesOrNo,
         },
-        learningNeedsDetail: { question: 'Enter details of their needs, including if they have a formal diagnosis' },
+      },
+      'learning-difficulties-details': {
+        learningNeedsDetail: {
+          question: 'Enter details of their needs',
+          hint: 'Include if they have a formal diagnosis.',
+        },
         needsSupport: {
           question: 'Do they need any support as a result of this?',
           answers: yesOrNo,

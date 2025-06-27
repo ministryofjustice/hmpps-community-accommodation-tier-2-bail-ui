@@ -6,35 +6,19 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type LearningDifficultiesBody = {
-  hasLearningNeeds: YesOrNo
-  learningNeedsDetail: string
-  needsSupport: YesOrNo
-  supportDetail: string
-  receivesTreatment: YesOrNo
-  treatmentDetail: string
-  isVulnerable: YesOrNo
-  vulnerabilityDetail: string
+  hasLearningDifficultiesOrNeurodiversityNeeds: YesOrNo
 }
 
 @Page({
   name: 'learning-difficulties',
-  bodyProperties: [
-    'hasLearningNeeds',
-    'learningNeedsDetail',
-    'needsSupport',
-    'supportDetail',
-    'receivesTreatment',
-    'treatmentDetail',
-    'isVulnerable',
-    'vulnerabilityDetail',
-  ],
+  bodyProperties: ['hasLearningDifficultiesOrNeurodiversityNeeds'],
 })
 export default class LearningDifficulties implements TaskListPage {
-  documentTitle = 'Learning difficulties and neurodiversity needs details for the person'
+  documentTitle = 'Does the applicant have any learning difficulties or neurodiversity needs?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Learning difficulties and neurodiversity needs details for ${this.personName}`
+  title = `Does ${this.personName} have any learning difficulties or neurodiversity needs?`
 
   questions = getQuestions(this.personName)['health-needs']['learning-difficulties']
 
@@ -52,58 +36,56 @@ export default class LearningDifficulties implements TaskListPage {
   }
 
   next() {
+    if (this.body.hasLearningDifficultiesOrNeurodiversityNeeds === 'yes') {
+      return 'learning-difficulties-details'
+    }
     return 'brain-injury'
   }
 
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.hasLearningNeeds) {
-      errors.hasLearningNeeds = 'Select if they have any needs relating to learning difficulties or neurodiversity'
-    }
-    if (this.body.hasLearningNeeds === 'yes' && !this.body.learningNeedsDetail) {
-      errors.learningNeedsDetail = 'Enter details of their needs'
-    }
-
-    if (!this.body.needsSupport) {
-      errors.needsSupport = 'Select if they need any support'
-    }
-    if (this.body.needsSupport === 'yes' && !this.body.supportDetail) {
-      errors.supportDetail = 'Enter the type of support needed'
-    }
-
-    if (!this.body.receivesTreatment) {
-      errors.receivesTreatment = 'Select if they receive any treatment'
-    }
-    if (this.body.receivesTreatment === 'yes' && !this.body.treatmentDetail) {
-      errors.treatmentDetail = 'Enter details about their treatment'
-    }
-
-    if (!this.body.isVulnerable) {
-      errors.isVulnerable = 'Select if they are vulnerable'
-    }
-    if (this.body.isVulnerable === 'yes' && !this.body.vulnerabilityDetail) {
-      errors.vulnerabilityDetail = 'Enter how they are vulnerable'
+    if (!this.body.hasLearningDifficultiesOrNeurodiversityNeeds) {
+      errors.hasLearningDifficultiesOrNeurodiversityNeeds =
+        'Select yes if they have any learning difficulties or neurodiversity needs'
     }
 
     return errors
   }
 
-  onSave(): void {
-    if (this.body.hasLearningNeeds !== 'yes') {
-      delete this.body.learningNeedsDetail
+  response() {
+    const response: Record<string, string> = {}
+
+    response[this.questions.hasLearningDifficultiesOrNeurodiversityNeeds.question] =
+      this.questions.hasLearningDifficultiesOrNeurodiversityNeeds.answers[
+        this.body.hasLearningDifficultiesOrNeurodiversityNeeds
+      ]
+
+    if (this.body.hasLearningDifficultiesOrNeurodiversityNeeds === 'yes') {
+      const detailsPageQuestions = getQuestions(this.personName)['health-needs']['learning-difficulties-details']
+      const detailsPageData = this.application.data['health-needs']['learning-difficulties-details']
+
+      response[detailsPageQuestions.learningNeedsDetail.question] = detailsPageData.learningNeedsDetail
+
+      response[detailsPageQuestions.needsSupport.question] =
+        detailsPageQuestions.needsSupport.answers[detailsPageData.needsSupport as YesOrNo]
+      if (detailsPageData.needsSupport === 'yes') {
+        response[detailsPageQuestions.supportDetail.question] = detailsPageData.supportDetail
+      }
+
+      response[detailsPageQuestions.receivesTreatment.question] =
+        detailsPageQuestions.receivesTreatment.answers[detailsPageData.receivesTreatment as YesOrNo]
+      if (detailsPageData.receivesTreatment === 'yes') {
+        response[detailsPageQuestions.treatmentDetail.question] = detailsPageData.treatmentDetail
+      }
+
+      response[detailsPageQuestions.isVulnerable.question] =
+        detailsPageQuestions.isVulnerable.answers[detailsPageData.isVulnerable as YesOrNo]
+      if (detailsPageData.isVulnerable === 'yes') {
+        response[detailsPageQuestions.vulnerabilityDetail.question] = detailsPageData.vulnerabilityDetail
+      }
     }
 
-    if (this.body.needsSupport !== 'yes') {
-      delete this.body.supportDetail
-    }
-
-    if (this.body.receivesTreatment !== 'yes') {
-      delete this.body.treatmentDetail
-    }
-
-    if (this.body.isVulnerable !== 'yes') {
-      delete this.body.vulnerabilityDetail
-    }
+    return response
   }
 }

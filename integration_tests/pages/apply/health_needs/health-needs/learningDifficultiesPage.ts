@@ -7,14 +7,14 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class LearningDifficultiesPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Learning difficulties and neurodiversity needs details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have any learning difficulties or neurodiversity needs?`,
       application,
       'health-needs',
       'learning-difficulties',
     )
 
-    pageIsActiveInNavigation('Learning difficulties')
-    this.pageHasNeurodiversityGuidance()
+    pageIsActiveInNavigation('Learning difficulties and neurodiversity')
+    this.pageHasLearningDifficultiesGuidance()
   }
 
   static visit(application: Application): void {
@@ -27,28 +27,16 @@ export default class LearningDifficultiesPage extends ApplyPage {
     )
   }
 
-  pageHasNeurodiversityGuidance = (): void => {
-    cy.get('.guidance').contains('Neurodiversity covers Autism,')
-    cy.get('.guidance').contains('This can overlap with learning difficulties')
+  pageHasLearningDifficultiesGuidance = (): void => {
+    cy.get('li').contains('make it hard for applicants to understand or remember information')
+    cy.get('[data-testid="learning-difficulties-guidance"]').should('be.visible')
   }
 
-  describeNeeds = (): void => {
-    this.checkRadioByNameAndValue('hasLearningNeeds', 'yes')
-    this.getTextInputByIdAndEnterDetails('learningNeedsDetail', 'Has ADHD')
+  confirmLearningDifficulties = (): void => {
+    this.checkRadioByNameAndValue('hasLearningDifficultiesOrNeurodiversityNeeds', 'yes')
   }
 
-  describeSupportNeeds = (): void => {
-    this.checkRadioByNameAndValue('needsSupport', 'yes')
-    this.getTextInputByIdAndEnterDetails('supportDetail', 'Details of support')
-  }
-
-  describeTreatment = (): void => {
-    this.checkRadioByNameAndValue('receivesTreatment', 'yes')
-    this.getTextInputByIdAndEnterDetails('treatmentDetail', 'treatment details')
-  }
-
-  describeVulnerability = (): void => {
-    this.checkRadioByNameAndValue('isVulnerable', 'yes')
-    this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: is prone to risky behaviour')
+  confirmNoLearningDifficulties = (): void => {
+    this.checkRadioByNameAndValue('hasLearningDifficultiesOrNeurodiversityNeeds', 'no')
   }
 }
