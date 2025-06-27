@@ -8,4 +8,8 @@ export default class DashboardPage extends BasePage {
   async makeNewApplication() {
     await this.page.getByText('Start a new application').click()
   }
+
+  async viewPrisonDashboard() {
+    await this.page.getByText('View your prison’s applications').click()
+  }
 }
