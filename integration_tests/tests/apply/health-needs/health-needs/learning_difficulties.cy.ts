@@ -19,7 +19,7 @@
 
 import Page from '../../../../pages/page'
 import BrainInjuryPage from '../../../../pages/apply/health_needs/health-needs/brainInjuryPage'
-import LearningDifficultiesPage from '../../../../pages/apply/health_needs/health-needs/learningDifficultiesPage'
+import LearningDifficultiesDetailsPage from '../../../../pages/apply/health_needs/health-needs/learningDifficultiesDetailsPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 
 context('Visit "learning difficulties" page', () => {
@@ -53,13 +53,13 @@ context('Visit "learning difficulties" page', () => {
 
     // And I am on the learning difficulties page
     // --------------------------------
-    LearningDifficultiesPage.visit(this.application)
+    LearningDifficultiesDetailsPage.visit(this.application)
   })
 
   //  Scenario: view learning difficulties questions
   //    Then I see the "learning difficulties" page
   it('presents learning difficulties page', function test() {
-    Page.verifyOnPage(LearningDifficultiesPage, this.application)
+    Page.verifyOnPage(LearningDifficultiesDetailsPage, this.application)
   })
 
   //  Scenario: complete the page and navigate to next page in health needs task
@@ -67,8 +67,8 @@ context('Visit "learning difficulties" page', () => {
   //    And I continue to the next task / page
   //    Then I see the "brain injury" page
   it('navigates to the next page (brain injury)', function test() {
-    LearningDifficultiesPage.visit(this.application)
-    const page = new LearningDifficultiesPage(this.application)
+    LearningDifficultiesDetailsPage.visit(this.application)
+    const page = new LearningDifficultiesDetailsPage(this.application)
 
     page.describeNeeds()
     page.describeSupportNeeds()

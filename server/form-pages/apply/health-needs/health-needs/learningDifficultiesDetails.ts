@@ -5,7 +5,7 @@ import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
-export type LearningDifficultiesBody = {
+export type LearningDifficultiesDetailsBody = {
   hasLearningNeeds: YesOrNo
   learningNeedsDetail: string
   needsSupport: YesOrNo
@@ -17,7 +17,7 @@ export type LearningDifficultiesBody = {
 }
 
 @Page({
-  name: 'learning-difficulties',
+  name: 'learning-difficulties-details',
   bodyProperties: [
     'hasLearningNeeds',
     'learningNeedsDetail',
@@ -29,26 +29,26 @@ export type LearningDifficultiesBody = {
     'vulnerabilityDetail',
   ],
 })
-export default class LearningDifficulties implements TaskListPage {
+export default class LearningDifficultiesDetails implements TaskListPage {
   documentTitle = 'Learning difficulties and neurodiversity needs details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
   title = `Learning difficulties and neurodiversity needs details for ${this.personName}`
 
-  questions = getQuestions(this.personName)['health-needs']['learning-difficulties']
+  questions = getQuestions(this.personName)['health-needs']['learning-difficulties-details']
 
-  body: LearningDifficultiesBody
+  body: LearningDifficultiesDetailsBody
 
   constructor(
-    body: Partial<LearningDifficultiesBody>,
+    body: Partial<LearningDifficultiesDetailsBody>,
     private readonly application: Application,
   ) {
-    this.body = body as LearningDifficultiesBody
+    this.body = body as LearningDifficultiesDetailsBody
   }
 
   previous() {
-    return 'communication-and-language-relevance-check'
+    return 'learning-difficulties'
   }
 
   next() {

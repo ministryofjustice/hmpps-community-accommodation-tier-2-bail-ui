@@ -1,24 +1,27 @@
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import LearningDifficulties, { LearningDifficultiesBody } from './learningDifficulties'
+import LearningDifficultiesDetails, { LearningDifficultiesDetailsBody } from './learningDifficultiesDetails'
 
-describe('LearningDifficulties', () => {
+describe('LearningDifficultiesDetails', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new LearningDifficulties({}, application)
+      const page = new LearningDifficultiesDetails({}, application)
 
       expect(page.title).toEqual('Learning difficulties and neurodiversity needs details for Roger Smith')
     })
   })
 
-  itShouldHaveNextValue(new LearningDifficulties({}, application), 'brain-injury')
-  itShouldHavePreviousValue(new LearningDifficulties({}, application), 'communication-and-language-relevance-check')
+  itShouldHaveNextValue(new LearningDifficultiesDetails({}, application), 'brain-injury')
+  itShouldHavePreviousValue(
+    new LearningDifficultiesDetails({}, application),
+    'communication-and-language-relevance-check',
+  )
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
-      const page = new LearningDifficulties({}, application)
+      const page = new LearningDifficultiesDetails({}, application)
 
       it('includes a validation error for _hasLearningNeeds_', () => {
         expect(page.errors()).toHaveProperty(
@@ -41,7 +44,7 @@ describe('LearningDifficulties', () => {
     })
 
     describe('when _hasLearningNeeds_ is YES', () => {
-      const page = new LearningDifficulties({ hasLearningNeeds: 'yes' }, application)
+      const page = new LearningDifficultiesDetails({ hasLearningNeeds: 'yes' }, application)
 
       describe('and _learningNeedsDetail_ is UNANSWERED', () => {
         it('includes a validation error for _learningNeedsDetail_', () => {
@@ -51,7 +54,7 @@ describe('LearningDifficulties', () => {
     })
 
     describe('when _needsSupport_ is YES', () => {
-      const page = new LearningDifficulties({ needsSupport: 'yes' }, application)
+      const page = new LearningDifficultiesDetails({ needsSupport: 'yes' }, application)
 
       describe('and _interactionDetail_ is UNANSWERED', () => {
         it('includes a validation error for _supportDetail_', () => {
@@ -61,7 +64,7 @@ describe('LearningDifficulties', () => {
     })
 
     describe('when _receivesTreatment_ is YES', () => {
-      const page = new LearningDifficulties({ receivesTreatment: 'yes' }, application)
+      const page = new LearningDifficultiesDetails({ receivesTreatment: 'yes' }, application)
 
       describe('and _treatmentDetail_ is UNANSWERED', () => {
         it('includes a validation error for _treatmentDetail_', () => {
@@ -71,7 +74,7 @@ describe('LearningDifficulties', () => {
     })
 
     describe('when _isVulnerable_ is YES', () => {
-      const page = new LearningDifficulties({ isVulnerable: 'yes' }, application)
+      const page = new LearningDifficultiesDetails({ isVulnerable: 'yes' }, application)
 
       describe('and _vulnerabilityDetail_ is UNANSWERED', () => {
         it('includes a validation error for _vulnerabilityDetail_', () => {
@@ -83,12 +86,12 @@ describe('LearningDifficulties', () => {
 
   describe('onSave', () => {
     it('removes learning needs data when the question is set to "no"', () => {
-      const body: Partial<LearningDifficultiesBody> = {
+      const body: Partial<LearningDifficultiesDetailsBody> = {
         hasLearningNeeds: 'no',
         learningNeedsDetail: 'Learning needs detail',
       }
 
-      const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficultiesDetails(body, application)
 
       page.onSave()
 
@@ -98,12 +101,12 @@ describe('LearningDifficulties', () => {
     })
 
     it('removes support data when the question is set to "no"', () => {
-      const body: Partial<LearningDifficultiesBody> = {
+      const body: Partial<LearningDifficultiesDetailsBody> = {
         needsSupport: 'no',
         supportDetail: 'support detail',
       }
 
-      const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficultiesDetails(body, application)
 
       page.onSave()
 
@@ -113,12 +116,12 @@ describe('LearningDifficulties', () => {
     })
 
     it('removes treatment data when the question is set to "no"', () => {
-      const body: Partial<LearningDifficultiesBody> = {
+      const body: Partial<LearningDifficultiesDetailsBody> = {
         receivesTreatment: 'no',
         treatmentDetail: 'treatment detail',
       }
 
-      const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficultiesDetails(body, application)
 
       page.onSave()
 
@@ -128,12 +131,12 @@ describe('LearningDifficulties', () => {
     })
 
     it('removes vulnerability data when the question is set to "no"', () => {
-      const body: Partial<LearningDifficultiesBody> = {
+      const body: Partial<LearningDifficultiesDetailsBody> = {
         isVulnerable: 'no',
         vulnerabilityDetail: 'Vulnerability detail',
       }
 
-      const page = new LearningDifficulties(body, application)
+      const page = new LearningDifficultiesDetails(body, application)
 
       page.onSave()
 

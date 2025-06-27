@@ -4,13 +4,13 @@ import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
-export default class LearningDifficultiesPage extends ApplyPage {
+export default class LearningDifficultiesDetailsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
       `Learning difficulties and neurodiversity needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
-      'learning-difficulties',
+      'learning-difficulties-details',
     )
 
     pageIsActiveInNavigation('Learning difficulties')
@@ -22,7 +22,7 @@ export default class LearningDifficultiesPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'health-needs',
-        page: 'learning-difficulties',
+        page: 'learning-difficulties-details',
       }),
     )
   }
