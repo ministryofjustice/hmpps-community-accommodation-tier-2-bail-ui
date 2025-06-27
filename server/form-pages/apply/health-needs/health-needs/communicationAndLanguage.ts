@@ -71,4 +71,8 @@ export default class CommunicationAndLanguage implements TaskListPage {
       delete this.body.interpretationDetail
     }
   }
+
+  response() {
+    return {}
+  }
 }

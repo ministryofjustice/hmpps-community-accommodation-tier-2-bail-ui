@@ -40,7 +40,7 @@ export const getTaskAnswersAsSummaryListItems = (
   const questions = getQuestions(nameOrPlaceholderCopy(application.person))
 
   // Get the page keys stored on the application at creation
-  const applicationPageKeys = getKeysForPages(application, task).filter(key => pagesWeNeverWantToPresent(key) === false)
+  const applicationPageKeys = getKeysForPages(application, task)
 
   // Filter out any keys that are no longer in the latest question schema
   const relevantPagesKeys = removeAnyOldPageKeys(questions, task, applicationPageKeys)
@@ -316,8 +316,4 @@ export const removeAnyOldPageKeys = (questions: any, task: string, applicationPa
     key => latestPageKeys.includes(key) || ['acct', 'alleged-offences', 'unspent-convictions'].includes(key),
   )
   return matchedKeys
-}
-
-const pagesWeNeverWantToPresent = (key: string): boolean => {
-  return ['brain-injury-details', 'communication-and-language'].includes(key)
 }
