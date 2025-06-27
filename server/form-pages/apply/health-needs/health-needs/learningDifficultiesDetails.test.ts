@@ -9,47 +9,27 @@ describe('LearningDifficultiesDetails', () => {
     it('personalises the page title', () => {
       const page = new LearningDifficultiesDetails({}, application)
 
-      expect(page.title).toEqual('Learning difficulties and neurodiversity needs details for Roger Smith')
+      expect(page.title).toEqual('Add learning difficulties and neurodiversity needs details for Roger Smith')
     })
   })
 
   itShouldHaveNextValue(new LearningDifficultiesDetails({}, application), 'brain-injury')
-  itShouldHavePreviousValue(
-    new LearningDifficultiesDetails({}, application),
-    'communication-and-language-relevance-check',
-  )
+  itShouldHavePreviousValue(new LearningDifficultiesDetails({}, application), 'learning-difficulties')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
-      const page = new LearningDifficultiesDetails({}, application)
+      const requiredFields = [
+        ['learningNeedsDetail', 'Enter details of their needs'],
+        ['needsSupport', 'Select yes if they need any support'],
+        ['receivesTreatment', 'Select yes if they receive any treatment'],
+        ['isVulnerable', 'Select yes if they are vulnerable'],
+      ]
 
-      it('includes a validation error for _hasLearningNeeds_', () => {
-        expect(page.errors()).toHaveProperty(
-          'hasLearningNeeds',
-          'Select if they have any needs relating to learning difficulties or neurodiversity',
-        )
-      })
+      it.each(requiredFields)('it includes a validation error for %s', (field, message) => {
+        const page = new LearningDifficultiesDetails({}, application)
+        const errors = page.errors()
 
-      it('includes a validation error for _needsSupport_', () => {
-        expect(page.errors()).toHaveProperty('needsSupport', 'Select if they need any support')
-      })
-
-      it('includes a validation error for _receivesTreatment_', () => {
-        expect(page.errors()).toHaveProperty('receivesTreatment', 'Select if they receive any treatment')
-      })
-
-      it('includes a validation error for _isVulnerable_', () => {
-        expect(page.errors()).toHaveProperty('isVulnerable', 'Select if they are vulnerable')
-      })
-    })
-
-    describe('when _hasLearningNeeds_ is YES', () => {
-      const page = new LearningDifficultiesDetails({ hasLearningNeeds: 'yes' }, application)
-
-      describe('and _learningNeedsDetail_ is UNANSWERED', () => {
-        it('includes a validation error for _learningNeedsDetail_', () => {
-          expect(page.errors()).toHaveProperty('learningNeedsDetail', 'Enter details of their needs')
-        })
+        expect(errors[field as keyof typeof errors]).toEqual(message)
       })
     })
 
@@ -85,21 +65,6 @@ describe('LearningDifficultiesDetails', () => {
   })
 
   describe('onSave', () => {
-    it('removes learning needs data when the question is set to "no"', () => {
-      const body: Partial<LearningDifficultiesDetailsBody> = {
-        hasLearningNeeds: 'no',
-        learningNeedsDetail: 'Learning needs detail',
-      }
-
-      const page = new LearningDifficultiesDetails(body, application)
-
-      page.onSave()
-
-      expect(page.body).toEqual({
-        hasLearningNeeds: 'no',
-      })
-    })
-
     it('removes support data when the question is set to "no"', () => {
       const body: Partial<LearningDifficultiesDetailsBody> = {
         needsSupport: 'no',
@@ -143,6 +108,24 @@ describe('LearningDifficultiesDetails', () => {
       expect(page.body).toEqual({
         isVulnerable: 'no',
       })
+    })
+  })
+
+  describe('response', () => {
+    it('returns an empty object', () => {
+      const body: LearningDifficultiesDetailsBody = {
+        learningNeedsDetail: 'some learning needs details',
+        needsSupport: 'yes',
+        supportDetail: 'some support details',
+        receivesTreatment: 'yes',
+        treatmentDetail: 'some treatment details',
+        isVulnerable: 'yes',
+        vulnerabilityDetail: 'some vulnerability details',
+      }
+
+      const page = new LearningDifficultiesDetails(body, application)
+
+      expect(page.response()).toEqual({})
     })
   })
 })

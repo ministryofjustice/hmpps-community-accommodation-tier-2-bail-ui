@@ -3,21 +3,6 @@
 
 {% block questions %}
 
-  {% set learningNeedsFollowUp %}
-  {{
-      formPageTextArea(
-        {
-          fieldName: 'learningNeedsDetail',
-          label: {
-            text: page.questions.learningNeedsDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
-  {% endset %}
-
   {% set supportFollowUp %}
   {{
       formPageTextArea(
@@ -66,41 +51,21 @@
 
   <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-  <p class="govuk-body guidance">
-    Neurodiversity covers Autism, ADHD, ADD, Dyslexia, Dyscalculia and Dyspraxia.
-  </p>
-
-  <p class="govuk-body guidance">
-    This can overlap with learning difficulties. For example, they might find it hard to understand or remember information, read or write, or interact with others.
-  </p>
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasLearningNeeds",
-        fieldset: {
-          legend: {
-            text: page.questions.hasLearningNeeds.question,
-            classes: "govuk-fieldset__legend--m"
+    {{
+      formPageTextArea(
+        {
+          fieldName: 'learningNeedsDetail',
+          hint: {
+            text: page.questions.learningNeedsDetail.hint
+          },
+          label: {
+            text: page.questions.learningNeedsDetail.question,
+            classes: "govuk-label--s"
           }
         },
-        items: [
-        {
-          value: "yes",
-          text: "Yes",
-          conditional: {
-            html: learningNeedsFollowUp
-          }
-        },
-        {
-          value: "no",
-          text: "No"
-        }
-      ]
-      },
-      fetchContext()
-    )
-  }}
+        fetchContext()
+      )
+    }}
 
   {{
     formPageRadios(
