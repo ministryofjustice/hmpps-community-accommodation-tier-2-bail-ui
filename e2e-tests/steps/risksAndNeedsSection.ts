@@ -81,15 +81,23 @@ async function completeCommunicationAndLanguagePage(page: Page, name: string) {
 async function completeLearningDifficultiesPage(page: Page, name: string) {
   const learningPage = await ApplyPage.initialize(
     page,
-    `Learning difficulties and neurodiversity needs details for ${name}`,
+    `Does ${name} have any learning difficulties or neurodiversity needs?`,
   )
 
-  await learningPage.checkRadioInGroup('learning difficulties or neurodiversity', 'No')
-  await learningPage.checkRadioInGroup('need any support', 'No')
-  await learningPage.checkRadioInGroup('receive any treatment', 'No')
-  await learningPage.checkRadioInGroup('vulnerable', 'No')
-
+  await learningPage.checkRadioInGroup('learning difficulties or neurodiversity', 'Yes')
   await learningPage.clickSave()
+
+  const detailsPage = await ApplyPage.initialize(
+    page,
+    `Add learning difficulties and neurodiversity needs details for ${name}`,
+  )
+
+  await detailsPage.fillField('Enter details of their needs', 'some details')
+  await detailsPage.checkRadioInGroup('need any support', 'No')
+  await detailsPage.checkRadioInGroup('receive any treatment', 'No')
+  await detailsPage.checkRadioInGroup('vulnerable', 'No')
+
+  await detailsPage.clickSave()
 }
 
 async function completeBrainInjuryPage(page: Page, name: string) {
