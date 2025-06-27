@@ -653,11 +653,10 @@ export const getQuestions = (name: string) => {
         },
       },
       'learning-difficulties-details': {
-        hasLearningNeeds: {
-          question: 'Do they have ',
-          answers: yesOrNo,
+        learningNeedsDetail: {
+          question: 'Enter details of their needs',
+          hint: 'Include if they have a formal diagnosis.',
         },
-        learningNeedsDetail: { question: 'Enter details of their needs, including if they have a formal diagnosis' },
         needsSupport: {
           question: 'Do they need any support as a result of this?',
           answers: yesOrNo,
