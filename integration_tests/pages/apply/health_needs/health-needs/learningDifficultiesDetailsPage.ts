@@ -7,14 +7,13 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class LearningDifficultiesDetailsPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Learning difficulties and neurodiversity needs details for ${nameOrPlaceholderCopy(application.person)}`,
+      `Add learning difficulties and neurodiversity needs details for ${nameOrPlaceholderCopy(application.person)}`,
       application,
       'health-needs',
       'learning-difficulties-details',
     )
 
     pageIsActiveInNavigation('Learning difficulties')
-    this.pageHasNeurodiversityGuidance()
   }
 
   static visit(application: Application): void {
@@ -27,13 +26,7 @@ export default class LearningDifficultiesDetailsPage extends ApplyPage {
     )
   }
 
-  pageHasNeurodiversityGuidance = (): void => {
-    cy.get('.guidance').contains('Neurodiversity covers Autism,')
-    cy.get('.guidance').contains('This can overlap with learning difficulties')
-  }
-
   describeNeeds = (): void => {
-    this.checkRadioByNameAndValue('hasLearningNeeds', 'yes')
     this.getTextInputByIdAndEnterDetails('learningNeedsDetail', 'Has ADHD')
   }
 
