@@ -41,6 +41,10 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     delete applicationData['health-needs']['brain-injury-details']
   }
 
+  const deleteOrphanedLearningDifficultiesData = () => {
+    delete applicationData['health-needs']['learning-difficulties-details']
+  }
+
   const hasOrphanedInformation = ({
     taskName,
     pageName,
@@ -157,6 +161,17 @@ export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Un
     })
   ) {
     deleteOrphanedBrainInjuryData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'health-needs',
+      pageName: 'learning-difficulties',
+      questionKey: 'hasLearningDifficultiesOrNeurodiversityNeeds',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedLearningDifficultiesData()
   }
 
   return applicationData
