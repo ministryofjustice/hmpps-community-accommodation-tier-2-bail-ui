@@ -112,4 +112,8 @@ export default class BrainInjuryDetails implements TaskListPage {
       delete this.body.interactionDetail
     }
   }
+
+  response() {
+    return {}
+  }
 }

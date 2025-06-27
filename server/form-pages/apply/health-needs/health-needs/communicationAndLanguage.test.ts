@@ -87,4 +87,19 @@ describe('CommunicationAndLanguage', () => {
       })
     })
   })
+
+  describe('response', () => {
+    it('returns an empty object', () => {
+      const body: CommunicationAndLanguageBody = {
+        hasImpairments: 'yes',
+        impairmentsDetail: 'some details',
+        requiresInterpreter: 'yes',
+        interpretationDetail: 'Interpretation detail',
+      }
+
+      const page = new CommunicationAndLanguage(body, application)
+
+      expect(page.response()).toEqual({})
+    })
+  })
 })

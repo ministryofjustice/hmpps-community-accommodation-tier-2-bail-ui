@@ -150,4 +150,24 @@ describe('BrainInjuryDetails', () => {
       })
     })
   })
+
+  describe('response', () => {
+    it('returns an empty object', () => {
+      const body: BrainInjuryDetailsBody = {
+        injuryDetail: 'some injury details',
+        supportNeeded: 'yes',
+        supportDetail: 'some support detail',
+        receivingTreatment: 'yes',
+        treatmentDetail: 'some treatment detail',
+        isVulnerable: 'yes',
+        vulnerabilityDetail: 'some vulnerability detail',
+        hasDifficultyInteracting: 'yes',
+        interactionDetail: 'some interaction detail',
+      }
+
+      const page = new BrainInjuryDetails(body, application)
+
+      expect(page.response()).toEqual({})
+    })
+  })
 })
