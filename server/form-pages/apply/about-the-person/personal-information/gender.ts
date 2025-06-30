@@ -4,7 +4,6 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
-import { isPersonMale } from '../../../../utils/personUtils'
 
 export type GenderBody = {
   gender: YesOrNoOrPreferNotToSay
@@ -39,10 +38,6 @@ export default class Gender implements TaskListPage {
   }
 
   next() {
-    if (isPersonMale(this.application.person)) {
-      return ''
-    }
-
     return 'pregnancy-information'
   }
 
