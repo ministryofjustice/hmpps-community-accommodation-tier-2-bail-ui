@@ -29,7 +29,7 @@ import { applicationStatusRadios, applicationStatusDetailOptions } from './asses
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
 import { dateFieldValues } from './formUtils'
-import { statusTag } from './personUtils'
+import statusTag from './personUtils'
 import * as TaskListUtils from './taskListUtils'
 import { pagination } from './pagination'
 import { formatLines } from './viewUtils'
