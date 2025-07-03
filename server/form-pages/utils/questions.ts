@@ -712,31 +712,13 @@ export const getQuestions = (name: string) => {
         },
       },
       'other-health': {
-        hasLongTermHealthCondition: {
-          question: 'Are they managing any long term health conditions?',
-          hint: 'For example arthritis, diabetes or high blood pressure.',
+        hasOtherHealthNeeds: {
+          question: `Does ${name} have other health needs?`,
           answers: yesOrNo,
         },
-        healthConditionDetail: {
-          question:
-            'Enter details of their condition, including any support they have already or will need and if they have a formal diagnosis',
-        },
-        hasHadStroke: { question: 'Have they experienced a stroke?', answers: yesOrNo },
-        hasSeizures: { question: 'Do they experience seizures or epilepsy?', answers: yesOrNo },
-        seizuresDetail: {
-          question: 'Enter details of their last episode, how frequent they are and any treatment',
-        },
-        beingTreatedForCancer: {
-          question: 'Are they currently receiving regular treatment for cancer?',
-          answers: yesOrNo,
-        },
-        otherHealthNeeds: {
-          question: 'Do they have any other health needs?',
-          hint: 'For example, any nut allergies or the need to have a private bathroom.',
-          answers: yesOrNo,
-        },
-        otherHealthNeedsDetail: {
-          question: 'Enter details of their other health needs',
+        healthNeedsDetail: {
+          question: 'Enter details of their needs',
+          hint: 'Include any support they have already or will need, and if they have a formal diagnosis.',
         },
       },
       'information-sources': {

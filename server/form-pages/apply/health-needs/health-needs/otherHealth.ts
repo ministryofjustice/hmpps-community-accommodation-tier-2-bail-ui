@@ -6,35 +6,20 @@ import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
 
 export type OtherHealthBody = {
-  hasLongTermHealthCondition: YesOrNo
-  healthConditionDetail: string
-  hasHadStroke: YesOrNo
-  hasSeizures: YesOrNo
-  seizuresDetail: string
-  beingTreatedForCancer: YesOrNo
-  otherHealthNeeds: YesOrNo
-  otherHealthNeedsDetail: string
+  hasOtherHealthNeeds: YesOrNo
+  healthNeedsDetail: string
 }
 
 @Page({
   name: 'other-health',
-  bodyProperties: [
-    'hasLongTermHealthCondition',
-    'healthConditionDetail',
-    'hasHadStroke',
-    'hasSeizures',
-    'seizuresDetail',
-    'beingTreatedForCancer',
-    'otherHealthNeeds',
-    'otherHealthNeedsDetail',
-  ],
+  bodyProperties: ['hasOtherHealthNeeds', 'healthNeedsDetail'],
 })
 export default class OtherHealth implements TaskListPage {
-  documentTitle = 'Other health needs for the person'
+  documentTitle = 'Does the applicant have other health needs?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Other health needs for ${this.personName}`
+  title = ''
 
   questions = getQuestions(this.personName)['health-needs']['other-health']
 
@@ -58,45 +43,18 @@ export default class OtherHealth implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.body.hasLongTermHealthCondition) {
-      errors.hasLongTermHealthCondition = 'Select if they are managing any long term health conditions'
-    }
-    if (this.body.hasLongTermHealthCondition === 'yes' && !this.body.healthConditionDetail) {
-      errors.healthConditionDetail = 'Enter details of their condition'
-    }
-    if (!this.body.hasSeizures) {
-      errors.hasSeizures = 'Select if they experience seizures or epilepsy'
-    }
-    if (this.body.hasSeizures === 'yes' && !this.body.seizuresDetail) {
-      errors.seizuresDetail = 'Enter details of their last episode'
-    }
-    if (!this.body.hasHadStroke) {
-      errors.hasHadStroke = 'Select if they have experienced a stroke'
-    }
-    if (!this.body.beingTreatedForCancer) {
-      errors.beingTreatedForCancer = 'Select if they are receiving regular treatment for cancer'
-    }
-    if (!this.body.otherHealthNeeds) {
-      errors.otherHealthNeeds = 'Select if they have any other health needs'
-    }
-    if (this.body.otherHealthNeeds === 'yes' && !this.body.otherHealthNeedsDetail) {
-      errors.otherHealthNeedsDetail = 'Enter details of their other health needs'
+    if (!this.body.hasOtherHealthNeeds) {
+      errors.hasOtherHealthNeeds = 'Select yes if they have other health needs'
+    } else if (this.body.hasOtherHealthNeeds === 'yes' && !this.body.healthNeedsDetail) {
+      errors.healthNeedsDetail = 'Enter the details of their needs'
     }
 
     return errors
   }
 
   onSave(): void {
-    if (this.body.hasLongTermHealthCondition !== 'yes') {
-      delete this.body.healthConditionDetail
-    }
-
-    if (this.body.hasSeizures !== 'yes') {
-      delete this.body.seizuresDetail
-    }
-
-    if (this.body.otherHealthNeeds !== 'yes') {
-      delete this.body.otherHealthNeedsDetail
+    if (this.body.hasOtherHealthNeeds !== 'yes') {
+      delete this.body.healthNeedsDetail
     }
   }
 }
