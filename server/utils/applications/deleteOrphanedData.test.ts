@@ -362,4 +362,33 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       })
     })
   })
+
+  describe('when the referrer confirms the applicant does not learning difficulties or neurodiversity needs', () => {
+    const applicationData = {
+      'health-needs': {
+        'learning-difficulties': {
+          hasLearningDifficultiesOrNeurodiversityNeeds: 'no',
+        },
+        'learning-difficulties-details': {
+          learningNeedsDetail: 'some learning needs details',
+          needsSupport: 'yes',
+          supportDetail: 'some support details',
+          receivesTreatment: 'yes',
+          treatmentDetail: 'some treatment details',
+          isVulnerable: 'yes',
+          vulnerabilityDetail: 'some vulnerability details',
+        },
+      },
+    }
+
+    it('removes the learning difficulties details', () => {
+      expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        'health-needs': {
+          'learning-difficulties': {
+            hasLearningDifficultiesOrNeurodiversityNeeds: 'no',
+          },
+        },
+      })
+    })
+  })
 })

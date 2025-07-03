@@ -182,14 +182,16 @@
       "oldQuestion": "this answer should not appear"
     },
     "learning-difficulties": {
-      "hasLearningNeeds": "no",
-      "learningNeedsDetail": "",
-      "needsSupport": "no",
-      "supportDetail": "",
-      "receivesTreatment": "no",
-      "treatmentDetail": "",
-      "isVulnerable": "no",
-      "vulnerabilityDetail": ""
+      "hasLearningDifficultiesOrNeurodiversityNeeds": "yes"
+    },
+    "learning-difficulties-details": {
+      "learningNeedsDetail": "some learning needs details",
+      "needsSupport": "yes",
+      "supportDetail": "some support details",
+      "receivesTreatment": "yes",
+      "treatmentDetail": "some treatment details",
+      "isVulnerable": "yes",
+      "vulnerabilityDetail": "some vulnerability details"
     },
     "brain-injury": {
       "hasBrainInjury": "no"
