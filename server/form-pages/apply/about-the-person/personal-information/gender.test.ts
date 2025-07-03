@@ -1,7 +1,6 @@
-import { itShouldHavePreviousValue } from '../../../shared-examples'
+import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import Gender, { GenderBody } from './gender'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
-import { isPersonMale } from '../../../../utils/personUtils'
 
 jest.mock('../../../../utils/personUtils')
 
@@ -30,32 +29,7 @@ describe('Gender', () => {
     })
   })
 
-  describe('next', () => {
-    beforeEach(() => {
-      ;(isPersonMale as jest.Mock).mockReset()
-    })
-
-    describe('when the applicant is male', () => {
-      it('should not return a page name', () => {
-        ;(isPersonMale as jest.Mock).mockImplementation(() => true)
-
-        const page = new Gender(body, application)
-
-        expect(page.next()).toEqual('')
-      })
-    })
-
-    describe('when the applicant is not male', () => {
-      it('should return pregnancy information page name', () => {
-        ;(isPersonMale as jest.Mock).mockImplementation(() => false)
-
-        const page = new Gender(body, application)
-
-        expect(page.next()).toEqual('pregnancy-information')
-      })
-    })
-  })
-
+  itShouldHaveNextValue(new Gender(body, application), 'pregnancy-information')
   itShouldHavePreviousValue(new Gender(body, application), '')
 
   describe('onSave', () => {
