@@ -135,6 +135,7 @@ export const completePersonalInformationTask = async (page: Page, name: string) 
   await completeWorkingMobilePhonePage(page, name)
   await completeImmigrationStatusPage(page, name)
   await completeGenderPage(page, name)
+  await completePregnancyPage(page, name)
 }
 
 async function completeCustodyLocationPage(page: Page, name: string) {
@@ -152,6 +153,13 @@ async function completeGenderPage(page: Page, name: string) {
 
   await genderPage.checkRadio('Yes')
   await genderPage.clickSave()
+}
+
+async function completePregnancyPage(page: Page, name: string) {
+  const pregnancyPage = await ApplyPage.initialize(page, `Is ${name} pregnant?`)
+
+  await pregnancyPage.checkRadio("I don't know")
+  await pregnancyPage.clickSave()
 }
 
 async function completeWorkingMobilePhonePage(page: Page, name: string) {
