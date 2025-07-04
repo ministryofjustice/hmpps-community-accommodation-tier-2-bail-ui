@@ -33,6 +33,11 @@ export type RequestForPlacement = {
     isWithdrawn: boolean;
     withdrawalReason?: WithdrawPlacementRequestReason;
     type: RequestForPlacementType;
+    dates: PlacementDates;
+    /**
+     * Requests for placements only have one set of placement dates, use 'dates' instead
+     * @deprecated
+     */
     placementDates: Array<PlacementDates>;
     status: RequestForPlacementStatus;
 };
