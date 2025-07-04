@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { Unit } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
+import { Cas2v2Application } from '@approved-premises/api'
 
-export default function deleteOrphanedFollowOnAnswers(applicationData: Unit): Unit {
+export default function deleteOrphanedFollowOnAnswers(applicationData: Cas2v2Application['data']): Cas2v2Application['data'] {
   const deleteOrphanedFundingAlternativeIdInformation = () => {
     delete applicationData['funding-information']['alternative-applicant-id']
   }
