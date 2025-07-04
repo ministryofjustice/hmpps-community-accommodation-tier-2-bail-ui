@@ -128,13 +128,9 @@ async function completeLiaisonAndDiversionPage(page: Page, name: string) {
 }
 
 async function completeOtherHealthPage(page: Page, name: string) {
-  const otherHealthPage = await ApplyPage.initialize(page, `Other health needs for ${name}`)
+  const otherHealthPage = await ApplyPage.initialize(page, `Does ${name} have other health needs?`)
 
-  await otherHealthPage.checkRadioInGroup('any long term health conditions?', 'No')
-  await otherHealthPage.checkRadioInGroup('seizures', 'No')
-  await otherHealthPage.checkRadioInGroup('experienced a stroke?', 'No')
-  await otherHealthPage.checkRadioInGroup('treatment for cancer', 'No')
-  await otherHealthPage.checkRadioInGroup('any other health needs?', 'No')
+  await otherHealthPage.checkRadioInGroup('other health needs', 'No')
 
   await otherHealthPage.clickSave()
 }
