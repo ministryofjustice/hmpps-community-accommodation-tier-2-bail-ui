@@ -1,11 +1,6 @@
 /* eslint-disable no-param-reassign */
 import type { Request } from 'express'
-import {
-  Unit,
-  Cas2v2Application as Application,
-  Cas2v2Application,
-  Cas2v2ApplicationSummary,
-} from '@approved-premises/api'
+import { Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
 import type { ApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -18,7 +13,11 @@ import deleteOrphanedFollowOnAnswers from '../utils/applications/deleteOrphanedD
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
 
-  async createApplication(token: string, crn: string, applicationOrigin: ApplicationOrigin): Promise<Application> {
+  async createApplication(
+    token: string,
+    crn: string,
+    applicationOrigin: ApplicationOrigin,
+  ): Promise<Cas2v2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
     const application = await applicationClient.create(crn, applicationOrigin)
@@ -26,7 +25,7 @@ export default class ApplicationService {
     return application
   }
 
-  async findApplication(token: string, id: string): Promise<Application> {
+  async findApplication(token: string, id: string): Promise<Cas2v2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
     const application = await applicationClient.find(id)
@@ -93,18 +92,23 @@ export default class ApplicationService {
   }
 
   private addPageDataToApplicationData(
-    applicationData: Unit,
+    applicationData: Cas2v2Application['data'],
     taskName: string,
     pageName: string,
     page: TaskListPage,
-  ): Unit {
+  ): Cas2v2Application['data'] {
     const newApplicationData = applicationData || {}
     newApplicationData[taskName] = newApplicationData[taskName] || {}
     newApplicationData[taskName][pageName] = page.body
     return newApplicationData
   }
 
-  private deleteCheckYourAnswersIfPageChange(applicationData: Unit, pageName: string, oldBody: Unit, newBody: Unit) {
+  private deleteCheckYourAnswersIfPageChange(
+    applicationData: Cas2v2Application['data'],
+    pageName: string,
+    oldBody: Record<string, unknown>,
+    newBody: Record<string, unknown>,
+  ) {
     const checkYourAnswersTaskName = getTaskName(CheckYourAnswers)
     const checkYourAnswersPageName = getPageName(CheckYourAnswers)
 
@@ -121,7 +125,7 @@ export default class ApplicationService {
     return applicationData
   }
 
-  async saveData(taskData: Unit, request: Request) {
+  async saveData(taskData: Record<string, unknown>, request: Request) {
     const application = await this.findApplication(request.user.token, request.params.id)
     const client = this.applicationClientFactory(request.user.token)
 
@@ -172,7 +176,7 @@ export default class ApplicationService {
     }
   }
 
-  private hasPageData(application: Application, taskName: string, pageName: string) {
+  private hasPageData(application: Cas2v2Application, taskName: string, pageName: string) {
     return application.data && application.data[taskName] && application.data[taskName][pageName]
   }
 
