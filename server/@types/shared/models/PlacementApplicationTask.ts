@@ -12,6 +12,11 @@ export type PlacementApplicationTask = (Task & {
     tier: RiskTierEnvelope;
     releaseType: ReleaseTypeOption;
     placementType: PlacementType;
+    dates: PlacementDates;
+    /**
+     * Placement apps only have one set of placement dates, use 'dates' instead
+     * @deprecated
+     */
     placementDates?: Array<PlacementDates>;
     outcome?: PlacementApplicationDecision;
 });
