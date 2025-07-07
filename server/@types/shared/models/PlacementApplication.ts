@@ -27,6 +27,14 @@ export type PlacementApplication = (NewPlacementApplication & {
     isWithdrawn: boolean;
     withdrawalReason?: WithdrawPlacementRequestReason;
     type: PlacementApplicationType;
+    /**
+     * Only populated once the placement application has been submitted
+     */
+    dates?: PlacementDates;
+    /**
+     * Deprecated, use dates. Only populated with values after the placement application has been submitted
+     * @deprecated
+     */
     placementDates: Array<PlacementDates>;
 });
 
