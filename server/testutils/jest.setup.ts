@@ -27,8 +27,7 @@ expect.extend({
     }
   },
   toMatchOpenAPISpec(pactPath) {
-    const openAPIUrl =
-      'https://raw.githubusercontent.com/ministryofjustice/hmpps-approved-premises-api/main/src/main/resources/static/codegen/built-cas2v2-api-spec.yml'
+    const openAPIUrl = 'https://approved-premises-api-dev.hmpps.service.justice.gov.uk/v3/api-docs/CAS2v2Shared'
 
     const openAPIPath = path.join(__dirname, '..', '..', 'tmp', 'cas2v2-api.yml')
 
