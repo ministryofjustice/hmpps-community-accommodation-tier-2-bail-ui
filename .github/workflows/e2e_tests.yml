@@ -1,6 +1,7 @@
 name: e2e tests
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       node_version_file:
