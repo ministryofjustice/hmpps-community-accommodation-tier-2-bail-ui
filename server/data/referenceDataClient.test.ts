@@ -1,5 +1,3 @@
-import { Cas2v2ApplicationStatus as ApplicationStatus } from '@approved-premises/api'
-
 import ReferenceDataClient from './referenceDataClient'
 import { applicationStatusFactory } from '../testutils/factories'
 import describeClient from '../testutils/describeClient'
@@ -15,9 +13,9 @@ describeClient('ReferenceDataClient', provider => {
 
   describe('getApplicationStatuses', () => {
     it('should return an array of application statuses', async () => {
-      const data = applicationStatusFactory.buildList(5) as Array<ApplicationStatus>
+      const data = applicationStatusFactory.buildList(5)
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: `A request to get application statuses`,
         withRequest: {

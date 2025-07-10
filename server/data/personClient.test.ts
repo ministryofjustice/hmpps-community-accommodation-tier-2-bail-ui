@@ -16,7 +16,7 @@ describeClient('PersonClient', provider => {
     it('should return a person', async () => {
       const person = personFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to search for a person',
         withRequest: {
@@ -43,7 +43,7 @@ describeClient('PersonClient', provider => {
     it('should return a person', async () => {
       const person = personFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to search for a person',
         withRequest: {
