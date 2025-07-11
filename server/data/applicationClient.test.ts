@@ -1,6 +1,6 @@
 import { SubmitCas2v2Application, UpdateApplication, ApplicationOrigin } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
-import { applicationFactory } from '../testutils/factories'
+import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 import paths from '../paths/api'
 import describeClient from '../testutils/describeClient'
 
@@ -17,7 +17,7 @@ describeClient('ApplicationClient', provider => {
     it('should return an application', async () => {
       const application = applicationFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for an application',
         withRequest: {
@@ -44,7 +44,7 @@ describeClient('ApplicationClient', provider => {
       const application = applicationFactory.build()
       const applicationOrigin: ApplicationOrigin = 'courtBail'
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to create an Application with risks',
         withRequest: {
@@ -72,9 +72,9 @@ describeClient('ApplicationClient', provider => {
 
   describe('all', () => {
     it('should get all previous applications', async () => {
-      const previousApplications = applicationFactory.buildList(5)
+      const previousApplications = applicationSummaryFactory.buildList(5)
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for all applications',
         withRequest: {
@@ -98,9 +98,9 @@ describeClient('ApplicationClient', provider => {
 
   describe('getAllByPrison', () => {
     it('should get all applications for a given prison', async () => {
-      const applications = applicationFactory.buildList(5)
+      const applications = applicationSummaryFactory.buildList(5)
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request for all applications for a given prison',
         withRequest: {
@@ -146,7 +146,7 @@ describeClient('ApplicationClient', provider => {
         type: 'CAS2V2',
       } as UpdateApplication
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'Request to update an application',
         withRequest: {
@@ -179,7 +179,7 @@ describeClient('ApplicationClient', provider => {
         applicationOrigin: 'courtBail',
       } as SubmitCas2v2Application
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'A request to submit an application',
         withRequest: {
@@ -203,7 +203,7 @@ describeClient('ApplicationClient', provider => {
     it('should return response when a PUT request is made', async () => {
       const application = applicationFactory.build()
 
-      provider.addInteraction({
+      await provider.addInteraction({
         state: 'Server is healthy',
         uponReceiving: 'Request to abandon an application',
         withRequest: {
