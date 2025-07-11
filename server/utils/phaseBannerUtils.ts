@@ -1,4 +1,4 @@
-export const supportEmail = 'cas2support@digital.justice.gov.uk'
+export const supportEmail = 'cas2-bail-digital-support@justice.gov.uk'
 export const feedbackSurveyUrl =
   'https://forms.office.com/Pages/ResponsePage.aspx?id=KEeHxuZx_kGp4S6MNndq2NtvFPlxdrJCkJv4UnD6fG1UQzBGV0E1ODM5OE1JWU43S05NQVNNR1hUNS4u'
 
