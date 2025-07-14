@@ -57,7 +57,7 @@ export default class ApplicationsController {
         pageNumber: Number(result.pageNumber),
         totalPages: Number(result.totalPages),
         hrefPrefix,
-        pageHeading: 'All CAS-2 Bail applications',
+        pageHeading: 'All CAS-2 prison bail applications',
       })
     }
   }

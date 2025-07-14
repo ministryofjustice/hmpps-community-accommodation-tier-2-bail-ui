@@ -107,6 +107,6 @@ export default {
   environmentName: get('ENVIRONMENT_NAME', ''),
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', false),
-    enablePrisonDashboard: get('ENABLE_PRISON_DASHBOARD', 'false') === 'true',
+    enablePrisonDashboard: true, // get('ENABLE_PRISON_DASHBOARD', 'false') === 'true',
   },
 }
