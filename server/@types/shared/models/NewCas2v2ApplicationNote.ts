@@ -2,9 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * A note to add to an application
- */
 export type NewCas2v2ApplicationNote = {
     note: string;
 };

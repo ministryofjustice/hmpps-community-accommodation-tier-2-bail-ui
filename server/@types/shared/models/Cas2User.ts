@@ -3,11 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Cas2User = {
-    id: string;
-    name: string;
-    username: string;
-    authSource: 'nomis' | 'delius' | 'auth';
     email?: string;
-    isActive: boolean;
+    name: string;
 };
 

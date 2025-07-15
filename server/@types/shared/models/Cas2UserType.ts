@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Temporality = 'past' | 'current' | 'future';
+export type Cas2UserType = 'DELIUS' | 'NOMIS' | 'EXTERNAL';
