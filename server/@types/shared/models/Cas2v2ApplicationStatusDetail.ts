@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type Cas2v2ApplicationStatusDetail = {
     id: string;
-    name: string;
     label: string;
+    name: string;
 };
 

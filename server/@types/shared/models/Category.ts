@@ -2,8 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Unit } from './Unit';
-export type UpdatePlacementApplication = {
-    data: Record<string, Unit>;
-};
-
+export type Category = 'submitted' | 'unallocated' | 'in_review' | 'ready_to_place' | 'rejected' | 'completed';

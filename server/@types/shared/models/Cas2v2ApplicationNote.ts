@@ -2,14 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Notes added to a Cas2v2Application
- */
 export type Cas2v2ApplicationNote = {
-    id?: string;
-    email: string;
-    name: string;
     body: string;
     createdAt: string;
+    email: string;
+    id?: string;
+    name: string;
 };
 

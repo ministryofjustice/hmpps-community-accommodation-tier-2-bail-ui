@@ -4,11 +4,11 @@
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
 export type NewCas2v2Application = {
-    crn: string;
-    convictionId?: number;
-    deliusEventNumber?: string;
-    offenceId?: string;
     applicationOrigin: ApplicationOrigin;
     bailHearingDate?: string;
+    convictionId?: number;
+    crn: string;
+    deliusEventNumber?: string;
+    offenceId?: string;
 };
 

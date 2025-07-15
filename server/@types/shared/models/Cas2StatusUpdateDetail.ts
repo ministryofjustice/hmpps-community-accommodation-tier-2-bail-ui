@@ -2,7 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type NewPlacementApplication = {
-    applicationId: string;
+export type Cas2StatusUpdateDetail = {
+    id: string;
+    label: string;
+    name: string;
 };
 
