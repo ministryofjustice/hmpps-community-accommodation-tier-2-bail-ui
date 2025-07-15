@@ -138,6 +138,49 @@ describeClient('ApplicationClient', provider => {
     })
   })
 
+  describe('getAllByOrigin', () => {
+    it('should get all applications for a given applicationOrigin', async () => {
+      const applications = applicationSummaryFactory.buildList(5)
+
+      await provider.addInteraction({
+        state: 'Server is healthy',
+        uponReceiving: 'A request for all applications for a given prison',
+        withRequest: {
+          method: 'GET',
+          path: paths.applications.index.pattern,
+          query: {
+            isSubmitted: 'true',
+            applicationOrigin: 'prisonBail',
+            limitByUser: 'false',
+            page: '1',
+          },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+        willRespondWith: {
+          status: 200,
+          body: applications,
+          headers: {
+            'X-Pagination-TotalPages': '10',
+            'X-Pagination-TotalResults': '100',
+            'X-Pagination-PageSize': '10',
+          },
+        },
+      })
+
+      const result = await applicationClient.getAllByOrigin('prisonBail', 1)
+
+      expect(result).toEqual({
+        data: applications,
+        pageNumber: '1',
+        totalPages: '10',
+        totalResults: '100',
+        pageSize: '10',
+      })
+    })
+  })
+
   describe('update', () => {
     it('should return an application when a PUT request is made', async () => {
       const application = applicationFactory.build()

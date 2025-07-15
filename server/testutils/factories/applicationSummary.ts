@@ -17,6 +17,7 @@ export default Factory.define<Cas2v2ApplicationSummary>(() => ({
   personName: faker.person.fullName(),
   crn: `C${faker.number.int({ min: 100000, max: 999999 })}`,
   nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
+  prisonCode: `PC${faker.number.int({ min: 10, max: 99 })}`,
   hdcEligibilityDate: DateFormats.dateObjToIsoDate(faker.date.soon()),
   createdByUserName: faker.person.fullName(),
 }))

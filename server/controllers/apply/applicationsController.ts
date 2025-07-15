@@ -45,12 +45,7 @@ export default class ApplicationsController {
   prisonApplications(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}))
-
-      const result = await this.applicationService.getAllByPrison(
-        req.user.token,
-        res.locals.user.activeCaseLoadId,
-        pageNumber,
-      )
+      const result = await this.applicationService.getAllByOrigin(req.user.token, 'prisonBail', pageNumber)
 
       return res.render('applications/prison-applications', {
         applications: result.data,

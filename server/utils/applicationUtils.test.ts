@@ -135,6 +135,12 @@ describe('prisonApplicationTableRows', () => {
           text: applicationA.createdByUserName,
         },
         {
+          text: applicationA.crn,
+        },
+        {
+          text: applicationA.prisonCode,
+        },
+        {
           text: 'Prison bail',
         },
         {
@@ -150,6 +156,12 @@ describe('prisonApplicationTableRows', () => {
         },
         {
           text: applicationB.createdByUserName,
+        },
+        {
+          text: applicationB.crn,
+        },
+        {
+          text: applicationB.prisonCode,
         },
         {
           text: 'Prison bail',

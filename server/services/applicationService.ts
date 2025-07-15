@@ -66,6 +66,15 @@ export default class ApplicationService {
     return applications
   }
 
+  async getAllByOrigin(
+    token: string,
+    applicationOrigin: string,
+    pageNumber: number = 1,
+  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+    const applicationClient = this.applicationClientFactory(token)
+    return applicationClient.getAllByOrigin(applicationOrigin, pageNumber)
+  }
+
   async save(page: TaskListPage, request: Request) {
     const errors = page.errors()
 
