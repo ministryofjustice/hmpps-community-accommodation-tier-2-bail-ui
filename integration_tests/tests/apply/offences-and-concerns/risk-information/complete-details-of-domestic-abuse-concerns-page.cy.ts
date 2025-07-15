@@ -66,7 +66,7 @@ context('Complete "domestic abuse concerns" page', () => {
   //    When I complete the domestic abuse concerns page
   //    And I continue to the next task / page
   //    Then I see the "violence and arson" page
-  it('navigates to the next page (living in the community)', function test() {
+  it('navigates to the next page (violence and arson)', function test() {
     DomesticAbuseConcernsPage.visit(this.application)
     const page = new DomesticAbuseConcernsPage(this.application)
 
