@@ -4,7 +4,7 @@ import Page from '../page'
 export default class PrisonApplicationsPage extends Page {
   constructor() {
     const name = undefined
-    super('All CAS-2 Bail applications', name)
+    super('All CAS-2 prison bail applications', name)
   }
 
   static visit(): PrisonApplicationsPage {

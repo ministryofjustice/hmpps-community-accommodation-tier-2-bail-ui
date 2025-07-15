@@ -114,7 +114,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
-        pageHeading: 'All CAS-2 Bail applications',
+        pageHeading: 'All CAS-2 prison bail applications',
         applications: prisonApplications.data,
         hrefPrefix: '/applications/prison?',
         pageNumber: 1,

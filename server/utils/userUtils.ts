@@ -37,9 +37,9 @@ export const sections = {
   },
   prisonApplications: {
     id: 'prison-applications',
-    title: 'View your prison’s applications',
-    description: 'View recently submitted CAS-2 bail applications from your prison.',
-    shortTitle: 'View your prison’s applications',
+    title: 'View all prison bail applications',
+    description: 'View all recently submitted CAS-2 prison bail applications',
+    shortTitle: 'View all prison bail applications',
     href: applyPaths.applications.prison.pattern,
   },
 }
