@@ -84,9 +84,9 @@ export default abstract class Page {
         .within(() => {
           cy.get('th').eq(0).contains(personName)
           cy.get('td').eq(0).should('contain.text', nomsNumber)
-          cy.get('td').eq(1).should('contain.text', createdByUserName)
-          cy.get('td').eq(2).should('contain.text', crn)
           cy.get('td').eq(3).should('contain.text', prisonCode)
+          cy.get('td').eq(2).should('contain.text', crn)
+          cy.get('td').eq(1).should('contain.text', createdByUserName)
           cy.get('td').eq(4).should('contain.text', camelCaseToCapitaliseFirstWordAndAddSpaces(applicationOrigin))
           cy.get('td').eq(5).should('contain.text', statusLabel)
         })
