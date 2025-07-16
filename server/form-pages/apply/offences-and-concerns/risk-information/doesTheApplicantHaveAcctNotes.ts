@@ -40,7 +40,7 @@ export default class DoesTheApplicantHaveAcctNotes implements TaskListPage {
       return this.hasExistingACCTNotes() ? 'acct' : 'add-acct-note'
     }
 
-    return 'violence-and-arson'
+    return 'domestic-abuse-concerns'
   }
 
   errors() {

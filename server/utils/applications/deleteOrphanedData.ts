@@ -35,6 +35,10 @@ export default function deleteOrphanedFollowOnAnswers(
     delete applicationData['risk-information']['add-acct-note']
   }
 
+  const deleteOrphanedDomesticAbuseData = () => {
+    delete applicationData['risk-information']['details-of-domestic-abuse-concerns']
+  }
+
   const deleteOrphanedCommunicationAndLanguageNeedsData = () => {
     delete applicationData['health-needs']['communication-and-language']
   }
@@ -141,6 +145,17 @@ export default function deleteOrphanedFollowOnAnswers(
     })
   ) {
     deleteOrphanedACCTNotesData()
+  }
+
+  if (
+    hasOrphanedInformation({
+      taskName: 'risk-information',
+      pageName: 'domestic-abuse-concerns',
+      questionKey: 'areConcerns',
+      answerToCheck: 'no',
+    })
+  ) {
+    deleteOrphanedDomesticAbuseData()
   }
 
   if (

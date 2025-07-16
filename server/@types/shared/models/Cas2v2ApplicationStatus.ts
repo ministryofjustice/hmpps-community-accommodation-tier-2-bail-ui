@@ -4,10 +4,10 @@
 /* eslint-disable */
 import type { Cas2v2ApplicationStatusDetail } from './Cas2v2ApplicationStatusDetail';
 export type Cas2v2ApplicationStatus = {
-    id: string;
-    name: string;
-    label: string;
     description: string;
+    id: string;
+    label: string;
+    name: string;
     statusDetails: Array<Cas2v2ApplicationStatusDetail>;
 };
 

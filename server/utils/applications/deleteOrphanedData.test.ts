@@ -304,6 +304,33 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
+  describe('Domestic abuse', () => {
+    describe('when there are no concerns around domestic abuse', () => {
+      const applicationData = {
+        'risk-information': {
+          'domestic-abuse-concerns': {
+            areConcerns: 'no',
+          },
+          'details-of-domestic-abuse-concerns': {
+            victimDetails: 'details about victims',
+            safeguarding: 'yes',
+            safeguardingDetail: 'details about safeguarding',
+          },
+        },
+      }
+
+      it('removes the domestic abuse concern details data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+          'risk-information': {
+            'domestic-abuse-concerns': {
+              areConcerns: 'no',
+            },
+          },
+        })
+      })
+    })
+  })
+
   describe('health needs relevancy checks', () => {
     describe('communication and language needs', () => {
       it('removes communication and language needs data when it is no longer relevant', () => {
