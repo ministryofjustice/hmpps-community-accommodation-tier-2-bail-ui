@@ -38,7 +38,18 @@ export default class ApplicationClient {
     return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { prisonCode, isSubmitted: 'true' },
+      query: { isSubmitted: 'true', prisonCode },
+    })
+  }
+
+  async getAllByOrigin(
+    applicationOrigin: string,
+    pageNumber: number,
+  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
+      path: paths.applications.index.pattern,
+      page: pageNumber.toString(),
+      query: { isSubmitted: 'true', applicationOrigin, limitByUser: 'false' },
     })
   }
 

@@ -25,7 +25,7 @@ context('Prison applications', () => {
 
     // And there are submitted applications for my prison in the database
     const prisonApplications = applicationSummaryFactory.buildList(3)
-    cy.task('stubPrisonApplications', { applications: prisonApplications, prisonCode })
+    cy.task('stubApplicationOrigin', { applications: prisonApplications, prisonCode })
 
     // When I visit the prison applications page
     PrisonApplicationsPage.visit()

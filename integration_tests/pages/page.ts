@@ -74,7 +74,7 @@ export default abstract class Page {
 
   shouldShowPrisonApplications(applications: Array<Cas2v2ApplicationSummary>): void {
     applications.forEach(application => {
-      const { personName, nomsNumber, createdByUserName, applicationOrigin } = application
+      const { personName, nomsNumber, createdByUserName, crn, prisonCode, applicationOrigin } = application
       const statusLabel = application.latestStatusUpdate?.label
 
       cy.contains(personName)
@@ -85,8 +85,10 @@ export default abstract class Page {
           cy.get('th').eq(0).contains(personName)
           cy.get('td').eq(0).should('contain.text', nomsNumber)
           cy.get('td').eq(1).should('contain.text', createdByUserName)
-          cy.get('td').eq(2).should('contain.text', camelCaseToCapitaliseFirstWordAndAddSpaces(applicationOrigin))
-          cy.get('td').eq(3).should('contain.text', statusLabel)
+          cy.get('td').eq(2).should('contain.text', crn)
+          cy.get('td').eq(3).should('contain.text', prisonCode)
+          cy.get('td').eq(4).should('contain.text', camelCaseToCapitaliseFirstWordAndAddSpaces(applicationOrigin))
+          cy.get('td').eq(5).should('contain.text', statusLabel)
         })
     })
   }

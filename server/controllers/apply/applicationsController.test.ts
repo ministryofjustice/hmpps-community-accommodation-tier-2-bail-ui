@@ -58,6 +58,8 @@ describe('applicationsController', () => {
 
   applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
 
+  applicationService.getAllByOrigin.mockResolvedValue(prisonApplications)
+
   beforeEach(() => {
     applicationsController = new ApplicationsController(
       personService,
