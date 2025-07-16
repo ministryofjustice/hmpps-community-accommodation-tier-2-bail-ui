@@ -19,19 +19,19 @@
 //    Given I am on the Applicant ACCT notes page
 //    And I answer No
 //    When I save and contnue
-//    Then I am taken back to the Violence and arson page
+//    Then I am taken back to the Domestic abuse concerns page
 //
 //  Scenario: The applicant is not in prison custody
 //    Given I am on the Applicant ACCT notes page
 //    And I answer No, the applicant is not in prison custody
 //    When I save and contnue
-//    Then I am taken back to the Violence and arson page
+//    Then I am taken back to the Domestic abuse concerns page
 
 import DoesTheApplicantHaveAcctNotesPage from '../../../../pages/apply/offences-and-concerns/risk-information/doesTheApplicantHaveAcctNotesPage'
 import AddAcctNotePage from '../../../../pages/apply/offences-and-concerns/risk-information/addAcctNotePage'
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
-import ViolenceAndArsonPage from '../../../../pages/apply/offences-and-concerns/risk-information/violenceAndArsonPage'
+import DomesticAbuseConcernsPage from '../../../../pages/apply/offences-and-concerns/risk-information/domesticAbuseConcernsPage'
 
 context('Visit ""Offences and concerns" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -94,29 +94,29 @@ context('Visit ""Offences and concerns" section', () => {
   //    Given I am on the Applicant ACCT notes page
   //    And I answer No
   //    When I save and contnue
-  //    Then I am taken back to the Violence and arson page
-  it('navigates to the next page (Violence and arson)', function test() {
+  //    Then I am taken back to the Domestic abuse concerns page
+  it('navigates to the next page (Domestic abuse concerns)', function test() {
     const page = new DoesTheApplicantHaveAcctNotesPage(this.application)
 
     page.selectApplicantDoesNotHaveAcctNotes()
 
     page.clickSubmit()
 
-    Page.verifyOnPage(ViolenceAndArsonPage, this.application)
+    Page.verifyOnPage(DomesticAbuseConcernsPage, this.application)
   })
 
   //  Scenario: The applicant is not in prison custody
   //    Given I am on the Applicant ACCT notes page
   //    And I answer No, the applicant is not in prison custody
   //    When I save and contnue
-  //    Then I am taken back to the Violence and arson page
-  it('navigates to the next page (Violence and arson)', function test() {
+  //    Then I am taken back to the Domestic abuse concerns page
+  it('navigates to the next page (Domestic abuse concerns)', function test() {
     const page = new DoesTheApplicantHaveAcctNotesPage(this.application)
 
     page.selectApplicantIsNotInPrisonCustody()
 
     page.clickSubmit()
 
-    Page.verifyOnPage(ViolenceAndArsonPage, this.application)
+    Page.verifyOnPage(DomesticAbuseConcernsPage, this.application)
   })
 })

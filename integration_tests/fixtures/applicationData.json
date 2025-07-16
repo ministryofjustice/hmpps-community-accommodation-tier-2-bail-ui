@@ -222,6 +222,14 @@
       "specificTriggersNotKnownDetail": "",
       "currentlyPresenting": ""
     },
+    "domestic-abuse-concerns": {
+      "areConcerns": "yes"
+    },
+    "details-of-domestic-abuse-concerns": {
+      "victimDetails": "details about victims",
+      "safeguarding": "yes",
+      "safeguardingDetail": "details about safeguarding"
+    },
     "violence-and-arson": {
       "pastConvictions": "no",
       "pastConvictionsDetail": "",

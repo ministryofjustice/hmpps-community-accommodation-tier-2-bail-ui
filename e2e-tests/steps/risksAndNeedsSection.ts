@@ -155,12 +155,19 @@ export const completeRiskInformationTask = async (page: Page, name: string) => {
   await completeConcernsPage(page, name)
   await completeSelfHarmPage(page, name)
   await addAnAcct(page, name)
+  await completeDomesticAbusePage(page, name)
   await completeViolenceAndArsonPage(page, name)
   await completeLivingInTheCommunityPage(page, name)
   await completeSafetyOfStaffPage(page)
   await completeAdditionalConcernsPage(page)
   await completeRiskManagementArrangementsPage(page)
   await completeRiskInformationSourcesPage(page)
+}
+
+async function completeDomesticAbusePage(page: Page, name: string) {
+  const domesticAbusePage = await ApplyPage.initialize(page, `Concerns related to domestic abuse for ${name}`)
+  await domesticAbusePage.checkRadio('No')
+  await domesticAbusePage.clickSave()
 }
 
 async function completeRiskManagementArrangementsPage(page: Page) {
