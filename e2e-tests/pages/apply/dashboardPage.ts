@@ -10,6 +10,6 @@ export default class DashboardPage extends BasePage {
   }
 
   async viewPrisonDashboard() {
-    await this.page.getByText('View your prison’s applications').click()
+    await this.page.getByText('View all prison bail applications').click()
   }
 }
