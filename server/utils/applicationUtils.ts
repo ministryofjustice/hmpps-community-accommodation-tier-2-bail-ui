@@ -44,9 +44,9 @@ export const prisonApplicationTableRows = (applications: Array<Cas2v2Application
     return [
       nameAnchorElement(application.personName, application.id),
       textValue(application.nomsNumber),
-      textValue(application.createdByUserName),
-      textValue(application.crn),
       textValue(application.prisonCode),
+      textValue(application.crn),
+      textValue(application.createdByUserName),
       textValue(camelCaseToCapitaliseFirstWordAndAddSpaces(application.applicationOrigin)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
