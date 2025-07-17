@@ -56,8 +56,6 @@ describe('applicationsController', () => {
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
-  applicationService.getAllByPrison.mockResolvedValue(prisonApplications)
-
   applicationService.getAllByOrigin.mockResolvedValue(prisonApplications)
 
   beforeEach(() => {
