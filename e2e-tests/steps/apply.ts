@@ -166,3 +166,25 @@ export const createAnInProgressApplication = async (
   }
   await confirmApplicant(page)
 }
+
+export const viewPrisonDashboard = async (page: Page) => {
+  const dashboardPage = new DashboardPage(page)
+  await dashboardPage.goto()
+
+  await dashboardPage.viewPrisonDashboard()
+
+  await expect(page.locator('h1')).toContainText('All CAS-2 prison bail applications')
+}
+
+export const viewApplicationOverview = async (page: Page, name: string) => {
+  await page.getByRole('link', { name }).first().click()
+  await expect(page.locator('h1')).toContainText(name)
+  await expect(page.locator('h2').first()).toContainText('Application history')
+}
+
+export const viewApplicationAnswers = async (page: Page, name: string) => {
+  await page.getByRole('button', { name: 'View submitted application' }).click()
+  await expect(page.locator('h1')).toContainText(`${name}'s application`)
+  await expect(page.locator('h2').nth(1)).toContainText('Applicant details')
+  await page.getByRole('link', { name: 'Back', exact: true }).click()
+}
