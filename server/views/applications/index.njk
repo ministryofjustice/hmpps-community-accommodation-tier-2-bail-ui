@@ -1,3 +1,4 @@
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -29,6 +30,22 @@
       {% endif %}
 
       {{ showErrorSummary(errorSummary) }}
+
+      {% if showPrisonDashboard %}
+
+        {{ mojSubNavigation({
+          label: 'Sub navigation',
+          items: [{
+            text: 'Your applications',
+            href: paths.applications.index(),
+            active: true
+          }, {
+            text: "All prison bail applications",
+            href: paths.applications.prison()
+          }]
+        }) }}
+
+      {% endif %}
 
       {{ govukTabs({
         items: [

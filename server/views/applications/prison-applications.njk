@@ -1,3 +1,4 @@
+{%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {% from "../partials/table.njk" import applicationsTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
@@ -8,7 +9,19 @@
 
 {% block content %}
 
-<h1>All CAS-2 prison bail applications</h1>
+  <h1 class="govuk-heading-l">All CAS-2 prison bail applications</h1>
+
+  {{ mojSubNavigation({
+    label: 'Sub navigation',
+    items: [{
+      text: 'Your applications',
+      href: paths.applications.index()
+    }, {
+      text: "All prison bail applications",
+      href: paths.applications.prison(),
+      active: true
+    }]
+  }) }}
 
   {{applicationsTable(
     "",

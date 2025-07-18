@@ -81,10 +81,21 @@ describe('applicationsController', () => {
   })
 
   describe('index', () => {
+    const priorConfigFlags = config.flags
+
+    afterAll(() => {
+      config.flags = priorConfigFlags
+    })
+
     it('renders existing applications', async () => {
+      response = createMock<Response>({
+        locals: { user: { userRoles: ['CAS2_PRISON_BAIL_REFERRER'] } },
+      })
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
+
+      config.flags.enablePrisonDashboard = true
 
       const requestHandler = applicationsController.index()
 
@@ -95,6 +106,7 @@ describe('applicationsController', () => {
         errorSummary: [],
         applications,
         pageHeading: 'Applications',
+        showPrisonDashboard: true,
       })
     })
   })
