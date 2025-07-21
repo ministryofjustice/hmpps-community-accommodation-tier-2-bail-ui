@@ -191,4 +191,23 @@ export default abstract class Page {
       this.checkTermAndDescription('CRN from NDelius', person.crn)
     })
   }
+
+  shouldShowApplications(applications: Array<Cas2v2ApplicationSummary>, inProgress = false): void {
+    applications.forEach(application => {
+      const { personName } = application
+      cy.contains(personName)
+        .should(
+          'have.attr',
+          'href',
+          inProgress
+            ? paths.applications.show({ id: application.id })
+            : paths.applications.overview({ id: application.id }),
+        )
+        .parent()
+        .parent()
+        .within(() => {
+          cy.get('th').eq(0).contains(personName)
+        })
+    })
+  }
 }
