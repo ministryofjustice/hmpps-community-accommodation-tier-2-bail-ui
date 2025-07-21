@@ -72,7 +72,7 @@ export default abstract class Page {
     })
   }
 
-  shouldShowPrisonApplications(applications: Array<Cas2v2ApplicationSummary>): void {
+  shouldShowPrisonBailApplications(applications: Array<Cas2v2ApplicationSummary>): void {
     applications.forEach(application => {
       const { personName, nomsNumber, createdByUserName, crn, prisonCode, applicationOrigin } = application
       const statusLabel = application.latestStatusUpdate?.label
