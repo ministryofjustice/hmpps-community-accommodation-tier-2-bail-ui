@@ -34,4 +34,9 @@ export type TestOptions = {
     username: string
     password: string
   }
+  nomisPrisonUser2: {
+    name: string
+    username: string
+    password: string
+  }
 }
