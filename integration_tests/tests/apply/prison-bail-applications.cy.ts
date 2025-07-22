@@ -35,6 +35,6 @@ context('Prison applications', () => {
     const prisonApplicationsPage = new PrisonApplicationsPage()
 
     // And I can see a list of prison bail applications
-    prisonApplicationsPage.shouldShowPrisonBailApplications(prisonApplications)
+    prisonApplicationsPage.shouldShowApplications(prisonApplications)
   })
 })
