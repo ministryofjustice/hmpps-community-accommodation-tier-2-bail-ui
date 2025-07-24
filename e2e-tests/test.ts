@@ -35,6 +35,14 @@ export default base.extend<TestOptions>({
     },
     { option: true },
   ],
+  nomisPrisonUser2: [
+    {
+      name: 'Cas-two bail Test-nomis-prison-user-2',
+      username: process.env.CAS2_PRISON_BAIL_NOMIS_REF_2_USERNAME as string,
+      password: process.env.CAS2_PRISON_BAIL_NOMIS_REF_2_PASSWORD as string,
+    },
+    { option: true },
+  ],
   adminUser: [
     {
       name: 'CAS2 admin',
