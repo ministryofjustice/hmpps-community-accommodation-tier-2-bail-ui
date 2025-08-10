@@ -117,6 +117,30 @@ describe('ApplicationService', () => {
     })
   })
 
+  describe('getAllByOrigin', () => {
+    const token = 'SOME_TOKEN'
+
+    it('fetches all applications for a given applicationOrigin', async () => {
+      const applications = applicationSummaryFactory.buildList(3)
+
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: applications,
+        totalPages: '50',
+        totalResults: '500',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+
+      applicationClient.getAllByOrigin.mockResolvedValue(paginatedResponse)
+
+      const result = await service.getAllByOrigin(token, 'prisonBail', 2)
+
+      expect(result).toEqual(paginatedResponse)
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.getAllByOrigin).toHaveBeenCalledWith('prisonBail', 2)
+    })
+  })
+
   describe('save', () => {
     const application = applicationFactory.build({ data: null })
     const token = 'some-token'
