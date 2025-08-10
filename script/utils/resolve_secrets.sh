@@ -40,7 +40,6 @@ resolve_secrets() {
       echo "Loading secrets for $secretName"
 
       secrets=$(kubectl get secrets "$secretName" --namespace "$k8s_namespace" -o json | jq ".data | map_values(@base64d)")
-      echo $secrets
       # get value in format 'key=value' which can then be used with the 'export' command, setting them as env vars
       for secret in $(echo "$secrets" | jq -r "to_entries | map(\"\(.key)=\(.value|tostring)\") | .[]" ); do
         # shellcheck disable=SC2163
