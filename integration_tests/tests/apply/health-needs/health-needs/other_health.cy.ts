@@ -80,12 +80,7 @@ context('Visit "other health" page', () => {
     OtherHealthPage.visit(this.application)
     const page = new OtherHealthPage(this.application)
 
-    page.describeLongTermHealthConditions()
-    page.describeSeizures()
-    page.selectHasHadStroke()
-    page.selectBeingTreatedForCancer()
     page.describeOtherHealthNeeds()
-
     page.clickSubmit()
 
     Page.verifyOnPage(InformationSourcesPage, this.application)

@@ -1,185 +1,82 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
 {% extends "./_health-needs-screen.njk" %}
 {% set pageName = "other-health" %}
 
 {% block questions %}
 
-  {% set healthConditionFollowUp %}
+  {% set hasOtherHealthNeedsFollowUp %}
     {{
       formPageTextArea(
         {
-          fieldName: 'healthConditionDetail',
+          fieldName: 'healthNeedsDetail',
           label: {
-            text: page.questions.healthConditionDetail.question,
+            text: page.questions.healthNeedsDetail.question,
             classes: "govuk-label--s"
-          }
+          },
+          hint: { text: page.questions.healthNeedsDetail.hint }
         },
         fetchContext()
       )
     }}
   {% endset %}
 
-  {% set seizuresFollowUp %}
-    {{
-      formPageTextArea(
-        {
-          fieldName: 'seizuresDetail',
-          label: {
-            text: page.questions.seizuresDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
-    }}
+  {% set insetGuidanceHtml %}
+    <div>
+      <p class="govuk-!-font-weight-bold">If you select 'Yes', we'll ask you the following details:</p>
+
+      <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-0">
+        <li class="govuk-!-margin-bottom-0">about their needs and if they have a diagnosis</li>
+        <li class="govuk-!-margin-bottom-0">any support they need</li>
+      </ul>
+    </div>
   {% endset %}
 
-  {% set otherHealthNeedsFollowUp %}
+  {% set hintHtml %}
+    <p>This can include any other health needs that are relevant when living in shared accommodation. For example:</p>
+
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-0">
+      <li class="govuk-!-margin-bottom-0">any long term health conditions such as arthritis, diabetes or high blood pressure</li>
+      <li class="govuk-!-margin-bottom-0">seizures or epilepsy</li>
+      <li class="govuk-!-margin-bottom-0">stroke</li>
+      <li class="govuk-!-margin-bottom-0">cancer treatment</li>
+      <li class="govuk-!-margin-bottom-0">allergies</li>
+      <li>the need to have a private bathroom</li>
+    </ul>
+
+    <p>This list is not exhaustive.</p>
+
     {{
-      formPageTextArea(
-        {
-          fieldName: 'otherHealthNeedsDetail',
-          label: {
-            text: page.questions.otherHealthNeedsDetail.question,
-            classes: "govuk-label--s"
-          }
-        },
-        fetchContext()
-      )
+      govukInsetText({
+        html: insetGuidanceHtml,
+        classes: "guidance-panel govuk-!-margin-top-3"
+      })
     }}
   {% endset %}
-
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
-
-  <p class="govuk-hint govuk-!-margin-bottom-6">These could be any other health needs that are relevant to the support the applicant might need when living in shared accommodation.</p>
 
   {{
     formPageRadios(
       {
-        fieldName: "hasLongTermHealthCondition",
+        fieldName: "hasOtherHealthNeeds",
         hint: {
-            text: page.questions.hasLongTermHealthCondition.hint
+            text: page.questions.hasOtherHealthNeeds.hint
         },
         fieldset: {
           legend: {
-            text: page.questions.hasLongTermHealthCondition.question,
-            classes: "govuk-fieldset__legend--m"
+            text: page.questions.hasOtherHealthNeeds.question,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-4"
           }
         },
-        items: [
-          {
-            value: "yes",
-            text: "Yes",
-            conditional: {
-              html: healthConditionFollowUp
-            }
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasSeizures",
-        fieldset: {
-          legend: {
-            text: page.questions.hasSeizures.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes",
-            conditional: {
-              html: seizuresFollowUp
-            }
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasHadStroke",
-        fieldset: {
-          legend: {
-            text: page.questions.hasHadStroke.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "beingTreatedForCancer",
-        fieldset: {
-          legend: {
-            text: page.questions.beingTreatedForCancer.question,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      },
-      fetchContext()
-    )
-  }}
-
-  {{
-    formPageRadios(
-      {
-        fieldName: "otherHealthNeeds",
         hint: {
-          text: page.questions.otherHealthNeeds.hint
-        },
-        fieldset: {
-          legend: {
-            text: page.questions.otherHealthNeeds.question,
-            classes: "govuk-fieldset__legend--m"
-          }
+          html: hintHtml
         },
         items: [
           {
             value: "yes",
             text: "Yes",
             conditional: {
-              html: otherHealthNeedsFollowUp
+              html: hasOtherHealthNeedsFollowUp
             }
           },
           {
@@ -191,5 +88,6 @@
       fetchContext()
     )
   }}
+
 
 {% endblock %}
