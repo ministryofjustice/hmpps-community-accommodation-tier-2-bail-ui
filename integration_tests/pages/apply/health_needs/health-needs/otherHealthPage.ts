@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 export default class OtherHealthPage extends ApplyPage {
   constructor(private readonly application: Application) {
     super(
-      `Other health needs for ${nameOrPlaceholderCopy(application.person)}`,
+      `Does ${nameOrPlaceholderCopy(application.person)} have other health needs?`,
       application,
       'health-needs',
       'other-health',
@@ -25,26 +25,8 @@ export default class OtherHealthPage extends ApplyPage {
     )
   }
 
-  describeLongTermHealthConditions = (): void => {
-    this.checkRadioByNameAndValue('hasLongTermHealthCondition', 'yes')
-    this.getTextInputByIdAndEnterDetails('healthConditionDetail', 'Chronic arthritis')
-  }
-
-  describeSeizures = (): void => {
-    this.checkRadioByNameAndValue('hasSeizures', 'yes')
-    this.getTextInputByIdAndEnterDetails('seizuresDetail', 'Epilepsy: controlled by meds')
-  }
-
-  selectHasHadStroke = (): void => {
-    this.checkRadioByNameAndValue('hasHadStroke', 'no')
-  }
-
-  selectBeingTreatedForCancer = (): void => {
-    this.checkRadioByNameAndValue('beingTreatedForCancer', 'no')
-  }
-
   describeOtherHealthNeeds = (): void => {
-    this.checkRadioByNameAndValue('otherHealthNeeds', 'yes')
-    this.getTextInputByIdAndEnterDetails('otherHealthNeedsDetail', 'Other health needs detail')
+    this.checkRadioByNameAndValue('hasOtherHealthNeeds', 'yes')
+    this.getTextInputByIdAndEnterDetails('healthNeedsDetail', 'Other health needs detail')
   }
 }
