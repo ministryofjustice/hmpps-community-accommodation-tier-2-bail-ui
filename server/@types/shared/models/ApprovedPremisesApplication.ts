@@ -11,6 +11,8 @@ import type { Cas1ApplicationUserDetails } from './Cas1ApplicationUserDetails';
 import type { Cas1CruManagementArea } from './Cas1CruManagementArea';
 import type { PersonRisks } from './PersonRisks';
 import type { PersonStatus } from './PersonStatus';
+import type { ReleaseTypeOption } from './ReleaseTypeOption';
+import type { SentenceTypeOption } from './SentenceTypeOption';
 export type ApprovedPremisesApplication = (Application & {
     apArea?: ApArea;
     apType?: ApType;
@@ -26,27 +28,15 @@ export type ApprovedPremisesApplication = (Application & {
     caseManagerUserDetails?: Cas1ApplicationUserDetails;
     createdByUserId?: string;
     cruManagementArea?: Cas1CruManagementArea;
-    /**
-     * Any object
-     */
     data?: any;
-    /**
-     * Any object
-     */
     document?: any;
     isEmergencyApplication?: boolean;
-    /**
-     * Use apType
-     */
-    isEsapApplication?: boolean;
-    /**
-     * Use apType
-     */
-    isPipeApplication?: boolean;
     isWomensApplication?: boolean;
     licenceExpiryDate?: string;
     personStatusOnSubmission?: PersonStatus;
+    releaseType?: ReleaseTypeOption;
     risks?: PersonRisks;
+    sentenceType?: SentenceTypeOption;
     status?: ApprovedPremisesApplicationStatus;
     submittedAt?: string;
 } & {
