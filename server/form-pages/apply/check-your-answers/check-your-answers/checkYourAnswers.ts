@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import { isFullPerson } from '../../../../utils/utils'
 
 import TaskListPage from '../../../taskListPage'
+import { getCustodyLocation } from '../../../../utils/getApplicationSummaryData'
 
 type CheckYourAnswersBody = {
   checkYourAnswers?: string
@@ -45,7 +46,7 @@ export default class CheckYourAnswers implements TaskListPage {
       id: this.application.id,
       name: isFullPerson(this.application.person) ? this.application.person.name : null,
       prisonNumber: isFullPerson(this.application.person) ? this.application.person.nomsNumber : null,
-      prisonName: isFullPerson(this.application.person) ? this.application.person.prisonName : null,
+      prisonName: getCustodyLocation(this.application),
       referrerName: this.application.createdBy.name,
       contactEmail: this.application.createdBy.email,
       applicationOrigin: this.application.applicationOrigin,

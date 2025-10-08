@@ -29,6 +29,7 @@ import {
   getFirstIncompleteTask,
 } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
+import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
@@ -152,8 +153,11 @@ describe('applicationsController', () => {
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
+        const expectedSummary = getApplicationSummaryData('referrerSubmission', submittedApplication)
+
         expect(response.render).toHaveBeenCalledWith('applications/show', {
           application: submittedApplication,
+          summary: expectedSummary,
         })
       })
     })
