@@ -5,6 +5,7 @@ import assessPaths from '../../paths/assess'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
+import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
 export default class SubmittedApplicationsController {
   constructor(private readonly submittedApplicationService: SubmittedApplicationService) {}
@@ -29,9 +30,11 @@ export default class SubmittedApplicationsController {
     return async (req: Request, res: Response) => {
       const application = await this.submittedApplicationService.findApplication(req.user.token, req.params.id)
       const person = application.person as FullPerson
+      const summary = getApplicationSummaryData('assessor', application)
 
       return res.render('assess/applications/show', {
         application,
+        summary,
         pageHeading: `Application for ${person.nomsNumber}`,
       })
     }
