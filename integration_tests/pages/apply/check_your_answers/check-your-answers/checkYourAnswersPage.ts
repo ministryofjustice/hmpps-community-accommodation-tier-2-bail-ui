@@ -5,6 +5,7 @@ import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy, stringToKebabCase, htmlToPlainText } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
 import { getPage, getSections, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
+import { getCustodyLocation } from '../../../../../server/utils/getApplicationSummaryData'
 
 export default class CheckYourAnswersPage extends ApplyPage {
   constructor(private readonly application: Application) {
@@ -14,11 +15,12 @@ export default class CheckYourAnswersPage extends ApplyPage {
 
   hasExpectedSummaryData(): void {
     const person = this.application.person as FullPerson
+    const prisonName = getCustodyLocation(this.application)
 
     cy.get('#application-summary').within(() => {
       cy.get('span').contains(person.nomsNumber)
       cy.get('li').contains(this.application.createdBy.name)
-      cy.get('li').contains(person.prisonName)
+      cy.get('li').contains(prisonName)
       cy.get('li').contains(this.application.createdBy.email)
       cy.get('li').contains(this.application.id)
     })
