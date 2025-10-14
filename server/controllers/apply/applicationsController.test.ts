@@ -15,6 +15,7 @@ import {
 import {
   addErrorMessagesToFlash,
   catchValidationErrorOrPropogate,
+  errorMessage,
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import ApplicationsController from './applicationsController'
@@ -22,7 +23,12 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
+import {
+  showMissingRequiredTasksOrTaskList,
+  generateSuccessMessage,
+  getFirstIncompleteTask,
+} from '../../utils/applications/utils'
+import TaskListService from '../../services/taskListService'
 
 jest.mock('../../utils/validation')
 jest.mock('../../services/taskListService')
@@ -681,6 +687,11 @@ describe('applicationsController', () => {
   })
 
   describe('submit', () => {
+    beforeEach(() => {
+      const mockTaskList = { status: 'complete', taskStatuses: {} }
+      ;(TaskListService as jest.Mock).mockImplementation(() => mockTaskList)
+    })
+
     it('renders the application submission confirmation page', async () => {
       const application = applicationFactory.build()
 
@@ -725,6 +736,34 @@ describe('applicationsController', () => {
           err,
           paths.applications.show({ id: application.id }),
         )
+      })
+    })
+
+    describe('when application is incomplete', () => {
+      it('flashes errors and redirects to the application show page', () => {
+        const application = applicationFactory.build()
+        const mockTaskList: Partial<TaskListService> = {
+          status: 'incomplete',
+          taskStatuses: { task1: 'complete', task2: 'in_progress' },
+        }
+        ;(TaskListService as jest.Mock).mockImplementation(() => mockTaskList)
+        ;(getFirstIncompleteTask as jest.Mock).mockReturnValue('task2')
+        ;(errorMessage as jest.Mock).mockReturnValue({
+          text: 'You must complete all tasks before submitting the application',
+        })
+
+        applicationsController.handleIncompleteTasks(request, response, application, mockTaskList as TaskListService)
+
+        expect(request.flash).toHaveBeenCalledWith('errors', {
+          taskList: { text: 'You must complete all tasks before submitting the application' },
+        })
+        expect(request.flash).toHaveBeenCalledWith('errorSummary', [
+          {
+            text: 'You must complete all tasks before submitting the application',
+            href: '#task2-status',
+          },
+        ])
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.show({ id: application.id }))
       })
     })
   })

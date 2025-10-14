@@ -131,3 +131,12 @@ export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, 
 
   return res.redirect(firstPageOfBeforeYouStartSection(application))
 }
+
+export const getFirstIncompleteTask = (taskStatuses: Record<string, string>): string | null => {
+  for (const [task, status] of Object.entries(taskStatuses)) {
+    if (status !== 'complete') {
+      return task
+    }
+  }
+  return null
+}
