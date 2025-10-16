@@ -68,7 +68,7 @@ export default class ApplicationService {
 
   async getAllByOrigin(
     token: string,
-    applicationOrigin: string,
+    applicationOrigin: ApplicationOrigin,
     pageNumber: number = 1,
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)

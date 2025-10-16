@@ -43,7 +43,7 @@ export default class ApplicationClient {
   }
 
   async getAllByOrigin(
-    applicationOrigin: string,
+    applicationOrigin: ApplicationOrigin,
     pageNumber: number,
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
