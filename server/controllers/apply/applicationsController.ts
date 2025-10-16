@@ -10,7 +10,11 @@ import {
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
-import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
+import {
+  generateSuccessMessage,
+  showMissingRequiredTasksOrTaskList,
+  getFirstIncompleteTask,
+} from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
@@ -18,6 +22,7 @@ import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { hasRole } from '../../utils/userUtils'
 import config from '../../config'
+import TaskListService from '../../services/taskListService'
 
 export default class ApplicationsController {
   constructor(
@@ -285,7 +290,12 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
       application.document = buildDocument(application)
+      const taskList = new TaskListService(application)
 
+      if (taskList.status !== 'complete') {
+        this.handleIncompleteTasks(req, res, application, taskList)
+        return
+      }
       try {
         await this.applicationService.submit(req.user.token, application)
         res.render('applications/confirm', { pageHeading: 'Application confirmation', application })
@@ -404,5 +414,18 @@ export default class ApplicationsController {
         applicationId: id,
       })
     }
+  }
+
+  public handleIncompleteTasks(req: Request, res: Response, application: Cas2v2Application, taskList: TaskListService) {
+    req.flash('errors', {
+      taskList: errorMessage('taskList', 'You must complete all tasks before submitting the application'),
+    })
+    req.flash('errorSummary', [
+      {
+        text: 'You must complete all tasks before submitting the application',
+        href: `#${getFirstIncompleteTask(taskList.taskStatuses) ?? ''}-status`,
+      },
+    ])
+    res.redirect(paths.applications.show({ id: application.id }))
   }
 }
