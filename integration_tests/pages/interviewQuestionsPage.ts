@@ -3,7 +3,7 @@ import Page from './page'
 export default class InterviewQuestionsPage extends Page {
   constructor() {
     const name = undefined
-    super('Apply for short-term accommodation (CAS2) for bail interview questions sheet', name)
+    super('Apply for CAS2 for bail interview questions sheet', name)
   }
 
   static visit(): InterviewQuestionsPage {
