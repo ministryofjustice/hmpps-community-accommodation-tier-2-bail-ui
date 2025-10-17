@@ -2,21 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas1RequestedPlacementPeriod } from './Cas1RequestedPlacementPeriod';
+import type { Cas1SpaceBookingShortSummary } from './Cas1SpaceBookingShortSummary';
 import type { PlacementDates } from './PlacementDates';
+import type { ReleaseTypeOption } from './ReleaseTypeOption';
 import type { RequestForPlacementStatus } from './RequestForPlacementStatus';
 import type { RequestForPlacementType } from './RequestForPlacementType';
+import type { SentenceTypeOption } from './SentenceTypeOption';
+import type { SituationOption } from './SituationOption';
 import type { WithdrawPlacementRequestReason } from './WithdrawPlacementRequestReason';
 export type RequestForPlacement = {
+    authorisedPlacementPeriod?: Cas1RequestedPlacementPeriod;
     /**
      * If true, the user making this request can withdraw this request for placement.  If false, it may still be possible to indirectly withdraw this request for placement by withdrawing the application.
      */
     canBeDirectlyWithdrawn: boolean;
     createdAt: string;
     createdByUserId: string;
-    dates: PlacementDates;
-    /**
-     * Any object
-     */
     document?: any;
     /**
      * If `type` is `"manual"`, provides the `PlacementApplication` ID. If `type` is `"automatic"` this field provides a `PlacementRequest` ID.
@@ -24,13 +26,18 @@ export type RequestForPlacement = {
     id: string;
     isWithdrawn: boolean;
     /**
-     * Requests for placements only have one set of placement dates, use 'dates' instead
+     * Requests for placements only have one set of placement dates, use 'requestedPlacementPeriod' or 'authorisedPlacementPeriod' instead
      */
     placementDates: Array<PlacementDates>;
+    placements: Array<Cas1SpaceBookingShortSummary>;
+    releaseType?: ReleaseTypeOption;
     /**
      * If `type` is `"manual"`, provides the value of `PlacementApplication.decisionMadeAt`. If `type` is `"automatic"` this field provides the value of `PlacementRequest.assessmentCompletedAt`.
      */
     requestReviewedAt?: string;
+    requestedPlacementPeriod: Cas1RequestedPlacementPeriod;
+    sentenceType?: SentenceTypeOption;
+    situation?: SituationOption;
     status: RequestForPlacementStatus;
     submittedAt?: string;
     type: RequestForPlacementType;
