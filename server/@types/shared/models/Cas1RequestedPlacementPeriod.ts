@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type NewArrival = {
-    expectedDepartureDate: string;
-    keyWorkerStaffCode?: string;
-    notes?: string;
-    type: string;
+export type Cas1RequestedPlacementPeriod = {
+    arrival: string;
+    arrivalFlexible?: boolean;
+    duration: number;
 };
 
