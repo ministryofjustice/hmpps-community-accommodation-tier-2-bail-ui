@@ -92,7 +92,7 @@
     "@faker-js/faker": "^9.8.0",
     "@golevelup/ts-jest": "^0.7.0",
     "@ministryofjustice/frontend": "^5.1.4",
-    "@playwright/test": "^1.53.1",
+    "@playwright/test": "^1.56.1",
     "@sentry/node": "^7.120.3",
     "@types/jsonpath": "^0.2.4",
     "agentkeepalive": "^4.6.0",
