@@ -55,8 +55,15 @@ export default class ApplicationsController {
 
   prisonApplications(): RequestHandler {
     return async (req: Request, res: Response) => {
-      const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}))
-      const result = await this.applicationService.getAllByOrigin(req.user.token, 'prisonBail', pageNumber)
+      const crnOrNomsNumber = req.query.crnOrNomsNumber as string
+      const paginationParams = crnOrNomsNumber ? { crnOrNomsNumber } : {}
+      const { pageNumber, hrefPrefix } = getPaginationDetails(req, paths.applications.prison({}), paginationParams)
+      const result = await this.applicationService.getAllByOrigin(
+        req.user.token,
+        'prisonBail',
+        crnOrNomsNumber,
+        pageNumber,
+      )
 
       return res.render('applications/prison-applications', {
         applications: result.data,
@@ -64,6 +71,7 @@ export default class ApplicationsController {
         totalPages: Number(result.totalPages),
         hrefPrefix,
         pageHeading: 'All CAS-2 prison bail applications',
+        crnOrNomsNumber,
       })
     }
   }

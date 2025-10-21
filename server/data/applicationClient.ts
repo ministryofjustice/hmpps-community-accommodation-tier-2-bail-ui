@@ -44,12 +44,21 @@ export default class ApplicationClient {
 
   async getAllByOrigin(
     applicationOrigin: string,
+    crnOrNomsNumber: string | undefined,
     pageNumber: number,
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+    const query: Record<string, string> = {
+      isSubmitted: 'true',
+      applicationOrigin,
+      limitByUser: 'false',
+    }
+    if (crnOrNomsNumber) {
+      query.crnOrNomsNumber = crnOrNomsNumber
+    }
     return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
-      query: { isSubmitted: 'true', applicationOrigin, limitByUser: 'false' },
+      query,
     })
   }
 

@@ -176,6 +176,11 @@ export const viewPrisonDashboard = async (page: Page) => {
   await expect(page.locator('h1')).toContainText('All CAS-2 prison bail applications')
 }
 
+export const searchForCrnOrNomsNumber = async (page: Page, crnOrNomsNumber: string) => {
+  await page.getByLabel('Find an application').fill(crnOrNomsNumber)
+  await page.getByRole('button', { name: 'Search' }).click()
+}
+
 export const viewApplicationOverview = async (page: Page, name: string) => {
   await page.getByRole('link', { name }).first().click()
   await expect(page.locator('h1')).toContainText(name)

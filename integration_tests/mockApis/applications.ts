@@ -74,6 +74,26 @@ export default {
         jsonBody: args.applications,
       },
     }),
+  stubApplicationOriginSearch: (args: {
+    applications: Array<Application>
+    crnOrNomsNumber: string
+  }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: `/cas2v2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false&crnOrNomsNumber=${args.crnOrNomsNumber}`,
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Pagination-TotalPages': '2',
+          'X-Pagination-TotalResults': '20',
+          'X-Pagination-PageSize': '10',
+        },
+        jsonBody: args.applications,
+      },
+    }),
   stubApplicationGet: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {
