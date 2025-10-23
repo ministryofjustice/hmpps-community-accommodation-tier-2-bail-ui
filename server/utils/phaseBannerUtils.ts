@@ -1,6 +1,5 @@
 export const supportEmail = 'cas2-bail-digital-support@justice.gov.uk'
-const serviceDeskLink =
-  'https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table=sc_cat_item&sys_id=5a2f4eff1bbf1690a1e2ddf0b24bcb34'
+const serviceDeskLink = 'https://mojprod.service-now.com/moj_sp?id=sc_cat_item&sys_id=5a2f4eff1bbf1690a1e2ddf0b24bcb34'
 export const feedbackSurveyUrl =
   'https://forms.office.com/Pages/ResponsePage.aspx?id=KEeHxuZx_kGp4S6MNndq2NtvFPlxdrJCkJv4UnD6fG1UQzBGV0E1ODM5OE1JWU43S05NQVNNR1hUNS4u'
 
