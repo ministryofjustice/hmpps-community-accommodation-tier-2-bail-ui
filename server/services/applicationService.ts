@@ -69,10 +69,11 @@ export default class ApplicationService {
   async getAllByOrigin(
     token: string,
     applicationOrigin: string,
+    crnOrNomsNumber?: string,
     pageNumber: number = 1,
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
-    return applicationClient.getAllByOrigin(applicationOrigin, pageNumber)
+    return applicationClient.getAllByOrigin(applicationOrigin, crnOrNomsNumber, pageNumber)
   }
 
   async save(page: TaskListPage, request: Request) {

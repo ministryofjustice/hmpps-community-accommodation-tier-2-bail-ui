@@ -142,6 +142,32 @@ describe('applicationsController', () => {
         totalPages: 1,
       })
     })
+
+    it('renders the prison applications page when the user has searched for a noms number', async () => {
+      request = createMock<Request>({
+        user: { token },
+        headers: {
+          referer: 'some-referer/',
+        },
+        query: {
+          page: '1',
+          crnOrNomsNumber: 'A1234BC',
+        },
+      })
+
+      const requestHandler = applicationsController.prisonApplications()
+
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
+        pageHeading: 'All CAS-2 prison bail applications',
+        applications: prisonApplications.data,
+        hrefPrefix: '/applications/prison?crnOrNomsNumber=A1234BC&',
+        pageNumber: 1,
+        totalPages: 1,
+        crnOrNomsNumber: 'A1234BC',
+      })
+    })
   })
 
   describe('show', () => {

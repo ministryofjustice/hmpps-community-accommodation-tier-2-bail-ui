@@ -117,6 +117,59 @@ describe('ApplicationService', () => {
     })
   })
 
+  describe('getAllByOrigin', () => {
+    const token = 'some-token'
+
+    it('should fetch all applications for an origin', async () => {
+      const applications = applicationSummaryFactory.buildList(5)
+
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: applications,
+        totalPages: '10',
+        totalResults: '100',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+
+      applicationClient.getAllByOrigin.mockResolvedValue(paginatedResponse)
+
+      const result = await service.getAllByOrigin(token, 'prisonBail', undefined, 2)
+
+      expect(result.data).toEqual(applications)
+      expect(result.pageNumber).toEqual('2')
+      expect(result.pageSize).toEqual('10')
+      expect(result.totalPages).toEqual('10')
+      expect(result.totalResults).toEqual('100')
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.getAllByOrigin).toHaveBeenCalledWith('prisonBail', undefined, 2)
+    })
+
+    it('should fetch all applications for an origin when searching for a crn or noms number', async () => {
+      const applications = applicationSummaryFactory.buildList(5)
+      const crn = 'A000000000'
+
+      const paginatedResponse = paginatedResponseFactory.build({
+        data: applications,
+        totalPages: '10',
+        totalResults: '100',
+        pageNumber: '2',
+      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+
+      applicationClient.getAllByOrigin.mockResolvedValue(paginatedResponse)
+
+      const result = await service.getAllByOrigin(token, 'prisonBail', crn, 2)
+
+      expect(result.data).toEqual(applications)
+      expect(result.pageNumber).toEqual('2')
+      expect(result.pageSize).toEqual('10')
+      expect(result.totalPages).toEqual('10')
+      expect(result.totalResults).toEqual('100')
+
+      expect(applicationClientFactory).toHaveBeenCalledWith(token)
+      expect(applicationClient.getAllByOrigin).toHaveBeenCalledWith('prisonBail', crn, 2)
+    })
+  })
+
   describe('save', () => {
     const application = applicationFactory.build({ data: null })
     const token = 'some-token'

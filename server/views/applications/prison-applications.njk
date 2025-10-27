@@ -1,6 +1,8 @@
 {%- from "moj/components/sub-navigation/macro.njk" import mojSubNavigation -%}
 {% from "../partials/table.njk" import applicationsTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "../components/formFields/form-page-input/macro.njk" import formPageInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "../partials/layout.njk" %}
 
@@ -23,30 +25,42 @@
     }]
   }) }}
 
+  <div class="cas-search-container govuk-grid-column-two-thirds govuk-!-margin-bottom-6 govuk-!-padding-left-6">
+    <form action="{{ paths.applications.prison() }}" method="get">
+      {{ formPageInput({
+        label: {
+          classes: "govuk-!-font-weight-bold govuk-!-margin-top-6",
+          text: "Find an application"
+        },
+        hint: {
+          text: "Search for an application by CRN or prison number"
+        },
+        fieldName: "crnOrNomsNumber",
+        classes: "govuk-!-width-three-quarters"
+      }, fetchContext()) }}
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Search",
+          attributes: { id: "search-button" },
+          preventDoubleClick: true
+        }) }}
+
+        <a href="{{ paths.applications.prison() }}" class="govuk-link govuk-link--no-visited-state">Clear search results</a>
+      </div>
+    </form>
+  </div>
+
   {{applicationsTable(
     "",
     [
-      {
-        text: "Applicant"
-      },
-      {
-        text: "Prison number"
-      },
-      {
-        text: "Prison Code"
-      },
-      {
-        text: "CRN"
-      },
-      {
-        text: "Application owner"
-      },
-      {
-        text: "Application type"
-      },
-      {
-        text: "Status"
-      }
+      { text: "Applicant" },
+      { text: "Prison number" },
+      { text: "Prison Code" },
+      { text: "CRN" },
+      { text: "Application owner" },
+      { text: "Application type" },
+      { text: "Status" }
     ],
     prisonApplicationTableRows(applications))
   }}
