@@ -16,6 +16,7 @@ import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { catchValidationErrorOrPropogate, fetchErrorsAndUserInput } from '../../utils/validation'
 import config from '../../config'
 import { assessmentHasExistingData } from '../../utils/assessmentUtils'
+import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
 jest.mock('../../utils/getPaginationDetails')
 jest.mock('../../utils/validation')
@@ -84,6 +85,8 @@ describe('submittedApplicationsController', () => {
       const requestHandler = submittedApplicationsController.show()
       await requestHandler(request, response, next)
 
+      const expectedSummary = getApplicationSummaryData('assessor', submittedApplication)
+
       expect(paths.submittedApplications.show({ id: submittedApplication.id })).toEqual(
         `/assess/applications/${submittedApplication.id}`,
       )
@@ -91,6 +94,7 @@ describe('submittedApplicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('assess/applications/show', {
         application: submittedApplication,
         pageHeading: `Application for ${person.nomsNumber}`,
+        summary: expectedSummary,
       })
     })
   })
