@@ -134,3 +134,7 @@ export const formatCommaToLinebreak = (str: string) => {
 export const htmlToPlainText = (str: string) => {
   return str.replace(/(<([^>]+)>)/gi, '')
 }
+
+export const isValidCrnOrNomsNumber = (input: string): boolean => {
+  return !/[^a-zA-Z0-9]/.test(input)
+}
