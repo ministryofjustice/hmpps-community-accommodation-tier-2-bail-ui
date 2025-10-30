@@ -134,7 +134,7 @@
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
     "@ministryofjustice/eslint-config-hmpps": "^0.0.1",
-    "@pact-foundation/pact": "^15.0.1",
+    "@pact-foundation/pact": "^16.0.2",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/bunyan": "^1.8.11",
@@ -172,7 +172,7 @@
     "jest-diff": "^29.7.0",
     "jest-html-reporter": "^4.2.0",
     "jest-junit": "^16.0.0",
-    "jest-pact": "^0.11.3",
+    "jest-pact": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "lint-staged": "^16.1.2",
     "mocha-junit-reporter": "^2.2.1",
