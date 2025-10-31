@@ -128,6 +128,30 @@ describe('peopleController', () => {
           })
         })
 
+        describe('when the prison number is in an invalid format', () => {
+          it('renders the search-by-prison-number page with a incorrect format error message', async () => {
+            const requestHandler = peopleController.findByPrisonNumber()
+
+            const err = { data: {}, status: 500 }
+
+            personService.findByPrisonNumber.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.prisonNumber = 'A7779DY/23'
+
+            await requestHandler(request, response, next)
+
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+            expect(flashSpy).toHaveBeenCalledWith('errors', {
+              prisonNumber: errorMessage('prisonNumber', 'Enter a prison number in the correct format'),
+            })
+            expect(flashSpy).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('prisonNumber', 'Enter a prison number in the correct format'),
+            ])
+          })
+        })
+
         describe('when there is an error of another type', () => {
           it('renders the search-by-prison-number page with a generic error message', async () => {
             const requestHandler = peopleController.findByPrisonNumber()
@@ -138,7 +162,7 @@ describe('peopleController', () => {
               throw err
             })
 
-            request.body.nomsNumber = 'SOME_NUMBER'
+            request.body.prisonNumber = 'SOMENUMBER'
 
             await requestHandler(request, response, next)
 
@@ -258,6 +282,30 @@ describe('peopleController', () => {
           })
         })
 
+        describe('when the crn is in an invalid format', () => {
+          it('renders the search-by-crn page with a incorrect format error message', async () => {
+            const requestHandler = peopleController.findByCrn()
+
+            const err = { data: {}, status: 500 }
+
+            personService.findByCrn.mockImplementation(() => {
+              throw err
+            })
+
+            request.body.crn = 'X371199/23'
+
+            await requestHandler(request, response, next)
+
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+            expect(flashSpy).toHaveBeenCalledWith('errors', {
+              crn: errorMessage('crn', 'Enter a CRN in the correct format'),
+            })
+            expect(flashSpy).toHaveBeenCalledWith('errorSummary', [
+              errorSummary('crn', 'Enter a CRN in the correct format'),
+            ])
+          })
+        })
+
         describe('when there is an error of another type', () => {
           it('throws the error', async () => {
             const requestHandler = peopleController.findByCrn()
@@ -268,7 +316,7 @@ describe('peopleController', () => {
               throw err
             })
 
-            request.body.crn = 'SOME_NUMBER'
+            request.body.crn = 'SOMENUMBER'
 
             await requestHandler(request, response, next)
 
