@@ -9,7 +9,7 @@ describe('FundingCas2Accommodation', () => {
     it('sets the title', () => {
       const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application)
 
-      expect(page.title).toEqual('Funding CAS-2 accommodation')
+      expect(page.title).toEqual('Funding CAS2 for bail accommodation')
     })
   })
 

@@ -6,7 +6,7 @@
 //
 //  Background:
 //    Given I am logged in
-//    And I have confirmed the user is eligible for CAS-2
+//    And I have confirmed the user is eligible for CAS2 for bail
 //    And I'm now faced with the 'Confirm consent' task
 //
 //  Scenario: Confirms that the person has given consent
@@ -94,7 +94,7 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     //  Background:
     //    Given I am logged in
     cy.signIn()
-    //    And I have confirmed the user is eligible for CAS-2
+    //    And I have confirmed the user is eligible for CAS2 for bail
     cy.task('stubApplicationGet', { application: this.application })
     cy.task('stubApplicationUpdate', { application: this.application })
 

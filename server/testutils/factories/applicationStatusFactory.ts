@@ -7,6 +7,6 @@ export default Factory.define<ApplicationStatus>(() => ({
   id: faker.string.uuid(),
   name: 'onWaitingList',
   label: 'On waiting list',
-  description: 'The applicant has been added to the waiting list for Short-Term Accommodation (CAS-2).',
+  description: 'The applicant has been added to the waiting list for CAS2 for Bail.',
   statusDetails: [applicationStatusDetailFactory.build()],
 }))

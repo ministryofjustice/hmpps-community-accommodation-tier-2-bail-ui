@@ -7,7 +7,7 @@ export default class ApplicationListPage extends Page {
     private readonly applications: Array<Cas2v2ApplicationSummary>,
     name: string,
   ) {
-    super('Your CAS-2 applications', name)
+    super('Your CAS2 applications', name)
   }
 
   static visit(applications: Array<Cas2v2ApplicationSummary>): ApplicationListPage {

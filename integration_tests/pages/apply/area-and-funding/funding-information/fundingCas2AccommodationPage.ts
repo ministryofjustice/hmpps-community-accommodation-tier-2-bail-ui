@@ -4,7 +4,7 @@ import { FundingSources } from '../../../../../server/form-pages/apply/area-and-
 
 export default class FundingCas2AccommodationPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Funding CAS-2 accommodation', application, 'funding-information', 'funding-cas2-accommodation')
+    super('Funding CAS2 for bail accommodation', application, 'funding-information', 'funding-cas2-accommodation')
   }
 
   completeWithPersonalSavings(): void {

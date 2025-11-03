@@ -3,7 +3,7 @@ import Page from '../page'
 
 export default class BeforeYouStartPage extends Page {
   constructor(name: string) {
-    super('Apply for short-term accommodation (CAS2) for bail', name)
+    super('Apply for CAS2 for bail', name)
   }
 
   static visit(name: string): BeforeYouStartPage {

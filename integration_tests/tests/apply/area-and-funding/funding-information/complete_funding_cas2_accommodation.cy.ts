@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
-//  Feature: Referrer completes 'Funding CAS-2 Accommodation' question page
+//  Feature: Referrer completes 'Funding CAS2 for bail Accommodation' question page
 //    As a referrer,
-//    I want to confirm how the applicant is funding their CAS2 accommodation
+//    I want to confirm how the applicant is funding their CAS2 for bail accommodation
 //    So that I can get the applicant into accommodation as quickly as possible with no FIEs
 //
 //  Scenario: continue to the next page
-//    Given I'm on the 'Funding CAS-2 Accommodation' question page
+//    Given I'm on the 'Funding CAS2 for bail Accommodation' question page
 //    When I complete the form
 //    And I continue to the next page
 //    Then I am taken to the applicant ID page
@@ -44,7 +44,7 @@ context('Visit "Confirm funding and ID" section', () => {
     //---------------------
     cy.signIn()
 
-    // And I am on the Funding CAS-2 accommodation page
+    // And I am on the Funding CAS2 for bail accommodation page
     // --------------------------------
     cy.visit('applications/abc123/tasks/funding-information/pages/funding-cas2-accommodation')
     Page.verifyOnPage(FundingCas2AccommodationPage, this.application)
@@ -53,7 +53,7 @@ context('Visit "Confirm funding and ID" section', () => {
   // Scenario: continue to the next page
   // ----------------------------
   it('continues to the task list page', function test() {
-    // Given I am on the Funding CAS-2 Accommodation question page
+    // Given I am on the Funding CAS2 for bail Accommodation question page
     const page = Page.verifyOnPage(FundingCas2AccommodationPage, this.application)
 
     // When I complete the form

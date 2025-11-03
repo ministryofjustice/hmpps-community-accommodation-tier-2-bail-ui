@@ -15,7 +15,7 @@ export const updateStatus = async (page: Page) => {
 
 export const viewSubmittedApplication = async (page: Page) => {
   await page.goto('/assess/applications')
-  await expect(page.locator('h1')).toContainText('Short-Term Accommodation (CAS-2) applications')
+  await expect(page.locator('h1')).toContainText('CAS2 for bail - short-term accommodation')
   await page.getByTestId('pagination-page-number-link').last().click()
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
@@ -36,7 +36,7 @@ export const addAssessmentDetails = async (page: Page) => {
   await page.getByTestId('add-assessment-details').click()
 
   await page.getByLabel('Assessor name').fill('John Doe')
-  await page.getByLabel('Nacro CAS-2 reference number').fill('123456')
+  await page.getByLabel('Nacro CAS2 for bail reference number').fill('123456')
   await page.getByTestId('save-assessment-details').click()
 
   await expect(page.locator('h2').first()).toContainText('Success')

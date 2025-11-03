@@ -121,7 +121,7 @@ export const submitApplication = async (page: Page) => {
 
 export const viewSubmittedApplication = async (page: Page, name: string) => {
   await page.goto('/applications#submitted')
-  await expect(page.locator('h1')).toContainText('Your CAS-2 applications')
+  await expect(page.locator('h1')).toContainText('Your CAS2 applications')
   await page.getByRole('link', { name }).first().click()
   await expect(page.locator('h1')).toContainText(name)
   await expect(page.locator('h2').first()).toContainText('Application history')
@@ -173,7 +173,7 @@ export const viewPrisonDashboard = async (page: Page) => {
 
   await dashboardPage.viewPrisonDashboard()
 
-  await expect(page.locator('h1')).toContainText('All CAS-2 prison bail applications')
+  await expect(page.locator('h1')).toContainText('All CAS2 prison bail applications')
 }
 
 export const searchForCrnOrNomsNumber = async (page: Page, crnOrNomsNumber: string) => {

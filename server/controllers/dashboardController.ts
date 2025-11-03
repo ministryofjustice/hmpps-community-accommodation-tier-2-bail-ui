@@ -11,7 +11,7 @@ export default class DashboardController {
         res.locals.user.userRoles.includes('CAS2_COURT_BAIL_REFERRER')
 
       res.render('dashboard/index', {
-        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        pageHeading: 'CAS2 for bail',
         sections,
         isReferrer,
       })
