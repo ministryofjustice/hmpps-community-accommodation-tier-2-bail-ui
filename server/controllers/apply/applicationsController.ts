@@ -21,7 +21,6 @@ import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import { hasRole } from '../../utils/userUtils'
-import config from '../../config'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
@@ -39,8 +38,7 @@ export default class ApplicationsController {
 
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      const showPrisonDashboard =
-        hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER') && config.flags.enablePrisonDashboard
+      const showPrisonDashboard = hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')
 
       return res.render('applications/index', {
         errors,
