@@ -12,7 +12,8 @@ export default class PersonClient {
   }
 
   async searchByPrisonNumber(nomsNumber: string): Promise<FullPerson> {
-    const path = `${paths.people.searchByPrisonNumber({ nomsNumber })}`
+    const encodedNomsNumber = encodeURIComponent(nomsNumber)
+    const path = paths.people.searchByPrisonNumber({ nomsNumber: encodedNomsNumber })
 
     const response = await this.restClient.get({
       path,
@@ -22,7 +23,8 @@ export default class PersonClient {
   }
 
   async searchByCrn(crn: string): Promise<FullPerson> {
-    const path = `${paths.people.searchByCrn({ crn })}`
+    const encodedCrn = encodeURIComponent(crn)
+    const path = `${paths.people.searchByCrn({ crn: encodedCrn })}`
 
     const response = await this.restClient.get({
       path,

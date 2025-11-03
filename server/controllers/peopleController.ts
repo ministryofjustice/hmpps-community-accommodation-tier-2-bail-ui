@@ -5,6 +5,7 @@ import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
 import { DateFormats } from '../utils/dateUtils'
 import paths from '../paths/apply'
+import { isValidCrnOrNomsNumber } from '../utils/utils'
 
 export default class PeopleController {
   constructor(
@@ -41,6 +42,8 @@ export default class PeopleController {
               'prisonNumber',
               `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
             )
+          } else if (!isValidCrnOrNomsNumber(prisonNumber)) {
+            addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number in the correct format')
           } else {
             addErrorMessagesToFlash(req, 'prisonNumber', 'Something went wrong. Please try again later.')
           }
@@ -78,6 +81,8 @@ export default class PeopleController {
               'crn',
               `You do not have permission to access the CRN ${crn}, please try another number.`,
             )
+          } else if (!isValidCrnOrNomsNumber(crn)) {
+            addErrorMessagesToFlash(req, 'crn', 'Enter a CRN in the correct format')
           } else {
             addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
           }
