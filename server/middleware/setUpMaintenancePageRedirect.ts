@@ -9,7 +9,7 @@ export default function setUpMaintenancePageRedirect(): Router {
     if (
       (config.flags.maintenanceMode === 'true' || config.flags.maintenanceMode === true) &&
       !allowedPaths.includes(req.path) &&
-      !res.locals.user?.roles.includes('ROLE_CAS2_ADMIN')
+      !res.locals.user?.userRoles.includes('ROLE_CAS2_ADMIN')
     ) {
       return res.redirect(302, `/maintenance`)
     }
