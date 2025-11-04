@@ -102,8 +102,6 @@ describe('applicationsController', () => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
 
-      config.flags.enablePrisonDashboard = true
-
       const requestHandler = applicationsController.index()
 
       await requestHandler(request, response, next)
