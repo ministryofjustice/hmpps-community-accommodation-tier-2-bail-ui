@@ -10,7 +10,7 @@ const setupApp = (): Express => {
   app.use((req, res, next) => {
     res.locals = res.locals || {}
     res.locals.user = res.locals.user || {}
-    res.locals.user.roles = roles
+    res.locals.user.userRoles = roles
     next()
   })
 
@@ -97,7 +97,7 @@ describe('setUpMaintenancePageRedirect', () => {
         app.use((req, res, next) => {
           res.locals = res.locals || {}
           res.locals.user = res.locals.user || {}
-          res.locals.user.roles = roles
+          res.locals.user.userRoles = roles
           next()
         })
 
@@ -131,8 +131,7 @@ describe('setUpMaintenancePageRedirect', () => {
       app.use((req, res, next) => {
         res.locals = res.locals || {}
         res.locals.user = res.locals.user || {}
-        // The test here is to omit the roles object
-        // res.locals.user.roles = roles
+        res.locals.user.userRoles = []
         next()
       })
 
