@@ -29,7 +29,7 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: false,
       })
@@ -43,7 +43,7 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: true,
       })
@@ -57,7 +57,7 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'Short-term accommodation (CAS2) for bail',
+        pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: true,
       })

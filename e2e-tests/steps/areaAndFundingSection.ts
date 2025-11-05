@@ -10,7 +10,7 @@ export const completeFundingInformationTask = async (page: Page) => {
 }
 
 async function completeFundingInformationPage(page: Page) {
-  const fundingInformationPage = await ApplyPage.initialize(page, 'Funding CAS-2 accommodation')
+  const fundingInformationPage = await ApplyPage.initialize(page, 'Funding CAS2 for bail accommodation')
 
   await fundingInformationPage.checkRadio('Personal savings, salary or pension', true)
   await fundingInformationPage.checkRadioInGroup('Does the applicant have a National Insurance number?', 'Yes')

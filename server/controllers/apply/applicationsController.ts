@@ -68,7 +68,7 @@ export default class ApplicationsController {
         pageNumber: Number(result.pageNumber),
         totalPages: Number(result.totalPages),
         hrefPrefix,
-        pageHeading: 'All CAS-2 prison bail applications',
+        pageHeading: 'All CAS2 prison bail applications',
         crnOrNomsNumber,
       })
     }
@@ -123,7 +123,7 @@ export default class ApplicationsController {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
-    )} is not eligible for CAS-2 accommodation`
+    )} is not eligible for CAS2 for bail accommodation`
     const changeAnswerPath = paths.applications.pages.show({
       id: application.id,
       task: 'confirm-eligibility',

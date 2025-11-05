@@ -4,7 +4,7 @@ import Page, { PageElement } from './page'
 export default class HomePage extends Page {
   constructor() {
     const name = undefined
-    super('Short-term accommodation (CAS2) for bail', name)
+    super('CAS2 for bail', name)
     this.checkPhaseBanner()
   }
 

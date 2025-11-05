@@ -133,7 +133,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
-        pageHeading: 'All CAS-2 prison bail applications',
+        pageHeading: 'All CAS2 prison bail applications',
         applications: prisonApplications.data,
         hrefPrefix: '/applications/prison?',
         pageNumber: 1,
@@ -158,7 +158,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/prison-applications', {
-        pageHeading: 'All CAS-2 prison bail applications',
+        pageHeading: 'All CAS2 prison bail applications',
         applications: prisonApplications.data,
         hrefPrefix: '/applications/prison?crnOrNomsNumber=A1234BC&',
         pageNumber: 1,
@@ -255,7 +255,7 @@ describe('applicationsController', () => {
         person: personFactory.build({ name: 'Roger Smith' }),
       })
 
-      const panelText = `Roger Smith is not eligible for CAS-2 accommodation`
+      const panelText = `Roger Smith is not eligible for CAS2 for bail accommodation`
       const changeAnswerPath = paths.applications.pages.show({
         id: application.id,
         task: 'confirm-eligibility',

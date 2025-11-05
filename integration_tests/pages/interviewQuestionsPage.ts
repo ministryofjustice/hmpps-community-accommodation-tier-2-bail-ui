@@ -17,7 +17,7 @@ export default class InterviewQuestionsPage extends Page {
     cy.get('h2').contains('Applicant details')
     cy.get('h2').contains('Exclusion zones and preferred areas')
     cy.get('h2').contains('Gang affiliation and family unit')
-    cy.get('h2').contains('Funding CAS2 accommodation')
+    cy.get('h2').contains('Funding CAS2 for bail accommodation')
     cy.get('h2').contains('Offence information')
     cy.get('h2').contains('Health needs')
     cy.get('h2').contains('Concerns to the applicant and others')
