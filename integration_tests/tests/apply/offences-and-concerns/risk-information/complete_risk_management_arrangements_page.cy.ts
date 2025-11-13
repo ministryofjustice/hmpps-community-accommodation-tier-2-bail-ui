@@ -39,7 +39,6 @@ context('Visit "risk management arrangemnents" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['risk-of-serious-harm'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

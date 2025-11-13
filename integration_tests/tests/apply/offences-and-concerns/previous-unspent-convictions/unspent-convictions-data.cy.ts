@@ -29,7 +29,6 @@ context('Visit "Offences and concerns" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['previous-unspent-convictions']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

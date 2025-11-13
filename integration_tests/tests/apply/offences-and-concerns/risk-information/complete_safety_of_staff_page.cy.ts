@@ -34,7 +34,6 @@ context('Complete "Safety of staff" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['risk-information'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData
@@ -54,7 +53,7 @@ context('Complete "Safety of staff" page', () => {
 
     // And I visit the Safety of staff page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/risk-information/pages/safety-of-staff')
+    cy.visit(`applications/${this.application.id}/tasks/risk-information/pages/safety-of-staff`)
   })
 
   //  Scenario: view Safety of staff page
