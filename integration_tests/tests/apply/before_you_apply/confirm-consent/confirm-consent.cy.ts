@@ -53,7 +53,6 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['confirm-consent'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

@@ -33,7 +33,6 @@ context('Complete "Violence and arson" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['risk-information'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData
@@ -53,7 +52,7 @@ context('Complete "Violence and arson" page', () => {
 
     // And I visit the Violence and arson page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/risk-information/pages/violence-and-arson')
+    cy.visit(`applications/${this.application.id}/tasks/risk-information/pages/violence-and-arson`)
   })
 
   //  Scenario: view violence and arson questions

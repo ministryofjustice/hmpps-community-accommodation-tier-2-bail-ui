@@ -33,7 +33,6 @@ context('Visit "non-standard bail conditions" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['bail-conditions']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

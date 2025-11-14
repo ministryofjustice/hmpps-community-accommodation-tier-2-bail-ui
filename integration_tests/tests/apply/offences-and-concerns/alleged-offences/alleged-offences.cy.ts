@@ -25,6 +25,7 @@
 //    When I continue to the next task / page
 //    Then I see the "alleged offences summary" page
 
+import { faker } from '@faker-js/faker'
 import AllegedOffencesPage from '../../../../pages/apply/offences-and-concerns/alleged-offences/allegedOffencesPage'
 import AllegedOffenceDataPage from '../../../../pages/apply/offences-and-concerns/alleged-offences/allegedOffenceDataPage'
 import AllegedOffencesSummaryPage from '../../../../pages/apply/offences-and-concerns/alleged-offences/allegedOffencesSummaryPage'
@@ -39,10 +40,11 @@ context('Visit "Offences and concerns" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
+    const applicationId = faker.string.uuid()
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['alleged-offences']
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -58,7 +60,7 @@ context('Visit "Offences and concerns" section', () => {
     })
 
     const applicationWithDeletedData = applicationFactory.build({
-      id: 'abc123',
+      id: applicationId,
       person,
       data: {
         'alleged-offences': { 'alleged-offence-data': [] },
