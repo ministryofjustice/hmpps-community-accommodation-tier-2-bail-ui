@@ -4,6 +4,7 @@ import { Cas2v2Application as Application, Cas2v2ApplicationSummary } from '@app
 import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
+import { faker } from '@faker-js/faker'
 import { getPage } from '../../utils/applications/getPage'
 import TaskListPage from '../../form-pages/taskListPage'
 import {
@@ -805,7 +806,7 @@ describe('applicationsController', () => {
       }
       request.query = {}
       request.params = {
-        id: 'abc123',
+        id: faker.string.uuid(),
         page: 'example-page',
         task: 'example-task',
       }
@@ -834,7 +835,9 @@ describe('applicationsController', () => {
 
         expect(request.flash).toHaveBeenCalledWith('success', '')
 
-        expect(response.redirect).toHaveBeenCalledWith('/applications/abc123/tasks/example-task/pages/redirect-page')
+        expect(response.redirect).toHaveBeenCalledWith(
+          `/applications/${request.params.id}/tasks/example-task/pages/redirect-page`,
+        )
       })
     })
 
@@ -901,7 +904,7 @@ describe('applicationsController', () => {
         redirectPage: 'return-page',
       }
       request.params = {
-        id: 'abc123',
+        id: faker.string.uuid(),
         task: 'example-task',
         page: 'example-page',
         index: '0',
@@ -969,7 +972,7 @@ describe('applicationsController', () => {
       }
 
       request.params = {
-        id: 'abc123',
+        id: faker.string.uuid(),
       }
 
       const PageConstructor = jest.fn()
@@ -1036,7 +1039,7 @@ describe('applicationsController', () => {
     describe('when a note is added', () => {
       it('redirects to the overview page with a success message', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {
@@ -1060,7 +1063,7 @@ describe('applicationsController', () => {
     describe('when there is an error that is not a 400', () => {
       it('passes the error to the error handler', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {
@@ -1088,7 +1091,7 @@ describe('applicationsController', () => {
     describe('when there is a 400 error', () => {
       it('adds the error to the flash and redirects back to the page', async () => {
         request.params = {
-          id: 'abc123',
+          id: faker.string.uuid(),
         }
 
         request.query = {
@@ -1115,8 +1118,9 @@ describe('applicationsController', () => {
 
   describe('confirmSubmission', () => {
     it('renders the confirm submission template', async () => {
+      const id = faker.string.uuid()
       request.params = {
-        id: 'abc123',
+        id,
       }
 
       const requestHandler = applicationsController.confirmSubmission()
@@ -1125,7 +1129,7 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/confirm-submission', {
         pageHeading: 'Confirm application submission',
-        applicationId: 'abc123',
+        applicationId: id,
       })
     })
   })

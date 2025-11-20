@@ -21,7 +21,6 @@ context('Check your answers page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['check-your-answers']['check-your-answers']
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })

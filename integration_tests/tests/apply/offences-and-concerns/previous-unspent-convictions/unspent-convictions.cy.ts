@@ -27,6 +27,7 @@
 //    When I continue to the next task / page
 //    Then I see the "task list" page
 
+import { faker } from '@faker-js/faker'
 import UnspentConvictionsPage from '../../../../pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictionsPage'
 import UnspentConvictionsDataPage from '../../../../pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictionsDataPage'
 import Page from '../../../../pages/page'
@@ -41,10 +42,11 @@ context('Visit "Offences and concerns" section', () => {
     cy.task('stubSignIn')
     cy.task('stubAuthUser')
 
+    const applicationId = faker.string.uuid()
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['previous-unspent-convictions']
       const application = applicationFactory.build({
-        id: 'abc123',
+        id: applicationId,
         person,
         data: applicationData,
       })
@@ -60,7 +62,7 @@ context('Visit "Offences and concerns" section', () => {
     })
 
     const applicationWithDeletedData = applicationFactory.build({
-      id: 'abc123',
+      id: applicationId,
       person,
       data: {
         'previous-unspent-convictions': { 'unspent-convictions-data': [] },

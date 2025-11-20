@@ -38,7 +38,6 @@ context('Confirm submission page as a court bail user', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       const application = applicationFactory.build({
-        id: 'abc123',
         applicationOrigin: 'courtBail',
         person,
         data: applicationData,
@@ -109,7 +108,6 @@ context('Confirm submission page as a prison bail user', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       const application = applicationFactory.build({
-        id: 'abc123',
         applicationOrigin: 'prisonBail',
         person,
         data: applicationData,

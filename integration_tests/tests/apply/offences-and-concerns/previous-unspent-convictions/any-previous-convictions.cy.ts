@@ -31,7 +31,6 @@ context('Visit "Offences and concerns" section', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
         data: applicationData,
       })
