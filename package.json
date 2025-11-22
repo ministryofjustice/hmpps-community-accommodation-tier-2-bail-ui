@@ -93,7 +93,7 @@
     "@golevelup/ts-jest": "^0.7.0",
     "@ministryofjustice/frontend": "^5.1.4",
     "@playwright/test": "^1.56.1",
-    "@sentry/node": "^7.120.3",
+    "@sentry/node": "^10.26.0",
     "@types/jsonpath": "^0.2.4",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^3.7.0",
