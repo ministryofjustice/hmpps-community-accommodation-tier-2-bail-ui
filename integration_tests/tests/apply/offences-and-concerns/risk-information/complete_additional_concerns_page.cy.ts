@@ -33,7 +33,6 @@ context('Complete "Additional concerns" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['risk-information'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData

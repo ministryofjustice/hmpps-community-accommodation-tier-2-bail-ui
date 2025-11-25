@@ -26,7 +26,6 @@ context('Visit "Confirm funding and ID" section', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       applicationData['funding-information'] = {}
       const application = applicationFactory.build({
-        id: 'abc123',
         person,
       })
       application.data = applicationData
@@ -46,7 +45,7 @@ context('Visit "Confirm funding and ID" section', () => {
 
     // And I am on the Funding CAS2 for bail accommodation page
     // --------------------------------
-    cy.visit('applications/abc123/tasks/funding-information/pages/funding-cas2-accommodation')
+    cy.visit(`applications/${this.application.id}/tasks/funding-information/pages/funding-cas2-accommodation`)
     Page.verifyOnPage(FundingCas2AccommodationPage, this.application)
   })
 

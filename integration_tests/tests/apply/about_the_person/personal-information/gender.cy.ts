@@ -33,7 +33,6 @@ context('Visit "gender" page', () => {
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['personal-information'].gender
       const application = applicationFactory.build({
-        id: 'abc123',
         person: male,
         data: applicationData,
       })
