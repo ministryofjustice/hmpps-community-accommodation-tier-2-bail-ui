@@ -22,7 +22,7 @@ describe('ConfirmEligibility', () => {
     it('personalises the page title', () => {
       const page = new ConfirmEligibility({ isEligible: 'yes' }, application)
 
-      expect(page.title).toEqual('Confirm Roger Smith is eligible for short-term accommodation (CAS2) for bail')
+      expect(page.title).toEqual('Confirm Roger Smith is eligible for CAS2 for bail')
     })
   })
 

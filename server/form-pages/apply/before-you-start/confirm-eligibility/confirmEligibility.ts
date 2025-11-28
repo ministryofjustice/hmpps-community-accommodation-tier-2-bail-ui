@@ -18,7 +18,7 @@ export default class ConfirmEligibility implements TaskListPage {
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Confirm ${this.personName} is eligible for short-term accommodation (CAS2) for bail`
+  title = `Confirm ${this.personName} is eligible for CAS2 for bail`
 
   questions: Record<string, string>
 
