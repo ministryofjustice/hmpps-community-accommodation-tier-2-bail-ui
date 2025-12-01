@@ -30,7 +30,8 @@
     "install-playwright": "npx playwright install",
     "clean": "rm -rf dist node_modules",
     "rebuild": "npm run clean && npm i && npm run build",
-    "generate-types": "script/generate-types"
+    "generate-types": "script/generate-types",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "engines": {
     "node": "^22",
@@ -92,6 +93,7 @@
     "@faker-js/faker": "^9.8.0",
     "@golevelup/ts-jest": "^0.7.0",
     "@ministryofjustice/frontend": "^5.1.4",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@playwright/test": "^1.56.1",
     "@sentry/node": "^7.120.3",
     "@types/jsonpath": "^0.2.4",
