@@ -2,10 +2,7 @@ import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
 export const completeEligibilityTask = async (page: Page, name: string) => {
-  const confirmEligibilityPage = await ApplyPage.initialize(
-    page,
-    `Confirm ${name} is eligible for short-term accommodation (CAS2) for bail`,
-  )
+  const confirmEligibilityPage = await ApplyPage.initialize(page, `Confirm ${name} is eligible for CAS2 for bail`)
 
   await confirmEligibilityPage.checkRadio('Yes')
   await confirmEligibilityPage.clickConfirm()
