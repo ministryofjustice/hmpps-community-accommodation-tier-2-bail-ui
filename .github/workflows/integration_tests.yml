@@ -22,6 +22,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: ${{ inputs.node_version_file }}
+      - name: download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: npm_build_artifacts
       - name: restore cache
         id: restore-cache
         uses: actions/cache/restore@v4
@@ -33,26 +37,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - name: install dependencies and Cypress
         run: npm run setup
-      - name: download the artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: npm_build_artifacts
-          path: |
-            build/
-            dist/
-            assets/stylesheets/
-      - name: Get wiremock
-        shell: bash
-        run: |
-          curl -o wiremock.jar https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.9.1/wiremock-standalone-3.9.1.jar
-      - name: Prepare and run integration tests
+      - name: run integration tests
         id: integration-tests
-        shell: bash
-        run: |
-          nohup java -jar wiremock.jar --port 9999 &
-          nohup npm run start-feature &
-          sleep 5
-          npm run test:integration:ci
+        run: npm run test:integration:local
         # continue-on-error: true
         # replacing the above with if: always()
       - name: upload results
