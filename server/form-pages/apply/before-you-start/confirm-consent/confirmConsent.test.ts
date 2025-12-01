@@ -109,7 +109,7 @@ describe('ConfirmConsent', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'yes', consentDate: '2023-11-01' }, application)
 
       expect(page.response()).toEqual({
-        'Has Roger Smith given their verbal consent to apply for short-term accommodation (CAS2) for bail?': 'Yes',
+        'Has Roger Smith given their verbal consent to apply for CAS2 for bail?': 'Yes',
         'When did they give consent?': '1 November 2023',
       })
     })
