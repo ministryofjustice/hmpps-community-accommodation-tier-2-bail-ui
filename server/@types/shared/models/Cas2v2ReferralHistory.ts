@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ClarificationNote = {
+import type { ServiceType } from './ServiceType';
+export type Cas2v2ReferralHistory = {
+    applicationId: string;
     createdAt: string;
-    createdByStaffMemberId: string;
     id: string;
-    query: string;
-    response?: string;
-    responseReceivedOn?: string;
+    status: string;
+    type: ServiceType;
 };
 
