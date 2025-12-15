@@ -2,10 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-/**
- * the note to add
- */
-export type NewApplicationTimelineNote = {
-    note: string;
-};
-
+export type Cas3CostCentre = 'HMPPS' | 'SUPPLIER';
