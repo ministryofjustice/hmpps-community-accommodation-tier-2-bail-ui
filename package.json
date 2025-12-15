@@ -34,8 +34,8 @@
     "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "engines": {
-    "node": "^22",
-    "npm": "^10"
+    "node": "^24.0.0",
+    "npm": "^11.0.0"
   },
   "jest": {
     "transform": {
@@ -135,7 +135,7 @@
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
-    "@ministryofjustice/eslint-config-hmpps": "^0.0.1",
+    "@ministryofjustice/eslint-config-hmpps": "^1.0.1",
     "@pact-foundation/pact": "^16.0.2",
     "@pactflow/openapi-pact-comparator": "^1.4.0",
     "@tsconfig/node22": "^22.0.2",

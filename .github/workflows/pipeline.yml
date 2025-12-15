@@ -25,22 +25,8 @@ jobs:
   # main node build workflow
   node_build:
     name: node build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.node-version'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --no-audit
-
-      - name: Run build
-        run: npm run build
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v2 # WORKFLOW_VERSION
+    secrets: inherit
 
   node_unit_tests:
     name: node unit tests
@@ -49,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js .nvmrc
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
       - name: Install dependencies
