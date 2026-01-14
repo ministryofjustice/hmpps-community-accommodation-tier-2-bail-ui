@@ -130,7 +130,7 @@
     "reflect-metadata": "^0.2.2",
     "start-server-and-test": "^2.0.12",
     "static-path": "^0.0.4",
-    "superagent": "^10.2.1",
+    "superagent": "^10.2.2",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
