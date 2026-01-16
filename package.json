@@ -98,7 +98,7 @@
     "@sentry/node": "^7.120.3",
     "@types/jsonpath": "^0.2.4",
     "agentkeepalive": "^4.6.0",
-    "applicationinsights": "^3.7.0",
+    "applicationinsights": "2.9.8",
     "body-parser": "^2.2.1",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
