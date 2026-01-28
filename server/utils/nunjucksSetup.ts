@@ -64,6 +64,8 @@ export default function nunjucksSetup(app: express.Express): void {
     },
   )
 
+  njkEnv.addGlobal('plannedMaintenance', config.flags.plannedMaintenance)
+
   njkEnv.addFilter('initialiseName', initialiseName)
   njkEnv.addFilter('assetMap', (url: string) => assetManifest[url] || url)
 
