@@ -107,5 +107,6 @@ export default {
   environmentName: get('ENVIRONMENT_NAME', ''),
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', false),
+    plannedMaintenance: get('PLANNED_MAINTENANCE_BANNER', 'false') === 'true',
   },
 }

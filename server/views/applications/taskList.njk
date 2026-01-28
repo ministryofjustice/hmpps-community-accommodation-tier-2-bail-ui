@@ -20,6 +20,9 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
+
+      {% include 'partials/plannedMaintenanceBanner.njk' %}
+
       {{ showErrorSummary(errorSummary) }}
       <h1 class="govuk-heading-xl">Apply for CAS2 for Bail</h1>
 
