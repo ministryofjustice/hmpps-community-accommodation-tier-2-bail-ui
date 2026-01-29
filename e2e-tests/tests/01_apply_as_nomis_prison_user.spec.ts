@@ -52,6 +52,7 @@ test('cancel an in progress application from the task list', async ({ page, nomi
   await clickCancel(page, person.name)
   await cancelAnApplication(page, person.name)
   await expect(page.getByText('Your CAS2 applications')).toBeVisible()
-  await expect(page.locator('h2').first()).toContainText('Success')
-  await expect(page.locator('h3').first()).toContainText(`The application for ${person.name} has been cancelled.`)
+  await expect(page.getByRole('alert', { name: 'Success' })).toContainText(
+    `The application for ${person.name} has been cancelled.`,
+  )
 })
