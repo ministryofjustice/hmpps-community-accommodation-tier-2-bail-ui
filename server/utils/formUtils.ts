@@ -66,3 +66,8 @@ export const summaryListItem = (
       }
     : undefined
 }
+
+export const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.gov\.uk$/i
+  return emailRegex.test(email)
+}
