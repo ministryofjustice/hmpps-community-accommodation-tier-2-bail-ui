@@ -26,7 +26,7 @@ export default class CPPDetailsPage extends ApplyPage {
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('name', 'Marsha Crist')
     this.getTextInputByIdAndEnterDetails('probationRegion', 'Tameside')
-    this.getTextInputByIdAndEnterDetails('email', 'marsha@probation.uk')
+    this.getTextInputByIdAndEnterDetails('email', 'marsha@probation.gov.uk')
     this.getTextInputByIdAndEnterDetails('telephone', '11111111111')
   }
 }
