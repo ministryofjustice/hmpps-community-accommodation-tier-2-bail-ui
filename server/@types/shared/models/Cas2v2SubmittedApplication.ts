@@ -14,9 +14,6 @@ export type Cas2v2SubmittedApplication = {
     assessment: Cas2v2Assessment;
     bailHearingDate?: string;
     createdAt: string;
-    /**
-     * Any object
-     */
     document?: any;
     id: string;
     person: (FullPerson | RestrictedPerson | UnknownPerson);
