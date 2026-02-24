@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BookingStatus } from './BookingStatus';
-export type BookingSearchResultBookingSummary = {
+import type { ServiceType } from './ServiceType';
+export type Cas2v2ReferralHistory = {
+    applicationId: string;
     createdAt: string;
-    endDate: string;
     id: string;
-    startDate: string;
-    status: BookingStatus;
+    status: string;
+    type: ServiceType;
 };
 
