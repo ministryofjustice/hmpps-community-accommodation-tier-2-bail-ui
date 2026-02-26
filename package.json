@@ -90,7 +90,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.981.0",
-    "@faker-js/faker": "^9.8.0",
+    "@faker-js/faker": "^10.3.0",
     "@golevelup/ts-jest": "^0.7.0",
     "@ministryofjustice/frontend": "^5.1.4",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
