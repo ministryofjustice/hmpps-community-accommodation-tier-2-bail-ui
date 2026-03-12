@@ -7,6 +7,8 @@ import type { ApplicationStatus } from './ApplicationStatus';
 import type { LatestCas2v2StatusUpdate } from './LatestCas2v2StatusUpdate';
 import type { PersonRisks } from './PersonRisks';
 export type Cas2v2ApplicationSummary = {
+    applicationOrigin: ApplicationOrigin;
+    bailHearingDate?: string;
     createdAt: string;
     createdByUserId: string;
     createdByUserName?: string;
@@ -15,10 +17,8 @@ export type Cas2v2ApplicationSummary = {
     id: string;
     latestStatusUpdate?: LatestCas2v2StatusUpdate;
     nomsNumber?: string;
-    prisonCode: string;
-    applicationOrigin: ApplicationOrigin;
-    bailHearingDate?: string;
     personName: string;
+    prisonCode?: string;
     risks?: PersonRisks;
     status: ApplicationStatus;
     submittedAt?: string;
