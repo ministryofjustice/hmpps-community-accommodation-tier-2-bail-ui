@@ -33,7 +33,7 @@ jobs:
     runs-on: [ self-hosted, hmpps-github-actions-runner ]
     needs: [node_build]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Use Node.js .nvmrc
         uses: actions/setup-node@v6
         with:
