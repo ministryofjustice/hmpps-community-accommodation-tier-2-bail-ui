@@ -18,7 +18,7 @@ jobs:
     name: Run the e2e tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
         with:
           # Repository is specified to run the workflow from the API repository
           repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-bail-ui'
