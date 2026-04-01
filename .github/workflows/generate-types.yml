@@ -15,16 +15,16 @@ jobs:
     steps:
 
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
         with:
           node-version-file: '.node-version'
           cache: 'npm'
 
       - name: Generate Token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
         id: generate-token
         with:
           app_id: ${{ secrets.APP_ID }}
@@ -34,7 +34,7 @@ jobs:
         run: ./script/generate-types ${{ vars.CAS2V2_API_SPEC_URL }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # V7.0.11
         with:
           token: ${{ steps.generate-token.outputs.token }}
           title: 'API model updates'
