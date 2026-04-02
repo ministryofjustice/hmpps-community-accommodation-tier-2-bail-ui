@@ -75,7 +75,7 @@ jobs:
 
       - name: Send Slack notification
         if: failure()
-        uses: ministryofjustice/hmpps-approved-premises-ui/.github/actions/slack_failure_notification@main
+        uses: ministryofjustice/hmpps-community-accommodation-tier-2-ui/.github/actions/slack_failure_notification@77cc6ec1dd5ed994309df8960421cbd3ba1ad5aa # main 2026-04-02 # main 2026-04-02
         with:
           title: "CAS2 Bail E2E Tests"
           channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }}
