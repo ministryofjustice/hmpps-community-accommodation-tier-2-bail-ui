@@ -17,9 +17,6 @@ export type SubmitCas2v2Application = {
      */
     preferredAreas?: string;
     telephoneNumber: string;
-    /**
-     * Any object
-     */
     translatedDocument: any;
 };
 
