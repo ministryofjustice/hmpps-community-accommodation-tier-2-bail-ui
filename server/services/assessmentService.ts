@@ -1,7 +1,7 @@
 import {
   Cas2v2Assessment,
-  UpdateCas2v2Assessment,
   Cas2v2AssessmentStatusUpdate as AssessmentStatusUpdate,
+  UpdateCas2v2Assessment,
 } from '@approved-premises/api'
 import { AssessmentClient, RestClientBuilder } from '../data'
 
@@ -11,9 +11,7 @@ export default class AssessmentService {
   async findAssessment(token: string, assessmentId: string): Promise<Cas2v2Assessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
-    const assessment = await assessmentClient.find(assessmentId)
-
-    return assessment
+    return assessmentClient.find(assessmentId)
   }
 
   async updateAssessment(
@@ -23,14 +21,12 @@ export default class AssessmentService {
   ): Promise<Cas2v2Assessment> {
     const assessmentClient = this.assessmentClientFactory(token)
 
-    const assessment = await assessmentClient.update(assessmentId, updateData)
-
-    return assessment
+    return assessmentClient.update(assessmentId, updateData)
   }
 
   async updateAssessmentStatus(token: string, assessmentId: string, newStatus: AssessmentStatusUpdate): Promise<void> {
     const assessmentClient = this.assessmentClientFactory(token)
 
-    await assessmentClient.updateStatus(assessmentId, newStatus)
+    return assessmentClient.updateStatus(assessmentId, newStatus)
   }
 }

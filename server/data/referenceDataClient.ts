@@ -12,7 +12,6 @@ export default class ReferenceDataClient {
 
   async getApplicationStatuses(): Promise<Array<ApplicationStatus>> {
     const path = paths.referenceData.applicationStatuses({})
-
-    return (await this.restClient.get({ path })) as Array<ApplicationStatus>
+    return this.restClient.get<Array<ApplicationStatus>>({ path })
   }
 }
