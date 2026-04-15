@@ -20,6 +20,9 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
+        with:
+          # Repository is specified to run the workflow from the API repository
+          repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-bail-ui'
 
       - name: Setup Node.js environment
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
