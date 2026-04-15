@@ -184,7 +184,8 @@
         {% block button %}
           <div class="govuk-button-group">
             {{ govukButton({
-                  text: "Save and continue"
+                  text: "Save and continue",
+                  preventDoubleClick: true
               }) }}
             {%if page.hasPreviouslySavedAnUnspentConviction %}
               <a class="govuk-link" href="{{ paths.applications.pages.show({ id: applicationId, task: page.taskName, page: 'unspent-convictions' }) }}">

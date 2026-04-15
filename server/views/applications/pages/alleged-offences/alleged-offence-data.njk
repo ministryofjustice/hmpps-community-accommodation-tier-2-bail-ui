@@ -107,14 +107,16 @@
           {{ govukButton({
             id: "add-another",
             text: "Add another alleged offence",
-            classes: "govuk-button--secondary govuk-!-margin-top-8 govuk-!-margin-bottom-4"
+            classes: "govuk-button--secondary govuk-!-margin-top-8 govuk-!-margin-bottom-4",
+            preventDoubleClick: true
           }) }}
         </div>
 
         {% block button %}
           <div class="govuk-button-group">
             {{ govukButton({
-                  text: "Save and continue"
+                  text: "Save and continue",
+                  preventDoubleClick: true
               }) }}
 
             {%if page.hasPreviouslySavedAnAllegedOffence %}
