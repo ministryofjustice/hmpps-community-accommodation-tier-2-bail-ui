@@ -188,6 +188,7 @@
     "csurf": {
       "cookie": "1.0.2"
     },
-    "@babel/helpers": "^7.27.6"
+    "serialize-javascript": "^7.0.5",
+    "diff": "^8.0.3"
   }
 }
