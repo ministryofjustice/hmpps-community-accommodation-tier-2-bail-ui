@@ -20,17 +20,13 @@ export default class ApplicationService {
   ): Promise<Cas2v2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.create(crn, applicationOrigin)
-
-    return application
+    return applicationClient.create(crn, applicationOrigin)
   }
 
   async findApplication(token: string, id: string): Promise<Cas2v2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const application = await applicationClient.find(id)
-
-    return application
+    return applicationClient.find(id)
   }
 
   async getAllForLoggedInUser(token: string): Promise<GroupedApplications> {
@@ -38,12 +34,12 @@ export default class ApplicationService {
 
     const allApplications = await applicationClient.all()
 
-    const result = {
+    const result: GroupedApplications = {
       inProgress: [],
       submitted: [],
-    } as GroupedApplications
+    }
 
-    allApplications.map(async application => {
+    allApplications.forEach(application => {
       if (application.status === 'inProgress') {
         result.inProgress.push(application)
       } else if (application.status === 'submitted') {
@@ -61,9 +57,7 @@ export default class ApplicationService {
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
-    const applications = await applicationClient.getAllByPrison(prisonCode, pageNumber)
-
-    return applications
+    return applicationClient.getAllByPrison(prisonCode, pageNumber)
   }
 
   async getAllByOrigin(
@@ -73,6 +67,7 @@ export default class ApplicationService {
     pageNumber: number = 1,
   ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
+
     return applicationClient.getAllByOrigin(applicationOrigin, crnOrNomsNumber, pageNumber)
   }
 

@@ -15,16 +15,14 @@ export default class AssessmentClient {
   }
 
   async find(assessmentId: string): Promise<Cas2v2Assessment> {
-    return (await this.restClient.get({
-      path: paths.assessments.show({ id: assessmentId }),
-    })) as Cas2v2Assessment
+    return this.restClient.get<Cas2v2Assessment>({ path: paths.assessments.show({ id: assessmentId }) })
   }
 
   async update(assessmentId: string, updateData: UpdateCas2v2Assessment): Promise<Cas2v2Assessment> {
-    return (await this.restClient.put({
+    return this.restClient.put<Cas2v2Assessment>({
       path: paths.assessments.update({ id: assessmentId }),
       data: updateData,
-    })) as Cas2v2Assessment
+    })
   }
 
   async updateStatus(assessmentId: string, newStatus: AssessmentStatusUpdate): Promise<void> {
