@@ -18,20 +18,18 @@ export default class ApplicationClient {
   }
 
   async find(applicationId: string): Promise<Application> {
-    return (await this.restClient.get({
-      path: paths.applications.show({ id: applicationId }),
-    })) as Application
+    return this.restClient.get<Application>({ path: paths.applications.show({ id: applicationId }) })
   }
 
   async create(crn: string, applicationOrigin: ApplicationOrigin): Promise<Application> {
-    return (await this.restClient.post({
+    return this.restClient.post<Application>({
       path: paths.applications.new.pattern,
       data: { crn: crn.trim(), applicationOrigin },
-    })) as Application
+    })
   }
 
   async all(): Promise<Array<Cas2v2ApplicationSummary>> {
-    return (await this.restClient.get({ path: paths.applications.index.pattern })) as Array<Cas2v2ApplicationSummary>
+    return this.restClient.get<Array<Cas2v2ApplicationSummary>>({ path: paths.applications.index.pattern })
   }
 
   async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {

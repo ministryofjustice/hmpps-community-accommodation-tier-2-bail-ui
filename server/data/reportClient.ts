@@ -16,11 +16,6 @@ export default class ReportClient {
     const filename = `cas2-${name}-report.xlsx`
     response.set('Content-Disposition', `attachment; filename="${filename}"`)
 
-    await this.restClient.pipe(
-      {
-        path: paths.reports.show({ name }),
-      },
-      response,
-    )
+    await this.restClient.pipe({ path: paths.reports.show({ name }) }, response)
   }
 }

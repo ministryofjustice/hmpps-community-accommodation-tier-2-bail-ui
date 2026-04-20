@@ -24,15 +24,13 @@ export default class SubmittedApplicationClient {
   }
 
   async find(applicationId: string): Promise<SubmittedApplication> {
-    return (await this.restClient.get({
-      path: paths.submissions.show({ id: applicationId }),
-    })) as SubmittedApplication
+    return this.restClient.get<SubmittedApplication>({ path: paths.submissions.show({ id: applicationId }) })
   }
 
   async addNote(assessmentId: string, newNote: string): Promise<Cas2v2ApplicationNote> {
-    return (await this.restClient.post({
+    return this.restClient.post<Cas2v2ApplicationNote>({
       path: paths.assessments.applicationNotes.create({ id: assessmentId }),
       data: { note: newNote },
-    })) as Cas2v2ApplicationNote
+    })
   }
 }
