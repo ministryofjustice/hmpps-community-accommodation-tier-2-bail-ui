@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'supervised by probation' page
 //    So that I can complete the "supervised by probation" task
 //    As a referrer

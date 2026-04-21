@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Applicant ACCT notes' page
 //    So that I can complete the "Risk information" task
 //    As a referrer

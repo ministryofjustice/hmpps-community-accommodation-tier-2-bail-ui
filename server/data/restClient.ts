@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import Agent, { HttpsAgent } from 'agentkeepalive'
 import superagent from 'superagent'
 import type { Response } from 'express'

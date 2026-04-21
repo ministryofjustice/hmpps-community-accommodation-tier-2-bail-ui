@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Gang affiliations' page
 //    So that I can complete the 'Area information' task
 //    As a referrer

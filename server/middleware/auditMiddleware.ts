@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { Key, pathToRegexp } from 'path-to-regexp'
 import { auditService } from '@ministryofjustice/hmpps-audit-client'

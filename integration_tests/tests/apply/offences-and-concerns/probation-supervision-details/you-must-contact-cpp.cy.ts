@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'you must contact cpp' page
 //    So that I can complete the "add probation supervision" task
 //    As a referrer

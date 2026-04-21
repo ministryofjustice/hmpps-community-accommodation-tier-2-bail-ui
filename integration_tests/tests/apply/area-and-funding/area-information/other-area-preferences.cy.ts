@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Area information: other area preferences' page
 //    So that I can complete the "Area information" task
 //    As a referrer

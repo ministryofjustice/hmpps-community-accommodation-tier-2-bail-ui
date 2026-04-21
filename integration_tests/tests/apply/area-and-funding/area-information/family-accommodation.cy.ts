@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Area information: family accommodation' page
 //    So that I can complete the "Area information" task
 //    As a referrer

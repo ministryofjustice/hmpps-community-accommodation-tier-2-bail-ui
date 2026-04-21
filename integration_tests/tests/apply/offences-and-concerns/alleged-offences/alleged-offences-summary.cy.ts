@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Alleged offences summary' page
 //    So that I can complete the "Alleged offences" task
 //    As a referrer

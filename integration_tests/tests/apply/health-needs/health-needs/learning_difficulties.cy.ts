@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Health needs: learning difficulties' page
 //    So that I can complete the "Health needs" task
 //    As a referrer

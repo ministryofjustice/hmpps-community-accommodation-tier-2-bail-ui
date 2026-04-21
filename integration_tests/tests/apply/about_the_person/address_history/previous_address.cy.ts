@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'previous address' page
 //    So that I can complete the "Address history" task
 //    As a referrer

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'military veteran' question page
 //    So that I can complete the 'Equality questions' task
 //    As a referrer

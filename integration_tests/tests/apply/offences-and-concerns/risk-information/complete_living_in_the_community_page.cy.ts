@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Living in the community' page
 //    So that I can complete the "Risk" task
 //    As a referrer

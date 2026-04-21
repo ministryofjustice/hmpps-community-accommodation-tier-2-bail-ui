@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-/* eslint-disable import/prefer-default-export */
 
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
