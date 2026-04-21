@@ -1,4 +1,27 @@
-export const getQuestions = (name: string) => {
+export type Question = { question: string; answers?: Record<string, string>; hint?: string }
+type QuestionsNode = { [property: string]: Question | QuestionsNode }
+export type Questions = ReturnType<typeof getQuestions>
+
+export function getQuestion(questions: Questions, ...categories: string[]): Question | undefined {
+  function recurse(node: Question | QuestionsNode, ...keys: string[]): Question | undefined {
+    if (keys.length === 0) {
+      return node as Question
+    }
+
+    const [head, ...tail] = keys
+
+    if (Object.keys(node).includes(head)) {
+      const next = (node as QuestionsNode)[head]
+      return recurse(next, ...tail)
+    }
+
+    return undefined
+  }
+
+  return recurse(questions as QuestionsNode, ...categories)
+}
+
+export function getQuestions(name: string) {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
   const riskLevelAnswers = {

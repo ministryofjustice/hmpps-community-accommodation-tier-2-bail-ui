@@ -36,7 +36,7 @@ export type DataAccess = ReturnType<typeof dataAccess>
 
 export {
   HmppsAuthClient,
-  RestClientBuilder,
+  type RestClientBuilder,
   PersonClient,
   ApplicationClient,
   AssessmentClient,
