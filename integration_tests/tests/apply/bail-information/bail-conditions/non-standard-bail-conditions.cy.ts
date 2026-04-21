@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'non-standard bail conditions' page
 //    So that I can complete the "Bail conditions" task
 //    As a referrer

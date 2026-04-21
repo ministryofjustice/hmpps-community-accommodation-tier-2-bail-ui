@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { RequestHandler } from 'express'
 
 const trimStringValues = (body?: Record<string, unknown>) =>

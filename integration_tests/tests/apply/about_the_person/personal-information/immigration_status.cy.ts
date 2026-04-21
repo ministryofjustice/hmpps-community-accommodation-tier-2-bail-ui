@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'immigration status' page
 //    So that I can complete the "immigration status" task
 //    As a referrer

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { Cas2v2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
 

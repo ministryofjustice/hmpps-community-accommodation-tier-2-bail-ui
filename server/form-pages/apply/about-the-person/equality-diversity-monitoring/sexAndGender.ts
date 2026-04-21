@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { Radio, TaskListErrors, YesOrNoOrPreferNotToSay } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'

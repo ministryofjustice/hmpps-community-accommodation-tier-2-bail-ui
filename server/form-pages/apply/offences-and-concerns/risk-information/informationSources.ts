@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { ObjectWithDateParts, Radio, TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'

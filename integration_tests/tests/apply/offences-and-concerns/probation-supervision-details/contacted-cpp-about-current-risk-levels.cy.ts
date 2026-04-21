@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'contacted cpp about current risk levels' page
 //    So that I can complete the "add probation supervision details" task
 //    As a referrer

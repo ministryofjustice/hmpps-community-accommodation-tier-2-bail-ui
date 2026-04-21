@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Scenario: check my answers
 //  Given a complete application exists
 //  When I view the 'check your answers' page

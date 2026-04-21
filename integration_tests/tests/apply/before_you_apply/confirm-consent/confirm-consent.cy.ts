@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Confirm consent' task
 //    So that I can complete the 'Confirm consent' task
 //    As a referrer

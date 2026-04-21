@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Risk information: information sources' page
 //    So that I can complete the "Risk information" task
 //    As a referrer

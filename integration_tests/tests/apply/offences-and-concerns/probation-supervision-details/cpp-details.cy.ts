@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'cpp details' page
 //    So that I can complete the "cpp details" task
 //    As a referrer

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'Referrer details' task
 //    So that I can complete the 'Referrer details' task
 //    As a referrer

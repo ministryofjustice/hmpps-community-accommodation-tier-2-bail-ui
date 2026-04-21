@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'custody location' page
 //    So that I can complete the "personal information" task
 //    As a referrer

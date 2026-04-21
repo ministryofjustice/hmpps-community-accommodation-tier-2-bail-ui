@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'bail hearing information' page
 //    So that I can complete the "Bail hearing information" task
 //    As a referrer

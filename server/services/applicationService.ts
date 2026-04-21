@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { Request } from 'express'
 import { Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
 import type { ApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'

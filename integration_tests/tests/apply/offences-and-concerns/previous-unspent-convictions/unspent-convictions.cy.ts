@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 //  Feature: Referrer completes 'unspent convictions' page
 //    So that I can complete the "unspent convictions" task
 //    As a referrer
