@@ -273,20 +273,20 @@ describe('checkYourAnswersUtils', () => {
 
         const mockApplicationNoAnswers = applicationFactory.build({
           data: {
-            'confirm-eligibility': {
-              page1: {
-                question1: '',
-                question2: '',
+            'confirm-consent': {
+              'confirm-consent': {
+                hasGivenConsent: '',
+                consentDate: '',
               },
             },
           },
         })
 
-        const mockedQuestions = {
-          'confirm-eligibility': {
-            page1: {
-              question1: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
-              question2: { question: 'Another question' },
+        const mockedQuestions: Partial<Questions> = {
+          'confirm-consent': {
+            'confirm-consent': {
+              hasGivenConsent: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
+              consentDate: { question: 'Another question', hint: 'Some hint' },
             },
           },
         }
@@ -296,9 +296,9 @@ describe('checkYourAnswersUtils', () => {
         addPageAnswersToItemsArray({
           items,
           application: mockApplicationNoAnswers,
-          task: 'confirm-eligibility',
-          pageKey: 'page1',
-          questions: mockedQuestions,
+          task: 'confirm-consent',
+          pageKey: 'confirm-consent',
+          questions: mockedQuestions as Questions,
           outputFormat: 'checkYourAnswers',
         })
 
@@ -319,11 +319,10 @@ describe('checkYourAnswersUtils', () => {
           },
         })
 
-        const mockedQuestions = {
+        const mockedQuestions: Partial<Questions> = {
           'confirm-eligibility': {
-            page2: {
-              question3: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
-              question4: { question: 'Another question' },
+            'confirm-eligibility': {
+              isEligible: { question: 'A question', answers: { yes: 'Yes', no: 'No' } },
             },
           },
         }
@@ -335,7 +334,7 @@ describe('checkYourAnswersUtils', () => {
           application: mockApplicationRemovedQuestion,
           task: 'confirm-eligibility',
           pageKey: 'page1',
-          questions: mockedQuestions,
+          questions: mockedQuestions as Questions,
           outputFormat: 'checkYourAnswers',
         })
 

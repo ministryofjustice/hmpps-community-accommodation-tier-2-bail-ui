@@ -18,10 +18,13 @@ export default abstract class Page {
 
   protected constructor(
     private readonly title: string,
-    private readonly name: string,
+    private readonly name?: string,
   ) {
     this.checkOnPage()
-    this.checkNameIsNotInDocumentTitle()
+
+    if (name) {
+      this.checkNameIsNotInDocumentTitle()
+    }
   }
 
   checkOnPage(): void {

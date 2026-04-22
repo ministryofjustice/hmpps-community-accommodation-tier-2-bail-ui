@@ -6,26 +6,24 @@ export const escape = (text: string): string => {
   return escapeFilter(text).val
 }
 
-export function convertKeyValuePairToRadioItems<T>(object: T, checkedItem: string): Array<RadioItem> {
-  return Object.keys(object).map(key => {
+export function convertKeyValuePairToRadioItems<T extends object>(object: T, checkedItem: string): Array<RadioItem> {
+  return Object.entries(object).map(([key, value]) => {
     return {
       value: key,
-      // @ts-expect-error Requires refactor to satisfy TS7053
-      text: object[key],
+      text: value,
       checked: checkedItem === key,
     }
   })
 }
 
-export function convertKeyValuePairToCheckboxItems<T>(
+export function convertKeyValuePairToCheckboxItems<T extends object>(
   object: T,
   checkedItems: Array<string> = [],
 ): Array<CheckboxItem> {
-  return Object.keys(object).map(key => {
+  return Object.entries(object).map(([key, value]) => {
     return {
       value: key,
-      // @ts-expect-error Requires refactor to satisfy TS7053
-      text: object[key],
+      text: value,
       checked: checkedItems.includes(key),
     }
   })
@@ -57,7 +55,7 @@ export const summaryListItem = (
   value: string,
   renderAs: keyof TextItem | keyof HtmlItem | 'textBlock' = 'text',
   supressBlank = false,
-): SummaryListItem => {
+): SummaryListItem | undefined => {
   const htmlValue = renderAs === 'textBlock' ? `<span class="govuk-summary-list__textblock">${value}</span>` : value
   return !supressBlank || value
     ? {

@@ -3,14 +3,13 @@ import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
 import { TaskListPageInterface } from '../taskListPage'
 
 export const getTask = <T>(task: T) => {
-  const taskPages = {}
+  const taskPages: Record<string, unknown> = {}
   const slug = Reflect.getMetadata('task:slug', task)
   const name = Reflect.getMetadata('task:name', task)
   const pageClasses = Reflect.getMetadata('task:pages', task)
 
   pageClasses.forEach(<PageType>(page: PageType) => {
-    const pageName = Reflect.getMetadata('page:name', page)
-    // @ts-expect-error Requires refactor to satisfy TS7053
+    const pageName = Reflect.getMetadata('page:name', page) as string
     taskPages[pageName] = page
   })
 

@@ -3,7 +3,7 @@ import { SummaryListItem, FormSection, QuestionAndAnswer } from '@approved-premi
 import Apply from '../form-pages/apply/index'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers'
 import paths from '../paths/apply'
-import { getQuestions } from '../form-pages/utils/questions'
+import { getQuestions, getQuestion, Questions } from '../form-pages/utils/questions'
 import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
@@ -64,7 +64,7 @@ export const addPageAnswersToItemsArray = (params: {
   application: Application
   task: string
   pageKey: string
-  questions: Record<string, unknown>
+  questions: Questions
   outputFormat: 'checkYourAnswers' | 'document'
 }) => {
   const { items, application, task, pageKey, questions, outputFormat } = params
@@ -73,9 +73,9 @@ export const addPageAnswersToItemsArray = (params: {
   const body = application?.data?.[task]?.[pageKey]
 
   const page = new PageClass(body, application)
+  const response = page.response?.()
 
-  if (hasResponseMethod(page)) {
-    const response = page.response()
+  if (response) {
     Object.keys(response).forEach((question, index) => {
       if (outputFormat === 'checkYourAnswers') {
         items.push(
@@ -94,8 +94,7 @@ export const addPageAnswersToItemsArray = (params: {
           return
         }
 
-        // @ts-expect-error Requires refactor to satisfy TS7053
-        const questionText = questions[task][pageKey]?.[questionKey]?.question
+        const questionText = getQuestion(questions, task, pageKey, questionKey)?.question
 
         if (!questionText) {
           return
@@ -113,7 +112,7 @@ export const addPageAnswersToItemsArray = (params: {
 
 export const getAnswer = (
   application: Application,
-  questions: Record<string, unknown>,
+  questions: Questions,
   task: string,
   pageKey: string,
   questionKey: string,
@@ -122,24 +121,25 @@ export const getAnswer = (
     if (Array.isArray(application.data[task][pageKey][questionKey])) {
       return arrayAnswersAsString(application, questions, task, pageKey, questionKey)
     }
-    // @ts-expect-error Requires refactor to satisfy TS7053
-    return questions[task][pageKey][questionKey].answers[application.data[task][pageKey][questionKey]]
+
+    const question = getQuestion(questions, task, pageKey, questionKey)
+    return question?.answers?.[application.data[task][pageKey][questionKey]]
   }
   return application.data[task][pageKey][questionKey]
 }
 
 export const arrayAnswersAsString = (
   application: Application,
-  questions: Record<string, unknown>,
+  questions: Questions,
   task: string,
   pageKey: string,
   questionKey: string,
 ): string => {
   const answerKeys = application.data[task][pageKey][questionKey]
   const textAnswers: Array<string> = []
+  const question = getQuestion(questions, task, pageKey, questionKey)
   answerKeys.forEach((answerKey: string) => {
-    // @ts-expect-error Requires refactor to satisfy TS7053
-    textAnswers.push(questions[task][pageKey][questionKey].answers[answerKey])
+    textAnswers.push(question.answers[answerKey])
   })
   return textAnswers.join()
 }
@@ -200,21 +200,12 @@ const containsQuestions = (questionKeys: Array<string>): boolean => {
   return true
 }
 
-const hasDefinedAnswers = (
-  questions: Record<string, unknown>,
-  task: string,
-  pageKey: string,
-  questionKey: string,
-): boolean => {
-  // @ts-expect-error Requires refactor to satisfy TS7053
-  return questions[task][pageKey]?.[questionKey]?.answers
+const hasDefinedAnswers = (questions: Questions, task: string, pageKey: string, questionKey: string): boolean => {
+  return getQuestion(questions, task, pageKey, questionKey)?.answers !== undefined
 }
 
 export const hasResponseMethod = (page: TaskListPage): boolean => {
-  if ('response' in page) {
-    return true
-  }
-  return false
+  return 'response' in page
 }
 
 export const getPage = (taskName: string, pageName: string): TaskListPageInterface => {
@@ -279,7 +270,7 @@ export const getApplicantDetails = (application: Application | Cas2v2SubmittedAp
         text: 'Prison number',
       },
       value: {
-        html: nomsNumber,
+        html: nomsNumber ?? '',
       },
     },
     {
@@ -287,7 +278,7 @@ export const getApplicantDetails = (application: Application | Cas2v2SubmittedAp
         text: 'Prison',
       },
       value: {
-        html: prisonName,
+        html: prisonName ?? '',
       },
     },
     {
