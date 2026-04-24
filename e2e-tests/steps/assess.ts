@@ -16,7 +16,12 @@ export const updateStatus = async (page: Page) => {
 export const viewSubmittedApplication = async (page: Page) => {
   await page.goto('/assess/applications')
   await expect(page.locator('h1')).toContainText('CAS2 for bail')
-  await page.getByTestId('pagination-page-number-link').last().click()
+
+  const pagination = page.getByTestId('pagination-page-number-link')
+  if ((await pagination.count()) > 0) {
+    await pagination.last().click()
+  }
+
   await page.getByTestId('submitted-applications').getByRole('link').first().click()
   await page.getByRole('button', { name: 'View submitted application' }).click()
   await expect(page.locator('h1')).toContainText(`application`)
