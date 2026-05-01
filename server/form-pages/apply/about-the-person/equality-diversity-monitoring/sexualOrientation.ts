@@ -14,7 +14,7 @@ export const orientationOptions =
 
 export type SexualOrientationBody = {
   orientation: keyof typeof orientationOptions
-  otherOrientation: string
+  otherOrientation?: string
 }
 
 @Page({

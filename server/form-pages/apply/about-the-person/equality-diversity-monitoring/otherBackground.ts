@@ -14,7 +14,7 @@ export const otherBackgroundOptions =
 
 export type OtherBackgroundBody = {
   otherBackground: keyof typeof otherBackgroundOptions
-  optionalOtherBackground: string
+  optionalOtherBackground?: string
 }
 
 @Page({

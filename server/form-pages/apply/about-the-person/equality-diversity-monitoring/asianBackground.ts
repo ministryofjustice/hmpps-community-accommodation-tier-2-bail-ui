@@ -13,7 +13,7 @@ const options = applicationQuestions['equality-and-diversity-monitoring']['asian
 
 export type AsianBackgroundBody = {
   asianBackground: keyof typeof options
-  optionalAsianBackground: string
+  optionalAsianBackground?: string
 }
 @Page({
   name: 'asian-background',

@@ -19,8 +19,8 @@ export type DisabilityOptions = keyof typeof disabilityTypeOptions
 
 export type DisabilityBody = {
   hasDisability: YesOrNoOrPreferNotToSay
-  typeOfDisability: Array<DisabilityOptions>
-  otherDisability: string
+  typeOfDisability?: Array<DisabilityOptions>
+  otherDisability?: string
 }
 
 @Page({
@@ -36,16 +36,14 @@ export default class Disability implements TaskListPage {
 
   questions = getQuestions(this.personName)['equality-and-diversity-monitoring'].disability
 
-  body: {
-    hasDisability: YesOrNoOrPreferNotToSay
-    typeOfDisability: Array<DisabilityOptions>
-    otherDisability: string
-  }
+  body: DisabilityBody
 
   constructor(
     body: Partial<DisabilityBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as DisabilityBody
+  }
 
   previous() {
     return 'will-answer-equality-questions'

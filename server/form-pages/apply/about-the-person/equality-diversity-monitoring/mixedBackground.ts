@@ -14,7 +14,7 @@ export const mixedBackgroundOptions =
 
 export type MixedBackgroundBody = {
   mixedBackground: keyof typeof mixedBackgroundOptions
-  optionalMixedBackground: string
+  optionalMixedBackground?: string
 }
 
 @Page({

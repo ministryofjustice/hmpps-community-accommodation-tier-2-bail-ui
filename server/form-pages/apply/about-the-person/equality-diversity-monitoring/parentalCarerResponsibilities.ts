@@ -35,7 +35,9 @@ export default class ParentalCarerResponsibilities implements TaskListPage {
   constructor(
     body: Partial<ParentalCarerResponsibilitiesBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as ParentalCarerResponsibilitiesBody
+  }
 
   previous() {
     return 'care-leaver'

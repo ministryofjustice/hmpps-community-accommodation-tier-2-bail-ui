@@ -13,11 +13,11 @@ const latestLivingSituationOptions =
 
 export type PreviousAddressBody = {
   hasPreviousAddress: YesOrNo
-  previousAddress: string
-  howLong: string
-  lastKnownAddress: string
+  previousAddress?: string
+  howLong?: string
+  lastKnownAddress?: string
   latestLivingSituation: keyof typeof latestLivingSituationOptions
-  otherLivingSituation: string
+  otherLivingSituation?: string
 }
 
 @Page({
@@ -45,7 +45,9 @@ export default class PreviousAddress implements TaskListPage {
   constructor(
     body: Partial<PreviousAddressBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as PreviousAddressBody
+  }
 
   previous() {
     return 'taskList'

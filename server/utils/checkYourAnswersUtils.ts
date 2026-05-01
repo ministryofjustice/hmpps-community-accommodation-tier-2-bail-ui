@@ -116,16 +116,17 @@ export const getAnswer = (
   task: string,
   pageKey: string,
   questionKey: string,
-) => {
+): string | undefined => {
   if (hasDefinedAnswers(questions, task, pageKey, questionKey)) {
     if (Array.isArray(application.data[task][pageKey][questionKey])) {
       return arrayAnswersAsString(application, questions, task, pageKey, questionKey)
     }
 
     const question = getQuestion(questions, task, pageKey, questionKey)
-    return question?.answers?.[application.data[task][pageKey][questionKey]]
+    const answerKey = application.data[task][pageKey][questionKey] as string
+    return question?.answers?.[answerKey]
   }
-  return application.data[task][pageKey][questionKey]
+  return application.data[task][pageKey][questionKey] as string
 }
 
 export const arrayAnswersAsString = (
@@ -136,12 +137,12 @@ export const arrayAnswersAsString = (
   questionKey: string,
 ): string => {
   const answerKeys = application.data[task][pageKey][questionKey]
-  const textAnswers: Array<string> = []
   const question = getQuestion(questions, task, pageKey, questionKey)
-  answerKeys.forEach((answerKey: string) => {
-    textAnswers.push(question.answers[answerKey])
-  })
-  return textAnswers.join()
+
+  return answerKeys
+    .map((answerKey: string) => question?.answers?.[answerKey])
+    .filter((answer: string | undefined) => answer !== undefined)
+    .join()
 }
 
 export const summaryListItemForQuestion = (

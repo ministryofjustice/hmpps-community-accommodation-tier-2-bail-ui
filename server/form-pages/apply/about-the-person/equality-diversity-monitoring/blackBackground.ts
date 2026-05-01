@@ -14,7 +14,7 @@ export const blackBackgroundOptions =
 
 export type BlackBackgroundBody = {
   blackBackground: keyof typeof blackBackgroundOptions
-  optionalBlackBackground: string
+  optionalBlackBackground?: string
 }
 
 @Page({

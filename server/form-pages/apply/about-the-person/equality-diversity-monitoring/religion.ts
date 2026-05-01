@@ -13,7 +13,7 @@ export const religionOptions = applicationQuestions['equality-and-diversity-moni
 
 export type ReligionBody = {
   religion: keyof typeof religionOptions
-  otherReligion: string
+  otherReligion?: string
 }
 
 @Page({

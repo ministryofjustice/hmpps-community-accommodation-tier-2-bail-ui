@@ -33,7 +33,9 @@ export default class MaritalStatus implements TaskListPage {
   constructor(
     body: Partial<MaritalStatusBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as MaritalStatusBody
+  }
 
   previous() {
     return 'parental-carer-responsibilities'
