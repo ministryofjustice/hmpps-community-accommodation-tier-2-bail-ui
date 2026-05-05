@@ -33,7 +33,9 @@ export default class CareLeaver implements TaskListPage {
   constructor(
     body: Partial<CareLeaverBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as CareLeaverBody
+  }
 
   previous() {
     return 'military-veteran'

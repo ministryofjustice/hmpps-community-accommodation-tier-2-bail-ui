@@ -14,7 +14,7 @@ export const whiteBackgroundOptions =
 
 export type WhiteBackgroundBody = {
   whiteBackground: keyof typeof whiteBackgroundOptions
-  optionalWhiteBackground: string
+  optionalWhiteBackground?: string
 }
 
 @Page({

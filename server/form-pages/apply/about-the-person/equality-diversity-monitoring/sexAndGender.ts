@@ -16,7 +16,7 @@ const genderOptions = applicationQuestions['equality-and-diversity-monitoring'][
 export type SexAndGenderBody = {
   sex: keyof typeof sexOptions
   gender: YesOrNoOrPreferNotToSay
-  optionalGenderIdentity: string
+  optionalGenderIdentity?: string
 }
 
 @Page({

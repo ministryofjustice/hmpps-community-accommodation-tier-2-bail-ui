@@ -799,7 +799,7 @@ describe('getPage', () => {
 
     describe('when the PNC number is missing', () => {
       it('should return applicant details with "Unable to import" for PNC number', () => {
-        const person = personFactory.build({ pncNumber: null })
+        const person = personFactory.build({ pncNumber: undefined })
 
         const application = applicationFactory.build({ person })
 
@@ -817,7 +817,7 @@ describe('getPage', () => {
     })
 
     it('should return applicant details with nationality as unknown', () => {
-      const person = personFactory.build({ nationality: null })
+      const person = personFactory.build({ nationality: undefined })
 
       const application = applicationFactory.build({ person })
 

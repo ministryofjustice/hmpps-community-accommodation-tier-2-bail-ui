@@ -33,7 +33,9 @@ export default class MilitaryVeteran implements TaskListPage {
   constructor(
     body: Partial<MilitaryVeteranBody>,
     private readonly application: Application,
-  ) {}
+  ) {
+    this.body = body as MilitaryVeteranBody
+  }
 
   previous() {
     return 'religion'
