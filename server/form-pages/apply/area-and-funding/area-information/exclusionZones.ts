@@ -7,7 +7,7 @@ import { getQuestions } from '../../../utils/questions'
 
 export type ExclusionZonesBody = {
   hasExclusionZones: YesOrNo
-  exclusionZonesDetail: string
+  exclusionZonesDetail?: string
 }
 
 @Page({

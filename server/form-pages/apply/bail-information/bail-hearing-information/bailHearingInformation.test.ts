@@ -32,13 +32,13 @@ describe('BailHearingInformation', () => {
     })
 
     describe('when fields are blank', () => {
-      const body: BailHearingInformationBody = {
+      const body: Partial<BailHearingInformationBody> = {
         isBailHearingDateKnown: 'no',
-        'bailHearingDate-month': null,
-        'bailHearingDate-year': null,
-        'bailHearingDate-day': null,
-        courtName: null,
-        bailHearingMedium: null,
+        'bailHearingDate-month': undefined,
+        'bailHearingDate-year': undefined,
+        'bailHearingDate-day': undefined,
+        courtName: undefined,
+        bailHearingMedium: undefined,
       }
 
       it('returns empty strings', () => {

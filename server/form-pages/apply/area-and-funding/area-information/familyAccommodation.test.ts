@@ -23,7 +23,7 @@ describe('FamilyAccommodation', () => {
 
   describe('errors', () => {
     it('returns an error if familyProperty is not set', () => {
-      const page = new FamilyAccommodation({ familyProperty: null }, application)
+      const page = new FamilyAccommodation({ familyProperty: undefined }, application)
 
       expect(page.errors()).toEqual({
         familyProperty: 'Select yes if they want to apply to live with their children in a family property',

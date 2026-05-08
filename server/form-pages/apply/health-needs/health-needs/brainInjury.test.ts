@@ -23,7 +23,7 @@ describe('BrainInjury', () => {
 
   describe('errors', () => {
     it('returns an error if no answer is provided', () => {
-      const page = new BrainInjury({ hasBrainInjury: null }, application)
+      const page = new BrainInjury({ hasBrainInjury: undefined }, application)
 
       expect(page.errors()).toHaveProperty('hasBrainInjury', 'Select yes if they have any brain injury')
     })

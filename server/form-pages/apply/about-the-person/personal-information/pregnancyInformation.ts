@@ -1,5 +1,5 @@
 import { Cas2v2Application as Application } from '@approved-premises/api'
-import { TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
+import { ObjectWithDateParts, TaskListErrors, YesNoOrDontKnow } from '@approved-premises/ui'
 import { DateFormats, dateAndTimeInputsAreValidDates } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
@@ -8,10 +8,10 @@ import { getQuestions } from '../../../utils/questions'
 
 export type PregnancyInformationBody = {
   isPregnant: YesNoOrDontKnow
-  dueDate: string
-  'dueDate-month': string
-  'dueDate-year': string
-  'dueDate-day': string
+  dueDate?: string
+  'dueDate-month'?: string
+  'dueDate-year'?: string
+  'dueDate-day'?: string
 }
 
 @Page({
@@ -51,7 +51,10 @@ export default class PregnancyInformation implements TaskListPage {
       errors.isPregnant = `Choose either Yes, No or I don't know`
     }
 
-    if (this.body.isPregnant === 'yes' && !dateAndTimeInputsAreValidDates(this.body, 'dueDate')) {
+    if (
+      this.body.isPregnant === 'yes' &&
+      !dateAndTimeInputsAreValidDates(this.body as ObjectWithDateParts<'dueDate'>, 'dueDate')
+    ) {
       errors.dueDate = 'Enter the due date'
     }
 

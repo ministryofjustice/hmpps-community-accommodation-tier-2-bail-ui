@@ -25,7 +25,7 @@ describe('WorkingMobilePhone', () => {
 
   describe('errors', () => {
     it('returns an error if hasWorkingMobilePhone is not set', () => {
-      const page = new WorkingMobilePhone({ hasWorkingMobilePhone: null }, application)
+      const page = new WorkingMobilePhone({ hasWorkingMobilePhone: undefined }, application)
 
       expect(page.errors()).toEqual({
         hasWorkingMobilePhone: `Choose either Yes, No or I don't know`,
@@ -34,7 +34,7 @@ describe('WorkingMobilePhone', () => {
 
     describe('when hasWorkingMobilePhone is yes', () => {
       it('returns an error if isSmartPhone is not set', () => {
-        const page = new WorkingMobilePhone({ ...body, isSmartPhone: null }, application)
+        const page = new WorkingMobilePhone({ ...body, isSmartPhone: undefined }, application)
 
         expect(page.errors()).toEqual({
           isSmartPhone: 'Choose either Yes or No',

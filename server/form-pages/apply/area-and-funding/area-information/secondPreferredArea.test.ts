@@ -23,7 +23,7 @@ describe('SecondPreferredArea', () => {
 
   describe('errors', () => {
     it('returns an error if preferredArea is not set', () => {
-      const page = new SecondPreferredArea({ ...body, preferredArea: null }, application)
+      const page = new SecondPreferredArea({ ...body, preferredArea: undefined }, application)
 
       expect(page.errors()).toEqual({
         preferredArea: 'Provide a town, city or region for the second preferred area',
@@ -31,7 +31,7 @@ describe('SecondPreferredArea', () => {
     })
 
     it('returns an error if preferenceReason is not set', () => {
-      const page = new SecondPreferredArea({ ...body, preferenceReason: null }, application)
+      const page = new SecondPreferredArea({ ...body, preferenceReason: undefined }, application)
 
       expect(page.errors()).toEqual({
         preferenceReason: "Provide the reason for the applicant's second preferred area",

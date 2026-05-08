@@ -7,8 +7,8 @@ import { getQuestions } from '../../../utils/questions'
 
 export type WorkingMobilePhoneBody = {
   hasWorkingMobilePhone: YesNoOrDontKnow
-  mobilePhoneNumber: string
-  isSmartPhone: YesOrNo
+  mobilePhoneNumber?: string
+  isSmartPhone?: YesOrNo
 }
 
 @Page({

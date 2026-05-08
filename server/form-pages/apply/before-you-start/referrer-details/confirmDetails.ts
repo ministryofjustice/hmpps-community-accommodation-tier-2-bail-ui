@@ -31,7 +31,8 @@ export default class ConfirmReferrerDetails implements TaskListPage {
     body: Partial<ConfirmReferrerDetailsBody>,
     private readonly application: Application,
   ) {
-    this.referrerDetails = { name: application.createdBy.name, email: application.createdBy.email }
+    this.body = body as ConfirmReferrerDetailsBody
+    this.referrerDetails = { name: application.createdBy.name, email: application.createdBy.email ?? '' }
 
     const applicationQuestions = getQuestions(this.personName)
     this.questions = applicationQuestions['referrer-details']['confirm-details']
