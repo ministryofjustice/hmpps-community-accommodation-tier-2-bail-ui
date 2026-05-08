@@ -27,7 +27,7 @@ describe('PregnancyInformation', () => {
 
   describe('errors', () => {
     it('returns an error if isPregnant is not set', () => {
-      const page = new PregnancyInformation({ isPregnant: null }, application)
+      const page = new PregnancyInformation({ isPregnant: undefined }, application)
 
       expect(page.errors()).toEqual({
         isPregnant: `Choose either Yes, No or I don't know`,
@@ -36,7 +36,7 @@ describe('PregnancyInformation', () => {
 
     describe('when isPregnant is yes', () => {
       it('returns an error if dueDate is not set', () => {
-        const page = new PregnancyInformation({ ...body, 'dueDate-year': null }, application)
+        const page = new PregnancyInformation({ ...body, 'dueDate-year': undefined }, application)
 
         expect(page.errors()).toEqual({
           dueDate: 'Enter the due date',

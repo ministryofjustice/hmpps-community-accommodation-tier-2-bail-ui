@@ -8,7 +8,7 @@ import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 
 export type NonStandardBailConditionsBody = {
   nonStandardBailConditions: YesNoOrDontKnow
-  nonStandardBailConditionsDetail: string
+  nonStandardBailConditionsDetail?: string
 }
 
 @Page({

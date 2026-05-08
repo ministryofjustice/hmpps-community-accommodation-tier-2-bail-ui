@@ -13,7 +13,7 @@ const alternativeIDOptions = applicationQuestions.alternativeIDDocuments.answers
 
 export type AlternativeIdentificationBody = {
   alternativeIDDocuments: Array<keyof typeof alternativeIDOptions>
-  other: string
+  other?: string
 }
 
 @Page({
@@ -39,6 +39,7 @@ export default class AlternativeIdentification implements TaskListPage {
     body: Partial<AlternativeIdentificationBody>,
     private readonly application: Application,
   ) {
+    this.body = body as AlternativeIdentificationBody
     this.questions = getQuestions(this.personName)['funding-information']['alternative-applicant-id']
     this.title = this.questions.alternativeIDDocuments.question
   }

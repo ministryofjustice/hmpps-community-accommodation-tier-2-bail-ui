@@ -24,7 +24,7 @@ describe('ExclusionZones', () => {
 
   describe('errors', () => {
     it('returns an error if hasExclusionZones is not set', () => {
-      const page = new ExclusionZones({ ...body, hasExclusionZones: null }, application)
+      const page = new ExclusionZones({ ...body, hasExclusionZones: undefined }, application)
 
       expect(page.errors()).toEqual({
         hasExclusionZones: 'Select if they have any exclusion zones',
@@ -33,7 +33,7 @@ describe('ExclusionZones', () => {
 
     describe('when hasExclusionZones is set to yes', () => {
       it('returns an error if exclusionZonesDetail is not set', () => {
-        const page = new ExclusionZones({ hasExclusionZones: 'yes', exclusionZonesDetail: null }, application)
+        const page = new ExclusionZones({ hasExclusionZones: 'yes', exclusionZonesDetail: undefined }, application)
 
         expect(page.errors()).toEqual({
           exclusionZonesDetail: 'Select if there are any exclusion zones or unsuitable areas',

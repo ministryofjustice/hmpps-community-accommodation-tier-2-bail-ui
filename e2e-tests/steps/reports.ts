@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test'
+import { expect, Page } from '@playwright/test'
 import Excel, { CellValue } from 'exceljs'
 
 const reportTypeMetaData = {
@@ -39,8 +39,7 @@ export const downloadReport = async (reportType: ReportType, page: Page) => {
   const downloadPromise = page.waitForEvent('download', { timeout: 10000 })
   await page.getByRole('button', { name: reportTypeMetaData[reportType].callToAction }).click()
   const download = await downloadPromise
-  const path = await download.path()
-  return path
+  return download.path()
 }
 
 export const confirmColumnNames = async (reportType: ReportType, path: string) => {
@@ -48,9 +47,10 @@ export const confirmColumnNames = async (reportType: ReportType, path: string) =
 
   await workbook.xlsx.readFile(path).then(() => {
     const sh = workbook.getWorksheet('Sheet0')
+    expect(sh).toBeDefined()
 
     const headerCells: CellValue[] = []
-    sh.getRow(1).eachCell(cell => headerCells.push(cell.value))
+    sh!.getRow(1).eachCell(cell => headerCells.push(cell.value))
 
     reportTypeMetaData[reportType].columnNames.forEach(columnName => {
       expect(headerCells.includes(columnName)).toBe(true)
