@@ -1,7 +1,13 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2v2Application as Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
-import { ApplicationOrigin, ErrorsAndUserInput, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
+import {
+  ApplicationOrigin,
+  BailApplicationOrigin,
+  ErrorsAndUserInput,
+  GroupedApplications,
+  PaginatedResponse,
+} from '@approved-premises/ui'
 import createHttpError from 'http-errors'
 
 import { faker } from '@faker-js/faker'
@@ -283,7 +289,7 @@ describe('applicationsController', () => {
       request.body = {
         crn: 'crn123',
         prisonNumber: 'prisonNumber123',
-        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+        applicationOrigin: 'prisonBail' as BailApplicationOrigin,
       }
 
       applicationService.createApplication.mockResolvedValue({ id: 'application-id' } as Application)
@@ -327,7 +333,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+            applicationOrigin: 'prisonBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -353,7 +359,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+            applicationOrigin: 'prisonBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -379,7 +385,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'prisonBail' as ApplicationOrigin,
+            applicationOrigin: 'prisonBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -407,7 +413,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'courtBail' as ApplicationOrigin,
+            applicationOrigin: 'courtBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -433,7 +439,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'courtBail' as ApplicationOrigin,
+            applicationOrigin: 'courtBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -459,7 +465,7 @@ describe('applicationsController', () => {
           request.body = {
             crn: 'crn123',
             prisonNumber: 'prisonNumber123',
-            applicationOrigin: 'courtBail' as ApplicationOrigin,
+            applicationOrigin: 'courtBail' as BailApplicationOrigin,
           }
 
           const requestHandler = applicationsController.create()
@@ -496,7 +502,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
         errors: {},
         errorSummary: [],
-        pageHeading: 'Where are you making the application from?',
+        pageHeading: 'Which type of application do you want to make?',
       })
     })
 
@@ -508,6 +514,38 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
+        pageHeading: 'Which type of application do you want to make?',
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('bailApplicationOrigin', () => {
+    it('renders the enter bail application origin template', async () => {
+      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+        return { errors: {}, errorSummary: [], userInput: {} }
+      })
+
+      const requestHandler = applicationsController.bailApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: 'Where are you making the application from?',
+      })
+    })
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.bailApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
         pageHeading: 'Where are you making the application from?',
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
@@ -517,12 +555,6 @@ describe('applicationsController', () => {
   })
 
   describe('selectApplicationOrigin', () => {
-    beforeEach(() => {
-      response = createMock<Response>({
-        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER', 'CAS2_PRISON_BAIL_REFERRER'] } },
-      })
-    })
-
     it('redirects to the select application type page when application origin is not selected', async () => {
       request.body = {
         applicationOrigin: null,
@@ -534,12 +566,64 @@ describe('applicationsController', () => {
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
     })
 
-    it('redirects to the searchByPrisonNumber page when application origin is prisonBail', async () => {
+    it('redirects to the bail before-you-start page when application origin is bail', async () => {
       request.body = {
-        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+        applicationOrigin: 'bail' as ApplicationOrigin,
       }
 
       const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.bail.beforeYouStart({}))
+    })
+
+    it('redirects to the ISR before-you-start page when application origin is other', async () => {
+      request.body = {
+        applicationOrigin: 'other' as ApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.beforeYouStart({}))
+    })
+
+    it('redirects back to the application origin view with an error when no origin is selected', async () => {
+      request.body = {
+        applicationOrigin: '',
+      }
+
+      const requestHandler = applicationsController.selectApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
+    })
+  })
+
+  describe('selectBailApplicationOrigin', () => {
+    beforeEach(() => {
+      response = createMock<Response>({
+        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER', 'CAS2_PRISON_BAIL_REFERRER'] } },
+      })
+    })
+
+    it('redirects to the select application type page when application origin is not selected', async () => {
+      request.body = {
+        applicationOrigin: null,
+      }
+
+      const requestHandler = applicationsController.selectBailApplicationOrigin()
+      await requestHandler(request, response, next)
+
+      expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
+    })
+
+    it('redirects to the searchByPrisonNumber page when application origin is prisonBail', async () => {
+      request.body = {
+        applicationOrigin: 'prisonBail' as BailApplicationOrigin,
+      }
+
+      const requestHandler = applicationsController.selectBailApplicationOrigin()
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
@@ -547,10 +631,10 @@ describe('applicationsController', () => {
 
     it('redirects to the searchByCrn page when application origin is courtBail', async () => {
       request.body = {
-        applicationOrigin: 'courtBail' as ApplicationOrigin,
+        applicationOrigin: 'courtBail' as BailApplicationOrigin,
       }
 
-      const requestHandler = applicationsController.selectApplicationOrigin()
+      const requestHandler = applicationsController.selectBailApplicationOrigin()
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
@@ -558,14 +642,14 @@ describe('applicationsController', () => {
 
     it('redirects to the unauthorised court bail page when the application origin is courtBail and the user does not have the CAS2_COURT_BAIL_REFERRER role', async () => {
       request.body = {
-        applicationOrigin: 'courtBail' as ApplicationOrigin,
+        applicationOrigin: 'courtBail' as BailApplicationOrigin,
       }
 
       response = createMock<Response>({
         locals: { user: { userRoles: ['CAS2_PRISON_BAIL_REFERRER'] } },
       })
 
-      const requestHandler = applicationsController.selectApplicationOrigin()
+      const requestHandler = applicationsController.selectBailApplicationOrigin()
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedCourtBailApplication({}))
@@ -573,14 +657,14 @@ describe('applicationsController', () => {
 
     it('redirects to the unauthorised prison bail page when the application origin is prisonBail and the user does not have the CAS2_PRISON_BAIL_REFERRER role', async () => {
       request.body = {
-        applicationOrigin: 'prisonBail' as ApplicationOrigin,
+        applicationOrigin: 'prisonBail' as BailApplicationOrigin,
       }
 
       response = createMock<Response>({
         locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
       })
 
-      const requestHandler = applicationsController.selectApplicationOrigin()
+      const requestHandler = applicationsController.selectBailApplicationOrigin()
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedPrisonBailApplication({}))

@@ -16,16 +16,24 @@ jobs:
   integration_test:
     name: Run the integration tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [ 1, 2 ]
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
+      - name: check out code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
+
       - name: Use Node.js ${{ inputs.node_version_file }}
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
         with:
           node-version-file: ${{ inputs.node_version_file }}
+
       - name: download artifacts
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # V4.2.1
         with:
           name: npm_build_artifacts
+
       - name: restore cache
         id: restore-cache
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # V4.3.0
@@ -35,13 +43,23 @@ jobs:
           path: |
             ./node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
       - name: install dependencies and Cypress
         run: npm run setup
+
+      - name: split tests
+        id: split-tests
+        uses: ministryofjustice/hmpps-approved-premises-ui/.github/actions/split_tests@d03ccce7b908369b59e77cb4ce13468dbe6e278a # v1
+        with:
+          tests_directory: integration_tests
+          tests_spec_glob: '*.cy.ts'
+          matrix_index: ${{ strategy.job-index }}
+          matrix_total: ${{ strategy.job-total }}
+
       - name: run integration tests
         id: integration-tests
-        run: npm run test:integration:local
-        # continue-on-error: true
-        # replacing the above with if: always()
+        run: TEST_RUN_ARGS="--spec ${{ steps.split-tests.outputs.test-suite }}" npm run test:integration:local
+
       - name: upload results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # V4.6.2
@@ -53,6 +71,7 @@ jobs:
             coverage/
             test_results/
             ctrf/
+
       - name: fail the action if the tests failed
         if: ${{ steps.integration-tests.outcome == 'failure' }}
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # V7.1.0

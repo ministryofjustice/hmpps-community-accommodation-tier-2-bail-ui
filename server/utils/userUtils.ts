@@ -3,6 +3,7 @@ import { ServiceSection } from 'server/@types/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportsPaths from '../paths/report'
+import config from '../config'
 
 export const sections = {
   applications: {
@@ -18,7 +19,9 @@ export const sections = {
     title: 'Start a new application',
     description: '<p>You can save your progress and return to the application at any time.</p>',
     shortTitle: 'New application',
-    href: applyPaths.applications.beforeYouStart({}),
+    href: config.flags.cas2IsrEnabled
+      ? applyPaths.applications.applicationOrigin({})
+      : applyPaths.applications.beforeYouStart({}),
   },
   submittedApplications: {
     id: 'submitted-applications',
