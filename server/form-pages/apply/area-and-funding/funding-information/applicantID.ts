@@ -36,6 +36,7 @@ export default class ApplicantID implements TaskListPage {
     body: Partial<ApplicantIDBody>,
     private readonly application: Application,
   ) {
+    this.body = body as ApplicantIDBody
     this.questions = getQuestions(this.personName)['funding-information']['applicant-id'].idDocuments
     this.title = this.questions.question
   }

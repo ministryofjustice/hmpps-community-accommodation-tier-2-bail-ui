@@ -14,7 +14,7 @@ describe('GangAffiliations', () => {
   describe('errors', () => {
     describe('when top level fields are unanswered', () => {
       it('returns an error for hasGangAffiliations', () => {
-        const page = new GangAffiliations({ hasGangAffiliations: null }, application)
+        const page = new GangAffiliations({ hasGangAffiliations: undefined }, application)
 
         expect(page.errors()).toHaveProperty(
           'hasGangAffiliations',
@@ -23,7 +23,7 @@ describe('GangAffiliations', () => {
       })
 
       it('returns an error for rivalGangsOrCountyLines', () => {
-        const page = new GangAffiliations({ rivalGangsOrCountyLines: null }, application)
+        const page = new GangAffiliations({ rivalGangsOrCountyLines: undefined }, application)
 
         expect(page.errors()).toHaveProperty(
           'rivalGangsOrCountyLines',
@@ -34,7 +34,7 @@ describe('GangAffiliations', () => {
 
     describe('when hasGangAffiliations is set to yes', () => {
       it('returns an error if gangDetails is not set', () => {
-        const page = new GangAffiliations({ hasGangAffiliations: 'yes', gangDetails: null }, application)
+        const page = new GangAffiliations({ hasGangAffiliations: 'yes', gangDetails: undefined }, application)
 
         expect(page.errors()).toHaveProperty('gangDetails', 'Enter details of the gang')
       })
@@ -42,7 +42,10 @@ describe('GangAffiliations', () => {
 
     describe('when hasGangAffiliations is set to not known', () => {
       it('returns an error if gangNotKnownDetails is not set', () => {
-        const page = new GangAffiliations({ hasGangAffiliations: 'dontKnow', gangNotKnownDetails: null }, application)
+        const page = new GangAffiliations(
+          { hasGangAffiliations: 'dontKnow', gangNotKnownDetails: undefined },
+          application,
+        )
 
         expect(page.errors()).toHaveProperty('gangNotKnownDetails', 'Enter why it is not known')
       })
@@ -51,7 +54,7 @@ describe('GangAffiliations', () => {
     describe('when rivalGangsOrCountyLines is set to not known', () => {
       it('returns an error if rivalGangNotKnownDetail is not set', () => {
         const page = new GangAffiliations(
-          { rivalGangsOrCountyLines: 'dontKnow', rivalGangNotKnownDetail: null },
+          { rivalGangsOrCountyLines: 'dontKnow', rivalGangNotKnownDetail: undefined },
           application,
         )
 

@@ -7,7 +7,7 @@ import { getQuestions } from '../../../utils/questions'
 
 export type GenderBody = {
   gender: YesOrNoOrPreferNotToSay
-  genderIdentity: string
+  genderIdentity?: string
 }
 
 @Page({
