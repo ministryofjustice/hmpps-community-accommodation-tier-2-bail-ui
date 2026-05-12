@@ -7,6 +7,8 @@ import type { Controllers } from '../controllers'
 import paths from '../paths/apply'
 import { actions } from './utils'
 
+import config from '../config'
+
 export default function applyRoutes(controllers: Controllers, router: Router): Router {
   const { pages } = Apply
   const { get, post, put } = actions(router)
@@ -16,7 +18,7 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
   get(
     paths.applications.beforeYouStart.pattern,
     (req, res, next) => {
-      res.render('applications/before-you-start')
+      res.render('applications/before-you-start', { nextUrl: paths.applications.applicationOrigin({}) })
     },
     { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
   )
@@ -25,8 +27,51 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
     auditEvent: 'VIEW_PRISON_DASHBOARD',
   })
 
-  get(paths.applications.applicationOrigin.pattern, applicationsController.applicationOrigin(), {
+  if (config.flags.cas2IsrEnabled) {
+    get(
+      paths.applications.newCohorts.beforeYouStart.pattern,
+      (req, res, next) => {
+        res.render('applications/before-you-start', { nextUrl: paths.applications.newCohorts.beforeYouStart({}) })
+      },
+      { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
+    )
+
+    get(
+      paths.applications.newCohorts.bail.beforeYouStart.pattern,
+      (req, res, next) => {
+        res.render('applications/before-you-start', { nextUrl: paths.applications.newCohorts.bail.beforeYouStart({}) })
+      },
+      { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
+    )
+
+    get(paths.applications.newCohorts.applicationOrigin.pattern, applicationsController.applicationOrigin(), {
+      auditEvent: 'VIEW_APPLICATION_ORIGIN',
+    })
+    post(
+      paths.applications.newCohorts.selectApplicationOrigin.pattern,
+      applicationsController.selectApplicationOrigin(),
+      {
+        auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
+      },
+    )
+    get(paths.applications.newCohorts.bail.applicationOrigin.pattern, applicationsController.bailApplicationOrigin(), {
+      auditEvent: 'VIEW_BAIL_APPLICATION_ORIGIN',
+    })
+    post(
+      paths.applications.newCohorts.bail.selectApplicationOrigin.pattern,
+      applicationsController.selectBailApplicationOrigin(),
+      {
+        auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
+      },
+    )
+  }
+
+  get(paths.applications.applicationOrigin.pattern, applicationsController.bailApplicationOrigin(), {
     auditEvent: 'VIEW_APPLICATION_ORIGIN',
+  })
+
+  post(paths.applications.selectApplicationOrigin.pattern, applicationsController.selectBailApplicationOrigin(), {
+    auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
   })
 
   get(paths.applications.searchByPrisonNumber.pattern, applicationsController.searchByPrisonNumber(), {
@@ -53,9 +98,6 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
     },
   )
 
-  post(paths.applications.selectApplicationOrigin.pattern, applicationsController.selectApplicationOrigin(), {
-    auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
-  })
   get(paths.applications.index.pattern, applicationsController.index(), { auditEvent: 'VIEW_APPLICATIONS_LIST' })
   get(paths.applications.show.pattern, applicationsController.show(), { auditEvent: 'VIEW_APPLICATION_START' })
   post(paths.applications.submission.pattern, applicationsController.submit(), { auditEvent: 'SUBMIT_APPLICATION' })

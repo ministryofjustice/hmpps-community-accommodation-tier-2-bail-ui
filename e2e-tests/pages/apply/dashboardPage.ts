@@ -6,7 +6,7 @@ export default class DashboardPage extends BasePage {
   }
 
   async makeNewApplication() {
-    await this.page.getByText('Start a new application').click()
+    await this.page.getByText('Start a new application', { exact: true }).click()
   }
 
   async viewPrisonDashboard() {

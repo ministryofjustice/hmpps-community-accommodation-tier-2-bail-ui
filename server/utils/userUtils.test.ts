@@ -1,8 +1,13 @@
 import { sectionsForUser, sections } from './userUtils'
+import config from '../config'
 
 jest.mock('../config')
 
 describe('userUtils', () => {
+  afterEach(() => {
+    config.flags.cas2IsrEnabled = false
+  })
+
   describe('sectionsForUser', () => {
     it('should return an empty array for a user with no roles', () => {
       expect(sectionsForUser([])).toEqual([])
@@ -25,6 +30,17 @@ describe('userUtils', () => {
 
     it('should return section for prison dashboard for CAS2 prison bail referrer', () => {
       const expected = [sections.applications, sections.newApplication, sections.prisonApplications]
+      expect(sectionsForUser(['CAS2_PRISON_BAIL_REFERRER'])).toEqual(expected)
+    })
+
+    it('should return section for prison dashboard for CAS2 prison bail referrer with the new cohorts route when ISR feature flag is enabled', () => {
+      config.flags.cas2IsrEnabled = true
+      const expected = [
+        sections.applications,
+        sections.newApplication,
+        sections.newApplicationNewCohorts,
+        sections.prisonApplications,
+      ]
       expect(sectionsForUser(['CAS2_PRISON_BAIL_REFERRER'])).toEqual(expected)
     })
   })

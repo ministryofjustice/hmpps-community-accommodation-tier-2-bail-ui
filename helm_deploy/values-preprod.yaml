@@ -18,6 +18,7 @@ generic-service:
     ENVIRONMENT_NAME: preprod
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
+    CAS2_ISR_ENABLED: false
 
   namespace_secrets:
     sqs-hmpps-audit-secret:

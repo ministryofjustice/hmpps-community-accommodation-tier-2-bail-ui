@@ -3,6 +3,7 @@ import { ServiceSection } from 'server/@types/ui'
 import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import reportsPaths from '../paths/report'
+import config from '../config'
 
 export const sections = {
   applications: {
@@ -19,6 +20,13 @@ export const sections = {
     description: '<p>You can save your progress and return to the application at any time.</p>',
     shortTitle: 'New application',
     href: applyPaths.applications.beforeYouStart({}),
+  },
+  newApplicationNewCohorts: {
+    id: 'new-application-new-cohort',
+    title: 'Start a new application (new cohorts)',
+    description: '<p>You can save your progress and return to the application at any time.</p>',
+    shortTitle: 'New application (new cohorts)',
+    href: applyPaths.applications.newCohorts.applicationOrigin({}),
   },
   submittedApplications: {
     id: 'submitted-applications',
@@ -53,6 +61,9 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER') || hasRole(userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
     items.push(sections.applications)
     items.push(sections.newApplication)
+    if (config.flags.cas2IsrEnabled) {
+      items.push(sections.newApplicationNewCohorts)
+    }
   }
   if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {
     items.push(sections.prisonApplications)
