@@ -18,6 +18,7 @@ generic-service:
     ENVIRONMENT_NAME: test
     IN_MAINTENANCE_MODE: false
     PLANNED_MAINTENANCE_BANNER: false
+    CAS2_ISR_ENABLED: true
     # required so hmpps-audit-client doesn't raise an error
     AUDIT_SQS_QUEUE_URL: ""
     AUDIT_SQS_QUEUE_NAME: ""

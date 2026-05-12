@@ -1,6 +1,8 @@
 import { path } from 'static-path'
+import config from '../config'
 
 const applicationsPath = path('/applications')
+const bailApplicationsPath = applicationsPath.path('bail')
 const singleApplicationPath = applicationsPath.path(':id')
 const pagesPath = singleApplicationPath.path('tasks/:task/pages/:page')
 const peoplePath = applicationsPath.path('people')
@@ -23,6 +25,13 @@ const paths = {
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-type'),
     selectApplicationOrigin: applicationsPath.path('select-application-origin'),
+    bail: {
+      beforeYouStart: bailApplicationsPath.path('before-you-start'),
+      applicationOrigin: bailApplicationsPath.path('application-type'),
+      selectApplicationOrigin: config.flags.cas2IsrEnabled
+        ? bailApplicationsPath.path('select-application-origin')
+        : applicationsPath.path('select-application-origin'),
+    },
     people: {
       findByPrisonNumber: peoplePath.path('find-by-prison-number'),
       findByCrn: peoplePath.path('find-by-crn'),

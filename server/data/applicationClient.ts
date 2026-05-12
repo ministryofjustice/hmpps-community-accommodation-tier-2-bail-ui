@@ -5,7 +5,7 @@ import {
   UpdateApplication,
   UpdateCas2v2Application,
 } from '@approved-premises/api'
-import { ApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
+import { BailApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
 import paths from '../paths/api'
@@ -21,7 +21,7 @@ export default class ApplicationClient {
     return this.restClient.get<Application>({ path: paths.applications.show({ id: applicationId }) })
   }
 
-  async create(crn: string, applicationOrigin: ApplicationOrigin): Promise<Application> {
+  async create(crn: string, applicationOrigin: BailApplicationOrigin): Promise<Application> {
     return this.restClient.post<Application>({
       path: paths.applications.new.pattern,
       data: { crn: crn.trim(), applicationOrigin },

@@ -108,5 +108,6 @@ export default {
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', 'false') === 'true',
     plannedMaintenance: get('PLANNED_MAINTENANCE_BANNER', 'false') === 'true',
+    cas2IsrEnabled: get('CAS2_ISR_ENABLED', 'false') === 'true',
   },
 }
