@@ -1076,7 +1076,7 @@ export function getQuestions(name: string) {
       'unspent-convictions-data': {
         convictionType: {
           ...offenceCategory,
-          question: 'Select the conviction type',
+          question: 'Conviction type',
           hint: 'For example, Arson or Drugs',
         },
         numberOfConvictions: {
