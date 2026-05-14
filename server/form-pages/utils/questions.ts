@@ -481,7 +481,7 @@ export function getQuestions(name: string) {
           },
         },
         fundingSourceDetail: {
-          question: 'Enter details (optional)',
+          question: 'Payment method details',
         },
         hasNationalInsuranceNumber: {
           question: 'Does the applicant have a National Insurance number?',
@@ -492,7 +492,7 @@ export function getQuestions(name: string) {
           },
         },
         nationalInsuranceNumber: {
-          question: 'Enter the number (optional)',
+          question: 'National Insurance number (optional)',
           hint: 'For example, SF123456X',
         },
         receivingBenefits: {
