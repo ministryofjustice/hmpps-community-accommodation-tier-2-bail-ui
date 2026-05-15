@@ -318,6 +318,7 @@ export function getQuestions(name: string) {
             english: 'English, Welsh, Scottish, Northern Irish or British',
             irish: 'Irish',
             gypsy: 'Gypsy or Irish Traveller',
+            whiteRoma: 'White Roma',
             other: 'Any other White background',
           },
         },
