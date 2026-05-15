@@ -45,14 +45,6 @@ describe('WhiteBackground', () => {
           text: 'Any other White background',
           value: 'other',
         },
-        {
-          divider: 'or',
-        },
-        {
-          checked: false,
-          text: 'Prefer not to say',
-          value: 'preferNotToSay',
-        },
       ])
     })
   })
@@ -62,7 +54,7 @@ describe('WhiteBackground', () => {
       const page = new WhiteBackground({}, application)
 
       expect(page.errors()).toEqual({
-        whiteBackground: "Select a background or 'Prefer not to say'",
+        whiteBackground: 'Select a background',
       })
     })
 
@@ -76,7 +68,7 @@ describe('WhiteBackground', () => {
   describe('onSave', () => {
     it('removes white background data when the question is not set to "other"', () => {
       const body: Partial<WhiteBackgroundBody> = {
-        whiteBackground: 'preferNotToSay',
+        whiteBackground: 'irish',
         optionalWhiteBackground: 'White background',
       }
 
@@ -85,7 +77,7 @@ describe('WhiteBackground', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        whiteBackground: 'preferNotToSay',
+        whiteBackground: 'irish',
       })
     })
   })
