@@ -63,9 +63,7 @@ export default class MixedBackground implements TaskListPage {
         item.conditional = { html: optionalMixedBackground }
       }
     })
-    const preferNotToSay = items.pop()
-
-    return [...items, { divider: 'or' }, { ...preferNotToSay }]
+    return items
   }
 
   onSave(): void {

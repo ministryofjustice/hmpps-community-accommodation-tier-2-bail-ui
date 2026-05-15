@@ -15,6 +15,6 @@ export default class MixedBackgroundPage extends ApplyPage {
   }
 
   selectMixedBackground(): void {
-    this.checkRadioByNameAndValue('mixedBackground', 'preferNotToSay')
+    this.checkRadioByNameAndValue('mixedBackground', 'whiteAndBlackCaribbean')
   }
 }

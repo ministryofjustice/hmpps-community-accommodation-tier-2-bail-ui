@@ -35,14 +35,6 @@ describe('OtherBackground', () => {
           text: 'Any other ethnic group',
           value: 'other',
         },
-        {
-          divider: 'or',
-        },
-        {
-          checked: false,
-          text: 'Prefer not to say',
-          value: 'preferNotToSay',
-        },
       ])
     })
   })
@@ -52,7 +44,7 @@ describe('OtherBackground', () => {
       const page = new OtherBackground({}, application)
 
       expect(page.errors()).toEqual({
-        otherBackground: "Select a background or 'Prefer not to say'",
+        otherBackground: 'Select a background',
       })
     })
 
@@ -66,7 +58,7 @@ describe('OtherBackground', () => {
   describe('onSave', () => {
     it('removes background data if question is not set to "other"', () => {
       const body: Partial<OtherBackgroundBody> = {
-        otherBackground: 'preferNotToSay',
+        otherBackground: 'arab',
         optionalOtherBackground: 'Other background',
       }
 
@@ -75,7 +67,7 @@ describe('OtherBackground', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        otherBackground: 'preferNotToSay',
+        otherBackground: 'arab',
       })
     })
   })

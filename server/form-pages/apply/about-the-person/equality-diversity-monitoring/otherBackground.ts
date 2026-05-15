@@ -63,9 +63,7 @@ export default class OtherBackground implements TaskListPage {
         item.conditional = { html: optionalOtherBackground }
       }
     })
-    const preferNotToSay = items.pop()
-
-    return [...items, { divider: 'or' }, { ...preferNotToSay }]
+    return items
   }
 
   onSave(): void {
