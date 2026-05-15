@@ -39,6 +39,11 @@ describe('WhiteBackground', () => {
         },
         {
           checked: false,
+          text: 'White Roma',
+          value: 'whiteRoma',
+        },
+        {
+          checked: false,
           conditional: {
             html: 'example',
           },
