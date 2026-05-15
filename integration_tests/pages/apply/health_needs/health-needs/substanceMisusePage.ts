@@ -12,7 +12,7 @@ export default class SubstanceMisusePage extends ApplyPage {
       'health-needs',
       'substance-misuse',
     )
-    pageIsActiveInNavigation('Substance and alcohol')
+    pageIsActiveInNavigation('Drug and alcohol')
   }
 
   static visit(application: Application): void {
