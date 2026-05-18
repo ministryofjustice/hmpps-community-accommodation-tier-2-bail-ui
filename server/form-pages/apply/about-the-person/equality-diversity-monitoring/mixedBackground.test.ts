@@ -45,14 +45,6 @@ describe('MixedBackground', () => {
           text: 'Any other mixed or multiple ethnic background',
           value: 'other',
         },
-        {
-          divider: 'or',
-        },
-        {
-          checked: false,
-          text: 'Prefer not to say',
-          value: 'preferNotToSay',
-        },
       ])
     })
   })
@@ -62,7 +54,7 @@ describe('MixedBackground', () => {
       const page = new MixedBackground({}, application)
 
       expect(page.errors()).toEqual({
-        mixedBackground: "Select a background or 'Prefer not to say'",
+        mixedBackground: 'Select a background',
       })
     })
 
@@ -76,7 +68,7 @@ describe('MixedBackground', () => {
   describe('onSave', () => {
     it('removes mixed background data when the question is not set to "other"', () => {
       const body: Partial<MixedBackgroundBody> = {
-        mixedBackground: 'preferNotToSay',
+        mixedBackground: 'whiteAndAsian',
         optionalMixedBackground: 'Mixed background',
       }
 
@@ -85,7 +77,7 @@ describe('MixedBackground', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        mixedBackground: 'preferNotToSay',
+        mixedBackground: 'whiteAndAsian',
       })
     })
   })

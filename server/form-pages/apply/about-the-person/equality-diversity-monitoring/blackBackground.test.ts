@@ -40,14 +40,6 @@ describe('BlackBackground', () => {
           text: 'Any other Black, African or Caribbean background',
           value: 'other',
         },
-        {
-          divider: 'or',
-        },
-        {
-          checked: false,
-          text: 'Prefer not to say',
-          value: 'preferNotToSay',
-        },
       ])
     })
   })
@@ -57,7 +49,7 @@ describe('BlackBackground', () => {
       const page = new BlackBackground({}, application)
 
       expect(page.errors()).toEqual({
-        blackBackground: "Select a background or 'Prefer not to say'",
+        blackBackground: 'Select a background',
       })
     })
 
@@ -71,7 +63,7 @@ describe('BlackBackground', () => {
   describe('onSave', () => {
     it('removes black background data when the question is not set to "other"', () => {
       const body: Partial<BlackBackgroundBody> = {
-        blackBackground: 'preferNotToSay',
+        blackBackground: 'african',
         optionalBlackBackground: 'Black background',
       }
 
@@ -80,7 +72,7 @@ describe('BlackBackground', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        blackBackground: 'preferNotToSay',
+        blackBackground: 'african',
       })
     })
   })

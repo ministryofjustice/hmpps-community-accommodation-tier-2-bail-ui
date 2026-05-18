@@ -61,9 +61,7 @@ export default class AsianBackground implements TaskListPage {
         item.conditional = { html: optionalAsianBackground }
       }
     })
-    const preferNotToSay = items.pop()
-
-    return [...items, { divider: 'or' }, { ...preferNotToSay }]
+    return items
   }
 
   onSave(): void {

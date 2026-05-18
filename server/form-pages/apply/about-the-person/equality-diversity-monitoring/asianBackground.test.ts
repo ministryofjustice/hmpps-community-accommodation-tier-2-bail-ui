@@ -50,14 +50,6 @@ describe('AsianBackground', () => {
           text: 'Any other Asian background',
           value: 'other',
         },
-        {
-          divider: 'or',
-        },
-        {
-          checked: false,
-          text: 'Prefer not to say',
-          value: 'preferNotToSay',
-        },
       ])
     })
   })
@@ -67,7 +59,7 @@ describe('AsianBackground', () => {
       const page = new AsianBackground({}, application)
 
       expect(page.errors()).toEqual({
-        asianBackground: "Select a background or 'Prefer not to say'",
+        asianBackground: 'Select a background',
       })
     })
 
@@ -81,7 +73,7 @@ describe('AsianBackground', () => {
   describe('onSave', () => {
     it('removes asian background data when the question is not set to "other"', () => {
       const body: Partial<AsianBackgroundBody> = {
-        asianBackground: 'preferNotToSay',
+        asianBackground: 'indian',
         optionalAsianBackground: 'Asian background',
       }
 
@@ -90,7 +82,7 @@ describe('AsianBackground', () => {
       page.onSave()
 
       expect(page.body).toEqual({
-        asianBackground: 'preferNotToSay',
+        asianBackground: 'indian',
       })
     })
   })

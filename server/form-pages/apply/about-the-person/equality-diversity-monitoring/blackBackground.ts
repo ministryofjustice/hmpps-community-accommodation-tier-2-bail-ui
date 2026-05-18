@@ -64,9 +64,7 @@ export default class BlackBackground implements TaskListPage {
         item.conditional = { html: optionalBlackBackground }
       }
     })
-    const preferNotToSay = items.pop()
-
-    return [...items, { divider: 'or' }, { ...preferNotToSay }]
+    return items
   }
 
   onSave(): void {
