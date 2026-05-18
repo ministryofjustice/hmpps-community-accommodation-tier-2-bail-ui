@@ -63,9 +63,8 @@ export default class WhiteBackground implements TaskListPage {
         item.conditional = { html: optionalWhiteBackground }
       }
     })
-    const preferNotToSay = items.pop()
 
-    return [...items, { divider: 'or' }, { ...preferNotToSay }]
+    return items
   }
 
   onSave(): void {

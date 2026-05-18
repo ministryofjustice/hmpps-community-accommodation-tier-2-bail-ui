@@ -21,7 +21,7 @@
     "empty": "Select an ethnic group or choose 'Prefer not to say'"
   },
   "background": {
-    "empty": "Select a background or 'Prefer not to say'"
+    "empty": "Select a background"
   },
   "religion": {
     "empty": "Select a religion or 'Prefer not to say'"
