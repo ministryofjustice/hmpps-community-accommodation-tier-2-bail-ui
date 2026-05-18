@@ -90,7 +90,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
-    "@golevelup/ts-jest": "^0.7.0",
+    "@golevelup/ts-jest": "^3.0.0",
     "@ministryofjustice/frontend": "^5.1.4",
     "@ministryofjustice/hmpps-audit-client": "^1.1.1",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
