@@ -121,8 +121,8 @@ describe('InformationSources', () => {
 
       expect(page.response()).toEqual({
         "Where did you get the information on the applicant's health needs from?":
-          'In person interview with applicant\r\nPolice and Safeguarding teams\r\nCase work\r\nHealthcare teams\r\nNDelius (National probation database)\r\nNOMIS (National Offender Management Information System)\r\nPrevious OASys\r\nCurrent OASys\r\nOther\r\n',
-        'Enter date of previous OASys': '1 October 2023',
+          'In person interview with applicant\r\nPolice and Safeguarding teams\r\nCase work\r\nHealthcare teams\r\nNDelius (National probation database)\r\nNOMIS (National Offender Management Information System)\r\nPrevious OASys assessment\r\nCurrent OASys\r\nOther\r\n',
+        'Previous OASys assessment date': '1 October 2023',
         'Enter other sources (optional)': 'some other sources',
       })
     })

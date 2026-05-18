@@ -562,7 +562,7 @@ export function getQuestions(name: string) {
     'health-needs': {
       'substance-misuse': {
         substanceAndAlcoholUse: {
-          question: 'Do they have any issues related to substance and alcohol use?',
+          question: 'Do they have any issues related to drug or alcohol use?',
           answers: yesOrNo,
         },
         substanceAndAlcoholUseDetail: {
@@ -770,13 +770,13 @@ export function getQuestions(name: string) {
             casework: 'Case work',
             ndelius: 'NDelius (National probation database)',
             police: 'Police and Safeguarding teams',
-            previousOasys: 'Previous OASys',
+            previousOasys: 'Previous OASys assessment',
             currentOasys: 'Current OASys',
             other: 'Other',
           },
         },
         previousOasysDate: {
-          question: 'Enter date of previous OASys',
+          question: 'Previous OASys assessment date',
         },
         otherSourcesDetail: {
           question: 'Enter other sources (optional)',
