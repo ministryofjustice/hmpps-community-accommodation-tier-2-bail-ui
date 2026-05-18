@@ -53,7 +53,7 @@ describe('PregnancyInformation', () => {
       const page = new PregnancyInformation(body, application)
       expect(page.response()).toEqual({
         'Is Sue Smith pregnant?': 'Yes',
-        'When is their due date?': '1 October 2023',
+        'Due date': '1 October 2023',
       })
     })
 
