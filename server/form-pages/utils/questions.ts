@@ -153,7 +153,7 @@ export function getQuestions(name: string) {
           answers: yesNoOrIDontKnow,
         },
         dueDate: {
-          question: 'When is their due date?',
+          question: 'Due date',
           hint: `For example, ${dateExample}`,
         },
       },
