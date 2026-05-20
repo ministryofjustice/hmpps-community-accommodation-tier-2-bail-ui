@@ -20,9 +20,12 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2v2Applica
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
       cancelAnchorElement(application.id),
+      htmlValue(inProgressStatusTag),
     ]
   })
 }
+
+const inProgressStatusTag = '<strong class="govuk-tag govuk-tag--light-blue">In progress</strong>'
 
 export const submittedApplicationTableRows = (
   applications: Array<Cas2v2ApplicationSummary>,
