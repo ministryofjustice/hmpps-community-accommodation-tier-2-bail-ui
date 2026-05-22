@@ -58,6 +58,7 @@ generic-service:
     application-insights:
       APPINSIGHTS_INSTRUMENTATIONKEY: 'APPINSIGHTS_INSTRUMENTATIONKEY'
 
+  # we use MFA so having no allow list is acceptable
   allowlist: null
 
 generic-prometheus-alerts:
