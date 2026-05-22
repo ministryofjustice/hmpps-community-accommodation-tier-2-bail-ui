@@ -9,6 +9,10 @@ export default class DashboardPage extends BasePage {
     await this.page.getByText('Start a new application', { exact: true }).click()
   }
 
+  async makeNewCohortApplication() {
+    await this.page.getByText('Start a new application (new cohorts)').click()
+  }
+
   async viewPrisonDashboard() {
     await this.page.getByText('View all prison bail applications').click()
   }

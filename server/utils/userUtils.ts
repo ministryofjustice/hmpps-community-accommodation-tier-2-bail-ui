@@ -22,7 +22,7 @@ export const sections = {
     href: applyPaths.applications.beforeYouStart({}),
   },
   newApplicationNewCohorts: {
-    id: 'new-application-new-cohort',
+    id: 'new-application-new-cohorts',
     title: 'Start a new application (new cohorts)',
     description: '<p>You can save your progress and return to the application at any time.</p>',
     shortTitle: 'New application (new cohorts)',
