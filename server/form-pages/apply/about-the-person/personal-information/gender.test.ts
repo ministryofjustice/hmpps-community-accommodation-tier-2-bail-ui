@@ -20,7 +20,7 @@ describe('Gender', () => {
 
   describe('errors', () => {
     it('returns an error if gender is not set', () => {
-      const page = new Gender({ gender: null }, application)
+      const page = new Gender({ gender: undefined }, application)
 
       expect(page.errors()).toEqual({
         gender:

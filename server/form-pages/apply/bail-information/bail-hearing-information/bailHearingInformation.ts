@@ -1,4 +1,4 @@
-import type { TaskListErrors, ObjectWithDateParts, YesOrNo } from '@approved-premises/ui'
+import type { ObjectWithDateParts, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { Page } from '../../../utils/decorators'
@@ -100,8 +100,6 @@ export default class BailHearingInformation implements TaskListPage {
   }
 
   items() {
-    const items = convertKeyValuePairToRadioItems(hearingMediumOptions, this.body.bailHearingMedium)
-
-    return items
+    return convertKeyValuePairToRadioItems(hearingMediumOptions, this.body.bailHearingMedium)
   }
 }

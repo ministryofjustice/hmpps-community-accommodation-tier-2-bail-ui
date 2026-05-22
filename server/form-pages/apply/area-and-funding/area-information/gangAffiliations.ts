@@ -7,11 +7,11 @@ import { getQuestions } from '../../../utils/questions'
 
 export type GangAffiliationsBody = {
   hasGangAffiliations: YesNoOrDontKnow
-  gangDetails: string
-  gangNotKnownDetails: string
+  gangDetails?: string
+  gangNotKnownDetails?: string
   rivalGangsOrCountyLines: YesNoOrDontKnow
-  rivalGangsOrCountyLinesDetail: string
-  rivalGangNotKnownDetail: string
+  rivalGangsOrCountyLinesDetail?: string
+  rivalGangNotKnownDetail?: string
 }
 
 @Page({

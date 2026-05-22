@@ -59,7 +59,7 @@ describe('FundingCas2Accommodation', () => {
             hasNationalInsuranceNumber: 'yes',
             nationalInsuranceNumber: 'SF123456X',
             receivingBenefits: 'yes',
-            receivedBenefitSanctions: null,
+            receivedBenefitSanctions: undefined,
           },
           application,
         )

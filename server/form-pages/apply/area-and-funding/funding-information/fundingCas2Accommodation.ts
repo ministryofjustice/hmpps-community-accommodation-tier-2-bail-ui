@@ -13,11 +13,11 @@ const hasNationalInsuranceOptions =
 
 export type FundingCas2AccommodationBody = {
   fundingSource: FundingSources
-  fundingSourceDetail: string
+  fundingSourceDetail?: string
   hasNationalInsuranceNumber: YesNoOrDontKnow
-  nationalInsuranceNumber: string
+  nationalInsuranceNumber?: string
   receivingBenefits: YesOrNo
-  receivedBenefitSanctions: YesOrNo
+  receivedBenefitSanctions?: YesOrNo
 }
 
 @Page({
@@ -39,8 +39,6 @@ export default class FundingCas2Accommodation implements TaskListPage {
   title = 'Funding CAS2 for bail accommodation'
 
   questions
-
-  options: Record<string, string>
 
   body: FundingCas2AccommodationBody
 
