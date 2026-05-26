@@ -23,7 +23,7 @@ describe('SubstanceMisuse', () => {
       it('includes a validation error for _substanceAndAlcoholUse_', () => {
         expect(page.errors()).toHaveProperty(
           'substanceAndAlcoholUse',
-          'Select if they have any issues related to substance and alcohol use',
+          'Select if they have any issues related to drug and alcohol use',
         )
       })
 
