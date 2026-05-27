@@ -20,6 +20,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2v2Applica
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
       cancelAnchorElement(application.id),
+      htmlValue(getStatusTag('In progress', 'f5cd423b-08eb-4efb-96ff-5cc6bb073905')),
     ]
   })
 }
