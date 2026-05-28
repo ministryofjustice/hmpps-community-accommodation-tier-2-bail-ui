@@ -7,6 +7,12 @@ export type Cas2v2ReferralHistory = {
     applicationId: string;
     createdAt: string;
     id: string;
+    localAuthorityArea?: string;
+    pdu?: string;
+    placementAddress?: string;
+    placementStatus?: string;
+    referralRejectionReason?: string;
+    referredBy?: string;
     status: string;
     type: ServiceType;
 };

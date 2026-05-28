@@ -4,11 +4,13 @@
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
+import type { Cas2CohortDto } from './Cas2CohortDto';
 import type { LatestCas2v2StatusUpdate } from './LatestCas2v2StatusUpdate';
 import type { PersonRisks } from './PersonRisks';
 export type Cas2v2ApplicationSummary = {
     applicationOrigin: ApplicationOrigin;
     bailHearingDate?: string;
+    cohort?: Cas2CohortDto;
     createdAt: string;
     createdByUserId: string;
     createdByUserName?: string;

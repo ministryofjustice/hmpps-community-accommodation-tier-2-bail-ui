@@ -1,3 +1,5 @@
+import { Cas2v2Application } from '../shared'
+
 export type JourneyType = 'applications'
 
 export type UiTask = {
@@ -39,14 +41,14 @@ export type YesOrNoWithDetail<T extends string> = {
   [K in `${T}Detail`]: string
 }
 
-export type FormArtifact = Cas2Application
+export type FormArtifact = Cas2v2Application
 
 export type DataServices = Partial<{
   personService: {
     findByPrisonNumber: (token: string, prisonNumber: string) => Promise<Person>
   }
   applicationService: {
-    findApplication: (token: string, id: string) => Promise<Cas2Application>
+    findApplication: (token: string, id: string) => Promise<Cas2v2Application>
   }
   submittedApplicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2SubmittedApplication>
