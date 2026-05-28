@@ -2,9 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserSummary = {
-    emailAddress?: string;
-    id: string;
-    name: string;
-};
-
+export type Cas2CohortDto = 'hdc' | 'prisonBail' | 'courtBail' | 'atcr' | 'hcrd' | 'hefr' | 'isc' | 'rarr' | 'from_ap';
