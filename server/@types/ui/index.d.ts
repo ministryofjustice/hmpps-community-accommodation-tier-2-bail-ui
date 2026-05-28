@@ -195,4 +195,5 @@ export type PaginatedResponse<T> = {
   pageSize: string
 }
 
-export type ApplicationOrigin = 'courtBail' | 'prisonBail'
+export type ApplicationOrigin = 'bail' | 'other'
+export type BailApplicationOrigin = 'courtBail' | 'prisonBail'

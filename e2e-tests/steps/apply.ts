@@ -7,7 +7,7 @@ import {
   FindByPrisonNumberPage,
   FindByCrnPage,
   TaskListPage,
-  ApplicationOriginPage,
+  BailApplicationOriginPage,
 } from '../pages/apply'
 import {
   completeConsentTask,
@@ -31,6 +31,7 @@ import {
 import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
 import { completeBailConditionsTask, completeBailHearingInformationTask } from './bailInformationSection'
+import ApplicationOriginPage from '../pages/apply/applicationOriginPage'
 
 export const startAnApplication = async (page: Page) => {
   // Start page
@@ -47,12 +48,30 @@ export const startAnApplication = async (page: Page) => {
   await beforeYouStartPage.startNow()
 }
 
-export const selectApplicationOrigin = async (page: Page, applicationOrigin: 'courtBail' | 'prisonBail') => {
-  const applicationOriginPage = new ApplicationOriginPage(page)
+export const startANewCohortApplication = async (page: Page) => {
+  // visit the root url
+  const dashboardPage = new DashboardPage(page)
+  await dashboardPage.goto()
+
+  // Follow link to new application
+  await dashboardPage.makeNewCohortApplication()
+}
+
+export const selectBailApplicationOrigin = async (page: Page, applicationOrigin: 'courtBail' | 'prisonBail') => {
+  const applicationOriginPage = new BailApplicationOriginPage(page)
   if (applicationOrigin === 'prisonBail') {
     await applicationOriginPage.choosePrisonBail()
   } else {
     await applicationOriginPage.chooseCourtBail()
+  }
+}
+
+export const selectApplicationOrigin = async (page: Page, applicationOrigin: 'bail' | 'other') => {
+  const applicationOriginPage = new ApplicationOriginPage(page)
+  if (applicationOrigin === 'bail') {
+    await applicationOriginPage.chooseBail()
+  } else {
+    await applicationOriginPage.chooseOther()
   }
 }
 
@@ -158,7 +177,7 @@ export const createAnInProgressApplication = async (
   applicationOrigin: 'courtBail' | 'prisonBail',
 ) => {
   await startAnApplication(page)
-  await selectApplicationOrigin(page, applicationOrigin)
+  await selectBailApplicationOrigin(page, applicationOrigin)
   if (applicationOrigin === 'courtBail') {
     await enterCrn(page, person.crn)
   } else {

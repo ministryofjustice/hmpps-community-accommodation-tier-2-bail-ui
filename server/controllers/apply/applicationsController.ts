@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { DataServices, ApplicationOrigin } from '@approved-premises/ui'
+import { DataServices, BailApplicationOrigin, ApplicationOrigin } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
@@ -139,7 +139,7 @@ export default class ApplicationsController {
         crn,
         prisonNumber,
         applicationOrigin,
-      }: { crn: string; prisonNumber: string; applicationOrigin: ApplicationOrigin } = req.body
+      }: { crn: string; prisonNumber: string; applicationOrigin: BailApplicationOrigin } = req.body
       try {
         const application = await this.applicationService.createApplication(req.user.token, crn, applicationOrigin)
 
@@ -203,6 +203,19 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
+        pageHeading: 'Which type of application do you want to make?',
+      })
+    }
+  }
+
+  bailApplicationOrigin(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      return res.render('applications/bail-application-origin', {
+        errors,
+        errorSummary,
+        ...userInput,
         pageHeading: 'Where are you making the application from?',
       })
     }
@@ -210,7 +223,29 @@ export default class ApplicationsController {
 
   selectApplicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
-      if ((req.body.applicationOrigin as ApplicationOrigin) === 'prisonBail') {
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'bail') {
+        return res.redirect(paths.applications.newCohorts.bail.beforeYouStart({}))
+      }
+
+      if ((req.body.applicationOrigin as ApplicationOrigin) === 'other') {
+        return res.redirect(paths.applications.newCohorts.beforeYouStart({}))
+      }
+
+      const message = 'Select the type of application you want to make'
+
+      req.flash('errors', {
+        applicationOrigin: errorMessage('applicationOrigin', message),
+      })
+
+      req.flash('errorSummary', [buildErrorSummary('applicationOrigin', message)])
+
+      return res.redirect(paths.applications.newCohorts.applicationOrigin({}))
+    }
+  }
+
+  selectBailApplicationOrigin(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      if ((req.body.applicationOrigin as BailApplicationOrigin) === 'prisonBail') {
         if (!hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {
           return res.redirect(paths.applications.unauthorisedPrisonBailApplication({}))
         }
@@ -218,7 +253,7 @@ export default class ApplicationsController {
         return res.redirect(paths.applications.searchByPrisonNumber({}))
       }
 
-      if ((req.body.applicationOrigin as ApplicationOrigin) === 'courtBail') {
+      if ((req.body.applicationOrigin as BailApplicationOrigin) === 'courtBail') {
         if (!hasRole(res.locals.user.userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
           return res.redirect(paths.applications.unauthorisedCourtBailApplication({}))
         }
@@ -256,7 +291,9 @@ export default class ApplicationsController {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      const applicationOrigin: ApplicationOrigin = req.query.usePrisonBailApplicationOrigin ? 'prisonBail' : 'courtBail'
+      const applicationOrigin: BailApplicationOrigin = req.query.usePrisonBailApplicationOrigin
+        ? 'prisonBail'
+        : 'courtBail'
 
       return res.render('applications/search-by-crn', {
         applicationOrigin,
