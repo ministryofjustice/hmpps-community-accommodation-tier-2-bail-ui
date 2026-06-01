@@ -13,17 +13,12 @@ import {
 } from './managementInfoFromAppData'
 
 export const getApplicationUpdateData = (application: Application): UpdateCas2v2Application => {
-  const updateApplication: UpdateCas2v2Application = {
+  return {
     type: 'CAS2V2',
     data: application.data,
+    // TODO: refactor once we're choosing the cohort as part of the application flow
+    cohort: application.cohort ?? getBailCohort(application.applicationOrigin),
   }
-
-  // TODO: remove/refactor once we're choosing the cohort as part of the application flow
-  if (!application.cohort) {
-    updateApplication.cohort = getBailCohort(application.applicationOrigin)
-  }
-
-  return updateApplication
 }
 
 function getBailCohort(applicationOrigin: ApplicationOrigin): Cas2CohortDto | undefined {
