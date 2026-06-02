@@ -1,6 +1,9 @@
 import { path } from 'static-path'
 
 const applicationsPath = path('/applications')
+const newCohortsPath = path('/new-cohorts')
+const newCohortsApplicationsPath = newCohortsPath.path('applications')
+const newCohortsBailApplicationsPath = newCohortsApplicationsPath.path('bail')
 const singleApplicationPath = applicationsPath.path(':id')
 const pagesPath = singleApplicationPath.path('tasks/:task/pages/:page')
 const peoplePath = applicationsPath.path('people')
@@ -23,6 +26,16 @@ const paths = {
     beforeYouStart: applicationsPath.path('before-you-start'),
     applicationOrigin: applicationsPath.path('application-type'),
     selectApplicationOrigin: applicationsPath.path('select-application-origin'),
+    newCohorts: {
+      applicationOrigin: newCohortsApplicationsPath.path('application-type'),
+      beforeYouStart: newCohortsApplicationsPath.path('before-you-start'),
+      selectApplicationOrigin: newCohortsApplicationsPath.path('select-application-origin'),
+      bail: {
+        applicationOrigin: newCohortsBailApplicationsPath.path('application-type'),
+        beforeYouStart: newCohortsBailApplicationsPath.path('before-you-start'),
+        selectApplicationOrigin: newCohortsBailApplicationsPath.path('select-application-origin'),
+      },
+    },
     people: {
       findByPrisonNumber: peoplePath.path('find-by-prison-number'),
       findByCrn: peoplePath.path('find-by-crn'),

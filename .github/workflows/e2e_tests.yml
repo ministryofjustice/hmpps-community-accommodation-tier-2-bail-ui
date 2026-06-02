@@ -49,6 +49,7 @@ jobs:
         shell: bash
         run: |
           npx playwright install
+
       - name: run e2e tests
         env:
           CAS2_ASSESSOR_USERNAME: ${{ secrets.E2E_USER_CAS2_ASSESSOR_USERNAME }}
@@ -59,19 +60,31 @@ jobs:
           CAS2_PRISON_BAIL_NOMIS_REF_PASSWORD: ${{ secrets.E2E_USER_CAS2_PRISON_BAIL_NOMIS_REF_PASSWORD }}
           CAS2_PRISON_BAIL_NOMIS_REF_2_USERNAME: ${{ secrets.E2E_USER_CAS2_PRISON_BAIL_NOMIS_REF_2_USERNAME }}
           CAS2_PRISON_BAIL_NOMIS_REF_2_PASSWORD: ${{ secrets.E2E_USER_CAS2_PRISON_BAIL_NOMIS_REF_2_PASSWORD }}
+          CAS2_PRISON_BAIL_DELIUS_REF_USERNAME: ${{ secrets.E2E_USER_CAS2_PRISON_BAIL_DELIUS_REF_USERNAME }}
+          CAS2_PRISON_BAIL_DELIUS_REF_PASSWORD: ${{ secrets.E2E_USER_CAS2_PRISON_BAIL_DELIUS_REF_PASSWORD }}
           CAS2_MI_USERNAME: ${{ secrets.E2E_USER_CAS2_MI_USERNAME }}
           CAS2_MI_PASSWORD: ${{ secrets.E2E_USER_CAS2_MI_PASSWORD }}
         shell: bash
         run: |
           npm run test:e2e
-      - name: upload results
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # V4.6.2
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
         with:
-          name: npm_e2e_test_artifacts
-          path: |
-            e2e-tests/test_results/
-            e2e-tests/playwright-report/
+          name: CAS2-E2E-Bail-playwright-report
+          path: e2e-tests/playwright-report/
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Upload E2E artefacts
+        if: failure()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
+        with:
+          name: CAS2-E2E-Bail-artefacts
+          path: e2e-tests/test_results/
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Send Slack notification
         if: failure()

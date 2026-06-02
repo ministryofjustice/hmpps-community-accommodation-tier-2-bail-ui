@@ -18,8 +18,18 @@ import { summaryListItem } from './formUtils'
 
 describe('inProgressApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
-    const applicationA = applicationSummaryFactory.build({ personName: 'A', createdAt: '2022-11-10T21:47:28Z' })
-    const applicationB = applicationSummaryFactory.build({ personName: 'B', createdAt: '2022-11-11T21:47:28Z' })
+    const applicationA = applicationSummaryFactory.build({
+      personName: 'A',
+      createdAt: '2022-11-10T21:47:28Z',
+      status: 'inProgress',
+      latestStatusUpdate: null,
+    })
+    const applicationB = applicationSummaryFactory.build({
+      personName: 'B',
+      createdAt: '2022-11-11T21:47:28Z',
+      status: 'inProgress',
+      latestStatusUpdate: null,
+    })
 
     const result = inProgressApplicationTableRows([applicationA, applicationB])
 
@@ -40,6 +50,9 @@ describe('inProgressApplicationTableRows', () => {
         {
           html: `<a id="cancel-${applicationA.id}" href=/applications/${applicationA.id}/cancel>Cancel</a>`,
         },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">In progress</strong>',
+        },
       ],
       [
         {
@@ -56,6 +69,9 @@ describe('inProgressApplicationTableRows', () => {
         },
         {
           html: `<a id="cancel-${applicationB.id}" href=/applications/${applicationB.id}/cancel>Cancel</a>`,
+        },
+        {
+          html: '<strong class="govuk-tag govuk-tag--light-blue">In progress</strong>',
         },
       ],
     ])

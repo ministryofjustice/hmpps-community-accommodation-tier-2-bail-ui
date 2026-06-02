@@ -48,7 +48,7 @@ context('Home', () => {
     const page = Page.verifyOnPage(HomePage)
 
     //  Then see the correct cards
-    page.shouldShowCards(['applications', 'new-application'])
+    page.shouldShowCards(['applications', 'new-application', 'new-application-new-cohorts'])
     page.shouldNotShowCards(['prison-applications'])
 
     //  And I see the links to the interview question sheets
@@ -69,7 +69,7 @@ context('Home', () => {
     const page = Page.verifyOnPage(HomePage)
 
     //  Then see the correct cards
-    page.shouldShowCards(['applications', 'new-application', 'prison-applications'])
+    page.shouldShowCards(['applications', 'new-application', 'new-application-new-cohorts', 'prison-applications'])
 
     //  And I see the links to the interview question sheets
     page.shouldShowInterviewQuestionLinks()
@@ -108,7 +108,7 @@ context('Home', () => {
     const page = Page.verifyOnPage(HomePage)
 
     //  Then I see no cards
-    page.shouldNotShowCards(['applications', 'new-application'])
+    page.shouldNotShowCards(['applications', 'new-application', 'new-application-new-cohorts'])
 
     //  And I do not see the links to the interview question sheets
     page.shouldNotShowInterviewQuestionLinks()

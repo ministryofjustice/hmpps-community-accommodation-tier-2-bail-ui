@@ -567,7 +567,7 @@ export function getQuestions(name: string) {
           hint: 'This can include any issues in the past and present.',
         },
         requiresSubstituteMedication: {
-          question: 'Do they require any substitute medication for used substances?',
+          question: 'Do they require any substitute medication for drug use?',
           answers: yesOrNo,
         },
         substituteMedicationDetail: { question: 'What substitute medication do they take?' },

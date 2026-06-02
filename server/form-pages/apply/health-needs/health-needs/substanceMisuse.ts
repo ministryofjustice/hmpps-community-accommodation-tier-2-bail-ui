@@ -61,7 +61,7 @@ export default class SubstanceMisuse implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.substanceAndAlcoholUse) {
-      errors.substanceAndAlcoholUse = 'Select if they have any issues related to substance and alcohol use'
+      errors.substanceAndAlcoholUse = 'Select if they have any issues related to drug and alcohol use'
     }
 
     if (this.body.substanceAndAlcoholUse === 'yes' && !this.body.substanceAndAlcoholUseDetail) {

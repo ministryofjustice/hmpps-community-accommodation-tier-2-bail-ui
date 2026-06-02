@@ -43,6 +43,14 @@ export default base.extend<TestOptions>({
     },
     { option: true },
   ],
+  deliusPrisonUser: [
+    {
+      name: 'CAS2 Bail delius prison user',
+      username: process.env.CAS2_PRISON_BAIL_DELIUS_REF_USERNAME as string,
+      password: process.env.CAS2_PRISON_BAIL_DELIUS_REF_PASSWORD as string,
+    },
+    { option: true },
+  ],
   adminUser: [
     {
       name: 'CAS2 admin',
