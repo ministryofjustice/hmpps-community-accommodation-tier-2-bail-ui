@@ -89,6 +89,11 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
       },
     }).as('applicationWithConsentRefused')
 
+    cy.wrap({
+      ...this.application,
+      applicationOrigin: 'other',
+    }).as('applicationNonBail')
+
     //  Background:
     //    Given I am logged in
     cy.signIn()
@@ -206,5 +211,17 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
 
     // And I see that the 'Confirm consent' task is in progress
     taskListPage.shouldShowTaskStatus('confirm-consent', 'In progress')
+  })
+
+  it('renders alternative page content for non-bail cohorts', function test() {
+    // Given I have a non-bail application
+    cy.task('stubApplicationGet', { application: this.applicationNonBail })
+
+    // When I view the confirm consent pagr
+    ConfirmConsentPage.visit(this.applicationNonBail)
+    const page = Page.verifyOnPage(ConfirmConsentPage, this.applicationNonBail)
+
+    // Then I will see the correct content
+    page.hasNonBailContent()
   })
 })

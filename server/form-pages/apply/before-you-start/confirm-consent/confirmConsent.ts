@@ -22,7 +22,9 @@ type ConfirmConsentBody = {
   bodyProperties: ['hasGivenConsent', ...dateBodyProperties('consentDate')],
 })
 export default class ConfirmConsent implements TaskListPage {
-  documentTitle = "Confirm the person's consent to apply for CAS2 for Bail"
+  isOtherCohort = this.application.applicationOrigin === 'other'
+
+  documentTitle = `Confirm the person's consent to apply for CAS2${this.isOtherCohort ? '' : ' for bail'}`
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
@@ -44,7 +46,7 @@ export default class ConfirmConsent implements TaskListPage {
     }
     this.body = body as ConfirmConsentBody
 
-    const applicationQuestions = getQuestions(this.personName)
+    const applicationQuestions = getQuestions(this.personName, this.isOtherCohort)
     this.questions = applicationQuestions['confirm-consent']['confirm-consent']
   }
 
@@ -56,7 +58,7 @@ export default class ConfirmConsent implements TaskListPage {
     if (this.body.hasGivenConsent === 'no') {
       return 'consent-refused'
     }
-    return ''
+    return this.isOtherCohort ? 'select-cohort' : ''
   }
 
   errors() {
