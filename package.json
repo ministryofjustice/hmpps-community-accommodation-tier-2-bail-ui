@@ -20,7 +20,7 @@
     "test:ci": "jest --runInBand",
     "security_audit": "npx audit-ci --config audit-ci.json",
     "test:integration:ci": "cypress run --config video=false $TEST_RUN_ARGS",
-    "test:integration:ui:ci": "cypress open --e2e --browser chrome",
+    "test:integration:ui:ci": "cypress open --e2e --browser electron",
     "test:integration:local": "npm run start-test-wiremock && npx start-server-and-test start-feature http://localhost:3007/ping test:integration:ci",
     "test:integration:local:ui": "npm run start-test-wiremock && npx start-server-and-test start-feature:dev http://localhost:3007/ping test:integration:ui:ci",
     "test:e2e": "npx playwright test --project=setupDev --project=dev",

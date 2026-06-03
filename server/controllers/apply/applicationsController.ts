@@ -123,7 +123,7 @@ export default class ApplicationsController {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
-    )} is not eligible for CAS2 for bail accommodation`
+    )} is not eligible for CAS2 ${application.applicationOrigin === 'other' ? '' : 'for bail'} accommodation`
     const changeAnswerPath = paths.applications.pages.show({
       id: application.id,
       task: 'confirm-eligibility',

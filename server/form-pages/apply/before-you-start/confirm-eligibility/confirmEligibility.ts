@@ -14,11 +14,15 @@ type ConfirmEligibilityBody = {
   bodyProperties: ['isEligible'],
 })
 export default class ConfirmEligibility implements TaskListPage {
+  isOtherCohort = this.application.applicationOrigin === 'other'
+
   documentTitle = 'Confirm the applicant is eligible'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Confirm ${this.personName} is eligible for CAS2 for bail`
+  title = this.isOtherCohort
+    ? `Confirm ${this.personName} is eligible to apply`
+    : `Confirm ${this.personName} is eligible for CAS2 for bail`
 
   questions: Record<string, string>
 

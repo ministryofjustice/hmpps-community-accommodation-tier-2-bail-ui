@@ -2,64 +2,109 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block beforeContent %}
-  {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
-    {{ govukBackLink({
-      text: "Back",
-      href: paths.applications.show({ id: applicationId })
-    }) }}
-  {% endif %}
+    {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
+        {{ govukBackLink({
+            text: "Back",
+            href: paths.applications.show({ id: applicationId })
+        }) }}
+    {% endif %}
 {% endblock %}
+
+{% set bailContent %}
+    <p>To apply for CAS2 for bail, the applicant must:</p>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Be:</h2>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>18 years old or older</li>
+        <li>able to live independently in shared accommodation
+        </li>
+    </ul>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Not:</h2>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>be currently charged with, or have any past convictions or cautions, or current allegations of any sexual
+            offences in Schedule 3 of the Sexual Offences Act 2003
+        </li>
+        <li>have breached immigration law (other than overstaying an approved period of leave to enter or remain in the
+            UK)
+        </li>
+        <li>have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or stay in the
+            UK
+        </li>
+        <li>be assessed as at high or very high risk of serious harm on OASys (Offender Assessment System)</li>
+    </ul>
+{% endset %}
+
+{% set otherContent %}
+    <p>The applicant <strong>must meet all the following eligibility criteria:</strong></p>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Age</h2>
+    <p>The applicant must:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>be 18 or over</li>
+    </ul>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Risk</h2>
+    <p>The applicant must:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>be assessed as low or medium risk</li>
+    </ul>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Sexual offences</h2>
+    <p>These are offences listed in Schedule 3 of the Sexual Offences Act 2003.</p>
+    <p>The applicant must not:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>have any current allegations of sexual offences</li>
+        <li>be currently charged with any sexual offences</li>
+        <li>have any past convictions or cautions for sexual offences</li>
+    </ul>
+
+    <h2 class="govuk-heading-s govuk-!-margin-0">Immigration status</h2>
+    <p>The applicant must not:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>have broken any UK immigration laws, except for overstaying permission to enter or stay in the UK</li>
+        <li>have a ‘no recourse to public funds’ condition</li>
+    </ul>
+{% endset %}
 
 {% block questions %}
 
-        <h1 class="govuk-heading-l">Confirm {{ page.application.person.name }} is eligible for CAS2 for bail</h1>
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-        {% call govukInsetText({
-          classes: "govuk-!-margin-0 guidance-panel"
-        }) %}
+    {% call govukInsetText({
+        classes: "govuk-!-margin-0 guidance-panel"
+    }) %}
 
-        <p>To apply for CAS2 for bail, the applicant must:</p>
+        {% if page.isOtherCohort %}
+            {{ otherContent | safe }}
+        {% else %}
+            {{ bailContent | safe }}
+        {% endif %}
 
-        <h2 class="govuk-heading-s govuk-!-margin-0">Be:</h2>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <li>18 years old or older</li>
-          <li>able to live independently in shared accommodation
-          </li>
-        </ul>
-
-        <h2 class="govuk-heading-s govuk-!-margin-0">Not:</h2>
-
-        <ul class="govuk-list govuk-list--bullet">
-          <li>be currently charged with, or have any past convictions or cautions, or current allegations of any sexual offences in Schedule 3 of the Sexual Offences Act 2003</li>
-          <li>have breached immigration law (other than overstaying an approved period of leave to enter or remain in the UK)</li>
-          <li>have the ‘no recourse to public funds’ (NRPF) condition applied to their permission to enter or stay in the UK</li>
-          <li>be assessed as at high or very high risk of serious harm on OASys (Offender Assessment System)</li>
-        </ul>
-        {% endcall %}
+    {% endcall %}
 
     <p>
-      {{
-        formPageRadios(
-          {
-            fieldName: "isEligible",
-            fieldset: {
-              legend: {
-                html: '<h2 class="govuk-fieldset__heading">' + page.questions.isEligible + '</h2>',
-                classes: "govuk-fieldset__legend--m"
-              }
+        {{ formPageRadios(
+            {
+                fieldName: "isEligible",
+                fieldset: {
+                legend: {
+                    html: '<h2 class="govuk-fieldset__heading">' + page.questions.isEligible + '</h2>',
+                    classes: "govuk-fieldset__legend--m"
+                }
             },
-            items: page.items()
-          },
-          fetchContext()
-        )
-      }}
+                items: page.items()
+            },
+            fetchContext()
+        ) }}
     </p>
 
 {% endblock %}
 
 {% block button %}
-  {{ govukButton({
-      text: "Confirm and continue"
+    {{ govukButton({
+        text: "Confirm and continue"
     }) }}
 {% endblock %}
