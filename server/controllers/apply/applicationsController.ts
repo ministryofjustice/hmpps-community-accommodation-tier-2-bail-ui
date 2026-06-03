@@ -195,6 +195,33 @@ export default class ApplicationsController {
     }
   }
 
+  beforeYouStart(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      return res.render('applications/before-you-start', {
+        heading: 'Apply for short-term accommodation (CAS2)',
+        backUrl: paths.applications.newCohorts.applicationOrigin({}),
+        nextUrl: paths.applications.newCohorts.searchByCrn({}),
+      })
+    }
+  }
+
+  beforeYouStartBail(options: { newCohorts: boolean }): RequestHandler {
+    return async (req: Request, res: Response) => {
+      if (options.newCohorts) {
+        return res.render('applications/before-you-start-bail', {
+          heading: 'Apply for short-term accommodation (CAS2) for bail',
+          backUrl: paths.applications.newCohorts.applicationOrigin({}),
+          nextUrl: paths.applications.newCohorts.bail.applicationOrigin({}),
+        })
+      }
+
+      return res.render('applications/before-you-start-bail', {
+        heading: 'Apply for CAS2 for bail',
+        nextUrl: paths.applications.applicationOrigin({}),
+      })
+    }
+  }
+
   applicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)

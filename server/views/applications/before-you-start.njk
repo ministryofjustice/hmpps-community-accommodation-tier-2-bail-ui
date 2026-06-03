@@ -1,3 +1,4 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "../partials/layout.njk" %}
@@ -5,60 +6,63 @@
 {% set pageTitle = "Home - " + applicationName %}
 {% set mainClasses = "app-container govuk-body" %}
 
+{% block beforeContent %}
+  {% if backUrl %}
+    {{ govukBackLink({
+      text: "Back",
+      href: backUrl
+    }) }}
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">Apply for CAS2 for bail</h1>
+      <h1 class="govuk-heading-l">{{ heading }}</h1>
 
-      <p class="govuk-body-l">Use this service to apply for short-term accommodation and support on behalf of someone who is seeking bail.</p>
+      <p class="govuk-body-l">Use this service to apply for short-term accommodation for people being released, recalled, bailed or leaving an approved premises with no suitable accommodation.</p>
 
-      <p class="govuk-body-l">You can apply for applicants who are being held in court and in prison.</p>
+      <h2 class="govuk-heading-m">Who is eligible</h2>
 
-      <h2 class="govuk-heading-m">Before you start</h2>
+      <p class="govuk-body">The applicant must:</p>
+      <ul>
+        <li>be <strong>18 or over</strong></li>
+        <li>be <strong>low or medium risk</strong></li>
+        <li><strong>not</strong> have any <strong>sexual offence allegations, charges, convictions, or cautions</strong></li>
+        <li><strong>not</strong> have broken UK immigration laws (except overstaying)</li>
+        <li><strong>not</strong> have <strong>‘no recourse to public funds’</strong></li>
+      </ul>
 
-      <p class="govuk-body">To use this service, you’ll need verbal consent from the applicant to apply on their behalf.</p>
-
-      <h3 class="govuk-heading-s">For court applicants</h3>
+      <h2 class="govuk-heading-m">What you’ll need</h2>
 
       <p class="govuk-body">You’ll need:</p>
       <ul>
-        <li>the applicant’s Case Reference Number (CRN) — if they don’t have one, you’ll need to create an entry for the applicant on the national probation database (NDelius)</li>
-        <li>to submit applications by 4pm for them to be assessed that day</li>
+        <li>their CRN</li>
+        <li>verbal consent from the applicant</li>
       </ul>
 
-      <h3 class="govuk-heading-s">For prison applicants</h3>
-
-      <p class="govuk-body">You’ll need the applicant’s prison number.</p>
-
-      <p class="govuk-body">This is the number for their record in the Prison National Offender Management Information System (NOMIS).</p>
-
-      <h2 class="govuk-heading-m">Supporting information</h2>
-
-      <p class="govuk-body">We will ask details about:</p>
-
+      <p class="govuk-body">You’ll be asked for information about:</p>
       <ul>
-        <li>their solicitor</li>
-        <li>their last known address</li>
-        <li>their equality information</li>
-        <li>their preferred areas</li>
-        <li>how they are paying for CAS2 for bail accommodation</li>
-        <li>their need for a CAS2 for bail family unit property</li>
-        <li>their offences information</li>
-        <li>their health needs</li>
-        <li>any concerns about the applicant or others related to this  application</li>
+        <li>personal details</li>
+        <li>previous address</li>
+        <li>preferred areas and exclusion zones</li>
+        <li>funding and ID</li>
+        <li>offence details</li>
+        <li>previous unspent convictions</li>
+        <li>health needs</li>
+        <li>risks to self or others</li>
+        <li>bail conditions and hearing information</li>
       </ul>
 
-      <h3 class="govuk-heading-s">For prison applicants</h3>
+{% call govukInsetText({}) %}
+      <p>Emergency referrals must be made before 4pm.</p>
+{% endcall %}
 
-      <p>We’ll also ask for information about their bail hearing, including the court name and the hearing date.</p>
-
-{% call govukInsetText({
-}) %}
+{% call govukInsetText({}) %}
       <p>All questions are mandatory, unless marked as optional.</p>
-
       <p>You can save your progress and return to the application at any time.</p>
-  {% endcall %}
+{% endcall %}
 
       {{ govukButton({
           text: "Start now",

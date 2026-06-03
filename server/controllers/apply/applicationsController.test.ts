@@ -490,6 +490,42 @@ describe('applicationsController', () => {
     })
   })
 
+  describe('beforeYouStart', () => {
+    it('renders the before-you-start template', async () => {
+      const requestHandler = applicationsController.beforeYouStart()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/before-you-start', {
+        heading: 'Apply for short-term accommodation (CAS2)',
+        backUrl: paths.applications.newCohorts.applicationOrigin({}),
+        nextUrl: paths.applications.newCohorts.searchByCrn({}),
+      })
+    })
+  })
+
+  describe('beforeYouStartBail', () => {
+    it('renders the before-you-start-bail template for the legacy bail application', async () => {
+      const requestHandler = applicationsController.beforeYouStartBail({ newCohorts: false })
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/before-you-start-bail', {
+        heading: 'Apply for CAS2 for bail',
+        nextUrl: paths.applications.applicationOrigin({}),
+      })
+    })
+
+    it('renders the before-you-start-bail template for bail for the new cohorts flow', async () => {
+      const requestHandler = applicationsController.beforeYouStartBail({ newCohorts: true })
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/before-you-start-bail', {
+        heading: 'Apply for short-term accommodation (CAS2) for bail',
+        backUrl: paths.applications.newCohorts.applicationOrigin({}),
+        nextUrl: paths.applications.newCohorts.bail.applicationOrigin({}),
+      })
+    })
+  })
+
   describe('applicationOrigin', () => {
     it('renders the enter application origin template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
