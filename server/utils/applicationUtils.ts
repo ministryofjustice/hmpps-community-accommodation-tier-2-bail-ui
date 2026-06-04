@@ -1,4 +1,5 @@
 import type {
+  Cas2CohortDto,
   Cas2v2SubmittedApplicationSummary,
   Cas2v2ApplicationSummary,
   Cas2v2Application,
@@ -9,8 +10,21 @@ import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
-import { camelCaseToCapitaliseFirstWordAndAddSpaces } from './utils'
 import { summaryListItem } from './formUtils'
+
+const cohortLabels: Record<Cas2CohortDto, string> = {
+  hdc: 'Home Detention Curfew',
+  prisonBail: 'Prison Bail',
+  courtBail: 'Court Bail',
+  atcr: 'Alternative to custodial recall',
+  hcrd: 'Homeless at conditional release date',
+  hefr: 'Homeless at end of fixed‑term recall',
+  isc: 'Intensive supervision courts',
+  rarr: 'Risk Assessed Recall Review',
+  from_ap: 'Move on from Approved Premises',
+}
+
+export const cohortLabel = (cohort?: Cas2CohortDto): string => (cohort ? (cohortLabels[cohort] ?? cohort) : '')
 
 export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
@@ -19,6 +33,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2v2Applica
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
+      textValue(cohortLabel(application.cohort)),
       cancelAnchorElement(application.id),
       htmlValue(getStatusTag('In progress', 'f5cd423b-08eb-4efb-96ff-5cc6bb073905')),
     ]
@@ -35,6 +50,7 @@ export const submittedApplicationTableRows = (
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
+      textValue(cohortLabel(application.cohort)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
@@ -48,7 +64,7 @@ export const prisonApplicationTableRows = (applications: Array<Cas2v2Application
       textValue(application.prisonCode),
       textValue(application.crn),
       textValue(application.createdByUserName),
-      textValue(camelCaseToCapitaliseFirstWordAndAddSpaces(application.applicationOrigin)),
+      textValue(cohortLabel(application.cohort)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
