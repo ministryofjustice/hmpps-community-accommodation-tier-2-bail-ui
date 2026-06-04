@@ -10,7 +10,6 @@ export default class ApplyPage extends Page {
 
   constructor(title: string, application: Application, taskName: string, pageName: string, _backLink?: string) {
     const person = application.person as FullPerson
-
     super(title, person.name)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

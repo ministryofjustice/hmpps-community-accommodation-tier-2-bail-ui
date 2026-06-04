@@ -291,75 +291,60 @@ describe('getStatusTag', () => {
 })
 
 describe('arePreTaskListTasksIncomplete', () => {
-  it('returns false if all there is data for all three tasks', () => {
-    const application = applicationFactory.build({
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': {
-            isEligible: 'yes',
-          },
-        },
-        'confirm-consent': {
-          'confirm-consent': {
-            hasGivenConsent: 'yes',
-            consentDate: '2023-01-01',
-            'consentDate-year': '2023',
-            'consentDate-month': '1',
-            'consentDate-day': '1',
-          },
-        },
-      },
-    })
+  const eligibility = { 'confirm-eligibility': { 'confirm-eligibility': { isEligible: 'yes' } } }
+  const consent = { 'confirm-consent': { 'confirm-consent': { hasGivenConsent: 'yes' } } }
+  const cohort = { 'cohort-selection': { 'cohort-selection': { cohort: 'hefr' } } }
 
+  it('returns true there are data for none of the tasks', () => {
+    const application = applicationFactory.build({
+      data: {},
+      applicationOrigin: 'prisonBail',
+    })
+    expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
+  })
+
+  it('returns false if a bail application and there are data for both bail tasks', () => {
+    const application = applicationFactory.build({
+      data: { ...eligibility, ...consent },
+      applicationOrigin: 'prisonBail',
+    })
     expect(arePreTaskListTasksIncomplete(application)).toEqual(false)
   })
 
-  it('returns true if all there is data for none of the tasks', () => {
+  it('returns true if an other application and there are data for both bail tasks', () => {
     const application = applicationFactory.build({
-      data: {
-        'referrer-details': {
-          'confirm-details': { name: 'Ashley Referrer', email: 'a.referrer@moj.gov.uk' },
-          'job-title': { jobTitle: 'POM' },
-          'contact-number': { telephone: '1234567' },
-        },
-      },
+      data: { ...eligibility, ...consent },
+      applicationOrigin: 'other',
     })
-
     expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
   })
 
-  it('returns true if all there is data for some of the tasks', () => {
+  it('returns false if an other cohort application and there are data for all of the other cohort tasks', () => {
     const application = applicationFactory.build({
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': {
-            isEligible: 'yes',
-          },
-        },
-      },
+      data: { ...eligibility, ...consent, ...cohort },
+      applicationOrigin: 'other',
     })
-
-    expect(arePreTaskListTasksIncomplete(application)).toEqual(true)
+    expect(arePreTaskListTasksIncomplete(application)).toEqual(false)
   })
+})
 
-  describe('unspentConvictionsCardRows', () => {
-    it('returns an array of summary list items for an unspent conviction', () => {
-      const conviction = {
-        convictionTypeTag: null,
-        convictionTypeText: null,
-        numberOfConvictions: '2',
-        currentlyServing: 'Yes',
-        convictionDetails: 'some details about the convictions',
-        otherDetails: 'some other details',
-        removeLink: null,
-      } as UnspentConvictionsUI
+describe('unspentConvictionsCardRows', () => {
+  it('returns an array of summary list items for an unspent conviction', () => {
+    const conviction = {
+      convictionTypeTag: null,
+      convictionTypeText: null,
+      numberOfConvictions: '2',
+      currentlyServing: 'Yes',
+      convictionDetails: 'some details about the convictions',
+      otherDetails: 'some other details',
+      removeLink: null,
+    } as UnspentConvictionsUI
 
-      expect(unspentConvictionsCardRows(conviction)).toEqual([
-        summaryListItem('Number of convictions of the same type', '2'),
-        summaryListItem('Are they currently serving a sentence for these convictions?', 'Yes'),
-        summaryListItem('What were the convictions and when did they happen?', 'some details about the convictions'),
-        summaryListItem('Are there any other details about these convictions to add?', 'some other details'),
-      ])
-    })
+    expect(unspentConvictionsCardRows(conviction)).toEqual([
+      summaryListItem('Number of convictions of the same type', '2'),
+      summaryListItem('Are they currently serving a sentence for these convictions?', 'Yes'),
+      summaryListItem('What were the convictions and when did they happen?', 'some details about the convictions'),
+      summaryListItem('Are there any other details about these convictions to add?', 'some other details'),
+    ])
   })
 })

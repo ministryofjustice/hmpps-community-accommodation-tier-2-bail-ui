@@ -195,4 +195,8 @@ export default abstract class Page {
         })
     })
   }
+
+  shouldShowErrorSummary(text: string): void {
+    cy.get('.govuk-error-summary').should('contain', text)
+  }
 }

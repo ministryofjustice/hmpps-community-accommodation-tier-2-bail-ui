@@ -15,21 +15,32 @@ const getTaskStatus = (task: UiTask, application: Application): TaskStatus => {
 
   // If there's no page that's been completed, then we know the task is incomplete
   if (!pageId) {
+    // check the first page to see if this task is required
+    const Page = Object.values(task.pages)[0] as TaskListPageInterface
+    const page = Page && new Page({}, application)
+
+    if (page?.isApplicable && !page.isApplicable()) return 'not_applicable'
     return 'not_started'
   }
 
   while (pageId) {
     const pageData = getPageData(application, task.id, pageId)
 
+    // Let's initialize this page
+    const Page = task.pages[pageId] as TaskListPageInterface
+    const page = new Page(pageData || {}, application)
+
+    // Is this page required?
+    if (page.isApplicable && !page.isApplicable()) {
+      status = 'not_applicable'
+      break
+    }
+
     // If there's no page data for this page, then we know it's incomplete
     if (!pageData) {
       status = 'in_progress'
       break
     }
-
-    // Let's initialize this page
-    const Page = task.pages[pageId] as TaskListPageInterface
-    const page = new Page(pageData, application)
 
     // Get the errors for this page
     const errors = page.errors()

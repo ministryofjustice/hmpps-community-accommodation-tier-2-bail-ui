@@ -39,7 +39,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
 
   shouldShowQuestionsAndAnswers(task: string) {
     const pagesToExclude = ['add-acct-note']
-    const pageKeys = Object.keys(this.application.data[task])
+    const pageKeys = Object.keys(this.application.data[task] || {})
     pageKeys.forEach(pageKey => {
       if (pagesToExclude.includes(pageKey)) {
         return

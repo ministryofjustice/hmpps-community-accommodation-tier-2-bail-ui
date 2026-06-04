@@ -3,11 +3,11 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request, Response } from 'express'
 import { applicationFactory, submittedApplicationFactory, timelineEventsFactory } from '../../testutils/factories'
 import {
-  eligibilityQuestionIsAnswered,
   getApplicationTimelineEvents,
   getSideNavLinksForDocument,
   getSideNavLinksForApplication,
   showMissingRequiredTasksOrTaskList,
+  generateSuccessMessage,
 } from './utils'
 import { fetchErrorsAndUserInput } from '../validation'
 import { DateFormats } from '../dateUtils'
@@ -22,18 +22,28 @@ jest.mock('../checkYourAnswersUtils')
 jest.mock('../../utils/validation')
 jest.mock('../../utils/viewUtils')
 
+const questionsAndAnswers = [
+  {
+    question: 'a question',
+    answer: 'an answer',
+  },
+]
+const pages = { page1: {}, page2: {} }
 const mockSections = [
   {
     title: 'Section 1',
     tasks: [
       {
+        id: 'task1',
         title: 'Task 1',
-        questionsAndAnswers: [
-          {
-            question: 'a question',
-            answer: 'an answer',
-          },
-        ],
+        pages,
+        questionsAndAnswers,
+      },
+      {
+        id: 'task2',
+        title: 'Task 2',
+        pages,
+        questionsAndAnswers,
       },
     ],
   },
@@ -41,80 +51,22 @@ const mockSections = [
     title: 'Section 2',
     tasks: [
       {
-        title: 'Task 2',
-        questionsAndAnswers: [
-          {
-            question: 'a question',
-            answer: 'an answer',
-          },
-        ],
+        id: 'task3',
+        title: 'Task 3',
+        pages,
+        questionsAndAnswers,
+      },
+      {
+        id: 'task4',
+        title: 'Task 4',
+        pages,
+        questionsAndAnswers,
       },
     ],
   },
 ]
 
 describe('utils', () => {
-  describe('eligibilityQuestionIsAnswered', () => {
-    describe('when the isEligible property is _yes_', () => {
-      it('returns true', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-          },
-        })
-
-        expect(eligibilityQuestionIsAnswered(application)).toEqual(true)
-      })
-    })
-
-    describe('when the isEligible property is _no_', () => {
-      it('returns true', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'no' },
-            },
-          },
-        })
-
-        expect(eligibilityQuestionIsAnswered(application)).toEqual(true)
-      })
-    })
-
-    describe('when the isEligible property is something else', () => {
-      it('returns false', async () => {
-        const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'something else' },
-            },
-          },
-        })
-
-        expect(eligibilityQuestionIsAnswered(application)).toEqual(false)
-      })
-    })
-
-    describe('when the isEligible property is missing', () => {
-      it('returns false', async () => {
-        const application = applicationFactory.build({
-          data: {},
-        })
-
-        expect(eligibilityQuestionIsAnswered(application)).toEqual(false)
-      })
-
-      it('returns false', async () => {
-        const application = applicationFactory.build({
-          data: null,
-        })
-
-        expect(eligibilityQuestionIsAnswered(application)).toEqual(false)
-      })
-    })
-  })
   describe('getApplicationTimelineEvents', () => {
     const priorConfigFlags = config.flags
 
@@ -249,6 +201,15 @@ describe('utils', () => {
           )
         })
       })
+
+      describe('when there are no timeline events', () => {
+        it('returns an empty array', () => {
+          const application = submittedApplicationFactory.build({
+            timelineEvents: undefined,
+          })
+          expect(getApplicationTimelineEvents(application)).toEqual([])
+        })
+      })
     })
   })
 
@@ -261,6 +222,8 @@ describe('utils', () => {
       expect(getSideNavLinksForDocument(document)).toEqual([
         { text: 'Task 1', href: '#task-1' },
         { text: 'Task 2', href: '#task-2' },
+        { text: 'Task 3', href: '#task-3' },
+        { text: 'Task 4', href: '#task-4' },
       ])
     })
   })
@@ -272,6 +235,8 @@ describe('utils', () => {
       expect(getSideNavLinksForApplication()).toEqual([
         { text: 'Task 1', href: '#task-1' },
         { text: 'Task 2', href: '#task-2' },
+        { text: 'Task 3', href: '#task-3' },
+        { text: 'Task 4', href: '#task-4' },
       ])
     })
   })
@@ -279,28 +244,27 @@ describe('utils', () => {
   describe('showMissingRequiredTasksOrTaskList', () => {
     const request: DeepMocked<Request> = createMock<Request>({ user: { token: 'SOME_TOKEN' } })
     const response: DeepMocked<Response> = createMock<Response>({})
+    const mockTaskList = {
+      formSections: mockSections,
+      taskStatuses: { task1: 'not_started', task2: 'not_started' },
+      requiredTasks: { task1: ['not_started'], task2: ['not_started'] },
+    }
 
     describe('when "Confirm eligibility" task is NOT complete', () => {
       it('renders "Confirm eligibility" page from the "Before you start" section', async () => {
         const application = applicationFactory.build({ data: {} })
+        ;(TaskListService as jest.Mock).mockImplementation(() => mockTaskList)
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application)
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-eligibility',
-              page: 'confirm-eligibility',
-            }),
-          ),
-        )
+        expect(response.redirect).toHaveBeenCalledWith(`/applications/${application.id}/tasks/task1/pages/page1`)
       })
     })
 
     describe('when "Confirm eligibility" task is complete and the candidate is INELIGIBLE', () => {
       it('renders the "ineligible" page', async () => {
         const application = applicationFactory.build({
+          id: 'appId',
           data: {
             'confirm-eligibility': {
               'confirm-eligibility': { isEligible: 'no' },
@@ -308,70 +272,65 @@ describe('utils', () => {
           },
         })
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application)
 
-        expect(actual).toEqual(response.redirect(paths.applications.ineligible({ id: application.id })))
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.ineligible({ id: application.id }))
       })
     })
 
     describe('when the person is confirmed ELIGIBLE but the consent task has not been completed', () => {
       it('redirects to the _confirm consent_ page', async () => {
         const application = applicationFactory.build({
+          id: 'app-id',
           data: {
             'confirm-eligibility': {
               'confirm-eligibility': { isEligible: 'yes' },
             },
           },
         })
+        ;(TaskListService as jest.Mock).mockImplementation(() => ({
+          ...mockTaskList,
+          taskStatuses: { task1: 'complete', task2: 'not_started' },
+        }))
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application)
 
-        expect(actual).toEqual(
-          response.redirect(
-            paths.applications.pages.show({
-              id: application.id,
-              task: 'confirm-consent',
-              page: 'confirm-consent',
-            }),
-          ),
-        )
+        expect(response.redirect).toHaveBeenCalledWith('/applications/app-id/tasks/task2/pages/page1')
       })
     })
 
     describe('when the person is confirmed ELIGIBLE and there is a key for "Confirm consent" data, indicating that the page has been completed', () => {
       it('redirects to the task list page', async () => {
         const application = applicationFactory.build({
-          data: {
-            'confirm-eligibility': {
-              'confirm-eligibility': { isEligible: 'yes' },
-            },
-            'confirm-consent': {
-              'confirm-consent': {},
-            },
-          },
+          id: 'app-id',
         })
-
-        const stubTaskList = jest.fn()
-        ;(TaskListService as jest.Mock).mockImplementation(() => {
-          return stubTaskList
-        })
+        const thisMockTaskList = {
+          ...mockTaskList,
+          taskStatuses: { task1: 'complete', task2: 'complete', task3: 'complete', task4: 'not_started' },
+        }
+        ;(TaskListService as jest.Mock).mockImplementation(() => thisMockTaskList)
         ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
         ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
 
-        const actual = showMissingRequiredTasksOrTaskList(request, response, application)
+        showMissingRequiredTasksOrTaskList(request, response, application)
 
-        expect(actual).toEqual(
-          response.render('applications/taskList', {
-            application,
-            taskList: stubTaskList,
-            errors: {},
-            errorSummary: [],
-            referrer: 'some-validated-referer',
-          }),
-        )
+        expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+          application,
+          taskList: thisMockTaskList,
+          errorSummary: [],
+          errors: {},
+          referer: 'some-validated-referer',
+        })
       })
+    })
+  })
+
+  describe('generateSuccessMessage', () => {
+    it('returns message', () => {
+      expect(generateSuccessMessage('add-acct-note')).toEqual('The ACCT has been saved')
+      expect(generateSuccessMessage('unknown')).toEqual('')
     })
   })
 })

@@ -118,6 +118,7 @@ export default {
         jsonBody: { ...args.application, type: 'CAS2' },
       },
     }),
+
   verifyApplicationUpdate: async (applicationId: string) =>
     (
       await getMatchingRequests({
@@ -125,6 +126,7 @@ export default {
         url: paths.applications.update({ id: applicationId }),
       })
     ).body.requests,
+
   stubApplicationSubmit: (): SuperAgentRequest =>
     stubFor({
       request: {
@@ -136,6 +138,7 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
+
   stubApplicationAbandon: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {

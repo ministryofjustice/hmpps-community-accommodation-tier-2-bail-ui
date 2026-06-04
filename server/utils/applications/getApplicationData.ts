@@ -12,12 +12,12 @@ import {
   bailHearingDateFromAppData,
 } from './managementInfoFromAppData'
 
-export const getApplicationUpdateData = (application: Application): UpdateCas2v2Application => {
+export const getApplicationUpdateData = (application: Application, cohort?: Cas2CohortDto): UpdateCas2v2Application => {
   return {
     type: 'CAS2V2',
     data: application.data,
     // TODO: refactor once we're choosing the cohort as part of the application flow
-    cohort: application.cohort ?? getBailCohort(application.applicationOrigin),
+    cohort: cohort || application.cohort || getBailCohort(application.applicationOrigin),
   }
 }
 

@@ -10,11 +10,7 @@ import {
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
-import {
-  generateSuccessMessage,
-  showMissingRequiredTasksOrTaskList,
-  getFirstIncompleteTask,
-} from '../../utils/applications/utils'
+import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
@@ -82,7 +78,6 @@ export default class ApplicationsController {
         const summary = getApplicationSummaryData('referrerSubmission', application)
         return res.render('applications/show', { application, summary })
       }
-
       return showMissingRequiredTasksOrTaskList(req, res, application)
     }
   }
@@ -495,7 +490,7 @@ export default class ApplicationsController {
     req.flash('errorSummary', [
       {
         text: 'You must complete all tasks before submitting the application',
-        href: `#${getFirstIncompleteTask(taskList.taskStatuses) ?? ''}-status`,
+        href: `#${taskList.firstIncompleteTask ?? ''}-status`,
       },
     ])
     res.redirect(paths.applications.show({ id: application.id }))

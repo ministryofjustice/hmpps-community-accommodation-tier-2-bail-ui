@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
 import type { BailApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -91,7 +91,9 @@ export default class ApplicationService {
       application.data = deleteOrphanedFollowOnAnswers(application.data)
       application.data = this.deleteCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
-      await client.update(application.id, getApplicationUpdateData(application))
+      const { cohort } = page.body
+
+      await client.update(application.id, getApplicationUpdateData(application, cohort as Cas2CohortDto))
     }
   }
 

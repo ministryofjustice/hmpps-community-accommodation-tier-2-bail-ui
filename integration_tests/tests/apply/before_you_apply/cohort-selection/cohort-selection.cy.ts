@@ -1,0 +1,61 @@
+import { Cas2CohortDto, Cas2v2Application } from '@approved-premises/api'
+import { faker } from '@faker-js/faker'
+import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
+import CohortSelectionPage from '../../../../pages/apply/before_you_apply/cohort-selection/cohortSelection'
+import { cohortSelectionAnswers } from '../../../../../server/utils/applications/cohortLabels'
+
+context('Complete Cohort selection task in "Before you apply" section', () => {
+  const person = personFactory.build({ name: 'Roger Smith' })
+  let application: Cas2v2Application
+
+  beforeEach(function test() {
+    cy.fixture('applicationData.json').then(applicationData => {
+      application = applicationFactory.build({
+        person,
+        data: { ...applicationData, 'cohort-selection': undefined },
+        applicationOrigin: 'other',
+      })
+    })
+
+    cy.task('reset')
+    cy.task('stubSignIn')
+    cy.task('stubAuthUser')
+    cy.signIn()
+  })
+
+  it('allows the cohort to be selected', () => {
+    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationUpdate', { application })
+    const newCohort = faker.helpers.arrayElement(Object.keys(cohortSelectionAnswers)) as Cas2CohortDto
+
+    // Given I am on the cohort selection page
+    const page = CohortSelectionPage.visit(application)
+
+    // And it should contain the correct content
+    page.verifyQuestions()
+
+    // When I submit an empty page
+    page.clickSubmit('Confirm and continue')
+
+    // Then I should see an error message
+    page.shouldShowErrorSummary('Select why Roger Smith needs CAS2 accommodation')
+
+    // When I select a cohort and submit again
+    page.checkRadioByNameAndValue('cohort', newCohort)
+    cy.task('stubApplicationGet', {
+      application: {
+        ...application,
+        data: { ...application.data, 'cohort-selection': { 'cohort-selection': { cohort: newCohort } } },
+      },
+    })
+    page.clickSubmit('Confirm and continue')
+
+    // Then I am redirected back to the tasklist with everything completed
+    cy.contains('You have completed 19 of 19 tasks.')
+
+    // And the application cohort is updated
+    cy.task('verifyApplicationUpdate', application.id).then(requests => {
+      expect(JSON.parse(requests[0].body).cohort).eq(newCohort)
+    })
+  })
+})

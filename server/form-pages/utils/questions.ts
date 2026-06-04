@@ -1,3 +1,5 @@
+import { cohortSelectionAnswers } from '../../utils/applications/cohortLabels'
+
 export type Question = { question: string; answers?: Record<string, string>; hint?: string }
 type QuestionsNode = { [property: string]: Question | QuestionsNode }
 export type Questions = ReturnType<typeof getQuestions>
@@ -71,6 +73,17 @@ export function getQuestions(name: string, isOtherCohort = false) {
         consentDate: {
           question: 'When did they give consent?',
           hint: `For example, ${dateExample}`,
+        },
+      },
+    },
+    'cohort-selection': {
+      'cohort-selection': {
+        cohort: {
+          question: `Why does ${name} need CAS2 accommodation?`,
+          answers: cohortSelectionAnswers,
+        },
+        notes: {
+          question: 'Provide details (optional)',
         },
       },
     },

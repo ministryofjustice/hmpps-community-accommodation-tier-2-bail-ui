@@ -72,7 +72,7 @@ describe('taskListService', () => {
         'check-your-answers': 'cannot_start',
       })
 
-      expect(getTaskStatus).toHaveBeenCalledTimes(5)
+      expect(getTaskStatus).toHaveBeenCalledTimes(6)
     })
 
     it('allows check your answers to be complete when other tasks have been completed', () => {
@@ -172,9 +172,22 @@ describe('taskListService', () => {
 
   describe('taskCount', () => {
     it('returns the number of total tasks', () => {
+      ;(getTaskStatus as jest.Mock).mockReturnValue('not_started')
       const taskListService = new TaskListService(application)
 
       expect(taskListService.taskCount).toEqual(6)
+    })
+  })
+
+  describe('firstIncompleteTask', () => {
+    it('returns the first incomplete task', () => {
+      const taskListService = new TaskListService(application)
+      taskListService.taskStatuses = {
+        task1: 'complete',
+        task2: 'in_progress',
+        task3: 'not_started',
+      }
+      expect(taskListService.firstIncompleteTask).toEqual('task2')
     })
   })
 })
