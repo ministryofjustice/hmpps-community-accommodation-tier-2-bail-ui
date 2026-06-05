@@ -21,7 +21,7 @@ export function getQuestion(questions: Questions, ...categories: string[]): Ques
   return recurse(questions as QuestionsNode, ...categories)
 }
 
-export function getQuestions(name: string) {
+export function getQuestions(name: string, isOtherCohort = false) {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
   const riskLevelAnswers = {
@@ -62,7 +62,7 @@ export function getQuestions(name: string) {
     'confirm-consent': {
       'confirm-consent': {
         hasGivenConsent: {
-          question: `Has ${name} given their verbal consent to apply for CAS2 for bail?`,
+          question: `Has ${name} given their verbal consent to apply for CAS2${isOtherCohort ? '' : ' for bail'}?`,
           answers: {
             yes: `Yes`,
             no: `No, they do not give verbal consent`,

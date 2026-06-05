@@ -5,6 +5,10 @@ import { getQuestions } from '../../../utils/questions'
 
 describe('ConfirmConsent', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+  const applicationOtherCohort = applicationFactory.build({
+    applicationOrigin: 'other',
+    person: personFactory.build({ name: 'Roger Smith' }),
+  })
 
   const questions = getQuestions('Roger Smith')
 
@@ -20,7 +24,15 @@ describe('ConfirmConsent', () => {
   itShouldHaveNextValue(new ConfirmConsent({ hasGivenConsent: 'no' }, application), 'consent-refused')
   itShouldHavePreviousValue(new ConfirmConsent({}, application), 'taskList')
 
+  itShouldHaveNextValue(new ConfirmConsent({ hasGivenConsent: 'yes' }, applicationOtherCohort), 'select-cohort')
+  itShouldHavePreviousValue(new ConfirmConsent({}, applicationOtherCohort), 'taskList')
+
   describe('items', () => {
+    it('sets the isOtherCohort flag when the applicationOrigin is other', () => {
+      const page = new ConfirmConsent({ hasGivenConsent: 'no' }, { ...application, applicationOrigin: 'other' })
+      expect(page.isOtherCohort).toEqual(true)
+    })
+
     it('returns the radio with the expected label text', () => {
       const page = new ConfirmConsent({ hasGivenConsent: 'no' }, application)
 
@@ -110,6 +122,18 @@ describe('ConfirmConsent', () => {
 
       expect(page.response()).toEqual({
         'Has Roger Smith given their verbal consent to apply for CAS2 for bail?': 'Yes',
+        'When did they give consent?': '1 November 2023',
+      })
+    })
+
+    it('should alter the content for non-bail applications', () => {
+      const page = new ConfirmConsent(
+        { hasGivenConsent: 'yes', consentDate: '2023-11-01' },
+        { ...application, applicationOrigin: 'other' },
+      )
+
+      expect(page.response()).toEqual({
+        'Has Roger Smith given their verbal consent to apply for CAS2?': 'Yes',
         'When did they give consent?': '1 November 2023',
       })
     })

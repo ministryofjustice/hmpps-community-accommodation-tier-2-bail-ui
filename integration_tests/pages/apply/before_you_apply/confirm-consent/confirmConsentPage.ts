@@ -33,4 +33,12 @@ export default class ConfirmConsentPage extends ApplyPage {
   completeFormWithoutConsent(): void {
     this.checkRadioByNameAndValue('hasGivenConsent', 'no')
   }
+
+  hasNonBailContent(): void {
+    cy.contains(
+      'Before you submit the application, you must confirm Roger Smith agrees to the application and what they must do.',
+    )
+    cy.contains('they must clearly say yes to give consent')
+    cy.contains('Has Roger Smith given their verbal consent to apply for CAS2?')
+  }
 }

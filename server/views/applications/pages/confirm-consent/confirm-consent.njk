@@ -1,94 +1,139 @@
 {% extends "../layout.njk" %}
 
 {% block beforeContent %}
-  {% if arePreTaskListTasksIncomplete(page.application) %}
-    {{ govukBackLink({
-      text: "Back",
-      href: paths.applications.pages.show({
-        id: applicationId,
-        task: 'confirm-eligibility',
-        page: 'confirm-eligibility'
-      })
-    }) }}
-  {% elif page.previous() === 'taskList' %}
-    {{ govukBackLink({
-      text: "Back",
-      href: paths.applications.show({ id: applicationId })
-    }) }}
-  {% endif %}
+    {% if arePreTaskListTasksIncomplete(page.application) %}
+        {{ govukBackLink({
+            text: "Back",
+            href: paths.applications.pages.show({
+                id: applicationId,
+                task: 'confirm-eligibility',
+                page: 'confirm-eligibility'
+            })
+        }) }}
+        {% elif page.previous() === 'taskList' %}
+        {{ govukBackLink({
+            text: "Back",
+            href: paths.applications.show({ id: applicationId })
+        }) }}
+    {% endif %}
 {% endblock %}
 
-{% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
-
-  <div>
-    <p class="govuk-body">You need verbal consent from {{ page.application.person.name }} to send an application for CAS2 for bail on their behalf.</p>
+{% set bailContent %}
+    <p class="govuk-body">You need verbal consent from {{ page.application.person.name }} to send an application for
+        CAS2 for bail on their behalf.</p>
 
     <p class="govuk-body">Check that they understand:</p>
     <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
-      <li>
-        that CAS2 for bail provides short-term housing and weekly support
-      </li>
-      <li>
-        they are responsible for paying for CAS2 for bail accommodation and support, either through their own means or with public funds
-      </li>
-      <li>
-        what will be in the application form, including legal and confidential information about address history, offences, risks to themselves and others and health needs
-      </li>
-      <li>
-        how and why their data will be collected and used by reading the <a href="/privacy-notice" class="govuk-link" rel="noreferrer noopener" target="_blank">privacy notice (opens in new tab)</a>
-      </li>
-      <li>
-        their health needs will be collected from relevant sources, such as drug and alcohol team, mental health in-reach team and healthcare team
-      </li>
-      <li>
-        their information will be used to assess their suitability and ensure their safety
-      </li>
-      <li>
-        they must leave the CAS2 for bail accommodation at the end of their Bail order period, and find accommodation to move on to with their support worker's help
-      </li>
+        <li>
+            that CAS2 for bail provides short-term housing and weekly support
+        </li>
+        <li>
+            they are responsible for paying for CAS2 for bail accommodation and support, either through their own means
+            or with public funds
+        </li>
+        <li>
+            what will be in the application form, including legal and confidential information about address history,
+            offences, risks to themselves and others and health needs
+        </li>
+        <li>
+            how and why their data will be collected and used by reading the <a href="/privacy-notice"
+                                                                                class="govuk-link"
+                                                                                rel="noreferrer noopener"
+                                                                                target="_blank">privacy notice (opens in
+                new tab)</a>
+        </li>
+        <li>
+            their health needs will be collected from relevant sources, such as drug and alcohol team, mental health
+            in-reach team and healthcare team
+        </li>
+        <li>
+            their information will be used to assess their suitability and ensure their safety
+        </li>
+        <li>
+            they must leave the CAS2 for bail accommodation at the end of their Bail order period, and find
+            accommodation to move on to with their support worker's help
+        </li>
     </ul>
-  </div>
+{% endset %}
 
-  {% set consentDateHtml %}
-  {{ 
-    formPageDateInput( {
-      hint: {
-        text: page.questions.consentDate.hint
-      },
-      fieldName: "consentDate",
-      fieldset: {
-        legend: {
-          text: page.questions.consentDate.question,
-          classes: "govuk-fieldset__legend--s"
-        }
-      },
-      items: dateFieldValues('consentDate', errors)
-      }, 
-      fetchContext()) 
-  }}
-  {% endset %}
+{% set otherContent %}
+    <p>Before you submit the application, you must confirm {{ page.application.person.name }} agrees to the application
+        and what they must do.
+    <h2 class="govuk-heading-m">What they must agree to for the application</h2>
+    <p>They must understand that:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>the application includes personal, private and legal information about them</li>
+        <li>information about their health will be collected from services involved in their care - for example, drug
+            and alcohol teams
+        </li>
+        <li>their information will be used to decide if the accommodation is safe and suitable for them</li>
+        <li>their data will be collected and used as explained in the <a
+                    href="/privacy-notice" class="govuk-link" rel="noreferrer noopener" target="_blank">privacy notice
+                (opens in new tab)</a></li>
+    </ul>
+    <h2 class="govuk-heading-m">What they must agree to if they move into the accommodation</h2>
+    <p>They must understand that:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>the accommodation is short‑term and includes weekly support</li>
+        <li>they must pay for the accommodation themselves or using public funds like benefits</li>
+        <li>they must leave the accommodation when their licence period or bail order ends</li>
+        <li>they must find somewhere to live after they leave, with help from their support worker</li>
+    </ul>
+    <h2 class="govuk-heading-m">How to get consent</h2>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>read or share this information with them</li>
+        <li>check they understand each point</li>
+        <li>ask them if they agree to the application and what they must do</li>
+        <li>they must clearly say yes to give consent</li>
+    </ul>
+{% endset %}
 
-  {{
-    formPageRadios(
-      {
-        fieldName: "hasGivenConsent",
-        fieldset: {
-          legend: {
-            html:  '<h2 class="govuk-fieldset__heading">' + page.questions.hasGivenConsent.question + "</h2>",
-            classes: "govuk-fieldset__legend--m"
-          }
+{% block questions %}
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+    <div>
+        {% if page.isOtherCohort %}
+            {{ otherContent | safe }}
+        {% else %}
+            {{ bailContent | safe }}
+        {% endif %}
+    </div>
+
+    {% set consentDateHtml %}
+        {{ formPageDateInput( {
+            hint: {
+                text: page.questions.consentDate.hint
+            },
+            fieldName: "consentDate",
+            fieldset: {
+                legend: {
+                    text: page.questions.consentDate.question,
+                    classes: "govuk-fieldset__legend--s"
+                }
+            },
+            items: dateFieldValues('consentDate', errors)
         },
-        items: page.items(consentDateHtml)
-      },
-      fetchContext()
-    )
-  }}
+            fetchContext()) }}
+    {% endset %}
+
+    {{ formPageRadios(
+        {
+            fieldName: "hasGivenConsent",
+            fieldset: {
+            legend: {
+                html:  '<h2 class="govuk-fieldset__heading">' + page.questions.hasGivenConsent.question + "</h2>",
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+            items: page.items(consentDateHtml)
+        },
+        fetchContext()
+    ) }}
 
 {% endblock %}
 
 {% block button %}
-  {{ govukButton({
-      text: "Confirm and continue"
+    {{ govukButton({
+        text: "Confirm and continue"
     }) }}
 {% endblock %}
