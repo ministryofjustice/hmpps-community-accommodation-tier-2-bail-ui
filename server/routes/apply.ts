@@ -15,32 +15,22 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
 
   const { applicationsController, pagesController, cancelController } = controllers
 
-  get(
-    paths.applications.beforeYouStart.pattern,
-    (req, res, next) => {
-      res.render('applications/before-you-start', { nextUrl: paths.applications.applicationOrigin({}) })
-    },
-    { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
-  )
+  get(paths.applications.beforeYouStart.pattern, applicationsController.beforeYouStartBail({ newCohorts: false }), {
+    auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START',
+  })
 
   get(paths.applications.prison.pattern, applicationsController.prisonApplications(), {
     auditEvent: 'VIEW_PRISON_DASHBOARD',
   })
 
   if (config.flags.cas2IsrEnabled) {
-    get(
-      paths.applications.newCohorts.beforeYouStart.pattern,
-      (req, res, next) => {
-        res.render('applications/before-you-start', { nextUrl: paths.applications.newCohorts.beforeYouStart({}) })
-      },
-      { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
-    )
+    get(paths.applications.newCohorts.beforeYouStart.pattern, applicationsController.beforeYouStart(), {
+      auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START',
+    })
 
     get(
       paths.applications.newCohorts.bail.beforeYouStart.pattern,
-      (req, res, next) => {
-        res.render('applications/before-you-start', { nextUrl: paths.applications.newCohorts.bail.beforeYouStart({}) })
-      },
+      applicationsController.beforeYouStartBail({ newCohorts: true }),
       { auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START' },
     )
 
@@ -64,6 +54,10 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
         auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
       },
     )
+
+    get(paths.applications.newCohorts.searchByCrn.pattern, applicationsController.searchByCrn(), {
+      auditEvent: 'VIEW_APPLICATION_SEARCH_BY_CRN',
+    })
   }
 
   get(paths.applications.applicationOrigin.pattern, applicationsController.bailApplicationOrigin(), {

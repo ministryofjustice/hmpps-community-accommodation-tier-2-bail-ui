@@ -30,6 +30,7 @@ const paths = {
       applicationOrigin: newCohortsApplicationsPath.path('application-type'),
       beforeYouStart: newCohortsApplicationsPath.path('before-you-start'),
       selectApplicationOrigin: newCohortsApplicationsPath.path('select-application-origin'),
+      searchByCrn: newCohortsApplicationsPath.path('search-by-crn'),
       bail: {
         applicationOrigin: newCohortsBailApplicationsPath.path('application-type'),
         beforeYouStart: newCohortsBailApplicationsPath.path('before-you-start'),
