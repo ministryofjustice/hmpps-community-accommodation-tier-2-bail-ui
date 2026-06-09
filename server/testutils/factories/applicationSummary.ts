@@ -1,13 +1,15 @@
 import { Factory } from 'fishery'
 import { faker } from '@faker-js/faker'
-import { Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2v2ApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
+import { cohortLabels } from '../../utils/applicationUtils'
 import latestStatusUpdateFactory from './latestStatusUpdate'
 
 export default Factory.define<Cas2v2ApplicationSummary>(() => ({
   id: faker.string.uuid(),
   applicationOrigin: 'prisonBail',
+  cohort: faker.helpers.arrayElement(Object.keys(cohortLabels)) as Cas2CohortDto,
   type: 'CAS2V2',
   createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),

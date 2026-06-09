@@ -23,12 +23,14 @@ describe('inProgressApplicationTableRows', () => {
       createdAt: '2022-11-10T21:47:28Z',
       status: 'inProgress',
       latestStatusUpdate: null,
+      cohort: 'atcr',
     })
     const applicationB = applicationSummaryFactory.build({
       personName: 'B',
       createdAt: '2022-11-11T21:47:28Z',
       status: 'inProgress',
       latestStatusUpdate: null,
+      cohort: 'isc',
     })
 
     const result = inProgressApplicationTableRows([applicationA, applicationB])
@@ -46,6 +48,9 @@ describe('inProgressApplicationTableRows', () => {
         },
         {
           text: '10 November 2022',
+        },
+        {
+          text: 'Alternative to custodial recall',
         },
         {
           html: `<a id="cancel-${applicationA.id}" href=/applications/${applicationA.id}/cancel>Cancel</a>`,
@@ -68,6 +73,9 @@ describe('inProgressApplicationTableRows', () => {
           text: '11 November 2022',
         },
         {
+          text: 'Intensive supervision courts',
+        },
+        {
           html: `<a id="cancel-${applicationB.id}" href=/applications/${applicationB.id}/cancel>Cancel</a>`,
         },
         {
@@ -80,8 +88,16 @@ describe('inProgressApplicationTableRows', () => {
 
 describe('submittedApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
-    const applicationA = applicationSummaryFactory.build({ personName: 'A', submittedAt: '2022-12-10T21:47:28Z' })
-    const applicationB = applicationSummaryFactory.build({ personName: 'B', submittedAt: '2022-12-11T21:47:28Z' })
+    const applicationA = applicationSummaryFactory.build({
+      personName: 'A',
+      submittedAt: '2022-12-10T21:47:28Z',
+      cohort: 'courtBail',
+    })
+    const applicationB = applicationSummaryFactory.build({
+      personName: 'B',
+      submittedAt: '2022-12-11T21:47:28Z',
+      cohort: 'prisonBail',
+    })
 
     const result = submittedApplicationTableRows([applicationA, applicationB])
 
@@ -98,6 +114,9 @@ describe('submittedApplicationTableRows', () => {
         },
         {
           text: '10 December 2022',
+        },
+        {
+          text: 'Court Bail',
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
@@ -117,6 +136,9 @@ describe('submittedApplicationTableRows', () => {
           text: '11 December 2022',
         },
         {
+          text: 'Prison Bail',
+        },
+        {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
         },
       ],
@@ -129,12 +151,12 @@ describe('prisonApplicationTableRows', () => {
     const applicationA = applicationSummaryFactory.build({
       personName: 'A',
       submittedAt: '2022-12-10T21:47:28Z',
-      applicationOrigin: 'prisonBail',
+      cohort: 'prisonBail',
     })
     const applicationB = applicationSummaryFactory.build({
       personName: 'B',
       submittedAt: '2022-12-11T21:47:28Z',
-      applicationOrigin: 'prisonBail',
+      cohort: 'prisonBail',
     })
 
     const result = prisonApplicationTableRows([applicationA, applicationB])
@@ -157,7 +179,7 @@ describe('prisonApplicationTableRows', () => {
           text: applicationA.createdByUserName,
         },
         {
-          text: 'Prison bail',
+          text: 'Prison Bail',
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
@@ -180,7 +202,7 @@ describe('prisonApplicationTableRows', () => {
           text: applicationB.createdByUserName,
         },
         {
-          text: 'Prison bail',
+          text: 'Prison Bail',
         },
         {
           html: '<strong class="govuk-tag govuk-tag--light-blue">More information requested</strong>',
