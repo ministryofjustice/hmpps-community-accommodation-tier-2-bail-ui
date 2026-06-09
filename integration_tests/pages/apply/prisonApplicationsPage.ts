@@ -21,7 +21,10 @@ export default class PrisonApplicationsPage extends Page {
       cy.contains('tr', personName).within(() => {
         cy.get('a').should('have.attr', 'href', paths.applications.overview({ id: application.id }))
         cy.get('th').eq(0).contains(personName)
+        cy.get('td').eq(0).contains(application.nomsNumber)
+        cy.get('td').eq(2).contains(application.crn)
         cy.get('td').eq(4).contains(cohortLabel(application.cohort))
+        cy.get('td').eq(5).contains(application.latestStatusUpdate.label)
       })
     })
   }

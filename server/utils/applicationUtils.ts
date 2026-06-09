@@ -12,7 +12,7 @@ import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 import { summaryListItem } from './formUtils'
 
-const cohortLabels: Record<Cas2CohortDto, string> = {
+export const cohortLabels: Record<Cas2CohortDto, string> = {
   hdc: 'Home Detention Curfew',
   prisonBail: 'Prison Bail',
   courtBail: 'Court Bail',
