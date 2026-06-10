@@ -1,5 +1,7 @@
+@use "govuk-frontend/dist/govuk/all" as govuk;
+
 .side-nav {
-  @include govuk-media-query($from: tablet) {
+  @include govuk.govuk-media-query($from: tablet) {
     position: sticky;
     top: 0.5rem;
   }
