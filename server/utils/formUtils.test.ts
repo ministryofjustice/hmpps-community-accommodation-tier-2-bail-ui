@@ -1,5 +1,6 @@
 import { createMock } from '@golevelup/ts-jest'
-import { ErrorMessages } from '@approved-premises/ui'
+import { ErrorMessages, type ObjectWithDateParts } from '@approved-premises/ui'
+import { addDays, subDays } from 'date-fns'
 import {
   escape,
   convertKeyValuePairToRadioItems,
@@ -7,7 +8,9 @@ import {
   dateFieldValues,
   summaryListItem,
   isValidEmail,
+  validateDateParts,
 } from './formUtils'
+import { DateFormats } from './dateUtils'
 
 describe('formutils', () => {
   describe('escape', () => {
@@ -290,6 +293,32 @@ describe('formutils', () => {
       'should return true for valid email: %s',
       email => {
         expect(isValidEmail(email)).toBe(true)
+      },
+    )
+  })
+
+  describe('validateDateParts', () => {
+    type BodyType = ObjectWithDateParts<'testDate'>
+    const futureDate = DateFormats.dateObjToIsoDate(addDays(new Date(), 10))
+    const pastDate = DateFormats.dateObjToIsoDate(subDays(new Date(), 10))
+
+    const tests = [
+      ['2026-04-12', {}, {}],
+      ['', { testDate: 'Test date must be entered' }, {}],
+      ['2026-02-29', { testDate: 'Test date must be a real date' }, {}],
+      ['not-a-date', { testDate: 'Test date must be a real date' }, {}],
+      [futureDate, {}, { future: true }],
+      [futureDate, { testDate: 'Test date must be in the past' }, { past: true }],
+      [pastDate, {}, { past: true }],
+      [pastDate, { testDate: 'Test date must be in the future' }, { future: true }],
+    ]
+
+    it.each(tests)(
+      'Date %s',
+      (iso: string, expected: Record<string, string>, options: { future: boolean; past: boolean }) => {
+        const parts = iso.split('-')
+        const body = { 'testDate-day': parts[2], 'testDate-month': parts[1], 'testDate-year': parts[0] }
+        expect(validateDateParts<BodyType>('testDate', 'Test date', body, options)).toEqual(expected)
       },
     )
   })

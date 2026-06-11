@@ -14,8 +14,9 @@ describe('ConsentRefused', () => {
   })
 
   describe('Routing', () => {
-    itShouldHaveNextValue(new CohortSelection(bodyEmpty, application), '')
+    itShouldHaveNextValue(new CohortSelection(bodyEmpty, application), 'licence-dates')
     itShouldHavePreviousValue(new CohortSelection(bodyEmpty, application), 'taskList')
+    itShouldHaveNextValue(new CohortSelection(bodyIsc, application), 'licence-dates-needed')
   })
 
   describe('errors', () => {

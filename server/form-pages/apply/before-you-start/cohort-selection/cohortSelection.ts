@@ -45,7 +45,7 @@ export default class CohortSelection implements TaskListPage {
   }
 
   next() {
-    return ''
+    return this.body.cohort === 'isc' ? 'licence-dates-needed' : 'licence-dates'
   }
 
   errors() {

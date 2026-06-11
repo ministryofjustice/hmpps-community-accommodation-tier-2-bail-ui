@@ -1,0 +1,20 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+    {{ formPageRadios(
+        {
+            fieldName: "licenceDatesNeeded",
+            items: page.items()
+        },
+        fetchContext()
+    ) }}
+
+{% endblock %}
+
+{% block button %}
+    {{ govukButton({
+        text: "Continue"
+    }) }}
+{% endblock %}

@@ -87,6 +87,35 @@ export function getQuestions(name: string, isOtherCohort = false) {
         },
       },
     },
+    licence: {
+      'licence-dates-needed': {
+        licenceDatesNeeded: {
+          question: `Is ${name} on licence for a different offence?`,
+          answers: {
+            yes: 'Yes',
+            no: 'No',
+          },
+        },
+      },
+      'licence-dates': {
+        licenceStartDate: {
+          question: `What is ${name}'s licence start date/conditional release date?`,
+        },
+        licenceEndDate: {
+          question: `What is ${name}'s licence end date?`,
+        },
+        hdcExpiryDate: {
+          question: `HDC expiry date`,
+        },
+        hasHdcExpiryDate: {
+          question: `Does ${name} have an HDC expiry date?`,
+          answers: {
+            yes: 'Yes',
+            no: 'No',
+          },
+        },
+      },
+    },
     'referrer-details': {
       'confirm-details': {
         name: { question: 'Name' },

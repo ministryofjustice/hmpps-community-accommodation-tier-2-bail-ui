@@ -1,0 +1,70 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+    {% set hdcExpiryDateHtml %}
+
+        {{ formPageDateInput( {
+            fieldName: "hdcExpiryDate",
+            fieldset: {
+                legend: {
+                    text: page.questions.hdcExpiryDate,
+                    classes: "govuk-fieldset__legend--s"
+                }
+            },
+            items: dateFieldValues('hdcExpiryDate', errors)
+        },
+            fetchContext()) }}
+
+    {% endset %}
+
+    {% if page.questions.licenceStartDate %}
+        {{ formPageDateInput( {
+            fieldName: "licenceStartDate",
+            fieldset: {
+                legend: {
+                    text: page.questions.licenceStartDate,
+                    classes: "govuk-fieldset__legend--s"
+                }
+            },
+            items: dateFieldValues('licenceStartDate', errors)
+        },
+            fetchContext()) }}
+    {% endif %}
+
+    {{ formPageDateInput( {
+        fieldName: "licenceEndDate",
+        fieldset: {
+            legend: {
+                text: page.questions.licenceEndDate,
+                classes: "govuk-fieldset__legend--s"
+            }
+        },
+        items: dateFieldValues('licenceEndDate', errors)
+    },
+        fetchContext()) }}
+
+    {% if  page.questions.hasHdcExpiryDate %}
+        {{ formPageRadios(
+            {
+                fieldName: "hasHdcExpiryDate",
+                fieldset: {
+                legend: {
+                    html:  '<h2 class="govuk-fieldset__heading">' + page.questions.hasHdcExpiryDate + "</h2>",
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+                items: page.hdcRadioItems({ yes: { html: hdcExpiryDateHtml} })
+            },
+            fetchContext()
+        ) }}
+    {%  endif %}
+
+{% endblock %}
+
+{% block button %}
+    {{ govukButton({
+        text: "Save and continue"
+    }) }}
+{% endblock %}
