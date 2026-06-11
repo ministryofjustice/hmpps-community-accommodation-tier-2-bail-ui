@@ -24,15 +24,22 @@ export function convertKeyValuePairToRadioItems<T extends object>(
   object: T,
   checkedItem: string,
   conditionals?: Record<string, unknown>,
+  separators?: Record<string, string>,
 ): Array<RadioItem> {
-  return Object.entries(object).map(([key, value]) => {
-    return {
-      value: key,
-      text: value,
-      checked: checkedItem === key,
-      conditional: conditionals?.[key],
-    }
-  })
+  return Object.entries(object)
+    .reduce((out, [key, value]) => {
+      return [
+        ...out,
+        separators?.[key] ? { divider: separators?.[key] } : undefined,
+        {
+          value: key,
+          text: value,
+          checked: checkedItem === key,
+          conditional: conditionals?.[key],
+        },
+      ]
+    }, [])
+    .filter(Boolean)
 }
 
 export function convertKeyValuePairToCheckboxItems<T extends object>(

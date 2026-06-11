@@ -1228,6 +1228,32 @@ export function getQuestions(
         },
       },
     },
+    'orders-and-licence-conditions': {
+      'licence-conditions': {
+        hasLicenceConditions: {
+          question: `Does ${name} have any non-standard licence conditions?`,
+          hint: 'Non-standard licence conditions may also be in nDelius.',
+          dataType: 'radio',
+          answers: yesNoOrIDontKnow,
+        },
+        notes: {
+          question: 'Describe the conditions',
+          dataType: 'textArea',
+        },
+      },
+      orders: {
+        hasOrders: {
+          question: `Is ${name} subject to any civil or criminal orders?`,
+          hint: 'For example: Non-Molestation Order, Occupation Order, Stalking Protection Order (SPO) or Criminal Behaviour Order (CBO).',
+          dataType: 'radio',
+          answers: yesNoOrIDontKnow,
+        },
+        notes: {
+          question: 'Provide details of the orders',
+          dataType: 'textArea',
+        },
+      },
+    },
     'bail-conditions': {
       'non-standard-bail-conditions': {
         nonStandardBailConditions: {

@@ -7,6 +7,7 @@ import AllegedOffences from './alleged-offences'
 import ProvideOffencesAndConvictionsDetails from './provide-offences-and-convictions-details'
 import RiskInformation from './risk-information'
 import CurrentOffences from './current-offences'
+import OrdersAndLicenceConditions from './orders-and-licence-conditions'
 
 @Section({
   title: 'Offences and concerns',
@@ -14,6 +15,7 @@ import CurrentOffences from './current-offences'
     ProvideOffencesAndConvictionsDetails,
     AllegedOffences,
     CurrentOffences,
+    OrdersAndLicenceConditions,
     PreviousUnspentConvictions,
     AddProbationSupervisionDetails,
     RiskInformation,
