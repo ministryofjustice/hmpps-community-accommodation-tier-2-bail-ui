@@ -16,7 +16,6 @@ export const getApplicationUpdateData = (application: Application, cohort?: Cas2
   return {
     type: 'CAS2V2',
     data: application.data,
-    // TODO: refactor once we're choosing the cohort as part of the application flow
     cohort: cohort || application.cohort || getBailCohort(application.applicationOrigin),
   }
 }
