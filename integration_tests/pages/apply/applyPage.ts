@@ -53,6 +53,12 @@ export default class ApplyPage extends Page {
     // Override this method in the child class
   }
 
+  refreshMock() {
+    // Save the submission and reload in case the form content changes
+    cy.task('stubApplicationGetFromLastUpdate', { application: this.app })
+    cy.reload()
+  }
+
   checkErrorsAndSubmit() {
     // When I submit the empty form
     this.clickSubmit()
@@ -63,8 +69,6 @@ export default class ApplyPage extends Page {
     // When I complete the form and submit again
     this.completeForm()
     this.clickSubmit()
-    // Save the submission and reload in case the form content changes
-    cy.task('stubApplicationGetFromLastUpdate', { application: this.app })
-    cy.reload()
+    this.refreshMock()
   }
 }

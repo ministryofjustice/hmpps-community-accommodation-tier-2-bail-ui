@@ -5,6 +5,7 @@ import {
   FullPerson,
   Cas2SubmittedApplication as SubmittedApplication,
 } from '@approved-premises/api'
+import { SummaryListItem } from '@approved-premises/ui'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
 import paths from '../../server/paths/apply'
@@ -212,5 +213,47 @@ export default abstract class Page {
 
   shouldNotShowErrorSummary(text: string): void {
     cy.get('.govuk-error-summary').should('not.contain', text)
+  }
+
+  parseHtml(actual: JQuery<HTMLElement>, expected: string) {
+    // Normalise whitespace in both the actual and expected text,
+    // so we don't have to worry about small differences in whitespace
+    const normaliseWhitespace = (input: string): string => input.trim().replace(/\s+/g, ' ')
+
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(expected, 'text/html')
+
+    return { actual: normaliseWhitespace(actual.text()), expected: normaliseWhitespace(doc.body.innerText) }
+  }
+
+  assertDefinition(term: string, value: string, valueType: 'text' | 'html' = 'text'): void {
+    cy.get('dt').contains(term).parents('.govuk-summary-list__row').find('> dd.govuk-summary-list__value').as('dd')
+    if (value) {
+      if (valueType === 'html') {
+        cy.get('@dd').then($dd => {
+          const { actual, expected } = this.parseHtml($dd, value)
+          expect(actual).to.equal(expected)
+        })
+      } else {
+        cy.get('@dd').should(`contain.text`, value.trim())
+      }
+    } else {
+      cy.get('@dd').invoke('text').should('match', /^\s*$/)
+    }
+  }
+
+  shouldContainSummaryListItems(items: Array<SummaryListItem>): void {
+    items.forEach(item => {
+      let key: string
+      if ('text' in item.key) {
+        key = item.key.text
+      } else {
+        const parser = new DOMParser()
+        key = parser.parseFromString(item.key.html, 'text/html').body.textContent
+      }
+      const value = 'text' in item.value ? item.value.text : item.value.html
+
+      this.assertDefinition(key, value, 'text' in item.value ? 'text' : 'html')
+    })
   }
 }
