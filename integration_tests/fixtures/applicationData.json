@@ -16,6 +16,15 @@
   "cohort-selection": {
     "cohort-selection": {
       "cohort": "hcrd"
+    },
+    "licence-dates": {
+      "licenceStartDate-year": "2026",
+      "licenceStartDate-month": "1",
+      "licenceStartDate-day": "1",
+      "licenceEndDate-year": "2026",
+      "licenceEndDate-month": "12",
+      "licenceEndDate-day": "31",
+      "hasHdcExpiryDate": "no"
     }
   },
   "referrer-details": {

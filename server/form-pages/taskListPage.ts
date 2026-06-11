@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-
+import type { Request } from 'express'
 import type { DataServices, FormArtifact, TaskListErrors } from '@approved-premises/ui'
 
 export interface TaskListPageInterface {
@@ -7,7 +7,7 @@ export interface TaskListPageInterface {
   initialize?(
     body: Record<string, unknown>,
     document: FormArtifact,
-    token: string,
+    req: Request,
     dataServices: DataServices,
   ): Promise<TaskListPage>
 }

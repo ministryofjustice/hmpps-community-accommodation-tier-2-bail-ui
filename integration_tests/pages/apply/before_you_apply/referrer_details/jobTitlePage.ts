@@ -17,6 +17,10 @@ export default class JobTitlePage extends ApplyPage {
     )
   }
 
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter your job title')
+  }
+
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('jobTitle', 'POM')
   }

@@ -96,7 +96,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
       licencePage.shouldSeeErrrors(cohort)
 
       // When I complete the form and submit
-      licencePage.completeForm(cohort)
+      licencePage.completeForm({ cohort })
       licencePage.clickSubmit('Save and continue')
       // Then the correct dates will have been posted
       licencePage.verifyUpdate(updatedApplication)
@@ -115,7 +115,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
 
     // Then I am on the licence dates page
     const licencePage = new LicenceDatesPage(application)
-    licencePage.completeForm('atcr')
+    licencePage.completeForm({ cohort: 'atcr' })
 
     // When I complete the dates including hdcExpiry
     licencePage.clickSubmit('Save and continue')

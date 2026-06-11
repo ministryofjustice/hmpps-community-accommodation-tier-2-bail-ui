@@ -4,6 +4,7 @@ import auth from './integration_tests/mockApis/auth'
 import tokenVerification from './integration_tests/mockApis/tokenVerification'
 import applications from './integration_tests/mockApis/applications'
 import person from './integration_tests/mockApis/person'
+import user from './integration_tests/mockApis/user'
 import accessibilityViolations from './integration_tests/tasks/accessibilityViolations'
 
 export default defineConfig({
@@ -24,6 +25,7 @@ export default defineConfig({
         ...tokenVerification,
         ...applications,
         ...person,
+        ...user,
         ...accessibilityViolations,
       })
     },
