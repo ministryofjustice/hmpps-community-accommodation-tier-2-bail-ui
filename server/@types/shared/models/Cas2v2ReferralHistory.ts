@@ -12,7 +12,7 @@ export type Cas2v2ReferralHistory = {
     placementAddress?: string;
     placementStatus?: string;
     referralRejectionReason?: string;
-    referredBy?: string;
+    referredBy: string;
     status: string;
     type: ServiceType;
 };

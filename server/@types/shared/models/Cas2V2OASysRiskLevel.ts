@@ -2,6 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UpdateApplication } from './UpdateApplication';
-export type UpdateCas2Application = UpdateApplication;
-
+export type Cas2V2OASysRiskLevel = 'very_high' | 'high' | 'medium' | 'low';
