@@ -44,7 +44,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&limitByUser=false&applicationOrigin=prisonBail`,
+        url: `/cas2/applications?page=1&isSubmitted=true&limitByUser=false&applicationOrigin=prisonBail`,
       },
       response: {
         status: 200,
@@ -61,7 +61,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false`,
+        url: `/cas2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false`,
       },
       response: {
         status: 200,
@@ -81,7 +81,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false&crnOrNomsNumber=${args.crnOrNomsNumber}`,
+        url: `/cas2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false&crnOrNomsNumber=${args.crnOrNomsNumber}`,
       },
       response: {
         status: 200,
