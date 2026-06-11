@@ -468,4 +468,19 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
     })
   })
+
+  describe('Personal information', () => {
+    it('it removes custody location for non-custodial cohorts', () => {
+      const data = {
+        'cohort-selection': {
+          'cohort-selection': { cohort: '' },
+        },
+        'personal-information': {
+          'custody-location': { custodyLocation: 'HMP Slade' },
+        },
+      }
+      const expected = { ...data, 'personal-information': { 'custody-location': undefined as Record<string, unknown> } }
+      expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
+    })
+  })
 })

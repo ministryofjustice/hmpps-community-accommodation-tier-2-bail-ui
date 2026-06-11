@@ -26,4 +26,8 @@ export default class CustodyLocationPage extends ApplyPage {
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('custodyLocation', 'The Old Bailey')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter where the applicant is being held in custody')
+  }
 }

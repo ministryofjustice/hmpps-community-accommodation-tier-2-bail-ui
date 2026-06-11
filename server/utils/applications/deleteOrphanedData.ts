@@ -1,5 +1,6 @@
 import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
+import { custodialCohorts } from './cohortLabels'
 
 export default function deleteOrphanedFollowOnAnswers(
   applicationData: Cas2Application['data'],
@@ -213,6 +214,9 @@ export default function deleteOrphanedFollowOnAnswers(
   }
   if (cohort !== 'isc') {
     delete applicationData['cohort-selection']?.['licence-dates-needed']?.licenceDatesNeeded
+  }
+  if (!custodialCohorts.includes(cohort)) {
+    delete applicationData['personal-information']?.['custody-location']
   }
 
   return applicationData

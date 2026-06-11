@@ -10,3 +10,5 @@ export const cohortSelectionAnswers: Record<NonBailCohort, string> = {
   rarr: 'Risk Assessed Recall Review (RARR)',
   from_ap: 'Referral from Approved Premises',
 }
+
+export const custodialCohorts: Array<Cas2CohortDto> = ['rarr', 'hcrd', 'hefr', 'hdc', 'prisonBail', 'courtBail']

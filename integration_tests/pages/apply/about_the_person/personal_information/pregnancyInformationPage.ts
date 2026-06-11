@@ -27,4 +27,8 @@ export default class PregnancyInformationPage extends ApplyPage {
     this.checkRadioByNameAndValue('isPregnant', 'yes')
     this.completeDateInputs('dueDate', '2023-07-15')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(`Choose either Yes, No or I don't know`)
+  }
 }

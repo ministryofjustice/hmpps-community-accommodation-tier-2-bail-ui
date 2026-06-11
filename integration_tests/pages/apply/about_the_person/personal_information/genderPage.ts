@@ -27,4 +27,10 @@ export default class GenderPage extends ApplyPage {
     this.checkRadioByNameAndValue('gender', 'no')
     this.getTextInputByIdAndEnterDetails('genderIdentity', 'Non binary')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(
+      `Select if the gender they identify with is the same as the sex registered at birth or 'Prefer not to say'`,
+    )
+  }
 }
