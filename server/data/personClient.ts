@@ -1,4 +1,4 @@
-import type { FullPerson, PersonRisks } from '@approved-premises/api'
+import type { FullPerson } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -23,9 +23,5 @@ export default class PersonClient {
     const path = `${paths.people.searchByCrn({ crn: encodedCrn })}`
 
     return this.restClient.get<FullPerson>({ path })
-  }
-
-  async risks(crn: string): Promise<PersonRisks> {
-    return this.restClient.get<PersonRisks>({ path: paths.people.risks.show({ crn }) })
   }
 }

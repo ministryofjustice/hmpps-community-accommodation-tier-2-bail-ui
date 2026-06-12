@@ -2,7 +2,6 @@ import {
   Cas2v2Application as Application,
   Cas2v2ApplicationSummary,
   SubmitCas2v2Application,
-  UpdateApplication,
   UpdateCas2v2Application,
 } from '@approved-premises/api'
 import { BailApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
@@ -63,7 +62,7 @@ export default class ApplicationClient {
   async update(applicationId: string, updateData: UpdateCas2v2Application): Promise<Application> {
     return (await this.restClient.put({
       path: paths.applications.update({ id: applicationId }),
-      data: { ...updateData, type: 'CAS2V2' } as UpdateApplication,
+      data: { ...updateData, type: 'CAS2V2' } as UpdateCas2v2Application,
     })) as Application
   }
 
