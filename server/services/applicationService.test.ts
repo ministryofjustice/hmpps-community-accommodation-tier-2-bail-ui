@@ -237,15 +237,18 @@ describe('ApplicationService', () => {
 
         await service.save(page, request)
 
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'some-task': {
-              'other-page': { question: 'answer' },
-              'some-page': { foo: 'bar' },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'some-task': {
+                'other-page': { question: 'answer' },
+                'some-page': { foo: 'bar' },
+              },
             },
           },
-        })
+          undefined,
+        )
       })
 
       it('invalidates the check your answers task when saving a new page', async () => {
@@ -256,12 +259,15 @@ describe('ApplicationService', () => {
 
         await service.save(page, request)
 
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+            },
           },
-        })
+          undefined,
+        )
       })
 
       it('invalidates the check your answers task when changing an existing page', async () => {
@@ -272,12 +278,15 @@ describe('ApplicationService', () => {
 
         await service.save(page, request)
 
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'some-task': { 'other-page': { question: 'answer' }, 'some-page': { foo: 'bar' } },
+            },
           },
-        })
+          undefined,
+        )
       })
 
       it('does not invalidate the check your answers task when saving an existing page with unchanged data', async () => {
@@ -289,13 +298,16 @@ describe('ApplicationService', () => {
 
         await service.save(page, request)
 
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'some-task': { 'some-page': { foo: 'bar' } },
-            'check-your-answers': { review: { reviewed: '1' } },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'some-task': { 'some-page': { foo: 'bar' } },
+              'check-your-answers': { review: { reviewed: '1' } },
+            },
           },
-        })
+          undefined,
+        )
       })
 
       it('does not invalidate the check your answers task when saving a check your answers page', async () => {
@@ -314,15 +326,18 @@ describe('ApplicationService', () => {
 
         await service.save(page, request)
 
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'some-task': {
-              'other-page': { question: 'answer' },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'some-task': {
+                'other-page': { question: 'answer' },
+              },
+              'check-your-answers': { 'check-your-answers': { reviewed: '1' } },
             },
-            'check-your-answers': { 'check-your-answers': { reviewed: '1' } },
           },
-        })
+          undefined,
+        )
       })
 
       it('deletes conditional data if required for ID documents', async () => {
@@ -344,12 +359,15 @@ describe('ApplicationService', () => {
         await service.save(page, request)
 
         expect(applicationClientFactory).toHaveBeenCalledWith(token)
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'funding-information': { 'applicant-id': { idDocuments: ['passport'] } },
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'funding-information': { 'applicant-id': { idDocuments: ['passport'] } },
+            },
           },
-        })
+          undefined,
+        )
       })
 
       it('deletes conditional data if required for equality and diversity information', async () => {
@@ -376,16 +394,19 @@ describe('ApplicationService', () => {
         await service.save(page, request)
 
         expect(applicationClientFactory).toHaveBeenCalledWith(token)
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'equality-and-diversity-monitoring': {
-              'will-answer-equality-questions': {
-                willAnswer: 'no',
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'equality-and-diversity-monitoring': {
+                'will-answer-equality-questions': {
+                  willAnswer: 'no',
+                },
               },
             },
           },
-        })
+          undefined,
+        )
       })
 
       it('deletes conditional data if required for unspent convictions data', async () => {
@@ -410,16 +431,19 @@ describe('ApplicationService', () => {
         await service.save(page, request)
 
         expect(applicationClientFactory).toHaveBeenCalledWith(token)
-        expect(getApplicationUpdateData).toHaveBeenCalledWith({
-          ...application,
-          data: {
-            'previous-unspent-convictions': {
-              'any-previous-convictions': {
-                hasAnyPreviousConvictions: 'no',
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'previous-unspent-convictions': {
+                'any-previous-convictions': {
+                  hasAnyPreviousConvictions: 'no',
+                },
               },
             },
           },
-        })
+          undefined,
+        )
       })
 
       describe('when there is address history data', () => {
@@ -452,16 +476,19 @@ describe('ApplicationService', () => {
           await service.save(page, request)
 
           expect(applicationClientFactory).toHaveBeenCalledWith(token)
-          expect(getApplicationUpdateData).toHaveBeenCalledWith({
-            ...application,
-            data: {
-              'address-history': {
-                'previous-address': {
-                  hasPreviousAddress: 'yes',
+          expect(getApplicationUpdateData).toHaveBeenCalledWith(
+            {
+              ...application,
+              data: {
+                'address-history': {
+                  'previous-address': {
+                    hasPreviousAddress: 'yes',
+                  },
                 },
               },
             },
-          })
+            undefined,
+          )
         })
         it('deletes previous address if they no longer have a previous address ', async () => {
           page = createMock<TaskListPage>({
@@ -491,17 +518,49 @@ describe('ApplicationService', () => {
           await service.save(page, request)
 
           expect(applicationClientFactory).toHaveBeenCalledWith(token)
-          expect(getApplicationUpdateData).toHaveBeenCalledWith({
-            ...application,
-            data: {
-              'address-history': {
-                'previous-address': {
-                  hasPreviousAddress: 'no',
+          expect(getApplicationUpdateData).toHaveBeenCalledWith(
+            {
+              ...application,
+              data: {
+                'address-history': {
+                  'previous-address': {
+                    hasPreviousAddress: 'no',
+                  },
                 },
               },
             },
-          })
+            undefined,
+          )
         })
+      })
+
+      it('Updates the application cohort if present in the data', async () => {
+        page = createMock<TaskListPage>({
+          errors: () => {
+            return {} as TaskListErrors<TaskListPage>
+          },
+          body: { cohort: 'atcr' },
+        })
+        ;(getPageName as jest.Mock).mockImplementation(() => 'cohort-selection')
+        ;(getTaskName as jest.Mock).mockImplementation(() => 'cohort-selection')
+
+        application.data = {}
+
+        await service.save(page, request)
+
+        expect(getApplicationUpdateData).toHaveBeenCalledWith(
+          {
+            ...application,
+            data: {
+              'cohort-selection': {
+                'cohort-selection': {
+                  cohort: 'atcr',
+                },
+              },
+            },
+          },
+          'atcr',
+        )
       })
     })
 

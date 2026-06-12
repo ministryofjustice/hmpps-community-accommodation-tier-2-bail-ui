@@ -30,11 +30,7 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import {
-  showMissingRequiredTasksOrTaskList,
-  generateSuccessMessage,
-  getFirstIncompleteTask,
-} from '../../utils/applications/utils'
+import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
@@ -894,9 +890,9 @@ describe('applicationsController', () => {
         const mockTaskList: Partial<TaskListService> = {
           status: 'incomplete',
           taskStatuses: { task1: 'complete', task2: 'in_progress' },
+          firstIncompleteTask: 'task2',
         }
         ;(TaskListService as jest.Mock).mockImplementation(() => mockTaskList)
-        ;(getFirstIncompleteTask as jest.Mock).mockReturnValue('task2')
         ;(errorMessage as jest.Mock).mockReturnValue({
           text: 'You must complete all tasks before submitting the application',
         })

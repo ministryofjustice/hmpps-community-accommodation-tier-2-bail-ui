@@ -19,7 +19,7 @@ export type TaskNames = 'funding-information' | 'confirm-eligibility' | 'equalit
 
 export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 
-export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
+export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start' | 'not_applicable'
 export type TaskWithStatus = UiTask & { status: TaskStatus }
 
 export type TaskListErrors<K extends TaskListPage> = Partial<Record<keyof K['body'], unknown>>

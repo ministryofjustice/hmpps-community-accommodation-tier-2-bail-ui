@@ -153,10 +153,11 @@ const getStatusTagColour = (statusId: string) => {
 }
 
 export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): boolean => {
-  if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
-    return false
-  }
-  return true
+  const bailTasks = ['confirm-eligibility', 'confirm-consent']
+  const otherTasks = [...bailTasks, 'cohort-selection']
+
+  const tasks = application.applicationOrigin === 'other' ? otherTasks : bailTasks
+  return !!tasks.find(task => !application.data?.[task])
 }
 
 export const unspentConvictionsCardRows = (unspentConviction: UnspentConvictionsUI): Array<SummaryListItem> => {

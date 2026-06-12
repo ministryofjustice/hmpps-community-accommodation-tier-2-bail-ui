@@ -58,7 +58,7 @@ export default class ConfirmConsent implements TaskListPage {
     if (this.body.hasGivenConsent === 'no') {
       return 'consent-refused'
     }
-    return this.isOtherCohort ? 'select-cohort' : ''
+    return ''
   }
 
   errors() {

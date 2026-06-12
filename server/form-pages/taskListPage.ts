@@ -32,4 +32,6 @@ export default abstract class TaskListPage {
   abstract response?(): Record<string, string>
 
   abstract onSave?(): void
+
+  abstract isApplicable?(): boolean
 }

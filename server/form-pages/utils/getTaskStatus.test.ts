@@ -24,30 +24,29 @@ describe('getTaskStatus', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+
+    page1Instance.errors.mockReturnValue({})
+    page2Instance.errors.mockReturnValue({})
+    page3Instance.errors.mockReturnValue({})
+    page1Instance.next.mockReturnValue('page-2')
+    page2Instance.next.mockReturnValue('page-3')
+    page3Instance.next.mockReturnValue('')
   })
 
-  it('returns not_started when there is no data for the first question in the task', () => {
+  it('returns not_started when there are no data for the first question in the task', () => {
     const application = applicationFactory.build({})
 
     expect(getTaskStatus(task, application)).toEqual('not_started')
-
-    expect(Page1).not.toHaveBeenCalled()
-    expect(Page2).not.toHaveBeenCalled()
-    expect(Page3).not.toHaveBeenCalled()
   })
 
-  it('returns in_progress when there is no data for the second question in the task', () => {
+  it('returns in_progress when there are no data for the second question in the task', () => {
     const application = applicationFactory.build({ data: { 'my-task': { 'page-1': { foo: 'bar' } } } })
-
-    page1Instance.errors.mockReturnValue({})
-    page1Instance.next.mockReturnValue('page-2')
 
     expect(getTaskStatus(task, application)).toEqual('in_progress')
 
     expect(Page1).toHaveBeenCalled()
     expect(page1Instance.errors).toHaveBeenCalled()
 
-    expect(Page2).not.toHaveBeenCalled()
     expect(Page3).not.toHaveBeenCalled()
   })
 
@@ -71,10 +70,6 @@ describe('getTaskStatus', () => {
       data: { 'my-task': { 'page-1': { foo: 'bar' }, 'page-2': { foo: 'bar' } } },
     })
 
-    page1Instance.errors.mockReturnValue({})
-    page1Instance.next.mockReturnValue('page-2')
-
-    page2Instance.errors.mockReturnValue({})
     page2Instance.next.mockReturnValue('')
 
     expect(getTaskStatus(task, application)).toEqual('complete')
@@ -94,15 +89,6 @@ describe('getTaskStatus', () => {
     const application = applicationFactory.build({
       data: { 'my-task': { 'page-1': { foo: 'bar' }, 'page-2': { foo: 'bar' }, 'page-3': { foo: 'bar' } } },
     })
-
-    page1Instance.errors.mockReturnValue({})
-    page1Instance.next.mockReturnValue('page-2')
-
-    page2Instance.errors.mockReturnValue({})
-    page2Instance.next.mockReturnValue('page-3')
-
-    page3Instance.errors.mockReturnValue({})
-    page3Instance.next.mockReturnValue('')
 
     expect(getTaskStatus(task, application)).toEqual('complete')
 
@@ -124,12 +110,6 @@ describe('getTaskStatus', () => {
       data: { 'my-task': { 'page-2': { foo: 'bar' }, 'page-3': { foo: 'bar' } } },
     })
 
-    page2Instance.errors.mockReturnValue({})
-    page2Instance.next.mockReturnValue('page-3')
-
-    page3Instance.errors.mockReturnValue({})
-    page3Instance.next.mockReturnValue('')
-
     expect(getTaskStatus(task, application)).toEqual('complete')
 
     expect(Page1).not.toHaveBeenCalled()
@@ -143,6 +123,22 @@ describe('getTaskStatus', () => {
     expect(Page3).toHaveBeenCalled()
     expect(page3Instance.errors).toHaveBeenCalled()
     expect(page3Instance.next).toHaveBeenCalled()
+  })
+
+  it('returns not_applicable when the first page returns isApplicable() false', () => {
+    const application = applicationFactory.build({
+      data: {},
+    })
+    page1Instance.isApplicable.mockReturnValue(false)
+    expect(getTaskStatus(task, application)).toEqual('not_applicable')
+  })
+
+  it('returns not_applicable when the second page returns isApplicable() false', () => {
+    const application = applicationFactory.build({
+      data: { 'my-task': { 'page-1': { foo: 'bar' }, 'page-2': { foo: 'bar' } } },
+    })
+    page2Instance.isApplicable.mockReturnValue(false)
+    expect(getTaskStatus(task, application)).toEqual('not_applicable')
   })
 })
 

@@ -13,6 +13,11 @@
       "consentDate-day": "1"
     }
   },
+  "cohort-selection": {
+    "cohort-selection": {
+      "cohort": "hcrd"
+    }
+  },
   "referrer-details": {
     "confirm-details": { "name": "Ashley Referrer", "email": "a.referrer@moj.gov.uk" },
     "job-title": { "jobTitle": "POM" },
