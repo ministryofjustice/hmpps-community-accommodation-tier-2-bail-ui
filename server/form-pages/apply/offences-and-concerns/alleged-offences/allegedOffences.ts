@@ -43,7 +43,7 @@ export default class AllegedOffences implements TaskListPage {
     body: Partial<AllegedOffencesBody>,
     private readonly application: Application,
   ) {
-    if (application.data[this.taskName]?.[this.dataPageName]) {
+    if (application.data?.[this.taskName]?.[this.dataPageName]) {
       const allegedOffencesData = application.data[this.taskName][this.dataPageName] as [AllegedOffenceDataBody]
 
       const query = {
@@ -86,7 +86,7 @@ export default class AllegedOffences implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
 
-    if (!this.application.data['alleged-offences']?.['alleged-offence-data'].length) {
+    if (!this.application.data?.['alleged-offences']?.['alleged-offence-data']?.length) {
       errors.offenceList = 'Alleged offences must be added to the application'
     }
 
