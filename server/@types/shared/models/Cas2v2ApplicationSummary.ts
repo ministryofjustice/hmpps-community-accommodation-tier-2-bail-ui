@@ -6,7 +6,6 @@ import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { ApplicationStatus } from './ApplicationStatus';
 import type { Cas2CohortDto } from './Cas2CohortDto';
 import type { LatestCas2v2StatusUpdate } from './LatestCas2v2StatusUpdate';
-import type { PersonRisks } from './PersonRisks';
 export type Cas2v2ApplicationSummary = {
     applicationOrigin: ApplicationOrigin;
     bailHearingDate?: string;
@@ -21,7 +20,6 @@ export type Cas2v2ApplicationSummary = {
     nomsNumber?: string;
     personName: string;
     prisonCode?: string;
-    risks?: PersonRisks;
     status: ApplicationStatus;
     submittedAt?: string;
     type: string;

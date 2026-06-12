@@ -1,7 +1,6 @@
 import { path } from 'static-path'
 
 const peoplePath = path('/cas2v2/people')
-const personPath = peoplePath.path(':crn')
 const applicationsPath = path('/cas2v2/applications')
 const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
@@ -16,9 +15,6 @@ export default {
   people: {
     searchByPrisonNumber: peoplePath.path('search-by-noms/:nomsNumber'),
     searchByCrn: peoplePath.path('search-by-crn/:crn'),
-    risks: {
-      show: personPath.path('risks'),
-    },
   },
   submissions: {
     index: submissionsPath,

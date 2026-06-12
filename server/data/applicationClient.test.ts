@@ -1,4 +1,4 @@
-import { SubmitCas2v2Application, UpdateApplication, ApplicationOrigin } from '@approved-premises/api'
+import { SubmitCas2v2Application, UpdateCas2v2Application, ApplicationOrigin } from '@approved-premises/api'
 import ApplicationClient from './applicationClient'
 import { applicationFactory, applicationSummaryFactory } from '../testutils/factories'
 import paths from '../paths/api'
@@ -235,7 +235,7 @@ describeClient('ApplicationClient', provider => {
       const data = {
         data: application.data,
         type: 'CAS2V2',
-      } as UpdateApplication
+      } as UpdateCas2v2Application
 
       await provider.addInteraction({
         state: 'Server is healthy',

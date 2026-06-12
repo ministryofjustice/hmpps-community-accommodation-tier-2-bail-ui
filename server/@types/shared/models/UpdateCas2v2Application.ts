@@ -3,9 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Cas2CohortDto } from './Cas2CohortDto';
-import type { UpdateApplication } from './UpdateApplication';
-export type UpdateCas2v2Application = (UpdateApplication & {
+import type { UpdateApplicationType } from './UpdateApplicationType';
+export type UpdateCas2v2Application = {
     bailHearingDate?: string;
     cohort?: Cas2CohortDto;
-});
+    data: Record<string, any>;
+    type: UpdateApplicationType;
+};
 

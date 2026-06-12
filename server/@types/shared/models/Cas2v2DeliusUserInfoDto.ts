@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type RiskTier = {
-    lastUpdated: string;
-    level: string;
+import type { ProbationAreaDto } from './ProbationAreaDto';
+export type Cas2v2DeliusUserInfoDto = {
+    probationArea: ProbationAreaDto;
 };
 

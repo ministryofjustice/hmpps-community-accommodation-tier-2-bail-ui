@@ -2,4 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas1ApplicationTimelinessCategory = 'standard' | 'emergency' | 'shortNotice';
+export type Cas2v2UserTypeDto = 'NOMIS' | 'DELIUS' | 'EXTERNAL';
