@@ -36,7 +36,7 @@ export default class Acct implements TaskListPage {
     body: Partial<AcctBody>,
     private readonly application: Application,
   ) {
-    if (application.data['risk-information'] && application.data['risk-information']['add-acct-note']) {
+    if (application.data?.['risk-information'] && application.data['risk-information']['add-acct-note']) {
       const acctData = application.data['risk-information']['add-acct-note'] as [AddAcctNoteBody]
 
       this.accts = acctData.map((acct, index) => {
@@ -63,7 +63,7 @@ export default class Acct implements TaskListPage {
       })
     }
     this.body = body as AcctBody
-    this.hasExistingAcctNotes = Boolean(application.data['risk-information']?.['add-acct-note']?.length)
+    this.hasExistingAcctNotes = Boolean(application.data?.['risk-information']?.['add-acct-note']?.length)
   }
 
   previous() {

@@ -42,7 +42,7 @@ export default class AllegedOffenceData implements TaskListPage {
     private readonly application: Cas2v2Application,
   ) {
     this.body = body as AllegedOffenceDataBody
-    this.hasPreviouslySavedAnAllegedOffence = Boolean(application.data['alleged-offences']?.['alleged-offence-data'])
+    this.hasPreviouslySavedAnAllegedOffence = Boolean(application.data?.['alleged-offences']?.['alleged-offence-data'])
   }
 
   previous() {

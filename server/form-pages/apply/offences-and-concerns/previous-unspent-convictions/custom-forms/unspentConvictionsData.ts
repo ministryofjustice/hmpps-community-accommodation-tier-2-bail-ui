@@ -51,7 +51,7 @@ export default class UnspentConvictionsData implements TaskListPage {
     this.body = body as UnspentConvictionsDataBody
     this.convictionTypes = this.getConvictionTypeAsItemsForSelect(this.body.convictionType)
     this.hasPreviouslySavedAnUnspentConviction = Boolean(
-      application.data['previous-unspent-convictions']?.['unspent-convictions-data'],
+      application.data?.['previous-unspent-convictions']?.['unspent-convictions-data'],
     )
   }
 

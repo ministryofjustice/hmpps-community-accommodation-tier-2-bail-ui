@@ -53,6 +53,6 @@ export default class DoesTheApplicantHaveAcctNotes implements TaskListPage {
   }
 
   private hasExistingACCTNotes(): boolean {
-    return Boolean(this.application.data['risk-information']?.['add-acct-note']?.length)
+    return Boolean(this.application.data?.['risk-information']?.['add-acct-note']?.length)
   }
 }
