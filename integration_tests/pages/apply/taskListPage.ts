@@ -1,8 +1,7 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2v2Application as Application, FullPerson } from '@approved-premises/api'
 import Page from '../page'
 import Apply from '../../../server/form-pages/apply'
 import paths from '../../../server/paths/apply'
-import { FullPerson } from '../../../server/@types/shared/models/FullPerson'
 
 export default class TaskListPage extends Page {
   constructor(name: string) {
@@ -41,5 +40,9 @@ export default class TaskListPage extends Page {
 
   visitTask = (taskTitle: string): void => {
     cy.get('[data-cy-task-name]').contains(taskTitle).click()
+  }
+
+  shouldNotShowTask = (taskTitle): void => {
+    cy.get('[data-cy-task-name]').should('not.contain', taskTitle)
   }
 }
