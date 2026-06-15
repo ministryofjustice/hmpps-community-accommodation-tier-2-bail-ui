@@ -2,6 +2,7 @@ import { Cas2CohortDto } from 'server/@types/shared'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory, personFactory } from '../../../../testutils/factories'
 import LicenceDates, { LicenceDatesBody } from './licence-dates'
+import { getQuestions } from '../../../utils/questions'
 
 describe('LicenceDates', () => {
   const application = applicationFactory.build({ cohort: 'atcr', person: personFactory.build({ name: 'Roger Smith' }) })
@@ -22,12 +23,8 @@ describe('LicenceDates', () => {
   }
 
   describe('questions', () => {
-    const allQuestions = {
-      hasHdcExpiryDate: 'Does Roger Smith have an HDC expiry date?',
-      hdcExpiryDate: 'HDC expiry date',
-      licenceEndDate: "What is Roger Smith's licence end date?",
-      licenceStartDate: "What is Roger Smith's licence start date/conditional release date?",
-    }
+    const allQuestions = getQuestions('Roger Smith')['cohort-selection']['licence-dates']
+
     const tests: Array<[Cas2CohortDto, object]> = [
       ['hcrd', { ...allQuestions, hasHdcExpiryDate: undefined }],
       ['atcr', { ...allQuestions }],
@@ -56,9 +53,10 @@ describe('LicenceDates', () => {
 
   describe('Errors', () => {
     it('Returns errors if the form is blank', () => {
-      expect(page('isc').errors()).toEqual({
+      expect(page('atcr').errors()).toEqual({
         licenceEndDate: 'Licence end date must be entered',
         licenceStartDate: 'Licence start date must be entered',
+        hasHdcExpiryDate: 'Select yes if they have a HDC expiry date',
       })
     })
 
@@ -100,21 +98,28 @@ describe('LicenceDates', () => {
     })
   })
 
-  describe('items', () => {
-    it('returns the radio with the expected label text and conditional content injected', () => {
-      expect(page('hcrd').hdcRadioItems({ yes: { html: '<Conditional html>' } })).toEqual([
-        {
-          checked: false,
-          text: 'Yes',
-          value: 'yes',
-          conditional: { html: '<Conditional html>' },
-        },
-        {
-          checked: false,
-          text: 'No',
-          value: 'no',
-        },
-      ])
+  describe('response', () => {
+    it('Returns the correct response', () => {
+      const testPage = new LicenceDates(filledBody, application)
+
+      expect(testPage.response()).toEqual({
+        'Does Roger Smith have an HDC expiry date?': 'Yes',
+        'HDC expiry date': '3 October 2026',
+        "What is Roger Smith's licence end date?": '12 July 2026',
+        "What is Roger Smith's licence start date/conditional release date?": '3 May 2026',
+      })
+    })
+  })
+
+  describe('isApplicable', () => {
+    it('should only be applicable for "other" applicationOrigin', () => {
+      const testPage = new LicenceDates({}, { ...application, applicationOrigin: 'other' })
+      expect(testPage.isApplicable()).toEqual(true)
+    })
+
+    it('should not be applicable if origin is not "other"', () => {
+      const testPage = new LicenceDates({}, { ...application, applicationOrigin: 'courtBail' })
+      expect(testPage.isApplicable()).toEqual(false)
     })
   })
 })

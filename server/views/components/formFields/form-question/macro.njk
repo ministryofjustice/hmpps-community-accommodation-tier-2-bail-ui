@@ -1,0 +1,54 @@
+{% from "../form-page-radios/macro.njk" import formPageRadios with context %}
+{% from "../form-page-date-input/macro.njk" import formPageDateInput with context %}
+{% from "../form-page-text-area/macro.njk" import formPageTextArea %}
+
+{% macro formQuestion(fieldName, questions, context) %}
+    {% set question = questions[fieldName] %}
+
+    {% if page.questions.length !== 1 or question.question !== page.title %}
+        {% set fieldset = {
+            legend: {
+                html:  '<h2 class="govuk-fieldset__heading">' + question.question + "</h2>",
+                classes: "govuk-fieldset__legend--m"
+            }
+        } %}
+    {% endif %}
+
+    {% if question.dataType === 'radio' %}
+        {{ formPageRadios(
+            {
+                fieldset: fieldset,
+                fieldName: fieldName,
+                items: convertKeyValuePairToRadioItems(question.answers, page.body[qKey])
+            },
+            context
+        ) }}
+    {% endif %}
+
+    {% if question.dataType === 'date' %}
+        {{ formPageDateInput(
+            {
+                fieldName: fieldName,
+                fieldset: fieldset,
+                items: dateFieldValuesWithContext(fieldName, context, context.errors)
+            },
+            context
+        ) }}
+    {% endif %}
+
+    {% if question.dataType === 'textArea' %}
+    {{
+    formPageTextArea(
+        {
+            fieldName: fieldName,
+            label: {
+            text: question.question,
+            classes: "govuk-label--s"
+        }
+        },
+        context
+    )
+    }}
+    {%  endif %}
+
+{% endmacro %}

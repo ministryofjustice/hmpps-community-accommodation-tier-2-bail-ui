@@ -71,10 +71,8 @@ export const addPageAnswersToItemsArray = (params: {
   const PageClass = getPage(task, pageKey)
 
   const body = application?.data?.[task]?.[pageKey]
-
   const page = new PageClass(body, application)
   const response = page.response?.()
-
   if (response) {
     Object.keys(response).forEach((question, index) => {
       if (outputFormat === 'checkYourAnswers') {

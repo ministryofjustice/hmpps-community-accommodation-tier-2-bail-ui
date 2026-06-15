@@ -1,10 +1,9 @@
 import { TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Cas2v2Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
-import TaskListPage from '../../../taskListPage'
-import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
+import BasePage from '../../../utils/basePage'
 
 type LicenceDatesNeededBody = {
   licenceDatesNeeded: YesOrNo
@@ -14,32 +13,24 @@ type LicenceDatesNeededBody = {
   name: 'licence-dates-needed',
   bodyProperties: ['licenceDatesNeeded'],
 })
-export default class LicenceDatesNeeded implements TaskListPage {
+export default class LicenceDatesNeeded extends BasePage {
   isOtherCohort = this.application.applicationOrigin === 'other'
 
   documentTitle = 'Licence dates needed'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Is ${this.personName} on licence for a different offence?`
-
-  questions: Record<string, string>
-
-  options: Record<string, string>
-
-  body: { licenceDatesNeeded: YesOrNo }
+  body: LicenceDatesNeededBody
 
   constructor(
     body: Partial<LicenceDatesNeededBody>,
     private readonly application: Cas2v2Application,
   ) {
+    super()
     this.body = body as LicenceDatesNeededBody
 
-    const applicationQuestions = getQuestions(this.personName)
-    this.questions = {
-      licenceDatesNeeded: applicationQuestions.licence['licence-dates-needed'].licenceDatesNeeded.question,
-    }
-    this.options = applicationQuestions.licence['licence-dates-needed'].licenceDatesNeeded.answers
+    this.questions = getQuestions(this.personName)['cohort-selection']['licence-dates-needed']
+    this.title = this.questions.licenceDatesNeeded.question
   }
 
   previous() {
@@ -56,10 +47,6 @@ export default class LicenceDatesNeeded implements TaskListPage {
       errors.licenceDatesNeeded = `Select yes if ${this.personName} is on licence for a different offence`
     }
     return errors
-  }
-
-  items() {
-    return convertKeyValuePairToRadioItems(this.options, this.body.licenceDatesNeeded)
   }
 
   isApplicable() {

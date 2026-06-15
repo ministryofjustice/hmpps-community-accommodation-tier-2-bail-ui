@@ -206,10 +206,10 @@ export default function deleteOrphanedFollowOnAnswers(
     delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-year']
   }
   if (cohort !== 'atcr') {
-    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcEligibilityDate-day']
-    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcEligibilityDate-month']
-    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcEligibilityDate-year']
-    delete applicationData['cohort-selection']?.['licence-dates']?.hasHdcEligibilityDate
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-day']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-month']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-year']
+    delete applicationData['cohort-selection']?.['licence-dates']?.hasHdcExpiryDate
   }
   if (cohort !== 'isc') {
     delete applicationData['cohort-selection']?.['licence-dates-needed']?.licenceDatesNeeded

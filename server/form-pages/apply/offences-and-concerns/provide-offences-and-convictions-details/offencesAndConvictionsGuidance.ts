@@ -22,7 +22,7 @@ export default class OffencesAndConvictionsGuidance implements TaskListPage {
 
   questions = getQuestions(this.personName)['provide-offences-and-convictions-details'][
     'offences-and-convictions-guidance'
-  ]
+  ].offencesAndConvictionsGuidance
 
   constructor(
     body: Partial<OffencesAndConvictionsGuidanceBody>,

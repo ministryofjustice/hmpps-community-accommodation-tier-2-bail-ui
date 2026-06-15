@@ -10,7 +10,16 @@ describe('LicenceDatesNeeded', () => {
 
   describe('questions', () => {
     it('Returns the correct questions', () => {
-      expect(page.questions).toEqual({ licenceDatesNeeded: 'Is Roger Smith on licence for a different offence?' })
+      expect(page.questions).toEqual({
+        licenceDatesNeeded: {
+          answers: {
+            no: 'No',
+            yes: 'Yes',
+          },
+          dataType: 'radio',
+          question: 'Is Roger Smith on licence for a different offence?',
+        },
+      })
     })
   })
 
@@ -37,20 +46,23 @@ describe('LicenceDatesNeeded', () => {
     })
   })
 
-  describe('items', () => {
-    it('returns the radio with the expected label text', () => {
-      expect(yesPage.items()).toEqual([
-        {
-          checked: true,
-          text: 'Yes',
-          value: 'yes',
-        },
-        {
-          checked: false,
-          text: 'No',
-          value: 'no',
-        },
-      ])
+  describe('response', () => {
+    it('Returns the correct response', () => {
+      expect(yesPage.response()).toEqual({
+        'Is Roger Smith on licence for a different offence?': 'Yes',
+      })
+    })
+  })
+
+  describe('isApplicable', () => {
+    it('should only be applicable for "other" applicationOrigin', () => {
+      const testPage = new LicenceDatesNeeded({}, { ...application, applicationOrigin: 'other' })
+      expect(testPage.isApplicable()).toEqual(true)
+    })
+
+    it('should not be applicable if origin is not "other"', () => {
+      const testPage = new LicenceDatesNeeded({}, { ...application, applicationOrigin: 'courtBail' })
+      expect(testPage.isApplicable()).toEqual(false)
     })
   })
 })

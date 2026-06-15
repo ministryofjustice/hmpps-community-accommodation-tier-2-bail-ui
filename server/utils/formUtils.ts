@@ -20,12 +20,17 @@ export const escape = (text: string): string => {
   return escapeFilter(text).val
 }
 
-export function convertKeyValuePairToRadioItems<T extends object>(object: T, checkedItem: string): Array<RadioItem> {
+export function convertKeyValuePairToRadioItems<T extends object>(
+  object: T,
+  checkedItem: string,
+  conditionals?: Record<string, unknown>,
+): Array<RadioItem> {
   return Object.entries(object).map(([key, value]) => {
     return {
       value: key,
       text: value,
       checked: checkedItem === key,
+      conditional: conditionals?.[key],
     }
   })
 }

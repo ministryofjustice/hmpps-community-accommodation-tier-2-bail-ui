@@ -13,6 +13,8 @@ import {
 import { DateFormats } from './dateUtils'
 
 describe('formutils', () => {
+  const obj = { foo: 'Foo', bar: 'Bar' }
+
   describe('escape', () => {
     it('escapes HTML tags', () => {
       expect(escape('<b>Formatted text</b>')).toEqual('&lt;b&gt;Formatted text&lt;/b&gt;')
@@ -28,129 +30,57 @@ describe('formutils', () => {
   })
 
   describe('convertKeyValuePairToRadioItems', () => {
-    const obj = {
-      foo: 'Foo',
-      bar: 'Bar',
-    }
-
     it('should convert a key value pair to radio items', () => {
       expect(convertKeyValuePairToRadioItems(obj, '')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should check the checked item', () => {
       expect(convertKeyValuePairToRadioItems(obj, 'foo')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
 
       expect(convertKeyValuePairToRadioItems(obj, 'bar')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: true },
+      ])
+    })
+
+    it('should inject conditionals from a map', () => {
+      expect(convertKeyValuePairToRadioItems(obj, '', { bar: { html: 'Bar conditional' } })).toEqual([
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false, conditional: { html: 'Bar conditional' } },
       ])
     })
   })
 
   describe('convertKeyValuePairToCheckboxItems', () => {
-    const obj = {
-      foo: 'Foo',
-      bar: 'Bar',
-    }
-
     it('should convert a key value pair to checkbox items', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, [])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should handle an undefined checkedItems value', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, undefined)).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should check the checked item', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, ['foo'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
-      ])
-
-      expect(convertKeyValuePairToCheckboxItems(obj, ['bar'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
 
       expect(convertKeyValuePairToCheckboxItems(obj, ['foo', 'bar'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: true },
       ])
     })
   })

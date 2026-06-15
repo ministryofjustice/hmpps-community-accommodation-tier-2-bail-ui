@@ -27,7 +27,7 @@ import {
 import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
-import { dateFieldValues } from './formUtils'
+import { convertKeyValuePairToRadioItems, dateFieldValues } from './formUtils'
 import statusTag from './personUtils'
 import * as TaskListUtils from './taskListUtils'
 import { pagination } from './pagination'
@@ -88,6 +88,7 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('dateFieldValues', function sendContextToDateFieldValues(fieldName: string, errors: ErrorMessages) {
     return dateFieldValues(fieldName, this.ctx, errors)
   })
+  njkEnv.addGlobal('dateFieldValuesWithContext', dateFieldValues)
   njkEnv.addGlobal('formatDate', DateFormats.isoDateToUIDate)
 
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
@@ -96,6 +97,8 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)
   njkEnv.addGlobal('applicationStatusDetailOptions', applicationStatusDetailOptions)
+
+  njkEnv.addGlobal('convertKeyValuePairToRadioItems', convertKeyValuePairToRadioItems)
 
   njkEnv.addFilter('removeBlankSummaryListItems', removeBlankSummaryListItems)
   njkEnv.addFilter('formatLines', formatLines)
