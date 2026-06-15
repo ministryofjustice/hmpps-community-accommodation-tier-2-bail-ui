@@ -20,7 +20,7 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
     return cy.fixture('applicationData.json').then(applicationData => {
       return applicationFactory.build({
         person,
-        data: { ...applicationData, 'cohort-selection': cohort },
+        data: { ...applicationData, 'cohort-selection': { 'cohort-selection': { cohort } } },
         applicationOrigin: !['courtBail', 'prisonBail'].includes(cohort) ? 'other' : (cohort as ApplicationOrigin),
       })
     })
@@ -109,6 +109,46 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
   })
 
   it('should reports errors to the user for missing form data', () => {
-    getApplication('prisonBail')
+    // Given we have created a prison bail application
+    getApplication('prisonBail').then(application => {
+      const applicationWithoutContactInfo = {
+        ...application,
+        data: {
+          ...application.data,
+          'solicitor-details': { 'has-solicitor': { hasSolicitor: 'yes' } },
+        },
+      }
+
+      cy.task('stubApplicationGet', { application: applicationWithoutContactInfo })
+      cy.task('stubApplicationUpdate', { application: applicationWithoutContactInfo })
+
+      // And I am on the task list
+      const taskListPage = TaskListPage.visit(applicationWithoutContactInfo)
+
+      // When I select the "Add solicitor details" taskk
+      taskListPage.visitTask('Add solicitor details')
+
+      // Then I should see the "Does <name> have a solicitor" page
+      const hasSolicitorPage = Page.verifyOnPage(HasSolicitorPage, applicationWithoutContactInfo)
+
+      // When I submit "Yes" to proceed to the contact information page
+      hasSolicitorPage.checkRadioByNameAndLabel('hasSolicitor', 'Yes')
+      hasSolicitorPage.clickSubmit()
+
+      // Then I should see the "Add solicitor's contact information" page
+      const solicitorDetailsPage = Page.verifyOnPage(SolicitorDetailsPage, applicationWithoutContactInfo)
+
+      // When I submit the form without filling any fields
+      solicitorDetailsPage.clickSubmit()
+
+      // Then I should see errors for all required fields
+      solicitorDetailsPage.shouldShowErrorMessagesForFields(['name'], "Enter the solicitor's full name")
+      solicitorDetailsPage.shouldShowErrorMessagesForFields(
+        ['legalFirmAndAddress'],
+        "Enter the solicitor's legal firm and address",
+      )
+      solicitorDetailsPage.shouldShowErrorMessagesForFields(['email'], "Enter the solicitor's email address")
+      solicitorDetailsPage.shouldShowErrorMessagesForFields(['number'], "Enter the solicitor's contact number")
+    })
   })
 })
