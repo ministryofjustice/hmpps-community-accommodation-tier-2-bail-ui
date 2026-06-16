@@ -69,6 +69,16 @@ export default abstract class Page {
     cy.get(`#${id}`).type(details)
   }
 
+  getTextInputByLabelAndEnterDetails(label: string, details: string): void {
+    cy.get('label')
+      .contains(label)
+      .closest('.govuk-form-group')
+      .within(() => {
+        cy.get('input').clear()
+        cy.get('input').type(details)
+      })
+  }
+
   shouldShowErrorMessagesForFields(fields: Array<string>, error?: string): void {
     fields.forEach(field => {
       const errorMessagesLookup = error || errorLookups[error || field].empty

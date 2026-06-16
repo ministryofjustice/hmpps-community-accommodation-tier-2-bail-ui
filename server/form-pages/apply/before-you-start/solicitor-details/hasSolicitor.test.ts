@@ -1,3 +1,4 @@
+import { Cas2v2Application } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import HasSolicitor from './hasSolicitor'
 import { applicationFactory, personFactory } from '../../../../testutils/factories/index'
@@ -51,5 +52,23 @@ describe('HasSolicitor', () => {
         hasSolicitor: 'Choose either Yes or No',
       })
     })
+  })
+
+  it('isApplicable should return true for court bail applications', () => {
+    const testApplication = { ...application, applicationOrigin: 'courtBail' } as Cas2v2Application
+    const hasSolicitorPage = new HasSolicitor({}, testApplication)
+    expect(hasSolicitorPage.isApplicable()).toBe(true)
+  })
+
+  it('isApplicable should return true for prison bail applications', () => {
+    const testApplication = { ...application, applicationOrigin: 'prisonBail' } as Cas2v2Application
+    const hasSolicitorPage = new HasSolicitor({}, testApplication)
+    expect(hasSolicitorPage.isApplicable()).toBe(true)
+  })
+
+  it('isApplicable should return false for new cohort applications', () => {
+    const testApplication = { ...application, applicationOrigin: 'other' } as Cas2v2Application
+    const hasSolicitorPage = new HasSolicitor({}, testApplication)
+    expect(hasSolicitorPage.isApplicable()).toBe(false)
   })
 })

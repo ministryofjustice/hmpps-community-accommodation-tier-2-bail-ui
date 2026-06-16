@@ -51,7 +51,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
     page.clickSubmit('Confirm and continue')
 
     // Then I am redirected back to the tasklist with everything completed
-    cy.contains('You have completed 19 of 19 tasks.')
+    cy.contains('You have completed 18 of 18 tasks.')
 
     // And the application cohort is updated
     cy.task('verifyApplicationUpdate', application.id).then(requests => {

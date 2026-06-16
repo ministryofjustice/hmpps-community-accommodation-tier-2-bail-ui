@@ -61,4 +61,8 @@ export default class HasSolicitor implements TaskListPage {
   items() {
     return convertKeyValuePairToRadioItems(this.options, this.body.hasSolicitor)
   }
+
+  isApplicable(): boolean {
+    return ['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)
+  }
 }
