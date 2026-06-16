@@ -13,7 +13,7 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
   const { pages } = Apply
   const { get, post, put } = actions(router)
 
-  const { applicationsController, pagesController, cancelController } = controllers
+  const { applicationsController, pagesController, cancelController, peopleController } = controllers
 
   get(paths.applications.beforeYouStart.pattern, applicationsController.beforeYouStartBail({ newCohorts: false }), {
     auditEvent: 'VIEW_APPLICATION_BEFORE_YOU_START',
@@ -44,36 +44,103 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
         auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
       },
     )
-    get(paths.applications.newCohorts.bail.applicationOrigin.pattern, applicationsController.bailApplicationOrigin(), {
-      auditEvent: 'VIEW_BAIL_APPLICATION_ORIGIN',
-    })
+
+    get(
+      paths.applications.newCohorts.bail.applicationOrigin.pattern,
+      applicationsController.bailApplicationOrigin({ newCohorts: true }),
+      {
+        auditEvent: 'VIEW_BAIL_APPLICATION_ORIGIN',
+      },
+    )
+
     post(
       paths.applications.newCohorts.bail.selectApplicationOrigin.pattern,
-      applicationsController.selectBailApplicationOrigin(),
+      applicationsController.selectBailApplicationOrigin({ newCohorts: true }),
       {
         auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
       },
     )
 
-    get(paths.applications.newCohorts.searchByCrn.pattern, applicationsController.searchByCrn(), {
+    get(paths.applications.newCohorts.searchByCrn.pattern, applicationsController.searchByCrn('other'), {
       auditEvent: 'VIEW_APPLICATION_SEARCH_BY_CRN',
     })
+
+    get(paths.applications.newCohorts.bail.searchByCrn.pattern, applicationsController.searchByCrn('bail'), {
+      auditEvent: 'VIEW_APPLICATION_SEARCH_BY_CRN',
+    })
+
+    get(
+      paths.applications.newCohorts.bail.searchByPrisonNumber.pattern,
+      applicationsController.searchByPrisonNumber({ newCohorts: true }),
+      {
+        auditEvent: 'VIEW_APPLICATION_SEARCH_BY_PRISON_NUMBER',
+      },
+    )
+
+    post(paths.applications.newCohorts.people.findByCrn.pattern, peopleController.findByCrn(), {
+      auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
+      auditBodyParams: ['crn'],
+    })
+
+    post(paths.applications.newCohorts.bail.people.findByCrn.pattern, peopleController.findByCrn(), {
+      auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
+      auditBodyParams: ['crn'],
+    })
+
+    post(paths.applications.newCohorts.bail.people.findByPrisonNumber.pattern, peopleController.findByPrisonNumber(), {
+      auditEvent: 'FIND_APPLICATION_PERSON_BY_PRISON_NUMBER',
+      auditBodyParams: ['prisonNumber'],
+    })
+
+    get(
+      paths.applications.newCohorts.bail.unauthorisedCourtBailApplication.pattern,
+      applicationsController.unauthorisedCourtBailApplication(),
+      {
+        auditEvent: 'VIEW_APPLICATION_UNAUTHORISED_COURT_BAIL',
+      },
+    )
+
+    get(
+      paths.applications.newCohorts.bail.unauthorisedPrisonBailApplication.pattern,
+      applicationsController.unauthorisedPrisonBailApplication(),
+      {
+        auditEvent: 'VIEW_APPLICATION_UNAUTHORISED_PRISON_BAIL',
+      },
+    )
   }
 
-  get(paths.applications.applicationOrigin.pattern, applicationsController.bailApplicationOrigin(), {
-    auditEvent: 'VIEW_APPLICATION_ORIGIN',
-  })
+  get(
+    paths.applications.applicationOrigin.pattern,
+    applicationsController.bailApplicationOrigin({ newCohorts: false }),
+    {
+      auditEvent: 'VIEW_APPLICATION_ORIGIN',
+    },
+  )
 
-  post(paths.applications.selectApplicationOrigin.pattern, applicationsController.selectBailApplicationOrigin(), {
-    auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
-  })
+  post(
+    paths.applications.selectApplicationOrigin.pattern,
+    applicationsController.selectBailApplicationOrigin({ newCohorts: false }),
+    {
+      auditEvent: 'VIEW_APPLICATION_SELECT_APPLICATION_ORIGIN',
+    },
+  )
 
   get(paths.applications.searchByPrisonNumber.pattern, applicationsController.searchByPrisonNumber(), {
     auditEvent: 'VIEW_APPLICATION_SEARCH_BY_PRISON_NUMBER',
   })
 
+  post(paths.applications.people.findByPrisonNumber.pattern, peopleController.findByPrisonNumber(), {
+    auditEvent: 'FIND_APPLICATION_PERSON_BY_PRISON_NUMBER',
+    auditBodyParams: ['prisonNumber'],
+  })
+
   get(paths.applications.searchByCrn.pattern, applicationsController.searchByCrn(), {
     auditEvent: 'VIEW_APPLICATION_SEARCH_BY_CRN',
+  })
+
+  post(paths.applications.people.findByCrn.pattern, peopleController.findByCrn(), {
+    auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
+    auditBodyParams: ['crn'],
   })
 
   get(

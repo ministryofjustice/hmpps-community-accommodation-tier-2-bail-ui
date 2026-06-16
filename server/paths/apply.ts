@@ -7,6 +7,8 @@ const newCohortsBailApplicationsPath = newCohortsApplicationsPath.path('bail')
 const singleApplicationPath = applicationsPath.path(':id')
 const pagesPath = singleApplicationPath.path('tasks/:task/pages/:page')
 const peoplePath = applicationsPath.path('people')
+const newCohortsPeoplePath = newCohortsApplicationsPath.path('people')
+const newCohortsBailPeoplePath = newCohortsBailApplicationsPath.path('people')
 
 const appendToListPath = pagesPath.path('/appendToList')
 
@@ -31,10 +33,21 @@ const paths = {
       beforeYouStart: newCohortsApplicationsPath.path('before-you-start'),
       selectApplicationOrigin: newCohortsApplicationsPath.path('select-application-origin'),
       searchByCrn: newCohortsApplicationsPath.path('search-by-crn'),
+      people: {
+        findByCrn: newCohortsPeoplePath.path('find-by-crn'),
+      },
       bail: {
         applicationOrigin: newCohortsBailApplicationsPath.path('application-type'),
         beforeYouStart: newCohortsBailApplicationsPath.path('before-you-start'),
         selectApplicationOrigin: newCohortsBailApplicationsPath.path('select-application-origin'),
+        unauthorisedCourtBailApplication: newCohortsBailApplicationsPath.path('unauthorised-court-bail-application'),
+        unauthorisedPrisonBailApplication: newCohortsBailApplicationsPath.path('unauthorised-prison-bail-application'),
+        searchByPrisonNumber: newCohortsBailApplicationsPath.path('search-by-prison-number'),
+        searchByCrn: newCohortsBailApplicationsPath.path('search-by-crn'),
+        people: {
+          findByPrisonNumber: newCohortsBailPeoplePath.path('find-by-prison-number'),
+          findByCrn: newCohortsBailPeoplePath.path('find-by-crn'),
+        },
       },
     },
     people: {
