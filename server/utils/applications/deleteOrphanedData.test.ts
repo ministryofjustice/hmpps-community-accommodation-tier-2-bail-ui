@@ -429,7 +429,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
 
     const licenceStarDate = expandDate('licenceStartDate')
     const licenceEndDate = expandDate('licenceEndDate')
-    const hdcEligibilityDate = { ...expandDate('hdcEligibilityDate'), hasHdcEligibilityDate: 'yes' }
+    const hdcEligibilityDate = { ...expandDate('hdcExpiryDate'), hasHdcExpiryDate: 'yes' }
 
     const allLicenceDates = { ...licenceStarDate, ...licenceEndDate, ...hdcEligibilityDate }
 
@@ -455,7 +455,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       )
     })
 
-    it('removes the hdcEligibility date if cohort is hcrd', () => {
+    it('removes the hdcExpiry date if cohort is hcrd', () => {
       expect(deleteOrphanedFollowOnAnswers(applicationData('hcrd', allLicenceDates))).toEqual(
         applicationData('hcrd', { ...licenceEndDate, ...licenceStarDate }),
       )
