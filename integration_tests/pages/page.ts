@@ -77,7 +77,6 @@ export default abstract class Page {
         cy.get('input').clear()
         cy.get('input').type(details)
       })
-    // cy.get('label').contains(label).closest('.govuk-form-group').find('input').type(details)
   }
 
   shouldShowErrorMessagesForFields(fields: Array<string>, error?: string): void {
