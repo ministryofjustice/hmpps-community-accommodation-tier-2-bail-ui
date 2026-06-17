@@ -21,26 +21,9 @@
 {% block questions %}
     <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-    {{ formPageRadios(
-        {
-            fieldName: "cohort",
-            items: page.items()
-        },
-        fetchContext()
-    ) }}
-
-    {{
-    formPageTextArea(
-        {
-            fieldName: "notes",
-            label: {
-            text: page.questions.notes.question,
-            classes: "govuk-label--s"
-        }
-        },
-        fetchContext()
-    )
-    }}
+    {% for questionKey, question in page.questions %}
+        {{ formQuestion(questionKey,page.questions,fetchContext()) }}
+    {% endfor %}
 
 {% endblock %}
 

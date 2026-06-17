@@ -1,8 +1,7 @@
-import { Radio, TaskListErrors } from '@approved-premises/ui'
+import { TaskListErrors } from '@approved-premises/ui'
 import { Cas2v2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
-import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { NonBailCohort } from '../../../../utils/applications/cohortLabels'
@@ -45,7 +44,7 @@ export default class CohortSelection implements TaskListPage {
   }
 
   next() {
-    return ''
+    return this.body.cohort === 'isc' ? 'licence-dates-needed' : 'licence-dates'
   }
 
   errors() {
@@ -54,10 +53,6 @@ export default class CohortSelection implements TaskListPage {
       errors.cohort = `Select why ${this.personName} needs CAS2 accommodation`
     }
     return errors
-  }
-
-  items() {
-    return convertKeyValuePairToRadioItems(this.questions.cohort.answers, this.body.cohort) as Array<Radio>
   }
 
   response() {

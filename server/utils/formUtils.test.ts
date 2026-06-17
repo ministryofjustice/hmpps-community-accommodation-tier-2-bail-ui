@@ -1,5 +1,6 @@
 import { createMock } from '@golevelup/ts-jest'
-import { ErrorMessages } from '@approved-premises/ui'
+import { ErrorMessages, type ObjectWithDateParts } from '@approved-premises/ui'
+import { addDays, subDays } from 'date-fns'
 import {
   escape,
   convertKeyValuePairToRadioItems,
@@ -7,9 +8,13 @@ import {
   dateFieldValues,
   summaryListItem,
   isValidEmail,
+  validateDateParts,
 } from './formUtils'
+import { DateFormats } from './dateUtils'
 
 describe('formutils', () => {
+  const obj = { foo: 'Foo', bar: 'Bar' }
+
   describe('escape', () => {
     it('escapes HTML tags', () => {
       expect(escape('<b>Formatted text</b>')).toEqual('&lt;b&gt;Formatted text&lt;/b&gt;')
@@ -25,129 +30,57 @@ describe('formutils', () => {
   })
 
   describe('convertKeyValuePairToRadioItems', () => {
-    const obj = {
-      foo: 'Foo',
-      bar: 'Bar',
-    }
-
     it('should convert a key value pair to radio items', () => {
       expect(convertKeyValuePairToRadioItems(obj, '')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should check the checked item', () => {
       expect(convertKeyValuePairToRadioItems(obj, 'foo')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
 
       expect(convertKeyValuePairToRadioItems(obj, 'bar')).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: true },
+      ])
+    })
+
+    it('should inject conditionals from a map', () => {
+      expect(convertKeyValuePairToRadioItems(obj, '', { bar: { html: 'Bar conditional' } })).toEqual([
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false, conditional: { html: 'Bar conditional' } },
       ])
     })
   })
 
   describe('convertKeyValuePairToCheckboxItems', () => {
-    const obj = {
-      foo: 'Foo',
-      bar: 'Bar',
-    }
-
     it('should convert a key value pair to checkbox items', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, [])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should handle an undefined checkedItems value', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, undefined)).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
+        { value: 'foo', text: 'Foo', checked: false },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
     })
 
     it('should check the checked item', () => {
       expect(convertKeyValuePairToCheckboxItems(obj, ['foo'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: false,
-        },
-      ])
-
-      expect(convertKeyValuePairToCheckboxItems(obj, ['bar'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: false,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: false },
       ])
 
       expect(convertKeyValuePairToCheckboxItems(obj, ['foo', 'bar'])).toEqual([
-        {
-          value: 'foo',
-          text: 'Foo',
-          checked: true,
-        },
-        {
-          value: 'bar',
-          text: 'Bar',
-          checked: true,
-        },
+        { value: 'foo', text: 'Foo', checked: true },
+        { value: 'bar', text: 'Bar', checked: true },
       ])
     })
   })
@@ -290,6 +223,32 @@ describe('formutils', () => {
       'should return true for valid email: %s',
       email => {
         expect(isValidEmail(email)).toBe(true)
+      },
+    )
+  })
+
+  describe('validateDateParts', () => {
+    type BodyType = ObjectWithDateParts<'testDate'>
+    const futureDate = DateFormats.dateObjToIsoDate(addDays(new Date(), 10))
+    const pastDate = DateFormats.dateObjToIsoDate(subDays(new Date(), 10))
+
+    const tests = [
+      ['2026-04-12', {}, {}],
+      ['', { testDate: 'Test date must be entered' }, {}],
+      ['2026-02-29', { testDate: 'Test date must be a real date' }, {}],
+      ['not-a-date', { testDate: 'Test date must be a real date' }, {}],
+      [futureDate, {}, { future: true }],
+      [futureDate, { testDate: 'Test date must be in the past' }, { past: true }],
+      [pastDate, {}, { past: true }],
+      [pastDate, { testDate: 'Test date must be in the future' }, { future: true }],
+    ]
+
+    it.each(tests)(
+      'Date %s',
+      (iso: string, expected: Record<string, string>, options: { future: boolean; past: boolean }) => {
+        const parts = iso.split('-')
+        const body = { 'testDate-day': parts[2], 'testDate-month': parts[1], 'testDate-year': parts[0] }
+        expect(validateDateParts<BodyType>('testDate', 'Test date', body, options)).toEqual(expected)
       },
     )
   })

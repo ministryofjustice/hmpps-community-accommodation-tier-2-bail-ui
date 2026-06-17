@@ -1,0 +1,38 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+    {% set hdcExpiryDateHtml %}
+        {{ formQuestion("hdcExpiryDate", page.questions, fetchContext()) }}
+    {% endset %}
+
+    {% if page.questions.licenceStartDate %}
+        {{ formQuestion("licenceStartDate", page.questions, fetchContext()) }}
+    {% endif %}
+
+    {{ formQuestion("licenceEndDate", page.questions, fetchContext()) }}
+
+    {% if  page.questions.hasHdcExpiryDate %}
+        {{ formPageRadios(
+            {
+                fieldName: "hasHdcExpiryDate",
+                fieldset: {
+                legend: {
+                    html:  '<h2 class="govuk-fieldset__heading">' + page.questions.hasHdcExpiryDate.question + "</h2>",
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+                items: convertKeyValuePairToRadioItems(page.questions.hasHdcExpiryDate.answers, page.body.hasHdcExpiryDate, { yes: { html: hdcExpiryDateHtml} })
+            },
+            fetchContext()
+        ) }}
+    {%  endif %}
+
+{% endblock %}
+
+{% block button %}
+    {{ govukButton({
+        text: "Save and continue"
+    }) }}
+{% endblock %}

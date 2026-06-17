@@ -302,3 +302,8 @@ export const dateIsComplete = <K extends string | number>(
 
   return allPartsExist
 }
+
+export const isoDateToDateParts = (isoDate: string, key: string) => {
+  const [year, month, day] = isoDate.split('-')
+  return { [`${key}-day`]: day, [`${key}-month`]: month, [`${key}-year`]: year }
+}

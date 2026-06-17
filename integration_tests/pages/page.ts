@@ -209,4 +209,8 @@ export default abstract class Page {
   shouldShowErrorSummary(text: string): void {
     cy.get('.govuk-error-summary').should('contain', text)
   }
+
+  shouldNotShowErrorSummary(text: string): void {
+    cy.get('.govuk-error-summary').should('not.contain', text)
+  }
 }
