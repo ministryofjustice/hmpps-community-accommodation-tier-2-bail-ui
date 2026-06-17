@@ -119,6 +119,33 @@ export default {
       },
     }),
 
+  stubApplicationGetFromLastUpdate: async (args: { application: Application }) => {
+    const {
+      body: { requests },
+    } = await getMatchingRequests({
+      method: 'PUT',
+      url: paths.applications.show({ id: args.application.id }),
+    })
+    const lastPostData = requests.pop()?.body
+    const jsonBody = {
+      ...args.application,
+      ...JSON.parse(lastPostData),
+    }
+    return stubFor({
+      request: {
+        method: 'GET',
+        url: paths.applications.show({ id: args.application.id }),
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody,
+      },
+    })
+  },
+
   verifyApplicationUpdate: async (applicationId: string) =>
     (
       await getMatchingRequests({

@@ -4,7 +4,7 @@ import ApplyPage from '../../applyPage'
 import { cohortSelectionAnswers } from '../../../../../server/utils/applications/cohortLabels'
 
 export default class CohortSelectionPage extends ApplyPage {
-  constructor(application: Application) {
+  constructor(readonly application: Application) {
     super(
       `Why does ${(application.person as FullPerson).name} need CAS2 accommodation?`,
       application,
@@ -29,5 +29,13 @@ export default class CohortSelectionPage extends ApplyPage {
       cy.contains(question)
     })
     cy.contains('Provide details (optional)')
+  }
+
+  selectCohort(cohort: string) {
+    CohortSelectionPage.visit(this.application)
+    this.checkRadioByNameAndValue('cohort', cohort)
+    this.clickSubmit('Confirm and continue')
+    cy.task('stubApplicationGetFromLastUpdate', { application: this.application })
+    cy.reload()
   }
 }

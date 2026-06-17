@@ -102,4 +102,42 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
       licencePage.verifyUpdate(updatedApplication)
     })
   })
+
+  it('Removes orphaned data', () => {
+    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationUpdate', { application })
+
+    // Given I am on the cohort selection page
+    const cohortPage = CohortSelectionPage.visit(application)
+
+    // When I select cohort 'atcr'
+    cohortPage.selectCohort('atcr')
+
+    // Then I am on the licence dates page
+    const licencePage = new LicenceDatesPage(application)
+    licencePage.completeForm('atcr')
+
+    // When I complete the dates including hdcExpiry
+    licencePage.clickSubmit('Save and continue')
+    cy.task('stubApplicationGetFromLastUpdate', { application })
+
+    // And I return to the cohort page and switch to 'hcrd'
+    cohortPage.selectCohort('rarr')
+
+    // And I return to the cohort page and switch to 'atcr' again
+    cohortPage.selectCohort('atcr')
+
+    // When I submit the page
+    licencePage.clickSubmit('Save and continue')
+
+    // Then I see errors because the start date and hdc radion have been cleared
+    licencePage.shouldShowErrorSummary('Licence start date must be entered')
+    licencePage.shouldShowErrorSummary('Select yes if they have a HDC expiry date')
+
+    // When I select yes to the HDC expiry date
+    licencePage.checkRadioByNameAndValue('hasHdcExpiryDate', 'yes')
+    licencePage.clickSubmit('Save and continue')
+    // Then I can see that the hdc expiry date has been cleared too
+    licencePage.shouldShowErrorSummary('HDC expiry date must be entered')
+  })
 })
