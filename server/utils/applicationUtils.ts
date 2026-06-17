@@ -1,8 +1,8 @@
 import type {
   Cas2CohortDto,
-  Cas2v2SubmittedApplicationSummary,
-  Cas2v2ApplicationSummary,
-  Cas2v2Application,
+  Cas2SubmittedApplicationSummary,
+  Cas2ApplicationSummary,
+  Cas2Application,
 } from '@approved-premises/api'
 import type { QuestionAndAnswer, SummaryListItem, TableRow } from '@approved-premises/ui'
 import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
@@ -26,7 +26,7 @@ export const cohortLabels: Record<Cas2CohortDto, string> = {
 
 export const cohortLabel = (cohort?: Cas2CohortDto): string => (cohort ? (cohortLabels[cohort] ?? cohort) : '')
 
-export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
+export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, false, true),
@@ -41,7 +41,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2v2Applica
 }
 
 export const submittedApplicationTableRows = (
-  applications: Array<Cas2v2ApplicationSummary>,
+  applications: Array<Cas2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
@@ -56,7 +56,7 @@ export const submittedApplicationTableRows = (
   })
 }
 
-export const prisonApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
+export const prisonApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id),
@@ -70,7 +70,7 @@ export const prisonApplicationTableRows = (applications: Array<Cas2v2Application
   })
 }
 
-export const assessmentsTableRows = (applications: Array<Cas2v2SubmittedApplicationSummary>): Array<TableRow> => {
+export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, true),
@@ -152,7 +152,7 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
-export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): boolean => {
+export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
   const bailTasks = ['confirm-eligibility', 'confirm-consent']
   const otherTasks = [...bailTasks, 'cohort-selection']
 

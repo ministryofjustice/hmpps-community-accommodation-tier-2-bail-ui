@@ -1,5 +1,5 @@
 import type { SelectItem, TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
@@ -39,7 +39,7 @@ export default class AllegedOffenceData implements TaskListPage {
 
   constructor(
     body: Partial<AllegedOffenceDataBody>,
-    private readonly application: Cas2v2Application,
+    private readonly application: Cas2Application,
   ) {
     this.body = body as AllegedOffenceDataBody
     this.hasPreviouslySavedAnAllegedOffence = Boolean(application.data?.['alleged-offences']?.['alleged-offence-data'])

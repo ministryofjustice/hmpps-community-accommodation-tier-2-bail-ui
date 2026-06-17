@@ -1,4 +1,4 @@
-import { Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2ApplicationSummary } from '@approved-premises/api'
 import paths from '../../../server/paths/apply'
 import { cohortLabel } from '../../../server/utils/applicationUtils'
 import Page from '../page'
@@ -15,7 +15,7 @@ export default class PrisonApplicationsPage extends Page {
     return new PrisonApplicationsPage()
   }
 
-  shouldShowApplications(applications: Array<Cas2v2ApplicationSummary>): void {
+  shouldShowApplications(applications: Array<Cas2ApplicationSummary>): void {
     applications.forEach(application => {
       const { personName } = application
       cy.contains('tr', personName).within(() => {

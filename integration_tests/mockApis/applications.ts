@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application, Cas2v2ApplicationNote as ApplicationNote } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2ApplicationNote as ApplicationNote } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from './wiremock'
 import paths from '../../server/paths/api'

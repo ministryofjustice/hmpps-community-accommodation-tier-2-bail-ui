@@ -1,7 +1,7 @@
 import {
-  Cas2v2Assessment,
-  UpdateCas2v2Assessment,
-  Cas2v2AssessmentStatusUpdate as AssessmentStatusUpdate,
+  Cas2Assessment,
+  UpdateCas2Assessment,
+  Cas2AssessmentStatusUpdate as AssessmentStatusUpdate,
 } from '@approved-premises/api'
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -14,12 +14,12 @@ export default class AssessmentClient {
     this.restClient = new RestClient('assessmentClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async find(assessmentId: string): Promise<Cas2v2Assessment> {
-    return this.restClient.get<Cas2v2Assessment>({ path: paths.assessments.show({ id: assessmentId }) })
+  async find(assessmentId: string): Promise<Cas2Assessment> {
+    return this.restClient.get<Cas2Assessment>({ path: paths.assessments.show({ id: assessmentId }) })
   }
 
-  async update(assessmentId: string, updateData: UpdateCas2v2Assessment): Promise<Cas2v2Assessment> {
-    return this.restClient.put<Cas2v2Assessment>({
+  async update(assessmentId: string, updateData: UpdateCas2Assessment): Promise<Cas2Assessment> {
+    return this.restClient.put<Cas2Assessment>({
       path: paths.assessments.update({ id: assessmentId }),
       data: updateData,
     })

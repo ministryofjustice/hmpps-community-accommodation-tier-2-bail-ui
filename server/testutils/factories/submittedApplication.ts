@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/en_GB'
 import { Factory } from 'fishery'
-import { Cas2v2SubmittedApplication as SubmittedApplication } from '@approved-premises/api'
+import { Cas2SubmittedApplication as SubmittedApplication } from '@approved-premises/api'
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory } from './person'
 import cas2v2User from './cas2v2User'

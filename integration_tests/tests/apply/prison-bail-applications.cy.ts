@@ -29,7 +29,7 @@
 //      When I clear the search field
 //      Then I should be able to see the full list of prison bail applications again
 
-import { Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2ApplicationSummary } from '@approved-premises/api'
 import { applicationSummaryFactory } from '../../../server/testutils/factories'
 import PrisonApplicationsPage from '../../pages/apply/prisonApplicationsPage'
 import Page from '../../pages/page'
@@ -98,7 +98,7 @@ context('Prison applications', () => {
     const nomsNumber = 'SOME-NOMS-NUMBER'
 
     // And there are no matching bail applications in the database
-    const prisonApplicationsForNomsNumber: Array<Cas2v2ApplicationSummary> = []
+    const prisonApplicationsForNomsNumber: Array<Cas2ApplicationSummary> = []
     const allPrisonApplications = [
       applicationSummaryFactory.build({ nomsNumber: 'SOME-OTHER-NOMS-NUMBER' }),
       applicationSummaryFactory.build({ nomsNumber: 'YET-ANOTHER-NOMS-NUMBER' }),

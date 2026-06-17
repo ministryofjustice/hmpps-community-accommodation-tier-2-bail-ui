@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
 import { DataServices, BailApplicationOrigin, NewCohortApplicationOrigin } from '@approved-premises/ui'
-import { Cas2v2Application, ApplicationOrigin } from '@approved-premises/api'
+import { Cas2Application, ApplicationOrigin } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
   addErrorMessagesToFlash,
@@ -114,7 +114,7 @@ export default class ApplicationsController {
     }
   }
 
-  private ineligibleViewParams(application: Cas2v2Application): Record<string, string | Cas2v2Application> {
+  private ineligibleViewParams(application: Cas2Application): Record<string, string | Cas2Application> {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
@@ -533,7 +533,7 @@ export default class ApplicationsController {
     }
   }
 
-  public handleIncompleteTasks(req: Request, res: Response, application: Cas2v2Application, taskList: TaskListService) {
+  public handleIncompleteTasks(req: Request, res: Response, application: Cas2Application, taskList: TaskListService) {
     req.flash('errors', {
       taskList: errorMessage('taskList', 'You must complete all tasks before submitting the application'),
     })

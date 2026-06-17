@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application, FullPerson } from '@approved-premises/api'
+import { Cas2Application as Application, FullPerson } from '@approved-premises/api'
 import paths from '../../../../../server/paths/apply'
 import ApplyPage from '../../applyPage'
 import { cohortSelectionAnswers } from '../../../../../server/utils/applications/cohortLabels'

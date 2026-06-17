@@ -1,9 +1,9 @@
 import 'cypress-axe'
 import { Result } from 'axe-core'
 import {
-  Cas2v2ApplicationSummary,
+  Cas2ApplicationSummary,
   FullPerson,
-  Cas2v2SubmittedApplication as SubmittedApplication,
+  Cas2SubmittedApplication as SubmittedApplication,
 } from '@approved-premises/api'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
@@ -187,7 +187,7 @@ export default abstract class Page {
     })
   }
 
-  shouldShowApplications(applications: Array<Cas2v2ApplicationSummary>, inProgress = false): void {
+  shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
       const { personName } = application
       cy.contains(personName)

@@ -1,4 +1,4 @@
-import { Cas2CohortDto, Cas2v2Application } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { faker } from '@faker-js/faker'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import CohortSelectionPage from '../../../../pages/apply/before_you_apply/cohort-selection/cohortSelection'
@@ -8,7 +8,7 @@ import LicenceDatesNeededPage from '../../../../pages/apply/before_you_apply/coh
 
 context('Complete Cohort selection task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
-  let application: Cas2v2Application
+  let application: Cas2Application
 
   beforeEach(function test() {
     cy.fixture('applicationData.json').then(applicationData => {
