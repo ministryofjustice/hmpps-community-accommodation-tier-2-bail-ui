@@ -3,6 +3,7 @@ import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../share
 import { applicationFactory, personFactory } from '../../../../testutils/factories'
 import LicenceDates, { LicenceDatesBody } from './licence-dates'
 import { getQuestions } from '../../../utils/questions'
+import { isoDateToDateParts } from '../../../../utils/dateUtils'
 
 describe('LicenceDates', () => {
   const application = applicationFactory.build({ cohort: 'atcr', person: personFactory.build({ name: 'Roger Smith' }) })
@@ -10,15 +11,10 @@ describe('LicenceDates', () => {
   const page = (cohort: Cas2CohortDto, body = {} as LicenceDatesBody) =>
     new LicenceDates(body, { ...application, cohort })
 
-  const dateToDateParts = (isoDate: string, key: string) => {
-    const [year, month, day] = isoDate.split('-')
-    return { [`${key}-day`]: day, [`${key}-month`]: month, [`${key}-year`]: year }
-  }
-
   const filledBody: Partial<LicenceDatesBody> = {
-    ...dateToDateParts('2026-05-03', 'licenceStartDate'),
-    ...dateToDateParts('2026-07-12', 'licenceEndDate'),
-    ...dateToDateParts('2026-10-03', 'hdcExpiryDate'),
+    ...isoDateToDateParts('2026-05-03', 'licenceStartDate'),
+    ...isoDateToDateParts('2026-07-12', 'licenceEndDate'),
+    ...isoDateToDateParts('2026-10-03', 'hdcExpiryDate'),
     hasHdcExpiryDate: 'yes',
   }
 

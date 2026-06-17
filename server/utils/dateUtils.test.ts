@@ -11,6 +11,7 @@ import {
   differenceInDaysFromToday,
   isBeforeDate,
   dateIsComplete,
+  isoDateToDateParts,
 } from './dateUtils'
 
 jest.mock('date-fns', () => {
@@ -418,6 +419,16 @@ describe('DateFormats', () => {
       }
 
       expect(dateIsComplete(date, 'field')).toEqual(true)
+    })
+  })
+
+  describe('isoDateToDateParts', () => {
+    it('splits an iso date into UI date parts', () => {
+      expect(isoDateToDateParts('2026-05-10', 'test-date')).toEqual({
+        'test-date-day': '10',
+        'test-date-month': '05',
+        'test-date-year': '2026',
+      })
     })
   })
 })

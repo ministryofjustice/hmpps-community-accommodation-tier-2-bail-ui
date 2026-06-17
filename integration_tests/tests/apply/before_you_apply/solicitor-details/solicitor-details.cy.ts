@@ -5,6 +5,7 @@ import Page from '../../../../pages/page'
 import HasSolicitorPage from '../../../../pages/apply/before_you_apply/solicitor-details/hasSolicitor'
 import Chainable = Cypress.Chainable
 import SolicitorDetailsPage from '../../../../pages/apply/before_you_apply/solicitor-details/solicitorDetails'
+import { isoDateToDateParts } from '../../../../../server/utils/dateUtils'
 
 context('Complete "Add solicitor details" task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -20,7 +21,18 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
     return cy.fixture('applicationData.json').then(applicationData => {
       return applicationFactory.build({
         person,
-        data: { ...applicationData, 'cohort-selection': { 'cohort-selection': { cohort } } },
+        data: {
+          ...applicationData,
+          'cohort-selection': {
+            'cohort-selection': { cohort },
+            'licence-dates': {
+              ...isoDateToDateParts('2026-05-03', 'licenceStartDate'),
+              ...isoDateToDateParts('2026-07-12', 'licenceEndDate'),
+              hasHdcExpiryDate: 'no',
+            },
+          },
+        },
+        cohort,
         applicationOrigin: !['courtBail', 'prisonBail'].includes(cohort) ? 'other' : (cohort as ApplicationOrigin),
       })
     })
