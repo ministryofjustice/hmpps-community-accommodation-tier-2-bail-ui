@@ -13,8 +13,8 @@ describe('FundingCas2Accommodation', () => {
       })
       const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, bailApplication)
 
-      expect(page.title).toEqual('Funding CAS-2 for bail accommodation')
-      expect(page.documentTitle).toEqual('Funding CAS-2 for bail accommodation')
+      expect(page.title).toEqual('Funding CAS2 for bail accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS2 for bail accommodation')
     })
 
     it('sets the bail title for courtBail applications', () => {
@@ -24,8 +24,8 @@ describe('FundingCas2Accommodation', () => {
       })
       const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, bailApplication)
 
-      expect(page.title).toEqual('Funding CAS-2 for bail accommodation')
-      expect(page.documentTitle).toEqual('Funding CAS-2 for bail accommodation')
+      expect(page.title).toEqual('Funding CAS2 for bail accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS2 for bail accommodation')
     })
 
     it('sets the non-bail title for other cohort applications', () => {
@@ -35,8 +35,8 @@ describe('FundingCas2Accommodation', () => {
       })
       const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, otherApplication)
 
-      expect(page.title).toEqual('Funding CAS-2 accommodation')
-      expect(page.documentTitle).toEqual('Funding CAS-2 accommodation')
+      expect(page.title).toEqual('Funding CAS2 accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS2 accommodation')
     })
   })
 

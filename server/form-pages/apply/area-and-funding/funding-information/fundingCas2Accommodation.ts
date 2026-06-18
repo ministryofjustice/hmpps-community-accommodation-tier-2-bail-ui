@@ -35,11 +35,11 @@ export default class FundingCas2Accommodation implements TaskListPage {
   isBailApplication =
     this.application.applicationOrigin === 'courtBail' || this.application.applicationOrigin === 'prisonBail'
 
-  documentTitle = this.isBailApplication ? 'Funding CAS-2 for bail accommodation' : 'Funding CAS-2 accommodation'
+  documentTitle = this.isBailApplication ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = this.isBailApplication ? 'Funding CAS-2 for bail accommodation' : 'Funding CAS-2 accommodation'
+  title = this.isBailApplication ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
 
   questions
 
