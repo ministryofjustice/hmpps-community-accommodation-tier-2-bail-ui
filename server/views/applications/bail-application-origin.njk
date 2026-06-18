@@ -12,7 +12,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: paths.applications.beforeYouStart()
+    href: backUrl
   }) }}
 {% endblock %}
 
@@ -20,7 +20,7 @@
 
   {{ showErrorSummary(errorSummary) }}
 
-  <form action="{{ paths.applications.selectApplicationOrigin() }}" method="post">
+  <form action="{{ nextUrl }}" method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
 
     {{

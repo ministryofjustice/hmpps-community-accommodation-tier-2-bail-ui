@@ -12,7 +12,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: paths.applications.applicationOrigin()
+    href: backUrl
   }) }}
 {% endblock %}
 
@@ -20,7 +20,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <form action="{{ paths.applications.people.findByPrisonNumber() }}" method="post" autocomplete="off">
+      <form action="{{ nextUrl }}" method="post" autocomplete="off">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"/>
         <input type="hidden" name="applicationOrigin" value="prisonBail"/>
 
@@ -51,6 +51,7 @@
                 text: "Search for applicant"
             }) }}
 
+            {# TODO: fix the paths for bail in new cohorts route #}
             <a href="{{ paths.applications.searchByCrn() }}?usePrisonBailApplicationOrigin=true">Search by case reference number (CRN)</a>
           </div>
         {% else %}

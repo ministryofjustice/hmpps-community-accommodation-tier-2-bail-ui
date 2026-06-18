@@ -1,6 +1,7 @@
 import { Page, expect } from '@playwright/test'
 import { faker } from '@faker-js/faker/locale/en_GB'
 
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import {
   BeforeYouStartPage,
   DashboardPage,
@@ -66,7 +67,7 @@ export const selectBailApplicationOrigin = async (page: Page, applicationOrigin:
   }
 }
 
-export const selectApplicationOrigin = async (page: Page, applicationOrigin: 'bail' | 'other') => {
+export const selectApplicationOrigin = async (page: Page, applicationOrigin: NewCohortApplicationOrigin) => {
   const applicationOriginPage = new ApplicationOriginPage(page)
   if (applicationOrigin === 'bail') {
     await applicationOriginPage.chooseBail()
