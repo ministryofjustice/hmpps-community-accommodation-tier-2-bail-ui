@@ -5,7 +5,7 @@ import { FundingSources } from '../../../../../server/form-pages/apply/area-and-
 export default class FundingCas2AccommodationPage extends ApplyPage {
   constructor(private readonly application: Application) {
     const isBail = application.applicationOrigin === 'courtBail' || application.applicationOrigin === 'prisonBail'
-    const title = isBail ? 'Funding CAS-2 for bail accommodation' : 'Funding CAS-2 accommodation'
+    const title = isBail ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
     super(title, application, 'funding-information', 'funding-cas2-accommodation')
   }
 
