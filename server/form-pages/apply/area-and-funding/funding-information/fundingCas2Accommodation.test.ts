@@ -6,10 +6,37 @@ describe('FundingCas2Accommodation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
 
   describe('title', () => {
-    it('sets the title', () => {
-      const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, application)
+    it('sets the bail title for prisonBail applications', () => {
+      const bailApplication = applicationFactory.build({
+        person: personFactory.build({ name: 'Roger Smith' }),
+        applicationOrigin: 'prisonBail',
+      })
+      const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, bailApplication)
 
-      expect(page.title).toEqual('Funding CAS2 for bail accommodation')
+      expect(page.title).toEqual('Funding CAS-2 for bail accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS-2 for bail accommodation')
+    })
+
+    it('sets the bail title for courtBail applications', () => {
+      const bailApplication = applicationFactory.build({
+        person: personFactory.build({ name: 'Roger Smith' }),
+        applicationOrigin: 'courtBail',
+      })
+      const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, bailApplication)
+
+      expect(page.title).toEqual('Funding CAS-2 for bail accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS-2 for bail accommodation')
+    })
+
+    it('sets the non-bail title for other cohort applications', () => {
+      const otherApplication = applicationFactory.build({
+        person: personFactory.build({ name: 'Roger Smith' }),
+        applicationOrigin: 'other',
+      })
+      const page = new FundingCas2Accommodation({ fundingSource: 'personalSavings' }, otherApplication)
+
+      expect(page.title).toEqual('Funding CAS-2 accommodation')
+      expect(page.documentTitle).toEqual('Funding CAS-2 accommodation')
     })
   })
 
