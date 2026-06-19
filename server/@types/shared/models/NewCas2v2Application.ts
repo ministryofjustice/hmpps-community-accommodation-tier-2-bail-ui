@@ -2,13 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApplicationOrigin } from './ApplicationOrigin';
-export type NewCas2v2Application = {
-    applicationOrigin: ApplicationOrigin;
-    bailHearingDate?: string;
-    convictionId?: number;
-    crn: string;
-    deliusEventNumber?: string;
-    offenceId?: string;
-};
-
+import type { NewCas2Application } from './NewCas2Application';
+/**
+ * Deprecated alias of NewCas2Application
+ * @deprecated
+ */
+export type NewCas2v2Application = NewCas2Application;

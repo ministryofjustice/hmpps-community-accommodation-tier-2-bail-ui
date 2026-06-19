@@ -2,18 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ServiceType } from './ServiceType';
-export type Cas2v2ReferralHistory = {
-    applicationId: string;
-    createdAt: string;
-    id: string;
-    localAuthorityArea?: string;
-    pdu?: string;
-    placementAddress?: string;
-    placementStatus?: string;
-    referralRejectionReason?: string;
-    referredBy: string;
-    status: string;
-    type: ServiceType;
-};
-
+import type { Cas2ReferralHistory } from './Cas2ReferralHistory';
+/**
+ * Deprecated alias of Cas2ReferralHistory
+ * @deprecated
+ */
+export type Cas2v2ReferralHistory = Cas2ReferralHistory;

@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2v2AssessmentStatusUpdate = {
-    /**
-     * The "name" of the new status to be applied
-     */
-    newStatus: string;
-    newStatusDetails?: Array<string>;
-};
-
+import type { Cas2AssessmentStatusUpdate } from './Cas2AssessmentStatusUpdate';
+/**
+ * Deprecated alias of Cas2AssessmentStatusUpdate
+ * @deprecated
+ */
+export type Cas2v2AssessmentStatusUpdate = Cas2AssessmentStatusUpdate;

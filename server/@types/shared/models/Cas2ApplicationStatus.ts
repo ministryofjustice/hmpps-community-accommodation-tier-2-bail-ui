@@ -3,8 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Cas2ApplicationStatusDetail } from './Cas2ApplicationStatusDetail';
-/**
- * Deprecated alias of Cas2ApplicationStatusDetail
- * @deprecated
- */
-export type Cas2v2ApplicationStatusDetail = Cas2ApplicationStatusDetail;
+export type Cas2ApplicationStatus = {
+    description: string;
+    id: string;
+    label: string;
+    name: string;
+    statusDetails: Array<Cas2ApplicationStatusDetail>;
+};
+
