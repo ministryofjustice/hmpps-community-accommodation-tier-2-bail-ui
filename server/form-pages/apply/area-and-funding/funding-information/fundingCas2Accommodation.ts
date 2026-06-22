@@ -1,5 +1,5 @@
 import type { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
-import { Cas2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application, ApplicationOrigin } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -32,8 +32,7 @@ export type FundingCas2AccommodationBody = {
   ],
 })
 export default class FundingCas2Accommodation implements TaskListPage {
-  isBailApplication =
-    this.application.applicationOrigin === 'courtBail' || this.application.applicationOrigin === 'prisonBail'
+  isBailApplication = (['courtBail', 'prisonBail'] as ApplicationOrigin[]).includes(this.application.applicationOrigin)
 
   documentTitle = this.isBailApplication ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
 
