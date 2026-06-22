@@ -1,9 +1,9 @@
-import { Cas2CohortDto, Cas2v2Application } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
 
 export default function deleteOrphanedFollowOnAnswers(
-  applicationData: Cas2v2Application['data'],
-): Cas2v2Application['data'] {
+  applicationData: Cas2Application['data'],
+): Cas2Application['data'] {
   const deleteOrphanedFundingAlternativeIdInformation = () => {
     delete applicationData['funding-information']['alternative-applicant-id']
   }

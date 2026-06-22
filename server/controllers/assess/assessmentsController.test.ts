@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { UpdateCas2v2Assessment } from '@approved-premises/api'
+import { UpdateCas2Assessment } from '@approved-premises/api'
 
 import { faker } from '@faker-js/faker'
 import AssessmentsController from './assessmentsController'
@@ -95,7 +95,7 @@ describe('AssessmentsController', () => {
       submittedApplicationService.findApplication.mockResolvedValue(submittedApplication)
 
       const id = faker.string.uuid()
-      request.body = { assessorName: 'assessor-name', nacroReferralId: 'referral-id' } as UpdateCas2v2Assessment
+      request.body = { assessorName: 'assessor-name', nacroReferralId: 'referral-id' } as UpdateCas2Assessment
       request.params = {
         id,
       }

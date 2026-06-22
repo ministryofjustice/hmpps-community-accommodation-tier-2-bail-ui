@@ -1,10 +1,10 @@
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import type { Request } from 'express'
 import {
-  Cas2v2ApplicationSummary,
-  SubmitCas2v2Application,
+  Cas2ApplicationSummary,
+  SubmitCas2Application,
   ApplicationOrigin,
-  UpdateCas2v2Application,
+  UpdateCas2Application,
 } from '@approved-premises/api'
 import { DataServices, GroupedApplications, TaskListErrors, PaginatedResponse } from '@approved-premises/ui'
 import ApplicationService from './applicationService'
@@ -100,7 +100,7 @@ describe('ApplicationService', () => {
         totalPages: '50',
         totalResults: '500',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+      }) as PaginatedResponse<Cas2ApplicationSummary>
 
       applicationClient.getAllByPrison.mockResolvedValue(paginatedResponse)
 
@@ -128,7 +128,7 @@ describe('ApplicationService', () => {
         totalPages: '10',
         totalResults: '100',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+      }) as PaginatedResponse<Cas2ApplicationSummary>
 
       applicationClient.getAllByOrigin.mockResolvedValue(paginatedResponse)
 
@@ -153,7 +153,7 @@ describe('ApplicationService', () => {
         totalPages: '10',
         totalResults: '100',
         pageNumber: '2',
-      }) as PaginatedResponse<Cas2v2ApplicationSummary>
+      }) as PaginatedResponse<Cas2ApplicationSummary>
 
       applicationClient.getAllByOrigin.mockResolvedValue(paginatedResponse)
 
@@ -177,7 +177,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2v2Application>()
+    const applicationData = createMock<UpdateCas2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -588,7 +588,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2v2Application>()
+    const applicationData = createMock<UpdateCas2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -668,7 +668,7 @@ describe('ApplicationService', () => {
       params: { id: application.id, task: 'some-task', page: 'some-page', index: '1' },
       user: { token },
     })
-    const applicationData = createMock<UpdateCas2v2Application>()
+    const applicationData = createMock<UpdateCas2Application>()
 
     beforeEach(() => {
       applicationClient.find.mockResolvedValue(application)
@@ -798,7 +798,7 @@ describe('ApplicationService', () => {
   describe('submit', () => {
     it('calls the submit method', async () => {
       const application = applicationFactory.build()
-      const applicationData = createMock<SubmitCas2v2Application>()
+      const applicationData = createMock<SubmitCas2Application>()
       const token = 'SOME_TOKEN'
 
       applicationClient.submit.mockImplementation(() => Promise.resolve())
@@ -822,7 +822,7 @@ describe('ApplicationService', () => {
         user: { token },
       })
 
-      const applicationData = createMock<UpdateCas2v2Application>()
+      const applicationData = createMock<UpdateCas2Application>()
       ;(getApplicationUpdateData as jest.Mock).mockReturnValue(applicationData)
 
       const newApplicationData = { 'risk-information': { vulnerability: { vulnerabilityDetail: 'example' } } }

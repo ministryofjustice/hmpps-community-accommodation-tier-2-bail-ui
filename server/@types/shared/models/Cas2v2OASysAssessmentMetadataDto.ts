@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2v2OASysAssessmentMetadataDto = {
-    dateCompleted?: string;
-    dateStarted?: string;
-    hasApplicableAssessment: boolean;
-};
-
+import type { Cas2OASysAssessmentMetadataDto } from './Cas2OASysAssessmentMetadataDto';
+/**
+ * Deprecated alias of Cas2OASysAssessmentMetadataDto
+ * @deprecated
+ */
+export type Cas2v2OASysAssessmentMetadataDto = Cas2OASysAssessmentMetadataDto;

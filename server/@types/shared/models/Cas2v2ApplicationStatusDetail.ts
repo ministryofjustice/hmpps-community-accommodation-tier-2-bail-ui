@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2v2ApplicationStatusDetail = {
-    id: string;
-    label: string;
-    name: string;
-};
-
+import type { Cas2ApplicationStatusDetail } from './Cas2ApplicationStatusDetail';
+/**
+ * Deprecated alias of Cas2ApplicationStatusDetail
+ * @deprecated
+ */
+export type Cas2v2ApplicationStatusDetail = Cas2ApplicationStatusDetail;

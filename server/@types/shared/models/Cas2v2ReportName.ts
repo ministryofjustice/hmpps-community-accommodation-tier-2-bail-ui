@@ -2,4 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2v2ReportName = 'submitted-applications' | 'application-status-updates' | 'unsubmitted-applications';
+import type { Cas2ReportName } from './Cas2ReportName';
+/**
+ * Deprecated alias of Cas2ReportName
+ * @deprecated
+ */
+export type Cas2v2ReportName = Cas2ReportName;

@@ -2,4 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cas2V2OASysRiskLevel = 'very_high' | 'high' | 'medium' | 'low';
+import type { Cas2OASysRiskLevel } from './Cas2OASysRiskLevel';
+/**
+ * Deprecated alias of Cas2OASysRiskLevel
+ * @deprecated
+ */
+export type Cas2V2OASysRiskLevel = Cas2OASysRiskLevel;

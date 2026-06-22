@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2v2OASysAssessmentMetadataDto } from './Cas2v2OASysAssessmentMetadataDto';
-export type Cas2v2OAsysRoshSummaryDto = {
-    metadata: Cas2v2OASysAssessmentMetadataDto;
-    natureOfRisk?: string;
-    whoIsAtRisk?: string;
-};
-
+import type { Cas2OAsysRoshSummaryDto } from './Cas2OAsysRoshSummaryDto';
+/**
+ * Deprecated alias of Cas2OAsysRoshSummaryDto
+ * @deprecated
+ */
+export type Cas2v2OAsysRoshSummaryDto = Cas2OAsysRoshSummaryDto;

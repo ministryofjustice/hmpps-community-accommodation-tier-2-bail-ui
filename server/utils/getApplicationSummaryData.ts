@@ -1,4 +1,4 @@
-import { Cas2v2Application, Cas2v2SubmittedApplication, FullPerson } from '@approved-premises/api'
+import { Cas2Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
 
 import { isFullPerson } from './utils'
 
@@ -16,7 +16,7 @@ type ApplicationSummary = {
 }
 
 type ViewType = 'assessor' | 'referrerSubmission' | 'checkYourAnswers'
-type Application = Cas2v2Application | Cas2v2SubmittedApplication
+type Application = Cas2Application | Cas2SubmittedApplication
 
 export const getApplicationSummaryData = (viewType: ViewType, application: Application): ApplicationSummary => {
   const person = application.person as FullPerson
@@ -40,7 +40,7 @@ export const getCustodyLocation = (application: Application): string => {
   const person = isFullPerson(application.person) ? application.person : null
   if (person?.prisonName) return person.prisonName
 
-  const { document } = application as Cas2v2SubmittedApplication
+  const { document } = application as Cas2SubmittedApplication
   const docPrisonName = document?.sections
     ?.find((s: { title: string }) => s.title === 'About the applicant')
     ?.tasks?.find((t: { title: string }) => t.title === 'Add personal information')
@@ -48,7 +48,7 @@ export const getCustodyLocation = (application: Application): string => {
     ?.answer?.trim()
   if (docPrisonName) return docPrisonName
 
-  const dataPrisonName = (application as Cas2v2Application).data?.['personal-information']?.['custody-location']
+  const dataPrisonName = (application as Cas2Application).data?.['personal-information']?.['custody-location']
     ?.custodyLocation
   return dataPrisonName ?? null
 }
@@ -63,10 +63,10 @@ const getReferrer = (application: Application) => {
   return null
 }
 
-function hasSubmittedBy(application: Application): application is Cas2v2SubmittedApplication {
-  return !!(application as Cas2v2SubmittedApplication).submittedBy
+function hasSubmittedBy(application: Application): application is Cas2SubmittedApplication {
+  return !!(application as Cas2SubmittedApplication).submittedBy
 }
 
-function hasCreatedBy(application: Application): application is Cas2v2Application {
-  return !!(application as Cas2v2Application).createdBy
+function hasCreatedBy(application: Application): application is Cas2Application {
+  return !!(application as Cas2Application).createdBy
 }

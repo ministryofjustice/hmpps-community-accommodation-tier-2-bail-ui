@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2v2OASysAssessmentMetadataDto } from './Cas2v2OASysAssessmentMetadataDto';
-export type Cas2v2OAsysRiskToSelfDto = {
-    analysisSuicideSelfharm?: string;
-    analysisVulnerabilities?: string;
-    metadata: Cas2v2OASysAssessmentMetadataDto;
-};
-
+import type { Cas2OAsysRiskToSelfDto } from './Cas2OAsysRiskToSelfDto';
+/**
+ * Deprecated alias of Cas2OAsysRiskToSelfDto
+ * @deprecated
+ */
+export type Cas2v2OAsysRiskToSelfDto = Cas2OAsysRiskToSelfDto;

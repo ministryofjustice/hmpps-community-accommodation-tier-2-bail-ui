@@ -1,9 +1,9 @@
 import {
   ApplicationOrigin,
   Cas2CohortDto,
-  Cas2v2Application as Application,
-  SubmitCas2v2Application,
-  UpdateCas2v2Application,
+  Cas2Application as Application,
+  SubmitCas2Application,
+  UpdateCas2Application,
 } from '@approved-premises/api'
 
 import {
@@ -12,7 +12,7 @@ import {
   bailHearingDateFromAppData,
 } from './managementInfoFromAppData'
 
-export const getApplicationUpdateData = (application: Application, cohort?: Cas2CohortDto): UpdateCas2v2Application => {
+export const getApplicationUpdateData = (application: Application, cohort?: Cas2CohortDto): UpdateCas2Application => {
   return {
     type: 'CAS2V2',
     data: application.data,
@@ -32,7 +32,7 @@ function getBailCohort(applicationOrigin: ApplicationOrigin): Cas2CohortDto | un
   return undefined
 }
 
-export const getApplicationSubmissionData = (application: Application): SubmitCas2v2Application => {
+export const getApplicationSubmissionData = (application: Application): SubmitCas2Application => {
   return {
     translatedDocument: application.document,
     applicationId: application.id,

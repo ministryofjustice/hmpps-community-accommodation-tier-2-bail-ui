@@ -2,11 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Cas2v2DeliusUserInfoDto } from './Cas2v2DeliusUserInfoDto';
-import type { Cas2v2UserTypeDto } from './Cas2v2UserTypeDto';
-export type Cas2v2UserDto = {
-    deliusUserInfo?: Cas2v2DeliusUserInfoDto;
-    type: Cas2v2UserTypeDto;
-    username: string;
-};
-
+import type { Cas2UserDto } from './Cas2UserDto';
+/**
+ * Deprecated alias of Cas2UserDto
+ * @deprecated
+ */
+export type Cas2v2UserDto = Cas2UserDto;

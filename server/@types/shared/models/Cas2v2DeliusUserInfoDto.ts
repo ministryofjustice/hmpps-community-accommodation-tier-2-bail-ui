@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ProbationAreaDto } from './ProbationAreaDto';
-export type Cas2v2DeliusUserInfoDto = {
-    probationArea: ProbationAreaDto;
-};
-
+import type { Cas2DeliusUserInfoDto } from './Cas2DeliusUserInfoDto';
+/**
+ * Deprecated alias of Cas2DeliusUserInfoDto
+ * @deprecated
+ */
+export type Cas2v2DeliusUserInfoDto = Cas2DeliusUserInfoDto;

@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { UiTask } from '@approved-premises/ui'
 import { FullPerson } from '../../../../../server/@types/shared/models/FullPerson'
 import ApplyPage from '../../applyPage'

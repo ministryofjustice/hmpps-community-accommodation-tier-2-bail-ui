@@ -2,21 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApplicationOrigin } from './ApplicationOrigin';
-export type SubmitCas2v2Application = {
-    /**
-     * Id of the application being submitted
-     */
-    applicationId: string;
-    applicationOrigin: ApplicationOrigin;
-    bailHearingDate?: string;
-    conditionalReleaseDate?: string;
-    hdcEligibilityDate?: string;
-    /**
-     * First and second preferences for where the accommodation should be located, pipe-separated
-     */
-    preferredAreas?: string;
-    telephoneNumber: string;
-    translatedDocument: any;
-};
-
+import type { SubmitCas2Application } from './SubmitCas2Application';
+/**
+ * Deprecated alias of SubmitCas2Application
+ * @deprecated
+ */
+export type SubmitCas2v2Application = SubmitCas2Application;

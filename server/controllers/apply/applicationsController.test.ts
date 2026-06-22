@@ -1,6 +1,6 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2v2Application as Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import {
   NewCohortApplicationOrigin,
   BailApplicationOrigin,
@@ -62,7 +62,7 @@ describe('applicationsController', () => {
     totalPages: '1',
     totalResults: '3',
     pageSize: '10',
-  } as PaginatedResponse<Cas2v2ApplicationSummary>
+  } as PaginatedResponse<Cas2ApplicationSummary>
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 

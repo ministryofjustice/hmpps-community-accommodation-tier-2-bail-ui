@@ -1,4 +1,4 @@
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import Page from '../../../../pages/page'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
@@ -7,7 +7,7 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 context('Complete "Confirm eligibility" task in "Before you start" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
-  let application: Cas2v2Application
+  let application: Cas2Application
 
   beforeEach(function test() {
     cy.fixture('applicationData.json').then(applicationData => {
@@ -25,7 +25,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   })
 
   it('allows eligibility to be confirmed', () => {
-    const prisonApplication: Cas2v2Application = {
+    const prisonApplication: Cas2Application = {
       ...application,
       applicationOrigin: 'prisonBail',
       data: {
@@ -59,7 +59,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   })
 
   it('shows the correct content for a non-bail application', () => {
-    const nbApplication: Cas2v2Application = {
+    const nbApplication: Cas2Application = {
       ...application,
       applicationOrigin: 'other',
     }
@@ -71,7 +71,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   })
 
   it('allows eligibility to be rejected for a bail application', () => {
-    const bailApplication: Cas2v2Application = {
+    const bailApplication: Cas2Application = {
       ...application,
       applicationOrigin: 'prisonBail',
       data: {
@@ -100,7 +100,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
   })
 
   it('allows eligibility to be rejected for a non-bail application', () => {
-    const bailApplication: Cas2v2Application = {
+    const bailApplication: Cas2Application = {
       ...application,
       applicationOrigin: 'other',
       data: {
