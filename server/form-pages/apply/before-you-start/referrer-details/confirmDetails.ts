@@ -1,5 +1,5 @@
 import type { DataServices, TaskListErrors } from '@approved-premises/ui'
-import { Cas2Application as Application, Cas2v2UserDto } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2UserDto } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -32,7 +32,7 @@ export default class ConfirmReferrerDetails implements TaskListPage {
   constructor(
     body: Partial<ConfirmReferrerDetailsBody>,
     private readonly application: Application,
-    private readonly userDetails: Cas2v2UserDto,
+    private readonly userDetails: Cas2UserDto,
   ) {
     this.referrerDetails = {
       name: application.createdBy.name,

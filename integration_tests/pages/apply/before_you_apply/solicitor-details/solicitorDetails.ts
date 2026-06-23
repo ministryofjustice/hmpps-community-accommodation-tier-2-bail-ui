@@ -1,8 +1,8 @@
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 
 export default class SolicitorDetailsPage extends ApplyPage {
-  constructor(application: Cas2v2Application) {
+  constructor(application: Cas2Application) {
     super(`Add solicitor's contact information`, application, 'solicitor-details', 'contact-information')
   }
 

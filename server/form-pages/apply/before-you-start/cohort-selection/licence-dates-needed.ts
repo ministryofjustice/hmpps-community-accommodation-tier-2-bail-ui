@@ -1,5 +1,5 @@
 import { TaskListErrors, YesOrNo } from '@approved-premises/ui'
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
@@ -24,7 +24,7 @@ export default class LicenceDatesNeeded extends BasePage {
 
   constructor(
     body: Partial<LicenceDatesNeededBody>,
-    private readonly application: Cas2v2Application,
+    private readonly application: Cas2Application,
   ) {
     super()
     this.body = body as LicenceDatesNeededBody

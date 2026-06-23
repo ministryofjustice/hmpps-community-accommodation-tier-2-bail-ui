@@ -1,4 +1,4 @@
-import { Cas2CohortDto, Cas2v2Application, Cas2v2Application as Application, FullPerson } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2Application, Cas2Application as Application, FullPerson } from '@approved-premises/api'
 import { faker } from '@faker-js/faker'
 import ApplyPage from '../../applyPage'
 import { DateFormats } from '../../../../../server/utils/dateUtils'
@@ -35,7 +35,7 @@ export default class LicenceDatesPage extends ApplyPage {
     else this.shouldNotShowErrorSummary('Select yes if they have a HDC expiry date')
   }
 
-  verifyUpdate(application: Cas2v2Application) {
+  verifyUpdate(application: Cas2Application) {
     cy.task('verifyApplicationUpdate', application.id).then(updates => {
       const lastUpdate = updates[(updates as Array<unknown>).length - 1]
 

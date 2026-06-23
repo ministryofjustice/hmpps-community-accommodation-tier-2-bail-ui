@@ -1,4 +1,4 @@
-import { Cas2v2UserDto } from '@approved-premises/api'
+import { Cas2UserDto } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -11,7 +11,7 @@ export default class UserClient {
     this.restClient = new RestClient('userClient', config.apis.approvedPremises as ApiConfig, token)
   }
 
-  async getUserDetails(userName: string): Promise<Cas2v2UserDto> {
-    return this.restClient.get<Cas2v2UserDto>({ path: paths.users.get({ userName }) })
+  async getUserDetails(userName: string): Promise<Cas2UserDto> {
+    return this.restClient.get<Cas2UserDto>({ path: paths.users.get({ userName }) })
   }
 }

@@ -1,9 +1,9 @@
-import type { Cas2v2UserDto } from '@approved-premises/api'
+import type { Cas2UserDto } from '@approved-premises/api'
 import { stubFor } from './wiremock'
 import paths from '../../server/paths/api'
 
 export default {
-  stubUserDetails: (userDetails: Cas2v2UserDto) =>
+  stubUserDetails: (userDetails: Cas2UserDto) =>
     stubFor({
       request: {
         method: 'GET',
