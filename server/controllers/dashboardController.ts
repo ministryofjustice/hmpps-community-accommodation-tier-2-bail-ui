@@ -8,7 +8,8 @@ export default class DashboardController {
 
       const isReferrer =
         res.locals.user.userRoles.includes('CAS2_PRISON_BAIL_REFERRER') ||
-        res.locals.user.userRoles.includes('CAS2_COURT_BAIL_REFERRER')
+        res.locals.user.userRoles.includes('CAS2_COURT_BAIL_REFERRER') ||
+        res.locals.user.userRoles.includes('PROBATION')
 
       res.render('dashboard/index', {
         pageHeading: 'CAS2 for bail',
