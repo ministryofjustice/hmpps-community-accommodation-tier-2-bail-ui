@@ -377,28 +377,40 @@ export default class ApplicationsController {
     }
   }
 
-  unauthorisedCourtBailApplication(): RequestHandler {
+  unauthorisedCourtBailApplication(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      const backUrl =
+        newCohortOrigin === 'bail'
+          ? paths.applications.newCohorts.bail.applicationOrigin({})
+          : paths.applications.applicationOrigin({})
 
       return res.render('applications/unauthorised-court-bail-application', {
         errors,
         errorSummary,
         ...userInput,
         pageHeading: 'You are unauthorised to make a court bail application',
+        backUrl,
       })
     }
   }
 
-  unauthorisedPrisonBailApplication(): RequestHandler {
+  unauthorisedPrisonBailApplication(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      const backUrl =
+        newCohortOrigin === 'bail'
+          ? paths.applications.newCohorts.bail.applicationOrigin({})
+          : paths.applications.applicationOrigin({})
 
       return res.render('applications/unauthorised-prison-bail-application', {
         errors,
         errorSummary,
         ...userInput,
         pageHeading: 'You are unauthorised to make a prison bail application',
+        backUrl,
       })
     }
   }
