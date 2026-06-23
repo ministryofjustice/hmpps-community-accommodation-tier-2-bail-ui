@@ -17,6 +17,10 @@ export default class ContactNumberPage extends ApplyPage {
     )
   }
 
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter your contact telephone number')
+  }
+
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('telephone', '123')
   }

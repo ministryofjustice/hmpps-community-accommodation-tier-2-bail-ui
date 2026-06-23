@@ -124,6 +124,7 @@ export function getQuestions(
       'confirm-details': {
         name: { question: 'Name' },
         email: { question: 'Email address' },
+        region: { question: 'Region' },
       },
       'job-title': {
         jobTitle: { question: 'What is your job title?', hint: 'For example, Bail Information Officer (BIO)' },
@@ -138,6 +139,13 @@ export function getQuestions(
         location: {
           question: 'Where are you based?',
           hint: "For example, Sefton Magistrates' Court or Full Sutton Prison.",
+        },
+      },
+      'cpp-check': {
+        isCpp: {
+          question: `Are you ${name}'s community probation practitioner?`,
+          answers: yesOrNo,
+          dataType: 'radio',
         },
       },
     },

@@ -12,7 +12,7 @@ export default class LicenceDatesPage extends ApplyPage {
 
   licenceEndDate = faker.date.soon({ refDate: this.licenceStartDate, days: 200 })
 
-  completeForm(cohort: Cas2CohortDto): void {
+  completeForm({ cohort }): void {
     if (cohort !== 'rarr')
       this.completeDateInputs('licenceStartDate', DateFormats.dateObjToIsoDate(this.licenceStartDate))
     this.completeDateInputs('licenceEndDate', DateFormats.dateObjToIsoDate(this.licenceEndDate))

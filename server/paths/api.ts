@@ -45,4 +45,7 @@ export default {
   reports: {
     show: singleReportPath,
   },
+  users: {
+    get: basePath.path('users/:userName'),
+  },
 }

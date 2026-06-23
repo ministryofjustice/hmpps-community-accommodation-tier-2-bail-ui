@@ -17,6 +17,10 @@ export default class LocationPage extends ApplyPage {
     )
   }
 
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter where you are based')
+  }
+
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('location', 'Saturn')
   }

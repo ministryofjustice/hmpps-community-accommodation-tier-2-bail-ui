@@ -11,6 +11,7 @@ import applicationStatusDetailFactory from './applicationStatusDetailFactory'
 import timelineEventsFactory from './timelineEvents'
 import applicationNoteFactory from './applicationNote'
 import solicitorFactory from './solicitor'
+import cas2v2UserDtoFactory from './cas2v2UserDto'
 
 export {
   applicationSummaryFactory,
@@ -27,4 +28,5 @@ export {
   timelineEventsFactory,
   applicationNoteFactory,
   solicitorFactory,
+  cas2v2UserDtoFactory,
 }

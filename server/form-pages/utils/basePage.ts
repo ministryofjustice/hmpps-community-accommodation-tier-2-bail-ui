@@ -27,13 +27,17 @@ export default class BasePage implements TaskListPage {
   response() {
     return Object.entries(this.questions).reduce((out, [key, question]) => {
       let value: string = this.body[key] as string
-      if (question.dataType === 'date') {
-        value = DateFormats.dateAndTimeInputsToUiDate(this.body as Record<string, string>, key)
+      if (question?.dataType === 'date') {
+        try {
+          value = DateFormats.dateAndTimeInputsToUiDate(this.body as Record<string, string>, key)
+        } catch {
+          // ignore
+        }
       }
-      if (question.answers) {
+      if (question?.answers) {
         value = question.answers[value]
       }
-      return value === undefined ? out : { ...out, [question.question]: value }
+      return !question || value === undefined ? out : { ...out, [question?.question]: value }
     }, {}) as Record<string, string>
   }
 }

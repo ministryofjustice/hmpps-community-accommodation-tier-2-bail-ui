@@ -1,4 +1,4 @@
-import { Cas2v2Application } from '../shared'
+import { Cas2v2Application, Cas2v2UserDto } from '../shared'
 
 export type JourneyType = 'applications'
 
@@ -54,7 +54,7 @@ export type DataServices = Partial<{
     findApplication: (token: string, id: string) => Promise<Cas2SubmittedApplication>
   }
   userService: {
-    getUserById: (token: string, id: string) => Promise<User>
+    getUserDetails: (token: string, username: string) => Promise<Cas2v2UserDto>
   }
 }>
 

@@ -23,6 +23,13 @@ export default class CPPDetailsPage extends ApplyPage {
     )
   }
 
+  checkErrors() {
+    this.shouldShowErrorSummary("Enter the CPP's full name")
+    this.shouldShowErrorSummary('Enter the probation region')
+    this.shouldShowErrorSummary("Enter the CPP's email address")
+    this.shouldShowErrorSummary("Enter the CPP's contact number")
+  }
+
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('name', 'Marsha Crist')
     this.getTextInputByIdAndEnterDetails('probationRegion', 'Tameside')
