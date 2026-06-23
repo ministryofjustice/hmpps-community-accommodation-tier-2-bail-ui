@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { BailApplicationOrigin } from '@approved-premises/ui'
+import { BailApplicationOrigin, NewCohortApplicationOrigin } from '@approved-premises/ui'
 
 import PeopleController from './peopleController'
 import { errorMessage, errorSummary } from '../utils/validation'
@@ -47,24 +47,31 @@ describe('peopleController', () => {
       })
     })
     describe('when there is a prison number', () => {
-      it('renders the confirm applicant details page', async () => {
-        const requestHandler = peopleController.findByPrisonNumber()
+      it.each([
+        ['existing bail', undefined, paths.applications.searchByPrisonNumber({})],
+        ['new bail', 'bail', paths.applications.newCohorts.bail.searchByPrisonNumber({})],
+      ])(
+        'renders the confirm applicant details page for the %s cohort',
+        async (_name: string, newCohortOrigin: 'bail' | undefined, backUrl: string) => {
+          const requestHandler = peopleController.findByPrisonNumber(newCohortOrigin)
 
-        const person = fullPersonFactory.build({})
+          const person = fullPersonFactory.build({})
 
-        personService.findByPrisonNumber.mockResolvedValue(person)
-        applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
+          personService.findByPrisonNumber.mockResolvedValue(person)
+          applicationService.createApplication.mockResolvedValue(applicationFactory.build({}))
 
-        await requestHandler(request, response, next)
+          await requestHandler(request, response, next)
 
-        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
-          person,
-          date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
-          applicationOrigin,
-        })
-      })
+          expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
+            pageHeading: `Confirm ${person.name}'s details`,
+            person,
+            date: DateFormats.dateObjtoUIDate(new Date()),
+            dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            applicationOrigin,
+            backUrl,
+          })
+        },
+      )
 
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
@@ -100,7 +107,7 @@ describe('peopleController', () => {
 
         describe('when there is a 403 error', () => {
           it('renders the search-by-prison-number page with a permissions error message', async () => {
-            const requestHandler = peopleController.findByPrisonNumber()
+            const requestHandler = peopleController.findByPrisonNumber('bail')
 
             const err = { data: {}, status: 403 }
 
@@ -124,7 +131,7 @@ describe('peopleController', () => {
                 'You do not have permission to access the prison number SOME_NUMBER, please try another number.',
               ),
             ])
-            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.newCohorts.bail.searchByPrisonNumber({}))
           })
         })
 
@@ -208,24 +215,34 @@ describe('peopleController', () => {
       })
     })
     describe('when there is a CRN', () => {
-      it('renders the confirm applicant details page', async () => {
-        const requestHandler = peopleController.findByCrn()
+      it.each([
+        ['existing bail', undefined, paths.applications.searchByCrn({})],
+        ['new bail', 'bail', paths.applications.newCohorts.bail.searchByCrn({})],
+        ['other new', 'other', paths.applications.newCohorts.searchByCrn({})],
+      ])(
+        'renders the confirm applicant details page for the %s cohorts',
+        async (_name: string, newCohortOrigin: NewCohortApplicationOrigin | undefined, backUrl: string) => {
+          const requestHandler = peopleController.findByCrn(newCohortOrigin)
 
-        const person = fullPersonFactory.build({})
+          const person = fullPersonFactory.build({})
 
-        personService.findByCrn.mockResolvedValue(person)
-        applicationService.createApplication.mockResolvedValue(applicationFactory.build({ id: '123abc' }))
+          personService.findByCrn.mockResolvedValue(person)
+          applicationService.createApplication.mockResolvedValue(
+            applicationFactory.build({ applicationOrigin: 'courtBail' }),
+          )
 
-        await requestHandler(request, response, next)
+          await requestHandler(request, response, next)
 
-        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
-          person,
-          date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
-          applicationOrigin: 'courtBail',
-        })
-      })
+          expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
+            pageHeading: `Confirm ${person.name}'s details`,
+            person,
+            date: DateFormats.dateObjtoUIDate(new Date()),
+            dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+            applicationOrigin: 'courtBail',
+            backUrl,
+          })
+        },
+      )
 
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
@@ -284,7 +301,7 @@ describe('peopleController', () => {
 
         describe('when the crn is in an invalid format', () => {
           it('renders the search-by-crn page with a incorrect format error message', async () => {
-            const requestHandler = peopleController.findByCrn()
+            const requestHandler = peopleController.findByCrn('bail')
 
             const err = { data: {}, status: 500 }
 
@@ -296,7 +313,7 @@ describe('peopleController', () => {
 
             await requestHandler(request, response, next)
 
-            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.newCohorts.bail.searchByCrn({}))
             expect(flashSpy).toHaveBeenCalledWith('errors', {
               crn: errorMessage('crn', 'Enter a CRN in the correct format'),
             })
@@ -308,7 +325,7 @@ describe('peopleController', () => {
 
         describe('when there is an error of another type', () => {
           it('throws the error', async () => {
-            const requestHandler = peopleController.findByCrn()
+            const requestHandler = peopleController.findByCrn('other')
 
             const err = { data: {}, status: 500 }
 
@@ -326,7 +343,7 @@ describe('peopleController', () => {
             expect(request.flash).toHaveBeenCalledWith('errorSummary', [
               errorSummary('crn', 'Something went wrong. Please try again later.'),
             ])
-            expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+            expect(response.redirect).toHaveBeenCalledWith(paths.applications.newCohorts.searchByCrn({}))
           })
         })
       })

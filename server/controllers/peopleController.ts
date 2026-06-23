@@ -1,5 +1,6 @@
 import type { Request, RequestHandler, Response } from 'express'
 
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import { addErrorMessagesToFlash } from '../utils/validation'
 import PersonService from '../services/personService'
 import ApplicationService from '../services/applicationService'
@@ -13,9 +14,14 @@ export default class PeopleController {
     private readonly personService: PersonService,
   ) {}
 
-  findByPrisonNumber(): RequestHandler {
+  findByPrisonNumber(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { prisonNumber, applicationOrigin } = req.body
+
+      const backUrl =
+        newCohortOrigin === 'bail'
+          ? paths.applications.newCohorts.bail.searchByPrisonNumber({})
+          : paths.applications.searchByPrisonNumber({})
 
       if (prisonNumber) {
         try {
@@ -27,6 +33,7 @@ export default class PeopleController {
             date: DateFormats.dateObjtoUIDate(new Date()),
             dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
             applicationOrigin,
+            backUrl,
           })
         } catch (err) {
           if (err.status === 404) {
@@ -48,18 +55,28 @@ export default class PeopleController {
             addErrorMessagesToFlash(req, 'prisonNumber', 'Something went wrong. Please try again later.')
           }
 
-          return res.redirect(paths.applications.searchByPrisonNumber({}))
+          return res.redirect(backUrl)
         }
       } else {
         addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number')
-        return res.redirect(paths.applications.searchByPrisonNumber({}))
+        return res.redirect(backUrl)
       }
     }
   }
 
-  findByCrn(): RequestHandler {
+  findByCrn(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { crn, applicationOrigin } = req.body
+
+      let backUrl: string
+
+      if (newCohortOrigin === 'bail') {
+        backUrl = paths.applications.newCohorts.bail.searchByCrn({})
+      } else if (newCohortOrigin === 'other') {
+        backUrl = paths.applications.newCohorts.searchByCrn({})
+      } else {
+        backUrl = paths.applications.searchByCrn({})
+      }
 
       if (crn) {
         try {
@@ -71,6 +88,7 @@ export default class PeopleController {
             date: DateFormats.dateObjtoUIDate(new Date()),
             dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
             applicationOrigin,
+            backUrl,
           })
         } catch (err) {
           if (err.status === 404) {
@@ -87,11 +105,11 @@ export default class PeopleController {
             addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
           }
 
-          return res.redirect(paths.applications.searchByCrn({}))
+          return res.redirect(backUrl)
         }
       } else {
         addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
-        return res.redirect(paths.applications.searchByCrn({}))
+        return res.redirect(backUrl)
       }
     }
   }

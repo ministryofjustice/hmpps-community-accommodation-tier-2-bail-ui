@@ -77,24 +77,28 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
       },
     )
 
-    post(paths.applications.newCohorts.people.findByCrn.pattern, peopleController.findByCrn(), {
+    post(paths.applications.newCohorts.people.findByCrn.pattern, peopleController.findByCrn('other'), {
       auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
       auditBodyParams: ['crn'],
     })
 
-    post(paths.applications.newCohorts.bail.people.findByCrn.pattern, peopleController.findByCrn(), {
+    post(paths.applications.newCohorts.bail.people.findByCrn.pattern, peopleController.findByCrn('bail'), {
       auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
       auditBodyParams: ['crn'],
     })
 
-    post(paths.applications.newCohorts.bail.people.findByPrisonNumber.pattern, peopleController.findByPrisonNumber(), {
-      auditEvent: 'FIND_APPLICATION_PERSON_BY_PRISON_NUMBER',
-      auditBodyParams: ['prisonNumber'],
-    })
+    post(
+      paths.applications.newCohorts.bail.people.findByPrisonNumber.pattern,
+      peopleController.findByPrisonNumber('bail'),
+      {
+        auditEvent: 'FIND_APPLICATION_PERSON_BY_PRISON_NUMBER',
+        auditBodyParams: ['prisonNumber'],
+      },
+    )
 
     get(
       paths.applications.newCohorts.bail.unauthorisedCourtBailApplication.pattern,
-      applicationsController.unauthorisedCourtBailApplication(),
+      applicationsController.unauthorisedCourtBailApplication('bail'),
       {
         auditEvent: 'VIEW_APPLICATION_UNAUTHORISED_COURT_BAIL',
       },
@@ -102,7 +106,7 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
 
     get(
       paths.applications.newCohorts.bail.unauthorisedPrisonBailApplication.pattern,
-      applicationsController.unauthorisedPrisonBailApplication(),
+      applicationsController.unauthorisedPrisonBailApplication('bail'),
       {
         auditEvent: 'VIEW_APPLICATION_UNAUTHORISED_PRISON_BAIL',
       },

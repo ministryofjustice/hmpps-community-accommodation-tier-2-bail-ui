@@ -887,20 +887,27 @@ describe('applicationsController', () => {
   })
 
   describe('unauthorisedCourtBailApplication', () => {
-    it('renders the enter unauthorised court bail application template', async () => {
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
-      })
+    it.each([
+      ['existing', undefined, paths.applications.applicationOrigin({})],
+      ['new', 'bail', paths.applications.newCohorts.bail.applicationOrigin({})],
+    ])(
+      'renders the unauthorised court bail application template for the %s bail route',
+      async (_name: string, newCohortOrigin: NewCohortApplicationOrigin | undefined, backUrl: string) => {
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
 
-      const requestHandler = applicationsController.unauthorisedCourtBailApplication()
-      await requestHandler(request, response, next)
+        const requestHandler = applicationsController.unauthorisedCourtBailApplication(newCohortOrigin)
+        await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
-        errors: {},
-        errorSummary: [],
-        pageHeading: 'You are unauthorised to make a court bail application',
-      })
-    })
+        expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
+          errors: {},
+          errorSummary: [],
+          pageHeading: 'You are unauthorised to make a court bail application',
+          backUrl,
+        })
+      },
+    )
 
     it('renders the form with errors and user input if an error has been sent to the flash', async () => {
       const errorsAndUserInput = createMock<ErrorsAndUserInput>()
@@ -911,6 +918,47 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
         pageHeading: 'You are unauthorised to make a court bail application',
+        backUrl: paths.applications.applicationOrigin({}),
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('unauthorisedPrisonBailApplication', () => {
+    it.each([
+      ['existing', undefined, paths.applications.applicationOrigin({})],
+      ['new', 'bail', paths.applications.newCohorts.bail.applicationOrigin({})],
+    ])(
+      'renders the unauthorised prison bail application template for the %s bail route',
+      async (_name: string, newCohortOrigin: NewCohortApplicationOrigin | undefined, backUrl: string) => {
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
+
+        const requestHandler = applicationsController.unauthorisedPrisonBailApplication(newCohortOrigin)
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/unauthorised-prison-bail-application', {
+          errors: {},
+          errorSummary: [],
+          pageHeading: 'You are unauthorised to make a prison bail application',
+          backUrl,
+        })
+      },
+    )
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.unauthorisedPrisonBailApplication()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-prison-bail-application', {
+        pageHeading: 'You are unauthorised to make a prison bail application',
+        backUrl: paths.applications.applicationOrigin({}),
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
