@@ -25,7 +25,7 @@ context('Personal information task', () => {
     })
   })
 
-  beforeEach(function test() {
+  beforeEach(() => {
     //  Given I am logged in
     cy.signIn()
   })
@@ -42,7 +42,7 @@ context('Personal information task', () => {
     TaskListPage.visit(application)
     const taskListPage = Page.verifyOnPage(TaskListPage, application)
 
-    // The personal inforamtion task has not been started
+    // The personal information task has not been started
     taskListPage.shouldShowTaskStatus('personal-information', 'Not yet started')
 
     // When I start the task
@@ -55,18 +55,22 @@ context('Personal information task', () => {
 
     // Then I am on the custody location page
     const custodyPage = Page.verifyOnPage(CustodyLocationPage, application)
+    // When I complete the page and submit
     custodyPage.checkErrorsAndSubmit()
 
     // Then I am on the immigration status page
     const immigrationPage = Page.verifyOnPage(ImmigrationStatusPage, application)
+    // When I complete the page and submit
     immigrationPage.checkErrorsAndSubmit()
 
     // Then I am on the gender page
     const genderPage = Page.verifyOnPage(GenderPage, application)
+    // When I complete the page and submit
     genderPage.checkErrorsAndSubmit()
 
     // Then I am on the pregancy information page
     const pregnancyPage = Page.verifyOnPage(PregnancyInformationPage, application)
+    // When I complete the page and submit
     pregnancyPage.checkErrorsAndSubmit()
 
     // Then I am back on the task list
@@ -77,24 +81,30 @@ context('Personal information task', () => {
     // When I navigate to the pregnancy page
     PregnancyInformationPage.visit(application)
     pregnancyPage.checkOnPage()
-
     // And I click back
     pregnancyPage.clickBack()
+
     // Then I am on the gender page
     genderPage.checkOnPage()
+    // When I click back
     genderPage.clickBack()
+
     // Then I am on the immigration status page
     immigrationPage.checkOnPage()
+    // When I click back
     immigrationPage.clickBack()
+
     // Then I am on the custody location page
     custodyPage.checkOnPage()
+    // When I click back
     custodyPage.clickBack()
+
     // Then I am on the phone page
     phonePage.checkOnPage()
+    // When I click back
     phonePage.clickBack()
     // Then I am back on the task list
     taskListPage.checkOnPage()
-    taskListPage.clickBack()
   })
 
   it('Completes the personal information task for an atcr application where the custody location is skipped', () => {
@@ -111,7 +121,7 @@ context('Personal information task', () => {
     TaskListPage.visit(application)
     const taskListPage = Page.verifyOnPage(TaskListPage, application)
 
-    // The personal inforamtion task has not been started
+    // The personal information task has not been started
     taskListPage.shouldShowTaskStatus('personal-information', 'Not yet started')
 
     // When I start the task
@@ -123,14 +133,17 @@ context('Personal information task', () => {
 
     // Then I am on the immigration status page
     const immigrationPage = Page.verifyOnPage(ImmigrationStatusPage, application)
+    // When I complete the page and submit
     immigrationPage.checkErrorsAndSubmit()
 
     // Then I am on the gender page
     const genderPage = Page.verifyOnPage(GenderPage, application)
+    // When I complete the page and submit
     genderPage.checkErrorsAndSubmit()
 
     // Then I am on the pregancy information page
     const pregnancyPage = Page.verifyOnPage(PregnancyInformationPage, application)
+    // When I complete the page and submit
     pregnancyPage.checkErrorsAndSubmit()
 
     // Then I am on the task list with the task completed
@@ -145,16 +158,21 @@ context('Personal information task', () => {
     pregnancyPage.clickBack()
     // Then I am on the gender page
     genderPage.checkOnPage()
+
+    // When I click back
     genderPage.clickBack()
     // Then I am on the immigration status page
     immigrationPage.checkOnPage()
+
+    // When I click back
     immigrationPage.clickBack()
     // Then I am on the phone page
     phonePage.checkOnPage()
+
+    // When I click back
     phonePage.clickBack()
     // Then I am back on the task list
     taskListPage.checkOnPage()
-    taskListPage.clickBack()
   })
 
   it('should remove orphaned data (custody locaton for non custody cohorts)', () => {
