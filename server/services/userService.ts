@@ -1,4 +1,4 @@
-import { Cas2v2UserDto } from '@approved-premises/api'
+import { Cas2UserDto } from '@approved-premises/api'
 import type HmppsAuthClient from '../data/hmppsAuthClient'
 import { convertToTitleCase } from '../utils/utils'
 import { RestClientBuilder } from '../data'
@@ -20,7 +20,7 @@ export default class UserService {
     return { ...user, displayName: convertToTitleCase(user.name) }
   }
 
-  async getUserDetails(token: string, userName: string): Promise<Cas2v2UserDto> {
+  async getUserDetails(token: string, userName: string): Promise<Cas2UserDto> {
     const userClient = this.userClientFactory(token)
 
     return userClient.getUserDetails(userName)

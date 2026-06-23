@@ -1,4 +1,4 @@
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { ObjectWithDateParts, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Page } from '../../../utils/decorators'
 import BasePage from '../../../utils/basePage'
@@ -35,7 +35,7 @@ export default class LicenceDates extends BasePage {
 
   constructor(
     body: Partial<LicenceDatesBody>,
-    private readonly application: Cas2v2Application,
+    private readonly application: Cas2Application,
   ) {
     super()
 

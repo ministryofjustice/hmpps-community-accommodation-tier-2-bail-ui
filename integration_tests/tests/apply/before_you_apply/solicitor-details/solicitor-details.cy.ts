@@ -1,4 +1,4 @@
-import { ApplicationOrigin, Cas2CohortDto, Cas2v2Application } from '@approved-premises/api'
+import { ApplicationOrigin, Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { applicationFactory, personFactory, solicitorFactory } from '../../../../../server/testutils/factories'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import Page from '../../../../pages/page'
@@ -17,7 +17,7 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
     cy.signIn()
   })
 
-  const getApplication = (cohort: Cas2CohortDto): Chainable<Cas2v2Application> => {
+  const getApplication = (cohort: Cas2CohortDto): Chainable<Cas2Application> => {
     return cy.fixture('applicationData.json').then(applicationData => {
       return applicationFactory.build({
         person,
