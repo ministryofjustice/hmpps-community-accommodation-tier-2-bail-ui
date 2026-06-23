@@ -50,27 +50,27 @@ context('Personal information task', () => {
 
     // Then I am on the phone page
     const phonePage = Page.verifyOnPage(WorkingMobilePhonePage, application)
-    // When I complete the page and submit
+    // When I complete the phone page and submit
     phonePage.checkErrorsAndSubmit()
 
     // Then I am on the custody location page
     const custodyPage = Page.verifyOnPage(CustodyLocationPage, application)
-    // When I complete the page and submit
+    // When I complete the custody location page and submit
     custodyPage.checkErrorsAndSubmit()
 
     // Then I am on the immigration status page
     const immigrationPage = Page.verifyOnPage(ImmigrationStatusPage, application)
-    // When I complete the page and submit
+    // When I complete the immigration status page and submit
     immigrationPage.checkErrorsAndSubmit()
 
     // Then I am on the gender page
     const genderPage = Page.verifyOnPage(GenderPage, application)
-    // When I complete the page and submit
+    // When I complete the gender page and submit
     genderPage.checkErrorsAndSubmit()
 
     // Then I am on the pregancy information page
     const pregnancyPage = Page.verifyOnPage(PregnancyInformationPage, application)
-    // When I complete the page and submit
+    // When I complete the pregancy information page and submit
     pregnancyPage.checkErrorsAndSubmit()
 
     // Then I am back on the task list
@@ -128,22 +128,22 @@ context('Personal information task', () => {
     taskListPage.visitTask('Add personal information')
     // Then I am on the phone page
     const phonePage = Page.verifyOnPage(WorkingMobilePhonePage, application)
-    // When I complete the page and submit
+    // When I complete and submit the phone page
     phonePage.checkErrorsAndSubmit()
 
     // Then I am on the immigration status page
     const immigrationPage = Page.verifyOnPage(ImmigrationStatusPage, application)
-    // When I complete the page and submit
+    // When I complete the immigration status page and submit
     immigrationPage.checkErrorsAndSubmit()
 
     // Then I am on the gender page
     const genderPage = Page.verifyOnPage(GenderPage, application)
-    // When I complete the page and submit
+    // When I complete the gender page and submit
     genderPage.checkErrorsAndSubmit()
 
     // Then I am on the pregancy information page
     const pregnancyPage = Page.verifyOnPage(PregnancyInformationPage, application)
-    // When I complete the page and submit
+    // When I complete the pregancy information page and submit
     pregnancyPage.checkErrorsAndSubmit()
 
     // Then I am on the task list with the task completed
