@@ -1,0 +1,49 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% extends "../layout.njk" %}
+
+{% block questions %}
+  {% call govukFieldset({
+    legend: {
+      text: page.title,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  }) %}
+
+  {{
+    formPageInput(
+      { label: { text: page.questions.addressLine1.question }, fieldName: "addressLine1" },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      { label: { text: page.questions.addressLine2.question }, fieldName: "addressLine2" },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      { label: { text: page.questions.townOrCity.question }, classes: "govuk-!-width-two-thirds", fieldName: "townOrCity" },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      { label: { text: page.questions.county.question }, classes: "govuk-!-width-two-thirds", fieldName: "county" },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      { label: { text: page.questions.postcode.question }, classes: "govuk-input--width-10", fieldName: "postcode" },
+      fetchContext()
+    )
+  }}
+
+  {% endcall %}
+{% endblock %}
