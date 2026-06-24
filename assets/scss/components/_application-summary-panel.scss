@@ -1,20 +1,22 @@
+@use "govuk-frontend/dist/govuk/all" as govuk;
+
 .application-summary-panel {
   text-align: left;
-  background: govuk-colour('blue');
-  color: govuk-colour('white');
+  background: govuk.govuk-colour('blue');
+  color: govuk.govuk-colour('white');
 
   &__text {
-    color: govuk-colour('white') !important;
+    color: govuk.govuk-colour('white') !important;
   }
 
   &__text:focus {
-    color: govuk-colour('black') !important;
+    color: govuk.govuk-colour('black') !important;
   }
 
   &__update-status-button {
-    background-color: govuk-colour('white') !important;
-    color: $govuk-link-colour !important;
-    box-shadow: 0 2px 0 govuk-colour('dark-grey');
+    background-color: govuk.govuk-colour('white') !important;
+    color: govuk.$govuk-link-colour !important;
+    box-shadow: 0 2px 0 govuk.govuk-colour('dark-grey');
   }
 
   &__download-pdf-button {
@@ -25,10 +27,10 @@
   }
 
   @media print {
-    color: govuk-colour('black');
+    color: govuk.govuk-colour('black');
 
     &__text {
-      color: govuk-colour('black') !important;
+      color: govuk.govuk-colour('black') !important;
     }
   }
 }
