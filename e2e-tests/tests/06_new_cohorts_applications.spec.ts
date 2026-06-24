@@ -1,20 +1,34 @@
 import test from '../test'
 import signIn from '../steps/signIn'
-import { selectApplicationOrigin, startANewCohortApplication } from '../steps/apply'
-import { BeforeYouStartPage } from '../pages/apply'
+import {
+  completeAboutThePersonSection,
+  completeAreaAndFundingSection,
+  completeBeforeYouStartForCustodyApplications,
+  completeBeforeYouStartSection,
+  confirmApplicant,
+  enterCrn,
+  enterPrisonerNumber,
+  selectBailApplicationOrigin,
+  startANewCohortApplication,
+} from '../steps/apply'
 
-test('Create a CAS2 bail application', async ({ page, deliusPrisonUser }) => {
+test('Create a CAS2 bail application', async ({ page, person, deliusPrisonUser }) => {
   await signIn(page, deliusPrisonUser)
-  await startANewCohortApplication(page)
-  await selectApplicationOrigin(page, 'bail')
-  const beforeYouStartPage = new BeforeYouStartPage(page)
-  await beforeYouStartPage.startNow()
+  await startANewCohortApplication(page, 'bail')
+  await selectBailApplicationOrigin(page, 'prisonBail')
+  await enterPrisonerNumber(page, person.nomsNumber)
+  await confirmApplicant(page)
+  await completeBeforeYouStartSection(page, person.name)
+  await completeAboutThePersonSection(page, person.name, 'bail')
+  await completeAreaAndFundingSection(page, person.name, 'bail')
 })
 
-test('Create a different CAS2 application', async ({ page, deliusPrisonUser }) => {
+test('Create a different CAS2 application', async ({ page, person, deliusPrisonUser }) => {
   await signIn(page, deliusPrisonUser)
-  await startANewCohortApplication(page)
-  await selectApplicationOrigin(page, 'other')
-  const beforeYouStartPage = new BeforeYouStartPage(page)
-  await beforeYouStartPage.startNow()
+  await startANewCohortApplication(page, 'other')
+  await enterCrn(page, person.crn)
+  await confirmApplicant(page)
+  await completeBeforeYouStartForCustodyApplications(page, person.name)
+  await completeAboutThePersonSection(page, person.name, 'other')
+  await completeAreaAndFundingSection(page, person.name, 'other')
 })

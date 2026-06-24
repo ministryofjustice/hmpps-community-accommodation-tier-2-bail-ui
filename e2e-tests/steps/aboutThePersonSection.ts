@@ -1,3 +1,4 @@
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
@@ -130,12 +131,18 @@ async function completePreviousAddressPage(page: Page, name: string) {
   await lastFixedAddressPage.clickSave()
 }
 
-export const completePersonalInformationTask = async (page: Page, name: string) => {
+export const completePersonalInformationTask = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add personal information')
 
   await completeWorkingMobilePhonePage(page, name)
-  await completeCustodyLocationPage(page, name)
+  if (applicationOrigin === 'bail') {
+    await completeCustodyLocationPage(page, name)
+  }
   await completeImmigrationStatusPage(page, name)
   await completeGenderPage(page, name)
   await completePregnancyPage(page, name)
