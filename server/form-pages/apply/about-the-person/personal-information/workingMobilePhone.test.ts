@@ -4,6 +4,10 @@ import { personFactory, applicationFactory } from '../../../../testutils/factori
 
 describe('WorkingMobilePhone', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Sue Smith' }) })
+  const nonCustodialCohortApplication = applicationFactory.build({
+    person: personFactory.build({ name: 'Sue Smith' }),
+    cohort: 'isc',
+  })
 
   const body: WorkingMobilePhoneBody = {
     hasWorkingMobilePhone: 'yes',
@@ -43,8 +47,11 @@ describe('WorkingMobilePhone', () => {
     })
   })
 
-  itShouldHaveNextValue(new WorkingMobilePhone(body, application), 'immigration-status')
-  itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'custody-location')
+  describe('routes', () => {
+    itShouldHaveNextValue(new WorkingMobilePhone(body, application), 'custody-location')
+    itShouldHaveNextValue(new WorkingMobilePhone(body, nonCustodialCohortApplication), 'immigration-status')
+    itShouldHavePreviousValue(new WorkingMobilePhone(body, application), 'taskList')
+  })
 
   describe('onSave', () => {
     it('removes mobile phone data if question is not set to "yes"', () => {

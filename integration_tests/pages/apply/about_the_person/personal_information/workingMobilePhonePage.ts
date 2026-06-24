@@ -28,4 +28,8 @@ export default class WorkingMobilePhonePage extends ApplyPage {
     this.getTextInputByIdAndEnterDetails('mobilePhoneNumber', '11111111111')
     this.checkRadioByNameAndValue('isSmartPhone', 'yes')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(`Choose either Yes, No or I don't know`)
+  }
 }

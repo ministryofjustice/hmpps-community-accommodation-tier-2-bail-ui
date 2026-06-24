@@ -10,6 +10,6 @@ import CustodyLocation from './custodyLocation'
 @Task({
   name: 'Add personal information',
   slug: 'personal-information',
-  pages: [CustodyLocation, WorkingMobilePhone, ImmigrationStatus, Gender, PregnancyInformation],
+  pages: [WorkingMobilePhone, CustodyLocation, ImmigrationStatus, Gender, PregnancyInformation],
 })
 export default class PersonalInformation {}

@@ -33,11 +33,11 @@ export default class CustodyLocation implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'working-mobile-phone'
   }
 
   next() {
-    return 'working-mobile-phone'
+    return 'immigration-status'
   }
 
   errors() {

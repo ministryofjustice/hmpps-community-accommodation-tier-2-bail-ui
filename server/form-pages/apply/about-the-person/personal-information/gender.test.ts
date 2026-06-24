@@ -30,7 +30,7 @@ describe('Gender', () => {
   })
 
   itShouldHaveNextValue(new Gender(body, application), 'pregnancy-information')
-  itShouldHavePreviousValue(new Gender(body, application), '')
+  itShouldHavePreviousValue(new Gender(body, application), 'immigration-status')
 
   describe('onSave', () => {
     it('removes gender identity data if question is not set to "no"', () => {

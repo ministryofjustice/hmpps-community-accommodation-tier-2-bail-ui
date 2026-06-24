@@ -34,7 +34,7 @@ export default class Gender implements TaskListPage {
   }
 
   previous() {
-    return ''
+    return 'immigration-status'
   }
 
   next() {

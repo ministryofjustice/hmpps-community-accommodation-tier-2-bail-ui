@@ -26,4 +26,8 @@ export default class ImmigrationStatusPage extends ApplyPage {
   completeForm(): void {
     this.getSelectInputByIdAndSelectAnEntry('immigrationStatus', 'UK citizen')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(`Select their immigration status`)
+  }
 }

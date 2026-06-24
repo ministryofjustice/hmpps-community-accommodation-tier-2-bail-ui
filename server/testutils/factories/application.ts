@@ -8,6 +8,7 @@ import cas2v2UserFactory from './cas2v2User'
 export default Factory.define<Application>(() => ({
   id: faker.string.uuid(),
   applicationOrigin: 'prisonBail',
+  cohort: 'prisonBail',
   person: faker.helpers.arrayElement([fullPersonFactory.build(), restrictedPersonFactory.build()]),
   createdBy: cas2v2UserFactory.build({}),
   schemaVersion: faker.string.uuid(),
