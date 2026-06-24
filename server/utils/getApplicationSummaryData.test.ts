@@ -1,10 +1,10 @@
-import { FullPerson, Cas2v2Application, Cas2v2SubmittedApplication } from '@approved-premises/api'
+import { FullPerson, Cas2Application, Cas2SubmittedApplication } from '@approved-premises/api'
 import { getApplicationSummaryData } from './getApplicationSummaryData'
 import { applicationFactory, submittedApplicationFactory } from '../testutils/factories/index'
 
 describe('getApplicationSummaryData', () => {
-  it('returns correct summary for Cas2v2Application', () => {
-    const application: Cas2v2Application = applicationFactory.build({
+  it('returns correct summary for Cas2Application', () => {
+    const application: Cas2Application = applicationFactory.build({
       id: 'app-1',
       person: {
         name: 'Jane Smith',
@@ -42,8 +42,8 @@ describe('getApplicationSummaryData', () => {
     })
   })
 
-  it('returns correct summary for Cas2v2SubmittedApplication', () => {
-    const application: Cas2v2SubmittedApplication = submittedApplicationFactory.build({
+  it('returns correct summary for Cas2SubmittedApplication', () => {
+    const application: Cas2SubmittedApplication = submittedApplicationFactory.build({
       id: 'app-2',
       person: {
         name: 'Alex Doe',
@@ -93,7 +93,7 @@ describe('getApplicationSummaryData', () => {
   })
 
   it('returns null for prisonName if not present in either type', () => {
-    const application: Cas2v2Application = applicationFactory.build({
+    const application: Cas2Application = applicationFactory.build({
       id: 'app-3',
       person: {
         name: 'No Prison',

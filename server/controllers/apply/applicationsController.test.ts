@@ -1,8 +1,8 @@
-import type { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, RequestHandler, Response } from 'express'
 import { DeepMocked, createMock } from '@golevelup/ts-jest'
-import { Cas2v2Application as Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import {
-  ApplicationOrigin,
+  NewCohortApplicationOrigin,
   BailApplicationOrigin,
   ErrorsAndUserInput,
   GroupedApplications,
@@ -30,11 +30,7 @@ import { PersonService, ApplicationService, SubmittedApplicationService } from '
 import paths from '../../paths/apply'
 import { buildDocument } from '../../utils/applications/documentUtils'
 import config from '../../config'
-import {
-  showMissingRequiredTasksOrTaskList,
-  generateSuccessMessage,
-  getFirstIncompleteTask,
-} from '../../utils/applications/utils'
+import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
@@ -66,7 +62,7 @@ describe('applicationsController', () => {
     totalPages: '1',
     totalResults: '3',
     pageSize: '10',
-  } as PaginatedResponse<Cas2v2ApplicationSummary>
+  } as PaginatedResponse<Cas2ApplicationSummary>
 
   applicationService.getAllForLoggedInUser.mockResolvedValue(applications)
 
@@ -559,33 +555,51 @@ describe('applicationsController', () => {
   })
 
   describe('bailApplicationOrigin', () => {
-    it('renders the enter bail application origin template', async () => {
+    beforeEach(() => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
-
-      const requestHandler = applicationsController.bailApplicationOrigin()
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
-        errors: {},
-        errorSummary: [],
-        pageHeading: 'Where are you making the application from?',
-      })
     })
 
-    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
-      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
-      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+    describe.each([
+      ['existing', false, paths.applications.beforeYouStart({}), paths.applications.selectApplicationOrigin({})],
+      [
+        'new cohorts',
+        true,
+        paths.applications.newCohorts.bail.beforeYouStart({}),
+        paths.applications.newCohorts.bail.selectApplicationOrigin({}),
+      ],
+    ])('when using the %s bail route', (name: string, newCohorts: boolean, backUrl: string, nextUrl: string) => {
+      let requestHandler: RequestHandler
 
-      const requestHandler = applicationsController.bailApplicationOrigin()
-      await requestHandler(request, response, next)
+      beforeEach(() => {
+        requestHandler = applicationsController.bailApplicationOrigin({ newCohorts })
+      })
 
-      expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
-        pageHeading: 'Where are you making the application from?',
-        errors: errorsAndUserInput.errors,
-        errorSummary: errorsAndUserInput.errorSummary,
-        ...errorsAndUserInput.userInput,
+      it(`renders the ${name} bail application origin template`, async () => {
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
+          backUrl,
+          nextUrl,
+          errors: {},
+          errorSummary: [],
+        })
+      })
+
+      it(`renders the ${name} bail form with errors and user input if an error has been sent to the flash`, async () => {
+        const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+        ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/bail-application-origin', {
+          backUrl,
+          nextUrl,
+          errors: errorsAndUserInput.errors,
+          errorSummary: errorsAndUserInput.errorSummary,
+          ...errorsAndUserInput.userInput,
+        })
       })
     })
   })
@@ -604,7 +618,7 @@ describe('applicationsController', () => {
 
     it('redirects to the bail before-you-start page when application origin is bail', async () => {
       request.body = {
-        applicationOrigin: 'bail' as ApplicationOrigin,
+        applicationOrigin: 'bail' as NewCohortApplicationOrigin,
       }
 
       const requestHandler = applicationsController.selectApplicationOrigin()
@@ -615,7 +629,7 @@ describe('applicationsController', () => {
 
     it('redirects to the new cohorts before-you-start page when application origin is other', async () => {
       request.body = {
-        applicationOrigin: 'other' as ApplicationOrigin,
+        applicationOrigin: 'other' as NewCohortApplicationOrigin,
       }
 
       const requestHandler = applicationsController.selectApplicationOrigin()
@@ -648,71 +662,95 @@ describe('applicationsController', () => {
         applicationOrigin: null,
       }
 
-      const requestHandler = applicationsController.selectBailApplicationOrigin()
+      const requestHandler = applicationsController.selectBailApplicationOrigin({ newCohorts: false })
       await requestHandler(request, response, next)
 
       expect(response.redirect).toHaveBeenCalledWith(paths.applications.applicationOrigin({}))
     })
 
-    it('redirects to the searchByPrisonNumber page when application origin is prisonBail', async () => {
-      request.body = {
-        applicationOrigin: 'prisonBail' as BailApplicationOrigin,
-      }
+    it.each([
+      ['existing', false, paths.applications.searchByPrisonNumber({})],
+      ['new cohort', true, paths.applications.newCohorts.bail.searchByPrisonNumber({})],
+    ])(
+      'redirects to the %s searchByPrisonNumber page when application origin is prisonBail',
+      async (_name: string, newCohorts: boolean, redirectUrl: string) => {
+        request.body = { applicationOrigin: 'prisonBail' as BailApplicationOrigin }
 
-      const requestHandler = applicationsController.selectBailApplicationOrigin()
-      await requestHandler(request, response, next)
+        const requestHandler = applicationsController.selectBailApplicationOrigin({ newCohorts })
+        await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByPrisonNumber({}))
-    })
+        expect(response.redirect).toHaveBeenCalledWith(redirectUrl)
+      },
+    )
 
-    it('redirects to the searchByCrn page when application origin is courtBail', async () => {
-      request.body = {
-        applicationOrigin: 'courtBail' as BailApplicationOrigin,
-      }
+    it.each([
+      ['existing', false, paths.applications.searchByCrn({})],
+      ['new cohort', true, paths.applications.newCohorts.bail.searchByCrn({})],
+    ])(
+      'redirects to the %s searchCrn page when application origin is courtBail',
+      async (_name: string, newCohorts: boolean, redirectUrl: string) => {
+        request.body = {
+          applicationOrigin: 'courtBail' as BailApplicationOrigin,
+        }
 
-      const requestHandler = applicationsController.selectBailApplicationOrigin()
-      await requestHandler(request, response, next)
+        const requestHandler = applicationsController.selectBailApplicationOrigin({ newCohorts })
+        await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
-    })
+        expect(response.redirect).toHaveBeenCalledWith(redirectUrl)
+      },
+    )
 
-    it('redirects to the unauthorised court bail page when the application origin is courtBail and the user does not have the CAS2_COURT_BAIL_REFERRER role', async () => {
-      request.body = {
-        applicationOrigin: 'courtBail' as BailApplicationOrigin,
-      }
+    it.each([
+      ['existing', false, paths.applications.unauthorisedCourtBailApplication({})],
+      ['new cohort', true, paths.applications.newCohorts.bail.unauthorisedCourtBailApplication({})],
+    ])(
+      'redirects to the %s unauthorised court bail page when the application origin is courtBail and the user does not have the CAS2_COURT_BAIL_REFERRER role',
+      async (_name: string, newCohorts: boolean, redirectUrl: string) => {
+        request.body = {
+          applicationOrigin: 'courtBail' as BailApplicationOrigin,
+        }
 
-      response = createMock<Response>({
-        locals: { user: { userRoles: ['CAS2_PRISON_BAIL_REFERRER'] } },
-      })
+        response = createMock<Response>({
+          locals: { user: { userRoles: ['CAS2_PRISON_BAIL_REFERRER'] } },
+        })
 
-      const requestHandler = applicationsController.selectBailApplicationOrigin()
-      await requestHandler(request, response, next)
+        const requestHandler = applicationsController.selectBailApplicationOrigin({ newCohorts })
+        await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedCourtBailApplication({}))
-    })
+        expect(response.redirect).toHaveBeenCalledWith(redirectUrl)
+      },
+    )
 
-    it('redirects to the unauthorised prison bail page when the application origin is prisonBail and the user does not have the CAS2_PRISON_BAIL_REFERRER role', async () => {
-      request.body = {
-        applicationOrigin: 'prisonBail' as BailApplicationOrigin,
-      }
+    it.each([
+      ['existing', false, paths.applications.unauthorisedPrisonBailApplication({})],
+      ['new cohort', true, paths.applications.newCohorts.bail.unauthorisedPrisonBailApplication({})],
+    ])(
+      'redirects to the %s unauthorised prison bail page when the application origin is prisonBail and the user does not have the CAS2_PRISON_BAIL_REFERRER role',
+      async (_name: string, newCohorts: boolean, redirectUrl: string) => {
+        request.body = {
+          applicationOrigin: 'prisonBail' as BailApplicationOrigin,
+        }
 
-      response = createMock<Response>({
-        locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
-      })
+        response = createMock<Response>({
+          locals: { user: { userRoles: ['CAS2_COURT_BAIL_REFERRER'] } },
+        })
 
-      const requestHandler = applicationsController.selectBailApplicationOrigin()
-      await requestHandler(request, response, next)
+        const requestHandler = applicationsController.selectBailApplicationOrigin({ newCohorts })
+        await requestHandler(request, response, next)
 
-      expect(response.redirect).toHaveBeenCalledWith(paths.applications.unauthorisedPrisonBailApplication({}))
-    })
+        expect(response.redirect).toHaveBeenCalledWith(redirectUrl)
+      },
+    )
   })
 
   describe('searchByPrisonNumber', () => {
-    it('renders the enter prison number template', async () => {
+    beforeEach(() => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
+    })
 
+    it('renders the enter prison number template for the existing prisonBail route', async () => {
       const requestHandler = applicationsController.searchByPrisonNumber()
       await requestHandler(request, response, next)
 
@@ -720,6 +758,21 @@ describe('applicationsController', () => {
         errors: {},
         errorSummary: [],
         pageHeading: 'Enter the applicant’s prison number',
+        backUrl: paths.applications.applicationOrigin({}),
+        nextUrl: paths.applications.people.findByPrisonNumber({}),
+      })
+    })
+
+    it('renders the enter prison number template for the new cohorts prisonBail route', async () => {
+      const requestHandler = applicationsController.searchByPrisonNumber({ newCohorts: true })
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
+        errors: {},
+        errorSummary: [],
+        pageHeading: 'Enter the applicant’s prison number',
+        backUrl: paths.applications.newCohorts.bail.applicationOrigin({}),
+        nextUrl: paths.applications.newCohorts.bail.people.findByPrisonNumber({}),
       })
     })
 
@@ -732,6 +785,8 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/search-by-prison-number', {
         pageHeading: 'Enter the applicant’s prison number',
+        backUrl: paths.applications.applicationOrigin({}),
+        nextUrl: paths.applications.people.findByPrisonNumber({}),
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         errorStatusCode: errorsAndUserInput.errorStatusCode,
@@ -746,12 +801,12 @@ describe('applicationsController', () => {
         user: { token },
         query: {},
       })
-    })
-    it('renders the enter CRN template', async () => {
       ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
         return { errors: {}, errorSummary: [], userInput: {} }
       })
+    })
 
+    it('renders the enter CRN template for the existing court bail route', async () => {
       const requestHandler = applicationsController.searchByCrn()
       await requestHandler(request, response, next)
 
@@ -760,6 +815,55 @@ describe('applicationsController', () => {
         errors: {},
         errorSummary: [],
         pageHeading: "Enter the person's CRN",
+        backUrl: paths.applications.applicationOrigin({}),
+        nextUrl: paths.applications.people.findByCrn({}),
+      })
+    })
+
+    it('renders the enter CRN template for the existing prison bail route', async () => {
+      request = createMock<Request>({
+        user: { token },
+        query: { usePrisonBailApplicationOrigin: 'true' },
+      })
+
+      const requestHandler = applicationsController.searchByCrn()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        applicationOrigin: 'prisonBail',
+        errors: {},
+        errorSummary: [],
+        pageHeading: "Enter the person's CRN",
+        backUrl: paths.applications.applicationOrigin({}),
+        nextUrl: paths.applications.people.findByCrn({}),
+      })
+    })
+
+    it('renders the enter CRN template for the new cohorts bail route', async () => {
+      const requestHandler = applicationsController.searchByCrn('bail')
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        applicationOrigin: 'courtBail',
+        errors: {},
+        errorSummary: [],
+        pageHeading: "Enter the person's CRN",
+        backUrl: paths.applications.newCohorts.bail.applicationOrigin({}),
+        nextUrl: paths.applications.newCohorts.bail.people.findByCrn({}),
+      })
+    })
+
+    it('renders the enter CRN template for the new cohorts other cohorts route', async () => {
+      const requestHandler = applicationsController.searchByCrn('other')
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
+        applicationOrigin: 'other',
+        errors: {},
+        errorSummary: [],
+        pageHeading: "Enter the person's CRN",
+        backUrl: paths.applications.newCohorts.beforeYouStart({}),
+        nextUrl: paths.applications.newCohorts.people.findByCrn({}),
       })
     })
 
@@ -773,51 +877,37 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
         applicationOrigin: 'courtBail',
         pageHeading: "Enter the person's CRN",
+        backUrl: paths.applications.applicationOrigin({}),
+        nextUrl: paths.applications.people.findByCrn({}),
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
       })
     })
+  })
 
-    describe('applicationOrigin', () => {
-      it('sets the applicationOrigin to "prisonBail" when the query param is set', async () => {
+  describe('unauthorisedCourtBailApplication', () => {
+    it.each([
+      ['existing', undefined, paths.applications.applicationOrigin({})],
+      ['new', 'bail', paths.applications.newCohorts.bail.applicationOrigin({})],
+    ])(
+      'renders the unauthorised court bail application template for the %s bail route',
+      async (_name: string, newCohortOrigin: NewCohortApplicationOrigin | undefined, backUrl: string) => {
         ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
 
-        request = createMock<Request>({
-          user: { token },
-          query: { usePrisonBailApplicationOrigin: 'true' },
-        })
-
-        const requestHandler = applicationsController.searchByCrn()
+        const requestHandler = applicationsController.unauthorisedCourtBailApplication(newCohortOrigin)
         await requestHandler(request, response, next)
 
-        expect(response.render).toHaveBeenCalledWith('applications/search-by-crn', {
-          applicationOrigin: 'prisonBail',
+        expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
           errors: {},
           errorSummary: [],
-          pageHeading: "Enter the person's CRN",
+          pageHeading: 'You are unauthorised to make a court bail application',
+          backUrl,
         })
-      })
-    })
-  })
-
-  describe('unauthorisedCourtBailApplication', () => {
-    it('renders the enter unauthorised court bail application template', async () => {
-      ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
-        return { errors: {}, errorSummary: [], userInput: {} }
-      })
-
-      const requestHandler = applicationsController.unauthorisedCourtBailApplication()
-      await requestHandler(request, response, next)
-
-      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
-        errors: {},
-        errorSummary: [],
-        pageHeading: 'You are unauthorised to make a court bail application',
-      })
-    })
+      },
+    )
 
     it('renders the form with errors and user input if an error has been sent to the flash', async () => {
       const errorsAndUserInput = createMock<ErrorsAndUserInput>()
@@ -828,6 +918,47 @@ describe('applicationsController', () => {
 
       expect(response.render).toHaveBeenCalledWith('applications/unauthorised-court-bail-application', {
         pageHeading: 'You are unauthorised to make a court bail application',
+        backUrl: paths.applications.applicationOrigin({}),
+        errors: errorsAndUserInput.errors,
+        errorSummary: errorsAndUserInput.errorSummary,
+        ...errorsAndUserInput.userInput,
+      })
+    })
+  })
+
+  describe('unauthorisedPrisonBailApplication', () => {
+    it.each([
+      ['existing', undefined, paths.applications.applicationOrigin({})],
+      ['new', 'bail', paths.applications.newCohorts.bail.applicationOrigin({})],
+    ])(
+      'renders the unauthorised prison bail application template for the %s bail route',
+      async (_name: string, newCohortOrigin: NewCohortApplicationOrigin | undefined, backUrl: string) => {
+        ;(fetchErrorsAndUserInput as jest.Mock).mockImplementation(() => {
+          return { errors: {}, errorSummary: [], userInput: {} }
+        })
+
+        const requestHandler = applicationsController.unauthorisedPrisonBailApplication(newCohortOrigin)
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('applications/unauthorised-prison-bail-application', {
+          errors: {},
+          errorSummary: [],
+          pageHeading: 'You are unauthorised to make a prison bail application',
+          backUrl,
+        })
+      },
+    )
+
+    it('renders the form with errors and user input if an error has been sent to the flash', async () => {
+      const errorsAndUserInput = createMock<ErrorsAndUserInput>()
+      ;(fetchErrorsAndUserInput as jest.Mock).mockReturnValue(errorsAndUserInput)
+
+      const requestHandler = applicationsController.unauthorisedPrisonBailApplication()
+      await requestHandler(request, response, next)
+
+      expect(response.render).toHaveBeenCalledWith('applications/unauthorised-prison-bail-application', {
+        pageHeading: 'You are unauthorised to make a prison bail application',
+        backUrl: paths.applications.applicationOrigin({}),
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
@@ -894,9 +1025,9 @@ describe('applicationsController', () => {
         const mockTaskList: Partial<TaskListService> = {
           status: 'incomplete',
           taskStatuses: { task1: 'complete', task2: 'in_progress' },
+          firstIncompleteTask: 'task2',
         }
         ;(TaskListService as jest.Mock).mockImplementation(() => mockTaskList)
-        ;(getFirstIncompleteTask as jest.Mock).mockReturnValue('task2')
         ;(errorMessage as jest.Mock).mockReturnValue({
           text: 'You must complete all tasks before submitting the application',
         })

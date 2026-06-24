@@ -7,7 +7,7 @@ import type { Services } from '../../services'
 import CancelController from './applications/cancelController'
 
 export const controllers = (services: Services) => {
-  const { applicationService, personService, submittedApplicationService } = services
+  const { applicationService, personService, submittedApplicationService, userService } = services
   const applicationsController = new ApplicationsController(
     personService,
     applicationService,
@@ -15,9 +15,10 @@ export const controllers = (services: Services) => {
     {
       personService,
       applicationService,
+      userService,
     },
   )
-  const pagesController = new PagesController(applicationService, { personService, applicationService })
+  const pagesController = new PagesController(applicationService, { personService, applicationService, userService })
   const cancelController = new CancelController(applicationService)
 
   return {

@@ -1,9 +1,9 @@
 import 'cypress-axe'
 import { Result } from 'axe-core'
 import {
-  Cas2v2ApplicationSummary,
+  Cas2ApplicationSummary,
   FullPerson,
-  Cas2v2SubmittedApplication as SubmittedApplication,
+  Cas2SubmittedApplication as SubmittedApplication,
 } from '@approved-premises/api'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
@@ -67,6 +67,16 @@ export default abstract class Page {
 
   getTextInputByIdAndEnterDetails(id: string, details: string): void {
     cy.get(`#${id}`).type(details)
+  }
+
+  getTextInputByLabelAndEnterDetails(label: string, details: string): void {
+    cy.get('label')
+      .contains(label)
+      .closest('.govuk-form-group')
+      .within(() => {
+        cy.get('input').clear()
+        cy.get('input').type(details)
+      })
   }
 
   shouldShowErrorMessagesForFields(fields: Array<string>, error?: string): void {
@@ -177,7 +187,7 @@ export default abstract class Page {
     })
   }
 
-  shouldShowApplications(applications: Array<Cas2v2ApplicationSummary>, inProgress = false): void {
+  shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
       const { personName } = application
       cy.contains(personName)
@@ -194,5 +204,13 @@ export default abstract class Page {
           cy.get('th').eq(0).contains(personName)
         })
     })
+  }
+
+  shouldShowErrorSummary(text: string): void {
+    cy.get('.govuk-error-summary').should('contain', text)
+  }
+
+  shouldNotShowErrorSummary(text: string): void {
+    cy.get('.govuk-error-summary').should('not.contain', text)
   }
 }

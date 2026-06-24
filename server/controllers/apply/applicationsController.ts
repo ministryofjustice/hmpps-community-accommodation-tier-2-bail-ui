@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
-import { DataServices, BailApplicationOrigin, ApplicationOrigin } from '@approved-premises/ui'
-import { Cas2v2Application } from '@approved-premises/api'
+import { DataServices, BailApplicationOrigin, NewCohortApplicationOrigin } from '@approved-premises/ui'
+import { Cas2Application, ApplicationOrigin } from '@approved-premises/api'
 import PersonService from '../../services/personService'
 import {
   addErrorMessagesToFlash,
@@ -10,11 +10,7 @@ import {
   fetchErrorsAndUserInput,
 } from '../../utils/validation'
 import { ApplicationService, SubmittedApplicationService } from '../../services'
-import {
-  generateSuccessMessage,
-  showMissingRequiredTasksOrTaskList,
-  getFirstIncompleteTask,
-} from '../../utils/applications/utils'
+import { generateSuccessMessage, showMissingRequiredTasksOrTaskList } from '../../utils/applications/utils'
 import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
@@ -82,7 +78,6 @@ export default class ApplicationsController {
         const summary = getApplicationSummaryData('referrerSubmission', application)
         return res.render('applications/show', { application, summary })
       }
-
       return showMissingRequiredTasksOrTaskList(req, res, application)
     }
   }
@@ -119,7 +114,7 @@ export default class ApplicationsController {
     }
   }
 
-  private ineligibleViewParams(application: Cas2v2Application): Record<string, string | Cas2v2Application> {
+  private ineligibleViewParams(application: Cas2Application): Record<string, string | Cas2Application> {
     const panelText = `${nameOrPlaceholderCopy(
       application.person,
       'The person',
@@ -235,26 +230,34 @@ export default class ApplicationsController {
     }
   }
 
-  bailApplicationOrigin(): RequestHandler {
+  bailApplicationOrigin(options: { newCohorts: boolean }): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
+      const backUrl = options.newCohorts
+        ? paths.applications.newCohorts.bail.beforeYouStart({})
+        : paths.applications.beforeYouStart({})
+      const nextUrl = options.newCohorts
+        ? paths.applications.newCohorts.bail.selectApplicationOrigin({})
+        : paths.applications.selectApplicationOrigin({})
+
       return res.render('applications/bail-application-origin', {
+        backUrl,
+        nextUrl,
         errors,
         errorSummary,
         ...userInput,
-        pageHeading: 'Where are you making the application from?',
       })
     }
   }
 
   selectApplicationOrigin(): RequestHandler {
     return async (req: Request, res: Response) => {
-      if ((req.body.applicationOrigin as ApplicationOrigin) === 'bail') {
+      if ((req.body.applicationOrigin as NewCohortApplicationOrigin) === 'bail') {
         return res.redirect(paths.applications.newCohorts.bail.beforeYouStart({}))
       }
 
-      if ((req.body.applicationOrigin as ApplicationOrigin) === 'other') {
+      if ((req.body.applicationOrigin as NewCohortApplicationOrigin) === 'other') {
         return res.redirect(paths.applications.newCohorts.beforeYouStart({}))
       }
 
@@ -270,22 +273,32 @@ export default class ApplicationsController {
     }
   }
 
-  selectBailApplicationOrigin(): RequestHandler {
+  selectBailApplicationOrigin(options: { newCohorts: boolean }): RequestHandler {
     return async (req: Request, res: Response) => {
       if ((req.body.applicationOrigin as BailApplicationOrigin) === 'prisonBail') {
-        if (!hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {
-          return res.redirect(paths.applications.unauthorisedPrisonBailApplication({}))
-        }
+        const hasPrisonBailReferrerRole = hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')
 
-        return res.redirect(paths.applications.searchByPrisonNumber({}))
+        if (hasPrisonBailReferrerRole) {
+          return options.newCohorts
+            ? res.redirect(paths.applications.newCohorts.bail.searchByPrisonNumber({}))
+            : res.redirect(paths.applications.searchByPrisonNumber({}))
+        }
+        return options.newCohorts
+          ? res.redirect(paths.applications.newCohorts.bail.unauthorisedPrisonBailApplication({}))
+          : res.redirect(paths.applications.unauthorisedPrisonBailApplication({}))
       }
 
       if ((req.body.applicationOrigin as BailApplicationOrigin) === 'courtBail') {
-        if (!hasRole(res.locals.user.userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
-          return res.redirect(paths.applications.unauthorisedCourtBailApplication({}))
-        }
+        const hasCourtBailReferrerRole = hasRole(res.locals.user.userRoles, 'CAS2_COURT_BAIL_REFERRER')
 
-        return res.redirect(paths.applications.searchByCrn({}))
+        if (hasCourtBailReferrerRole) {
+          return options.newCohorts
+            ? res.redirect(paths.applications.newCohorts.bail.searchByCrn({}))
+            : res.redirect(paths.applications.searchByCrn({}))
+        }
+        return options.newCohorts
+          ? res.redirect(paths.applications.newCohorts.bail.unauthorisedCourtBailApplication({}))
+          : res.redirect(paths.applications.unauthorisedCourtBailApplication({}))
       }
 
       const message = 'Please select an application type'
@@ -296,13 +309,23 @@ export default class ApplicationsController {
 
       req.flash('errorSummary', [buildErrorSummary('applicationOrigin', message)])
 
-      return res.redirect(paths.applications.applicationOrigin({}))
+      return options.newCohorts
+        ? res.redirect(paths.applications.newCohorts.bail.applicationOrigin({}))
+        : res.redirect(paths.applications.applicationOrigin({}))
     }
   }
 
-  searchByPrisonNumber(): RequestHandler {
+  searchByPrisonNumber(options?: { newCohorts: boolean }): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput, errorStatusCode } = fetchErrorsAndUserInput(req)
+
+      const backUrl = options?.newCohorts
+        ? paths.applications.newCohorts.bail.applicationOrigin({})
+        : paths.applications.applicationOrigin({})
+
+      const nextUrl = options?.newCohorts
+        ? paths.applications.newCohorts.bail.people.findByPrisonNumber({})
+        : paths.applications.people.findByPrisonNumber({})
 
       return res.render('applications/search-by-prison-number', {
         errors,
@@ -310,17 +333,37 @@ export default class ApplicationsController {
         errorStatusCode,
         ...userInput,
         pageHeading: 'Enter the applicant’s prison number',
+        backUrl,
+        nextUrl,
       })
     }
   }
 
-  searchByCrn(): RequestHandler {
+  searchByCrn(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
 
-      const applicationOrigin: BailApplicationOrigin = req.query.usePrisonBailApplicationOrigin
-        ? 'prisonBail'
-        : 'courtBail'
+      let applicationOrigin: ApplicationOrigin
+
+      if (newCohortOrigin === 'other') {
+        applicationOrigin = 'other'
+      } else {
+        applicationOrigin = req.query.usePrisonBailApplicationOrigin ? 'prisonBail' : 'courtBail'
+      }
+
+      let backUrl: string
+      let nextUrl: string
+
+      if (newCohortOrigin === 'bail') {
+        backUrl = paths.applications.newCohorts.bail.applicationOrigin({})
+        nextUrl = paths.applications.newCohorts.bail.people.findByCrn({})
+      } else if (newCohortOrigin === 'other') {
+        backUrl = paths.applications.newCohorts.beforeYouStart({})
+        nextUrl = paths.applications.newCohorts.people.findByCrn({})
+      } else {
+        backUrl = paths.applications.applicationOrigin({})
+        nextUrl = paths.applications.people.findByCrn({})
+      }
 
       return res.render('applications/search-by-crn', {
         applicationOrigin,
@@ -328,32 +371,46 @@ export default class ApplicationsController {
         errorSummary,
         ...userInput,
         pageHeading: "Enter the person's CRN",
+        backUrl,
+        nextUrl,
       })
     }
   }
 
-  unauthorisedCourtBailApplication(): RequestHandler {
+  unauthorisedCourtBailApplication(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      const backUrl =
+        newCohortOrigin === 'bail'
+          ? paths.applications.newCohorts.bail.applicationOrigin({})
+          : paths.applications.applicationOrigin({})
 
       return res.render('applications/unauthorised-court-bail-application', {
         errors,
         errorSummary,
         ...userInput,
         pageHeading: 'You are unauthorised to make a court bail application',
+        backUrl,
       })
     }
   }
 
-  unauthorisedPrisonBailApplication(): RequestHandler {
+  unauthorisedPrisonBailApplication(newCohortOrigin?: NewCohortApplicationOrigin): RequestHandler {
     return async (req: Request, res: Response) => {
       const { errors, errorSummary, userInput } = fetchErrorsAndUserInput(req)
+
+      const backUrl =
+        newCohortOrigin === 'bail'
+          ? paths.applications.newCohorts.bail.applicationOrigin({})
+          : paths.applications.applicationOrigin({})
 
       return res.render('applications/unauthorised-prison-bail-application', {
         errors,
         errorSummary,
         ...userInput,
         pageHeading: 'You are unauthorised to make a prison bail application',
+        backUrl,
       })
     }
   }
@@ -488,14 +545,14 @@ export default class ApplicationsController {
     }
   }
 
-  public handleIncompleteTasks(req: Request, res: Response, application: Cas2v2Application, taskList: TaskListService) {
+  public handleIncompleteTasks(req: Request, res: Response, application: Cas2Application, taskList: TaskListService) {
     req.flash('errors', {
       taskList: errorMessage('taskList', 'You must complete all tasks before submitting the application'),
     })
     req.flash('errorSummary', [
       {
         text: 'You must complete all tasks before submitting the application',
-        href: `#${getFirstIncompleteTask(taskList.taskStatuses) ?? ''}-status`,
+        href: `#${taskList.firstIncompleteTask ?? ''}-status`,
       },
     ])
     res.redirect(paths.applications.show({ id: application.id }))

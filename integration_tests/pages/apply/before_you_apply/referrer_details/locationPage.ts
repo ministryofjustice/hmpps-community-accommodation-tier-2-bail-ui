@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import paths from '../../../../../server/paths/apply'
 import ApplyPage from '../../applyPage'
 
@@ -15,6 +15,10 @@ export default class LocationPage extends ApplyPage {
         page: 'location',
       }),
     )
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter where you are based')
   }
 
   completeForm(): void {

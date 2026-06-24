@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import paths from '../../../../../server/paths/apply'
 import ApplyPage from '../../applyPage'
 
@@ -15,6 +15,10 @@ export default class JobTitlePage extends ApplyPage {
         page: 'job-title',
       }),
     )
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter your job title')
   }
 
   completeForm(): void {

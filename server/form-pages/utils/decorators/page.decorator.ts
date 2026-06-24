@@ -1,4 +1,4 @@
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import 'reflect-metadata'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type
@@ -11,7 +11,7 @@ const Page = (options: { bodyProperties: Array<string>; name: string; controller
 
       body: Record<string, unknown>
 
-      document: Cas2v2Application
+      document: Cas2Application
 
       previousPage: string
 

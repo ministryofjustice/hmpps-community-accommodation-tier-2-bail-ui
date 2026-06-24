@@ -3,34 +3,17 @@
 
 {% extends "../layout.njk" %}
 {% block questions %}
-  <h1 class="govuk-heading-l">{{ page.title }}</h1>
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-  <p class="govuk-hint">The details of the person completing the application</p>
+    <p class="govuk-hint">The details of the person completing the application</p>
 
-  {{ govukSummaryList({
-  rows: [
-          {
-            key: {
-              text: page.questions.name.question
-            },
-            value: {
-              text: page.referrerDetails.name
-            }
-          },
-          {
-            key: {
-              text: page.questions.email.question
-            },
-            value: {
-              text: page.referrerDetails.email
-            }
-          }
-        ]
-  }) }}
+    {{ govukSummaryList({
+        rows: page.summaryRows()
+    }) }}
 
-  {{ govukWarningText({
-    text: "If any of these details are wrong, contact the CAS2 Bail team with the correct details when you submit the application.",
-    iconFallbackText: "Warning"
-  }) }}
+    {{ govukWarningText({
+        text: "If any of these details are wrong, contact the CAS2 Bail team with the correct details when you submit the application.",
+        iconFallbackText: "Warning"
+    }) }}
 
 {% endblock %}

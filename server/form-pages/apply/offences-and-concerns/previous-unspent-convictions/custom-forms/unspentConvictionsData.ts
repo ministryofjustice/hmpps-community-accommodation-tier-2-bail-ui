@@ -1,5 +1,5 @@
 import type { SelectItem, TaskListErrors, YesOrNo } from '@approved-premises/ui'
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { getQuestions } from '../../../../utils/questions'
@@ -46,12 +46,12 @@ export default class UnspentConvictionsData implements TaskListPage {
 
   constructor(
     body: Partial<UnspentConvictionsDataBody>,
-    private readonly application: Cas2v2Application,
+    private readonly application: Cas2Application,
   ) {
     this.body = body as UnspentConvictionsDataBody
     this.convictionTypes = this.getConvictionTypeAsItemsForSelect(this.body.convictionType)
     this.hasPreviouslySavedAnUnspentConviction = Boolean(
-      application.data['previous-unspent-convictions']?.['unspent-convictions-data'],
+      application.data?.['previous-unspent-convictions']?.['unspent-convictions-data'],
     )
   }
 

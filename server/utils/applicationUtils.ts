@@ -1,7 +1,8 @@
 import type {
-  Cas2v2SubmittedApplicationSummary,
-  Cas2v2ApplicationSummary,
-  Cas2v2Application,
+  Cas2CohortDto,
+  Cas2SubmittedApplicationSummary,
+  Cas2ApplicationSummary,
+  Cas2Application,
 } from '@approved-premises/api'
 import type { QuestionAndAnswer, SummaryListItem, TableRow } from '@approved-premises/ui'
 import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
@@ -9,16 +10,30 @@ import applyPaths from '../paths/apply'
 import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
-import { camelCaseToCapitaliseFirstWordAndAddSpaces } from './utils'
 import { summaryListItem } from './formUtils'
 
-export const inProgressApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
+export const cohortLabels: Record<Cas2CohortDto, string> = {
+  hdc: 'Home Detention Curfew',
+  prisonBail: 'Prison Bail',
+  courtBail: 'Court Bail',
+  atcr: 'Alternative to custodial recall',
+  hcrd: 'Homeless at conditional release date',
+  hefr: 'Homeless at end of fixed‑term recall',
+  isc: 'Intensive supervision courts',
+  rarr: 'Risk Assessed Recall Review',
+  from_ap: 'Move on from Approved Premises',
+}
+
+export const cohortLabel = (cohort?: Cas2CohortDto): string => (cohort ? (cohortLabels[cohort] ?? cohort) : '')
+
+export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, false, true),
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
+      textValue(cohortLabel(application.cohort)),
       cancelAnchorElement(application.id),
       htmlValue(getStatusTag('In progress', 'f5cd423b-08eb-4efb-96ff-5cc6bb073905')),
     ]
@@ -26,7 +41,7 @@ export const inProgressApplicationTableRows = (applications: Array<Cas2v2Applica
 }
 
 export const submittedApplicationTableRows = (
-  applications: Array<Cas2v2ApplicationSummary>,
+  applications: Array<Cas2ApplicationSummary>,
   isAssessPath: boolean = false,
 ): Array<TableRow> => {
   return applications.map(application => {
@@ -35,12 +50,13 @@ export const submittedApplicationTableRows = (
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
+      textValue(cohortLabel(application.cohort)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
 }
 
-export const prisonApplicationTableRows = (applications: Array<Cas2v2ApplicationSummary>): Array<TableRow> => {
+export const prisonApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id),
@@ -48,13 +64,13 @@ export const prisonApplicationTableRows = (applications: Array<Cas2v2Application
       textValue(application.prisonCode),
       textValue(application.crn),
       textValue(application.createdByUserName),
-      textValue(camelCaseToCapitaliseFirstWordAndAddSpaces(application.applicationOrigin)),
+      textValue(cohortLabel(application.cohort)),
       htmlValue(getStatusTag(application.latestStatusUpdate?.label, application.latestStatusUpdate?.statusId)),
     ]
   })
 }
 
-export const assessmentsTableRows = (applications: Array<Cas2v2SubmittedApplicationSummary>): Array<TableRow> => {
+export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
       nameAnchorElement(application.personName, application.id, true),
@@ -136,11 +152,12 @@ const getStatusTagColour = (statusId: string) => {
   }
 }
 
-export const arePreTaskListTasksIncomplete = (application: Cas2v2Application): boolean => {
-  if (application.data?.['confirm-eligibility'] && application.data?.['confirm-consent']) {
-    return false
-  }
-  return true
+export const arePreTaskListTasksIncomplete = (application: Cas2Application): boolean => {
+  const bailTasks = ['confirm-eligibility', 'confirm-consent']
+  const otherTasks = [...bailTasks, 'cohort-selection']
+
+  const tasks = application.applicationOrigin === 'other' ? otherTasks : bailTasks
+  return !!tasks.find(task => !application.data?.[task])
 }
 
 export const unspentConvictionsCardRows = (unspentConviction: UnspentConvictionsUI): Array<SummaryListItem> => {

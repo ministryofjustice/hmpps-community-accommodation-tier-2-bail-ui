@@ -1,10 +1,12 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { FundingSources } from '../../../../../server/form-pages/apply/area-and-funding/funding-information/fundingCas2Accommodation'
 
 export default class FundingCas2AccommodationPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super('Funding CAS2 for bail accommodation', application, 'funding-information', 'funding-cas2-accommodation')
+    const isBail = ['courtBail', 'prisonBail'].includes(application.applicationOrigin)
+    const title = isBail ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
+    super(title, application, 'funding-information', 'funding-cas2-accommodation')
   }
 
   completeWithPersonalSavings(): void {

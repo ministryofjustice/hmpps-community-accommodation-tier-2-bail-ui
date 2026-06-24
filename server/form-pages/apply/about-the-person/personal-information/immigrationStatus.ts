@@ -1,9 +1,10 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { SelectItem, TaskListErrors } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { custodialCohorts } from '../../../../utils/applications/cohortLabels'
 
 export type ImmigrationStatusBody = {
   immigrationStatus: string
@@ -57,7 +58,7 @@ export default class ImmigrationStatus implements TaskListPage {
   }
 
   previous() {
-    return 'working-mobile-phone'
+    return custodialCohorts.includes(this.application.cohort) ? 'custody-location' : 'working-mobile-phone'
   }
 
   next() {

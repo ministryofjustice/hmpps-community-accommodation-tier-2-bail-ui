@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { pageIsActiveInNavigation } from '../../../utils'
 import ApplyPage from '../../applyPage'
 

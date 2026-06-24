@@ -39,6 +39,26 @@ describe('getApplicationUpdateData', () => {
       cohort: undefined,
     })
   })
+
+  it('returns the application data to set the additional cohort', () => {
+    const mockApplication = applicationFactory.build({ applicationOrigin: 'other', cohort: undefined })
+    const result = getApplicationUpdateData(mockApplication, 'hefr')
+    expect(result).toEqual({
+      type: 'CAS2V2',
+      data: mockApplication.data,
+      cohort: 'hefr',
+    })
+  })
+
+  it('returns the application data to retain an existing cohort', () => {
+    const mockApplication = applicationFactory.build({ applicationOrigin: 'other', cohort: 'hcrd' })
+    const result = getApplicationUpdateData(mockApplication, undefined)
+    expect(result).toEqual({
+      type: 'CAS2V2',
+      data: mockApplication.data,
+      cohort: 'hcrd',
+    })
+  })
 })
 
 describe('getApplicationSubmissionData', () => {

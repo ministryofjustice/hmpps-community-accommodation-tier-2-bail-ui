@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -22,6 +22,8 @@ export default class ContactNumber implements TaskListPage {
 
   questions
 
+  isCpp: boolean
+
   body: ContactNumberBody
 
   constructor(
@@ -34,14 +36,15 @@ export default class ContactNumber implements TaskListPage {
     this.questions = applicationQuestions['referrer-details']['contact-number']
     this.documentTitle = this.questions.telephone.question
     this.title = this.questions.telephone.question
+    this.isCpp = this.application.data?.['referrer-details']?.['cpp-check']?.isCpp === 'yes'
   }
 
   previous() {
-    return 'job-title'
+    return this.isCpp ? 'cpp-check' : 'job-title'
   }
 
   next() {
-    return 'location'
+    return this.isCpp ? '' : 'location'
   }
 
   errors() {

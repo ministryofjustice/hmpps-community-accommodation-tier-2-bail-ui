@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimelineEvent } from '@approved-premises/ui'
 import type {
-  Cas2v2Application as Application,
-  Cas2v2Application,
-  Cas2v2SubmittedApplication,
+  Cas2Application as Application,
+  Cas2Application,
+  Cas2SubmittedApplication,
   Cas2TimelineEvent,
 } from '@approved-premises/api'
 import { getSections } from '../checkYourAnswersUtils'
@@ -19,34 +19,11 @@ export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
 }
 
-export const firstPageOfBeforeYouStartSection = (application: Application) => {
-  return paths.applications.pages.show({ id: application.id, task: 'confirm-eligibility', page: 'confirm-eligibility' })
-}
-
-export const eligibilityQuestionIsAnswered = (application: Application): boolean => {
-  return eligibilityAnswer(application) === 'yes' || eligibilityAnswer(application) === 'no'
-}
-
-export const eligibilityIsConfirmed = (application: Application): boolean => {
-  return eligibilityAnswer(application) === 'yes'
-}
-export const eligibilityIsDenied = (application: Application): boolean => {
-  return eligibilityAnswer(application) === 'no'
-}
-
 const eligibilityAnswer = (application: Application): string => {
   return application.data?.['confirm-eligibility']?.['confirm-eligibility']?.isEligible
 }
 
-export const firstPageOfConsentTask = (application: Application) => {
-  return paths.applications.pages.show({ id: application.id, task: 'confirm-consent', page: 'confirm-consent' })
-}
-
-export const consentIsAnswered = (application: Application): boolean => {
-  return application.data?.['confirm-consent']
-}
-
-export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Array<UiTimelineEvent> => {
+const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Array<UiTimelineEvent> => {
   if (timelineEvents) {
     return timelineEvents
       .sort((a, b) => Number(DateFormats.isoToDateObj(b.occurredAt)) - Number(DateFormats.isoToDateObj(a.occurredAt)))
@@ -75,21 +52,15 @@ export const getTimelineEvents = (timelineEvents: Array<Cas2TimelineEvent>): Arr
 }
 
 export const getApplicationTimelineEvents = (
-  application: Cas2v2Application | Cas2v2SubmittedApplication,
+  application: Cas2Application | Cas2SubmittedApplication,
 ): Array<UiTimelineEvent> => getTimelineEvents(application.timelineEvents)
 
-export const generateSuccessMessage = (pageName: string): string => {
-  switch (pageName) {
-    case 'alleged-offence-data':
-      return 'Alleged offence saved'
-    case 'unspent-convictions-data':
-      return 'Unspent conviction saved'
-    case 'add-acct-note':
-      return 'The ACCT has been saved'
-    default:
-      return ''
-  }
-}
+export const generateSuccessMessage = (pageName: string): string =>
+  ({
+    'alleged-offence-data': 'Alleged offence saved',
+    'unspent-convictions-data': 'Unspent conviction saved',
+    'add-acct-note': 'The ACCT has been saved',
+  })[pageName] || ''
 
 export const getSideNavLinksForDocument = (document: ApplicationDocument) => {
   const tasks: Array<SideNavItem> = []
@@ -114,29 +85,31 @@ export const getSideNavLinksForApplication = () => {
 }
 
 export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application) => {
-  if (eligibilityIsConfirmed(application)) {
-    if (consentIsAnswered(application)) {
-      const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+  const taskList = new TaskListService(application)
+  const { requiredTasks, formSections, taskStatuses } = taskList
 
-      const referer = validateReferer(req.headers.referer)
-      const taskList = new TaskListService(application)
-      return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
-    }
-    return res.redirect(firstPageOfConsentTask(application))
-  }
-
-  if (eligibilityIsDenied(application)) {
+  if (eligibilityAnswer(application) === 'no') {
     return res.redirect(paths.applications.ineligible({ id: application.id }))
   }
+  const allTasks = formSections.map(({ tasks }) => tasks || []).flat()
+  const requiredTask = allTasks.find(task => {
+    const taskStates = requiredTasks[task.id]
+    return taskStates && taskStates.includes(taskStatuses[task.id])
+  })
 
-  return res.redirect(firstPageOfBeforeYouStartSection(application))
-}
-
-export const getFirstIncompleteTask = (taskStatuses: Record<string, string>): string | null => {
-  for (const [task, status] of Object.entries(taskStatuses)) {
-    if (status !== 'complete') {
-      return task
-    }
+  if (requiredTask) {
+    // Not all required tasks are in an allowable state
+    return res.redirect(
+      paths.applications.pages.show({
+        id: application.id,
+        task: requiredTask.id,
+        page: Object.keys(requiredTask.pages)[0],
+      }),
+    )
   }
-  return null
+  const { errors, errorSummary } = fetchErrorsAndUserInput(req)
+
+  const referer = validateReferer(req.headers.referer)
+
+  return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
 }

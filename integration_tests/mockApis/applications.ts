@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application, Cas2v2ApplicationNote as ApplicationNote } from '@approved-premises/api'
+import { Cas2Application as Application, Cas2ApplicationNote as ApplicationNote } from '@approved-premises/api'
 import { SuperAgentRequest } from 'superagent'
 import { getMatchingRequests, stubFor } from './wiremock'
 import paths from '../../server/paths/api'
@@ -44,7 +44,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&limitByUser=false&applicationOrigin=prisonBail`,
+        url: `/cas2/applications?page=1&isSubmitted=true&limitByUser=false&applicationOrigin=prisonBail`,
       },
       response: {
         status: 200,
@@ -61,7 +61,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false`,
+        url: `/cas2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false`,
       },
       response: {
         status: 200,
@@ -81,7 +81,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        url: `/cas2v2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false&crnOrNomsNumber=${args.crnOrNomsNumber}`,
+        url: `/cas2/applications?page=1&isSubmitted=true&applicationOrigin=prisonBail&limitByUser=false&crnOrNomsNumber=${args.crnOrNomsNumber}`,
       },
       response: {
         status: 200,
@@ -118,6 +118,34 @@ export default {
         jsonBody: { ...args.application, type: 'CAS2' },
       },
     }),
+
+  stubApplicationGetFromLastUpdate: async (args: { application: Application }) => {
+    const {
+      body: { requests },
+    } = await getMatchingRequests({
+      method: 'PUT',
+      url: paths.applications.show({ id: args.application.id }),
+    })
+    const lastPostData = requests.pop()?.body
+    const jsonBody = {
+      ...args.application,
+      ...JSON.parse(lastPostData),
+    }
+    return stubFor({
+      request: {
+        method: 'GET',
+        url: paths.applications.show({ id: args.application.id }),
+      },
+      response: {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        jsonBody,
+      },
+    })
+  },
+
   verifyApplicationUpdate: async (applicationId: string) =>
     (
       await getMatchingRequests({
@@ -125,6 +153,7 @@ export default {
         url: paths.applications.update({ id: applicationId }),
       })
     ).body.requests,
+
   stubApplicationSubmit: (): SuperAgentRequest =>
     stubFor({
       request: {
@@ -136,6 +165,7 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       },
     }),
+
   stubApplicationAbandon: (args: { application: Application }): SuperAgentRequest =>
     stubFor({
       request: {

@@ -21,7 +21,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2v2/people/search-by-noms/nomsNumber`,
+          path: `/cas2/people/search-by-noms/nomsNumber`,
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ describeClient('PersonClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2v2/people/search-by-crn/crn`,
+          path: `/cas2/people/search-by-crn/crn`,
           query: {},
           headers: {
             authorization: `Bearer ${token}`,

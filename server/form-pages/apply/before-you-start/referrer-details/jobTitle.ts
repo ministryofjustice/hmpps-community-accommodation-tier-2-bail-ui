@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -20,6 +20,8 @@ export default class JobTitle implements TaskListPage {
 
   title: string
 
+  newCohorts: boolean
+
   questions
 
   body: JobTitleBody
@@ -34,10 +36,11 @@ export default class JobTitle implements TaskListPage {
     this.questions = applicationQuestions['referrer-details']['job-title']
     this.documentTitle = this.questions.jobTitle.question
     this.title = this.questions.jobTitle.question
+    this.newCohorts = this.application.applicationOrigin === 'other'
   }
 
   previous() {
-    return 'confirm-details'
+    return !this.newCohorts ? 'confirm-details' : 'community-probation-practitioner-details'
   }
 
   next() {

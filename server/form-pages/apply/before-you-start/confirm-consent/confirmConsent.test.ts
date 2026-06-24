@@ -24,7 +24,7 @@ describe('ConfirmConsent', () => {
   itShouldHaveNextValue(new ConfirmConsent({ hasGivenConsent: 'no' }, application), 'consent-refused')
   itShouldHavePreviousValue(new ConfirmConsent({}, application), 'taskList')
 
-  itShouldHaveNextValue(new ConfirmConsent({ hasGivenConsent: 'yes' }, applicationOtherCohort), 'select-cohort')
+  itShouldHaveNextValue(new ConfirmConsent({ hasGivenConsent: 'yes' }, applicationOtherCohort), '')
   itShouldHavePreviousValue(new ConfirmConsent({}, applicationOtherCohort), 'taskList')
 
   describe('items', () => {

@@ -1,5 +1,5 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -53,6 +53,6 @@ export default class DoesTheApplicantHaveAcctNotes implements TaskListPage {
   }
 
   private hasExistingACCTNotes(): boolean {
-    return Boolean(this.application.data['risk-information']?.['add-acct-note']?.length)
+    return Boolean(this.application.data?.['risk-information']?.['add-acct-note']?.length)
   }
 }

@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
@@ -26,5 +26,11 @@ export default class GenderPage extends ApplyPage {
   completeForm(): void {
     this.checkRadioByNameAndValue('gender', 'no')
     this.getTextInputByIdAndEnterDetails('genderIdentity', 'Non binary')
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(
+      `Select if the gender they identify with is the same as the sex registered at birth or 'Prefer not to say'`,
+    )
   }
 }

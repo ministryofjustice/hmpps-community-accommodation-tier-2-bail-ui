@@ -1,5 +1,5 @@
 import { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -45,7 +45,7 @@ export default class AnyPreviousConvictions implements TaskListPage {
 
   next() {
     if (this.body.hasAnyPreviousConvictions === 'yesRelevantRisk') {
-      if (this.application.data['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0) {
+      if (this.application.data?.['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0) {
         return 'unspent-convictions'
       }
       return 'unspent-convictions-data'

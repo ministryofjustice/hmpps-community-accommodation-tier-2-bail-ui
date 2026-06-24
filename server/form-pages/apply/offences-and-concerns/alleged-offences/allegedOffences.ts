@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import AllegedOffenceData, { AllegedOffenceDataBody } from './custom-forms/allegedOffenceData'
@@ -43,7 +43,7 @@ export default class AllegedOffences implements TaskListPage {
     body: Partial<AllegedOffencesBody>,
     private readonly application: Application,
   ) {
-    if (application.data[this.taskName]?.[this.dataPageName]) {
+    if (application.data?.[this.taskName]?.[this.dataPageName]) {
       const allegedOffencesData = application.data[this.taskName][this.dataPageName] as [AllegedOffenceDataBody]
 
       const query = {
@@ -69,7 +69,7 @@ export default class AllegedOffences implements TaskListPage {
   }
 
   static async initialize(body: Partial<AllegedOffenceDataBody>, application: Application) {
-    if (!application.data['alleged-offences']?.['alleged-offence-data']) {
+    if (!application.data?.['alleged-offences']?.['alleged-offence-data']) {
       return new AllegedOffenceData(body, application)
     }
     return new AllegedOffences({}, application)

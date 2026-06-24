@@ -32,5 +32,7 @@ describe('ImmigrationStatus', () => {
   })
 
   itShouldHaveNextValue(new ImmigrationStatus(body, application), 'gender')
-  itShouldHavePreviousValue(new ImmigrationStatus(body, application), 'working-mobile-phone')
+  itShouldHavePreviousValue(new ImmigrationStatus(body, { ...application, cohort: 'isc' }), 'working-mobile-phone')
+  itShouldHavePreviousValue(new ImmigrationStatus(body, { ...application, cohort: 'courtBail' }), 'custody-location')
+  itShouldHavePreviousValue(new ImmigrationStatus(body, { ...application, cohort: 'rarr' }), 'custody-location')
 })

@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
@@ -25,5 +25,9 @@ export default class CustodyLocationPage extends ApplyPage {
 
   completeForm(): void {
     this.getTextInputByIdAndEnterDetails('custodyLocation', 'The Old Bailey')
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Enter where the applicant is being held in custody')
   }
 }

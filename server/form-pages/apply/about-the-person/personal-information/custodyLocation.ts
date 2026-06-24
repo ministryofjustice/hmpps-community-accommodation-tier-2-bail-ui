@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListErrors } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -33,11 +33,11 @@ export default class CustodyLocation implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'working-mobile-phone'
   }
 
   next() {
-    return 'working-mobile-phone'
+    return 'immigration-status'
   }
 
   errors() {

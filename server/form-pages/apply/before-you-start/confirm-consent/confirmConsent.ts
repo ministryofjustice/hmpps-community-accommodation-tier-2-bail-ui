@@ -1,5 +1,5 @@
 import type { Radio, TaskListErrors, YesOrNo, ObjectWithDateParts } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
@@ -58,7 +58,7 @@ export default class ConfirmConsent implements TaskListPage {
     if (this.body.hasGivenConsent === 'no') {
       return 'consent-refused'
     }
-    return this.isOtherCohort ? 'select-cohort' : ''
+    return ''
   }
 
   errors() {

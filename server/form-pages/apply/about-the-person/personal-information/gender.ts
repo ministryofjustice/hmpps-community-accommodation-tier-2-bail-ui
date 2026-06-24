@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListErrors, YesOrNoOrPreferNotToSay } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
@@ -34,7 +34,7 @@ export default class Gender implements TaskListPage {
   }
 
   previous() {
-    return ''
+    return 'immigration-status'
   }
 
   next() {

@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { Page } from '../../../../utils/decorators'
 import TaskListPage from '../../../../taskListPage'
 import { dateIsTodayOrInThePast, dateIsComplete, dateAndTimeInputsAreValidDates } from '../../../../../utils/dateUtils'
@@ -51,10 +51,10 @@ export default class AcctData implements TaskListPage {
 
   constructor(
     body: Partial<AddAcctNoteBody>,
-    private readonly application: Cas2v2Application,
+    private readonly application: Cas2Application,
   ) {
     this.body = body as AddAcctNoteBody
-    this.hasExistingAcctNotes = Boolean(application.data['risk-information']?.['add-acct-note']?.length)
+    this.hasExistingAcctNotes = Boolean(application.data?.['risk-information']?.['add-acct-note']?.length)
   }
 
   previous() {

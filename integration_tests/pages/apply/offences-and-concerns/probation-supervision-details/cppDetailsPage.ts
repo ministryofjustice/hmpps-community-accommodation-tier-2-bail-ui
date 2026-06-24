@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '../../../../../server/@types/shared/models/Cas2v2Application'
+import { Cas2Application as Application } from '../../../../../server/@types/shared/models/Cas2Application'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
@@ -21,6 +21,13 @@ export default class CPPDetailsPage extends ApplyPage {
         page: 'community-probation-practitioner-details',
       }),
     )
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary("Enter the CPP's full name")
+    this.shouldShowErrorSummary('Enter the probation region')
+    this.shouldShowErrorSummary("Enter the CPP's email address")
+    this.shouldShowErrorSummary("Enter the CPP's contact number")
   }
 
   completeForm(): void {

@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import UnspentConvictionsData, { UnspentConvictionsDataBody } from './custom-forms/unspentConvictionsData'
@@ -46,7 +46,7 @@ export default class UnspentConvictions implements TaskListPage {
     body: Partial<UnspentConvictionsBody>,
     private readonly application: Application,
   ) {
-    if (application.data[this.taskName]?.[this.dataPageName]) {
+    if (application.data?.[this.taskName]?.[this.dataPageName]) {
       const unspentConvictionsData = application.data[this.taskName][this.dataPageName] as [UnspentConvictionsDataBody]
 
       const query = {
@@ -77,7 +77,7 @@ export default class UnspentConvictions implements TaskListPage {
   }
 
   static async initialize(body: Partial<UnspentConvictionsDataBody>, application: Application) {
-    if (!application.data['previous-unspent-convictions']?.['unspent-convictions-data']) {
+    if (!application.data?.['previous-unspent-convictions']?.['unspent-convictions-data']) {
       return new UnspentConvictionsData(body, application)
     }
     return new UnspentConvictions({}, application)

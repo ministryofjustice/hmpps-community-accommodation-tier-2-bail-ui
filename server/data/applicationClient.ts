@@ -1,9 +1,8 @@
 import {
-  Cas2v2Application as Application,
-  Cas2v2ApplicationSummary,
-  SubmitCas2v2Application,
-  UpdateApplication,
-  UpdateCas2v2Application,
+  Cas2Application as Application,
+  Cas2ApplicationSummary,
+  SubmitCas2Application,
+  UpdateCas2Application,
 } from '@approved-premises/api'
 import { BailApplicationOrigin, PaginatedResponse } from '@approved-premises/ui'
 import RestClient from './restClient'
@@ -28,12 +27,12 @@ export default class ApplicationClient {
     })
   }
 
-  async all(): Promise<Array<Cas2v2ApplicationSummary>> {
-    return this.restClient.get<Array<Cas2v2ApplicationSummary>>({ path: paths.applications.index.pattern })
+  async all(): Promise<Array<Cas2ApplicationSummary>> {
+    return this.restClient.get<Array<Cas2ApplicationSummary>>({ path: paths.applications.index.pattern })
   }
 
-  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
-    return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
+  async getAllByPrison(prisonCode: string, pageNumber: number): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
+    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
       query: { isSubmitted: 'true', prisonCode },
@@ -44,7 +43,7 @@ export default class ApplicationClient {
     applicationOrigin: string,
     crnOrNomsNumber: string | undefined,
     pageNumber: number,
-  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const query: Record<string, string> = {
       isSubmitted: 'true',
       applicationOrigin,
@@ -53,21 +52,21 @@ export default class ApplicationClient {
     if (crnOrNomsNumber) {
       query.crnOrNomsNumber = crnOrNomsNumber
     }
-    return this.restClient.getPaginatedResponse<Cas2v2ApplicationSummary>({
+    return this.restClient.getPaginatedResponse<Cas2ApplicationSummary>({
       path: paths.applications.index.pattern,
       page: pageNumber.toString(),
       query,
     })
   }
 
-  async update(applicationId: string, updateData: UpdateCas2v2Application): Promise<Application> {
+  async update(applicationId: string, updateData: UpdateCas2Application): Promise<Application> {
     return (await this.restClient.put({
       path: paths.applications.update({ id: applicationId }),
-      data: { ...updateData, type: 'CAS2V2' } as UpdateApplication,
+      data: { ...updateData, type: 'CAS2V2' } as UpdateCas2Application,
     })) as Application
   }
 
-  async submit(applicationId: string, submissionData: SubmitCas2v2Application): Promise<void> {
+  async submit(applicationId: string, submissionData: SubmitCas2Application): Promise<void> {
     await this.restClient.post({
       path: paths.submissions.create.pattern,
       data: { ...submissionData, applicationId },

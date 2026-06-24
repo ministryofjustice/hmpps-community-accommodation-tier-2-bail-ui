@@ -13,11 +13,26 @@
       "consentDate-day": "1"
     }
   },
+  "cohort-selection": {
+    "cohort-selection": {
+      "cohort": "hcrd"
+    },
+    "licence-dates": {
+      "licenceStartDate-year": "2026",
+      "licenceStartDate-month": "1",
+      "licenceStartDate-day": "1",
+      "licenceEndDate-year": "2026",
+      "licenceEndDate-month": "12",
+      "licenceEndDate-day": "31",
+      "hasHdcExpiryDate": "no"
+    }
+  },
   "referrer-details": {
     "confirm-details": { "name": "Ashley Referrer", "email": "a.referrer@moj.gov.uk" },
     "job-title": { "jobTitle": "POM" },
     "contact-number": { "telephone": "1234567" },
-    "location": { "location": "Manchester" }
+    "location": { "location": "Manchester" },
+    "cpp-check": { "isCpp": "yes" }
   },
   "area-information": {
     "first-preferred-area": {
@@ -55,7 +70,15 @@
       "receivedBenefitSanctions": "no"
     },
     "applicant-id": {
-      "idDocuments": ["passport", "travelPass", "birthCertificate", "bankOrDebitCard", "bankStatements", "drivingLicence", "wageSlip"]
+      "idDocuments": [
+        "passport",
+        "travelPass",
+        "birthCertificate",
+        "bankOrDebitCard",
+        "bankStatements",
+        "drivingLicence",
+        "wageSlip"
+      ]
     }
   },
   "solicitor-details": {
@@ -297,10 +320,10 @@
       "probationSupervision": "yes"
     },
     "community-probation-practitioner-details": {
-        "name": "A. CPP",
-        "probationRegion": "some region",
-        "email": "cpp@moj.gov.uk",
-        "telephone": "012345"
+      "name": "A. CPP",
+      "probationRegion": "some region",
+      "email": "cpp@moj.gov.uk",
+      "telephone": "012345"
     },
     "contacted-cpp-about-current-risk-levels": {
       "hasContactedCppAboutCurrentRiskLevels": "yes",

@@ -31,6 +31,6 @@ describe('CustodyLocation', () => {
     })
   })
 
-  itShouldHaveNextValue(new CustodyLocation(body, application), 'working-mobile-phone')
-  itShouldHavePreviousValue(new CustodyLocation(body, application), 'taskList')
+  itShouldHaveNextValue(new CustodyLocation(body, application), 'immigration-status')
+  itShouldHavePreviousValue(new CustodyLocation(body, application), 'working-mobile-phone')
 })

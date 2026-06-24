@@ -1,9 +1,10 @@
-import { Cas2v2Application } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
+import { custodialCohorts } from './cohortLabels'
 
 export default function deleteOrphanedFollowOnAnswers(
-  applicationData: Cas2v2Application['data'],
-): Cas2v2Application['data'] {
+  applicationData: Cas2Application['data'],
+): Cas2Application['data'] {
   const deleteOrphanedFundingAlternativeIdInformation = () => {
     delete applicationData['funding-information']['alternative-applicant-id']
   }
@@ -188,6 +189,34 @@ export default function deleteOrphanedFollowOnAnswers(
     })
   ) {
     deleteOrphanedLearningDifficultiesData()
+  }
+  if (
+    hasOrphanedInformation({
+      taskName: 'cohort-selection',
+      pageName: 'licence-dates-needed',
+      questionKey: 'licenceDatesNeeded',
+      answerToCheck: 'no',
+    })
+  ) {
+    delete applicationData['cohort-selection']?.['licence-dates']
+  }
+  const cohort: Cas2CohortDto = applicationData?.['cohort-selection']?.['cohort-selection']?.cohort
+  if (cohort === 'rarr') {
+    delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-day']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-month']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-year']
+  }
+  if (cohort !== 'atcr') {
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-day']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-month']
+    delete applicationData['cohort-selection']?.['licence-dates']?.['hdcExpiryDate-year']
+    delete applicationData['cohort-selection']?.['licence-dates']?.hasHdcExpiryDate
+  }
+  if (cohort !== 'isc') {
+    delete applicationData['cohort-selection']?.['licence-dates-needed']?.licenceDatesNeeded
+  }
+  if (!custodialCohorts.includes(cohort)) {
+    delete applicationData['personal-information']?.['custody-location']
   }
 
   return applicationData

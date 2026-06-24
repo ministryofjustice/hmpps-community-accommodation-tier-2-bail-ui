@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
@@ -22,7 +22,7 @@ export default class OffencesAndConvictionsGuidance implements TaskListPage {
 
   questions = getQuestions(this.personName)['provide-offences-and-convictions-details'][
     'offences-and-convictions-guidance'
-  ]
+  ].offencesAndConvictionsGuidance
 
   constructor(
     body: Partial<OffencesAndConvictionsGuidanceBody>,

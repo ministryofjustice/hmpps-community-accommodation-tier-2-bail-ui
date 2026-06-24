@@ -1,5 +1,5 @@
 import type { Request } from 'express'
-import { Cas2v2Application, Cas2v2ApplicationSummary } from '@approved-premises/api'
+import { Cas2CohortDto, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import type { BailApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
 import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
@@ -16,13 +16,13 @@ export default class ApplicationService {
     token: string,
     crn: string,
     applicationOrigin: BailApplicationOrigin,
-  ): Promise<Cas2v2Application> {
+  ): Promise<Cas2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.create(crn, applicationOrigin)
   }
 
-  async findApplication(token: string, id: string): Promise<Cas2v2Application> {
+  async findApplication(token: string, id: string): Promise<Cas2Application> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.find(id)
@@ -53,7 +53,7 @@ export default class ApplicationService {
     token: string,
     prisonCode: string,
     pageNumber: number = 1,
-  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.getAllByPrison(prisonCode, pageNumber)
@@ -64,7 +64,7 @@ export default class ApplicationService {
     applicationOrigin: string,
     crnOrNomsNumber?: string,
     pageNumber: number = 1,
-  ): Promise<PaginatedResponse<Cas2v2ApplicationSummary>> {
+  ): Promise<PaginatedResponse<Cas2ApplicationSummary>> {
     const applicationClient = this.applicationClientFactory(token)
 
     return applicationClient.getAllByOrigin(applicationOrigin, crnOrNomsNumber, pageNumber)
@@ -91,16 +91,18 @@ export default class ApplicationService {
       application.data = deleteOrphanedFollowOnAnswers(application.data)
       application.data = this.deleteCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
-      await client.update(application.id, getApplicationUpdateData(application))
+      const { cohort } = page.body
+
+      await client.update(application.id, getApplicationUpdateData(application, cohort as Cas2CohortDto))
     }
   }
 
   private addPageDataToApplicationData(
-    applicationData: Cas2v2Application['data'],
+    applicationData: Cas2Application['data'],
     taskName: string,
     pageName: string,
     page: TaskListPage,
-  ): Cas2v2Application['data'] {
+  ): Cas2Application['data'] {
     const newApplicationData = applicationData || {}
     newApplicationData[taskName] = newApplicationData[taskName] || {}
     newApplicationData[taskName][pageName] = page.body
@@ -108,7 +110,7 @@ export default class ApplicationService {
   }
 
   private deleteCheckYourAnswersIfPageChange(
-    applicationData: Cas2v2Application['data'],
+    applicationData: Cas2Application['data'],
     pageName: string,
     oldBody: Record<string, unknown>,
     newBody: Record<string, unknown>,
@@ -180,7 +182,7 @@ export default class ApplicationService {
     }
   }
 
-  private hasPageData(application: Cas2v2Application, taskName: string, pageName: string) {
+  private hasPageData(application: Cas2Application, taskName: string, pageName: string) {
     return application.data && application.data[taskName] && application.data[taskName][pageName]
   }
 
@@ -194,19 +196,19 @@ export default class ApplicationService {
     const body = getBody(Page, application, request, userInput)
 
     const page = Page.initialize
-      ? await Page.initialize(body, application, request.user.token, dataServices)
+      ? await Page.initialize(body, application, request, dataServices)
       : new Page(body, application, request.session.previousPage)
 
     return page
   }
 
-  async submit(token: string, application: Cas2v2Application) {
+  async submit(token: string, application: Cas2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.submit(application.id, getApplicationSubmissionData(application))
   }
 
-  async cancel(token: string, application: Cas2v2Application) {
+  async cancel(token: string, application: Cas2Application) {
     const client = this.applicationClientFactory(token)
 
     await client.abandon(application.id)

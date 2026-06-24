@@ -1,3 +1,4 @@
+import { Cas2CohortDto } from '@approved-premises/api'
 import deleteOrphanedFollowOnAnswers from './deleteOrphanedData'
 
 describe('deleteOrphanedFollowOnAnswers', () => {
@@ -416,6 +417,70 @@ describe('deleteOrphanedFollowOnAnswers', () => {
           },
         },
       })
+    })
+  })
+
+  describe('Removes orphaned licence data according to cohort', () => {
+    const expandDate = (key: string): Record<string, string> => ({
+      [`${key}-day`]: 'd',
+      [`${key}-month`]: 'm',
+      [`${key}-year`]: 'y',
+    })
+
+    const licenceStarDate = expandDate('licenceStartDate')
+    const licenceEndDate = expandDate('licenceEndDate')
+    const hdcEligibilityDate = { ...expandDate('hdcExpiryDate'), hasHdcExpiryDate: 'yes' }
+
+    const allLicenceDates = { ...licenceStarDate, ...licenceEndDate, ...hdcEligibilityDate }
+
+    /* eslint-disable-next-line */
+    const applicationData = (cohort: Cas2CohortDto, licenceDates: Record<string, string>): any => {
+      return {
+        'cohort-selection': {
+          'cohort-selection': { cohort },
+          'licence-dates': { ...licenceDates },
+        },
+      }
+    }
+
+    it('removes the start date and hdcEligiilityDate if cohort is rarr', () => {
+      expect(deleteOrphanedFollowOnAnswers(applicationData('rarr', allLicenceDates))).toEqual(
+        applicationData('rarr', { ...licenceEndDate }),
+      )
+    })
+
+    it('leaves the hdcEligibility date if cohort is atcr', () => {
+      expect(deleteOrphanedFollowOnAnswers(applicationData('atcr', allLicenceDates))).toEqual(
+        applicationData('atcr', allLicenceDates),
+      )
+    })
+
+    it('removes the hdcExpiry date if cohort is hcrd', () => {
+      expect(deleteOrphanedFollowOnAnswers(applicationData('hcrd', allLicenceDates))).toEqual(
+        applicationData('hcrd', { ...licenceEndDate, ...licenceStarDate }),
+      )
+    })
+
+    it('removes all licence dates if licenceDatesNeeded is no', () => {
+      const data = applicationData('isc', allLicenceDates)
+      data['cohort-selection'] = { ...data['cohort-selection'], 'licence-dates-needed': { licenceDatesNeeded: 'no' } }
+      const expected = { 'cohort-selection': { ...data['cohort-selection'], 'licence-dates': undefined as unknown } }
+      expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
+    })
+  })
+
+  describe('Personal information', () => {
+    it('it removes custody location for non-custodial cohorts', () => {
+      const data = {
+        'cohort-selection': {
+          'cohort-selection': { cohort: '' },
+        },
+        'personal-information': {
+          'custody-location': { custodyLocation: 'HMP Slade' },
+        },
+      }
+      const expected = { ...data, 'personal-information': { 'custody-location': undefined as Record<string, unknown> } }
+      expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
     })
   })
 })

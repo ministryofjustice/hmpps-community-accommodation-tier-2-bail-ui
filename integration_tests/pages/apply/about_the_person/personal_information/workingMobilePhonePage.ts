@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
@@ -27,5 +27,9 @@ export default class WorkingMobilePhonePage extends ApplyPage {
     this.checkRadioByNameAndValue('hasWorkingMobilePhone', 'yes')
     this.getTextInputByIdAndEnterDetails('mobilePhoneNumber', '11111111111')
     this.checkRadioByNameAndValue('isSmartPhone', 'yes')
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(`Choose either Yes, No or I don't know`)
   }
 }

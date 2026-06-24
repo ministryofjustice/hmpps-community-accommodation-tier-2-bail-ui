@@ -1,5 +1,5 @@
 import type { TaskListErrors, YesOrNo } from '@approved-premises/ui'
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
@@ -60,5 +60,9 @@ export default class HasSolicitor implements TaskListPage {
 
   items() {
     return convertKeyValuePairToRadioItems(this.options, this.body.hasSolicitor)
+  }
+
+  isApplicable(): boolean {
+    return ['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)
   }
 }

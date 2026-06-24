@@ -1,9 +1,10 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import { TaskListErrors, YesNoOrDontKnow, YesOrNo } from '@approved-premises/ui'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { custodialCohorts } from '../../../../utils/applications/cohortLabels'
 
 export type WorkingMobilePhoneBody = {
   hasWorkingMobilePhone: YesNoOrDontKnow
@@ -31,14 +32,15 @@ export default class WorkingMobilePhone implements TaskListPage {
     private readonly application: Application,
   ) {
     this.body = body as WorkingMobilePhoneBody
+    this.application = application
   }
 
   previous() {
-    return 'custody-location'
+    return 'taskList'
   }
 
   next() {
-    return 'immigration-status'
+    return custodialCohorts.includes(this.application.cohort) ? 'custody-location' : 'immigration-status'
   }
 
   errors() {

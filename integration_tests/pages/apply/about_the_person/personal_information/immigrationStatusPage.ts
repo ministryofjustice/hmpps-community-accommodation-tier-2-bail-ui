@@ -1,4 +1,4 @@
-import { Cas2v2Application as Application } from '@approved-premises/api'
+import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import paths from '../../../../../server/paths/apply'
@@ -25,5 +25,9 @@ export default class ImmigrationStatusPage extends ApplyPage {
 
   completeForm(): void {
     this.getSelectInputByIdAndSelectAnEntry('immigrationStatus', 'UK citizen')
+  }
+
+  checkErrors() {
+    this.shouldShowErrorSummary(`Select their immigration status`)
   }
 }

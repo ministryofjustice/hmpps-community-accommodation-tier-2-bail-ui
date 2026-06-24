@@ -17,9 +17,10 @@ export const services = () => {
     submittedApplicationClient,
     referenceDataClient,
     reportClient,
+    userClient,
   } = dataAccess()
 
-  const userService = new UserService(hmppsAuthClient)
+  const userService = new UserService(hmppsAuthClient, userClient)
   const personService = new PersonService(personClient)
   const applicationService = new ApplicationService(applicationClient)
   const assessmentService = new AssessmentService(assessmentClient)

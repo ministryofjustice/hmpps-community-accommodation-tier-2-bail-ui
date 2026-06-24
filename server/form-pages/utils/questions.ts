@@ -1,4 +1,6 @@
-export type Question = { question: string; answers?: Record<string, string>; hint?: string }
+import { cohortSelectionAnswers } from '../../utils/applications/cohortLabels'
+
+export type Question = { question: string; answers?: Record<string, string>; hint?: string; dataType?: string }
 type QuestionsNode = { [property: string]: Question | QuestionsNode }
 export type Questions = ReturnType<typeof getQuestions>
 
@@ -21,7 +23,10 @@ export function getQuestion(questions: Questions, ...categories: string[]): Ques
   return recurse(questions as QuestionsNode, ...categories)
 }
 
-export function getQuestions(name: string, isOtherCohort = false) {
+export function getQuestions(
+  name: string,
+  isOtherCohort = false,
+): Record<string, Record<string, Record<string, Question>>> {
   const yesOrNo = { yes: 'Yes', no: 'No' }
   const yesNoOrIDontKnow = { yes: 'Yes', no: 'No', dontKnow: `I don't know` }
   const riskLevelAnswers = {
@@ -74,10 +79,52 @@ export function getQuestions(name: string, isOtherCohort = false) {
         },
       },
     },
+    'cohort-selection': {
+      'cohort-selection': {
+        cohort: {
+          question: `Why does ${name} need CAS2 accommodation?`,
+          answers: cohortSelectionAnswers,
+          dataType: 'radio',
+        },
+        notes: {
+          question: 'Provide details (optional)',
+          dataType: 'textArea',
+        },
+      },
+      'licence-dates-needed': {
+        licenceDatesNeeded: {
+          question: `Is ${name} on licence for a different offence?`,
+          answers: yesOrNo,
+          dataType: 'radio',
+        },
+      },
+      'licence-dates': {
+        licenceStartDate: {
+          question: `What is ${name}'s licence start date/conditional release date?`,
+          dataType: 'date',
+        },
+        licenceEndDate: {
+          question: `What is ${name}'s licence end date?`,
+          dataType: 'date',
+        },
+        hasHdcExpiryDate: {
+          question: `Does ${name} have an HDC expiry date?`,
+          answers: {
+            yes: 'Yes',
+            no: 'No',
+          },
+        },
+        hdcExpiryDate: {
+          question: `HDC expiry date`,
+          dataType: 'date',
+        },
+      },
+    },
     'referrer-details': {
       'confirm-details': {
         name: { question: 'Name' },
         email: { question: 'Email address' },
+        region: { question: 'Region' },
       },
       'job-title': {
         jobTitle: { question: 'What is your job title?', hint: 'For example, Bail Information Officer (BIO)' },
@@ -92,6 +139,13 @@ export function getQuestions(name: string, isOtherCohort = false) {
         location: {
           question: 'Where are you based?',
           hint: "For example, Sefton Magistrates' Court or Full Sutton Prison.",
+        },
+      },
+      'cpp-check': {
+        isCpp: {
+          question: `Are you ${name}'s community probation practitioner?`,
+          answers: yesOrNo,
+          dataType: 'radio',
         },
       },
     },
@@ -175,10 +229,7 @@ export function getQuestions(name: string, isOtherCohort = false) {
       'previous-address': {
         hasPreviousAddress: {
           question: `Did ${name} have a fixed address before being arrested?`,
-          answers: {
-            yes: 'Yes',
-            no: 'No',
-          },
+          answers: yesOrNo,
         },
         previousAddress: {
           question: 'Enter their last fixed address',
@@ -1038,7 +1089,9 @@ export function getQuestions(name: string, isOtherCohort = false) {
     },
     'provide-offences-and-convictions-details': {
       'offences-and-convictions-guidance': {
-        question: `${name}'s current alleged offences and previous convictions`,
+        offencesAndConvictionsGuidance: {
+          question: `${name}'s current alleged offences and previous convictions`,
+        },
       },
     },
     'alleged-offences': {

@@ -1,4 +1,4 @@
-import { Cas2v2Application } from '../shared'
+import { Cas2v2Application, Cas2v2UserDto } from '../shared'
 
 export type JourneyType = 'applications'
 
@@ -19,7 +19,7 @@ export type TaskNames = 'funding-information' | 'confirm-eligibility' | 'equalit
 
 export type FormPages = { [key in TaskNames]: Record<string, unknown> }
 
-export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start'
+export type TaskStatus = 'not_started' | 'in_progress' | 'complete' | 'cannot_start' | 'not_applicable'
 export type TaskWithStatus = UiTask & { status: TaskStatus }
 
 export type TaskListErrors<K extends TaskListPage> = Partial<Record<keyof K['body'], unknown>>
@@ -54,7 +54,7 @@ export type DataServices = Partial<{
     findApplication: (token: string, id: string) => Promise<Cas2SubmittedApplication>
   }
   userService: {
-    getUserById: (token: string, id: string) => Promise<User>
+    getUserDetails: (token: string, username: string) => Promise<Cas2v2UserDto>
   }
 }>
 
@@ -197,5 +197,5 @@ export type PaginatedResponse<T> = {
   pageSize: string
 }
 
-export type ApplicationOrigin = 'bail' | 'other'
+export type NewCohortApplicationOrigin = 'bail' | 'other'
 export type BailApplicationOrigin = 'courtBail' | 'prisonBail'

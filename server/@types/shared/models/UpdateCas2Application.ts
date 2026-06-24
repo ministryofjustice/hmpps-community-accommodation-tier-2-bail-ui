@@ -2,6 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UpdateApplication } from './UpdateApplication';
-export type UpdateCas2Application = UpdateApplication;
+import type { Cas2CohortDto } from './Cas2CohortDto';
+import type { UpdateApplicationType } from './UpdateApplicationType';
+export type UpdateCas2Application = {
+    bailHearingDate?: string;
+    cohort?: Cas2CohortDto;
+    data: Record<string, any>;
+    type: UpdateApplicationType;
+};
 
