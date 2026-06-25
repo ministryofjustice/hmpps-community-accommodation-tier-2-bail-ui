@@ -493,7 +493,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the last-fixed-address data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'address-history': {
             'has-fixed-address-before-custody': {
               hasFixedAddressBeforeCustody: 'no',
@@ -519,7 +519,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the no-fixed-address data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'address-history': {
             'has-fixed-address-before-custody': {
               hasFixedAddressBeforeCustody: 'yes',
