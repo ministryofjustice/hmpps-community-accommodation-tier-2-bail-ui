@@ -1,10 +1,10 @@
-import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
+import { Cas2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
 import { custodialCohorts } from './cohortLabels'
 
-export default function deleteOrphanedFollowOnAnswers(
-  applicationData: Cas2Application['data'],
-): Cas2Application['data'] {
+export default function deleteOrphanedFollowOnAnswers(application: Cas2Application): Cas2Application {
+  const applicationData = application.data
+
   const deleteOrphanedFundingAlternativeIdInformation = () => {
     delete applicationData['funding-information']['alternative-applicant-id']
   }
@@ -200,7 +200,7 @@ export default function deleteOrphanedFollowOnAnswers(
   ) {
     delete applicationData['cohort-selection']?.['licence-dates']
   }
-  const cohort: Cas2CohortDto = applicationData?.['cohort-selection']?.['cohort-selection']?.cohort
+  const { cohort } = application
   if (cohort === 'rarr') {
     delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-day']
     delete applicationData['cohort-selection']?.['licence-dates']?.['licenceStartDate-month']
