@@ -74,6 +74,12 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
   if (hasRole(userRoles, 'CAS2_MI')) {
     items.push(sections.managementInformationReports)
   }
+  if (hasRole(userRoles, 'PROBATION')) {
+    items.push(sections.applications)
+    if (config.flags.cas2IsrEnabled) {
+      items.push(sections.newApplicationNewCohorts)
+    }
+  }
 
   return Array.from(new Set(items))
 }
