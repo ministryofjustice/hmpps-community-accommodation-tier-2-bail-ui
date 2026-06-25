@@ -88,7 +88,7 @@ export default class ApplicationService {
       const oldBody = application.data?.[taskName]?.[pageName]
 
       application.data = this.addPageDataToApplicationData(application.data, taskName, pageName, page)
-      application.data = deleteOrphanedFollowOnAnswers(application.data)
+      application.data = deleteOrphanedFollowOnAnswers(application)
       application.data = this.deleteCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
       const { cohort } = page.body

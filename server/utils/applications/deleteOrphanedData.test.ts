@@ -1,5 +1,6 @@
-import { Cas2CohortDto } from '@approved-premises/api'
+import { Cas2Application, Cas2CohortDto } from '@approved-premises/api'
 import deleteOrphanedFollowOnAnswers from './deleteOrphanedData'
+import { applicationFactory } from '../../testutils/factories'
 
 describe('deleteOrphanedFollowOnAnswers', () => {
   describe('funding-information', () => {
@@ -19,7 +20,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes alternative-identification data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'funding-information': {
             'funding-cas2-accommodation': {
               fundingSource: 'personalSavings',
@@ -75,7 +76,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes all equality and diversity data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'equality-and-diversity-monitoring': {
             'will-answer-equality-questions': {
               willAnswer: 'no',
@@ -116,7 +117,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes unspent convictions data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'no' },
             'unspent-convictions': {},
@@ -154,7 +155,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes unspent convictions data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'previous-unspent-convictions': {
             'any-previous-convictions': { hasAnyPreviousConvictions: 'yesNoRelevantRisk' },
             'unspent-convictions': {},
@@ -197,7 +198,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes community-probation-practitioner-details and serious harm risk level pages data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'add-probation-supervision-details': {
             'supervised-by-probation': {
               probationSupervision: 'no',
@@ -226,7 +227,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the risk level data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'add-probation-supervision-details': {
             'contacted-cpp-about-current-risk-levels': {
               hasContactedCppAboutCurrentRiskLevels: 'no',
@@ -261,7 +262,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the ACCT notes', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'risk-information': {
             'does-the-applicant-have-acct-notes': {
               applicantHasAcctNotes: 'notInPrisonCustody',
@@ -294,7 +295,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the ACCT notes', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'risk-information': {
             'does-the-applicant-have-acct-notes': {
               applicantHasAcctNotes: 'no',
@@ -321,7 +322,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       }
 
       it('removes the domestic abuse concern details data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'risk-information': {
             'domestic-abuse-concerns': {
               areConcerns: 'no',
@@ -349,7 +350,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
           },
         }
 
-        expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'health-needs': {
             'communication-and-language-relevance-check': {
               hasCommunicationAndLanguageNeeds: 'no',
@@ -381,7 +382,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     }
 
     it('removes the brain injury details', () => {
-      expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+      expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
         'health-needs': {
           'brain-injury': {
             hasBrainInjury: 'no',
@@ -410,7 +411,7 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     }
 
     it('removes the learning difficulties details', () => {
-      expect(deleteOrphanedFollowOnAnswers(applicationData)).toEqual({
+      expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
         'health-needs': {
           'learning-difficulties': {
             hasLearningDifficultiesOrNeurodiversityNeeds: 'no',
@@ -433,54 +434,58 @@ describe('deleteOrphanedFollowOnAnswers', () => {
 
     const allLicenceDates = { ...licenceStarDate, ...licenceEndDate, ...hdcEligibilityDate }
 
-    /* eslint-disable-next-line */
-    const applicationData = (cohort: Cas2CohortDto, licenceDates: Record<string, string>): any => {
-      return {
-        'cohort-selection': {
-          'cohort-selection': { cohort },
-          'licence-dates': { ...licenceDates },
+    const applicationData = (cohort: Cas2CohortDto, licenceDates: Record<string, string>): Cas2Application => {
+      return applicationFactory.build({
+        cohort,
+        data: {
+          'cohort-selection': {
+            'cohort-selection': { cohort },
+            'licence-dates': { ...licenceDates },
+          },
         },
-      }
+      })
     }
 
     it('removes the start date and hdcEligiilityDate if cohort is rarr', () => {
       expect(deleteOrphanedFollowOnAnswers(applicationData('rarr', allLicenceDates))).toEqual(
-        applicationData('rarr', { ...licenceEndDate }),
+        applicationData('rarr', { ...licenceEndDate }).data,
       )
     })
 
     it('leaves the hdcEligibility date if cohort is atcr', () => {
       expect(deleteOrphanedFollowOnAnswers(applicationData('atcr', allLicenceDates))).toEqual(
-        applicationData('atcr', allLicenceDates),
+        applicationData('atcr', allLicenceDates).data,
       )
     })
 
     it('removes the hdcExpiry date if cohort is hcrd', () => {
       expect(deleteOrphanedFollowOnAnswers(applicationData('hcrd', allLicenceDates))).toEqual(
-        applicationData('hcrd', { ...licenceEndDate, ...licenceStarDate }),
+        applicationData('hcrd', { ...licenceEndDate, ...licenceStarDate }).data,
       )
     })
 
     it('removes all licence dates if licenceDatesNeeded is no', () => {
-      const data = applicationData('isc', allLicenceDates)
-      data['cohort-selection'] = { ...data['cohort-selection'], 'licence-dates-needed': { licenceDatesNeeded: 'no' } }
-      const expected = { 'cohort-selection': { ...data['cohort-selection'], 'licence-dates': undefined as unknown } }
-      expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
+      const application = applicationData('isc', allLicenceDates)
+      application.data['cohort-selection'] = {
+        ...application.data['cohort-selection'],
+        'licence-dates-needed': { licenceDatesNeeded: 'no' },
+      }
+      const expected = {
+        'cohort-selection': { ...application.data['cohort-selection'], 'licence-dates': undefined as unknown },
+      }
+      expect(deleteOrphanedFollowOnAnswers(application)).toEqual(expected)
     })
   })
 
   describe('Personal information', () => {
     it('it removes custody location for non-custodial cohorts', () => {
       const data = {
-        'cohort-selection': {
-          'cohort-selection': { cohort: '' },
-        },
         'personal-information': {
           'custody-location': { custodyLocation: 'HMP Slade' },
         },
       }
       const expected = { ...data, 'personal-information': { 'custody-location': undefined as Record<string, unknown> } }
-      expect(deleteOrphanedFollowOnAnswers(data)).toEqual(expected)
+      expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data, cohort: 'isc' }))).toEqual(expected)
     })
   })
 })
