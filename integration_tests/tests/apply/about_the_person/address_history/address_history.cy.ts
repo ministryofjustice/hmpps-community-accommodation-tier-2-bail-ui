@@ -23,7 +23,7 @@ context('Complete the "Address history" task', () => {
     })
   })
 
-  beforeEach(function test() {
+  beforeEach(() => {
     //  Given I am logged in
     cy.signIn()
   })

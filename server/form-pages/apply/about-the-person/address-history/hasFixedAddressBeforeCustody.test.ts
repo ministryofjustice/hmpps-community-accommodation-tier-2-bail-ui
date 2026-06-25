@@ -15,21 +15,23 @@ describe('HasFixedAddressBeforeCustody', () => {
     })
   })
 
-  describe('when the person had a fixed address', () => {
-    itShouldHaveNextValue(
-      new HasFixedAddressBeforeCustody({ hasFixedAddressBeforeCustody: 'yes' }, application),
-      'last-fixed-address',
-    )
-  })
+  describe('Routing', () => {
+    describe('when the person had a fixed address', () => {
+      itShouldHaveNextValue(
+        new HasFixedAddressBeforeCustody({ hasFixedAddressBeforeCustody: 'yes' }, application),
+        'last-fixed-address',
+      )
+    })
 
-  describe('when the person did not have a fixed address', () => {
-    itShouldHaveNextValue(
-      new HasFixedAddressBeforeCustody({ hasFixedAddressBeforeCustody: 'no' }, application),
-      'no-fixed-address',
-    )
-  })
+    describe('when the person did not have a fixed address', () => {
+      itShouldHaveNextValue(
+        new HasFixedAddressBeforeCustody({ hasFixedAddressBeforeCustody: 'no' }, application),
+        'no-fixed-address',
+      )
+    })
 
-  itShouldHavePreviousValue(new HasFixedAddressBeforeCustody({}, application), 'taskList')
+    itShouldHavePreviousValue(new HasFixedAddressBeforeCustody({}, application), 'taskList')
+  })
 
   describe('errors', () => {
     it('returns an error when hasFixedAddressBeforeCustody is not answered', () => {

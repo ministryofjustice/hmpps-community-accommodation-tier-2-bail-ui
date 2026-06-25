@@ -27,25 +27,26 @@ describe('LastFixedAddress', () => {
       })
     })
 
-    it('returns an error when only addressLine1 is missing', () => {
-      const page = new LastFixedAddress({ townOrCity: 'some town or city', postcode: 'some postcode' }, application)
-
-      expect(page.errors()).toEqual({ addressLine1: 'Enter address line 1' })
-    })
-
-    it('returns an error when only townOrCity is missing', () => {
-      const page = new LastFixedAddress({ addressLine1: 'some address line 1', postcode: 'some postcode' }, application)
-
-      expect(page.errors()).toEqual({ townOrCity: 'Enter the town or city' })
-    })
-
-    it('returns an error when only postcode is missing', () => {
-      const page = new LastFixedAddress(
+    it.each([
+      [
+        'addressLine1',
+        { townOrCity: 'some town or city', postcode: 'some postcode' },
+        { addressLine1: 'Enter address line 1' },
+      ],
+      [
+        'townOrCity',
+        { addressLine1: 'some address line 1', postcode: 'some postcode' },
+        { townOrCity: 'Enter the town or city' },
+      ],
+      [
+        'postcode',
         { addressLine1: 'some address line 1', townOrCity: 'some town or city' },
-        application,
-      )
+        { postcode: 'Enter the postcode' },
+      ],
+    ])('returns an error when only %s is missing', (_, body, expectedErrors) => {
+      const page = new LastFixedAddress(body, application)
 
-      expect(page.errors()).toEqual({ postcode: 'Enter the postcode' })
+      expect(page.errors()).toEqual(expectedErrors)
     })
 
     it('returns no errors when all required fields are provided', () => {
