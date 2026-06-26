@@ -1,4 +1,4 @@
-import { Cas2v2Application, Cas2v2UserDto } from '../shared'
+import { Cas2OAsysRiskToSelfDto, Cas2v2Application, Cas2v2UserDto } from '../shared'
 
 export type JourneyType = 'applications'
 
@@ -46,6 +46,7 @@ export type FormArtifact = Cas2v2Application
 export type DataServices = Partial<{
   personService: {
     findByPrisonNumber: (token: string, prisonNumber: string) => Promise<Person>
+    getOasysRiskToSelf: (token: string, crn: string) => Promise<Cas2OAsysRiskToSelfDto>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2v2Application>

@@ -1,4 +1,4 @@
-import type { FullPerson } from '@approved-premises/api'
+import type { Cas2OAsysRiskToSelfDto, FullPerson } from '@approved-premises/api'
 import { stubFor } from './wiremock'
 import paths from '../../server/paths/api'
 
@@ -69,6 +69,19 @@ export default {
       },
       response: {
         status: 403,
+      },
+    }),
+
+  stubGetOasysRiskToSelf: (args: { person: FullPerson; data: Cas2OAsysRiskToSelfDto }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: paths.people.oasys.riskToSelf({ crn: args.person.crn }),
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.data,
       },
     }),
 }

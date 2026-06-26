@@ -256,4 +256,8 @@ export default abstract class Page {
       this.assertDefinition(key, value, 'text' in item.value ? 'text' : 'html')
     })
   }
+
+  shouldShowTextArea(name: string, text: string): void {
+    cy.get(`textArea[name=${name}]`).should('have.value', text)
+  }
 }
