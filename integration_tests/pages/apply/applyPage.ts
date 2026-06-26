@@ -69,6 +69,8 @@ export default class ApplyPage extends Page {
     // When I complete the form and submit again
     this.completeForm(formArguments)
     this.clickSubmit()
+
+    // Save the submission and reload in case the form content changes
     this.refreshMock()
   }
 }

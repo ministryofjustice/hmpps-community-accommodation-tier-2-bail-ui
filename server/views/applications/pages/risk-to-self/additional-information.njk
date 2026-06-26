@@ -1,0 +1,51 @@
+{% extends "../layout.njk" %}
+{% set pageName = "additional-information" %}
+
+{% block questions %}
+  {% set additionalInformationDetail %}
+  {{
+        formPageTextArea(
+          {
+            fieldName: 'additionalInformationDetail',
+            label: {
+              text: page.questions.additionalInformationDetail.question,
+              classes: "govuk-label--s"
+            }
+          },
+          fetchContext()
+        )
+    }}
+  {% endset %}
+
+  {{
+    formPageRadios(
+      {
+        fieldName: "hasAdditionalInformation",
+        fieldset: {
+          legend: {
+            text: page.questions.hasAdditionalInformation.question,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        hint: {
+          text: page.questions.hasAdditionalInformation.hint
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: additionalInformationDetail
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}

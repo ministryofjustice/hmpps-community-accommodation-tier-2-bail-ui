@@ -168,3 +168,10 @@ export const unspentConvictionsCardRows = (unspentConviction: UnspentConvictions
     summaryListItem('Are there any other details about these convictions to add?', unspentConviction.otherDetails),
   ]
 }
+
+export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
+  if (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes') {
+    return true
+  }
+  return false
+}
