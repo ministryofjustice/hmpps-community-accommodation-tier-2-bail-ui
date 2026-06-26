@@ -50,4 +50,8 @@ export default class OffencesAndConvictionsGuidance implements TaskListPage {
       [this.title]: 'Guidance confirmed',
     }
   }
+
+  isApplicable(): boolean {
+    return ['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)
+  }
 }

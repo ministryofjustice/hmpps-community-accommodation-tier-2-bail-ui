@@ -31,4 +31,16 @@ describe('OffencesAndConvictionsGuidance', () => {
       })
     })
   })
+
+  describe('isApplicable', () => {
+    it('returns true for bail application origins', () => {
+      const page = new OffencesAndConvictionsGuidance({}, application)
+      expect(page.isApplicable()).toEqual(true)
+    })
+
+    it('returns false for other application origins', () => {
+      const page = new OffencesAndConvictionsGuidance({}, { ...application, applicationOrigin: 'other' })
+      expect(page.isApplicable()).toEqual(false)
+    })
+  })
 })

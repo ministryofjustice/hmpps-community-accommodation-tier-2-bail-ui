@@ -103,4 +103,8 @@ export default class AllegedOffences implements TaskListPage {
 
     return response
   }
+
+  isApplicable() {
+    return this.application.applicationOrigin !== 'other'
+  }
 }
