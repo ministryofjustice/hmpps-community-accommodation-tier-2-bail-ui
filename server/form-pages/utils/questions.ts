@@ -226,50 +226,6 @@ export function getQuestions(
       },
     },
     'address-history': {
-      'has-fixed-address-before-custody': {
-        hasFixedAddressBeforeCustody: {
-          question: `Did ${name} have a fixed address before entering custody?`,
-          answers: yesOrNo,
-        },
-      },
-      'last-fixed-address': {
-        addressLine1: {
-          question: 'Address line 1',
-        },
-        addressLine2: {
-          question: 'Address line 2 (optional)',
-        },
-        townOrCity: {
-          question: 'Town or city',
-        },
-        county: {
-          question: 'County (optional)',
-        },
-        postcode: {
-          question: 'Postcode',
-        },
-      },
-      'no-fixed-address': {
-        howLong: {
-          question: `How long has ${name} had no fixed address for?`,
-          hint: 'For example, one year or six weeks',
-        },
-        lastKnownAddressLine1: {
-          question: 'Address line 1',
-        },
-        lastKnownAddressLine2: {
-          question: 'Address line 2 (optional)',
-        },
-        lastKnownTownOrCity: {
-          question: 'Town or city',
-        },
-        lastKnownCounty: {
-          question: 'County (optional)',
-        },
-        lastKnownPostcode: {
-          question: 'Postcode',
-        },
-      },
       'previous-address': {
         hasPreviousAddress: {
           question: `Did ${name} have a fixed address before being arrested?`,
