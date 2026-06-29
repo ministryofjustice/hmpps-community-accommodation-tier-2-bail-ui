@@ -31,14 +31,6 @@ export default function deleteOrphanedFollowOnAnswers(application: Cas2Applicati
     delete applicationData['add-probation-supervision-details']['serious-harm-risk-levels']
   }
 
-  const deleteOrphanedLastFixedAddressData = () => {
-    delete applicationData['address-history']['last-fixed-address']
-  }
-
-  const deleteOrphanedNoFixedAddressData = () => {
-    delete applicationData['address-history']['no-fixed-address']
-  }
-
   const deleteOrphanedACCTNotesData = () => {
     delete applicationData['risk-information']['add-acct-note']
   }
@@ -225,28 +217,6 @@ export default function deleteOrphanedFollowOnAnswers(application: Cas2Applicati
   }
   if (!custodialCohorts.includes(cohort)) {
     delete applicationData['personal-information']?.['custody-location']
-  }
-
-  if (
-    hasOrphanedInformation({
-      taskName: 'address-history',
-      pageName: 'has-fixed-address-before-custody',
-      questionKey: 'hasFixedAddressBeforeCustody',
-      answerToCheck: 'no',
-    })
-  ) {
-    deleteOrphanedLastFixedAddressData()
-  }
-
-  if (
-    hasOrphanedInformation({
-      taskName: 'address-history',
-      pageName: 'has-fixed-address-before-custody',
-      questionKey: 'hasFixedAddressBeforeCustody',
-      answerToCheck: 'yes',
-    })
-  ) {
-    deleteOrphanedNoFixedAddressData()
   }
 
   return applicationData
