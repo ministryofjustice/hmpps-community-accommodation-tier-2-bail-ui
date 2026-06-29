@@ -21,7 +21,7 @@ describeClient('UserClient', provider => {
         uponReceiving: 'A request to search for a person',
         withRequest: {
           method: 'GET',
-          path: `/cas2/users/${username}`,
+          path: `/cas2/users/me`,
           query: {},
           headers: {
             authorization: `Bearer ${token}`,
