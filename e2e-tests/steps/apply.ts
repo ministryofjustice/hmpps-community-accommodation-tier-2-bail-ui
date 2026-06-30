@@ -11,8 +11,11 @@ import {
   BailApplicationOriginPage,
 } from '../pages/apply'
 import {
+  completeCohortSelectionTask,
   completeConsentTask,
   completeEligibilityTask,
+  completeNewCohortEligibilityTask,
+  completeNewCohortReferrerDetailsTask,
   completeReferrerDetailsTask,
   completeSolicitorDetailsTask,
 } from './beforeYouStartSection'
@@ -49,13 +52,20 @@ export const startAnApplication = async (page: Page) => {
   await beforeYouStartPage.startNow()
 }
 
-export const startANewCohortApplication = async (page: Page) => {
+export const startANewCohortApplication = async (page: Page, applicationOrigin: NewCohortApplicationOrigin) => {
   // visit the root url
   const dashboardPage = new DashboardPage(page)
   await dashboardPage.goto()
 
-  // Follow link to new application
+  // follow link to new application
   await dashboardPage.makeNewCohortApplication()
+
+  // choose the application type
+  await selectApplicationOrigin(page, applicationOrigin)
+
+  // confirm that I'm ready to start
+  const beforeYouStartPage = new BeforeYouStartPage(page)
+  await beforeYouStartPage.startNow()
 }
 
 export const selectBailApplicationOrigin = async (page: Page, applicationOrigin: 'courtBail' | 'prisonBail') => {
@@ -100,13 +110,28 @@ export const completeBeforeYouStartSection = async (page: Page, name: string) =>
   await completeSolicitorDetailsTask(page, name)
 }
 
-export const completeAreaAndFundingSection = async (page: Page, name: string) => {
-  await completeAreaInformationTask(page, name)
-  await completeFundingInformationTask(page)
+export const completeBeforeYouStartForCustodyApplications = async (page: Page, name: string) => {
+  await completeNewCohortEligibilityTask(page, name)
+  await completeConsentTask(page, name)
+  await completeCohortSelectionTask(page, name)
+  await completeNewCohortReferrerDetailsTask(page, name)
 }
 
-export const completeAboutThePersonSection = async (page: Page, name: string) => {
-  await completePersonalInformationTask(page, name)
+export const completeAreaAndFundingSection = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
+  await completeAreaInformationTask(page, name)
+  await completeFundingInformationTask(page, applicationOrigin)
+}
+
+export const completeAboutThePersonSection = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
+  await completePersonalInformationTask(page, name, applicationOrigin)
   await completeEqualityAndDiversityTask(page, name)
   await completeAddressHistoryTask(page, name)
 }

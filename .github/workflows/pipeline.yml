@@ -25,7 +25,7 @@ jobs:
   # main node build workflow
   node_build:
     name: node build
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v2 # WORKFLOW_VERSION
     secrets: inherit
 
   node_unit_tests:
@@ -33,11 +33,11 @@ jobs:
     runs-on: [ self-hosted, hmpps-github-actions-runner ]
     needs: [node_build]
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: 'false'
       - name: Use Node.js .nvmrc
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: ".nvmrc"
       - name: Install dependencies
@@ -50,13 +50,13 @@ jobs:
         # Replacing the above with if: always()
       - name: upload the artifacts
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # V4.6.2
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: npm_unit_test_artifacts
           path: test_results
       - name: publish test report
         if: ${{ !cancelled() && github.event.repository.visibility == 'public' }}
-        uses: dorny/test-reporter@df6247429542221bc30d46a036ee47af1102c451 # V2.7.0
+        uses: dorny/test-reporter@df6247429542221bc30d46a036ee47af1102c451 # v2.7.0
         with:
           artifact: npm_unit_test_artifacts
           name: Test Report
@@ -68,7 +68,7 @@ jobs:
           list-tests: 'failed'
       - name: fail the action if the tests failed
         if: ${{ steps.unit-tests.outcome == 'failure' }}
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # V7.1.0
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             core.setFailed('Unit tests failed')
@@ -78,11 +78,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # V6.0.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: 'false'
       - name: Setup Node.js environment
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: '.node-version'
           cache: 'npm'
@@ -102,14 +102,14 @@ jobs:
       matrix:
         environments: ['development','test','preprod','prod']
     name: helm lint
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@v2 # WORKFLOW_VERSION
     secrets: inherit
     with:
       environment: ${{ matrix.environments }}
   build:
     name: Build docker image from hmpps-github-actions
     if: github.ref == 'refs/heads/main'
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v2 # WORKFLOW_VERSION
     needs:
       - node_integration_tests
       - node_unit_tests
@@ -124,7 +124,7 @@ jobs:
     needs: 
       - build
       - helm_lint
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v2 # WORKFLOW_VERSION
     secrets: inherit
     with:
       environment: 'development'
@@ -141,7 +141,7 @@ jobs:
       - build
       - deploy_dev
       - node_e2e_tests
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v2 # WORKFLOW_VERSION
     secrets: inherit
     with:
       environment: 'preprod'
@@ -152,7 +152,7 @@ jobs:
     needs: 
       - build
       - deploy_preprod
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@24d1df5c3dce9e4e26fa204dc9149aee0772c2e9 # v2.14.9
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@v2 # WORKFLOW_VERSION
     secrets: inherit
     with:
       environment: 'prod'

@@ -1,3 +1,4 @@
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
@@ -116,26 +117,28 @@ export const completeAddressHistoryTask = async (page: Page, name: string) => {
 }
 
 async function completePreviousAddressPage(page: Page, name: string) {
-  const hasFixedAddressPage = await ApplyPage.initialize(
+  const previousAddressPage = await ApplyPage.initialize(
     page,
-    `Did ${name} have a fixed address before entering custody?`,
+    `Did ${name} have a fixed address before being arrested?`,
   )
-  await hasFixedAddressPage.checkRadio('Yes')
-  await hasFixedAddressPage.clickSave()
-
-  const lastFixedAddressPage = await ApplyPage.initialize(page, `Enter ${name}'s last fixed address`)
-  await lastFixedAddressPage.fillField('Address line 1', '1 Example Road')
-  await lastFixedAddressPage.fillField('Town or city', 'Anytown')
-  await lastFixedAddressPage.fillField('Postcode', 'AB1 2CD')
-  await lastFixedAddressPage.clickSave()
+  await previousAddressPage.checkRadio('Yes')
+  await previousAddressPage.fillField('Enter their last fixed address', '1 Example Road, Anytown, AB1 2CD')
+  await previousAddressPage.checkRadio('supported accommodation')
+  await previousAddressPage.clickSave()
 }
 
-export const completePersonalInformationTask = async (page: Page, name: string) => {
+export const completePersonalInformationTask = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add personal information')
 
   await completeWorkingMobilePhonePage(page, name)
-  await completeCustodyLocationPage(page, name)
+  if (applicationOrigin === 'bail') {
+    await completeCustodyLocationPage(page, name)
+  }
   await completeImmigrationStatusPage(page, name)
   await completeGenderPage(page, name)
   await completePregnancyPage(page, name)

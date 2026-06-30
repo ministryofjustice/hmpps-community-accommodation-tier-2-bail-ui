@@ -1,16 +1,19 @@
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeFundingInformationTask = async (page: Page) => {
+export const completeFundingInformationTask = async (page: Page, applicationOrigin: NewCohortApplicationOrigin) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Confirm funding and ID')
 
-  await completeFundingInformationPage(page)
+  const fundingTitle =
+    applicationOrigin === 'bail' ? 'Funding CAS2 for bail accommodation' : 'Funding CAS2 accommodation'
+  await completeFundingInformationPage(page, fundingTitle)
   await completeIDPage(page)
 }
 
-async function completeFundingInformationPage(page: Page) {
-  const fundingInformationPage = await ApplyPage.initialize(page, 'Funding CAS2 for bail accommodation')
+async function completeFundingInformationPage(page: Page, title: string) {
+  const fundingInformationPage = await ApplyPage.initialize(page, title)
 
   await fundingInformationPage.checkRadio('Personal savings, salary or pension', true)
   await fundingInformationPage.checkRadioInGroup('Does the applicant have a National Insurance number?', 'Yes')

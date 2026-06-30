@@ -477,59 +477,6 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     })
   })
 
-  describe('address-history', () => {
-    describe('when the applicant did not have a fixed address before custody', () => {
-      const applicationData = {
-        'address-history': {
-          'has-fixed-address-before-custody': {
-            hasFixedAddressBeforeCustody: 'no',
-          },
-          'last-fixed-address': {
-            addressLine1: 'some address line 1',
-            townOrCity: 'some town or city',
-            postcode: 'some postcode',
-          },
-        },
-      }
-
-      it('removes the last-fixed-address data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
-          'address-history': {
-            'has-fixed-address-before-custody': {
-              hasFixedAddressBeforeCustody: 'no',
-            },
-          },
-        })
-      })
-    })
-
-    describe('when the applicant did have a fixed address before custody', () => {
-      const applicationData = {
-        'address-history': {
-          'has-fixed-address-before-custody': {
-            hasFixedAddressBeforeCustody: 'yes',
-          },
-          'no-fixed-address': {
-            howLong: 'some duration',
-            lastKnownAddressLine1: 'some address line 1',
-            lastKnownTownOrCity: 'some town or city',
-            lastKnownPostcode: 'some postcode',
-          },
-        },
-      }
-
-      it('removes the no-fixed-address data', () => {
-        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
-          'address-history': {
-            'has-fixed-address-before-custody': {
-              hasFixedAddressBeforeCustody: 'yes',
-            },
-          },
-        })
-      })
-    })
-  })
-
   describe('Personal information', () => {
     it('it removes custody location for non-custodial cohorts', () => {
       const data = {

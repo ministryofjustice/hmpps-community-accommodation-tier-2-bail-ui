@@ -18,13 +18,13 @@ jobs:
     name: "CAS2 Bail E2E 🧪 Tests"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # V4.3.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           # Repository is specified to run the workflow from the API repository
           repository: 'ministryofjustice/hmpps-community-accommodation-tier-2-bail-ui'
           persist-credentials: 'false'
       - name: Use Node.js ${{ inputs.node_version_file }}
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # V6.3.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: ${{ inputs.node_version_file }}
       - name: refresh cache
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: CAS2-E2E-Bail-playwright-report
           path: e2e-tests/playwright-report/
@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload E2E artefacts
         if: failure()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # V7.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: CAS2-E2E-Bail-artefacts
           path: e2e-tests/test_results/
