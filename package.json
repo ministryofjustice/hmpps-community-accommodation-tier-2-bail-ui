@@ -156,7 +156,7 @@
     "axe-core": "^4.10.3",
     "chokidar": "^3.6.0",
     "concurrently": "^10.0.3",
-    "cypress": "^14.5.0",
+    "cypress": "^15.18.0",
     "cypress-axe": "^1.6.0",
     "cypress-multi-reporters": "^2.0.5",
     "esbuild": "^0.25.12",
