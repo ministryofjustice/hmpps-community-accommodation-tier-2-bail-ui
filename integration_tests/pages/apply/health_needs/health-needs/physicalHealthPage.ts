@@ -43,4 +43,18 @@ export default class PhysicalHealthPage extends ApplyPage {
     this.checkRadioByNameAndValue('canLiveIndependently', 'no')
     this.getTextInputByIdAndEnterDetails('indyLivingDetail', 'Needs help with bathing')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Select if they have any physical and mobility needs')
+    this.shouldShowErrorSummary('Select if they need any support')
+    this.shouldShowErrorSummary('Select if they can climb stairs')
+    this.shouldShowErrorSummary('Select if they can live independently')
+  }
+
+  completeForm(): void {
+    this.describePhysicalNeeds()
+    this.describeSupportNeeded()
+    this.confirmCanClimbStairs()
+    this.provideIndependentLivingInfo()
+  }
 }

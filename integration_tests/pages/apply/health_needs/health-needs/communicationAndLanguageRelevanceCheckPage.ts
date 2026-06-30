@@ -1,4 +1,5 @@
 import { Cas2Application as Application } from '@approved-premises/api'
+import { YesOrNo } from '@approved-premises/ui'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
@@ -31,5 +32,14 @@ export default class CommunicationAndLanguageRelevanceCheckPage extends ApplyPag
 
   selectApplicantDoesNotHaveCommunicationAndLanguageNeeds(): void {
     this.checkRadioByNameAndValue('hasCommunicationAndLanguageNeeds', 'no')
+  }
+
+  completeForm(formArguments?: { option: YesOrNo }) {
+    const option = formArguments?.option ?? 'yes'
+    this.checkRadioByNameAndValue('hasCommunicationAndLanguageNeeds', option)
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select yes if they have any communication and language needs')
   }
 }

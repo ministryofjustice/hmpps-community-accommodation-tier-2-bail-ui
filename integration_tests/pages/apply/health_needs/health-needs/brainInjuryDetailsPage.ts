@@ -53,4 +53,20 @@ export default class BrainInjuryDetailsPage extends ApplyPage {
     this.checkRadioByNameAndValue('hasDifficultyInteracting', 'yes')
     this.getTextInputByIdAndEnterDetails('interactionDetail', 'Can misunderstand situations')
   }
+
+  completeForm(): void {
+    this.describeInjury()
+    this.describeSupportNeeded()
+    this.describeTreatment()
+    this.describeVulnerability()
+    this.describeDifficultiesInteracting()
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Enter details of their brain injury')
+    this.shouldShowErrorSummary('Select yes if they need any support')
+    this.shouldShowErrorSummary('Select yes if they receive any treatment or medication')
+    this.shouldShowErrorSummary('Select yes if they are vulnerable')
+    this.shouldShowErrorSummary('Select yes if they have difficulties interacting with other people')
+  }
 }

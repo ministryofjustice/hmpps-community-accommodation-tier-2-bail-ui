@@ -1,5 +1,12 @@
 import { Request, Response } from 'express'
-import type { ApplicationDocument, FormPages, JourneyType, SideNavItem, UiTimelineEvent } from '@approved-premises/ui'
+import {
+  ApplicationDocument,
+  FormPages,
+  JourneyType,
+  SideNavItem,
+  SideNavItemWithVisibility,
+  UiTimelineEvent,
+} from '@approved-premises/ui'
 import type {
   Cas2Application as Application,
   Cas2Application,
@@ -82,6 +89,10 @@ export const getSideNavLinksForApplication = () => {
   })
 
   return tasks
+}
+
+export const filterSideNavLinks = (sideNavigationItems: Array<SideNavItemWithVisibility>) => {
+  return sideNavigationItems.filter(item => item?.visible !== false)
 }
 
 export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, application: Application) => {

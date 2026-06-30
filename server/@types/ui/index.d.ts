@@ -189,6 +189,10 @@ export type SideNavItem = {
   href: string
 }
 
+export type SideNavItemWithActive = SideNavItem & { active: boolean }
+
+export type SideNavItemWithVisibility = SideNavItemWithActive & { visible: boolean }
+
 export type PaginatedResponse<T> = {
   data: Array<T>
   pageNumber: string

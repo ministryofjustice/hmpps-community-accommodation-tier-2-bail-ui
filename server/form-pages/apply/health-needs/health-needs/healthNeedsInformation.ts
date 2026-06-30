@@ -23,11 +23,11 @@ export default class Guidance implements TaskListPage {
   }
 
   previous() {
-    return 'liaison-and-diversion'
+    return 'taskList'
   }
 
   next() {
-    return 'substance-misuse'
+    return this.application.applicationOrigin === 'other' ? 'substance-misuse' : 'liaison-and-diversion'
   }
 
   errors() {

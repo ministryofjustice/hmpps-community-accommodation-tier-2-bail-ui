@@ -32,11 +32,11 @@ export default class LiaisonAndDiversion implements TaskListPage {
   }
 
   previous() {
-    return 'taskList'
+    return 'health-needs-information'
   }
 
   next() {
-    return 'health-needs-information'
+    return 'substance-misuse'
   }
 
   errors() {
@@ -48,5 +48,9 @@ export default class LiaisonAndDiversion implements TaskListPage {
     }
 
     return errors
+  }
+
+  isApplicable() {
+    return this.application.applicationOrigin !== 'other'
   }
 }
