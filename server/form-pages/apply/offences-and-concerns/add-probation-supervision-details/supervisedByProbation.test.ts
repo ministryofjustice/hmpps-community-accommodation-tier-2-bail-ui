@@ -1,3 +1,4 @@
+import { Cas2Application } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import SupervisedByProbation from './supervisedByProbation'
@@ -43,6 +44,23 @@ describe('Community supervision', () => {
       expect(page.errors()).toEqual({
         probationSupervision: 'Confirm whether the applicant is currently supervised by probation',
       })
+    })
+  })
+
+  describe('isApplicable', () => {
+    it('returns true for court bail applications', () => {
+      const testApplication = { ...application, applicationOrigin: 'courtBail' } as Cas2Application
+      expect(new SupervisedByProbation({}, testApplication).isApplicable()).toBe(true)
+    })
+
+    it('returns true for prison bail applications', () => {
+      const testApplication = { ...application, applicationOrigin: 'prisonBail' } as Cas2Application
+      expect(new SupervisedByProbation({}, testApplication).isApplicable()).toBe(true)
+    })
+
+    it('returns false for new cohort applications', () => {
+      const testApplication = { ...application, applicationOrigin: 'other' } as Cas2Application
+      expect(new SupervisedByProbation({}, testApplication).isApplicable()).toBe(false)
     })
   })
 })

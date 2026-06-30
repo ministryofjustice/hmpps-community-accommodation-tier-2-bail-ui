@@ -58,4 +58,8 @@ export default class SupervisedByProbation implements TaskListPage {
     }
     return errors
   }
+
+  isApplicable(): boolean {
+    return ['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)
+  }
 }
