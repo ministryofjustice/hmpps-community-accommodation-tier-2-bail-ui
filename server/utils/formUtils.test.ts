@@ -55,6 +55,14 @@ describe('formutils', () => {
         { value: 'bar', text: 'Bar', checked: false, conditional: { html: 'Bar conditional' } },
       ])
     })
+
+    it('should inject dividers from a map', () => {
+      expect(convertKeyValuePairToRadioItems(obj, '', undefined, { bar: 'divider' })).toEqual([
+        { value: 'foo', text: 'Foo', checked: false },
+        { divider: 'divider' },
+        { value: 'bar', text: 'Bar', checked: false },
+      ])
+    })
   })
 
   describe('convertKeyValuePairToCheckboxItems', () => {

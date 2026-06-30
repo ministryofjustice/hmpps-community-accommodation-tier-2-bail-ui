@@ -1,0 +1,29 @@
+{% extends "../layout.njk" %}
+
+{% block questions %}
+    <h1 class="govuk-heading-l">{{ page.title }}</h1>
+
+    <p class="govuk-hint">{{ page.questions.hasOrders.hint }}</p>
+
+    {% set notes %} {{ formQuestion('notes',page.questions) }}
+    {% endset %}
+
+    {% set notes %}
+        {{ formQuestion("notes", page.questions, fetchContext()) }}
+    {% endset %}
+
+    {{ formPageRadios(
+        {
+            fieldName: "hasOrders",
+            items: convertKeyValuePairToRadioItems(page.questions.hasOrders.answers, page.body.hasOrders, { yes: { html: notes} }, { dontKnow: 'or' })
+        },
+        fetchContext()
+    ) }}
+
+{% endblock %}
+
+{% block button %}
+    {{ govukButton({
+        text: "Save and continue"
+    }) }}
+{% endblock %}
