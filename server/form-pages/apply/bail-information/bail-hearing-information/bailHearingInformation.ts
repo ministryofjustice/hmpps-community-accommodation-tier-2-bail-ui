@@ -104,4 +104,8 @@ export default class BailHearingInformation implements TaskListPage {
 
     return items
   }
+
+  isApplicable(): boolean {
+    return this.application.applicationOrigin !== 'other'
+  }
 }

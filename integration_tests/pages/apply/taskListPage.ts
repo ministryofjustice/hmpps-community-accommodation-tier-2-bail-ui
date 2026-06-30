@@ -45,4 +45,11 @@ export default class TaskListPage extends Page {
   shouldNotShowTask = (taskTitle): void => {
     cy.get('[data-cy-task-name]').should('not.contain', taskTitle)
   }
+
+  shouldShowSections = (sectionTitles: Array<string>): void => {
+    cy.get('[data-cy-section-title]').then($titles => {
+      const list = Array.from($titles, title => title.textContent.trim())
+      expect(JSON.stringify(list)).to.equal(JSON.stringify(sectionTitles))
+    })
+  }
 }

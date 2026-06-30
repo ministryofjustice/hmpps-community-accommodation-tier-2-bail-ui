@@ -77,4 +77,8 @@ export default class NonStandardBailConditions implements TaskListPage {
       delete this.body.nonStandardBailConditionsDetail
     }
   }
+
+  isApplicable(): boolean {
+    return this.application.applicationOrigin !== 'other'
+  }
 }
