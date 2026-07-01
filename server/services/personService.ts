@@ -1,4 +1,4 @@
-import type { FullPerson } from '@approved-premises/api'
+import { Cas2OAsysRiskToSelfDto, FullPerson } from '@approved-premises/api'
 import type { PersonClient, RestClientBuilder } from '../data'
 
 export default class PersonService {
@@ -14,5 +14,11 @@ export default class PersonService {
     const personClient = this.personClientFactory(token)
 
     return personClient.searchByCrn(crn)
+  }
+
+  async getOasysRiskToSelf(token: string, crn: string): Promise<Cas2OAsysRiskToSelfDto> {
+    const personClient = this.personClientFactory(token)
+
+    return personClient.oasysRiskToSelf(crn)
   }
 }

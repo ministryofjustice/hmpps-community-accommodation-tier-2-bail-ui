@@ -1,4 +1,4 @@
-import type { FullPerson } from '@approved-premises/api'
+import { Cas2OAsysRiskToSelfDto, FullPerson } from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -23,5 +23,11 @@ export default class PersonClient {
     const path = `${paths.people.searchByCrn({ crn: encodedCrn })}`
 
     return this.restClient.get<FullPerson>({ path })
+  }
+
+  async oasysRiskToSelf(crn: string): Promise<Cas2OAsysRiskToSelfDto> {
+    return this.restClient.get<Cas2OAsysRiskToSelfDto>({
+      path: paths.people.oasys.riskToSelf({ crn }),
+    })
   }
 }
