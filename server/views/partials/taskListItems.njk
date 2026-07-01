@@ -1,4 +1,5 @@
 {% for section in taskList.sections %}
+    {% if section.tasks.length > 0 %}
   <li data-section_name="{{ section.title}}">
     <h2 class="govuk-!-font-size-24 govuk-!-font-weight-bold" data-cy-section-title="{{ section.title }}">
       {{ section.title }}
@@ -21,4 +22,5 @@
         {% endfor %}
       </ul>
     </li>
+    {% endif %}
   {% endfor %}

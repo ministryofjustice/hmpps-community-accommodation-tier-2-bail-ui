@@ -163,4 +163,16 @@ describe('BailHearingInformation', () => {
       ])
     })
   })
+
+  describe('isApplicable', () => {
+    it('is applicable for bail applications', () => {
+      const page = new BailHearingDate({}, application)
+      expect(page.isApplicable()).toEqual(true)
+    })
+
+    it('Is not applicable for new cohort applications', () => {
+      const page = new BailHearingDate({}, { ...application, applicationOrigin: 'other' })
+      expect(page.isApplicable()).toEqual(false)
+    })
+  })
 })
