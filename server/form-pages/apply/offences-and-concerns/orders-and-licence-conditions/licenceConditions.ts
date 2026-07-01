@@ -46,7 +46,7 @@ export default class LicenceConditions implements TaskListPage {
     if (!this.body.hasLicenceConditions)
       errors.hasLicenceConditions = 'Select yes if they have any non-standard licence conditions'
     else if (this.body.hasLicenceConditions === 'yes' && !this.body.notes)
-      errors.notes = 'Provide details of the non-standard licence conditions!'
+      errors.notes = 'Provide details of the non-standard licence conditions'
 
     return errors
   }
