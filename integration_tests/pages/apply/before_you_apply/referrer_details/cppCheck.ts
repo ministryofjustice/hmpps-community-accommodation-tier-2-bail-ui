@@ -9,6 +9,7 @@ export default class CppCheckPage extends ApplyPage {
       'referrer-details',
       'cpp-check',
     )
+    cy.get('.govuk-fieldset__heading').should('not.exist')
   }
 
   checkErrors() {

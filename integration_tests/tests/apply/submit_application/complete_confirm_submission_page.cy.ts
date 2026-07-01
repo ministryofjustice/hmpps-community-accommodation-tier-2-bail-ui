@@ -94,7 +94,7 @@ context('Confirm submission page as a court bail user', () => {
     page.clickLink('Go back to edit application')
 
     //  Then I see the task list page
-    Page.verifyOnPage(TaskListPage)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })
 

@@ -52,7 +52,7 @@ context('Complete "Confirm eligibility" task in "Before you start" section', () 
     page.clickSubmit('Confirm and continue')
 
     // Then I am redirected to the ineligible page
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
 
     // And I see that the task is now complete
     taskListPage.shouldShowTaskStatus('confirm-consent', 'Completed')

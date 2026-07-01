@@ -300,11 +300,11 @@ describe('utils', () => {
     })
 
     describe('when the person is confirmed ELIGIBLE and there is a key for "Confirm consent" data, indicating that the page has been completed', () => {
-      it('redirects to the task list page', async () => {
-        const application = applicationFactory.build({
-          id: 'app-id',
-        })
-        const thisMockTaskList = {
+      let thisMockTaskList: unknown
+
+      beforeEach(() => {
+        jest.resetAllMocks()
+        thisMockTaskList = {
           ...mockTaskList,
           taskStatuses: { task1: 'complete', task2: 'complete', task3: 'complete', task4: 'not_started' },
         }
@@ -313,6 +313,11 @@ describe('utils', () => {
           return { errors: {}, errorSummary: [], userInput: {} }
         })
         ;(validateReferer as jest.MockedFunction<typeof validateReferer>).mockReturnValue('some-validated-referer')
+      })
+      it('redirects to the task list page', async () => {
+        const application = applicationFactory.build({
+          id: 'app-id',
+        })
 
         showMissingRequiredTasksOrTaskList(request, response, application)
 
@@ -322,6 +327,24 @@ describe('utils', () => {
           errorSummary: [],
           errors: {},
           referer: 'some-validated-referer',
+          title: 'Apply for CAS2 for Bail',
+        })
+      })
+
+      it('includes the cohort for non-bail applications', async () => {
+        const application = applicationFactory.newCohort('isc').build({
+          id: 'app-id',
+        })
+        showMissingRequiredTasksOrTaskList(request, response, application)
+
+        expect(response.render).toHaveBeenCalledWith('applications/taskList', {
+          application,
+          cohortLabel: 'Intensive supervision courts (ISC)',
+          taskList: thisMockTaskList,
+          errorSummary: [],
+          errors: {},
+          referer: 'some-validated-referer',
+          title: 'Apply for CAS2',
         })
       })
     })

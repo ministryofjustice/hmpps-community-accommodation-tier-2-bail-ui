@@ -4,8 +4,7 @@
 
 {% macro formQuestion(fieldName, questions, context) %}
     {% set question = questions[fieldName] %}
-
-    {% if page.questions.length !== 1 or question.question !== page.title %}
+    {% if (questions | length !== 1) or (question.question !== context.page.title) %}
         {% set fieldset = {
             legend: {
                 html:  '<h2 class="govuk-fieldset__heading">' + question.question + "</h2>",
@@ -19,7 +18,7 @@
             {
                 fieldset: fieldset,
                 fieldName: fieldName,
-                items: convertKeyValuePairToRadioItems(question.answers, page.body[qKey])
+                items: convertKeyValuePairToRadioItems(question.answers, context.page.body[qKey])
             },
             context
         ) }}

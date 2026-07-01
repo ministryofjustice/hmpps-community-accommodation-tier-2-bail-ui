@@ -71,14 +71,14 @@ context('Visit "About the applicant" section', () => {
     // And I am viewing the application
     // --------------------------------
     cy.visit(`applications/${this.application.id}`)
-    Page.verifyOnPage(TaskListPage)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 
   // Scenario: view task status
   // ----------------------------------------------
-  it('shows the task listed within the section', () => {
+  it('shows the task listed within the section', function test() {
     // I see that the task has not been started
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
     taskListPage.shouldShowTaskStatus('equality-and-diversity-monitoring', 'Not yet started')
   })
 
@@ -126,7 +126,7 @@ context('Visit "About the applicant" section', () => {
     page.clickBack()
 
     // Then I'm on the task list page
-    Page.verifyOnPage(TaskListPage)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 
   // Scenario: task completed successfully

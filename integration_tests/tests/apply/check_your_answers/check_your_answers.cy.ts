@@ -44,7 +44,7 @@ context('Check your answers page', () => {
   it('presents check your answers page', function test() {
     //  When I view the 'check your answers' page
     TaskListPage.visit(this.application)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
     taskListPage.visitTask('Check application answers')
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
@@ -72,7 +72,7 @@ context('Check your answers page', () => {
   it('navigates to the task list page once the referrer confirms details are correct', function test() {
     //  When I view the 'check your answers' page
     TaskListPage.visit(this.application)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
     taskListPage.visitTask('Check application answers')
     const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
 
