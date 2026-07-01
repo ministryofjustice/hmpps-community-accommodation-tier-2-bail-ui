@@ -4,8 +4,8 @@ import Apply from '../../../server/form-pages/apply'
 import paths from '../../../server/paths/apply'
 
 export default class TaskListPage extends Page {
-  constructor(name: string) {
-    super('Apply for CAS2 for Bail', name)
+  constructor(application: Application, personName: string) {
+    super(`Apply for CAS2${application.applicationOrigin !== 'other' ? ' for Bail' : ''}`, personName)
   }
 
   static visit(application: Application): TaskListPage {
@@ -13,7 +13,7 @@ export default class TaskListPage extends Page {
 
     const person = application.person as FullPerson
 
-    return new TaskListPage(person.name)
+    return new TaskListPage(application, person.name)
   }
 
   shouldShowTasksWithinTheirSections = (): void => {
