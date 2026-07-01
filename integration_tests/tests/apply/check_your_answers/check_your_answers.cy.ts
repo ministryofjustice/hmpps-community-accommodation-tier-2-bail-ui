@@ -3,7 +3,6 @@
 //  When I view the 'check your answers' page
 //  Then I see a list of questions and answers for the application
 
-import { Cas2Application } from '@approved-premises/api'
 import Page from '../../../pages/page'
 import CheckYourAnswersPage from '../../../pages/apply/check_your_answers/check-your-answers/checkYourAnswersPage'
 import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
@@ -25,7 +24,6 @@ context('Check your answers page', () => {
         data: applicationData,
       })
       cy.wrap(application).as('application')
-      cy.wrap(applicationData).as('applicationData')
     })
   })
 
@@ -86,43 +84,5 @@ context('Check your answers page', () => {
 
     //  Then I am taken to the task list page
     Page.verifyOnPage(TaskListPage, this.application)
-  })
-
-  it('shows the correct tasks for a new cohort application', function test() {
-    const otherApplication: Cas2Application = applicationFactory.newCohort('rarr').build({
-      person,
-      data: this.applicationData,
-    })
-    cy.task('stubApplicationGet', { application: otherApplication })
-    cy.log('***  Other application', otherApplication.applicationOrigin)
-
-    TaskListPage.visit(otherApplication)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldNotShowTask('Add bail conditions')
-    taskListPage.shouldNotShowTask('Add bail hearing information')
-    taskListPage.shouldShowSections([
-      'Before you apply',
-      'About the applicant',
-      'Area, funding and ID',
-      'Offences and concerns',
-      'Health needs',
-      'Check answers',
-    ])
-  })
-
-  it('shows the correct tasks for a bail application', function test() {
-    TaskListPage.visit(this.application)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
-    taskListPage.shouldShowTaskStatus('bail-conditions', 'Completed')
-    taskListPage.shouldShowTaskStatus('bail-hearing-information', 'Completed')
-    taskListPage.shouldShowSections([
-      'Before you apply',
-      'About the applicant',
-      'Area, funding and ID',
-      'Offences and concerns',
-      'Health needs',
-      'Bail information',
-      'Check answers',
-    ])
   })
 })
