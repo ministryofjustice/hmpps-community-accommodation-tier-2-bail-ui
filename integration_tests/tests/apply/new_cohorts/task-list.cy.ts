@@ -38,6 +38,9 @@ context('Task list page', () => {
     taskListPage.shouldNotShowTask('Add bail conditions')
     taskListPage.shouldNotShowTask('Add bail hearing information')
 
+    // And the  "Add information about concerns to the applicant and others" is not shown
+    taskListPage.shouldNotShowTask('Add information about concerns to the applicant and others')
+
     // And the bail section should not appear
     taskListPage.shouldShowSections([
       'Before you apply',
@@ -63,6 +66,9 @@ context('Task list page', () => {
     // Then the bail tasks should be shown
     taskListPage.shouldShowTaskStatus('bail-conditions', 'Completed')
     taskListPage.shouldShowTaskStatus('bail-hearing-information', 'Completed')
+
+    // And the  "Add information about concerns to the applicant and others" is shown
+    taskListPage.shouldShowTaskStatus('risk-information', 'Completed')
 
     // And the bail section should appear
     taskListPage.shouldShowSections([
