@@ -3,22 +3,26 @@ import { personFactory, applicationFactory } from '../../../../testutils/factori
 import SubstanceMisuse, { SubstanceMisuseBody } from './substanceMisuse'
 
 describe('SubstanceMisuse', () => {
-  const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
+  const person = personFactory.build({ name: 'Roger Smith' })
+
+  const bailApplication = applicationFactory.build({ person, applicationOrigin: 'courtBail' })
+  const otherApplication = applicationFactory.build({ person, applicationOrigin: 'other' })
 
   describe('title', () => {
     it('personalises the page title', () => {
-      const page = new SubstanceMisuse({}, application)
+      const page = new SubstanceMisuse({}, bailApplication)
 
       expect(page.title).toEqual('Drug and alcohol use details for Roger Smith')
     })
   })
 
-  itShouldHaveNextValue(new SubstanceMisuse({}, application), 'physical-health')
-  itShouldHavePreviousValue(new SubstanceMisuse({}, application), 'health-needs-information')
+  itShouldHaveNextValue(new SubstanceMisuse({}, bailApplication), 'physical-health')
+  itShouldHavePreviousValue(new SubstanceMisuse({}, bailApplication), 'liaison-and-diversion')
+  itShouldHavePreviousValue(new SubstanceMisuse({}, otherApplication), 'health-needs-information')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
-      const page = new SubstanceMisuse({}, application)
+      const page = new SubstanceMisuse({}, bailApplication)
 
       it('includes a validation error for _substanceAndAlcoholUse_', () => {
         expect(page.errors()).toHaveProperty(
@@ -57,7 +61,7 @@ describe('SubstanceMisuse', () => {
     })
 
     describe('when _substanceAndAlcoholUse_ is YES', () => {
-      const page = new SubstanceMisuse({ substanceAndAlcoholUse: 'yes' }, application)
+      const page = new SubstanceMisuse({ substanceAndAlcoholUse: 'yes' }, bailApplication)
 
       describe('and _substanceAndAlcoholUseDetail_ is UNANSWERED', () => {
         it('includes a validation error for _substanceAndAlcoholUseDetail_', () => {
@@ -67,7 +71,7 @@ describe('SubstanceMisuse', () => {
     })
 
     describe('when _requiresSubstituteMedication_ is YES', () => {
-      const page = new SubstanceMisuse({ requiresSubstituteMedication: 'yes' }, application)
+      const page = new SubstanceMisuse({ requiresSubstituteMedication: 'yes' }, bailApplication)
 
       describe('and _substituteMedicationDetail_ is UNANSWERED', () => {
         it('includes a validation error for _substituteMedicationDetail_', () => {
@@ -80,7 +84,7 @@ describe('SubstanceMisuse', () => {
     })
 
     describe('when _engagedWithDrugAndAlcoholService_ is YES', () => {
-      const page = new SubstanceMisuse({ engagedWithDrugAndAlcoholService: 'yes' }, application)
+      const page = new SubstanceMisuse({ engagedWithDrugAndAlcoholService: 'yes' }, bailApplication)
 
       describe('and _serviceDetails_ is UNANSWERED', () => {
         it('includes a validation error for _serviceDetails_', () => {
@@ -97,7 +101,7 @@ describe('SubstanceMisuse', () => {
         substanceAndAlcoholUseDetail: 'Substance and alcohol',
       }
 
-      const page = new SubstanceMisuse(body, application)
+      const page = new SubstanceMisuse(body, bailApplication)
 
       page.onSave()
 
@@ -112,7 +116,7 @@ describe('SubstanceMisuse', () => {
         substituteMedicationDetail: 'Substitute medical detail',
       }
 
-      const page = new SubstanceMisuse(body, application)
+      const page = new SubstanceMisuse(body, bailApplication)
 
       page.onSave()
 
@@ -127,7 +131,7 @@ describe('SubstanceMisuse', () => {
         serviceDetails: 'service details',
       }
 
-      const page = new SubstanceMisuse(body, application)
+      const page = new SubstanceMisuse(body, bailApplication)
 
       page.onSave()
 

@@ -34,4 +34,8 @@ export default class InformationSourcesPage extends ApplyPage {
     this.completeDateInputs('previousOasysDate', '2022-10-04')
     this.getTextInputByIdAndEnterDetails('otherSourcesDetail', 'some other sources')
   }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select where you got the information on health needs from')
+  }
 }

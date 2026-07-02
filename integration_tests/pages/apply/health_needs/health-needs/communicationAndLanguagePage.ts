@@ -34,4 +34,14 @@ export default class CommunicationAndLanguagePage extends ApplyPage {
     this.checkRadioByNameAndValue('hasImpairments', 'yes')
     this.getTextInputByIdAndEnterDetails('impairmentsDetail', 'Struggles with written comprehension')
   }
+
+  completeForm(): void {
+    this.specifyInterpretationNeeds()
+    this.describeImpairments()
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select yes if they have any literacy, visual or hearing impairments')
+    this.shouldShowErrorSummary('Select yes if they need an interpreter')
+  }
 }

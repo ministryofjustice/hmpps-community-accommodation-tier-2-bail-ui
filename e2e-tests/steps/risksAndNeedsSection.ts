@@ -1,12 +1,19 @@
+import { NewCohortApplicationOrigin } from '@approved-premises/ui'
 import { Page } from '@playwright/test'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 
-export const completeHealthNeedsTask = async (page: Page, name: string) => {
+export const completeHealthNeedsTask = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add health needs')
 
-  await completeLiaisonAndDiversionPage(page, name)
   await completeHealthNeedsInformationPage(page, name)
+  if (applicationOrigin === 'bail') {
+    await completeLiaisonAndDiversionPage(page, name)
+  }
   await completeSubstanceMisusePage(page, name)
   await completePhysicalHealthPage(page, name)
   await completeMentalHealthPage(page, name)

@@ -19,8 +19,8 @@ import InformationSources from './informationSources'
   name: 'Add health needs',
   slug: 'health-needs',
   pages: [
-    LiaisonAndDiversion,
     HealthNeedsInformation,
+    LiaisonAndDiversion,
     SubstanceMisuse,
     PhysicalHealth,
     MentalHealth,

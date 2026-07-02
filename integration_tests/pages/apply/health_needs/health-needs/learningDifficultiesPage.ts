@@ -1,4 +1,5 @@
 import { Cas2Application as Application } from '@approved-premises/api'
+import { YesOrNo } from '@approved-premises/ui'
 import ApplyPage from '../../applyPage'
 import paths from '../../../../../server/paths/apply'
 import { pageIsActiveInNavigation } from '../../../utils'
@@ -38,5 +39,14 @@ export default class LearningDifficultiesPage extends ApplyPage {
 
   confirmNoLearningDifficulties = (): void => {
     this.checkRadioByNameAndValue('hasLearningDifficultiesOrNeurodiversityNeeds', 'no')
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select yes if they have any learning difficulties or neurodiversity needs')
+  }
+
+  completeForm(formArguments?: { option: YesOrNo }) {
+    const option = formArguments?.option ?? 'yes'
+    this.checkRadioByNameAndValue('hasLearningDifficultiesOrNeurodiversityNeeds', option)
   }
 }
