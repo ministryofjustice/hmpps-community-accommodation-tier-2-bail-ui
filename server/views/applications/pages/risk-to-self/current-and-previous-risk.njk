@@ -8,8 +8,7 @@
 
 {% block questions %}
   {% if page.importDate %}
-    {% set date = page.importDate %}
-    {{dateOfOasysImport(date)}}
+    {{dateOfOasysImport(page.importDate)}}
   {% endif %}
 
   {% set currentAndPreviousRiskDetailHintHtml %}
@@ -29,7 +28,7 @@
         the last recent incident of self harm or suicide 
       </li>
     <li>
-        how often self harming or suicide attempts happens
+        how often self harming or suicide attempts happen
       </li>
     <li>
         how severe their self harming or suicide attempts are. For example, if an incident required an emergency response
