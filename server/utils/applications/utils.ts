@@ -14,6 +14,7 @@ import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
 import { fetchErrorsAndUserInput } from '../validation'
 import { TaskListService } from '../../services'
+import { cohortSelectionAnswers, NonBailCohort } from './cohortLabels'
 
 export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
@@ -111,5 +112,13 @@ export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, 
 
   const referer = validateReferer(req.headers.referer)
 
-  return res.render('applications/taskList', { application, taskList, errors, errorSummary, referer })
+  return res.render('applications/taskList', {
+    application,
+    cohortLabel: cohortSelectionAnswers[application.cohort as NonBailCohort],
+    title: application.applicationOrigin === 'other' ? 'Apply for CAS2' : 'Apply for CAS2 for Bail',
+    taskList,
+    errors,
+    errorSummary,
+    referer,
+  })
 }

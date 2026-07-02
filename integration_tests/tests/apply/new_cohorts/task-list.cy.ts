@@ -2,6 +2,7 @@ import { Cas2Application } from '@approved-premises/api'
 import { applicationFactory, personFactory } from '../../../../server/testutils/factories'
 import TaskListPage from '../../../pages/apply/taskListPage'
 import Page from '../../../pages/page'
+import { cohortLabels } from '../../../../server/utils/applicationUtils'
 
 context('Task list page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -24,7 +25,7 @@ context('Task list page', () => {
   })
 
   it('shows the correct tasks for a new cohort application', function test() {
-    const otherApplication: Cas2Application = applicationFactory.newCohort('rarr').build({
+    const otherApplication: Cas2Application = applicationFactory.newCohort().build({
       person,
       data: applicationData,
     })
@@ -32,7 +33,7 @@ context('Task list page', () => {
 
     // Given that I am on the task-list page
     TaskListPage.visit(otherApplication)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, otherApplication)
 
     // Then the bail tasks do not show
     taskListPage.shouldNotShowTask('Add bail conditions')
@@ -47,6 +48,9 @@ context('Task list page', () => {
       'Health needs',
       'Check answers',
     ])
+
+    // And it should show the application type
+    cy.contains(cohortLabels[otherApplication.cohort])
   })
 
   it('shows the correct tasks for a bail application', function test() {
@@ -58,7 +62,7 @@ context('Task list page', () => {
     cy.task('stubApplicationGet', { application })
 
     TaskListPage.visit(application)
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
 
     // Then the bail tasks should be shown
     taskListPage.shouldShowTaskStatus('bail-conditions', 'Completed')

@@ -71,6 +71,6 @@ context('Visit "Offences and concerns" section', () => {
 
     page.clickSubmit()
 
-    Page.verifyOnPage(TaskListPage, this.applicationWithData)
+    Page.verifyOnPage(TaskListPage, this.application)
   })
 })

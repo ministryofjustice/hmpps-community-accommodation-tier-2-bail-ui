@@ -125,7 +125,7 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     page.clickSubmit('Confirm and continue')
 
     // Then I return to the task list
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
 
     // And I see that the task is now complete
     taskListPage.shouldShowTaskStatus('confirm-consent', 'Completed')
@@ -185,7 +185,7 @@ context('Complete "Confirm consent" task in "Before you start" section', () => {
     confirmConsentPage.clickSubmit('Confirm and continue')
 
     // Then I see that the 'Confirm consent' task is complete
-    const taskListPage = Page.verifyOnPage(TaskListPage)
+    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
     taskListPage.shouldShowTaskStatus('confirm-consent', 'Completed')
   })
 
