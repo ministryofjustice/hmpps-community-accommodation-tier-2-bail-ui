@@ -13,6 +13,18 @@ describe('Concerns', () => {
     })
   })
 
-  itShouldHaveNextValue(new Concerns({}, application), 'self-harm')
-  itShouldHavePreviousValue(new Concerns({}, application), 'taskList')
+  describe('routing', () => {
+    itShouldHaveNextValue(new Concerns({}, application), 'self-harm')
+    itShouldHavePreviousValue(new Concerns({}, application), 'taskList')
+  })
+
+  describe('isApplicable', () => {
+    it('Returns true for a bail application', () => {
+      expect(new Concerns({}, application).isApplicable()).toEqual(true)
+    })
+
+    it('Returns true for a non-bail application', () => {
+      expect(new Concerns({}, applicationFactory.newCohort().build()).isApplicable()).toEqual(false)
+    })
+  })
 })

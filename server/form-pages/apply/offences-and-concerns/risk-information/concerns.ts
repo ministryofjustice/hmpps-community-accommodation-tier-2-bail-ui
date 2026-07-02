@@ -40,4 +40,8 @@ export default class Concerns implements TaskListPage {
 
     return errors
   }
+
+  isApplicable() {
+    return this.application.applicationOrigin !== 'other'
+  }
 }
