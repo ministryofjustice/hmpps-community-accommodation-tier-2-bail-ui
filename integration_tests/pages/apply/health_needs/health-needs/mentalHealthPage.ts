@@ -52,4 +52,21 @@ export default class MentalHealthPage extends ApplyPage {
   describeCurrentPresentation = (): void => {
     this.getTextInputByIdAndEnterDetails('needsPresentation', 'some presentation details')
   }
+
+  checkErrors() {
+    this.shouldShowErrorSummary('Select if they have any mental health needs')
+    this.shouldShowErrorSummary('Select if they need any support')
+    this.shouldShowErrorSummary('Select if they receive any treatment')
+    this.shouldShowErrorSummary('Select if they are engaged with a mental health service, or if awaiting an assessment')
+    this.shouldShowErrorSummary('Select if a referral for support will be made, or if they are not in prison custody')
+  }
+
+  completeForm(): void {
+    this.describeNeeds()
+    this.describeSupportNeeds()
+    this.describeTreatment()
+    this.enterServiceDetails()
+    this.confirmSupportReferral()
+    this.describeCurrentPresentation()
+  }
 }

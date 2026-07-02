@@ -20,6 +20,7 @@ import {
   unspentConvictionsCardRows,
 } from './applicationUtils'
 import {
+  filterSideNavLinks,
   getApplicationTimelineEvents,
   getSideNavLinksForApplication,
   getSideNavLinksForDocument,
@@ -111,6 +112,7 @@ export default function nunjucksSetup(app: express.Express): void {
   njkEnv.addGlobal('statusTag', (status: PersonStatus) => markAsSafe(statusTag(status)))
   njkEnv.addGlobal('getSideNavLinksForDocument', getSideNavLinksForDocument)
   njkEnv.addGlobal('getSideNavLinksForApplication', getSideNavLinksForApplication)
+  njkEnv.addGlobal('filterSideNavigationItems', filterSideNavLinks)
   njkEnv.addGlobal('stringToKebabCase', stringToKebabCase)
   njkEnv.addGlobal('camelToKebabCase', camelToKebabCase)
 

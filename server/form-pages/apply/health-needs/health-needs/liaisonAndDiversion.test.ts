@@ -23,8 +23,8 @@ describe('LiaisonAndDiversion', () => {
     })
   })
 
-  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'health-needs-information')
-  itShouldHavePreviousValue(new LiaisonAndDiversion({}, application), 'taskList')
+  itShouldHaveNextValue(new LiaisonAndDiversion({}, application), 'substance-misuse')
+  itShouldHavePreviousValue(new LiaisonAndDiversion({}, application), 'health-needs-information')
 
   describe('errors', () => {
     describe('when top-level questions are unanswered', () => {
@@ -36,6 +36,18 @@ describe('LiaisonAndDiversion', () => {
           "Select if a Liaison and Diversion Assessment has been carried out, or select 'I don't know'",
         )
       })
+    })
+  })
+
+  describe('isApplicable', () => {
+    it('is applicable for bail applications', () => {
+      const page = new LiaisonAndDiversion({}, application)
+      expect(page.isApplicable()).toEqual(true)
+    })
+
+    it('Is not applicable for new cohort applications', () => {
+      const page = new LiaisonAndDiversion({}, { ...application, applicationOrigin: 'other' })
+      expect(page.isApplicable()).toEqual(false)
     })
   })
 })

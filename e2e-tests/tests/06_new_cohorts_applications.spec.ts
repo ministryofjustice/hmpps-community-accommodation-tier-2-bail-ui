@@ -5,6 +5,7 @@ import {
   completeAreaAndFundingSection,
   completeBeforeYouStartForCustodyApplications,
   completeBeforeYouStartSection,
+  completeHealthNeedsSection,
   confirmApplicant,
   enterCrn,
   enterPrisonerNumber,
@@ -21,6 +22,7 @@ test('Create a CAS2 bail application', async ({ page, person, deliusPrisonUser }
   await completeBeforeYouStartSection(page, person.name)
   await completeAboutThePersonSection(page, person.name, 'bail')
   await completeAreaAndFundingSection(page, person.name, 'bail')
+  await completeHealthNeedsSection(page, person.name, 'bail')
 })
 
 test('Create a different CAS2 application', async ({ page, person, deliusPrisonUser }) => {
@@ -31,4 +33,5 @@ test('Create a different CAS2 application', async ({ page, person, deliusPrisonU
   await completeBeforeYouStartForCustodyApplications(page, person.name)
   await completeAboutThePersonSection(page, person.name, 'other')
   await completeAreaAndFundingSection(page, person.name, 'other')
+  await completeHealthNeedsSection(page, person.name, 'other')
 })

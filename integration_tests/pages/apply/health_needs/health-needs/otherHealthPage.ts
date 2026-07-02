@@ -47,4 +47,20 @@ export default class OtherHealthPage extends ApplyPage {
     this.checkRadioByNameAndValue('otherHealthNeeds', 'yes')
     this.getTextInputByIdAndEnterDetails('otherHealthNeedsDetail', 'Other health needs detail')
   }
+
+  completeForm(): void {
+    this.describeLongTermHealthConditions()
+    this.describeSeizures()
+    this.selectHasHadStroke()
+    this.selectBeingTreatedForCancer()
+    this.describeOtherHealthNeeds()
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select if they are managing any long term health conditions')
+    this.shouldShowErrorSummary('Select if they experience seizures or epilepsy')
+    this.shouldShowErrorSummary('Select if they have experienced a stroke')
+    this.shouldShowErrorSummary('Select if they are receiving regular treatment for cancer')
+    this.shouldShowErrorSummary('Select if they have any other health needs')
+  }
 }

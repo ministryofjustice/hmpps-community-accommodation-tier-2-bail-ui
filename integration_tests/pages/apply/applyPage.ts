@@ -59,7 +59,7 @@ export default class ApplyPage extends Page {
     cy.reload()
   }
 
-  checkErrorsAndSubmit() {
+  checkErrorsAndSubmit(formArguments?: object) {
     // When I submit the empty form
     this.clickSubmit()
 
@@ -67,7 +67,7 @@ export default class ApplyPage extends Page {
     this.checkErrors()
 
     // When I complete the form and submit again
-    this.completeForm()
+    this.completeForm(formArguments)
     this.clickSubmit()
     this.refreshMock()
   }

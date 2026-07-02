@@ -9,14 +9,15 @@
     <div class="govuk-grid-column-one-third">
       {{ mojSideNavigation({
           label: 'Health needs navigation',
-          items: [{
-            text: 'Liaison and diversion assessment',
-            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'liaison-and-diversion' }),
-            active: (pageName === 'liaison-and-diversion')
-          }, {
+          items: filterSideNavigationItems([{
             text: 'Health needs information',
             href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'health-needs-information' }),
             active: (pageName === 'health-needs-information')
+          }, {
+            text: 'Liaison and diversion assessment',
+            href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'liaison-and-diversion' }),
+            active: (pageName === 'liaison-and-diversion'),
+            visible: page.application.applicationOrigin !== 'other'
           }, {
             text: 'Drug and alcohol use',
             href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'substance-misuse' }),
@@ -49,7 +50,7 @@
             text: 'Information sources',
             href: paths.applications.pages.show({ id: applicationId, task: 'health-needs', page: 'information-sources' }),
             active: (pageName === 'information-sources')
-          }]
+          }])
         }) }}
     </div>
 

@@ -47,4 +47,24 @@ export default class SubstanceMisusePage extends ApplyPage {
   provideNaloxoneDetails = (): void => {
     this.checkRadioByNameAndValue('releasedWithNaloxone', 'yes')
   }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Select if they have any issues related to drug and alcohol use')
+    this.shouldShowErrorSummary('Select if they require any substitute medication')
+    this.shouldShowErrorSummary(
+      'Select if they are engaged with a drug and alcohol service, or if awaiting an assessment',
+    )
+    this.shouldShowErrorSummary(
+      'Select if there is an intention to refer them to a drug and alcohol service, or if they are not in prison custody',
+    )
+    this.shouldShowErrorSummary('Select if they are being released with naloxone, or if they are not in prison custody')
+  }
+
+  completeForm(): void {
+    this.describeSubstanceAndAlcoholUse()
+    this.provideSubstituteMedicationDetails()
+    this.nameDrugAndAlcoholService()
+    this.provideDrugAndAlcoholServiceIntentionDetails()
+    this.provideNaloxoneDetails()
+  }
 }

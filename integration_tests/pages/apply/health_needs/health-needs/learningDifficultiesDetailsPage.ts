@@ -44,4 +44,18 @@ export default class LearningDifficultiesDetailsPage extends ApplyPage {
     this.checkRadioByNameAndValue('isVulnerable', 'yes')
     this.getTextInputByIdAndEnterDetails('vulnerabilityDetail', 'Medium: is prone to risky behaviour')
   }
+
+  completeForm(): void {
+    this.describeNeeds()
+    this.describeSupportNeeds()
+    this.describeTreatment()
+    this.describeVulnerability()
+  }
+
+  checkErrors(): void {
+    this.shouldShowErrorSummary('Enter details of their needs')
+    this.shouldShowErrorSummary('Select yes if they need any support')
+    this.shouldShowErrorSummary('Select yes if they receive any treatment')
+    this.shouldShowErrorSummary('Select yes if they are vulnerable')
+  }
 }

@@ -136,8 +136,12 @@ export const completeAboutThePersonSection = async (
   await completeAddressHistoryTask(page, name)
 }
 
-export const completeHealthNeedsSection = async (page: Page, name: string) => {
-  await completeHealthNeedsTask(page, name)
+export const completeHealthNeedsSection = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
+  await completeHealthNeedsTask(page, name, applicationOrigin)
 }
 
 export const completeOffencesAndConcernsSection = async (page: Page, name: string) => {

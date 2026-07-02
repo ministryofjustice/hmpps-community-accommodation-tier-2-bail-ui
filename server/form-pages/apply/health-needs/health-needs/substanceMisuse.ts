@@ -50,7 +50,7 @@ export default class SubstanceMisuse implements TaskListPage {
   }
 
   previous() {
-    return 'health-needs-information'
+    return this.application.applicationOrigin === 'other' ? 'health-needs-information' : 'liaison-and-diversion'
   }
 
   next() {
