@@ -30,7 +30,7 @@ test('create a CAS-2 bail application', async ({ page, person, nomisPrisonUser }
   await completeBeforeYouStartSection(page, person.name)
   await completeAboutThePersonSection(page, person.name, 'bail')
   await completeAreaAndFundingSection(page, person.name, 'bail')
-  await completeOffencesAndConcernsSection(page, person.name)
+  await completeOffencesAndConcernsSection(page, person.name, 'bail')
   await completeHealthNeedsSection(page, person.name, 'bail')
   await completeBailInformationSection(page)
   await completeCheckAnswersSection(page, person.name)
