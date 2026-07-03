@@ -74,7 +74,7 @@ export default class OasysImport implements TaskListPage {
   static async initialize(
     body: Partial<GuidanceBody>,
     application: Application,
-    token: string,
+    request: { user: { token: string; username: string } },
     dataServices: DataServices,
   ) {
     let oasys
@@ -82,7 +82,7 @@ export default class OasysImport implements TaskListPage {
 
     if (!application.data['risk-to-self']) {
       try {
-        oasys = await dataServices.personService.getOasysRiskToSelf(token, application.person.crn)
+        oasys = await dataServices.personService.getOasysRiskToSelf(request.user.token, application.person.crn)
 
         taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys))
       } catch (e) {
@@ -130,5 +130,9 @@ export default class OasysImport implements TaskListPage {
 
   isApplicable(): boolean {
     return this.application.applicationOrigin === 'other'
+  }
+
+  canBeSkipped(): boolean {
+    return true
   }
 }

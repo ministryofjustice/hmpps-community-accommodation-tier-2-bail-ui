@@ -19,7 +19,6 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     cy.task('stubUserDetails', userDetails)
 
     cy.fixture('applicationData.json').then(applicationData => {
-      applicationData['referrer-details'] = {}
       cy.wrap(applicationData).as('applicationData')
     })
   })
@@ -32,7 +31,7 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
   it('runs the referrer details task for a bail aplication', function test() {
     const application = applicationFactory.build({
       person,
-      data: this.applicationData,
+      data: { ...this.applicationData, 'referrer-details': undefined },
     })
 
     cy.task('stubApplicationGet', { application })
@@ -43,6 +42,7 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
 
     //  When I click 'Save and continue'
     confirmDetailsPage.clickSubmit()
+    confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Job title' page
     const jobTitlePage = Page.verifyOnPage(JobTitlePage, application)
@@ -64,12 +64,13 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
 
     // Then I am on the task list
     const taskListPage = Page.verifyOnPage(TaskListPage, application)
+
     taskListPage.shouldShowTaskStatus('referrer-details', 'Completed')
 
-    // When I return to the location page page
+    // When I return to the location page
     LocationPage.visit(application)
 
-    // Then I can click back though the whole task
+    // Then I can click back through the whole task
     locationPage.clickBack()
     contactNumberPage.checkOnPage()
     locationPage.clickBack()
@@ -88,7 +89,7 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
       person,
       applicationOrigin: 'other',
       cohort: 'hcrd',
-      data: this.applicationData,
+      data: { ...this.applicationData, 'referrer-details': undefined },
     })
     cy.task('stubApplicationGet', { application })
     cy.task('stubApplicationUpdate', { application })
@@ -98,16 +99,11 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
 
     //  When I click 'Save and continue'
     confirmDetailsPage.clickSubmit()
+    confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Are you the person's cpp?' page
     const cppCheckPage = Page.verifyOnPage(CppCheckPage, application)
-    cppCheckPage.clickSubmit()
-    cppCheckPage.checkErrors()
-
-    cppCheckPage.completeForm('yes')
-    cppCheckPage.clickSubmit()
-    cy.task('stubApplicationGetFromLastUpdate', { application })
-    cy.reload()
+    cppCheckPage.checkErrorsAndSubmit({ option: 'yes' })
 
     // Then I am on the contact number page
     const contactNumberPage = Page.verifyOnPage(ContactNumberPage, application)
@@ -123,7 +119,7 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     ContactNumberPage.visit(application)
     contactNumberPage.checkOnPage()
 
-    // Then I click back though all the pages in the task
+    // Then I click back through all the pages in the task
     contactNumberPage.clickBack()
     cppCheckPage.checkOnPage()
     cppCheckPage.clickBack()
@@ -140,7 +136,7 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
       person,
       applicationOrigin: 'other',
       cohort: 'hcrd',
-      data: this.applicationData,
+      data: { ...this.applicationData, 'referrer-details': undefined },
     })
     cy.task('stubApplicationGet', { application })
     cy.task('stubApplicationUpdate', { application })
@@ -150,16 +146,11 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
 
     // When I click 'Save and continue'
     confirmDetailsPage.clickSubmit()
+    confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Are you the person's cpp?' page
     const cppCheckPage = Page.verifyOnPage(CppCheckPage, application)
-    cppCheckPage.clickSubmit()
-    cppCheckPage.checkErrors()
-
-    cppCheckPage.completeForm('no')
-    cppCheckPage.clickSubmit()
-    cy.task('stubApplicationGetFromLastUpdate', { application })
-    cy.reload()
+    cppCheckPage.checkErrorsAndSubmit({ option: 'no' })
 
     // Then I am on the cpp details page
     const cppDetailsPage = Page.verifyOnPage(CPPDetailsPage, application)
@@ -182,11 +173,11 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     // Then I am on the task list page
     Page.verifyOnPage(TaskListPage, application)
 
-    // When I return to the locationpage
+    // When I return to the location page
     LocationPage.visit(application)
     locationPage.checkOnPage()
 
-    // And I click back though all the pages in the task
+    // And I click back through all the pages in the task
     locationPage.clickBack()
 
     contactNumberPage.checkOnPage()

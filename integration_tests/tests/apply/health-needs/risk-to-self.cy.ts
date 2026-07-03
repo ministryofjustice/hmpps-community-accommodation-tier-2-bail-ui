@@ -30,7 +30,6 @@ const testAccts: Array<AcctData> = [
 ]
 context('Risk to self task', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
-  let applicationData: unknown
 
   beforeEach(() => {
     cy.task('reset')
@@ -38,7 +37,7 @@ context('Risk to self task', () => {
     cy.task('stubAuthUser')
 
     cy.fixture('applicationData.json').then(data => {
-      applicationData = { ...data }
+      cy.wrap(data).as('applicationData')
     })
   })
 
@@ -47,11 +46,11 @@ context('Risk to self task', () => {
     cy.signIn()
   })
 
-  it('Risk to self task no OASys data available', () => {
+  it('Risk to self task no OASys data available', function test() {
     const application = applicationFactory.build({
       applicationOrigin: 'other',
       person,
-      data: applicationData,
+      data: { ...this.applicationData, 'risk-to-self': undefined },
     })
 
     cy.task('stubApplicationGet', { application })
@@ -67,12 +66,11 @@ context('Risk to self task', () => {
     // When I start the task
     taskListPage.visitTask('Add risk to self information')
 
-    // Then I am on the oasysy import page showing no oasysy
+    // Then I am on the oasys import page showing no oasys
     const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)
     oasysImportPage.verifyNoOasys()
     // When I click continue
     oasysImportPage.clickLink('Continue')
-    // oasysImportPage.refreshMock()
 
     // Then I am on the old-oasys question page
     const oldOasysPage = Page.verifyOnPage(OldOasysPage, application)
@@ -159,11 +157,11 @@ context('Risk to self task', () => {
     taskListPage.checkOnPage()
   })
 
-  it('The detail fields are pre-populated when oasys available', () => {
+  it('The detail fields are pre-populated when oasys available', function test() {
     const application = applicationFactory.build({
       applicationOrigin: 'other',
       person,
-      data: applicationData,
+      data: { ...this.applicationData, 'risk-to-self': undefined },
     })
     const data = cas2OAsysRiskToSelfDtoFactory.build()
 
@@ -204,10 +202,10 @@ context('Risk to self task', () => {
     riskPage.shouldShowTextArea('currentAndPreviousRiskDetail', data.analysisSuicideSelfharm)
   })
 
-  it('The risk to self task is not shown for bail applications', () => {
+  it('The risk to self task is not shown for bail applications', function test() {
     const application = applicationFactory.build({
       person,
-      data: applicationData,
+      data: { ...this.applicationData },
     })
 
     // Given I have a bail application
