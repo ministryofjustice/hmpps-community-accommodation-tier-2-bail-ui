@@ -32,7 +32,7 @@ export type SubstanceMisuseBody = {
   ],
 })
 export default class SubstanceMisuse implements TaskListPage {
-  documentTitle = 'Substance misuse details for the person'
+  documentTitle = 'Drug and alcohol use details for the person'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
