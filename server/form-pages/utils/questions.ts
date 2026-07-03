@@ -830,6 +830,66 @@ export function getQuestions(
         },
       },
     },
+    'risk-to-self': {
+      'old-oasys': {
+        hasOldOasys: {
+          question: `Does ${name} have an older OASys with risk to self information?`,
+          answers: { yes: 'Yes', no: 'No, they do not have an OASys' },
+        },
+        oasysCompletedDate: {
+          question: 'When was the OASys completed?',
+          hint: `For example, ${dateExample}`,
+        },
+      },
+      vulnerability: {
+        vulnerabilityDetail: {
+          question: `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
+          hint: 'Include all current risk information and remove sensitive information, such as names and addresses.',
+        },
+        confirmation: {
+          question: 'I confirm this information is relevant and up to date.',
+          answers: { confirmed: 'Confirmed' },
+        },
+      },
+      'current-and-previous-risk': {
+        currentAndPreviousRiskDetail: {
+          question: `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
+          hint: 'Remove sensitive information, such as names and addresses.',
+        },
+        confirmation: {
+          question: 'I confirm this information is relevant and up to date.',
+          answers: { confirmed: 'Confirmed' },
+        },
+      },
+      'acct-data': {
+        createdDate: {
+          question: 'When was the ACCT created?',
+          hint: 'For example, 22 4 2003',
+        },
+        isOngoing: {
+          question: 'Is the ACCT ongoing?',
+        },
+        closedDate: {
+          question: 'When was the ACCT closed?',
+          hint: 'For example, 22 4 2003',
+        },
+        referringInstitution: {
+          question: 'Referring institution',
+          hint: 'Where the applicant was based at the time the ACCT was created',
+        },
+        acctDetail: {
+          question: 'Details about the ACCT',
+        },
+      },
+      'additional-information': {
+        hasAdditionalInformation: {
+          question: `Is there anything else to include about ${name}'s risk to self?`,
+          hint: 'Record any additional information about their risk to self.',
+          answers: yesOrNo,
+        },
+        additionalInformationDetail: { question: 'Additional information' },
+      },
+    },
     'risk-information': {
       concerns: {},
       'self-harm': {

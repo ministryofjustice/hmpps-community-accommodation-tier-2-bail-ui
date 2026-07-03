@@ -16,6 +16,9 @@ export default {
   people: {
     searchByPrisonNumber: peoplePath.path('search-by-noms/:nomsNumber'),
     searchByCrn: peoplePath.path('search-by-crn/:crn'),
+    oasys: {
+      riskToSelf: peoplePath.path(':crn/oasys/risk-to-self'),
+    },
   },
   submissions: {
     index: submissionsPath,
