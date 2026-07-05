@@ -4,24 +4,24 @@ $path: "/assets/images/";
 $moj-page-width: 1170px;
 $govuk-page-width: $moj-page-width;
 
-@import "govuk-frontend/dist/govuk/all";
-@import "@ministryofjustice/frontend/moj/all";
+@use "govuk-frontend/dist/govuk/index" as govuk;
+@use "@ministryofjustice/frontend/moj/all" as moj;
 
-@import './components/header-bar';
-@import './components/actions-menu';
-@import './components/copy-text';
-@import './components/side-nav';
-@import './components/status-box';
-@import './components/application-summary-panel';
-@import './components/summary-card';
-@import './components/tag';
-@import './components/timeline';
-@import './components/guidance-panel';
-@import './components/nhs-do-dont-list';
-@import './components/cas-search';
+@use './components/header-bar';
+@use './components/actions-menu';
+@use './components/copy-text';
+@use './components/side-nav';
+@use './components/status-box';
+@use './components/application-summary-panel';
+@use './components/summary-card';
+@use './components/tag';
+@use './components/timeline';
+@use './components/guidance-panel';
+@use './components/nhs-do-dont-list';
+@use './components/cas-search';
 
-@import './pages/dashboard-index';
-@import './local';
+@use './pages/dashboard-index';
+@use './local';
 
 .govuk-panel--fail {
     background-color: #d4351c;
@@ -33,8 +33,8 @@ $govuk-page-width: $moj-page-width;
     width: 100%;
     text-align: left;
     font-weight: bold;
-    margin-top: govuk-spacing(3);
-    margin-bottom: govuk-spacing(3);
+    margin-top: govuk.govuk-spacing(3);
+    margin-bottom: govuk.govuk-spacing(3);
   }
 }
 

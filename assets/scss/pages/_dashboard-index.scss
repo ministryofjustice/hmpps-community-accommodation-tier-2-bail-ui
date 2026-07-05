@@ -1,3 +1,5 @@
+@use "govuk-frontend/dist/govuk/all" as govuk;
+
 .dashboard--index {
     .card-container {
       display: flex;
@@ -11,7 +13,7 @@
     }
   
     .card {
-      border: 1px solid govuk-colour('mid-grey');
+      border: 1px solid govuk.govuk-colour('mid-grey');
       border-bottom-width: 0.5em;
       flex-basis: 100%;
       flex-grow: 0;
@@ -19,7 +21,7 @@
       font-size: 1rem;
     }
   
-    @include govuk-media-query($from: tablet, $until: 850px, $media-type: screen) {
+    @include govuk.govuk-media-query($from: tablet, $until: 850px, $media-type: screen) {
       .card {
         flex-basis: 48%;
   
@@ -34,13 +36,13 @@
     }
 
       
-    @include govuk-media-query($from: 1120px, $media-type: screen) {
+    @include govuk.govuk-media-query($from: 1120px, $media-type: screen) {
       .card {
         font-size: 1.1875rem;
       }
     }
   
-    @include govuk-media-query($from: 850px, $media-type: screen) {
+    @include govuk.govuk-media-query($from: 850px, $media-type: screen) {
       .card {
         flex-basis: 31%;
   
@@ -52,7 +54,7 @@
     }
   
     .card-body {
-      padding: govuk-spacing(3);
+      padding: govuk.govuk-spacing(3);
       height: 300px;
     }
   }
