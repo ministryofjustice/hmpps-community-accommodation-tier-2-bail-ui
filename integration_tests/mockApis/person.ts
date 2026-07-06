@@ -1,8 +1,39 @@
-import type { Cas2OAsysRiskToSelfDto, FullPerson } from '@approved-premises/api'
+import type {
+  Cas2OAsysRiskToSelfDto,
+  Cas2OAsysRoshRatingsDto,
+  Cas2OAsysRoshSummaryDto,
+  FullPerson,
+} from '@approved-premises/api'
 import { stubFor } from './wiremock'
 import paths from '../../server/paths/api'
 
 export default {
+  stubOasysRoshSummary: (args: { crn: string; summary: Cas2OAsysRoshSummaryDto }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: paths.people.oasys.roshSummary({ crn: args.crn }),
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.summary,
+      },
+    }),
+
+  stubOasysRoshRatings: (args: { crn: string; ratings: Cas2OAsysRoshRatingsDto }) =>
+    stubFor({
+      request: {
+        method: 'GET',
+        url: paths.people.oasys.roshRatings({ crn: args.crn }),
+      },
+      response: {
+        status: 200,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: args.ratings,
+      },
+    }),
+
   stubFindPersonByPrisonNumber: (args: { person: FullPerson }) =>
     stubFor({
       request: {

@@ -1,4 +1,10 @@
-import { Cas2OAsysRiskToSelfDto, FullPerson } from '@approved-premises/api'
+import type {
+  Cas2OASysAssessmentMetadataDto,
+  Cas2OAsysRiskToSelfDto,
+  Cas2OAsysRoshRatingsDto,
+  Cas2OAsysRoshSummaryDto,
+  FullPerson,
+} from '@approved-premises/api'
 
 import RestClient from './restClient'
 import config, { ApiConfig } from '../config'
@@ -29,5 +35,26 @@ export default class PersonClient {
     return this.restClient.get<Cas2OAsysRiskToSelfDto>({
       path: paths.people.oasys.riskToSelf({ crn }),
     })
+  }
+
+  async oasysMetadata(crn: string): Promise<Cas2OASysAssessmentMetadataDto> {
+    const encodedCrn = encodeURIComponent(crn)
+    const path = paths.people.oasys.metadata({ crn: encodedCrn })
+
+    return this.restClient.get<Cas2OASysAssessmentMetadataDto>({ path })
+  }
+
+  async oasysRoshRatings(crn: string): Promise<Cas2OAsysRoshRatingsDto> {
+    const encodedCrn = encodeURIComponent(crn)
+    const path = paths.people.oasys.roshRatings({ crn: encodedCrn })
+
+    return this.restClient.get<Cas2OAsysRoshRatingsDto>({ path })
+  }
+
+  async oasysRoshSummary(crn: string): Promise<Cas2OAsysRoshSummaryDto> {
+    const encodedCrn = encodeURIComponent(crn)
+    const path = paths.people.oasys.roshSummary({ crn: encodedCrn })
+
+    return this.restClient.get<Cas2OAsysRoshSummaryDto>({ path })
   }
 }

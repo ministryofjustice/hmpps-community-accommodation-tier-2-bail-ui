@@ -38,6 +38,8 @@ export function getQuestions(
 
   const dateExample = '27 3 2023'
 
+  const roshRiskLevels = { Low: 'Low', Medium: 'Medium', High: 'High', 'Very high': 'Very high' }
+
   const offenceCategory = {
     question: 'Offence type',
     answers: {
@@ -885,6 +887,74 @@ export function getQuestions(
         hasAdditionalInformation: {
           question: `Is there anything else to include about ${name}'s risk to self?`,
           hint: 'Record any additional information about their risk to self.',
+          answers: yesOrNo,
+        },
+        additionalInformationDetail: { question: 'Additional information' },
+      },
+    },
+    'risks-of-serious-harm-to-others': {
+      summary: {
+        additionalComments: { question: 'Comments' },
+      },
+      'manual-rosh-information': {
+        riskToChildren: { question: 'What risk do they pose to children?', answers: roshRiskLevels },
+        riskToPublic: { question: 'What risk do they pose to the public?', answers: roshRiskLevels },
+        riskToKnownAdult: { question: 'What risk do they pose to a known adult?', answers: roshRiskLevels },
+        riskToStaff: { question: 'What risk do they pose to staff?', answers: roshRiskLevels },
+        overallRisk: { question: `What's the overall risk?`, answers: roshRiskLevels },
+      },
+      'old-oasys': {
+        hasOldOasys: {
+          question: `Does ${name} have an older OASys with risk of serious harm (RoSH) information?`,
+          answers: { yes: 'Yes', no: 'No, they do not have an OASys' },
+        },
+        oasysCompletedDate: {
+          question: 'Date the OASys was completed',
+          hint: `For example, ${dateExample}`,
+        },
+      },
+      'risk-to-others': {
+        whoIsAtRisk: { question: 'Who is at risk?' },
+        natureOfRisk: { question: 'What is the nature of the risk?' },
+        confirmation: {
+          question: 'By continuing, you confirm this information is relevant and up-to-date.',
+          answers: { confirmed: 'By continuing, you confirm this information is relevant and up-to-date.' },
+        },
+      },
+      'risk-management-arrangements': {
+        arrangements: {
+          question: `Is ${name} subject to any of these multi-agency risk management arrangements upon release?`,
+          hint: 'Select all that apply',
+          answers: {
+            mappa: 'MAPPA',
+            marac: 'MARAC',
+            iom: 'IOM',
+          },
+        },
+        mappaDetails: {
+          question: 'Provide MAPPA details',
+          hint: 'Specify whether the MAPPA is Category 2 or Category 3. Include lead contact details where possible.',
+        },
+        maracDetails: {
+          question: 'Provide MARAC details',
+          hint: 'Include lead contact details where possible.',
+        },
+        iomDetails: {
+          question: 'Provide IOM details',
+          hint: 'Include lead contact details where possible.',
+        },
+      },
+      'cell-share-information': {
+        hasCellShareComments: {
+          question: 'Are there any comments to add about cell sharing or sharing accomodation?',
+          answers: yesOrNo,
+        },
+        cellShareInformationDetail: { question: 'Provide details on sharing accomodation' },
+      },
+      'additional-risk-information': {
+        hasAdditionalInformation: {
+          question: `Is there any other risk information for ${name}?`,
+          hint: 'If known, state their incentive level, also known as Incentive and Enhanced Privileges (IEP), and any other information about their risk to others.',
           answers: yesOrNo,
         },
         additionalInformationDetail: { question: 'Additional information' },

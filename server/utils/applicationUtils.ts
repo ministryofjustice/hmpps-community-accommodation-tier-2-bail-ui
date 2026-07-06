@@ -169,7 +169,10 @@ export const unspentConvictionsCardRows = (unspentConviction: UnspentConvictions
   ]
 }
 
-export const hasOasys = (application: Cas2Application, task: 'risk-to-self' | 'risk-of-serious-harm'): boolean => {
+export const hasOasys = (
+  application: Cas2Application,
+  task: 'risk-to-self' | 'risk-of-serious-harm' | 'risks-of-serious-harm-to-others',
+): boolean => {
   return !!(
     application.data &&
     (application.data[task]?.['oasys-import'] || application.data[task]?.['old-oasys']?.hasOldOasys === 'yes')

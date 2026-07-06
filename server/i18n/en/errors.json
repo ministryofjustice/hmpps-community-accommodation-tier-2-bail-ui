@@ -56,6 +56,26 @@
   "whoIsAtRisk": {
     "empty": "Enter who is at risk"
   },
+  "manualRoshInformation": {
+    "riskToChildren": {
+      "empty": "Select the risk they pose to children"
+    },
+    "riskToPublic": {
+      "empty": "Select the risk they pose to the public"
+    },
+    "riskToKnownAdult": {
+      "empty": "Select the risk they pose to a known adult"
+    },
+    "riskToStaff": {
+      "empty": "Select the risk they pose to staff"
+    },
+    "overallRisk": {
+      "empty": "Select the overall risk"
+    },
+    "createdAt": {
+      "createdAt": "Please provide today's date"
+    }
+  },
   "idDocuments": {
     "empty": "Select an ID document or 'None of these options'"
   },

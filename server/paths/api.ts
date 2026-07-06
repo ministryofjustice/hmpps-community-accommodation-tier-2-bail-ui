@@ -2,6 +2,8 @@ import { path } from 'static-path'
 
 const basePath = path('/cas2')
 const peoplePath = basePath.path('people')
+const personPath = peoplePath.path(':crn')
+const oasysPath = personPath.path('oasys')
 const applicationsPath = basePath.path('applications')
 const abandonPath = applicationsPath.path(':id').path('abandon')
 const singleApplicationPath = applicationsPath.path(':id')
@@ -18,6 +20,9 @@ export default {
     searchByCrn: peoplePath.path('search-by-crn/:crn'),
     oasys: {
       riskToSelf: peoplePath.path(':crn/oasys/risk-to-self'),
+      metadata: oasysPath.path('metadata'),
+      roshRatings: oasysPath.path('rosh-ratings'),
+      roshSummary: oasysPath.path('rosh-summary'),
     },
   },
   submissions: {
