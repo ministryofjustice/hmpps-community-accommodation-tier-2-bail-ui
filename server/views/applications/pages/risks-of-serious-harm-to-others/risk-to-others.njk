@@ -77,14 +77,16 @@
     }) }}
   {% endif %}
 
-  {{ 
-      formPageCheckboxes(
-          {
-            fieldName: "confirmation",
-            items: page.items()
-          }, 
-          fetchContext()
-      ) 
-  }}
+  <p class="govuk-body">{{ page.questions.confirmation.question }}</p>
 
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+      text: "Confirm and continue"
+    }) }}
+
+    <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+  </div>
 {% endblock %}

@@ -28,8 +28,13 @@ export default class RiskToOthersPage extends ApplyPage {
     cy.get('#natureOfRisk').should('have.value', natureOfRisk)
   }
 
+  clickSubmit(text = 'Confirm and continue'): void {
+    super.clickSubmit(text)
+  }
+
   checkErrors(): void {
-    this.shouldShowErrorSummary('Confirm that the information is relevant and up to date')
+    this.shouldShowErrorSummary('Enter who is at risk')
+    this.shouldShowErrorSummary('Enter the nature of the risk')
   }
 
   completeForm(): void {
@@ -37,6 +42,5 @@ export default class RiskToOthersPage extends ApplyPage {
     cy.get('#whoIsAtRisk').type('who is at risk answer')
     cy.get('#natureOfRisk').clear()
     cy.get('#natureOfRisk').type('nature of risk answer')
-    this.checkCheckboxByValue('confirmed')
   }
 }

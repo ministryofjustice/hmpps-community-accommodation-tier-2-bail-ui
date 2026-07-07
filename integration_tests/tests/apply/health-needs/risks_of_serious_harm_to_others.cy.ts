@@ -106,7 +106,8 @@ context('Complete the "Risks of serious harm to others" task', () => {
     // Then I am on the risk to others page, pre-populated from oasys
     const riskToOthersPage = Page.verifyOnPage(RiskToOthersPage, application)
     riskToOthersPage.shouldShowImportedRiskInformation('who is at risk answer', 'nature of risk answer')
-    riskToOthersPage.checkErrorsAndSubmit()
+    riskToOthersPage.clickSubmit()
+    riskToOthersPage.refreshMock()
 
     // Then I complete the remaining pages in the task
     const riskManagementArrangementsPage = Page.verifyOnPage(RiskManagementArrangementsPage, application)
