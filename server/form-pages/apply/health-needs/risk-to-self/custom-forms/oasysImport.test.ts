@@ -47,6 +47,13 @@ describe('OasysImport', () => {
   })
 
   describe('initialize', () => {
+    const request = {
+      user: {
+        token: 'some-token',
+        username: 'some-username',
+      },
+    }
+
     describe('when oasys sections are returned', () => {
       it('instantiates the class with the task data in the correct format', async () => {
         oasys.analysisVulnerabilities = 'vulnerability answer'
@@ -66,7 +73,7 @@ describe('OasysImport', () => {
 
         ;(dataServices.personService.getOasysRiskToSelf as jest.Mock).mockResolvedValue(oasys)
 
-        const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
+        const page = (await OasysImport.initialize({}, application, request, dataServices)) as OasysImport
 
         expect(page.taskData).toBe(JSON.stringify(taskData))
         expect(page.hasOasysRecord).toBe(true)
@@ -80,7 +87,7 @@ describe('OasysImport', () => {
 
           ;(dataServices.personService.getOasysRiskToSelf as jest.Mock).mockResolvedValue(oasysIncomplete)
 
-          const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
+          const page = (await OasysImport.initialize({}, application, request, dataServices)) as OasysImport
 
           expect(page.oasysCompleted).toBe(null)
         })
@@ -91,7 +98,7 @@ describe('OasysImport', () => {
       it('sets hasOasysRecord to false when there has been an error', async () => {
         ;(dataServices.personService.getOasysRiskToSelf as jest.Mock).mockRejectedValue(new Error())
 
-        const page = (await OasysImport.initialize({}, application, 'some-token', dataServices)) as OasysImport
+        const page = (await OasysImport.initialize({}, application, request, dataServices)) as OasysImport
 
         expect(page.hasOasysRecord).toBe(false)
         expect(page.oasysCompleted).toBe(undefined)
@@ -116,7 +123,7 @@ describe('OasysImport', () => {
           return oldOasysPageConstructor
         })
 
-        expect(OasysImport.initialize({}, applicationWithData, 'some-token', dataServices)).resolves.toEqual(
+        expect(OasysImport.initialize({}, applicationWithData, request, dataServices)).resolves.toEqual(
           oldOasysPageConstructor,
         )
 
@@ -151,7 +158,7 @@ describe('OasysImport', () => {
           return vulnerabilityPageConstructor
         })
 
-        expect(OasysImport.initialize({}, applicationWithData, 'some-token', dataServices)).resolves.toEqual(
+        expect(OasysImport.initialize({}, applicationWithData, request, dataServices)).resolves.toEqual(
           vulnerabilityPageConstructor,
         )
 
@@ -184,7 +191,7 @@ describe('OasysImport', () => {
             return vulnerabilityPageConstructor
           })
 
-          expect(OasysImport.initialize({}, applicationWithData, 'some-token', dataServices)).resolves.toEqual(
+          expect(OasysImport.initialize({}, applicationWithData, request, dataServices)).resolves.toEqual(
             vulnerabilityPageConstructor,
           )
 

@@ -8,61 +8,52 @@ export const getPageData = (application: Application, taskName: string, pageName
 }
 
 const getTaskStatus = (task: UiTask, application: Application): TaskStatus => {
-  // Find the first page that has an answer
-  let pageId = Object.keys(task.pages).find((pageName: string) => !!getPageData(application, task.id, pageName))
+  // if the first page is not applicable -> not_applicable
+  // if any page has an error -> in_progress
+  // if some pages are complete and some are incomplete -> in_progress
+  // if all pages are complete -> complete
+  // otherwise -> not_started
 
-  let status: TaskStatus
+  let pageName = Object.keys(task.pages)[0]
 
-  // If there's no page that's been completed, then we know the task is incomplete
-  if (!pageId) {
-    // check the first page to see if this task is required
-    const Page = Object.values(task.pages)[0] as TaskListPageInterface
-    const page = Page && new Page({}, application)
+  const FirstPageConstructor = task.pages[pageName] as TaskListPageInterface
+  const firstPage = FirstPageConstructor && new FirstPageConstructor({}, application)
 
-    if (page?.isApplicable && !page.isApplicable()) return 'not_applicable'
-    return 'not_started'
+  if (firstPage?.isApplicable && !firstPage.isApplicable()) {
+    return 'not_applicable'
   }
 
-  while (pageId) {
-    const pageData = getPageData(application, task.id, pageId)
+  let hasIncompletePages = false
+  let hasCompletePages = false
 
-    // Let's initialize this page
-    const Page = task.pages[pageId] as TaskListPageInterface
-    const page = new Page(pageData || {}, application)
+  while (pageName) {
+    const pageData = getPageData(application, task.id, pageName)
+    const PageConstructor = task.pages[pageName] as TaskListPageInterface
+    const page = PageConstructor && new PageConstructor(pageData || {}, application)
 
-    // Is this page required?
-    if (page.isApplicable && !page.isApplicable()) {
-      status = 'not_applicable'
-      break
-    }
-
-    // If there's no page data for this page, then we know it's incomplete
     if (!pageData) {
-      status = 'in_progress'
-      break
+      if (page?.canBeSkipped?.() !== true) {
+        // no data for the current required page, page must be incomplete
+        hasIncompletePages = true
+      }
+    } else if (Object.keys(page.errors()).length > 0) {
+      // if any page has an error, the task must be in_progress
+      return 'in_progress'
+    } else {
+      // no errors, page must be complete
+      hasCompletePages = true
     }
 
-    // Get the errors for this page
-    const errors = page.errors()
-    // And the next page ID
-    pageId = page.next()
-
-    if (Object.keys(errors).length) {
-      // Are there any errors? Then the task is incomplete
-      status = 'in_progress'
-      break
+    // if some pages are incomplete and some are complete, the task must be in_progress
+    if (hasIncompletePages && hasCompletePages) {
+      return 'in_progress'
     }
 
-    if (!pageId) {
-      // Is the next page blank? Then the task is complete
-      status = 'complete'
-      break
-    }
-
-    // If none of the above is true, we loop round again!
+    pageName = page.next()
   }
 
-  return status
+  // must be all complete or all incomplete
+  return hasCompletePages ? 'complete' : 'not_started'
 }
 
 export default getTaskStatus

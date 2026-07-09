@@ -1,4 +1,5 @@
 import { Cas2Application as Application, FullPerson } from '@approved-premises/api'
+import { YesOrNo } from '@approved-premises/ui'
 import ApplyPage from '../../applyPage'
 
 export default class CppCheckPage extends ApplyPage {
@@ -18,7 +19,7 @@ export default class CppCheckPage extends ApplyPage {
     )
   }
 
-  completeForm(value = 'yes'): void {
-    this.checkRadioByNameAndValue('isCpp', value)
+  completeForm(formArguments?: { option: YesOrNo }): void {
+    this.checkRadioByNameAndValue('isCpp', formArguments?.option ?? 'yes')
   }
 }
