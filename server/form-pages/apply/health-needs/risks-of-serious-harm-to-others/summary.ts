@@ -104,6 +104,10 @@ export default class Summary implements TaskListPage {
     return errors
   }
 
+  canBeSkipped(): boolean {
+    return true
+  }
+
   response() {
     let response: Record<string, string | undefined> = {}
 

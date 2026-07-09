@@ -158,4 +158,8 @@ export default class OasysImport implements TaskListPage {
   isApplicable() {
     return this.application.applicationOrigin === 'other'
   }
+
+  canBeSkipped(): boolean {
+    return true
+  }
 }
