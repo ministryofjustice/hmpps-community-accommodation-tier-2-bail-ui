@@ -33,5 +33,7 @@ export default abstract class TaskListPage {
 
   abstract onSave?(): void
 
+  abstract canBeSkipped?(): boolean
+
   abstract isApplicable?(): boolean
 }
