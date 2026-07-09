@@ -50,10 +50,8 @@ context('Complete the "Risks of serious harm to others" task', () => {
 
   it('is shown on the task list for non-bail applications', function test() {
     // Given I have a non-bail application
-    const application = applicationFactory.build({
+    const application = applicationFactory.newCohort('hcrd').build({
       person,
-      applicationOrigin: 'other',
-      cohort: 'hcrd',
       data: this.applicationData,
     })
     cy.task('stubApplicationGet', { application })
@@ -67,10 +65,8 @@ context('Complete the "Risks of serious harm to others" task', () => {
 
   it('completes the task by importing risk information from OASys', function test() {
     // Given I have a non-bail application with an applicable OASys assessment
-    const application = applicationFactory.build({
+    const application = applicationFactory.newCohort('hcrd').build({
       person,
-      applicationOrigin: 'other',
-      cohort: 'hcrd',
       data: this.applicationData,
     })
     const summary = cas2OAsysRoshSummaryDtoFactory.build({
@@ -161,10 +157,8 @@ context('Complete the "Risks of serious harm to others" task', () => {
 
   it('completes the task manually when there is no OASys record', function test() {
     // Given I have a non-bail application with no applicable OASys assessment
-    const application = applicationFactory.build({
+    const application = applicationFactory.newCohort('hcrd').build({
       person,
-      applicationOrigin: 'other',
-      cohort: 'hcrd',
       data: this.applicationData,
     })
     const summary = cas2OAsysRoshSummaryDtoFactory.build({ metadata: { hasApplicableAssessment: false } })

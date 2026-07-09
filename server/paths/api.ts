@@ -19,7 +19,7 @@ export default {
     searchByPrisonNumber: peoplePath.path('search-by-noms/:nomsNumber'),
     searchByCrn: peoplePath.path('search-by-crn/:crn'),
     oasys: {
-      riskToSelf: peoplePath.path(':crn/oasys/risk-to-self'),
+      riskToSelf: oasysPath.path('risk-to-self'),
       metadata: oasysPath.path('metadata'),
       roshRatings: oasysPath.path('rosh-ratings'),
       roshSummary: oasysPath.path('rosh-summary'),

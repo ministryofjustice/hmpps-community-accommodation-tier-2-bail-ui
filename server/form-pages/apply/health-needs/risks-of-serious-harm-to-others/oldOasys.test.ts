@@ -95,7 +95,7 @@ describe('OldOasys', () => {
     itShouldHaveNextValue(new OldOasys({}, application), 'manual-rosh-information')
 
     describe('when hasOldOasys is yes', () => {
-      itShouldHaveNextValue(new OldOasys({ hasOldOasys: 'yes' }, application), 'risk-to-others')
+      itShouldHaveNextValue(new OldOasys({ hasOldOasys: 'yes' }, application), 'manual-rosh-information')
     })
   })
 })

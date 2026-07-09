@@ -38,7 +38,7 @@ export default class OldOasys implements TaskListPage {
   }
 
   next() {
-    return this.body.hasOldOasys === 'yes' ? 'risk-to-others' : 'manual-rosh-information'
+    return 'manual-rosh-information'
   }
 
   response() {
