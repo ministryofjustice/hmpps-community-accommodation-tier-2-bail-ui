@@ -1,6 +1,5 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
-import paths from '../../../../../server/paths/apply'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class OldOasysPage extends ApplyPage {
@@ -10,16 +9,6 @@ export default class OldOasysPage extends ApplyPage {
       application,
       'risks-of-serious-harm-to-others',
       'old-oasys',
-    )
-  }
-
-  static visit(application: Application): void {
-    cy.visit(
-      paths.applications.pages.show({
-        id: application.id,
-        task: 'risks-of-serious-harm-to-others',
-        page: 'old-oasys',
-      }),
     )
   }
 

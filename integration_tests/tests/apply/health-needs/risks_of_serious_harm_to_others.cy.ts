@@ -85,8 +85,17 @@ context('Complete the "Risks of serious harm to others" task', () => {
     cy.task('stubOasysRoshSummary', { crn: person.crn, summary })
     cy.task('stubOasysRoshRatings', { crn: person.crn, ratings })
 
-    // When I visit the OASys import page
-    OasysImportPage.visit(application)
+    // Given I am on the task list
+    TaskListPage.visit(application)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
+
+    // And the risk to others task has not started
+    taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Not yet started')
+
+    // When I start the task
+    taskListPage.visitTask('Risks of serious harm to others')
+
+    // Then I am on the OASys import page
     const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)
 
     // Then I am told OASys information is available to import
@@ -120,8 +129,34 @@ context('Complete the "Risks of serious harm to others" task', () => {
     additionalRiskInformationPage.checkErrorsAndSubmit()
 
     // Then the task is complete on the task list
-    const taskListPage = TaskListPage.visit(application)
+    taskListPage.checkOnPage()
     taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Completed')
+
+    // When I go back into the task and keep going to all the pages
+    taskListPage.visitTask('Risks of serious harm to others')
+    summaryPage.checkOnPage()
+    summaryPage.clickSubmit()
+    riskToOthersPage.checkOnPage()
+    riskToOthersPage.clickSubmit()
+    riskManagementArrangementsPage.checkOnPage()
+    riskManagementArrangementsPage.clickSubmit()
+    cellShareInformationPage.checkOnPage()
+    cellShareInformationPage.clickSubmit()
+    additionalRiskInformationPage.checkOnPage()
+
+    // And I click on all the back link butons
+    additionalRiskInformationPage.clickBack()
+    cellShareInformationPage.checkOnPage()
+    cellShareInformationPage.clickBack()
+    riskManagementArrangementsPage.checkOnPage()
+    riskManagementArrangementsPage.clickBack()
+    riskToOthersPage.checkOnPage()
+    riskToOthersPage.clickBack()
+    summaryPage.checkOnPage()
+    summaryPage.clickBack()
+
+    // Then I am back on the task list page
+    taskListPage.checkOnPage()
   })
 
   it('completes the task manually when there is no OASys record', function test() {
@@ -140,8 +175,17 @@ context('Complete the "Risks of serious harm to others" task', () => {
     cy.task('stubOasysRoshSummary', { crn: person.crn, summary })
     cy.task('stubOasysRoshRatings', { crn: person.crn, ratings })
 
-    // When I visit the OASys import page
-    OasysImportPage.visit(application)
+    // Given I am on the task list
+    TaskListPage.visit(application)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
+
+    // And the risk to others task has not started
+    taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Not yet started')
+
+    // When I start the task
+    taskListPage.visitTask('Risks of serious harm to others')
+
+    // Then I am on the OASys import page
     const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)
 
     // Then I am told there is no OASys record to import
@@ -173,7 +217,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     additionalRiskInformationPage.checkErrorsAndSubmit()
 
     // Then the task is complete on the task list
-    const taskListPage = TaskListPage.visit(application)
+    taskListPage.checkOnPage()
     taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Completed')
   })
 })
