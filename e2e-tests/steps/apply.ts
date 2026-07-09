@@ -31,6 +31,8 @@ import {
   completeAllegedOffencesTask,
   completePreviousUnspentConvictionsTask,
   completeAddProbationSupervisionDetailsTask,
+  completeCurrentOffencesTask,
+  completeOrdersAndLicenceTask,
 } from './offenceAndLicenceInformationSection'
 import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
@@ -144,12 +146,22 @@ export const completeHealthNeedsSection = async (
   await completeHealthNeedsTask(page, name, applicationOrigin)
 }
 
-export const completeOffencesAndConcernsSection = async (page: Page, name: string) => {
-  await completeProvideOffencesAndConvictionsDetailsTask(page, name)
-  await completeAllegedOffencesTask(page, name)
-  await completePreviousUnspentConvictionsTask(page)
-  await completeAddProbationSupervisionDetailsTask(page, name)
-  await completeRiskInformationTask(page, name)
+export const completeOffencesAndConcernsSection = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
+  if (applicationOrigin !== 'other') {
+    await completeProvideOffencesAndConvictionsDetailsTask(page, name)
+    await completeAllegedOffencesTask(page, name)
+    await completePreviousUnspentConvictionsTask(page)
+    await completeAddProbationSupervisionDetailsTask(page, name)
+    await completeRiskInformationTask(page, name)
+  } else {
+    await completeCurrentOffencesTask(page, name)
+    await completeOrdersAndLicenceTask(page, name)
+    await completePreviousUnspentConvictionsTask(page)
+  }
 }
 
 export const completeBailInformationSection = async (page: Page) => {
