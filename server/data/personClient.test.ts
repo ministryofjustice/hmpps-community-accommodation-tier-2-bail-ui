@@ -1,9 +1,5 @@
 import PersonClient from './personClient'
-import {
-  cas2OAsysRoshRatingsDtoFactory,
-  cas2OAsysRoshSummaryDtoFactory,
-  personFactory,
-} from '../testutils/factories'
+import { cas2OAsysRoshRatingsDtoFactory, cas2OAsysRoshSummaryDtoFactory, personFactory } from '../testutils/factories'
 
 import describeClient from '../testutils/describeClient'
 

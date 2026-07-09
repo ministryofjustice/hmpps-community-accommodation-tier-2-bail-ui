@@ -1,8 +1,4 @@
-import {
-  cas2OAsysRoshRatingsDtoFactory,
-  cas2OAsysRoshSummaryDtoFactory,
-  personFactory,
-} from '../testutils/factories'
+import { cas2OAsysRoshRatingsDtoFactory, cas2OAsysRoshSummaryDtoFactory, personFactory } from '../testutils/factories'
 import PersonService from './personService'
 import { PersonClient } from '../data'
 
