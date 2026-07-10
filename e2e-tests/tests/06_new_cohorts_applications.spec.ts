@@ -6,6 +6,7 @@ import {
   completeBeforeYouStartForCustodyApplications,
   completeBeforeYouStartSection,
   completeHealthNeedsSection,
+  completeOffencesAndConcernsSection,
   confirmApplicant,
   enterCrn,
   enterPrisonerNumber,
@@ -33,5 +34,6 @@ test('Create a different CAS2 application', async ({ page, person, deliusPrisonU
   await completeBeforeYouStartForCustodyApplications(page, person.name)
   await completeAboutThePersonSection(page, person.name, 'other')
   await completeAreaAndFundingSection(page, person.name, 'other')
+  await completeOffencesAndConcernsSection(page, person.name, 'other')
   await completeHealthNeedsSection(page, person.name, 'other')
 })

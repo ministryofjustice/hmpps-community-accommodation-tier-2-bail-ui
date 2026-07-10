@@ -27,6 +27,14 @@ export const completeAllegedOffencesTask = async (page: Page, name: string) => {
   await completeAllegedOffencesSummaryPage(page, name)
 }
 
+export const completeCurrentOffencesTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add current offences')
+
+  await completeCurrenOffenceDetailsPage(page, name)
+  await completeCurrentOffencesPage(page, name)
+}
+
 async function completeOffencesAndConvictionsGuidancePage(page: Page, name: string) {
   const offencesAndConvictionsGuidancePage = await ApplyPage.initialize(
     page,
@@ -34,6 +42,25 @@ async function completeOffencesAndConvictionsGuidancePage(page: Page, name: stri
   )
 
   await offencesAndConvictionsGuidancePage.clickButton('Save and continue')
+}
+
+async function completeCurrenOffenceDetailsPage(page: Page, name: string) {
+  const pg = await ApplyPage.initialize(page, `Add ${name}'s current offence details`)
+  await pg.fillField('Offence title', 'Stalking')
+  await pg.chooseSelectItem('Offence type', 'Stalking or Harassment')
+  await pg.fillDateFieldInGroup('When did they commit the offence?', {
+    year: '2022',
+    month: '3',
+    day: '1',
+  })
+  await pg.fillField('How long were they sentenced for?', '3 years')
+  await pg.fillField('Provide a summary of the offence', 'Offence summaary')
+  await pg.clickButton('Save and continue')
+}
+
+async function completeCurrentOffencesPage(page: Page, name: string) {
+  const pg = await ApplyPage.initialize(page, `Current offences for ${name}`)
+  await pg.clickButton('Save and continue')
 }
 
 async function completeAllegedOffenceDetailsPage(page: Page, name: string) {
@@ -62,6 +89,26 @@ async function completeAllegedOffencesSummaryPage(page: Page, name: string) {
     'an offence summary',
   )
   await allegedOffencesSummaryPage.clickButton('Save and continue')
+}
+
+export const completeOrdersAndLicenceTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add orders and licence conditions')
+
+  async function completeLicencePage() {
+    const pg = await ApplyPage.initialize(page, `Does ${name} have any non-standard licence conditions?`)
+    await pg.checkRadio("I don't know")
+    await pg.clickButton('Save and continue')
+  }
+
+  async function completeOrdersPage() {
+    const pg = await ApplyPage.initialize(page, `Is ${name} subject to any civil or criminal orders?`)
+    await pg.checkRadio("I don't know")
+    await pg.clickButton('Save and continue')
+  }
+
+  await completeLicencePage()
+  await completeOrdersPage()
 }
 
 async function completeSupervisedByProbationPage(page: Page, name: string) {
