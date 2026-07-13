@@ -3,8 +3,8 @@ import { fakerEN_GB as faker } from '@faker-js/faker'
 import { addDays } from 'date-fns'
 import { ApplyPage, TaskListPage } from '../pages/apply'
 import CohortSelectionPage from '../pages/apply/cohortSelectionPage'
-import { cohortLabels } from '../../server/utils/applicationUtils'
 import CohortLicenceDetailsPage from '../pages/apply/cohortLicenceDetailsPage'
+import { cohortLabels } from '../../server/utils/applications/cohortLabels'
 
 export const completeEligibilityTask = async (page: Page, name: string) => {
   const confirmEligibilityPage = await ApplyPage.initialize(page, `Confirm ${name} is eligible for CAS2 for bail`)

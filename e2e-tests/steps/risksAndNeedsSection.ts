@@ -24,6 +24,29 @@ export const completeHealthNeedsTask = async (
   await completeInformationSourcesPage(page)
 }
 
+export const completeRiskToSelfTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Add risk to self information')
+
+  await reviewOasysImportPage(page, name)
+  await completeVulnerabilityPage(page, name)
+  await completeCurrentAndPreviousRisksPage(page, name)
+  await addARiskToSelfAcct(page, name)
+  await completeAdditionalInformationPage(page, name)
+}
+
+export const completeRiskToOthersTask = async (page: Page, name: string) => {
+  const taskListPage = new TaskListPage(page)
+  await taskListPage.clickTask('Risks of serious harm to others')
+
+  await reviewRoshOasysImportPage(page, name)
+  await completeRoshSummaryPage(page, name)
+  await completeRiskToOthersPage(page, name)
+  await completeRoshRiskManagementArrangementsPage(page, name)
+  await completeCellShareInformationPage(page, name)
+  await completeAdditionalRiskPage(page, name)
+}
+
 async function completeHealthNeedsInformationPage(page: Page, name: string) {
   const healthNeedsInformationPage = await ApplyPage.initialize(
     page,
@@ -241,7 +264,7 @@ async function completeAdditionalConcernsPage(page: Page) {
     'No, they do not have any additional concerns',
   )
 
-  additionalConcernsPage.clickSave()
+  await additionalConcernsPage.clickSave()
 }
 
 async function addAnAcct(page: Page, name: string) {
@@ -276,4 +299,91 @@ async function completeRiskInformationSourcesPage(page: Page) {
   )
   await informationSourcesPage.checkCheckboxes(['Case work'])
   await informationSourcesPage.clickSave()
+}
+
+async function reviewOasysImportPage(page: Page, name: string) {
+  const guidancePage = await ApplyPage.initialize(page, `Import ${name}'s risk to self data from OASys`)
+  await guidancePage.clickContinue()
+}
+
+async function completeVulnerabilityPage(page: Page, name: string) {
+  const vulnerabilityPage = await ApplyPage.initialize(page, `${name}'s vulnerability`)
+
+  await vulnerabilityPage.fillField(
+    `Describe ${name}'s current circumstances, issues and needs related to vulnerability`,
+    'some vulnerability',
+  )
+
+  await vulnerabilityPage.checkCheckboxes(['I confirm this information is relevant and up to date.'])
+  await vulnerabilityPage.clickSave()
+}
+
+async function completeCurrentAndPreviousRisksPage(page: Page, name: string) {
+  const currentAndPreviousRisksPage = await ApplyPage.initialize(page, `${name}'s current and previous risks`)
+
+  await currentAndPreviousRisksPage.fillField(
+    `Describe ${name}'s current and previous issues and needs related to self harm and suicide`,
+    'some needs',
+  )
+
+  await currentAndPreviousRisksPage.checkCheckboxes(['I confirm this information is relevant and up to date.'])
+  await currentAndPreviousRisksPage.clickSave()
+}
+
+async function completeAdditionalInformationPage(page: Page, name: string) {
+  const additionalInformationPage = await ApplyPage.initialize(
+    page,
+    `Is there anything else to include about ${name}'s risk to self?`,
+  )
+  await additionalInformationPage.checkRadio('No')
+  await additionalInformationPage.clickSave()
+}
+
+async function addARiskToSelfAcct(page: Page, name: string) {
+  const acctsPage = await ApplyPage.initialize(page, `${name}'s ACCT notes`)
+  await acctsPage.clickButton('Add an Acct note')
+  await completeRiskToSelfAcctDataPage(page)
+  await acctsPage.clickSave()
+}
+
+async function completeRiskToSelfAcctDataPage(page: Page) {
+  const acctDataPage = await ApplyPage.initialize(page, 'Add an ACCT note')
+  await acctDataPage.fillDateFieldInGroup('When was the ACCT created?', { year: '2022', month: '3', day: '1' })
+  await acctDataPage.checkRadio('Yes')
+  await acctDataPage.fillField('Referring institution', 'HMPPS Sheffield')
+  await acctDataPage.fillField('Details about the ACCT', 'some details')
+  await acctDataPage.clickButton('Save and continue')
+}
+
+async function reviewRoshOasysImportPage(page: Page, name: string) {
+  const guidancePage = await ApplyPage.initialize(page, `Import ${name}'s risk of serious harm (RoSH) data from OASys`)
+  await guidancePage.clickContinue()
+}
+
+async function completeRoshSummaryPage(page: Page, name: string) {
+  const summaryPage = await ApplyPage.initialize(page, `Risk of serious harm (RoSH) summary for ${name}`)
+  await summaryPage.clickSave()
+}
+
+async function completeRiskToOthersPage(page: Page, name: string) {
+  const riskToOthersPage = await ApplyPage.initialize(page, `Risk to others for ${name}`)
+  await riskToOthersPage.clickConfirm()
+}
+
+async function completeRoshRiskManagementArrangementsPage(page: Page, name: string) {
+  const riskManagementArrangementsPage = await ApplyPage.initialize(page, `Risk management arrangements for ${name}`)
+  await riskManagementArrangementsPage.checkCheckboxes(['No, this person does not have risk management arrangements'])
+  await riskManagementArrangementsPage.clickSave()
+}
+
+async function completeCellShareInformationPage(page: Page, name: string) {
+  const cellShareInformationPage = await ApplyPage.initialize(page, `Cell share information for ${name}`)
+  await cellShareInformationPage.checkRadio('No')
+  await cellShareInformationPage.clickSave()
+}
+
+async function completeAdditionalRiskPage(page: Page, name: string) {
+  const additionalRiskPage = await ApplyPage.initialize(page, `Additional risk information for ${name}`)
+  await additionalRiskPage.checkRadio('No')
+  await additionalRiskPage.clickSave()
 }

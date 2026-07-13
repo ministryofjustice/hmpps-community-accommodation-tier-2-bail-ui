@@ -2,7 +2,7 @@ import { Cas2Application } from '@approved-premises/api'
 import { applicationFactory, personFactory } from '../../../../server/testutils/factories'
 import TaskListPage from '../../../pages/apply/taskListPage'
 import Page from '../../../pages/page'
-import { cohortLabels } from '../../../../server/utils/applicationUtils'
+import { cohortLabels } from '../../../../server/utils/applications/cohortLabels'
 
 context('Task list page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })

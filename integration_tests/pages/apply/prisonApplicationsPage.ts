@@ -1,7 +1,7 @@
 import { Cas2ApplicationSummary } from '@approved-premises/api'
 import paths from '../../../server/paths/apply'
-import { cohortLabel } from '../../../server/utils/applicationUtils'
 import Page from '../page'
+import { cohortLabel } from '../../../server/utils/applications/cohortLabels'
 
 export default class PrisonApplicationsPage extends Page {
   constructor() {

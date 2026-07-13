@@ -1,9 +1,4 @@
-import type {
-  Cas2CohortDto,
-  Cas2SubmittedApplicationSummary,
-  Cas2ApplicationSummary,
-  Cas2Application,
-} from '@approved-premises/api'
+import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
 import type { QuestionAndAnswer, SummaryListItem, TableRow } from '@approved-premises/ui'
 import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
 import applyPaths from '../paths/apply'
@@ -11,20 +6,7 @@ import assessPaths from '../paths/assess'
 import { DateFormats } from './dateUtils'
 import { formatLines } from './viewUtils'
 import { summaryListItem } from './formUtils'
-
-export const cohortLabels: Record<Cas2CohortDto, string> = {
-  hdc: 'Home Detention Curfew',
-  prisonBail: 'Prison Bail',
-  courtBail: 'Court Bail',
-  atcr: 'Alternative to custodial recall',
-  hcrd: 'Homeless at conditional release date',
-  hefr: 'Homeless at end of fixed‑term recall',
-  isc: 'Intensive supervision courts',
-  rarr: 'Risk Assessed Recall Review',
-  from_ap: 'Move on from Approved Premises',
-}
-
-export const cohortLabel = (cohort?: Cas2CohortDto): string => (cohort ? (cohortLabels[cohort] ?? cohort) : '')
+import { cohortLabel } from './applications/cohortLabels'
 
 export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
