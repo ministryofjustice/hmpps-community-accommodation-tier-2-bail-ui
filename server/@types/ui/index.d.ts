@@ -1,5 +1,37 @@
 import { Cas2OAsysRiskToSelfDto, Cas2v2Application, Cas2v2UserDto } from '../shared'
 
+export type OASysAssessmentState = 'Completed' | 'Incomplete'
+
+export type OASysQuestion = {
+  answer?: string
+  label: string
+  questionNumber: string
+}
+
+export type OASysRiskOfSeriousHarm = {
+  assessmentId: number
+  assessmentState: OASysAssessmentState
+  dateCompleted?: string
+  dateStarted: string
+  rosh: Array<OASysQuestion>
+}
+
+export type RiskEnvelopeStatus = 'retrieved' | 'not_found' | 'error'
+
+export type RoshRisks = {
+  lastUpdated?: string
+  overallRisk: string
+  riskToChildren: string
+  riskToKnownAdult: string
+  riskToPublic: string
+  riskToStaff: string
+}
+
+export type RoshRisksEnvelope = {
+  status: RiskEnvelopeStatus
+  value?: RoshRisks
+}
+
 export type JourneyType = 'applications'
 
 export type UiTask = {
@@ -47,6 +79,8 @@ export type DataServices = Partial<{
   personService: {
     findByPrisonNumber: (token: string, prisonNumber: string) => Promise<Person>
     getOasysRiskToSelf: (token: string, crn: string) => Promise<Cas2OAsysRiskToSelfDto>
+    getOasysRosh: (token: string, crn: string) => Promise<OASysRiskOfSeriousHarm>
+    getRoshRisks: (token: string, crn: string) => Promise<RoshRisksEnvelope>
   }
   applicationService: {
     findApplication: (token: string, id: string) => Promise<Cas2v2Application>

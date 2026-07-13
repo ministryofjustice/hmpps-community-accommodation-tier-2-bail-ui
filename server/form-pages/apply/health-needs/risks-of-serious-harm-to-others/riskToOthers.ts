@@ -1,0 +1,60 @@
+import type { TaskListErrors } from '@approved-premises/ui'
+import { Cas2Application as Application } from '@approved-premises/api'
+import { Page } from '../../../utils/decorators'
+import TaskListPage from '../../../taskListPage'
+import { nameOrPlaceholderCopy } from '../../../../utils/utils'
+import { getOasysImportDateFromApplication } from '../../../utils'
+import errorLookups from '../../../../i18n/en/errors.json'
+import { getQuestions } from '../../../utils/questions'
+import { hasOasys } from '../../../../utils/applicationUtils'
+
+type RiskToOthersBody = { whoIsAtRisk: string; natureOfRisk: string }
+
+@Page({
+  name: 'risk-to-others',
+  bodyProperties: ['whoIsAtRisk', 'natureOfRisk'],
+})
+export default class RiskToOthers implements TaskListPage {
+  documentTitle = 'Risk to others for the person'
+
+  personName = nameOrPlaceholderCopy(this.application.person)
+
+  title = `Risk to others for ${this.personName}`
+
+  body: RiskToOthersBody
+
+  questions = getQuestions(this.personName)['risks-of-serious-harm-to-others']['risk-to-others']
+
+  importDate = getOasysImportDateFromApplication(this.application, 'risks-of-serious-harm-to-others')
+
+  hasOasysRecord: boolean
+
+  constructor(
+    body: Partial<RiskToOthersBody>,
+    private readonly application: Application,
+  ) {
+    this.body = body as RiskToOthersBody
+    this.hasOasysRecord = hasOasys(application, 'risks-of-serious-harm-to-others')
+  }
+
+  previous() {
+    return 'summary'
+  }
+
+  next() {
+    return 'risk-management-arrangements'
+  }
+
+  errors() {
+    const errors: TaskListErrors<this> = {}
+
+    if (!this.body.whoIsAtRisk) {
+      errors.whoIsAtRisk = errorLookups.whoIsAtRisk.empty
+    }
+    if (!this.body.natureOfRisk) {
+      errors.natureOfRisk = errorLookups.natureOfRisk.empty
+    }
+
+    return errors
+  }
+}

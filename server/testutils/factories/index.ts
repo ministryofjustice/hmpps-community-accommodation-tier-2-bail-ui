@@ -13,6 +13,8 @@ import applicationNoteFactory from './applicationNote'
 import solicitorFactory from './solicitor'
 import cas2v2UserDtoFactory from './cas2v2UserDto'
 import cas2OAsysRiskToSelfDtoFactory from './cas2OAsysRiskToSelfDto'
+import cas2OAsysRoshSummaryDtoFactory from './cas2OAsysRoshSummaryDto'
+import cas2OAsysRoshRatingsDtoFactory from './cas2OAsysRoshRatingsDto'
 
 export {
   applicationSummaryFactory,
@@ -31,4 +33,6 @@ export {
   solicitorFactory,
   cas2v2UserDtoFactory,
   cas2OAsysRiskToSelfDtoFactory,
+  cas2OAsysRoshSummaryDtoFactory,
+  cas2OAsysRoshRatingsDtoFactory,
 }
