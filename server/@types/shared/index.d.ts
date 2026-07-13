@@ -42,6 +42,8 @@ export type { RestrictedPerson } from './models/RestrictedPerson';
 export type { ServiceType } from './models/ServiceType';
 export type { StreamingResponseBody } from './models/StreamingResponseBody';
 export type { SubmitCas2Application } from './models/SubmitCas2Application';
+export type { TierDto } from './models/TierDto';
+export type { TierVersionDto } from './models/TierVersionDto';
 export type { TimelineEventType } from './models/TimelineEventType';
 export type { UnknownPerson } from './models/UnknownPerson';
 export type { UpdateApplicationType } from './models/UpdateApplicationType';
