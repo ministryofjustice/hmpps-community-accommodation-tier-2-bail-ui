@@ -1,9 +1,10 @@
+import { faker } from '@faker-js/faker'
 import { Cas2CohortDto } from 'server/@types/shared'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { applicationFactory, personFactory } from '../../../../testutils/factories'
 import LicenceDates, { LicenceDatesBody } from './licence-dates'
 import { getQuestions } from '../../../utils/questions'
-import { isoDateToDateParts } from '../../../../utils/dateUtils'
+import { DateFormats, isoDateToDateParts } from '../../../../utils/dateUtils'
 
 describe('LicenceDates', () => {
   const application = applicationFactory.build({ cohort: 'atcr', person: personFactory.build({ name: 'Roger Smith' }) })
@@ -11,10 +12,18 @@ describe('LicenceDates', () => {
   const page = (cohort: Cas2CohortDto, body = {} as LicenceDatesBody) =>
     new LicenceDates(body, { ...application, cohort })
 
+  const licenceEndDate = faker.date.soon({ days: 60 })
+  const licenceStartDate = faker.date.recent({ days: 60, refDate: licenceEndDate })
+  const hdcExpiryDate = faker.date.soon({ days: 60, refDate: licenceEndDate })
+
+  const licenceStartDateIso = DateFormats.dateObjToIsoDate(licenceStartDate)
+  const licenceEndDateIso = DateFormats.dateObjToIsoDate(licenceEndDate)
+  const hdcExpiryDateIso = DateFormats.dateObjToIsoDate(hdcExpiryDate)
+
   const filledBody: Partial<LicenceDatesBody> = {
-    ...isoDateToDateParts('2026-05-03', 'licenceStartDate'),
-    ...isoDateToDateParts('2026-07-12', 'licenceEndDate'),
-    ...isoDateToDateParts('2026-10-03', 'hdcExpiryDate'),
+    ...isoDateToDateParts(licenceStartDateIso, 'licenceStartDate'),
+    ...isoDateToDateParts(licenceEndDateIso, 'licenceEndDate'),
+    ...isoDateToDateParts(hdcExpiryDateIso, 'hdcExpiryDate'),
     hasHdcExpiryDate: 'yes',
   }
 
@@ -100,9 +109,12 @@ describe('LicenceDates', () => {
 
       expect(testPage.response()).toEqual({
         'Does Roger Smith have an HDC expiry date?': 'Yes',
-        'HDC expiry date': '3 October 2026',
-        "What is Roger Smith's licence end date?": '12 July 2026',
-        "What is Roger Smith's licence start date/conditional release date?": '3 May 2026',
+        'HDC expiry date': DateFormats.isoDateToUIDate(hdcExpiryDateIso, { format: 'medium' }),
+        "What is Roger Smith's licence end date?": DateFormats.isoDateToUIDate(licenceEndDateIso, { format: 'medium' }),
+        "What is Roger Smith's licence start date/conditional release date?": DateFormats.isoDateToUIDate(
+          licenceStartDateIso,
+          { format: 'medium' },
+        ),
       })
     })
   })
