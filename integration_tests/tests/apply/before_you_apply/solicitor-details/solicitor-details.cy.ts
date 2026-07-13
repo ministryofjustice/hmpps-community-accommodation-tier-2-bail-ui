@@ -1,14 +1,18 @@
 import { ApplicationOrigin, Cas2CohortDto, Cas2Application } from '@approved-premises/api'
+import { faker } from '@faker-js/faker'
 import { applicationFactory, personFactory, solicitorFactory } from '../../../../../server/testutils/factories'
 import TaskListPage from '../../../../pages/apply/taskListPage'
 import Page from '../../../../pages/page'
 import HasSolicitorPage from '../../../../pages/apply/before_you_apply/solicitor-details/hasSolicitor'
 import Chainable = Cypress.Chainable
 import SolicitorDetailsPage from '../../../../pages/apply/before_you_apply/solicitor-details/solicitorDetails'
-import { isoDateToDateParts } from '../../../../../server/utils/dateUtils'
+import { DateFormats, isoDateToDateParts } from '../../../../../server/utils/dateUtils'
 
 context('Complete "Add solicitor details" task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
+
+  const licenceEndDate = faker.date.soon({ days: 60 })
+  const licenceStartDate = faker.date.recent({ days: 60, refDate: licenceEndDate })
 
   beforeEach(() => {
     cy.task('reset')
@@ -26,8 +30,8 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
           'cohort-selection': {
             'cohort-selection': { cohort },
             'licence-dates': {
-              ...isoDateToDateParts('2026-05-03', 'licenceStartDate'),
-              ...isoDateToDateParts('2026-07-12', 'licenceEndDate'),
+              ...isoDateToDateParts(DateFormats.dateObjToIsoDate(licenceStartDate), 'licenceStartDate'),
+              ...isoDateToDateParts(DateFormats.dateObjToIsoDate(licenceEndDate), 'licenceEndDate'),
               hasHdcExpiryDate: 'no',
             },
           },
