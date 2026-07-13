@@ -223,7 +223,7 @@ export default class Summary implements TaskListPage {
   }
 
   private getRoSHData(application: Application) {
-    return application.data['risks-of-serious-harm-to-others']
+    return application.data?.['risks-of-serious-harm-to-others']
   }
 
   private getRiskDataSource(roshData: unknown): SummaryData | null {
