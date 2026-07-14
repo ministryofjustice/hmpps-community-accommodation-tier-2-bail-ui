@@ -3,8 +3,8 @@ import { faker } from '@faker-js/faker'
 import { Cas2CohortDto, Cas2ApplicationSummary } from '@approved-premises/api'
 
 import { DateFormats } from '../../utils/dateUtils'
-import { cohortLabels } from '../../utils/applicationUtils'
 import latestStatusUpdateFactory from './latestStatusUpdate'
+import { cohortLabels } from '../../utils/applications/cohortLabels'
 
 export default Factory.define<Cas2ApplicationSummary>(() => ({
   id: faker.string.uuid(),

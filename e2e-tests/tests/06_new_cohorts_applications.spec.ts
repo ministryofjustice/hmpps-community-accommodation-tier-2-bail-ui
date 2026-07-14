@@ -1,10 +1,13 @@
+import { expect } from '@playwright/test'
 import test from '../test'
 import signIn from '../steps/signIn'
 import {
   completeAboutThePersonSection,
   completeAreaAndFundingSection,
+  completeBailInformationSection,
   completeBeforeYouStartForCustodyApplications,
   completeBeforeYouStartSection,
+  completeCheckAnswersSection,
   completeHealthNeedsSection,
   completeOffencesAndConcernsSection,
   confirmApplicant,
@@ -12,6 +15,7 @@ import {
   enterPrisonerNumber,
   selectBailApplicationOrigin,
   startANewCohortApplication,
+  submitApplication,
 } from '../steps/apply'
 
 test('Create a CAS2 bail application', async ({ page, person, deliusPrisonUser }) => {
@@ -23,7 +27,12 @@ test('Create a CAS2 bail application', async ({ page, person, deliusPrisonUser }
   await completeBeforeYouStartSection(page, person.name)
   await completeAboutThePersonSection(page, person.name, 'bail')
   await completeAreaAndFundingSection(page, person.name, 'bail')
+  await completeOffencesAndConcernsSection(page, person.name, 'bail')
   await completeHealthNeedsSection(page, person.name, 'bail')
+  await completeBailInformationSection(page)
+  await completeCheckAnswersSection(page, person.name)
+  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
+  await submitApplication(page)
 })
 
 test('Create a different CAS2 application', async ({ page, person, deliusPrisonUser }) => {
@@ -36,4 +45,7 @@ test('Create a different CAS2 application', async ({ page, person, deliusPrisonU
   await completeAreaAndFundingSection(page, person.name, 'other')
   await completeOffencesAndConcernsSection(page, person.name, 'other')
   await completeHealthNeedsSection(page, person.name, 'other')
+  await completeCheckAnswersSection(page, person.name)
+  await expect(page.getByText('You have completed 16 of 16 tasks')).toBeVisible()
+  await submitApplication(page)
 })

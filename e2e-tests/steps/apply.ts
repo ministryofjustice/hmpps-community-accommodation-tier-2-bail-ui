@@ -24,7 +24,12 @@ import {
   completeEqualityAndDiversityTask,
   completePersonalInformationTask,
 } from './aboutThePersonSection'
-import { completeHealthNeedsTask, completeRiskInformationTask } from './risksAndNeedsSection'
+import {
+  completeHealthNeedsTask,
+  completeRiskInformationTask,
+  completeRiskToOthersTask,
+  completeRiskToSelfTask,
+} from './risksAndNeedsSection'
 import { completeAreaInformationTask, completeFundingInformationTask } from './areaAndFundingSection'
 import {
   completeProvideOffencesAndConvictionsDetailsTask,
@@ -144,6 +149,10 @@ export const completeHealthNeedsSection = async (
   applicationOrigin: NewCohortApplicationOrigin,
 ) => {
   await completeHealthNeedsTask(page, name, applicationOrigin)
+  if (applicationOrigin === 'other') {
+    await completeRiskToSelfTask(page, name)
+    await completeRiskToOthersTask(page, name)
+  }
 }
 
 export const completeOffencesAndConcernsSection = async (

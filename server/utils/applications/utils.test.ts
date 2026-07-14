@@ -328,6 +328,7 @@ describe('utils', () => {
           errors: {},
           referer: 'some-validated-referer',
           title: 'Apply for CAS2 for Bail',
+          cohortLabel: 'Prison Bail',
         })
       })
 
