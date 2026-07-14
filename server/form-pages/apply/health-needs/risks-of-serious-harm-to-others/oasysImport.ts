@@ -80,7 +80,7 @@ export default class OasysImport implements TaskListPage {
     let risks: RoshRisksEnvelope
     let taskDataJson
 
-    if (!application.data['risks-of-serious-harm-to-others']) {
+    if (!application.data?.['risks-of-serious-harm-to-others']) {
       try {
         oasys = await dataServices.personService.getOasysRosh(request.user.token, application.person.crn)
         risks = await dataServices.personService.getRoshRisks(request.user.token, application.person.crn)
@@ -98,7 +98,7 @@ export default class OasysImport implements TaskListPage {
   }
 
   private static isRoshApplicationDataImportedFromOASys(application: Application): boolean {
-    const rosh = application.data['risks-of-serious-harm-to-others']
+    const rosh = application.data?.['risks-of-serious-harm-to-others']
     if (rosh?.['oasys-import']?.oasysImportedDate) {
       return true
     }
