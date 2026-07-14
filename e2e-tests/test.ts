@@ -51,6 +51,14 @@ export default base.extend<TestOptions>({
     },
     { option: true },
   ],
+  deliusProbationUser: [
+    {
+      name: 'Delius probation user',
+      username: process.env.AP_USER_TEST_1_USERNAME as string,
+      password: process.env.AP_USER_TEST_1_PASSWORD as string,
+    },
+    { option: true },
+  ],
   adminUser: [
     {
       name: 'CAS2 admin',
