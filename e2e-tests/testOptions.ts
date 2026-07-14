@@ -44,4 +44,9 @@ export type TestOptions = {
     username: string
     password: string
   }
+  deliusProbationUser: {
+    name: string
+    username: string
+    password: string
+  }
 }

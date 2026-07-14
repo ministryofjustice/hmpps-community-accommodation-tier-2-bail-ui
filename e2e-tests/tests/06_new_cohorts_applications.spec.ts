@@ -35,8 +35,8 @@ test('Create a CAS2 bail application', async ({ page, person, deliusPrisonUser }
   await submitApplication(page)
 })
 
-test('Create a different CAS2 application', async ({ page, person, deliusPrisonUser }) => {
-  await signIn(page, deliusPrisonUser)
+test('Create a different CAS2 application', async ({ page, person, deliusProbationUser }) => {
+  await signIn(page, deliusProbationUser)
   await startANewCohortApplication(page, 'other')
   await enterCrn(page, person.crn)
   await confirmApplicant(page)
