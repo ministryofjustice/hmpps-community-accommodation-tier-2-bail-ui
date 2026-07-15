@@ -920,8 +920,16 @@ describe('getPage', () => {
         page2: { question2: { question: 'Another question' } },
       },
     } as unknown as Questions
-    const applicationPageKeys = ['page1', 'page2', 'oldPageKey', 'acct', 'unspent-convictions']
-    const expected = ['page1', 'page2', 'acct', 'unspent-convictions']
+    const applicationPageKeys = [
+      'page1',
+      'page2',
+      'oldPageKey',
+      'acct',
+      'alleged-offences',
+      'current-offences',
+      'unspent-convictions',
+    ]
+    const expected = ['page1', 'page2', 'acct', 'alleged-offences', 'current-offences', 'unspent-convictions']
     expect(removeAnyOldPageKeys(questions, 'task1', applicationPageKeys)).toEqual(expected)
   })
 })
