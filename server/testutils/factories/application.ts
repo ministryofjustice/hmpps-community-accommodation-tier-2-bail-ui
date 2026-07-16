@@ -4,13 +4,13 @@ import { ApplicationOrigin, Cas2Application as Application, Cas2CohortDto } from
 import { DateFormats } from '../../utils/dateUtils'
 import { fullPersonFactory, restrictedPersonFactory } from './person'
 import cas2v2UserFactory from './cas2v2User'
-import { cohortLabels } from '../../utils/applications/cohortLabels'
+import { newCohortLabels } from '../../utils/applications/cohortLabels'
 
 class ApplicationFactory extends Factory<Application> {
   newCohort(cohort?: Cas2CohortDto) {
     return this.params({
       applicationOrigin: 'other',
-      cohort: cohort || (faker.helpers.arrayElement(Object.keys(cohortLabels)) as Cas2CohortDto),
+      cohort: cohort || (faker.helpers.arrayElement(Object.keys(newCohortLabels)) as Cas2CohortDto),
       data: {
         'cohort-selection': {
           'cohort-selection': { cohort },

@@ -1,4 +1,4 @@
-import { cohortLabels } from '../../utils/applications/cohortLabels'
+import { newCohortLabels } from '../../utils/applications/cohortLabels'
 
 export type Question = { question: string; answers?: Record<string, string>; hint?: string; dataType?: string }
 type QuestionsNode = { [property: string]: Question | QuestionsNode }
@@ -85,7 +85,7 @@ export function getQuestions(
       'cohort-selection': {
         cohort: {
           question: `Why does ${name} need CAS2 accommodation?`,
-          answers: cohortLabels,
+          answers: newCohortLabels,
           dataType: 'radio',
         },
         notes: {

@@ -10,6 +10,7 @@ import {
 import type {
   Cas2Application as Application,
   Cas2Application,
+  Cas2CohortDto,
   Cas2SubmittedApplication,
   Cas2TimelineEvent,
 } from '@approved-premises/api'
@@ -21,7 +22,7 @@ import paths from '../../paths/apply'
 import { DateFormats } from '../dateUtils'
 import { fetchErrorsAndUserInput } from '../validation'
 import { TaskListService } from '../../services'
-import { cohortLabels, NonBailCohort } from './cohortLabels'
+import { cohortLabels } from './cohortLabels'
 
 export const journeyPages = (_journeyType: JourneyType): FormPages => {
   return Apply.pages
@@ -125,7 +126,7 @@ export const showMissingRequiredTasksOrTaskList = (req: Request, res: Response, 
 
   return res.render('applications/taskList', {
     application,
-    cohortLabel: cohortLabels[application.cohort as NonBailCohort],
+    cohortLabel: cohortLabels[application.cohort as Cas2CohortDto],
     title: application.applicationOrigin === 'other' ? 'Apply for CAS2' : 'Apply for CAS2 for Bail',
     taskList,
     errors,
