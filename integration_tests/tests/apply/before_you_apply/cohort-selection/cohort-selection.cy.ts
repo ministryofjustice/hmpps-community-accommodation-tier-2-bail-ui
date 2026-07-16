@@ -2,7 +2,7 @@ import { Cas2CohortDto, Cas2Application } from '@approved-premises/api'
 import { faker } from '@faker-js/faker'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories/index'
 import CohortSelectionPage from '../../../../pages/apply/before_you_apply/cohort-selection/cohortSelection'
-import { cohortLabels } from '../../../../../server/utils/applications/cohortLabels'
+import { newCohortLabels, NonBailCohort } from '../../../../../server/utils/applications/cohortLabels'
 import LicenceDatesPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDates'
 import LicenceDatesNeededPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDatesNeededPage'
 
@@ -29,7 +29,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
   it('allows the cohort to be selected', () => {
     cy.task('stubApplicationGet', { application })
     cy.task('stubApplicationUpdate', { application })
-    const newCohort: Cas2CohortDto = faker.helpers.arrayElement(Object.keys(cohortLabels)) as Cas2CohortDto
+    const newCohort: NonBailCohort = faker.helpers.arrayElement(Object.keys(newCohortLabels)) as NonBailCohort
 
     // Given I am on the cohort selection page
     const page = CohortSelectionPage.visit(application)
