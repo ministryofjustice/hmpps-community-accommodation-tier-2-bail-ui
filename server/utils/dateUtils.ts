@@ -55,6 +55,10 @@ export class DateFormats {
    * @throws {InvalidDateStringError} If the string is not a valid ISO8601 datetime string
    */
   static isoToDateObj(date: string) {
+    if (date === null || date === undefined) {
+      throw new InvalidDateStringError(`Invalid Date: ${date}`)
+    }
+
     const parsedDate = parseISO(date)
 
     if (Number.isNaN(parsedDate.getTime())) {
@@ -69,6 +73,9 @@ export class DateFormats {
    * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
    */
   static isoDateToUIDate(isoDate: string, options: { format: 'short' | 'long' | 'medium' } = { format: 'long' }) {
+    if (!isoDate) {
+      return ''
+    }
     return DateFormats.dateObjtoUIDate(DateFormats.isoToDateObj(isoDate), options)
   }
 
