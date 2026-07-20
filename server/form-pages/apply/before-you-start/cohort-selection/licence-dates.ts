@@ -2,7 +2,7 @@ import { Cas2Application } from '@approved-premises/api'
 import { ObjectWithDateParts, TaskListErrors, YesOrNo } from '@approved-premises/ui'
 import { Page } from '../../../utils/decorators'
 import BasePage from '../../../utils/basePage'
-import { validateDateParts } from '../../../../utils/formUtils'
+import { validateDateParts, validateEndDateIsAfterStartDate } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { dateBodyProperties } from '../../../utils'
@@ -57,6 +57,13 @@ export default class LicenceDates extends BasePage {
         ? validateDateParts<LicenceDatesBody>('licenceStartDate', 'Licence start date', this.body)
         : {}),
       ...validateDateParts<LicenceDatesBody>('licenceEndDate', 'Licence end date', this.body, { future: true }),
+      ...validateEndDateIsAfterStartDate<LicenceDatesBody>(
+        'licenceStartDate',
+        'start date',
+        'licenceEndDate',
+        'Licence end date',
+        this.body,
+      ),
       ...(this.questions.hasHdcExpiryDate && this.body.hasHdcExpiryDate === 'yes'
         ? validateDateParts<LicenceDatesBody>('hdcExpiryDate', 'HDC expiry date', this.body)
         : ({} as TaskListErrors<LicenceDates>)),

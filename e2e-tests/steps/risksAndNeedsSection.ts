@@ -37,7 +37,7 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
 
 export const completeRiskToOthersTask = async (page: Page, name: string) => {
   const taskListPage = new TaskListPage(page)
-  await taskListPage.clickTask('Risks of serious harm to others')
+  await taskListPage.clickTask('Add risk of serious harm to others')
 
   await reviewRoshOasysImportPage(page, name)
   await completeRoshSummaryPage(page, name)

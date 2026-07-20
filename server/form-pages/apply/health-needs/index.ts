@@ -6,7 +6,7 @@ import RiskToSelf from './risk-to-self'
 import RisksOfSeriousHarmToOthersTask from './risks-of-serious-harm-to-others'
 
 @Section({
-  title: 'Health needs',
+  title: 'Risk and health needs',
   tasks: [HealthNeedsTask, RiskToSelf, RisksOfSeriousHarmToOthersTask],
 })
 export default class HealthNeeds {}

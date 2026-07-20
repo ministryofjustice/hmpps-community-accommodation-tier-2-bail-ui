@@ -4,7 +4,7 @@
 
 {% macro formQuestion(fieldName, questions, context) %}
     {% set question = questions[fieldName] %}
-    {% if (questions | length !== 1) or (question.question !== context.page.title) %}
+    {% if (questions | length !== 1) and (question.question !== context.page.title) %}
         {% set fieldset = {
             legend: {
                 html:  '<h2 class="govuk-fieldset__heading">' + question.question + "</h2>",

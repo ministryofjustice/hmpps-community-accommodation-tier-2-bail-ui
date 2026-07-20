@@ -9,8 +9,9 @@ import {
   summaryListItem,
   isValidEmail,
   validateDateParts,
+  validateEndDateIsAfterStartDate,
 } from './formUtils'
-import { DateFormats } from './dateUtils'
+import { DateFormats, isoDateToDateParts } from './dateUtils'
 
 describe('formutils', () => {
   const obj = { foo: 'Foo', bar: 'Bar' }
@@ -259,5 +260,72 @@ describe('formutils', () => {
         expect(validateDateParts<BodyType>('testDate', 'Test date', body, options)).toEqual(expected)
       },
     )
+  })
+
+  describe('validateEndDateIsAfterStartDate', () => {
+    type BodyType = ObjectWithDateParts<'startDate' | 'endDate'>
+    const futureDate = DateFormats.dateObjToIsoDate(addDays(new Date(), 10))
+    const pastDate = DateFormats.dateObjToIsoDate(subDays(new Date(), 10))
+
+    it('should return no errors when the start date is incomplete', () => {
+      const body = {
+        ...isoDateToDateParts(pastDate, 'startDate'),
+        ...isoDateToDateParts(futureDate, 'endDate'),
+        'startDate-day': '',
+      } as BodyType
+
+      expect(
+        validateEndDateIsAfterStartDate<BodyType>('startDate', 'start date', 'endDate', 'Licence end date', body),
+      ).toEqual({})
+    })
+
+    it('should return no errors when the end date is incomplete', () => {
+      const body = {
+        ...isoDateToDateParts(pastDate, 'startDate'),
+        ...isoDateToDateParts(futureDate, 'endDate'),
+        'endDate-day': '',
+      } as BodyType
+
+      expect(
+        validateEndDateIsAfterStartDate<BodyType>('startDate', 'start date', 'endDate', 'Licence end date', body),
+      ).toEqual({})
+    })
+
+    it('should return no errors when the start date is invalid', () => {
+      const body = {
+        ...isoDateToDateParts(pastDate, 'startDate'),
+        ...isoDateToDateParts(futureDate, 'endDate'),
+        'startDate-month': '13',
+      } as BodyType
+
+      expect(
+        validateEndDateIsAfterStartDate<BodyType>('startDate', 'start date', 'endDate', 'Licence end date', body),
+      ).toEqual({})
+    })
+
+    it('should return no errors when the end date is invalid', () => {
+      const body = {
+        ...isoDateToDateParts(pastDate, 'startDate'),
+        ...isoDateToDateParts(futureDate, 'endDate'),
+        'endDate-month': '13',
+      } as BodyType
+
+      expect(
+        validateEndDateIsAfterStartDate<BodyType>('startDate', 'start date', 'endDate', 'Licence end date', body),
+      ).toEqual({})
+    })
+
+    it('should return an endDate error when the start date is after the end date', () => {
+      const body = {
+        ...isoDateToDateParts(pastDate, 'endDate'),
+        ...isoDateToDateParts(futureDate, 'startDate'),
+      } as BodyType
+
+      expect(
+        validateEndDateIsAfterStartDate<BodyType>('startDate', 'start date', 'endDate', 'Licence end date', body),
+      ).toEqual({
+        endDate: 'Licence end date must be after the start date',
+      })
+    })
   })
 })
