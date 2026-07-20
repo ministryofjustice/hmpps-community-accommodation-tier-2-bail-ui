@@ -5,6 +5,7 @@ import TaskListPage from '../../../taskListPage'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
+import { custodialCohorts } from '../../../../utils/applications/cohortLabels'
 
 export type HasFixedAddressBeforeCustodyBody = {
   hasFixedAddressBeforeCustody: YesOrNo
@@ -15,11 +16,17 @@ export type HasFixedAddressBeforeCustodyBody = {
   bodyProperties: ['hasFixedAddressBeforeCustody'],
 })
 export default class HasFixedAddressBeforeCustody implements TaskListPage {
-  documentTitle = 'Did the person have a fixed address before entering custody?'
+  isCustodialCohort = custodialCohorts.includes(this.application.cohort)
+
+  documentTitle = this.isCustodialCohort
+    ? 'Did the person have a fixed address before entering custody?'
+    : 'Does the person have a fixed address?'
 
   personName = nameOrPlaceholderCopy(this.application.person)
 
-  title = `Did ${this.personName} have a fixed address before entering custody?`
+  title = this.isCustodialCohort
+    ? `Did ${this.personName} have a fixed address before entering custody?`
+    : `Does ${this.personName} have a fixed address?`
 
   questions = getQuestions(this.personName)['address-history']['has-fixed-address-before-custody']
 
@@ -30,6 +37,7 @@ export default class HasFixedAddressBeforeCustody implements TaskListPage {
     private readonly application: Application,
   ) {
     this.body = body as HasFixedAddressBeforeCustodyBody
+    this.questions.hasFixedAddressBeforeCustody.question = this.title
   }
 
   previous() {
@@ -56,5 +64,12 @@ export default class HasFixedAddressBeforeCustody implements TaskListPage {
       this.questions.hasFixedAddressBeforeCustody.answers,
       this.body.hasFixedAddressBeforeCustody,
     )
+  }
+
+  response() {
+    return {
+      [this.questions.hasFixedAddressBeforeCustody.question]:
+        this.questions.hasFixedAddressBeforeCustody.answers[this.body.hasFixedAddressBeforeCustody],
+    }
   }
 }

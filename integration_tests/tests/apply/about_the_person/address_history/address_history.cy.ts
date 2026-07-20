@@ -150,4 +150,22 @@ context('Complete the "Address history" task', () => {
     // And I see the task list
     Page.verifyOnPage(TaskListPage, application)
   })
+
+  it('asks about the current address for a ISC cohort', function test() {
+    const application = applicationFactory.build({
+      person,
+      applicationOrigin: 'other',
+      cohort: 'isc',
+      data: this.applicationData,
+    })
+
+    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationUpdate', { application })
+
+    // Given I visit the entry point for ISC cohort
+    HasFixedAddressBeforeCustodyPage.visit(application)
+
+    // Then I am asked whether they currently have a fixed address
+    Page.verifyOnPage(HasFixedAddressBeforeCustodyPage, application)
+  })
 })

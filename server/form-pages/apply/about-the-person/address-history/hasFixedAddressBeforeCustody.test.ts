@@ -8,11 +8,23 @@ describe('HasFixedAddressBeforeCustody', () => {
   const questions = getQuestions('Roger Smith')
 
   describe('title', () => {
-    it('personalises the page title', () => {
-      const page = new HasFixedAddressBeforeCustody({}, application)
+    it.each(['prisonBail', 'courtBail', 'hdc', 'hcrd', 'hefr', 'rarr'] as const)(
+      'asks about the address before custody for the custodial cohort %s',
+      cohort => {
+        const page = new HasFixedAddressBeforeCustody({}, { ...application, cohort })
 
-      expect(page.title).toEqual('Did Roger Smith have a fixed address before entering custody?')
-    })
+        expect(page.title).toEqual('Did Roger Smith have a fixed address before entering custody?')
+      },
+    )
+
+    it.each(['isc', 'atcr', 'from_ap'] as const)(
+      'asks about the current address for the non-custodial cohort %s',
+      cohort => {
+        const page = new HasFixedAddressBeforeCustody({}, { ...application, cohort })
+
+        expect(page.title).toEqual('Does Roger Smith have a fixed address?')
+      },
+    )
   })
 
   describe('Routing', () => {
@@ -46,6 +58,30 @@ describe('HasFixedAddressBeforeCustody', () => {
       const page = new HasFixedAddressBeforeCustody({ hasFixedAddressBeforeCustody: 'yes' }, application)
 
       expect(page.errors()).toEqual({})
+    })
+  })
+
+  describe('response', () => {
+    it('uses the custodial question wording on the check your answers page', () => {
+      const page = new HasFixedAddressBeforeCustody(
+        { hasFixedAddressBeforeCustody: 'yes' },
+        { ...application, cohort: 'courtBail' },
+      )
+
+      expect(page.response()).toEqual({
+        'Did Roger Smith have a fixed address before entering custody?': 'Yes',
+      })
+    })
+
+    it('uses the non-custodial question wording on the check your answers page', () => {
+      const page = new HasFixedAddressBeforeCustody(
+        { hasFixedAddressBeforeCustody: 'no' },
+        { ...application, cohort: 'isc' },
+      )
+
+      expect(page.response()).toEqual({
+        'Does Roger Smith have a fixed address?': 'No',
+      })
     })
   })
 

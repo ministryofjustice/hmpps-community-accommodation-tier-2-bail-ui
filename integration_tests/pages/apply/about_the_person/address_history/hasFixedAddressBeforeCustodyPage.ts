@@ -1,16 +1,17 @@
 import { Cas2Application as Application } from '@approved-premises/api'
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
+import { custodialCohorts } from '../../../../../server/utils/applications/cohortLabels'
 import paths from '../../../../../server/paths/apply'
 
 export default class HasFixedAddressBeforeCustodyPage extends ApplyPage {
   constructor(private readonly application: Application) {
-    super(
-      `Did ${nameOrPlaceholderCopy(application.person)} have a fixed address before entering custody?`,
-      application,
-      'address-history',
-      'has-fixed-address-before-custody',
-    )
+    const name = nameOrPlaceholderCopy(application.person)
+    const title = custodialCohorts.includes(application.cohort)
+      ? `Did ${name} have a fixed address before entering custody?`
+      : `Does ${name} have a fixed address?`
+
+    super(title, application, 'address-history', 'has-fixed-address-before-custody')
   }
 
   static visit(application: Application): void {
