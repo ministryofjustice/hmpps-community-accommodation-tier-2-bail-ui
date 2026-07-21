@@ -1,59 +1,67 @@
-import { buildDocument } from './documentUtils'
+import { buildDocument, filterDocumentToApplicableTasks } from './documentUtils'
 import { applicationFactory } from '../../testutils/factories'
-import { getSections, getTaskAnswersAsSummaryListItems } from '../checkYourAnswersUtils'
+import { getSections, getTaskAnswersAsSummaryListItems, taskAppliesToApplication } from '../checkYourAnswersUtils'
 
 jest.mock('../checkYourAnswersUtils')
 
-const mockQuestionData = {
-  question: 'Question',
-  answer: 'Answer',
-}
+const questionAndAnswer = { question: 'Question', answer: 'Answer' }
 
-const mockSectionData = {
-  title: 'Section',
-  name: 'section',
-  tasks: [{ title: 'Task' }],
-}
+const applicableTask = { title: 'Applicable task' }
+const notApplicableTask = { title: 'Not applicable task' }
 
 describe('documentUtils', () => {
-  describe('buildDocument', () => {
-    it('returns a correctly structured application document', () => {
-      ;(getTaskAnswersAsSummaryListItems as jest.Mock).mockReturnValue([mockQuestionData])
-      ;(getSections as jest.Mock).mockReturnValue([mockSectionData])
+  const application = applicationFactory.build()
 
-      const application = applicationFactory.build({
-        data: {
-          'equality-and-diversity-monitoring': {
-            'will-answer-equality-questions': {
-              willAnswer: 'yes',
-            },
-            disability: {
-              hasDisability: 'no',
-            },
+  beforeEach(() => {
+    ;(getTaskAnswersAsSummaryListItems as jest.Mock).mockReturnValue([questionAndAnswer])
+    ;(getSections as jest.Mock).mockReturnValue([
+      { title: 'Mixed section', name: 'mixed-section', tasks: [applicableTask, notApplicableTask] },
+      { title: 'Not applicable section', name: 'not-applicable-section', tasks: [notApplicableTask] },
+    ])
+    ;(taskAppliesToApplication as jest.Mock).mockImplementation(task => task === applicableTask)
+  })
+
+  describe('buildDocument', () => {
+    it('includes only the tasks that apply to the application', () => {
+      expect(buildDocument(application)).toEqual({
+        sections: [
+          {
+            title: 'Mixed section',
+            tasks: [{ title: 'Applicable task', questionsAndAnswers: [questionAndAnswer] }],
           },
+        ],
+      })
+    })
+  })
+
+  describe('filterDocumentToApplicableTasks', () => {
+    it('removes tasks that do not apply to the application', () => {
+      const submittedApplication = applicationFactory.build({
+        document: {
+          sections: [
+            {
+              title: 'Mixed section',
+              tasks: [
+                { title: 'Applicable task', questionsAndAnswers: [questionAndAnswer] },
+                { title: 'Not applicable task', questionsAndAnswers: [] },
+              ],
+            },
+            {
+              title: 'Not applicable section',
+              tasks: [{ title: 'Not applicable task', questionsAndAnswers: [] }],
+            },
+          ],
         },
       })
 
-      const expected = {
+      expect(filterDocumentToApplicableTasks(submittedApplication)).toEqual({
         sections: [
           {
-            title: 'Section',
-            tasks: [
-              {
-                title: 'Task',
-                questionsAndAnswers: [
-                  {
-                    question: 'Question',
-                    answer: 'Answer',
-                  },
-                ],
-              },
-            ],
+            title: 'Mixed section',
+            tasks: [{ title: 'Applicable task', questionsAndAnswers: [questionAndAnswer] }],
           },
         ],
-      }
-
-      expect(buildDocument(application)).toEqual(expected)
+      })
     })
   })
 })

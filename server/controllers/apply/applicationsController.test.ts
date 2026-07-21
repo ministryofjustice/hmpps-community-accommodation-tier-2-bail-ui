@@ -3,6 +3,7 @@ import { DeepMocked, createMock } from '@golevelup/ts-jest'
 import { Cas2Application as Application, Cas2ApplicationSummary } from '@approved-premises/api'
 import {
   NewCohortApplicationOrigin,
+  ApplicationDocument,
   BailApplicationOrigin,
   ErrorsAndUserInput,
   GroupedApplications,
@@ -28,7 +29,7 @@ import {
 import ApplicationsController from './applicationsController'
 import { PersonService, ApplicationService, SubmittedApplicationService } from '../../services'
 import paths from '../../paths/apply'
-import { buildDocument } from '../../utils/applications/documentUtils'
+import { buildDocument, filterDocumentToApplicableTasks } from '../../utils/applications/documentUtils'
 import config from '../../config'
 import { showMissingRequiredTasksOrTaskList, generateSuccessMessage } from '../../utils/applications/utils'
 import TaskListService from '../../services/taskListService'
@@ -173,17 +174,22 @@ describe('applicationsController', () => {
 
   describe('show', () => {
     describe('when application is submitted', () => {
-      it('renders the submitted view', async () => {
+      it('renders the submitted view, filtering the document to applicable tasks', async () => {
         const submittedApplication = applicationFactory.build({ submittedAt: new Date().toISOString() })
         applicationService.findApplication.mockResolvedValue(submittedApplication)
+
+        const filteredDocument: ApplicationDocument = { sections: [] }
+        ;(filterDocumentToApplicableTasks as jest.Mock).mockReturnValue(filteredDocument)
 
         const requestHandler = applicationsController.show()
         await requestHandler(request, response, next)
 
+        expect(filterDocumentToApplicableTasks).toHaveBeenCalledWith(submittedApplication)
+
         const expectedSummary = getApplicationSummaryData('referrerSubmission', submittedApplication)
 
         expect(response.render).toHaveBeenCalledWith('applications/show', {
-          application: submittedApplication,
+          application: { ...submittedApplication, document: filteredDocument },
           summary: expectedSummary,
         })
       })
