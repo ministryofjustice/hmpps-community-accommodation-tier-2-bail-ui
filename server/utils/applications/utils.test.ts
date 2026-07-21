@@ -11,7 +11,7 @@ import {
 } from './utils'
 import { fetchErrorsAndUserInput } from '../validation'
 import { DateFormats } from '../dateUtils'
-import { getSections } from '../checkYourAnswersUtils'
+import { getSections, taskAppliesToApplication } from '../checkYourAnswersUtils'
 import config from '../../config'
 import paths from '../../paths/apply'
 import { TaskListService } from '../../services'
@@ -229,12 +229,12 @@ describe('utils', () => {
   })
 
   describe('getSideNavLinksForApplication', () => {
-    it('returns an array with a side nav item for each task', () => {
+    it('returns a side nav item for each task that applies to the application', () => {
       ;(getSections as jest.Mock).mockReturnValue(mockSections)
+      ;(taskAppliesToApplication as jest.Mock).mockImplementation(task => task.id !== 'task2')
 
-      expect(getSideNavLinksForApplication()).toEqual([
+      expect(getSideNavLinksForApplication(applicationFactory.build())).toEqual([
         { text: 'Task 1', href: '#task-1' },
-        { text: 'Task 2', href: '#task-2' },
         { text: 'Task 3', href: '#task-3' },
         { text: 'Task 4', href: '#task-4' },
       ])

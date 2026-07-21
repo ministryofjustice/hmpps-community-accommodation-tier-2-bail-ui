@@ -4,7 +4,12 @@ import { FullPerson } from '../../../../../server/@types/shared/models/FullPerso
 import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy, stringToKebabCase, htmlToPlainText } from '../../../../../server/utils/utils'
 import { getQuestions } from '../../../../../server/form-pages/utils/questions'
-import { getPage, getSections, hasResponseMethod } from '../../../../../server/utils/checkYourAnswersUtils'
+import {
+  getPage,
+  getSections,
+  hasResponseMethod,
+  taskAppliesToApplication,
+} from '../../../../../server/utils/checkYourAnswersUtils'
 import { getCustodyLocation } from '../../../../../server/utils/getApplicationSummaryData'
 
 export default class CheckYourAnswersPage extends ApplyPage {
@@ -29,6 +34,11 @@ export default class CheckYourAnswersPage extends ApplyPage {
   shouldShowAnswersForTask(task: UiTask): void {
     this.shouldShowCheckYourAnswersTitle(task.id, task.title)
     this.shouldShowQuestionsAndAnswers(task.id)
+  }
+
+  shouldNotShowTask(task: UiTask): void {
+    cy.get(`[data-cy-check-your-answers-section="${task.id}"]`).should('not.exist')
+    cy.get(`a[href="#${stringToKebabCase(task.title)}"]`).should('not.exist')
   }
 
   shouldShowCheckYourAnswersTitle(taskName: string, taskTitle: string) {
@@ -98,9 +108,11 @@ export default class CheckYourAnswersPage extends ApplyPage {
     const sections = getSections()
 
     sections.forEach(section => {
-      section.tasks.forEach(task => {
-        cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)
-      })
+      section.tasks
+        .filter(task => taskAppliesToApplication(task, this.application))
+        .forEach(task => {
+          cy.get(`a[href="#${stringToKebabCase(task.title)}"]`)
+        })
     })
   }
 }
