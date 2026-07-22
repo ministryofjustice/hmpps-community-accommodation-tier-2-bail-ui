@@ -102,7 +102,7 @@ export function getQuestions(
       },
       'licence-dates': {
         licenceStartDate: {
-          question: `What is ${name}'s licence start date/conditional release date?`,
+          question: `What is ${name}'s licence start date?`,
           dataType: 'date',
         },
         licenceEndDate: {
@@ -946,10 +946,10 @@ export function getQuestions(
       },
       'cell-share-information': {
         hasCellShareComments: {
-          question: 'Are there any comments to add about cell sharing or sharing accomodation?',
+          question: 'Are there any comments to add about cell sharing or sharing accommodation?',
           answers: yesOrNo,
         },
-        cellShareInformationDetail: { question: 'Provide details on sharing accomodation' },
+        cellShareInformationDetail: { question: 'Provide details on sharing accommodation' },
       },
       'additional-risk-information': {
         hasAdditionalInformation: {

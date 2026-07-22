@@ -42,7 +42,7 @@ export const completeCohortSelectionTask = async (page: Page, name: string) => {
   const yesterday = addDays(new Date(), -1)
   const licenceStartDate = faker.date.recent({ days: 28, refDate: yesterday })
 
-  await atcrLicenceDetailsPage.fillDateFieldInGroup(`What is ${name}'s licence start date/conditional release date?`, {
+  await atcrLicenceDetailsPage.fillDateFieldInGroup(`What is ${name}'s licence start date?`, {
     year: licenceStartDate.getFullYear().toString(),
     month: (licenceStartDate.getMonth() + 1).toString(),
     day: licenceStartDate.getDate().toString(),

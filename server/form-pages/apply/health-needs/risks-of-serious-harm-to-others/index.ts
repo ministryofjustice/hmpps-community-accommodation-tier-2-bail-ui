@@ -11,7 +11,7 @@ import CellShareInformation from './cellShareInformation'
 import AdditionalRiskInformation from './additionalRiskInformation'
 
 @Task({
-  name: 'Risks of serious harm to others',
+  name: 'Add risk of serious harm to others',
   slug: 'risks-of-serious-harm-to-others',
   pages: [
     OasysImport,

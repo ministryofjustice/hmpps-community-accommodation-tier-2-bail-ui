@@ -65,6 +65,24 @@ describe('LicenceDates', () => {
       })
     })
 
+    it('Returns an error if the end date is before the start date', () => {
+      const startDate = faker.date.soon({ days: 30 })
+      const endDate = faker.date.recent({ days: 30 })
+
+      const startDateIso = DateFormats.dateObjToIsoDate(startDate)
+      const endDateIso = DateFormats.dateObjToIsoDate(endDate)
+
+      const body: Partial<LicenceDatesBody> = {
+        ...isoDateToDateParts(startDateIso, 'licenceStartDate'),
+        ...isoDateToDateParts(endDateIso, 'licenceEndDate'),
+        hasHdcExpiryDate: 'no',
+      }
+
+      expect(page('atcr', body as LicenceDatesBody).errors()).toEqual({
+        licenceEndDate: 'Licence end date must be after the start date',
+      })
+    })
+
     it('Requires hdc expiry date as well if hdc question is answered', () => {
       expect(page('atcr', { ...filledBody, 'hdcExpiryDate-month': undefined } as LicenceDatesBody).errors()).toEqual({
         hdcExpiryDate: 'HDC expiry date must be entered',
@@ -111,10 +129,9 @@ describe('LicenceDates', () => {
         'Does Roger Smith have an HDC expiry date?': 'Yes',
         'HDC expiry date': DateFormats.isoDateToUIDate(hdcExpiryDateIso, { format: 'medium' }),
         "What is Roger Smith's licence end date?": DateFormats.isoDateToUIDate(licenceEndDateIso, { format: 'medium' }),
-        "What is Roger Smith's licence start date/conditional release date?": DateFormats.isoDateToUIDate(
-          licenceStartDateIso,
-          { format: 'medium' },
-        ),
+        "What is Roger Smith's licence start date?": DateFormats.isoDateToUIDate(licenceStartDateIso, {
+          format: 'medium',
+        }),
       })
     })
   })

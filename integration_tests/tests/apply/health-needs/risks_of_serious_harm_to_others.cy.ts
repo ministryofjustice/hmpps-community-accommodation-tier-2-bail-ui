@@ -89,7 +89,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Not yet started')
 
     // When I start the task
-    taskListPage.visitTask('Risks of serious harm to others')
+    taskListPage.visitTask('Add risk of serious harm to others')
 
     // Then I am on the OASys import page
     const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)
@@ -129,7 +129,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Completed')
 
     // When I go back into the task and keep going to all the pages
-    taskListPage.visitTask('Risks of serious harm to others')
+    taskListPage.visitTask('Add risk of serious harm to others')
     summaryPage.checkOnPage()
     summaryPage.clickSubmit()
     riskToOthersPage.checkOnPage()
@@ -177,7 +177,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     taskListPage.shouldShowTaskStatus('risks-of-serious-harm-to-others', 'Not yet started')
 
     // When I start the task
-    taskListPage.visitTask('Risks of serious harm to others')
+    taskListPage.visitTask('Add risk of serious harm to others')
 
     // Then I am on the OASys import page
     const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)

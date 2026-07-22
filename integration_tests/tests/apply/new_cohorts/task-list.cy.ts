@@ -48,7 +48,7 @@ context('Task list page', () => {
       'About the applicant',
       'Area, funding and ID',
       'Offences and concerns',
-      'Health needs',
+      'Risk and health needs',
       'Check answers',
     ])
 
@@ -80,7 +80,7 @@ context('Task list page', () => {
       'About the applicant',
       'Area, funding and ID',
       'Offences and concerns',
-      'Health needs',
+      'Risk and health needs',
       'Bail information',
       'Check answers',
     ])

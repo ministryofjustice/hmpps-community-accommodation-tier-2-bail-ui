@@ -13,6 +13,7 @@ import {
   dateIsComplete,
   dateIsTodayOrInTheFuture,
   dateIsTodayOrInThePast,
+  isBeforeDate,
 } from './dateUtils'
 
 export const escape = (text: string): string => {
@@ -121,4 +122,35 @@ export const validateDateParts = <T>(
     error = `${fieldTitle} must be in the past`
 
   return (error ? { [fieldName]: error } : {}) as Record<keyof T, string>
+}
+
+/**
+ * Validates an end date in a form is after a start date
+ * @param startFieldName
+ * @param startFieldTitle
+ * @param endFieldName
+ * @param endFieldTitle
+ * @param body
+ * @returns an errors object that can be spliced into other form errors
+ */
+export const validateEndDateIsAfterStartDate = <T>(
+  startFieldName: keyof T,
+  startFieldTitle: string,
+  endFieldName: keyof T,
+  endFieldTitle: string,
+  body: T,
+): Record<keyof T, string> => {
+  const result = {} as Record<keyof T, string>
+
+  const objectWithDateParts = body as Partial<ObjectWithDateParts<string>>
+
+  if (
+    dateAndTimeInputsAreValidDates(objectWithDateParts, startFieldName as string) &&
+    dateAndTimeInputsAreValidDates(objectWithDateParts, endFieldName as string) &&
+    !isBeforeDate(objectWithDateParts, startFieldName as string, endFieldName as string)
+  ) {
+    result[endFieldName] = `${endFieldTitle} must be after the ${startFieldTitle}`
+  }
+
+  return result
 }
