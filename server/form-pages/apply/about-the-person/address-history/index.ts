@@ -10,9 +10,9 @@ import config from '../../../../config'
 @Task({
   name: 'Add address history',
   slug: 'address-history',
-  // TODO: we need to remove-edit this whenwe add new cohorts go to prod!
+  // TODO: we need to remove-edit this ternary flag check whenwe add new cohorts go to prod!
   pages: config.flags.cas2IsrEnabled
     ? [HasFixedAddress, LastFixedAddress, NoFixedAddress, PreviousAddress]
-    : [PreviousAddress],
+    : [PreviousAddress, HasFixedAddress, LastFixedAddress, NoFixedAddress],
 })
 export default class AddressHistory {}
