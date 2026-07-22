@@ -62,6 +62,10 @@ describe('DateFormats', () => {
 
       expect(() => DateFormats.isoDateToUIDate(date)).toThrow(new InvalidDateStringError(`Invalid Date: ${date}`))
     })
+
+    it.each([[null], [undefined], ['']])('returns an empty string when the date is %p', date => {
+      expect(DateFormats.isoDateToUIDate(date as unknown as string)).toEqual('')
+    })
   })
 
   describe('dateObjToUiDate', () => {
@@ -190,8 +194,8 @@ describe('DateFormats', () => {
       expect(DateFormats.dateAndTimeInputsToUiDate(dateTimeInputs, 'key')).toEqual('1 November 2022')
     })
 
-    it('throws an error if an object without date inputs for the key is entered', () => {
-      expect(() => DateFormats.dateAndTimeInputsToUiDate({}, 'key')).toThrow(TypeError)
+    it('returns an empty string if an object without date inputs for the key is entered', () => {
+      expect(DateFormats.dateAndTimeInputsToUiDate({}, 'key')).toEqual('')
     })
   })
 

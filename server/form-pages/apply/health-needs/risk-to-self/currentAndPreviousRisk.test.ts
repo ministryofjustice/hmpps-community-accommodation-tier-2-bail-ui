@@ -84,6 +84,31 @@ describe('CurrentAndPreviousRisk', () => {
       })
     })
 
+    it('return "Unknown" for the OASys created date where the imported start date is null', () => {
+      const applicationWithNullStartDate = applicationFactory.build({
+        person,
+        data: {
+          'risk-to-self': {
+            'oasys-import': {
+              oasysImportedDate: '2024-01-05',
+              oasysStartedDate: null,
+              oasysCompletedDate: '2024-01-02',
+            },
+          },
+        },
+      })
+
+      const page = new CurrentAndPreviousRisk(body, applicationWithNullStartDate)
+
+      expect(page.response()).toEqual({
+        'OASys created': 'Unknown',
+        'OASys completed': '2 January 2024',
+        'OASys imported': '5 January 2024',
+        "Describe Roger Smith's current and previous issues and needs related to self harm and suicide": 'some detail',
+        'I confirm this information is relevant and up to date.': 'Confirmed',
+      })
+    })
+
     it('returns without OASys dates where they are not present in the application data', () => {
       const page = new CurrentAndPreviousRisk(body, application)
 
