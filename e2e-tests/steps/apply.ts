@@ -140,7 +140,7 @@ export const completeAboutThePersonSection = async (
 ) => {
   await completePersonalInformationTask(page, name, applicationOrigin)
   await completeEqualityAndDiversityTask(page, name)
-  await completeAddressHistoryTask(page, name)
+  await completeAddressHistoryTask(page, name, applicationOrigin)
 }
 
 export const completeHealthNeedsSection = async (

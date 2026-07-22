@@ -14,7 +14,7 @@ describe('LastFixedAddress', () => {
   })
 
   itShouldHaveNextValue(new LastFixedAddress({}, application), '')
-  itShouldHavePreviousValue(new LastFixedAddress({}, application), 'has-fixed-address-before-custody')
+  itShouldHavePreviousValue(new LastFixedAddress({}, application), 'has-fixed-address')
 
   describe('errors', () => {
     it('returns errors when required fields are missing', () => {

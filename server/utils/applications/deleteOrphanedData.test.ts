@@ -481,8 +481,8 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     describe('when the applicant did not have a fixed address before custody', () => {
       const applicationData = {
         'address-history': {
-          'has-fixed-address-before-custody': {
-            hasFixedAddressBeforeCustody: 'no',
+          'has-fixed-address': {
+            hasFixedAddress: 'no',
           },
           'last-fixed-address': {
             addressLine1: 'some address line 1',
@@ -495,8 +495,8 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       it('removes the last-fixed-address data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'address-history': {
-            'has-fixed-address-before-custody': {
-              hasFixedAddressBeforeCustody: 'no',
+            'has-fixed-address': {
+              hasFixedAddress: 'no',
             },
           },
         })
@@ -506,8 +506,8 @@ describe('deleteOrphanedFollowOnAnswers', () => {
     describe('when the applicant did have a fixed address before custody', () => {
       const applicationData = {
         'address-history': {
-          'has-fixed-address-before-custody': {
-            hasFixedAddressBeforeCustody: 'yes',
+          'has-fixed-address': {
+            hasFixedAddress: 'yes',
           },
           'no-fixed-address': {
             howLong: 'some duration',
@@ -521,8 +521,70 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       it('removes the no-fixed-address data', () => {
         expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
           'address-history': {
-            'has-fixed-address-before-custody': {
-              hasFixedAddressBeforeCustody: 'yes',
+            'has-fixed-address': {
+              hasFixedAddress: 'yes',
+            },
+          },
+        })
+      })
+    })
+
+    describe('when has-fixed-address has been answered', () => {
+      const applicationData = {
+        'address-history': {
+          'previous-address': {
+            hasPreviousAddress: 'yes',
+            previousAddress: '1 Example Road, Anytown, AB1 2CD',
+            latestLivingSituation: 'other',
+            otherLivingSituation: 'other2',
+          },
+          'has-fixed-address': {
+            hasFixedAddress: 'yes',
+          },
+          'last-fixed-address': {
+            addressLine1: 'some address line 1',
+            townOrCity: 'some town or city',
+            postcode: 'some postcode',
+          },
+        },
+      }
+
+      it('removes the previous-address data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
+          'address-history': {
+            'has-fixed-address': {
+              hasFixedAddress: 'yes',
+            },
+            'last-fixed-address': {
+              addressLine1: 'some address line 1',
+              townOrCity: 'some town or city',
+              postcode: 'some postcode',
+            },
+          },
+        })
+      })
+    })
+
+    describe('when has-fixed-address has not been answered', () => {
+      const applicationData = {
+        'address-history': {
+          'previous-address': {
+            hasPreviousAddress: 'yes',
+            previousAddress: '1 Example Road, Anytown, AB1 2CD',
+            latestLivingSituation: 'other',
+            otherLivingSituation: 'other2',
+          },
+        },
+      }
+
+      it('leaves the previous-address data', () => {
+        expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data: applicationData }))).toEqual({
+          'address-history': {
+            'previous-address': {
+              hasPreviousAddress: 'yes',
+              previousAddress: '1 Example Road, Anytown, AB1 2CD',
+              latestLivingSituation: 'other',
+              otherLivingSituation: 'other2',
             },
           },
         })

@@ -4,14 +4,14 @@ import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 import { custodialCohorts } from '../../../../../server/utils/applications/cohortLabels'
 import paths from '../../../../../server/paths/apply'
 
-export default class HasFixedAddressBeforeCustodyPage extends ApplyPage {
+export default class HasFixedAddressPage extends ApplyPage {
   constructor(private readonly application: Application) {
     const name = nameOrPlaceholderCopy(application.person)
     const title = custodialCohorts.includes(application.cohort)
       ? `Did ${name} have a fixed address before entering custody?`
       : `Does ${name} have a fixed address?`
 
-    super(title, application, 'address-history', 'has-fixed-address-before-custody')
+    super(title, application, 'address-history', 'has-fixed-address')
   }
 
   static visit(application: Application): void {
@@ -19,23 +19,23 @@ export default class HasFixedAddressBeforeCustodyPage extends ApplyPage {
       paths.applications.pages.show({
         id: application.id,
         task: 'address-history',
-        page: 'has-fixed-address-before-custody',
+        page: 'has-fixed-address',
       }),
     )
   }
 
   checkErrors() {
     this.shouldShowErrorMessagesForFields(
-      ['hasFixedAddressBeforeCustody'],
+      ['hasFixedAddress'],
       'Select yes if the applicant had a fixed address before entering custody',
     )
   }
 
   completeForm(value = 'yes'): void {
-    this.checkRadioByNameAndValue('hasFixedAddressBeforeCustody', value)
+    this.checkRadioByNameAndValue('hasFixedAddress', value)
   }
 
   shouldShowSelectedAnswer(value = 'yes'): void {
-    cy.get(`input[name="hasFixedAddressBeforeCustody"][value="${value}"]`).should('be.checked')
+    cy.get(`input[name="hasFixedAddress"][value="${value}"]`).should('be.checked')
   }
 }

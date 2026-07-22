@@ -36,7 +36,7 @@ export default class LastFixedAddress implements TaskListPage {
   }
 
   previous() {
-    return 'has-fixed-address-before-custody'
+    return 'has-fixed-address'
   }
 
   next() {

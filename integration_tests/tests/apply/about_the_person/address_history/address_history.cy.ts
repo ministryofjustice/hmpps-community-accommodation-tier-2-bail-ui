@@ -1,6 +1,6 @@
 import Page from '../../../../pages/page'
 import { personFactory, applicationFactory } from '../../../../../server/testutils/factories'
-import HasFixedAddressBeforeCustodyPage from '../../../../pages/apply/about_the_person/address_history/hasFixedAddressBeforeCustodyPage'
+import HasFixedAddressPage from '../../../../pages/apply/about_the_person/address_history/hasFixedAddressPage'
 import LastFixedAddressPage, {
   lastFixedAddressDetails,
 } from '../../../../pages/apply/about_the_person/address_history/lastFixedAddressPage'
@@ -38,8 +38,8 @@ context('Complete the "Address history" task', () => {
     cy.task('stubApplicationUpdate', { application })
 
     // Given I am on the 'has fixed address before custody' page
-    HasFixedAddressBeforeCustodyPage.visit(application)
-    const hasFixedAddressPage = Page.verifyOnPage(HasFixedAddressBeforeCustodyPage, application)
+    HasFixedAddressPage.visit(application)
+    const hasFixedAddressPage = Page.verifyOnPage(HasFixedAddressPage, application)
 
     // When I submit without selecting an answer
     hasFixedAddressPage.clickSubmit()
@@ -65,10 +65,7 @@ context('Complete the "Address history" task', () => {
 
     // And the answers I entered have been saved to the application
     cy.task('verifyApplicationUpdate', application.id).then(requests => {
-      expect(
-        JSON.parse(requests[0].body).data['address-history']['has-fixed-address-before-custody']
-          .hasFixedAddressBeforeCustody,
-      ).eq('yes')
+      expect(JSON.parse(requests[0].body).data['address-history']['has-fixed-address'].hasFixedAddress).eq('yes')
 
       const lastFixedAddress = JSON.parse(requests[1].body).data['address-history']['last-fixed-address']
       expect(lastFixedAddress.addressLine1).eq(lastFixedAddressDetails.addressLine1)
@@ -103,8 +100,8 @@ context('Complete the "Address history" task', () => {
     cy.task('stubApplicationUpdate', { application })
 
     // Given I am on the 'has fixed address before custody' page
-    HasFixedAddressBeforeCustodyPage.visit(application)
-    const hasFixedAddressPage = Page.verifyOnPage(HasFixedAddressBeforeCustodyPage, application)
+    HasFixedAddressPage.visit(application)
+    const hasFixedAddressPage = Page.verifyOnPage(HasFixedAddressPage, application)
 
     // When I select 'no' and submit
     hasFixedAddressPage.completeForm('no')
@@ -124,10 +121,7 @@ context('Complete the "Address history" task', () => {
 
     // And the answers I entered have been saved to the application
     cy.task('verifyApplicationUpdate', application.id).then(requests => {
-      expect(
-        JSON.parse(requests[0].body).data['address-history']['has-fixed-address-before-custody']
-          .hasFixedAddressBeforeCustody,
-      ).eq('no')
+      expect(JSON.parse(requests[0].body).data['address-history']['has-fixed-address'].hasFixedAddress).eq('no')
 
       const noFixedAddress = JSON.parse(requests[1].body).data['address-history']['no-fixed-address']
       expect(noFixedAddress.howLong).eq(noFixedAddressDetails.howLong)
@@ -163,9 +157,9 @@ context('Complete the "Address history" task', () => {
     cy.task('stubApplicationUpdate', { application })
 
     // Given I visit the entry point for ISC cohort
-    HasFixedAddressBeforeCustodyPage.visit(application)
+    HasFixedAddressPage.visit(application)
 
     // Then I am asked whether they currently have a fixed address
-    Page.verifyOnPage(HasFixedAddressBeforeCustodyPage, application)
+    Page.verifyOnPage(HasFixedAddressPage, application)
   })
 })

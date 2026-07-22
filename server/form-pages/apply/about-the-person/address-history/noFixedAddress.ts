@@ -44,7 +44,7 @@ export default class NoFixedAddress implements TaskListPage {
   }
 
   previous() {
-    return 'has-fixed-address-before-custody'
+    return 'has-fixed-address'
   }
 
   next() {

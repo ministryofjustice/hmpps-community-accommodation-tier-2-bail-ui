@@ -14,7 +14,7 @@ describe('NoFixedAddress', () => {
   })
 
   itShouldHaveNextValue(new NoFixedAddress({}, application), '')
-  itShouldHavePreviousValue(new NoFixedAddress({}, application), 'has-fixed-address-before-custody')
+  itShouldHavePreviousValue(new NoFixedAddress({}, application), 'has-fixed-address')
 
   describe('errors', () => {
     it('returns an error when howLong is not provided', () => {

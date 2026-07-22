@@ -7,15 +7,15 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { custodialCohorts } from '../../../../utils/applications/cohortLabels'
 
-export type HasFixedAddressBeforeCustodyBody = {
-  hasFixedAddressBeforeCustody: YesOrNo
+export type HasFixedAddressBody = {
+  hasFixedAddress: YesOrNo
 }
 
 @Page({
-  name: 'has-fixed-address-before-custody',
-  bodyProperties: ['hasFixedAddressBeforeCustody'],
+  name: 'has-fixed-address',
+  bodyProperties: ['hasFixedAddress'],
 })
-export default class HasFixedAddressBeforeCustody implements TaskListPage {
+export default class HasFixedAddress implements TaskListPage {
   isCustodialCohort = custodialCohorts.includes(this.application.cohort)
 
   documentTitle = this.isCustodialCohort
@@ -28,16 +28,16 @@ export default class HasFixedAddressBeforeCustody implements TaskListPage {
     ? `Did ${this.personName} have a fixed address before entering custody?`
     : `Does ${this.personName} have a fixed address?`
 
-  questions = getQuestions(this.personName)['address-history']['has-fixed-address-before-custody']
+  questions = getQuestions(this.personName)['address-history']['has-fixed-address']
 
-  body: HasFixedAddressBeforeCustodyBody
+  body: HasFixedAddressBody
 
   constructor(
-    body: Partial<HasFixedAddressBeforeCustodyBody>,
+    body: Partial<HasFixedAddressBody>,
     private readonly application: Application,
   ) {
-    this.body = body as HasFixedAddressBeforeCustodyBody
-    this.questions.hasFixedAddressBeforeCustody.question = this.title
+    this.body = body as HasFixedAddressBody
+    this.questions.hasFixedAddress.question = this.title
   }
 
   previous() {
@@ -45,7 +45,7 @@ export default class HasFixedAddressBeforeCustody implements TaskListPage {
   }
 
   next() {
-    if (this.body.hasFixedAddressBeforeCustody === 'yes') {
+    if (this.body.hasFixedAddress === 'yes') {
       return 'last-fixed-address'
     }
     return 'no-fixed-address'
@@ -53,23 +53,21 @@ export default class HasFixedAddressBeforeCustody implements TaskListPage {
 
   errors() {
     const errors: TaskListErrors<this> = {}
-    if (!this.body.hasFixedAddressBeforeCustody) {
-      errors.hasFixedAddressBeforeCustody = 'Select yes if the applicant had a fixed address before entering custody'
+    if (!this.body.hasFixedAddress) {
+      errors.hasFixedAddress = this.isCustodialCohort
+        ? 'Select yes if the applicant had a fixed address before entering custody'
+        : 'Select yes if the applicant has a fixed address'
     }
     return errors
   }
 
   items() {
-    return convertKeyValuePairToRadioItems(
-      this.questions.hasFixedAddressBeforeCustody.answers,
-      this.body.hasFixedAddressBeforeCustody,
-    )
+    return convertKeyValuePairToRadioItems(this.questions.hasFixedAddress.answers, this.body.hasFixedAddress)
   }
 
   response() {
     return {
-      [this.questions.hasFixedAddressBeforeCustody.question]:
-        this.questions.hasFixedAddressBeforeCustody.answers[this.body.hasFixedAddressBeforeCustody],
+      [this.questions.hasFixedAddress.question]: this.questions.hasFixedAddress.answers[this.body.hasFixedAddress],
     }
   }
 }

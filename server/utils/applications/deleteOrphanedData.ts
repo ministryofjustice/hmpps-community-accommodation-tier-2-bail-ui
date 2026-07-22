@@ -39,6 +39,10 @@ export default function deleteOrphanedFollowOnAnswers(application: Cas2Applicati
     delete applicationData['address-history']['no-fixed-address']
   }
 
+  const deleteOrphanedPreviousAddressData = () => {
+    delete applicationData['address-history']['previous-address']
+  }
+
   const deleteOrphanedACCTNotesData = () => {
     delete applicationData['risk-information']['add-acct-note']
   }
@@ -230,8 +234,8 @@ export default function deleteOrphanedFollowOnAnswers(application: Cas2Applicati
   if (
     hasOrphanedInformation({
       taskName: 'address-history',
-      pageName: 'has-fixed-address-before-custody',
-      questionKey: 'hasFixedAddressBeforeCustody',
+      pageName: 'has-fixed-address',
+      questionKey: 'hasFixedAddress',
       answerToCheck: 'no',
     })
   ) {
@@ -241,12 +245,16 @@ export default function deleteOrphanedFollowOnAnswers(application: Cas2Applicati
   if (
     hasOrphanedInformation({
       taskName: 'address-history',
-      pageName: 'has-fixed-address-before-custody',
-      questionKey: 'hasFixedAddressBeforeCustody',
+      pageName: 'has-fixed-address',
+      questionKey: 'hasFixedAddress',
       answerToCheck: 'yes',
     })
   ) {
     deleteOrphanedNoFixedAddressData()
+  }
+
+  if (applicationData['address-history']?.['has-fixed-address']) {
+    deleteOrphanedPreviousAddressData()
   }
 
   return applicationData

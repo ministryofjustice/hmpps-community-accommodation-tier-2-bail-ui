@@ -116,8 +116,8 @@
     }
   },
   "address-history": {
-    "has-fixed-address-before-custody": {
-      "hasFixedAddressBeforeCustody": "yes"
+    "has-fixed-address": {
+      "hasFixedAddress": "yes"
     },
     "last-fixed-address": {
       "addressLine1": "1 Example Road",

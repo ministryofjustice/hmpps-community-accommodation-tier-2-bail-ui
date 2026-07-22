@@ -228,8 +228,8 @@ export function getQuestions(
       },
     },
     'address-history': {
-      'has-fixed-address-before-custody': {
-        hasFixedAddressBeforeCustody: {
+      'has-fixed-address': {
+        hasFixedAddress: {
           question: `Did ${name} have a fixed address before entering custody?`,
           answers: yesOrNo,
         },
