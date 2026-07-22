@@ -1,5 +1,5 @@
 import { Cas2Application as Application, Cas2SubmittedApplication, FullPerson } from '@approved-premises/api'
-import { SummaryListItem, FormSection, QuestionAndAnswer } from '@approved-premises/ui'
+import { SummaryListItem, FormSection, QuestionAndAnswer, UiTask } from '@approved-premises/ui'
 import Apply from '../form-pages/apply/index'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers'
 import paths from '../paths/apply'
@@ -7,24 +7,32 @@ import { getQuestions, getQuestion, Questions } from '../form-pages/utils/questi
 import { nameOrPlaceholderCopy } from './utils'
 import { formatLines } from './viewUtils'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
+import getTaskStatus from '../form-pages/utils/getTaskStatus'
 import { UnknownPageError } from './errors'
 import { DateFormats } from './dateUtils'
+
+export const taskAppliesToApplication = (task: UiTask, application: Application): boolean =>
+  getTaskStatus(task, application) !== 'not_applicable'
 
 export const checkYourAnswersSections = (application: Application) => {
   const sections = getSections()
 
-  const sectionsWithAnswers = sections.map(section => {
-    return {
-      title: section.title,
-      tasks: section.tasks.map(task => {
-        return {
-          id: task.id,
-          title: task.title,
-          rows: getTaskAnswersAsSummaryListItems(task.id, application),
-        }
-      }),
-    }
-  })
+  const sectionsWithAnswers = sections
+    .map(section => {
+      return {
+        title: section.title,
+        tasks: section.tasks
+          .filter(task => taskAppliesToApplication(task, application))
+          .map(task => {
+            return {
+              id: task.id,
+              title: task.title,
+              rows: getTaskAnswersAsSummaryListItems(task.id, application),
+            }
+          }),
+      }
+    })
+    .filter(section => section.tasks.length > 0)
 
   return sectionsWithAnswers
 }

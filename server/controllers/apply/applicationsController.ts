@@ -15,7 +15,7 @@ import paths from '../../paths/apply'
 import { getPage } from '../../utils/applications/getPage'
 import { getPaginationDetails } from '../../utils/getPaginationDetails'
 import { nameOrPlaceholderCopy } from '../../utils/utils'
-import { buildDocument } from '../../utils/applications/documentUtils'
+import { buildDocument, filterDocumentToApplicableTasks } from '../../utils/applications/documentUtils'
 import { hasRole } from '../../utils/userUtils'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
@@ -75,6 +75,7 @@ export default class ApplicationsController {
       const application = await this.applicationService.findApplication(req.user.token, req.params.id)
 
       if (application.submittedAt) {
+        application.document = filterDocumentToApplicableTasks(application)
         const summary = getApplicationSummaryData('referrerSubmission', application)
         return res.render('applications/show', { application, summary })
       }

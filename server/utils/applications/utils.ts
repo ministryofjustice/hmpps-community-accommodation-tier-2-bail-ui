@@ -14,7 +14,7 @@ import type {
   Cas2SubmittedApplication,
   Cas2TimelineEvent,
 } from '@approved-premises/api'
-import { getSections } from '../checkYourAnswersUtils'
+import { getSections, taskAppliesToApplication } from '../checkYourAnswersUtils'
 import { stringToKebabCase, formatCommaToLinebreak } from '../utils'
 import { formatLines, validateReferer } from '../viewUtils'
 import Apply from '../../form-pages/apply'
@@ -81,13 +81,13 @@ export const getSideNavLinksForDocument = (document: ApplicationDocument) => {
   return tasks
 }
 
-export const getSideNavLinksForApplication = () => {
-  const sections = getSections()
-
+export const getSideNavLinksForApplication = (application: Application) => {
   const tasks: Array<SideNavItem> = []
 
-  sections.forEach(section => {
-    section.tasks.forEach(task => tasks.push({ href: `#${stringToKebabCase(task.title)}`, text: task.title }))
+  getSections().forEach(section => {
+    section.tasks
+      .filter(task => taskAppliesToApplication(task, application))
+      .forEach(task => tasks.push({ href: `#${stringToKebabCase(task.title)}`, text: task.title }))
   })
 
   return tasks

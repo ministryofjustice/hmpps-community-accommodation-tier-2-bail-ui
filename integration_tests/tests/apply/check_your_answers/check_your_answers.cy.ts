@@ -7,7 +7,7 @@ import Page from '../../../pages/page'
 import CheckYourAnswersPage from '../../../pages/apply/check_your_answers/check-your-answers/checkYourAnswersPage'
 import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
 import TaskListPage from '../../../pages/apply/taskListPage'
-import { getSections } from '../../../../server/utils/checkYourAnswersUtils'
+import { getSections, taskAppliesToApplication } from '../../../../server/utils/checkYourAnswersUtils'
 
 context('Check your answers page', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -57,10 +57,15 @@ context('Check your answers page', () => {
     page.shouldShowSideNavBar()
     page.shouldNotShowAnswersWithoutQuestions()
 
+    //  And tasks that belonging to another application origin are not shown at all
     const sections = getSections()
     sections.forEach(section => {
       section.tasks.forEach(task => {
-        page.shouldShowAnswersForTask(task)
+        if (taskAppliesToApplication(task, this.application)) {
+          page.shouldShowAnswersForTask(task)
+        } else {
+          page.shouldNotShowTask(task)
+        }
       })
     })
   })
