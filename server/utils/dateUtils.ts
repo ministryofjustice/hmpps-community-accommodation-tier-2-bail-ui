@@ -67,12 +67,8 @@ export class DateFormats {
   /**
    * @param isoDate an ISO date string.
    * @returns the date in the to be shown in the UI: "Thursday, 20 December 2012".
-   * Returns an empty string when the date is missing
    */
   static isoDateToUIDate(isoDate: string, options: { format: 'short' | 'long' | 'medium' } = { format: 'long' }) {
-    if (!isoDate) {
-      return ''
-    }
     return DateFormats.dateObjtoUIDate(DateFormats.isoToDateObj(isoDate), options)
   }
 

@@ -70,14 +70,14 @@ export default class CurrentAndPreviousRisk implements TaskListPage {
   response() {
     const oasysData = this.application.data?.['risk-to-self']?.['oasys-import']
 
+    const formatDate = (date: string | undefined, format: 'short' | 'long' | 'medium') => {
+      return date ? DateFormats.isoDateToUIDate(date, { format }) : 'Unknown'
+    }
+
     if (oasysData) {
       return {
-        'OASys created': oasysData.oasysStartedDate
-          ? DateFormats.isoDateToUIDate(oasysData.oasysStartedDate, { format: 'medium' })
-          : 'Unknown',
-        'OASys completed': oasysData.oasysCompletedDate
-          ? DateFormats.isoDateToUIDate(oasysData.oasysCompletedDate, { format: 'medium' })
-          : 'Unknown',
+        'OASys created': formatDate(oasysData.oasysStartedDate, 'medium'),
+        'OASys completed': formatDate(oasysData.oasysCompletedDate, 'medium'),
         'OASys imported': DateFormats.dateObjtoUIDate(oasysData.oasysImportedDate, { format: 'medium' }),
         [this.questions.currentAndPreviousRiskDetail.question]: this.body.currentAndPreviousRiskDetail,
         [this.questions.confirmation.question]: this.questions.confirmation.answers[this.body.confirmation],
