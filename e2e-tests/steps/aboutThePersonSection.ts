@@ -109,22 +109,35 @@ async function completeWillAnswerQuestionsPage(page: Page, name: string) {
   await willAnswerEqualityQuestionsPage.clickSave()
 }
 
-export const completeAddressHistoryTask = async (page: Page, name: string) => {
+export const completeAddressHistoryTask = async (
+  page: Page,
+  name: string,
+  applicationOrigin: NewCohortApplicationOrigin,
+) => {
   const taskListPage = new TaskListPage(page)
   await taskListPage.clickTask('Add address history')
 
-  await completePreviousAddressPage(page, name)
+  await completeHasFixedAddressPage(page, name, applicationOrigin)
+  await completeLastFixedAddressPage(page, name)
 }
 
-async function completePreviousAddressPage(page: Page, name: string) {
-  const previousAddressPage = await ApplyPage.initialize(
-    page,
-    `Did ${name} have a fixed address before being arrested?`,
-  )
-  await previousAddressPage.checkRadio('Yes')
-  await previousAddressPage.fillField('Enter their last fixed address', '1 Example Road, Anytown, AB1 2CD')
-  await previousAddressPage.checkRadio('supported accommodation')
-  await previousAddressPage.clickSave()
+async function completeHasFixedAddressPage(page: Page, name: string, applicationOrigin: NewCohortApplicationOrigin) {
+  const title =
+    applicationOrigin === 'bail'
+      ? `Did ${name} have a fixed address before entering custody?`
+      : `Does ${name} have a fixed address?`
+
+  const hasFixedAddressPage = await ApplyPage.initialize(page, title)
+  await hasFixedAddressPage.checkRadio('Yes')
+  await hasFixedAddressPage.clickSave()
+}
+
+async function completeLastFixedAddressPage(page: Page, name: string) {
+  const lastFixedAddressPage = await ApplyPage.initialize(page, `Enter ${name}'s last fixed address`)
+  await lastFixedAddressPage.fillField('Address line 1', '1 Example Road', true)
+  await lastFixedAddressPage.fillField('Town or city', 'Anytown', true)
+  await lastFixedAddressPage.fillField('Postcode', 'AB1 2CD', true)
+  await lastFixedAddressPage.clickSave()
 }
 
 export const completePersonalInformationTask = async (
