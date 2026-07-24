@@ -1,6 +1,7 @@
 import 'cypress-axe'
 import { Result } from 'axe-core'
 import {
+  Cas2Application as Application,
   Cas2ApplicationSummary,
   FullPerson,
   Cas2SubmittedApplication as SubmittedApplication,
@@ -162,7 +163,7 @@ export default abstract class Page {
     return stringToReplace.replace(/<br \/>/g, '')
   }
 
-  hasApplicantDetails(application: SubmittedApplication): void {
+  hasApplicantDetails(application: SubmittedApplication | Application): void {
     const person = application.person as FullPerson
     cy.get(`[data-cy-check-your-answers-section="applicant-details"]`).within(() => {
       this.checkTermAndDescription(

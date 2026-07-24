@@ -3,6 +3,7 @@
 //  When I view the 'check your answers' page
 //  Then I see a list of questions and answers for the application
 
+import { ApplicationOrigin } from '@approved-premises/api'
 import Page from '../../../pages/page'
 import CheckYourAnswersPage from '../../../pages/apply/check_your_answers/check-your-answers/checkYourAnswersPage'
 import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
@@ -19,20 +20,11 @@ context('Check your answers page', () => {
 
     cy.fixture('applicationData.json').then(applicationData => {
       delete applicationData['check-your-answers']['check-your-answers']
-      const application = applicationFactory.build({
-        person,
-        data: applicationData,
-      })
-      cy.wrap(application).as('application')
+      cy.wrap(applicationData).as('applicationData')
     })
   })
 
   beforeEach(function test() {
-    // And an application exists
-    // -------------------------
-    cy.task('stubApplicationGet', { application: this.application })
-    cy.task('stubApplicationUpdate', { application: this.application })
-
     // Given I am logged in
     //---------------------
     cy.signIn()
@@ -42,30 +34,41 @@ context('Check your answers page', () => {
   //  When I view the 'check your answers' page
   //  Then I see a list of questions and answers for the application
   it('presents check your answers page', function test() {
-    //  When I view the 'check your answers' page
-    TaskListPage.visit(this.application)
-    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
-    taskListPage.visitTask('Check application answers')
-    const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
+    const applicationOrigins: ReadonlyArray<ApplicationOrigin> = ['prisonBail', 'other']
 
-    //  Then I see a download button
-    page.shouldShowPrintButton('Download as a PDF')
+    applicationOrigins.forEach(applicationOrigin => {
+      const application =
+        applicationOrigin === 'other'
+          ? applicationFactory.newCohort('hcrd').build({ person, data: this.applicationData })
+          : applicationFactory.build({ applicationOrigin, person, data: this.applicationData })
+      cy.task('stubApplicationGet', { application })
+      cy.task('stubApplicationUpdate', { application })
 
-    //  And I see a list of questions and answers for the application
-    page.hasExpectedSummaryData()
-    page.hasApplicantDetails(this.application)
-    page.shouldShowSideNavBar()
-    page.shouldNotShowAnswersWithoutQuestions()
+      //  When I view the 'check your answers' page
+      TaskListPage.visit(application)
+      const taskListPage = Page.verifyOnPage(TaskListPage, application)
+      taskListPage.visitTask('Check application answers')
+      const page = Page.verifyOnPage(CheckYourAnswersPage, application)
 
-    //  And tasks that belonging to another application origin are not shown at all
-    const sections = getSections()
-    sections.forEach(section => {
-      section.tasks.forEach(task => {
-        if (taskAppliesToApplication(task, this.application)) {
-          page.shouldShowAnswersForTask(task)
-        } else {
-          page.shouldNotShowTask(task)
-        }
+      //  Then I see a download button
+      page.shouldShowPrintButton('Download as a PDF')
+
+      //  And I see a list of questions and answers for the application
+      page.hasExpectedSummaryData()
+      page.hasApplicantDetails(application)
+      page.shouldShowSideNavBar()
+      page.shouldNotShowAnswersWithoutQuestions()
+
+      //  And tasks that belong to another application origin are not shown at all
+      const sections = getSections()
+      sections.forEach(section => {
+        section.tasks.forEach(task => {
+          if (taskAppliesToApplication(task, application)) {
+            page.shouldShowAnswersForTask(task)
+          } else {
+            page.shouldNotShowTask(task)
+          }
+        })
       })
     })
   })
@@ -75,11 +78,18 @@ context('Check your answers page', () => {
   //  And I confirm the information is correct
   //  Then I am taken to the task list page
   it('navigates to the task list page once the referrer confirms details are correct', function test() {
+    const application = applicationFactory.build({
+      person,
+      data: this.applicationData,
+    })
+    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationUpdate', { application })
+
     //  When I view the 'check your answers' page
-    TaskListPage.visit(this.application)
-    const taskListPage = Page.verifyOnPage(TaskListPage, this.application)
+    TaskListPage.visit(application)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
     taskListPage.visitTask('Check application answers')
-    const page = Page.verifyOnPage(CheckYourAnswersPage, this.application)
+    const page = Page.verifyOnPage(CheckYourAnswersPage, application)
 
     //  When I confirm the information is correct
     page.checkCheckboxByValue('confirmed')
@@ -88,6 +98,6 @@ context('Check your answers page', () => {
     page.clickSubmit()
 
     //  Then I am taken to the task list page
-    Page.verifyOnPage(TaskListPage, this.application)
+    Page.verifyOnPage(TaskListPage, application)
   })
 })
