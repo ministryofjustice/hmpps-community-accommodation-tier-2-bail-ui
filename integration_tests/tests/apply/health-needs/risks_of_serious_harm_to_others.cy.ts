@@ -52,7 +52,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     // Given I have a non-bail application
     const application = applicationFactory.newCohort('hcrd').build({
       person,
-      data: this.applicationData,
+      data: { ...this.applicationData, 'risks-of-serious-harm-to-others': undefined },
     })
     cy.task('stubApplicationGet', { application })
 
@@ -67,7 +67,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     // Given I have a non-bail application with an applicable OASys assessment
     const application = applicationFactory.newCohort('hcrd').build({
       person,
-      data: this.applicationData,
+      data: { ...this.applicationData, 'risks-of-serious-harm-to-others': undefined },
     })
     const summary = cas2OAsysRoshSummaryDtoFactory.build({
       whoIsAtRisk: 'who is at risk answer',
@@ -159,7 +159,7 @@ context('Complete the "Risks of serious harm to others" task', () => {
     // Given I have a non-bail application with no applicable OASys assessment
     const application = applicationFactory.newCohort('hcrd').build({
       person,
-      data: this.applicationData,
+      data: { ...this.applicationData, 'risks-of-serious-harm-to-others': undefined },
     })
     const summary = cas2OAsysRoshSummaryDtoFactory.build({ metadata: { hasApplicableAssessment: false } })
     const ratings = cas2OAsysRoshRatingsDtoFactory.build({ metadata: { hasApplicableAssessment: false } })
