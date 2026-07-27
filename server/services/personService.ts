@@ -26,8 +26,13 @@ export default class PersonService {
 
   async getOasysRiskToSelf(token: string, crn: string): Promise<Cas2OAsysRiskToSelfDto> {
     const personClient = this.personClientFactory(token)
+    const riskToSelf = await personClient.oasysRiskToSelf(crn)
 
-    return personClient.oasysRiskToSelf(crn)
+    if (!riskToSelf?.metadata?.hasApplicableAssessment) {
+      return null
+    }
+
+    return riskToSelf
   }
 
   async getOasysRosh(token: string, crn: string): Promise<OASysRiskOfSeriousHarm> {

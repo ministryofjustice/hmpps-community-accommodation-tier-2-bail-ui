@@ -84,7 +84,9 @@ export default class OasysImport implements TaskListPage {
       try {
         oasys = await dataServices.personService.getOasysRiskToSelf(request.user.token, application.person.crn)
 
-        taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys))
+        if (oasys) {
+          taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys))
+        }
       } catch (e) {
         logOasysError(e, application.person.crn)
         oasys = null

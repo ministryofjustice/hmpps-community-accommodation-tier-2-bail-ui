@@ -83,8 +83,11 @@ export default class OasysImport implements TaskListPage {
     if (!application.data?.['risks-of-serious-harm-to-others']) {
       try {
         oasys = await dataServices.personService.getOasysRosh(request.user.token, application.person.crn)
-        risks = await dataServices.personService.getRoshRisks(request.user.token, application.person.crn)
-        taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys, risks))
+
+        if (oasys) {
+          risks = await dataServices.personService.getRoshRisks(request.user.token, application.person.crn)
+          taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys, risks))
+        }
       } catch (e) {
         logOasysError(e, application.person.crn)
         oasys = null
