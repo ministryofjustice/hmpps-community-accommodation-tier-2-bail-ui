@@ -183,7 +183,7 @@
   },
   "overrides": {
     "csurf": {
-      "cookie": "1.0.2"
+      "cookie": "1.1.1"
     },
     "serialize-javascript": "^7.0.5",
     "diff": "^8.0.3"
