@@ -24,7 +24,7 @@ export default class PersonService {
     return personClient.searchByCrn(crn)
   }
 
-  async getOasysRiskToSelf(token: string, crn: string): Promise<Cas2OAsysRiskToSelfDto> {
+  async getOasysRiskToSelf(token: string, crn: string): Promise<Cas2OAsysRiskToSelfDto | null> {
     const personClient = this.personClientFactory(token)
     const riskToSelf = await personClient.oasysRiskToSelf(crn)
 
