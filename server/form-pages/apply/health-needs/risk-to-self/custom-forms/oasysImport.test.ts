@@ -20,6 +20,7 @@ describe('OasysImport', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
   const oasys = cas2OAsysRiskToSelfDtoFactory.build({
     metadata: {
+      hasApplicableAssessment: true,
       dateCompleted: DateFormats.dateObjToIsoDateTime(new Date(2023, 7, 29)),
       dateStarted: DateFormats.dateObjToIsoDateTime(new Date(2023, 7, 28)),
     },
@@ -83,7 +84,9 @@ describe('OasysImport', () => {
 
       describe('when there is not a completed date', () => {
         it('does not assign a completed date', async () => {
-          const oasysIncomplete = cas2OAsysRiskToSelfDtoFactory.build({ metadata: { dateCompleted: null } })
+          const oasysIncomplete = cas2OAsysRiskToSelfDtoFactory.build({
+            metadata: { hasApplicableAssessment: true, dateCompleted: null },
+          })
 
           ;(dataServices.personService.getOasysRiskToSelf as jest.Mock).mockResolvedValue(oasysIncomplete)
 
@@ -91,6 +94,18 @@ describe('OasysImport', () => {
 
           expect(page.oasysCompleted).toBe(null)
         })
+      })
+    })
+
+    describe('when there is no applicable assessment to import', () => {
+      it('sets hasOasysRecord to false so the no OASys record page is shown', async () => {
+        ;(dataServices.personService.getOasysRiskToSelf as jest.Mock).mockResolvedValue(null)
+
+        const page = (await OasysImport.initialize({}, application, request, dataServices)) as OasysImport
+
+        expect(page.hasOasysRecord).toBe(false)
+        expect(page.oasysCompleted).toBe(undefined)
+        expect(page.oasysStarted).toBe(undefined)
       })
     })
 

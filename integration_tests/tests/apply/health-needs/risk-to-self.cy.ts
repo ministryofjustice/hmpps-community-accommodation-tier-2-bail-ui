@@ -163,7 +163,9 @@ context('Risk to self task', () => {
       person,
       data: { ...this.applicationData, 'risk-to-self': undefined },
     })
-    const data = cas2OAsysRiskToSelfDtoFactory.build()
+    const data = cas2OAsysRiskToSelfDtoFactory.build({
+      metadata: { hasApplicableAssessment: true, dateStarted: '2026-01-01', dateCompleted: '2026-01-02' },
+    })
 
     cy.task('stubApplicationGet', { application })
     cy.task('stubApplicationUpdate', { application })
@@ -200,6 +202,36 @@ context('Risk to self task', () => {
 
     // And the risk detail should be populated
     riskPage.shouldShowTextArea('currentAndPreviousRiskDetail', data.analysisSuicideSelfharm)
+  })
+
+  it('shows the no OASys record page then continues to the old OASys question when there is no applicable assessment', function test() {
+    const application = applicationFactory.build({
+      applicationOrigin: 'other',
+      person,
+      data: { ...this.applicationData, 'risk-to-self': undefined },
+    })
+    const data = cas2OAsysRiskToSelfDtoFactory.build({ metadata: { hasApplicableAssessment: false } })
+
+    cy.task('stubApplicationGet', { application })
+    cy.task('stubApplicationUpdate', { application })
+    cy.task('stubGetOasysRiskToSelf', { person, data })
+
+    // Given I am on the tasklist page
+    TaskListPage.visit(application)
+    const taskListPage = Page.verifyOnPage(TaskListPage, application)
+
+    // When I start the risk-to-self task
+    taskListPage.visitTask('Add risk to self information')
+
+    // Then I am on the oasys import page showing no oasys record
+    const oasysImportPage = Page.verifyOnPage(OasysImportPage, application)
+    oasysImportPage.verifyNoOasys()
+
+    // When I click continue
+    oasysImportPage.clickLink('Continue')
+
+    // Then I am on the old-oasys question page
+    Page.verifyOnPage(OldOasysPage, application)
   })
 
   it('The risk to self task is not shown for bail applications', function test() {

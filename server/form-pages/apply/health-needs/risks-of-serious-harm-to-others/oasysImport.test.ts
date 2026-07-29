@@ -121,6 +121,21 @@ describe('OasysImport', () => {
       })
     })
 
+    describe('when there is no applicable assessment to import', () => {
+      it('sets hasOasysRecord to false so the no OASys record page is shown', async () => {
+        ;(dataServices.personService.getOasysRosh as jest.Mock).mockResolvedValue(null)
+
+        const page = (await OasysImport.initialize(
+          {},
+          application,
+          { user: { token: 'some-token' } } as never,
+          dataServices,
+        )) as OasysImport
+
+        expect(page.hasOasysRecord).toBe(false)
+      })
+    })
+
     describe('when oasys sections are not returned', () => {
       it('sets hasOasysRecord to false when an error is returned', async () => {
         ;(dataServices.personService.getOasysRosh as jest.Mock).mockRejectedValue(new Error())

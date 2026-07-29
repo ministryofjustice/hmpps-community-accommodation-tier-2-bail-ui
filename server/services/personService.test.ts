@@ -1,4 +1,9 @@
-import { cas2OAsysRoshRatingsDtoFactory, cas2OAsysRoshSummaryDtoFactory, personFactory } from '../testutils/factories'
+import {
+  cas2OAsysRiskToSelfDtoFactory,
+  cas2OAsysRoshRatingsDtoFactory,
+  cas2OAsysRoshSummaryDtoFactory,
+  personFactory,
+} from '../testutils/factories'
 import PersonService from './personService'
 import { PersonClient } from '../data'
 
@@ -130,6 +135,17 @@ describe('Person Service', () => {
       const result = await service.getRoshRisks(token, 'crn')
 
       expect(result).toEqual({ status: 'not_found' })
+    })
+  })
+
+  describe('getOasysRiskToSelf', () => {
+    it('returns null when there is no applicable assessment', async () => {
+      const riskToSelf = cas2OAsysRiskToSelfDtoFactory.build({ metadata: { hasApplicableAssessment: false } })
+      personClient.oasysRiskToSelf.mockResolvedValue(riskToSelf)
+
+      const result = await service.getOasysRiskToSelf(token, 'crn')
+
+      expect(result).toBeNull()
     })
   })
 })
