@@ -26,7 +26,7 @@ context('Complete the "Current offences" task in "Offences and concerns"', () =>
   it('Runs the "Add current offences task"', function test() {
     const application = applicationFactory.newCohort().build({
       person,
-      data: { ...this.applicationData, 'current-offences': undefined },
+      data: { ...this.applicationData, 'current-offences': undefined, 'orders-and-licence-conditions': undefined },
     })
 
     cy.task('stubApplicationGet', { application })

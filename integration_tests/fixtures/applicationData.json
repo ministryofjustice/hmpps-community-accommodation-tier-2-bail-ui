@@ -402,6 +402,105 @@
       }
     }
   },
+  "risk-to-self": {
+    "old-oasys": {
+      "hasOldOasys": "no"
+    },
+    "vulnerability": {
+      "vulnerabilityDetail": "Some details about vulnerability",
+      "confirmation": "confirmed"
+    },
+    "current-and-previous-risk": {
+      "currentAndPreviousRiskDetail": "Some details about current and previous risk",
+      "confirmation": "confirmed"
+    },
+    "acct": {},
+    "acct-data": [
+      {
+        "createdDate-day": "1",
+        "createdDate-month": "2",
+        "createdDate-year": "2020",
+        "isOngoing": "no",
+        "closedDate-day": "10",
+        "closedDate-month": "10",
+        "closedDate-year": "2025",
+        "referringInstitution": "location1",
+        "acctDetails": "acct details"
+      },
+      {
+        "createdDate-day": "2",
+        "createdDate-month": "3",
+        "createdDate-year": "2021",
+        "isOngoing": "yes",
+        "referringInstitution": "location2",
+        "acctDetails": "acct details 2"
+      }
+    ],
+    "additional-information": {
+      "hasAdditionalInformation": "yes",
+      "additionalInformationDetail": "Some additional information about their risk to self"
+    }
+  },
+  "risks-of-serious-harm-to-others": {
+    "summary": {
+      "additionalComments": "Some additional comments about RoSH"
+    },
+    "manual-rosh-information": {
+      "riskToChildren": "Low",
+      "riskToPublic": "High",
+      "riskToKnownAdult": "Medium",
+      "riskToStaff": "Very high",
+      "overallRisk": "High",
+      "createdAt": "2026-01-01T01:00:00.000Z"
+    },
+    "old-oasys": {
+      "hasOldOasys": "no"
+    },
+    "risk-to-others": {
+      "whoIsAtRisk": "Some details about who is at risk",
+      "natureOfRisk": "Some details about the nature of the risk"
+    },
+    "risk-management-arrangements": {
+      "arrangements": ["mappa", "marac", "iom"],
+      "mappaDetails": "MAPPA details",
+      "maracDetails": "MARAC details",
+      "iomDetails": "IOM details"
+    },
+    "cell-share-information": {
+      "hasCellShareComments": "yes",
+      "cellShareInformationDetail": "Some cell share information"
+    },
+    "additional-risk-information": {
+      "hasAdditionalInformation": "yes",
+      "additionalInformationDetail": "Some additional risk information"
+    }
+  },
+  "current-offences": {
+    "current-offences": {
+      "offenceList": ""
+    },
+    "current-offence-data": [
+      {
+        "titleAndNumber": "offenceTitle",
+        "offenceCategory": "violence",
+        "offenceDate-day": "5",
+        "offenceDate-month": "6",
+        "offenceDate-year": "2022",
+        "sentenceLength": "6 months",
+        "summary": "Some summary of the offence"
+      }
+    ]
+  },
+  "orders-and-licence-conditions": {
+    "licence-conditions": {
+      "hasLicenceConditions": "yes",
+      "notes": "Some licence notes"
+    },
+    "orders": {
+      "hasOrders": "yes",
+      "notes": "Some order notes"
+    }
+  },
   "check-your-answers": {
     "check-your-answers": {
       "checkYourAnswers": "confirmed"
