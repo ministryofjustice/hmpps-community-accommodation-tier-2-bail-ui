@@ -21,7 +21,7 @@
         fieldName: "applicationOrigin",
         fieldset: {
           legend: {
-            text: "Which type of application do you want to make?",
+            text: "Are you applying for someone who is seeking bail?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
@@ -29,17 +29,11 @@
         items: [
           {
             value: "bail",
-            text: "Bail",
-            hint: {
-              text: "Applicant is seeking court or prison bail."
-            }
+            text: "Yes"
           },
           {
             value: "other",
-            text: "A different type of application",
-            hint: {
-              text: "Applicant is being released, at risk of being recalled, or leaving an approved premises with no suitable accommodation."
-            }
+            text: "No"
           }
         ]
       },

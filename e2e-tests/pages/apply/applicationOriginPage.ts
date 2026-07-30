@@ -2,12 +2,12 @@ import BasePage from '../basePage'
 
 export default class ApplicationOriginPage extends BasePage {
   async chooseBail() {
-    await this.checkRadio('Bail')
+    await this.checkRadio('Yes')
     await this.clickButton('Continue')
   }
 
   async chooseOther() {
-    await this.checkRadio('A different type of application')
+    await this.checkRadio('No')
     await this.clickButton('Continue')
   }
 }

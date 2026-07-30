@@ -2,7 +2,7 @@ import Page from '../../page'
 
 export default class ApplicationOriginPage extends Page {
   constructor(name?: string) {
-    super(`Which type of application do you want to make?`, name)
+    super(`Are you applying for someone who is seeking bail?`, name)
   }
 
   static visit(name?: string): ApplicationOriginPage {
@@ -11,10 +11,10 @@ export default class ApplicationOriginPage extends Page {
   }
 
   selectBail() {
-    this.checkRadioByNameAndLabel('applicationOrigin', 'Bail')
+    this.checkRadioByNameAndLabel('applicationOrigin', 'Yes')
   }
 
   selectOther() {
-    this.checkRadioByNameAndLabel('applicationOrigin', 'A different type of application')
+    this.checkRadioByNameAndLabel('applicationOrigin', 'No')
   }
 }
