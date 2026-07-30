@@ -816,6 +816,26 @@ describe('getPage', () => {
       })
     })
 
+    describe('when the prison number is missing', () => {
+      it('should not return a prison number row', () => {
+        const person = personFactory.build({ nomsNumber: undefined })
+
+        const application = applicationFactory.build({ person })
+
+        expect(getApplicantDetails(application).map(row => row.key)).not.toContainEqual({ text: 'Prison number' })
+      })
+    })
+
+    describe('when the prison is missing', () => {
+      it('should not return a prison row', () => {
+        const person = personFactory.build({ prisonName: undefined })
+
+        const application = applicationFactory.build({ person })
+
+        expect(getApplicantDetails(application).map(row => row.key)).not.toContainEqual({ text: 'Prison' })
+      })
+    })
+
     it('should return applicant details with nationality as unknown', () => {
       const person = personFactory.build({ nationality: undefined })
 

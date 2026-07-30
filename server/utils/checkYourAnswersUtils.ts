@@ -272,22 +272,30 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
         html: sex,
       },
     },
-    {
-      key: {
-        text: 'Prison number',
-      },
-      value: {
-        html: nomsNumber ?? '',
-      },
-    },
-    {
-      key: {
-        text: 'Prison',
-      },
-      value: {
-        html: prisonName ?? '',
-      },
-    },
+    ...(nomsNumber
+      ? [
+          {
+            key: {
+              text: 'Prison number',
+            },
+            value: {
+              html: nomsNumber,
+            },
+          },
+        ]
+      : []),
+    ...(prisonName
+      ? [
+          {
+            key: {
+              text: 'Prison',
+            },
+            value: {
+              html: prisonName,
+            },
+          },
+        ]
+      : []),
     {
       key: {
         text: 'PNC number',
