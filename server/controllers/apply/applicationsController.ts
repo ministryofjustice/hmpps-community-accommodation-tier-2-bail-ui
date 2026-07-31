@@ -226,7 +226,7 @@ export default class ApplicationsController {
         errors,
         errorSummary,
         ...userInput,
-        pageHeading: 'Which type of application do you want to make?',
+        pageHeading: 'Are you applying for someone who is seeking bail?',
       })
     }
   }
@@ -262,7 +262,7 @@ export default class ApplicationsController {
         return res.redirect(paths.applications.newCohorts.beforeYouStart({}))
       }
 
-      const message = 'Select the type of application you want to make'
+      const message = 'Select yes if you are applying for someone seeking bail'
 
       req.flash('errors', {
         applicationOrigin: errorMessage('applicationOrigin', message),

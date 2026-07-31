@@ -540,7 +540,7 @@ describe('applicationsController', () => {
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
         errors: {},
         errorSummary: [],
-        pageHeading: 'Which type of application do you want to make?',
+        pageHeading: 'Are you applying for someone who is seeking bail?',
       })
     })
 
@@ -552,7 +552,7 @@ describe('applicationsController', () => {
       await requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('applications/application-origin', {
-        pageHeading: 'Which type of application do you want to make?',
+        pageHeading: 'Are you applying for someone who is seeking bail?',
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
