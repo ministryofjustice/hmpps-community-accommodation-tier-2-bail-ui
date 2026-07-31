@@ -49,4 +49,22 @@ export default class HomePage extends Page {
     cy.contains('interview questions sheet (DOCX, 124KB)').should('not.exist')
     cy.contains('interview questions sheet (HTML, 21KB)(opens in new tab)').should('not.exist')
   }
+
+  shouldShowApplicationTypes(): void {
+    cy.contains('Types of application you can submit')
+      .siblings('ul')
+      .within(_ => {
+        cy.get('li').contains('Bail').should('exist')
+        cy.get('li').contains('Alternative to custodial recall (ATCR)').should('exist')
+        cy.get('li').contains('Homeless at conditional release date (HCRD)').should('exist')
+        cy.get('li').contains('Homeless at end of fixed-term recall').should('exist')
+        cy.get('li').contains('Intensive supervision courts (ISC)').should('exist')
+        cy.get('li').contains('Risk Assessed Recall Review (RARR)').should('exist')
+        cy.get('li').contains('Referral from Approved Premises').should('exist')
+      })
+  }
+
+  shouldNotShowApplicationTypes(): void {
+    cy.contains('Types of application you can submit').should('not.exist')
+  }
 }
