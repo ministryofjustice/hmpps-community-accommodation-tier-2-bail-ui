@@ -1,5 +1,5 @@
 import { Cas2Application, Cas2CohortDto } from '@approved-premises/api'
-import deleteOrphanedFollowOnAnswers from './deleteOrphanedData'
+import deleteOrphanedFollowOnAnswers, { deleteOrphanedAnswersOnCppCheckChange } from './deleteOrphanedData'
 import { applicationFactory } from '../../testutils/factories'
 
 describe('deleteOrphanedFollowOnAnswers', () => {
@@ -602,5 +602,35 @@ describe('deleteOrphanedFollowOnAnswers', () => {
       const expected = { ...data, 'personal-information': { 'custody-location': undefined as Record<string, unknown> } }
       expect(deleteOrphanedFollowOnAnswers(applicationFactory.build({ data, cohort: 'isc' }))).toEqual(expected)
     })
+  })
+})
+
+describe('deleteOrphanedAnswersOnCppCheckChange', () => {
+  const referrerDetails = () => ({
+    'referrer-details': {
+      'cpp-check': { isCpp: 'no' },
+      'community-probation-practitioner-details': { name: 'Some CPP' },
+      'job-title': { jobTitle: 'some job title' },
+      'contact-number': { telephone: '12345' },
+      location: { location: 'some location' },
+    },
+  })
+
+  it.each([
+    ['yes', 'no'],
+    ['no', 'yes'],
+  ])('removes the pages that follow cpp-check when the answer changes from %s to %s', (oldAnswer, newAnswer) => {
+    const applicationData = referrerDetails()
+    applicationData['referrer-details']['cpp-check'] = { isCpp: newAnswer }
+
+    expect(
+      deleteOrphanedAnswersOnCppCheckChange(
+        applicationData,
+        'referrer-details',
+        'cpp-check',
+        { isCpp: oldAnswer },
+        { isCpp: newAnswer },
+      ),
+    ).toEqual({ 'referrer-details': { 'cpp-check': { isCpp: newAnswer } } })
   })
 })
