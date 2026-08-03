@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
 import type { Cas2Assessment } from './Cas2Assessment';
+import type { Cas2CohortDto } from './Cas2CohortDto';
 import type { Cas2TimelineEvent } from './Cas2TimelineEvent';
 import type { Cas2User } from './Cas2User';
 import type { FullPerson } from './FullPerson';
@@ -13,6 +14,7 @@ export type Cas2SubmittedApplication = {
     applicationOrigin?: ApplicationOrigin;
     assessment: Cas2Assessment;
     bailHearingDate?: string;
+    cohort?: Cas2CohortDto;
     createdAt: string;
     document?: any;
     id: string;
