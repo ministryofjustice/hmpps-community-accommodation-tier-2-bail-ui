@@ -25,6 +25,7 @@ import {
   getSideNavLinksForApplication,
   getSideNavLinksForDocument,
 } from './applications/utils'
+import { applicationTypeLabel } from './applications/cohortLabels'
 import { applicationStatusRadios, applicationStatusDetailOptions } from './assessUtils'
 import { checkYourAnswersSections, getApplicantDetails } from './checkYourAnswersUtils'
 import { DateFormats } from './dateUtils'
@@ -94,6 +95,7 @@ export default function nunjucksSetup(app: express.Express): void {
 
   njkEnv.addGlobal('checkYourAnswersSections', checkYourAnswersSections)
   njkEnv.addGlobal('getApplicantDetails', getApplicantDetails)
+  njkEnv.addGlobal('applicationTypeLabel', applicationTypeLabel)
 
   njkEnv.addGlobal('getApplicationTimelineEvents', getApplicationTimelineEvents)
   njkEnv.addGlobal('applicationStatusRadios', applicationStatusRadios)

@@ -1,4 +1,4 @@
-import { Cas2CohortDto } from '@approved-premises/api'
+import { ApplicationOrigin, Cas2Application, Cas2CohortDto, Cas2SubmittedApplication } from '@approved-premises/api'
 
 export type NonBailCohort = Exclude<Cas2CohortDto, 'hdc' | 'prisonBail' | 'courtBail'>
 
@@ -21,3 +21,12 @@ export const cohortLabels: Record<Cas2CohortDto, string> = {
 export const cohortLabel = (cohort?: Cas2CohortDto): string => (cohort ? (cohortLabels[cohort] ?? cohort) : '')
 
 export const custodialCohorts: Array<Cas2CohortDto> = ['rarr', 'hcrd', 'hefr', 'hdc', 'prisonBail', 'courtBail']
+
+export const bailCohorts: Partial<Record<ApplicationOrigin, Cas2CohortDto>> = {
+  courtBail: 'courtBail',
+  prisonBail: 'prisonBail',
+}
+
+// fallback for pre-cohorts!
+export const applicationTypeLabel = (application: Cas2Application | Cas2SubmittedApplication): string =>
+  cohortLabel(application.cohort) || cohortLabel(bailCohorts[application.applicationOrigin])

@@ -9,6 +9,7 @@ import {
 import { SummaryListItem } from '@approved-premises/ui'
 import errorLookups from '../../server/i18n/en/errors.json'
 import { DateFormats } from '../../server/utils/dateUtils'
+import { applicationTypeLabel } from '../../server/utils/applications/cohortLabels'
 import paths from '../../server/paths/apply'
 
 export type PageElement = Cypress.Chainable<JQuery>
@@ -166,10 +167,7 @@ export default abstract class Page {
   hasApplicantDetails(application: SubmittedApplication | Application): void {
     const person = application.person as FullPerson
     cy.get(`[data-cy-check-your-answers-section="applicant-details"]`).within(() => {
-      this.checkTermAndDescription(
-        'Application type',
-        application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
-      )
+      this.checkTermAndDescription('Application type', applicationTypeLabel(application))
       this.checkTermAndDescription('Full name', person.name)
       this.checkTermAndDescription(
         'Date of birth',

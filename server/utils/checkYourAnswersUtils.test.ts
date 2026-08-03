@@ -715,7 +715,7 @@ describe('getPage', () => {
       it('should return applicant details in the correct format', () => {
         const person = personFactory.build({})
 
-        const application = applicationFactory.build({ person, applicationOrigin: 'courtBail' })
+        const application = applicationFactory.build({ person, applicationOrigin: 'courtBail', cohort: 'courtBail' })
 
         const expected = [
           {
@@ -793,6 +793,25 @@ describe('getPage', () => {
         ]
 
         expect(getApplicantDetails(application)).toEqual(expected)
+      })
+    })
+
+    describe('when the application is for one of the new cohorts', () => {
+      it('should return the cohort as the application type', () => {
+        const person = personFactory.build({})
+
+        const application = applicationFactory.newCohort('isc').build({ person })
+
+        const expected = {
+          key: {
+            text: 'Application type',
+          },
+          value: {
+            html: 'Intensive supervision courts (ISC)',
+          },
+        }
+
+        expect(getApplicantDetails(application)).toContainEqual(expected)
       })
     })
 
