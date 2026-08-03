@@ -10,6 +10,7 @@ import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import getTaskStatus from '../form-pages/utils/getTaskStatus'
 import { UnknownPageError } from './errors'
 import { DateFormats } from './dateUtils'
+import { summaryListItem } from './formUtils'
 
 export const taskAppliesToApplication = (task: UiTask, application: Application): boolean =>
   getTaskStatus(task, application) !== 'not_applicable'
@@ -232,87 +233,20 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
     application.person as FullPerson
 
   return [
-    {
-      key: {
-        text: 'Application type',
-      },
-      value: {
-        html: application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
-      },
-    },
-    {
-      key: {
-        text: 'Full name',
-      },
-      value: {
-        html: name,
-      },
-    },
-    {
-      key: {
-        text: 'Date of birth',
-      },
-      value: {
-        html: DateFormats.isoDateToUIDate(dateOfBirth, { format: 'short' }),
-      },
-    },
-    {
-      key: {
-        text: 'Nationality',
-      },
-      value: {
-        html: nationality || 'Unknown',
-      },
-    },
-    {
-      key: {
-        text: 'Sex',
-      },
-      value: {
-        html: sex,
-      },
-    },
-    ...(nomsNumber
-      ? [
-          {
-            key: {
-              text: 'Prison number',
-            },
-            value: {
-              html: nomsNumber,
-            },
-          },
-        ]
-      : []),
-    ...(prisonName
-      ? [
-          {
-            key: {
-              text: 'Prison',
-            },
-            value: {
-              html: prisonName,
-            },
-          },
-        ]
-      : []),
-    {
-      key: {
-        text: 'PNC number',
-      },
-      value: {
-        html: pncNumber || 'Unable to import',
-      },
-    },
-    {
-      key: {
-        text: 'CRN from NDelius',
-      },
-      value: {
-        html: crn,
-      },
-    },
-  ]
+    summaryListItem(
+      'Application type',
+      application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
+      'html',
+    ),
+    summaryListItem('Full name', name, 'html'),
+    summaryListItem('Date of birth', DateFormats.isoDateToUIDate(dateOfBirth, { format: 'short' }), 'html'),
+    summaryListItem('Nationality', nationality || 'Unknown', 'html'),
+    summaryListItem('Sex', sex, 'html'),
+    summaryListItem('Prison number', nomsNumber, 'html', true),
+    summaryListItem('Prison', prisonName, 'html', true),
+    summaryListItem('PNC number', pncNumber || 'Unable to import', 'html'),
+    summaryListItem('CRN from NDelius', crn, 'html'),
+  ].filter(Boolean)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
