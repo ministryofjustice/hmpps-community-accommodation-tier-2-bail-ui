@@ -131,4 +131,32 @@ context('Home', () => {
     //  And I do not see the links to the interview question sheets
     page.shouldNotShowInterviewQuestionLinks()
   })
+
+  it('shows the types of application a referrer can submit', () => {
+    // Given I am logged in as a referrer
+    cy.task('stubSignIn', { roles: ['ROLE_CAS2_PRISON_BAIL_REFERRER'] })
+    cy.task('stubAuthUser')
+    cy.signIn()
+
+    // When I visit the home page
+    HomePage.visit()
+    const page = Page.verifyOnPage(HomePage)
+
+    // Then I should see the list of applications I can submit
+    page.shouldShowApplicationTypes()
+  })
+
+  it('does not show the types of application for an assessor', () => {
+    // Given I am logged in as a referrer
+    cy.task('stubSignIn', { roles: ['ROLE_CAS2_ASSESSOR'] })
+    cy.task('stubAuthUser')
+    cy.signIn()
+
+    // When I visit the home page
+    HomePage.visit()
+    const page = Page.verifyOnPage(HomePage)
+
+    // Then I should not see the list of application types
+    page.shouldNotShowApplicationTypes()
+  })
 })
