@@ -260,13 +260,13 @@ export function getQuestions(
           question: 'Address line 1',
         },
         lastKnownAddressLine2: {
-          question: 'Address line 2 (optional)',
+          question: 'Address line 2',
         },
         lastKnownTownOrCity: {
           question: 'Town or city',
         },
         lastKnownCounty: {
-          question: 'County (optional)',
+          question: 'County',
         },
         lastKnownPostcode: {
           question: 'Postcode',
