@@ -2,6 +2,26 @@ import { Cas2Application } from '@approved-premises/api'
 import { PreviousConvictionsAnswers } from '../../form-pages/apply/offences-and-concerns/previous-unspent-convictions/anyPreviousConvictions'
 import { custodialCohorts } from './cohortLabels'
 
+export const deleteOrphanedAnswersOnCppCheckChange = (
+  applicationData: Cas2Application['data'],
+  taskName: string,
+  pageName: string,
+  oldBody: Record<string, unknown>,
+  newBody: Record<string, unknown>,
+): Cas2Application['data'] => {
+  const cppCheckAnswerHasChanged =
+    taskName === 'referrer-details' && pageName === 'cpp-check' && oldBody && oldBody.isCpp !== newBody.isCpp
+
+  if (cppCheckAnswerHasChanged) {
+    delete applicationData['referrer-details']['community-probation-practitioner-details']
+    delete applicationData['referrer-details']['job-title']
+    delete applicationData['referrer-details']['contact-number']
+    delete applicationData['referrer-details'].location
+  }
+
+  return applicationData
+}
+
 export default function deleteOrphanedFollowOnAnswers(application: Cas2Application): Cas2Application {
   const applicationData = application.data
 

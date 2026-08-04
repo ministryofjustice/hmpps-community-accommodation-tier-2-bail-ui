@@ -7,7 +7,9 @@ import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
 import CheckYourAnswers from '../form-pages/apply/check-your-answers/check-your-answers/checkYourAnswers'
 import { ValidationError } from '../utils/errors'
-import deleteOrphanedFollowOnAnswers from '../utils/applications/deleteOrphanedData'
+import deleteOrphanedFollowOnAnswers, {
+  deleteOrphanedAnswersOnCppCheckChange,
+} from '../utils/applications/deleteOrphanedData'
 
 export default class ApplicationService {
   constructor(private readonly applicationClientFactory: RestClientBuilder<ApplicationClient>) {}
@@ -88,6 +90,7 @@ export default class ApplicationService {
       const oldBody = application.data?.[taskName]?.[pageName]
 
       application.data = this.addPageDataToApplicationData(application.data, taskName, pageName, page)
+      application.data = deleteOrphanedAnswersOnCppCheckChange(application.data, taskName, pageName, oldBody, page.body)
       application.data = deleteOrphanedFollowOnAnswers(application)
       application.data = this.deleteCheckYourAnswersIfPageChange(application.data, pageName, oldBody, page.body)
 
