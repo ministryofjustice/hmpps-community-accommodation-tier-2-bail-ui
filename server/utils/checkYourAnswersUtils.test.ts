@@ -8,9 +8,6 @@ import { DateFormats } from './dateUtils'
 import { UnknownPageError } from './errors'
 import { formatLines } from './viewUtils'
 
-jest.mock('./formUtils', () => ({
-  ...jest.requireActual('./formUtils'),
-}))
 jest.mock('./viewUtils')
 
 const {
