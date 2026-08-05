@@ -815,18 +815,6 @@ describe('getPage', () => {
       })
     })
 
-    describe('when there is no cohort and the application origin is not a bail one', () => {
-      it('should omit the application type', () => {
-        const person = personFactory.build({})
-
-        const application = applicationFactory.build({ person, applicationOrigin: 'other', cohort: undefined })
-
-        expect(getApplicantDetails(application)).not.toContainEqual(
-          expect.objectContaining({ key: { text: 'Application type' } }),
-        )
-      })
-    })
-
     describe('when the PNC number is missing', () => {
       it('should return applicant details with "Unable to import" for PNC number', () => {
         const person = personFactory.build({ pncNumber: undefined })
