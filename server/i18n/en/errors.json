@@ -41,6 +41,9 @@
   "oasysConfirmation": {
     "empty": "Confirm that the information is relevant and up to date"
   },
+  "currentAndPreviousRiskDetail": {
+    "empty": "Enter current and previous issues and needs related to self harm and suicide"
+  },
   "circumstancesLikelyToIncreaseRisk": {
     "empty": "Enter the circumstances that are likely to increase risk"
   },

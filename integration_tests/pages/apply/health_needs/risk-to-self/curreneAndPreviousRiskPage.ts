@@ -3,7 +3,7 @@ import ApplyPage from '../../applyPage'
 import { nameOrPlaceholderCopy } from '../../../../../server/utils/utils'
 
 export default class CurrentAndPreviousRiskPage extends ApplyPage {
-  constructor(private readonly application: Application) {
+  constructor(application: Application) {
     super(
       `${nameOrPlaceholderCopy(application.person)}'s current and previous risks`,
       application,
@@ -14,9 +14,7 @@ export default class CurrentAndPreviousRiskPage extends ApplyPage {
 
   checkErrors() {
     this.shouldShowErrorSummary('Confirm that the information is relevant and up to date')
-    this.shouldShowErrorSummary(
-      `Describe ${nameOrPlaceholderCopy(this.application.person)}'s current and previous issues and needs related to self harm and suicide`,
-    )
+    this.shouldShowErrorSummary('Enter current and previous issues and needs related to self harm and suicide')
   }
 
   completeForm() {

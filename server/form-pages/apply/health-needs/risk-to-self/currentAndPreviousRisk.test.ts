@@ -39,8 +39,7 @@ describe('CurrentAndPreviousRisk', () => {
     it('returns an error when the confirmation is blank', () => {
       const page = new CurrentAndPreviousRisk({}, application)
       expect(page.errors()).toEqual({
-        currentAndPreviousRiskDetail:
-          "Describe Roger Smith's current and previous issues and needs related to self harm and suicide",
+        currentAndPreviousRiskDetail: 'Enter current and previous issues and needs related to self harm and suicide',
         confirmation: 'Confirm that the information is relevant and up to date',
       })
     })
