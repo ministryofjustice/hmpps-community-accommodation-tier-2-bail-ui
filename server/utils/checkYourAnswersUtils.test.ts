@@ -8,7 +8,6 @@ import { DateFormats } from './dateUtils'
 import { UnknownPageError } from './errors'
 import { formatLines } from './viewUtils'
 
-jest.mock('./formUtils')
 jest.mock('./viewUtils')
 
 const {
@@ -813,6 +812,26 @@ describe('getPage', () => {
         }
 
         expect(getApplicantDetails(application)).toContainEqual(expected)
+      })
+    })
+
+    describe('when the prison number is missing', () => {
+      it('should not return a prison number row', () => {
+        const person = personFactory.build({ nomsNumber: undefined })
+
+        const application = applicationFactory.build({ person })
+
+        expect(getApplicantDetails(application).map(row => row.key)).not.toContainEqual({ text: 'Prison number' })
+      })
+    })
+
+    describe('when the prison is missing', () => {
+      it('should not return a prison row', () => {
+        const person = personFactory.build({ prisonName: undefined })
+
+        const application = applicationFactory.build({ person })
+
+        expect(getApplicantDetails(application).map(row => row.key)).not.toContainEqual({ text: 'Prison' })
       })
     })
 

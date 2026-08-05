@@ -10,10 +10,11 @@
         {% else %}
         {{ summary.name }}'s application
         {% endif %}
-      <br>
       {% if (summary.applicationOrigin == "courtBail") %}
+        <br>
         <span class="govuk-body-l application-summary-panel__text"><strong>CRN:</strong>{{ summary.crn }}</span>
-      {% else %}
+      {% elif summary.prisonNumber %}
+        <br>
         <span class="govuk-body-l application-summary-panel__text"><strong>Prison number:</strong>{{ summary.prisonNumber }}</span>
       {% endif %}
     </h1>
