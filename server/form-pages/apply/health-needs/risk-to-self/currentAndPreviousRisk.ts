@@ -52,7 +52,7 @@ export default class CurrentAndPreviousRisk implements TaskListPage {
     const errors: TaskListErrors<this> = {}
 
     if (!this.body.currentAndPreviousRiskDetail) {
-      errors.currentAndPreviousRiskDetail = `Describe ${this.personName}'s current and previous issues and needs related to self harm and suicide`
+      errors.currentAndPreviousRiskDetail = errorLookups.currentAndPreviousRiskDetail.empty
     }
     if (!this.body.confirmation) {
       errors.confirmation = errorLookups.oasysConfirmation.empty
