@@ -11,6 +11,7 @@ import getTaskStatus from '../form-pages/utils/getTaskStatus'
 import { UnknownPageError } from './errors'
 import { DateFormats } from './dateUtils'
 import { summaryListItem } from './formUtils'
+import { applicationTypeLabel } from './applications/cohortLabels'
 
 export const taskAppliesToApplication = (task: UiTask, application: Application): boolean =>
   getTaskStatus(task, application) !== 'not_applicable'
@@ -233,11 +234,7 @@ export const getApplicantDetails = (application: Application | Cas2SubmittedAppl
     application.person as FullPerson
 
   return [
-    summaryListItem(
-      'Application type',
-      application.applicationOrigin === 'courtBail' ? 'Court Bail' : 'Prison Bail',
-      'html',
-    ),
+    summaryListItem('Application type', applicationTypeLabel(application), 'html', true),
     summaryListItem('Full name', name, 'html'),
     summaryListItem('Date of birth', DateFormats.isoDateToUIDate(dateOfBirth, { format: 'short' }), 'html'),
     summaryListItem('Nationality', nationality || 'Unknown', 'html'),
