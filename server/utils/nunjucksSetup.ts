@@ -39,7 +39,9 @@ import * as PhaseBannerUtils from './phaseBannerUtils'
 export default function nunjucksSetup(app: express.Express): void {
   app.set('view engine', 'njk')
 
-  app.locals.applicationName = 'CAS2 for bail - short-term accommodation'
+  app.locals.applicationName = config.flags.cas2IsrEnabled
+    ? 'CAS2 - short-term accommodation'
+    : 'CAS2 for bail - short-term accommodation'
   app.locals.environmentName = config.environmentName
   app.locals.environmentNameColour = config.environmentName === 'preprod' ? 'govuk-tag--green' : ''
   let assetManifest: Record<string, string> = {}
@@ -66,6 +68,7 @@ export default function nunjucksSetup(app: express.Express): void {
   )
 
   njkEnv.addGlobal('plannedMaintenance', config.flags.plannedMaintenance)
+  njkEnv.addGlobal('cas2IsrEnabled', config.flags.cas2IsrEnabled)
 
   njkEnv.addFilter('initialiseName', initialiseName)
   njkEnv.addFilter('assetMap', (url: string) => assetManifest[url] || url)
