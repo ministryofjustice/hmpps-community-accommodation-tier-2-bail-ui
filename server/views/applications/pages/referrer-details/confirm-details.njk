@@ -11,8 +11,10 @@
         rows: page.summaryRows()
     }) }}
 
+    {% set teamName = "CAS2 team" if cas2IsrEnabled else "CAS2 Bail team" %}
+
     {{ govukWarningText({
-        text: "If any of these details are wrong, contact the CAS2 Bail team with the correct details when you submit the application.",
+        text: "If any of these details are wrong, contact the " + teamName + " with the correct details when you submit the application.",
         iconFallbackText: "Warning"
     }) }}
 
