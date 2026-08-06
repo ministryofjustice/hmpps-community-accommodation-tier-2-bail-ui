@@ -1,10 +1,11 @@
 import {
-  ApplicationOrigin,
   Cas2CohortDto,
   Cas2Application as Application,
   SubmitCas2Application,
   UpdateCas2Application,
 } from '@approved-premises/api'
+
+import { bailCohorts } from './cohortLabels'
 
 import {
   preferredAreasFromAppData,
@@ -16,20 +17,8 @@ export const getApplicationUpdateData = (application: Application, cohort?: Cas2
   return {
     type: 'CAS2V2',
     data: application.data,
-    cohort: cohort || application.cohort || getBailCohort(application.applicationOrigin),
+    cohort: cohort || application.cohort || bailCohorts[application.applicationOrigin],
   }
-}
-
-function getBailCohort(applicationOrigin: ApplicationOrigin): Cas2CohortDto | undefined {
-  if (applicationOrigin === 'courtBail') {
-    return 'courtBail'
-  }
-
-  if (applicationOrigin === 'prisonBail') {
-    return 'prisonBail'
-  }
-
-  return undefined
 }
 
 export const getApplicationSubmissionData = (application: Application): SubmitCas2Application => {
