@@ -1,5 +1,6 @@
 import type { Request, RequestHandler, Response } from 'express'
 import { sectionsForUser } from '../utils/userUtils'
+import config from '../config'
 
 export default class DashboardController {
   index(): RequestHandler {
@@ -12,7 +13,7 @@ export default class DashboardController {
         res.locals.user.userRoles.includes('PROBATION')
 
       res.render('dashboard/index', {
-        pageHeading: 'CAS2 for bail',
+        pageHeading: config.flags.cas2IsrEnabled ? 'CAS2' : 'CAS2 for bail',
         sections,
         isReferrer,
       })
