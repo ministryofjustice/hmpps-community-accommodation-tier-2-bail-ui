@@ -19,14 +19,14 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">{{ heading }}</h1>
+      <h1 class="govuk-heading-xl">{{ heading }}</h1>
 
-      <p class="govuk-body-l">Use this service to apply for short-term accommodation for people being released, recalled, bailed or leaving an approved premises with no suitable accommodation.</p>
+      <p class="govuk-body">Use this service to apply for short-term accommodation for people being released, recalled, bailed or leaving an approved premises with no suitable accommodation.</p>
 
       <h2 class="govuk-heading-m">Who is eligible</h2>
 
       <p class="govuk-body">The applicant must:</p>
-      <ul>
+      <ul class="govuk-list govuk-list--bullet">
         <li>be <strong>18 or over</strong></li>
         <li>be <strong>low or medium risk</strong></li>
         <li><strong>not</strong> have any <strong>sexual offence allegations, charges, convictions, or cautions</strong></li>
@@ -34,16 +34,16 @@
         <li><strong>not</strong> have <strong>‘no recourse to public funds’</strong></li>
       </ul>
 
-      <h2 class="govuk-heading-m">What you’ll need</h2>
+      <h2 class="govuk-heading-m govuk-!-margin-top-4">What you’ll need</h2>
 
       <p class="govuk-body">You’ll need:</p>
-      <ul>
+      <ul class="govuk-list govuk-list--bullet">
         <li>their CRN</li>
         <li>verbal consent from the applicant</li>
       </ul>
 
       <p class="govuk-body">You’ll be asked for information about:</p>
-      <ul>
+      <ul class="govuk-list govuk-list--bullet">
         <li>personal details</li>
         <li>previous address</li>
         <li>preferred areas and exclusion zones</li>
@@ -55,19 +55,21 @@
         <li>bail conditions and hearing information</li>
       </ul>
 
-{% call govukInsetText({}) %}
-      <p>Emergency referrals must be made before 4pm.</p>
-{% endcall %}
+      {% call govukInsetText({}) %}
+        <p>Emergency referrals must be made before 4pm.</p>
+      {% endcall %}
 
-{% call govukInsetText({}) %}
-      <p>All questions are mandatory, unless marked as optional.</p>
-      <p>You can save your progress and return to the application at any time.</p>
-{% endcall %}
+      {% call govukInsetText({
+        classes: "govuk-!-margin-top-7"
+      }) %}
+        <p class="govuk-!-margin-bottom-0">All questions are mandatory, unless marked as optional.</p>
+        <p>You can save your progress and return to the application at any time.</p>
+      {% endcall %}
 
       {{ govukButton({
           text: "Start now",
-          isStartButton: true,
           preventDoubleClick: true,
+          classes: "govuk-!-margin-top-2",
           href: nextUrl
       }) }}
     </div>
