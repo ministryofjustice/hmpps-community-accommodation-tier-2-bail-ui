@@ -39,6 +39,11 @@
           <a class="application-summary-panel__text" href="tel:{{ summary.contactNumber }}">{{ summary.contactNumber }}</a>
         </li>
       {% endif %}
+      {% if summary.tier %}
+        <li>
+          <span class="govuk-!-font-weight-bold">Tier: </span>{{ summary.tier }}
+        </li>
+      {% endif %}
       <li>
         <span class="govuk-!-font-weight-bold">Application ID: </span>{{ summary.id }}
       </li>

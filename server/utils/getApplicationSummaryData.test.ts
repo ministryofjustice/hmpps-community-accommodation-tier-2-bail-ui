@@ -11,6 +11,7 @@ describe('getApplicationSummaryData', () => {
         nomsNumber: 'B5678CD',
         prisonName: 'HMP Test',
         crn: 'X123456',
+        tier: { tierScore: 'B1', calculationDate: '2026-01-01', version: 'V2' },
       } as FullPerson,
       createdBy: {
         name: 'Referrer User',
@@ -38,6 +39,7 @@ describe('getApplicationSummaryData', () => {
       referrerName: 'Referrer User',
       contactEmail: 'referrer@test.com',
       contactNumber: '07123 456789',
+      tier: 'B1',
       view: 'referrerSubmission',
     })
   })
@@ -50,6 +52,7 @@ describe('getApplicationSummaryData', () => {
         nomsNumber: 'C9876EF',
         prisonName: null,
         crn: 'Y654321',
+        tier: { tierScore: 'A2', calculationDate: '2026-01-01', version: 'V3' },
       } as FullPerson,
       submittedBy: {
         name: 'Assessor User',
@@ -88,8 +91,24 @@ describe('getApplicationSummaryData', () => {
       referrerName: 'Assessor User',
       contactEmail: 'assessor@test.com',
       contactNumber: '07999 888777',
+      tier: 'A2',
       view: 'assessor',
     })
+  })
+
+  it('returns null for tier if the person has no tier', () => {
+    const application: Cas2SubmittedApplication = submittedApplicationFactory.build({
+      id: 'app-4',
+      person: {
+        name: 'No Tier',
+        nomsNumber: 'Z0000ZZ',
+        crn: 'Z999999',
+        tier: null,
+      } as FullPerson,
+    })
+
+    const result = getApplicationSummaryData('assessor', application)
+    expect(result.tier).toBeNull()
   })
 
   it('returns null for prisonName if not present in either type', () => {

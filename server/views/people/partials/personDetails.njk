@@ -66,6 +66,13 @@
       value: {
         html: statusTag(person.status)
       }
+    }, {
+      key: {
+        text: "Tier"
+      },
+      value: {
+        text: person.tier.tierScore
+      }
     }
   ] | removeBlankSummaryListItems) %}
 

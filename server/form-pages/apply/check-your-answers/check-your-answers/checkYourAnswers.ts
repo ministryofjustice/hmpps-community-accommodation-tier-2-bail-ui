@@ -1,5 +1,5 @@
 import type { TaskListErrors } from '@approved-premises/ui'
-import type { Cas2Application as Application } from '@approved-premises/api'
+import type { Cas2Application as Application, FullPerson, RestrictedPerson } from '@approved-premises/api'
 import { Page } from '../../../utils/decorators'
 import { isFullPerson } from '../../../../utils/utils'
 
@@ -17,6 +17,7 @@ type ApplicationSummary = {
   prisonName?: string
   referrerName: string
   contactEmail?: string
+  tier?: string
   view: string
   applicationOrigin: string
   crn: string
@@ -49,6 +50,7 @@ export default class CheckYourAnswers implements TaskListPage {
       prisonName: getCustodyLocation(this.application),
       referrerName: this.application.createdBy.name,
       contactEmail: this.application.createdBy.email,
+      tier: (this.application.person as FullPerson | RestrictedPerson)?.tier?.tierScore ?? null,
       applicationOrigin: this.application.applicationOrigin,
       crn: isFullPerson(this.application.person) ? this.application.person.crn : null,
       view: 'checkYourAnswers',
