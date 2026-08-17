@@ -84,7 +84,7 @@ export const completeNewCohortReferrerDetailsTask = async (page: Page, name: str
 async function completeConfirmDetailsPage(page: Page) {
   const confirmDetailsPage = await ApplyPage.initialize(page, `Confirm your details`)
 
-  await confirmDetailsPage.clickSave()
+  await confirmDetailsPage.clickConfirm()
 }
 
 async function completeJobTitlePage(page: Page) {

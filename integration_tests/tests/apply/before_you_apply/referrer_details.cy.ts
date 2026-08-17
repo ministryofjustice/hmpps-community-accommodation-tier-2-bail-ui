@@ -40,8 +40,8 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     ConfirmDetailsPage.visit(application)
     const confirmDetailsPage = Page.verifyOnPage(ConfirmDetailsPage, application)
 
-    //  When I click 'Save and continue'
-    confirmDetailsPage.clickSubmit()
+    //  When I click 'Confirm and continue'
+    confirmDetailsPage.clickSubmit('Confirm and continue')
     confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Job title' page
@@ -97,8 +97,8 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     ConfirmDetailsPage.visit(application)
     const confirmDetailsPage = Page.verifyOnPage(ConfirmDetailsPage, application)
 
-    //  When I click 'Save and continue'
-    confirmDetailsPage.clickSubmit()
+    //  When I click 'Confirm and continue'
+    confirmDetailsPage.clickSubmit('Confirm and continue')
     confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Are you the person's cpp?' page
@@ -144,8 +144,8 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     ConfirmDetailsPage.visit(application)
     const confirmDetailsPage = Page.verifyOnPage(ConfirmDetailsPage, application)
 
-    // When I click 'Save and continue'
-    confirmDetailsPage.clickSubmit()
+    // When I click 'Confirm and continue'
+    confirmDetailsPage.clickSubmit('Confirm and continue')
     confirmDetailsPage.refreshMock()
 
     // Then I am on the 'Are you the person's cpp?' page
