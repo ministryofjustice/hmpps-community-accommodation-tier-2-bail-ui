@@ -10,6 +10,7 @@ type ApplicationSummary = {
   referrerName: string
   contactEmail?: string
   contactNumber?: string
+  tier?: string
   view: string
   applicationOrigin: string
   crn: string
@@ -31,7 +32,8 @@ export const getApplicationSummaryData = (viewType: ViewType, application: Appli
     prisonName: getCustodyLocation(application),
     referrerName: referrer?.name,
     contactEmail: referrer?.email,
-    contactNumber: application.telephoneNumber ?? null,
+    contactNumber: application.telephoneNumber,
+    tier: person?.tier?.tierScore,
     view: viewType,
   }
 }

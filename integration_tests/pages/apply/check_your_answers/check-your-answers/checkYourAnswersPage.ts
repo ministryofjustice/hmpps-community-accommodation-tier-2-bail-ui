@@ -27,6 +27,7 @@ export default class CheckYourAnswersPage extends ApplyPage {
       cy.get('li').contains(this.application.createdBy.name)
       cy.get('li').contains(prisonName)
       cy.get('li').contains(this.application.createdBy.email)
+      cy.get('li').contains(person.tier.tierScore)
       cy.get('li').contains(this.application.id)
     })
   }

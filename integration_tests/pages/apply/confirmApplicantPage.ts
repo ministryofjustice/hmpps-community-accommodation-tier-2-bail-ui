@@ -24,6 +24,7 @@ export default class ConfirmApplicantPage extends Page {
       ['PNC number', applicant.pncNumber],
       ['CRN from NDelius', applicant.crn],
       ['Status', applicant.status === 'InCommunity' ? 'In Community' : 'In Custody'],
+      ['Tier', applicant.tier.tierScore],
     ]
     cy.get('.govuk-summary-list').within(() => {
       cy.get('.govuk-summary-list__row').each(($el, index) => {

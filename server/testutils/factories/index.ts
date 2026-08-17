@@ -1,4 +1,4 @@
-import { fullPersonFactory as personFactory, restrictedPersonFactory } from './person'
+import { fullPersonFactory as personFactory, restrictedPersonFactory, tierFactory } from './person'
 import applicationFactory from './application'
 import assessmentFactory from './assessment'
 import submittedApplicationFactory from './submittedApplication'
@@ -23,6 +23,7 @@ export {
   submittedApplicationFactory,
   personFactory,
   restrictedPersonFactory,
+  tierFactory,
   statusUpdateFactory,
   statusUpdateDetailFactory,
   applicationStatusFactory,
