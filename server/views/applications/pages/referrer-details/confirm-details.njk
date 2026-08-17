@@ -1,11 +1,12 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "../layout.njk" %}
 {% block questions %}
     <h1 class="govuk-heading-l">{{ page.title }}</h1>
 
-    <p class="govuk-hint">The details of the person completing the application</p>
+    <p class="govuk-hint">These are the details of the person completing the application on behalf of the applicant.</p>
 
     {{ govukSummaryList({
         rows: page.summaryRows()
@@ -18,4 +19,14 @@
         iconFallbackText: "Warning"
     }) }}
 
+{% endblock %}
+
+{% block button %}
+    <div class="govuk-button-group">
+        {{ govukButton({
+            text: "Confirm and continue"
+        }) }}
+
+        <a href="{{ paths.applications.show({ id: applicationId }) }}">Back to task list</a>
+    </div>
 {% endblock %}
