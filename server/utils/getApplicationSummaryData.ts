@@ -32,8 +32,8 @@ export const getApplicationSummaryData = (viewType: ViewType, application: Appli
     prisonName: getCustodyLocation(application),
     referrerName: referrer?.name,
     contactEmail: referrer?.email,
-    contactNumber: application.telephoneNumber ?? null,
-    tier: person?.tier?.tierScore ?? null,
+    contactNumber: application.telephoneNumber,
+    tier: person?.tier?.tierScore,
     view: viewType,
   }
 }

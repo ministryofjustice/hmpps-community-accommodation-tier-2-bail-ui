@@ -50,7 +50,7 @@ export default class CheckYourAnswers implements TaskListPage {
       prisonName: getCustodyLocation(this.application),
       referrerName: this.application.createdBy.name,
       contactEmail: this.application.createdBy.email,
-      tier: (this.application.person as FullPerson | RestrictedPerson)?.tier?.tierScore ?? null,
+      tier: (this.application.person as FullPerson | RestrictedPerson)?.tier?.tierScore,
       applicationOrigin: this.application.applicationOrigin,
       crn: isFullPerson(this.application.person) ? this.application.person.crn : null,
       view: 'checkYourAnswers',

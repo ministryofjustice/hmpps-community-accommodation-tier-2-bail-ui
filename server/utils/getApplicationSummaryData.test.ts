@@ -96,7 +96,7 @@ describe('getApplicationSummaryData', () => {
     })
   })
 
-  it('returns null for tier if the person has no tier', () => {
+  it('returns undefined for tier if the person has no tier', () => {
     const application: Cas2SubmittedApplication = submittedApplicationFactory.build({
       id: 'app-4',
       person: {
@@ -108,7 +108,7 @@ describe('getApplicationSummaryData', () => {
     })
 
     const result = getApplicationSummaryData('assessor', application)
-    expect(result.tier).toBeNull()
+    expect(result.tier).toBeUndefined()
   })
 
   it('returns null for prisonName if not present in either type', () => {
