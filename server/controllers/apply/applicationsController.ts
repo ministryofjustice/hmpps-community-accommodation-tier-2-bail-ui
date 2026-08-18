@@ -20,6 +20,8 @@ import { hasRole } from '../../utils/userUtils'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
 
+const dashboardPath = '/'
+
 export default class ApplicationsController {
   constructor(
     private readonly _personService: PersonService,
@@ -227,6 +229,7 @@ export default class ApplicationsController {
         errorSummary,
         ...userInput,
         pageHeading: 'Are you applying for someone who is seeking bail?',
+        backUrl: dashboardPath,
       })
     }
   }
