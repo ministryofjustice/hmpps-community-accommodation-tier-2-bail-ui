@@ -2,20 +2,12 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block beforeContent %}
-    {% if not arePreTaskListTasksIncomplete(page.application) %}
-        {% set backPath = paths.applications.show({ id: applicationId }) %}
-    {% elif page.isOtherCohort %}
-        {% set backPath = paths.applications.newCohorts.searchByCrn({}) %}
-    {% elif page.application.applicationOrigin === 'prisonBail' %}
-        {% set backPath = paths.applications.newCohorts.bail.searchByPrisonNumber({}) if cas2IsrEnabled else paths.applications.searchByPrisonNumber({}) %}
-    {% else %}
-        {% set backPath = paths.applications.newCohorts.bail.searchByCrn({}) if cas2IsrEnabled else paths.applications.searchByCrn({}) %}
+    {% if not arePreTaskListTasksIncomplete(page.application)and page.previous() === 'taskList' %}
+        {{ govukBackLink({
+            text: "Back",
+            href: paths.applications.show({ id: applicationId })
+        }) }}
     {% endif %}
-
-    {{ govukBackLink({
-        text: "Back",
-        href: backPath
-    }) }}
 {% endblock %}
 
 {% set bailContent %}
