@@ -541,6 +541,7 @@ describe('applicationsController', () => {
         errors: {},
         errorSummary: [],
         pageHeading: 'Are you applying for someone who is seeking bail?',
+        backUrl: '/',
       })
     })
 
@@ -556,6 +557,7 @@ describe('applicationsController', () => {
         errors: errorsAndUserInput.errors,
         errorSummary: errorsAndUserInput.errorSummary,
         ...errorsAndUserInput.userInput,
+        backUrl: '/',
       })
     })
   })
