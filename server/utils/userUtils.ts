@@ -23,9 +23,9 @@ export const sections = {
   },
   newApplicationNewCohorts: {
     id: 'new-application-new-cohorts',
-    title: 'Start a new application (new cohorts)',
+    title: 'Start a new application',
     description: '<p>You can save your progress and return to the application at any time.</p>',
-    shortTitle: 'New application (new cohorts)',
+    shortTitle: 'New application',
     href: applyPaths.applications.newCohorts.applicationOrigin({}),
   },
   submittedApplications: {
@@ -60,9 +60,10 @@ export const sectionsForUser = (userRoles: Array<string>): Array<ServiceSection>
 
   if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER') || hasRole(userRoles, 'CAS2_COURT_BAIL_REFERRER')) {
     items.push(sections.applications)
-    items.push(sections.newApplication)
     if (config.flags.cas2IsrEnabled) {
       items.push(sections.newApplicationNewCohorts)
+    } else {
+      items.push(sections.newApplication)
     }
   }
   if (hasRole(userRoles, 'CAS2_PRISON_BAIL_REFERRER')) {

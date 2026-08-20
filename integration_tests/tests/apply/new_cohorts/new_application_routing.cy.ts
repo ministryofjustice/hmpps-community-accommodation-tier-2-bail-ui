@@ -18,7 +18,7 @@ context('Route bail and non-bail applications to the correct start pages', () =>
     const homePage = Page.verifyOnPage(HomePage)
 
     // And I start a new application
-    homePage.clickLink('Start a new application (new cohorts)')
+    homePage.clickLink('Start a new application')
 
     // Then I should see the application type selection screen
     Page.verifyOnPage(ApplicationOriginPage)

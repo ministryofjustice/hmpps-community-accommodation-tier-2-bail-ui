@@ -43,6 +43,7 @@ import completeCheckAnswersTask from './checkAnswersSection'
 import { TestOptions } from '../testOptions'
 import { completeBailConditionsTask, completeBailHearingInformationTask } from './bailInformationSection'
 import ApplicationOriginPage from '../pages/apply/applicationOriginPage'
+import config from '../../server/config'
 
 export const startAnApplication = async (page: Page) => {
   // Start page
@@ -227,7 +228,11 @@ export const createAnInProgressApplication = async (
   person: TestOptions['person'],
   applicationOrigin: 'courtBail' | 'prisonBail',
 ) => {
-  await startAnApplication(page)
+  if (config.flags.cas2IsrEnabled) {
+    await startANewCohortApplication(page, 'bail')
+  } else {
+    await startAnApplication(page)
+  }
   await selectBailApplicationOrigin(page, applicationOrigin)
   if (applicationOrigin === 'courtBail') {
     await enterCrn(page, person.crn)
