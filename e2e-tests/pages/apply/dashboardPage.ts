@@ -10,7 +10,7 @@ export default class DashboardPage extends BasePage {
   }
 
   async makeNewCohortApplication() {
-    await this.page.getByText('Start a new application (new cohorts)').click()
+    await this.page.getByText('Start a new application').click()
   }
 
   async viewPrisonDashboard() {

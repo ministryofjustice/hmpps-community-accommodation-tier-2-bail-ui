@@ -17,13 +17,19 @@ import {
   addNote,
   viewInProgressDashboard,
   createAnInProgressApplication,
+  startANewCohortApplication,
 } from '../steps/apply'
 import signIn from '../steps/signIn'
 import { cancelAnApplication, clickCancel } from '../steps/cancelInProgressApplication'
+import config from '../../server/config'
 
 test('create a CAS-2 bail application', async ({ page, person, nomisPrisonUser }) => {
   await signIn(page, nomisPrisonUser)
-  await startAnApplication(page)
+  if (config.flags.cas2IsrEnabled) {
+    await startANewCohortApplication(page, 'bail')
+  } else {
+    await startAnApplication(page)
+  }
   await selectBailApplicationOrigin(page, 'prisonBail')
   await enterPrisonerNumber(page, person.nomsNumber)
   await confirmApplicant(page)

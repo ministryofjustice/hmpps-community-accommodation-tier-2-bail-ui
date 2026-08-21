@@ -35,12 +35,7 @@ describe('userUtils', () => {
 
     it('should return section for prison dashboard for CAS2 prison bail referrer with the new cohorts route when ISR feature flag is enabled', () => {
       config.flags.cas2IsrEnabled = true
-      const expected = [
-        sections.applications,
-        sections.newApplication,
-        sections.newApplicationNewCohorts,
-        sections.prisonApplications,
-      ]
+      const expected = [sections.applications, sections.newApplicationNewCohorts, sections.prisonApplications]
       expect(sectionsForUser(['CAS2_PRISON_BAIL_REFERRER'])).toEqual(expected)
     })
   })
