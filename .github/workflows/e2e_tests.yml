@@ -67,6 +67,7 @@ jobs:
           AP_USER_TEST_1_PASSWORD: ${{ secrets.E2E_USER_AP_USER_TEST_1_PASSWORD }}
           CAS2_MI_USERNAME: ${{ secrets.E2E_USER_CAS2_MI_USERNAME }}
           CAS2_MI_PASSWORD: ${{ secrets.E2E_USER_CAS2_MI_PASSWORD }}
+          CAS2_ISR_ENABLED: true
         shell: bash
         run: |
           npm run test:e2e
