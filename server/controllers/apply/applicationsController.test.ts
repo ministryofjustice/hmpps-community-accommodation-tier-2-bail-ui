@@ -108,20 +108,20 @@ describe('applicationsController', () => {
     })
 
     it('renders existing applications', async () => {
+      config.flags.cas2IsrEnabled = false
+
       const requestHandler = applicationsController.index()
 
       await requestHandler(request, response, next)
 
-      expect(response.render).toHaveBeenCalledWith(
-        'applications/index',
-        expect.objectContaining({
-          errors: {},
-          errorSummary: [],
-          applications,
-          pageHeading: 'Applications',
-          showPrisonDashboard: true,
-        }),
-      )
+      expect(response.render).toHaveBeenCalledWith('applications/index', {
+        errors: {},
+        errorSummary: [],
+        applications,
+        pageHeading: 'Applications',
+        showPrisonDashboard: true,
+        newApplicationPath: paths.applications.beforeYouStart({}),
+      })
     })
 
     it('links the start a new application button to the new cohorts flow when the ISR flag is enabled', async () => {
