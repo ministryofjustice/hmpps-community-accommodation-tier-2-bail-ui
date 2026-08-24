@@ -19,6 +19,7 @@ import { buildDocument, filterDocumentToApplicableTasks } from '../../utils/appl
 import { hasRole } from '../../utils/userUtils'
 import TaskListService from '../../services/taskListService'
 import { getApplicationSummaryData } from '../../utils/getApplicationSummaryData'
+import config from '../../config'
 
 const dashboardPath = '/'
 
@@ -38,6 +39,10 @@ export default class ApplicationsController {
 
       const showPrisonDashboard = hasRole(res.locals.user.userRoles, 'CAS2_PRISON_BAIL_REFERRER')
 
+      const newApplicationPath = config.flags.cas2IsrEnabled
+        ? paths.applications.newCohorts.applicationOrigin({})
+        : paths.applications.beforeYouStart({})
+
       return res.render('applications/index', {
         errors,
         errorSummary,
@@ -45,6 +50,7 @@ export default class ApplicationsController {
         applications,
         pageHeading: 'Applications',
         showPrisonDashboard,
+        newApplicationPath,
       })
     }
   }
