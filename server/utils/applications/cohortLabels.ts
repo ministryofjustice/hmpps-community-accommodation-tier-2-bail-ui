@@ -8,7 +8,7 @@ export const newCohortLabels: Record<NonBailCohort, string> = {
   hefr: 'Homeless at end of fixed-term recall',
   isc: 'Intensive supervision courts (ISC)',
   rarr: 'Risk Assessed Recall Review (RARR)',
-  from_ap: 'Moved on from Approved Premises',
+  from_ap: 'Move on from Approved Premises',
 }
 
 export const cohortLabels: Record<Cas2CohortDto, string> = {

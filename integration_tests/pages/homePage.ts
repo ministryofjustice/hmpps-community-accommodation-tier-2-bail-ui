@@ -60,7 +60,7 @@ export default class HomePage extends Page {
         cy.get('li').contains('Homeless at end of fixed-term recall').should('exist')
         cy.get('li').contains('Intensive supervision courts (ISC)').should('exist')
         cy.get('li').contains('Risk Assessed Recall Review (RARR)').should('exist')
-        cy.get('li').contains('Moved on from Approved Premises').should('exist')
+        cy.get('li').contains('Move on from Approved Premises').should('exist')
       })
   }
 
