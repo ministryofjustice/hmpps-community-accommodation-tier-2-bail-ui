@@ -56,16 +56,13 @@
         <li>bail conditions and hearing information</li>
       </ul>
 
-      {% call govukInsetText({}) %}
-        <p>Emergency referrals must be made before 4pm.</p>
+      {% call govukInsetText({
+        classes: "guidance-panel"
+      }) %}
+        <p class="govuk-!-margin-bottom-0">Emergency referrals must be made before 4pm.</p>
       {% endcall %}
 
-      {% call govukInsetText({
-        classes: "govuk-!-margin-top-7"
-      }) %}
-        <p class="govuk-!-margin-bottom-0">All questions are mandatory, unless marked as optional.</p>
-        <p>You can save your progress and return to the application at any time.</p>
-      {% endcall %}
+      <p class="govuk-body govuk-!-margin-top-7">You can save your progress and return to the application at any time.</p>
 
       {{ govukButton({
           text: "Start now",
