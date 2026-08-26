@@ -29,7 +29,8 @@ export default class LicenceDatesPage extends ApplyPage {
   }
 
   shouldSeeErrrors = (cohort: Cas2CohortDto) => {
-    if (cohort !== 'rarr') this.shouldShowErrorSummary('Licence start date must be entered')
+    if (cohort === 'rarr' || cohort === 'isc') this.shouldNotShowErrorSummary('Enter a licence start date')
+    else this.shouldShowErrorSummary('Enter a licence start date')
     this.shouldShowErrorSummary('Licence end date must be entered')
     if (cohort === 'atcr') this.shouldShowErrorSummary('Select yes if they have a HDC expiry date')
     else this.shouldNotShowErrorSummary('Select yes if they have a HDC expiry date')

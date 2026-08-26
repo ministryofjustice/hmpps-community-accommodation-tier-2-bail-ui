@@ -131,7 +131,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
     licencePage.clickSubmit('Save and continue')
 
     // Then I see errors because the start date and hdc radion have been cleared
-    licencePage.shouldShowErrorSummary('Licence start date must be entered')
+    licencePage.shouldShowErrorSummary('Enter a licence start date')
     licencePage.shouldShowErrorSummary('Select yes if they have a HDC expiry date')
 
     // When I select yes to the HDC expiry date
