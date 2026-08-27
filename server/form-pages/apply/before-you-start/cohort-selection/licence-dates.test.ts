@@ -60,9 +60,16 @@ describe('LicenceDates', () => {
     it('Returns errors if the form is blank', () => {
       expect(page('atcr').errors()).toEqual({
         licenceEndDate: 'Licence end date must be entered',
-        licenceStartDate: 'Licence start date must be entered',
+        licenceStartDate: 'Enter a licence start date',
         hasHdcExpiryDate: 'Select yes if they have a HDC expiry date',
       })
+    })
+
+    it.each([
+      ['blank', {}],
+      ['partially entered', { 'licenceStartDate-day': '12' }],
+    ])('Does not require a licence start date for the isc cohort when %s', (_, body) => {
+      expect(page('isc', body as LicenceDatesBody).errors()).not.toHaveProperty('licenceStartDate')
     })
 
     it('Returns an error if the end date is before the start date', () => {

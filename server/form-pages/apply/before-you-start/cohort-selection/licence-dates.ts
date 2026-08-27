@@ -3,6 +3,7 @@ import { ObjectWithDateParts, TaskListErrors, YesOrNo } from '@approved-premises
 import { Page } from '../../../utils/decorators'
 import BasePage from '../../../utils/basePage'
 import { validateDateParts, validateEndDateIsAfterStartDate } from '../../../../utils/formUtils'
+import { dateIsComplete } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { dateBodyProperties } from '../../../utils'
@@ -53,9 +54,7 @@ export default class LicenceDates extends BasePage {
 
   errors() {
     return {
-      ...(this.questions.licenceStartDate
-        ? validateDateParts<LicenceDatesBody>('licenceStartDate', 'Licence start date', this.body)
-        : {}),
+      ...this.licenceStartDateErrors(),
       ...validateDateParts<LicenceDatesBody>('licenceEndDate', 'Licence end date', this.body, { future: true }),
       ...validateEndDateIsAfterStartDate<LicenceDatesBody>(
         'licenceStartDate',
@@ -71,6 +70,16 @@ export default class LicenceDates extends BasePage {
         ? { hasHdcExpiryDate: 'Select yes if they have a HDC expiry date' }
         : {}),
     } as TaskListErrors<this>
+  }
+
+  private licenceStartDateErrors() {
+    if (!this.questions.licenceStartDate || this.application.cohort === 'isc') return {}
+
+    if (!dateIsComplete(this.body, 'licenceStartDate')) {
+      return { licenceStartDate: 'Enter a licence start date' }
+    }
+
+    return validateDateParts<LicenceDatesBody>('licenceStartDate', 'Licence start date', this.body)
   }
 
   onSave() {
