@@ -38,4 +38,19 @@ const bailHearingDateFromAppData = (application: Application): string | null => 
   return null
 }
 
-export { preferredAreasFromAppData, telephoneNumberFromAppData, bailHearingDateFromAppData }
+const conditionalReleaseDateFromAppData = (application: Application): string | null => {
+  const licenceDates = application.data?.['cohort-selection']?.['licence-dates']
+
+  if (dateAndTimeInputsAreValidDates(licenceDates, 'licenceStartDate')) {
+    return DateFormats.dateAndTimeInputsToIsoString(licenceDates, 'licenceStartDate').licenceStartDate
+  }
+
+  return null
+}
+
+export {
+  preferredAreasFromAppData,
+  telephoneNumberFromAppData,
+  bailHearingDateFromAppData,
+  conditionalReleaseDateFromAppData,
+}

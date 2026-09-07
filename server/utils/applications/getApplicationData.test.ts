@@ -72,6 +72,7 @@ describe('getApplicationSubmissionData', () => {
       preferredAreas: 'London | Birmingham',
       telephoneNumber: '1234567',
       bailHearingDate: '3000-02-02',
+      conditionalReleaseDate: '2026-01-01',
     })
   })
 })
