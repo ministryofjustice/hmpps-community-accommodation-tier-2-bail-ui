@@ -11,6 +11,7 @@ import {
   preferredAreasFromAppData,
   telephoneNumberFromAppData,
   bailHearingDateFromAppData,
+  conditionalReleaseDateFromAppData,
 } from './managementInfoFromAppData'
 
 export const getApplicationUpdateData = (application: Application, cohort?: Cas2CohortDto): UpdateCas2Application => {
@@ -29,5 +30,6 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
     preferredAreas: preferredAreasFromAppData(application),
     telephoneNumber: telephoneNumberFromAppData(application),
     bailHearingDate: bailHearingDateFromAppData(application),
+    conditionalReleaseDate: conditionalReleaseDateFromAppData(application),
   }
 }

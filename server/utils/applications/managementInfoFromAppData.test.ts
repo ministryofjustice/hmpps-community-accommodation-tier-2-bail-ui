@@ -2,6 +2,7 @@ import {
   preferredAreasFromAppData,
   telephoneNumberFromAppData,
   bailHearingDateFromAppData,
+  conditionalReleaseDateFromAppData,
 } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
@@ -123,6 +124,44 @@ describe('managementInfoFromAppData', () => {
         data,
       })
       expect(bailHearingDateFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('conditionalReleaseDateFromAppData', () => {
+    it('returns the licence start date as an ISO string', () => {
+      const application = applicationFactory.build({
+        data: {
+          'cohort-selection': {
+            'licence-dates': {
+              'licenceStartDate-year': '2026',
+              'licenceStartDate-month': '2',
+              'licenceStartDate-day': '2',
+            },
+          },
+        },
+      })
+      expect(conditionalReleaseDateFromAppData(application)).toEqual('2026-02-02')
+    })
+
+    const noDateData = [
+      {
+        'cohort-selection': null,
+      },
+      {
+        'cohort-selection': { 'licence-dates': null },
+      },
+      {
+        'cohort-selection': { 'licence-dates': { 'licenceEndDate-year': '2026' } },
+      },
+      {},
+      null,
+    ]
+
+    it.each(noDateData)('returns null if no licence start date is given', data => {
+      const application = applicationFactory.build({
+        data,
+      })
+      expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
     })
   })
 })
