@@ -1,10 +1,14 @@
 # Context
 
-<!-- Is there a JIRA ticket you can link to? -->
+<!-- Is there a Jira ticket you can link to? -->
 <!-- Do you need to add any environment variables? -->
 <!-- Is an ADR required? An ADR should be added if this PR introduces a change to the architecture. -->
 
 # Changes in this PR
+
+Describe what changed and why. This is useful for both human and GitHub Copilot reviewers
+
+<!-- [] I have run the E2E tests locally and they passed -->
 
 ## Screenshots of UI changes
 
@@ -12,21 +16,10 @@
 
 ### After
 
-# Release checklist
+# Team reminders
 
-As part of our continuous deployment strategy we must ensure that this work is
-ready to be released at any point. Before merging to `main` we must first
-confirm:
+PRs work best when they are short-lived (ideally hours, not days) and as small as possible. If a PR is large, split it into follow-up PRs or at least into clearly reviewable commits. We should always be aiming to clear the list of open PRs as soon as possible.
 
-## Pre merge checklist
+Before requesting review, add a brief summary, self-review the diff, and leave clarifying code comments where useful. If comments are needed to explain confusing code, consider whether naming, structure, or in-code documentation could be improved.
 
-- [ ] Are any changes required to the e2e tests?
-- [ ] If you've added a new route, have you added a new
-  `auditEvent`? (see `server/routes/apply.ts` for examples)
-- [ ] Are there environment variables or other infrastructure configuration which needs to be included in this release?
-- [ ] Are there any data migrations required. Automatic or manual?
-- [ ] Does this rely on changes being deployed to the CAS API?
-
-## Post merge
-
-Once we've merged it will be auto-deployed to the dev environment.
+For review coordination, use Slack rather than relying on GitHub tagging (except when replying to existing GitHub comments). Reviewing is a shared responsibility; but feel free to call out the best reviewer in Slack and arrange a quick walkthrough call when helpful.
