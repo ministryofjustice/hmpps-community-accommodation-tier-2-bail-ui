@@ -126,7 +126,7 @@
     "reflect-metadata": "^0.2.2",
     "start-server-and-test": "^2.0.12",
     "static-path": "^0.0.4",
-    "superagent": "^10.2.1",
+    "superagent": "^10.2.2",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
@@ -186,6 +186,7 @@
       "cookie": "1.0.2"
     },
     "serialize-javascript": "^7.0.5",
-    "diff": "^8.0.3"
+    "diff": "^8.0.3",
+    "proxy-addr": "^2.0.8"
   }
 }
