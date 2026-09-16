@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test'
-import Excel, { CellValue } from 'exceljs'
+import Exceljs, { CellValue } from '@protobi/exceljs'
 
 const reportTypeMetaData = {
   submittedApplications: {
@@ -44,7 +44,7 @@ export const downloadReport = async (reportType: ReportType, page: Page) => {
 }
 
 export const confirmColumnNames = async (reportType: ReportType, path: string) => {
-  const workbook = new Excel.Workbook()
+  const workbook = new Exceljs.Workbook()
 
   await workbook.xlsx.readFile(path).then(() => {
     const sh = workbook.getWorksheet('Sheet0')
