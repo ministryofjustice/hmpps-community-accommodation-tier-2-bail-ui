@@ -26,7 +26,7 @@ jobs:
       - name: Use Node.js ${{ inputs.node_version_file }}
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
-          node-version-file: ${{ inputs.node_version_file }}
+          node-version-file: .nvmrc
       - name: refresh cache
         id: refresh-cache
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 #V 4.3.0
