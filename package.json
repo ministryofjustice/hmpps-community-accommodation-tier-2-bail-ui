@@ -104,9 +104,9 @@
     "csurf": "^1.11.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.0.0",
-    "exceljs": "^4.4.0",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+    "fflate": "^0.8.3",
     "fishery": "^2.3.1",
     "govuk-frontend": "^5.11.0",
     "helmet": "^8.1.0",
@@ -126,7 +126,7 @@
     "reflect-metadata": "^0.2.2",
     "start-server-and-test": "^2.0.12",
     "static-path": "^0.0.4",
-    "superagent": "^10.2.1",
+    "superagent": "^10.2.2",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
@@ -186,6 +186,7 @@
       "cookie": "1.0.2"
     },
     "serialize-javascript": "^7.0.5",
-    "diff": "^8.0.3"
+    "diff": "^8.0.3",
+    "proxy-addr": "^2.0.8"
   }
 }
