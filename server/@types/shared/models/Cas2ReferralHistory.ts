@@ -2,18 +2,20 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Cas2AssessmentStatus } from './Cas2AssessmentStatus';
 import type { ServiceType } from './ServiceType';
 export type Cas2ReferralHistory = {
     applicationId: string;
-    createdAt: string;
+    applicationLastUpdatedDate?: string;
+    applicationStatus?: Cas2AssessmentStatus;
+    applicationSubmittedDate: string;
     id: string;
     localAuthorityArea?: string;
     pdu?: string;
     placementAddress?: string;
-    placementStatus?: string;
     referralRejectionReason?: string;
     referredBy: string;
-    status: string;
     type: ServiceType;
+    uiUrl: string;
 };
 
