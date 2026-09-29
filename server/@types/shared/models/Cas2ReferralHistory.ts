@@ -5,15 +5,16 @@
 import type { ServiceType } from './ServiceType';
 export type Cas2ReferralHistory = {
     applicationId: string;
-    createdAt: string;
+    applicationLastUpdatedDate?: string;
+    applicationStatus?: string;
+    applicationSubmittedDate: string;
     id: string;
     localAuthorityArea?: string;
     pdu?: string;
     placementAddress?: string;
-    placementStatus?: string;
     referralRejectionReason?: string;
     referredBy: string;
-    status: string;
     type: ServiceType;
+    uiUrl: string;
 };
 
