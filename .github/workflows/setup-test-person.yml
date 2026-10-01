@@ -1,0 +1,65 @@
+name: 'Setup CAS-2 Bail test person'
+
+on:
+  workflow_dispatch: {}
+  workflow_call:
+    outputs:
+      crn:
+        description: The CRN of the generated test person
+        value: ${{ jobs.setup-test-person.outputs.crn }}
+      name:
+        description: The name of the generated test person
+        value: ${{ jobs.setup-test-person.outputs.name }}
+
+permissions:
+  contents: read
+
+jobs:
+  setup-test-person:
+    name: 'Generate a test person'
+    runs-on: ubuntu-latest
+    outputs:
+      crn: ${{ steps.read-output.outputs.crn }}
+      name: ${{ steps.read-output.outputs.name }}
+    env:
+      TZ: Europe/London
+      DELIUS_URL: https://ndelius.test.probation.service.justice.gov.uk
+      DELIUS_USERNAME: ${{ secrets.E2E_DELIUS_USERNAME }}
+      DELIUS_PASSWORD: ${{ secrets.E2E_DELIUS_PASSWORD }}
+      CRN_OUTPUT_FILE: person-generation-output.json
+    steps:
+      - name: Check out code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: 'false'
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Install Playwright
+        run: npx playwright install chromium
+
+      - name: Generate person
+        timeout-minutes: 10
+        run: npm run test:e2e:workflow -- e2e-tests/workflow-tests/generate-person.spec.ts
+
+      - name: Upload generated person data
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: generated-cas2-bail-person
+          path: person-generation-output.json
+          retention-days: 5
+          if-no-files-found: error
+
+      - name: Read generated person
+        id: read-output
+        run: |
+          echo "crn=$(jq -r '.crn' "$CRN_OUTPUT_FILE")" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r '.name' "$CRN_OUTPUT_FILE")" >> "$GITHUB_OUTPUT"

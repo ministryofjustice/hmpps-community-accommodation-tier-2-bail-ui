@@ -9,6 +9,10 @@ export type TestOptions = {
     name: string
     nomsNumber: string
   }
+  generatedPerson: {
+    crn: string
+    name: string
+  }
   adminUser: {
     name: string
     username: string
