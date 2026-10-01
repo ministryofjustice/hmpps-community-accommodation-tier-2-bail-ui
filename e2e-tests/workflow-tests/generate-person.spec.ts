@@ -5,7 +5,7 @@ import { createTestPerson } from '../setup/person'
 
 const outputFile = process.env.CRN_OUTPUT_FILE
 
-test('generate one persistent person for a CAS-2 Bail application', async ({ browser }) => {
+test('generate one test person', async ({ browser }) => {
   test.setTimeout(4 * 60 * 1000)
 
   const context = await browser.newContext()

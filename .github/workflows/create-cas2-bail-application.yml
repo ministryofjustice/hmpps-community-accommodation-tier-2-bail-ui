@@ -18,12 +18,12 @@ permissions:
 
 jobs:
   generate-person:
-    name: 'Generate a CAS-2 Bail test person'
+    name: 'Generate a CRN'
     uses: ./.github/workflows/setup-test-person.yml
     secrets: inherit
 
   run-application:
-    name: 'Run the CAS-2 Bail application to the selected stage'
+    name: 'Run the application to the selected stage'
     needs: [ generate-person ]
     runs-on: ubuntu-latest
     env:
@@ -56,7 +56,7 @@ jobs:
 
       - name: Run application to selected stage
         timeout-minutes: 10
-        run: npm run test:e2e:workflow -- e2e-tests/workflow-tests/07_generated_person_stop_at_stage.spec.ts
+        run: npm run test:e2e:workflow -- e2e-tests/workflow-tests/stop_at_stage.spec.ts
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}

@@ -23,13 +23,13 @@ function stopAtStage(stage: string): boolean {
   return process.env.STOP_AT_STAGE === stage
 }
 
-test('create, submit and assess a CAS-2 Bail court bail application for a generated person', async ({
+test('create, submit and assess a CAS2 Bail bail application', async ({
   page,
   generatedPerson,
   nomisCourtUser,
   assessorUser,
 }) => {
-  test.skip(!generatedPerson.crn, 'only run via the create-cas2-bail-application workflow')
+  test.skip(!generatedPerson.crn, 'only run via the stop-at-stage workflow')
 
   await signIn(page, nomisCourtUser)
   if (config.flags.cas2IsrEnabled) {
