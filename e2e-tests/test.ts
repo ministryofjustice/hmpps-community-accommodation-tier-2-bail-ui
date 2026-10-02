@@ -19,6 +19,13 @@ export default base.extend<TestOptions>({
     },
     { option: true },
   ],
+  generatedPerson: [
+    {
+      name: process.env.CAS2_GENERATED_PERSON_NAME as string,
+      crn: process.env.CAS2_GENERATED_PERSON_CRN as string,
+    },
+    { option: true },
+  ],
   nomisCourtUser: [
     {
       name: 'Cas-two bail Test-nomis-court-user',

@@ -1,0 +1,77 @@
+name: 'Create CAS-2 Bail application (stop at stage)'
+
+on:
+  workflow_dispatch:
+    inputs:
+      stop-at-stage:
+        description: 'Stage to stop the application at.'
+        type: choice
+        required: true
+        default: application-assessed
+        options:
+          - application-created
+          - application-submitted
+          - application-assessed
+
+permissions:
+  contents: read
+
+jobs:
+  generate-person:
+    name: 'Generate a CRN'
+    uses: ./.github/workflows/setup-test-person.yml
+    secrets: inherit
+
+  run-application:
+    name: 'Run the application to the selected stage'
+    needs: [ generate-person ]
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/London
+      CAS2_GENERATED_PERSON_CRN: ${{ needs.generate-person.outputs.crn }}
+      CAS2_GENERATED_PERSON_NAME: ${{ needs.generate-person.outputs.name }}
+      STOP_AT_STAGE: ${{ inputs.stop-at-stage }}
+      CAS2_ISR_ENABLED: true
+      CAS2_COURT_BAIL_NOMIS_REF_USERNAME: ${{ secrets.E2E_USER_CAS2_COURT_BAIL_NOMIS_REF_USERNAME }}
+      CAS2_COURT_BAIL_NOMIS_REF_PASSWORD: ${{ secrets.E2E_USER_CAS2_COURT_BAIL_NOMIS_REF_PASSWORD }}
+      CAS2_ASSESSOR_USERNAME: ${{ secrets.E2E_USER_CAS2_ASSESSOR_USERNAME }}
+      CAS2_ASSESSOR_PASSWORD: ${{ secrets.E2E_USER_CAS2_ASSESSOR_PASSWORD }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: 'false'
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Install Playwright
+        run: npx playwright install chromium
+
+      - name: Run application to selected stage
+        timeout-minutes: 10
+        run: npm run test:e2e:workflow -- e2e-tests/workflow-tests/stop_at_stage.spec.ts
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: CAS2-Bail-stop-at-stage-playwright-report
+          path: e2e-tests/playwright-report/
+          retention-days: 10
+          if-no-files-found: ignore
+
+      - name: Upload E2E artefacts
+        if: failure()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: CAS2-Bail-stop-at-stage-artefacts
+          path: e2e-tests/test_results/
+          retention-days: 10
+          if-no-files-found: ignore

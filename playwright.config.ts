@@ -8,7 +8,7 @@ config({
 })
 
 export default defineConfig<TestOptions>({
-  testDir: './e2e-tests/tests',
+  testDir: './e2e-tests',
   outputDir: './e2e-tests/test_results',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -24,11 +24,12 @@ export default defineConfig<TestOptions>({
   projects: [
     {
       name: 'setupDev',
-      testMatch: /.*\.setup\.ts/,
+      testMatch: /(^|\/)tests\/.*\.setup\.ts$/,
       use: { baseURL: 'https://community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk' },
     },
     {
       name: 'dev',
+      testMatch: /(^|\/)tests\/.*\.(spec|test)\.ts$/,
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk',
@@ -37,18 +38,27 @@ export default defineConfig<TestOptions>({
     },
     {
       name: 'setupLocal',
-      testMatch: /.*\.setup\.ts/,
+      testMatch: /(^|\/)tests\/.*\.setup\.ts$/,
       use: {
         baseURL: 'http://localhost:3000',
       },
     },
     {
       name: 'local',
+      testMatch: /(^|\/)tests\/.*\.(spec|test)\.ts$/,
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'http://localhost:3000',
       },
       dependencies: ['setupLocal'],
+    },
+    {
+      name: 'workflow',
+      testMatch: /workflow-tests\/.*\.(spec|test)\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://community-accommodation-tier-2-bail-dev.hmpps.service.justice.gov.uk',
+      },
     },
   ],
 })
