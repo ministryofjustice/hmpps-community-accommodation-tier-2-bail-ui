@@ -39,8 +39,11 @@
     "npm": "^11.0.0"
   },
   "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@faker-js/faker/)"
+    ],
     "transform": {
-      "^.+\\.tsx?$": [
+      "^.+\\.(t|j)sx?$": [
         "ts-jest"
       ]
     },
@@ -87,7 +90,7 @@
     ]
   },
   "dependencies": {
-    "@faker-js/faker": "^9.8.0",
+    "@faker-js/faker": "^10.6.0",
     "@golevelup/ts-jest": "^0.7.0",
     "@ministryofjustice/frontend": "^5.1.4",
     "@ministryofjustice/hmpps-audit-client": "^2.0.0",
