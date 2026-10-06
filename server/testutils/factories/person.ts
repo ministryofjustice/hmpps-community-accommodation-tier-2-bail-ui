@@ -5,7 +5,7 @@ import type { FullPerson, RestrictedPerson, TierDto } from '@approved-premises/a
 import { DateFormats } from '../../utils/dateUtils'
 
 export const tierFactory = Factory.define<TierDto>(() => ({
-  calculationDate: DateFormats.dateObjToIsoDate(faker.date.past()),
+  calculationDate: DateFormats.dateObjToIsoDateTime(faker.date.past()),
   tierScore: faker.helpers.arrayElement(['A1', 'A2', 'B1']),
   version: faker.helpers.arrayElement(['V2', 'V3']),
 }))

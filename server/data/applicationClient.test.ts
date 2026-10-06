@@ -59,7 +59,7 @@ describeClient('ApplicationClient', provider => {
           },
         },
         willRespondWith: {
-          status: 201,
+          status: 200,
           body: application,
         },
       })
