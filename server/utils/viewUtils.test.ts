@@ -17,21 +17,21 @@ describe('formatLines', () => {
 
   it('replaces newlines with HTML line breaks', () => {
     expect(formatLines('Line 1\nLine 2\r\nLine 3\rLine 4')).toEqual('Line 1<br />Line 2<br />Line 3<br />Line 4')
-    expect(escapeSpy).toBeCalledTimes(4)
+    expect(escapeSpy).toHaveBeenCalledTimes(4)
   })
 
   it('replaces consecutive newlines with HTML paragraphs', () => {
     expect(formatLines('Paragraph 1, Line 1\nParagraph 1, Line 2\n\nParagraph 2')).toEqual(
       '<p>Paragraph 1, Line 1<br />Paragraph 1, Line 2</p><p>Paragraph 2</p>',
     )
-    expect(escapeSpy).toBeCalledTimes(3)
+    expect(escapeSpy).toHaveBeenCalledTimes(3)
   })
 
   it('ignores trailing whiespace', () => {
     expect(formatLines('\n\nParagraph 1, Line 1\nParagraph 1, Line 2\n\nParagraph 2  ')).toEqual(
       '<p>Paragraph 1, Line 1<br />Paragraph 1, Line 2</p><p>Paragraph 2</p>',
     )
-    expect(escapeSpy).toBeCalledTimes(3)
+    expect(escapeSpy).toHaveBeenCalledTimes(3)
   })
 
   it('escapes line contents', () => {
