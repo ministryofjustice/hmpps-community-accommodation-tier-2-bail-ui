@@ -3,7 +3,6 @@ import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { TaskListPageInterface } from '../taskListPage'
 import { DateFormats } from '../../utils/dateUtils'
-import logger from '../../../logger'
 
 export const getTask = <T>(task: T) => {
   const taskPages: Record<string, unknown> = {}
@@ -117,9 +116,4 @@ export function getOasysImportDateFromApplication(application: Cas2Application, 
     })
   }
   return null
-}
-
-export function logOasysError(e: Error, crn: string) {
-  logger.error(`Error retrieving Oasys for crn ${crn}`)
-  logger.error(e)
 }
