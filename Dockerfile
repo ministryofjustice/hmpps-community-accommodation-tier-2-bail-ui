@@ -32,7 +32,7 @@ RUN npm run build
 RUN npm prune --no-audit --no-fund --omit=dev
 
 # Stage: copy production assets and dependencies
-FROM base
+FROM ghcr.io/ministryofjustice/hmpps-node:24-alpine-runtime
 
 COPY --from=build --chown=appuser:appgroup \
         /app/package.json \
@@ -49,4 +49,4 @@ EXPOSE 3000
 ENV NODE_ENV='production'
 USER 2000
 
-CMD [ "npm", "start" ]
+CMD [ "sh", "-c", "node dist/server.js | ./node_modules/.bin/bunyan -o short" ]
