@@ -29,6 +29,7 @@ export const completeRiskToSelfTask = async (page: Page, name: string) => {
   await taskListPage.clickTask('Add risk to self information')
 
   await reviewOasysImportPage(page, name)
+  await completeOlderOasysQuestion(page, name)
   await completeVulnerabilityPage(page, name)
   await completeCurrentAndPreviousRisksPage(page, name)
   await addARiskToSelfAcct(page, name)
@@ -40,6 +41,8 @@ export const completeRiskToOthersTask = async (page: Page, name: string) => {
   await taskListPage.clickTask('Add risk of serious harm to others')
 
   await reviewRoshOasysImportPage(page, name)
+  await completeOlderOasysQuestion(page, name)
+  await completeManualRoshInformationPage(page, name)
   await completeRoshSummaryPage(page, name)
   await completeRiskToOthersPage(page, name)
   await completeRoshRiskManagementArrangementsPage(page, name)
@@ -361,12 +364,47 @@ async function reviewRoshOasysImportPage(page: Page, name: string) {
 }
 
 async function completeRoshSummaryPage(page: Page, name: string) {
-  const summaryPage = await ApplyPage.initialize(page, `Risk of serious harm (RoSH) summary for ${name}`)
-  await summaryPage.clickSave()
+  const summaryPageTitle = `Risk of serious harm (RoSH) summary for ${name}`
+  if (await page.getByText(summaryPageTitle).isVisible()) {
+      const summaryPage = await ApplyPage.initialize(page, summaryPageTitle)
+      await summaryPage.clickSave()
+  }
+}
+
+async function completeManualRoshInformationPage(page: Page, name: string) {
+  const manualRoshInformationTitle = `Create a RoSH summary for ${name}`
+
+  if (await page.getByText(manualRoshInformationTitle).isVisible()) {
+    const manualRoshInformationPage = await ApplyPage.initialize(page, manualRoshInformationTitle)
+    await manualRoshInformationPage.checkRadioInGroup('What risk do they pose to children?', 'Low')
+    await manualRoshInformationPage.checkRadioInGroup('What risk do they pose to the public?', 'Medium')
+    await manualRoshInformationPage.checkRadioInGroup('What risk do they pose to a known adult?', 'High')
+    await manualRoshInformationPage.checkRadioInGroup('What risk do they pose to staff?', 'Low')
+    await manualRoshInformationPage.checkRadioInGroup(`What's the overall risk?`, 'High')
+    await manualRoshInformationPage.clickSave()
+  }
+}
+
+async function completeOlderOasysQuestion(page: Page, name: string) {
+  const riskToSelfTitle = `Does ${name} have an older OASys with risk to self information?`
+  const roshTitle = `Does ${name} have an older OASys with risk of serious harm (RoSH) information?`
+
+  if ((await page.getByText(riskToSelfTitle).isVisible()) || (await page.getByText(roshTitle).isVisible())) {
+    const title = (await page.getByText(roshTitle).isVisible()) ? roshTitle : riskToSelfTitle
+    const olderOasysPage = await ApplyPage.initialize(page, title)
+    await olderOasysPage.checkRadio('No')
+    await olderOasysPage.clickButton('Save and continue')
+  }
 }
 
 async function completeRiskToOthersPage(page: Page, name: string) {
   const riskToOthersPage = await ApplyPage.initialize(page, `Risk to others for ${name}`)
+  if (await page.locator('#whoIsAtRisk').inputValue() === '') {
+    await page.locator('#whoIsAtRisk').fill('The applicant\'s ex-partner, Tina Hopkins, is considered at risk. They live with their mother in Lewes'); 
+  }
+  if (await page.locator('#natureOfRisk').inputValue() === '') {
+    await page.locator('#natureOfRisk').fill('The applicant has been abstinent and will continue to engage with drug and alcohol services'); 
+  }
   await riskToOthersPage.clickConfirm()
 }
 
