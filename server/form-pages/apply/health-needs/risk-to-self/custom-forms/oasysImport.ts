@@ -5,7 +5,6 @@ import TaskListPage from '../../../../taskListPage'
 import { DateFormats } from '../../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../../utils/utils'
 import Vulnerability from '../vulnerability'
-import { logOasysError } from '../../../../utils'
 import OldOasys from '../oldOasys'
 
 type GuidanceBody = Record<string, never>
@@ -87,8 +86,7 @@ export default class OasysImport implements TaskListPage {
         if (oasys) {
           taskDataJson = JSON.stringify(OasysImport.getTaskData(oasys))
         }
-      } catch (e) {
-        logOasysError(e, application.person.crn)
+      } catch {
         oasys = null
       }
       return new OasysImport(body, application, oasys, taskDataJson)

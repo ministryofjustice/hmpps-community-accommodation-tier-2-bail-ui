@@ -101,8 +101,8 @@ describe('catchValidationErrorOrPropogate', () => {
 
     const result = () => catchValidationErrorOrPropogate(request, response, err, 'some/url')
 
-    expect(result).toThrowError(err)
-    expect(result).toThrowError(
+    expect(result).toThrow(err)
+    expect(result).toThrow(
       expect.objectContaining({
         message: 'Some unhandled error',
         name: 'SomeUnhandledError',
@@ -123,7 +123,7 @@ describe('catchValidationErrorOrPropogate', () => {
       },
     })
 
-    expect(() => catchValidationErrorOrPropogate(request, response, error, 'some/url')).toThrowError(
+    expect(() => catchValidationErrorOrPropogate(request, response, error, 'some/url')).toThrow(
       'Cannot find a translation for an error at the path $.foo',
     )
   })
@@ -140,7 +140,7 @@ describe('catchValidationErrorOrPropogate', () => {
       },
     })
 
-    expect(() => catchValidationErrorOrPropogate(request, response, error, 'some/url')).toThrowError(
+    expect(() => catchValidationErrorOrPropogate(request, response, error, 'some/url')).toThrow(
       'Cannot find a translation for an error at the path $.fundingSource with the type invalid',
     )
   })
@@ -175,7 +175,7 @@ describe('catchAPIErrorOrPropogate', () => {
 
     const result = () => catchAPIErrorOrPropogate(request, response, error)
 
-    expect(result).toThrowError(error)
+    expect(result).toThrow(error)
   })
 })
 
