@@ -1,4 +1,4 @@
-name: 'Create CAS-2 Bail application (stop at stage)'
+name: 'Create CAS-2 application (stop at stage)'
 
 on:
   workflow_dispatch:
