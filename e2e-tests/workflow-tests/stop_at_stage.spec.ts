@@ -32,24 +32,17 @@ test('create, submit and assess a CAS2 Bail bail application', async ({
   test.skip(!generatedPerson.crn, 'only run via the stop-at-stage workflow')
 
   await signIn(page, nomisCourtUser)
-  if (config.flags.cas2IsrEnabled) {
-    await startANewCohortApplication(page, 'bail')
-  } else {
-    await startAnApplication(page)
-  }
-  await selectBailApplicationOrigin(page, 'courtBail')
+  await startANewCohortApplication(page, 'other')
   await enterCrn(page, generatedPerson.crn)
   await confirmApplicant(page)
-
   await completeBeforeYouStartSection(page, generatedPerson.name)
-  await completeAboutThePersonSection(page, generatedPerson.name, 'bail')
-  await completeAreaAndFundingSection(page, generatedPerson.name, 'bail')
-  await completeOffencesAndConcernsSection(page, generatedPerson.name, 'bail')
-  await completeHealthNeedsSection(page, generatedPerson.name, 'bail')
+  await completeAboutThePersonSection(page, generatedPerson.name, 'other')
+  await completeAreaAndFundingSection(page, generatedPerson.name, 'other')
+  await completeOffencesAndConcernsSection(page, generatedPerson.name, 'other')
+  await completeHealthNeedsSection(page, generatedPerson.name, 'other')
   await completeBailInformationSection(page)
   await completeCheckAnswersSection(page, generatedPerson.name)
-  await expect(page.getByText('You have completed 18 of 18 tasks')).toBeVisible()
-
+  await expect(page.getByText('You have completed 16 of 16 tasks')).toBeVisible()
   if (stopAtStage('application-created')) return
 
   await submitApplication(page)
