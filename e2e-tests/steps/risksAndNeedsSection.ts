@@ -366,8 +366,8 @@ async function reviewRoshOasysImportPage(page: Page, name: string) {
 async function completeRoshSummaryPage(page: Page, name: string) {
   const summaryPageTitle = `Risk of serious harm (RoSH) summary for ${name}`
   if (await page.getByText(summaryPageTitle).isVisible()) {
-      const summaryPage = await ApplyPage.initialize(page, summaryPageTitle)
-      await summaryPage.clickSave()
+    const summaryPage = await ApplyPage.initialize(page, summaryPageTitle)
+    await summaryPage.clickSave()
   }
 }
 
@@ -399,11 +399,15 @@ async function completeOlderOasysQuestion(page: Page, name: string) {
 
 async function completeRiskToOthersPage(page: Page, name: string) {
   const riskToOthersPage = await ApplyPage.initialize(page, `Risk to others for ${name}`)
-  if (await page.locator('#whoIsAtRisk').inputValue() === '') {
-    await page.locator('#whoIsAtRisk').fill('The applicant\'s ex-partner, Tina Hopkins, is considered at risk. They live with their mother in Lewes'); 
+  if ((await page.locator('#whoIsAtRisk').inputValue()) === '') {
+    await page
+      .locator('#whoIsAtRisk')
+      .fill("The applicant's ex-partner, Tina Hopkins, is considered at risk. They live with their mother in Lewes")
   }
-  if (await page.locator('#natureOfRisk').inputValue() === '') {
-    await page.locator('#natureOfRisk').fill('The applicant has been abstinent and will continue to engage with drug and alcohol services'); 
+  if ((await page.locator('#natureOfRisk').inputValue()) === '') {
+    await page
+      .locator('#natureOfRisk')
+      .fill('The applicant has been abstinent and will continue to engage with drug and alcohol services')
   }
   await riskToOthersPage.clickConfirm()
 }
