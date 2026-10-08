@@ -98,7 +98,7 @@
     "@playwright/test": "^1.63.0",
     "@sentry/node": "^7.120.4",
     "agentkeepalive": "^4.6.0",
-    "applicationinsights": "2.9.8",
+    "applicationinsights": "3.16.0",
     "body-parser": "^2.3.0",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
