@@ -6,8 +6,10 @@ import {
 } from '../testutils/factories'
 import PersonService from './personService'
 import { PersonClient } from '../data'
+import logger from '../../logger'
 
 jest.mock('../data/personClient.ts')
+jest.mock('../../logger')
 
 describe('Person Service', () => {
   const personClient = new PersonClient(null) as jest.Mocked<PersonClient>
@@ -146,6 +148,37 @@ describe('Person Service', () => {
       const result = await service.getOasysRiskToSelf(token, 'crn')
 
       expect(result).toBeNull()
+    })
+  })
+
+  describe('when the person client rejects', () => {
+    const error = new Error('API error')
+
+    it('logs the crn and error and rethrows in getOasysRiskToSelf', async () => {
+      personClient.oasysRiskToSelf.mockRejectedValue(error)
+
+      await expect(service.getOasysRiskToSelf(token, 'crn')).rejects.toThrow(error)
+
+      expect(logger.error).toHaveBeenCalledWith('Error retrieving Oasys for crn crn')
+      expect(logger.error).toHaveBeenCalledWith(error)
+    })
+
+    it('logs the crn and error and rethrows in getOasysRosh', async () => {
+      personClient.oasysRoshSummary.mockRejectedValue(error)
+
+      await expect(service.getOasysRosh(token, 'crn')).rejects.toThrow(error)
+
+      expect(logger.error).toHaveBeenCalledWith('Error retrieving Oasys for crn crn')
+      expect(logger.error).toHaveBeenCalledWith(error)
+    })
+
+    it('logs the crn and error and rethrows in getRoshRisks', async () => {
+      personClient.oasysRoshRatings.mockRejectedValue(error)
+
+      await expect(service.getRoshRisks(token, 'crn')).rejects.toThrow(error)
+
+      expect(logger.error).toHaveBeenCalledWith('Error retrieving Oasys for crn crn')
+      expect(logger.error).toHaveBeenCalledWith(error)
     })
   })
 })
