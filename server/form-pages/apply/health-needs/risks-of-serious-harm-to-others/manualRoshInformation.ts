@@ -6,6 +6,8 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
 import { convertKeyValuePairToRadioItems } from '../../../../utils/formUtils'
 import errorLookups from '../../../../i18n/en/errors.json'
+import Summary, { ManualRoshData } from './summary'
+import { DateFormats } from '../../../../utils/dateUtils'
 
 export type ManualRoshBody = {
   riskToChildren: string
@@ -80,7 +82,28 @@ export default class ManualRoshInformation implements TaskListPage {
   }
 
   response() {
-    // See summary.ts for manual-rosh-information response
-    return {}
+    // If `summary` exists on `risks-of-serious-harm-to-others` then that page
+    // will correctly populate manual rosh data
+    //
+    // I tried just returning Summary.response() here, but found some local
+    // applications where the risk information was being output twice where
+    // data was input manually, but there were empty summary comments
+    // perhaps where the user selected old-oasys, then changed their answer
+
+    // handled by summary.ts
+    if (this.application.data['risks-of-serious-harm-to-others']?.summary) {
+      return {}
+    }
+
+    const body = this.body as ManualRoshData
+
+    return {
+      'Created by prison offender manager': DateFormats.dateObjtoUIDate(body.createdAt, { format: 'medium' }),
+      'Overall risk rating': body.overallRisk,
+      'Risk to children': body.riskToChildren,
+      'Risk to known adult': body.riskToKnownAdult,
+      'Risk to public': body.riskToPublic,
+      'Risk to staff': body.riskToStaff,
+    }
   }
 }
