@@ -3,6 +3,14 @@ name: 'Create CAS-2 application (stop at stage)'
 on:
   workflow_dispatch:
     inputs:
+      application-type:
+        description: 'Type of application to create.'
+        type: choice
+        required: true
+        default: bail
+        options:
+          - bail
+          - other
       stop-at-stage:
         description: 'Stage to stop the application at.'
         type: choice
@@ -30,6 +38,7 @@ jobs:
       TZ: Europe/London
       CAS2_GENERATED_PERSON_CRN: ${{ needs.generate-person.outputs.crn }}
       CAS2_GENERATED_PERSON_NAME: ${{ needs.generate-person.outputs.name }}
+      APPLICATION_TYPE: ${{ inputs.application-type }}
       STOP_AT_STAGE: ${{ inputs.stop-at-stage }}
       CAS2_ISR_ENABLED: true
       CAS2_COURT_BAIL_NOMIS_REF_USERNAME: ${{ secrets.E2E_USER_CAS2_COURT_BAIL_NOMIS_REF_USERNAME }}
