@@ -49,10 +49,9 @@ test('create, submit and assess a CAS2 application', async ({
   if (isBail) {
     await completeBeforeYouStartSection(page, generatedPerson.name)
   } else {
-    await completeBeforeYouStartSection(page, generatedPerson.name)
+    await completeBeforeYouStartForCustodyApplications(page, generatedPerson.name)
   }
 
-  await completeBeforeYouStartForCustodyApplications(page, generatedPerson.name)
   await completeAboutThePersonSection(page, generatedPerson.name, type)
   await completeAreaAndFundingSection(page, generatedPerson.name, type)
   await completeOffencesAndConcernsSection(page, generatedPerson.name, type)
