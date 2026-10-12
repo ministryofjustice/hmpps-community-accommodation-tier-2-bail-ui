@@ -1,7 +1,9 @@
+import { Cas2Application } from '@approved-premises/api'
 import { itShouldHaveNextValue, itShouldHavePreviousValue } from '../../../shared-examples'
 import { personFactory, applicationFactory } from '../../../../testutils/factories/index'
 import ManualRoshInformation from './manualRoshInformation'
 import type { ManualRoshBody } from './manualRoshInformation'
+import { ManualRoshData } from './summary'
 
 describe('ManualRoshInformation', () => {
   const application = applicationFactory.build({ person: personFactory.build({ name: 'Roger Smith' }) })
@@ -115,7 +117,8 @@ describe('ManualRoshInformation', () => {
   })
 
   describe('response', () => {
-    const body: ManualRoshBody = {
+    const body: ManualRoshData = {
+      createdAt: new Date(2026, 9, 1),
       overallRisk: 'Very high',
       riskToChildren: 'Medium',
       riskToPublic: 'Low',
@@ -123,8 +126,36 @@ describe('ManualRoshInformation', () => {
       riskToStaff: 'Low',
     }
 
-    it('returns empty object as the data for manual rosh is handled by RiskOfSeriousHarm response', () => {
+    it('returns manual rosh response', () => {
       const page = new ManualRoshInformation(body, application)
+      expect(page.response()).toEqual({
+        'Created by prison offender manager': '1 October 2026',
+        'Overall risk rating': 'Very high',
+        'Risk to children': 'Medium',
+        'Risk to known adult': 'High',
+        'Risk to public': 'Low',
+        'Risk to staff': 'Low',
+      })
+    })
+
+    it('returns manual rosh response when the createdAt date is missing', () => {
+      const bodyWithoutCreatedAt: ManualRoshData = { ...body, createdAt: undefined }
+      const page = new ManualRoshInformation(bodyWithoutCreatedAt, application)
+      expect(page.response()).toEqual({
+        'Overall risk rating': 'Very high',
+        'Risk to children': 'Medium',
+        'Risk to known adult': 'High',
+        'Risk to public': 'Low',
+        'Risk to staff': 'Low',
+      })
+    })
+
+    it('returns an empty response when the application contains a rosh summary', () => {
+      const applicationWithRoshSummary: Cas2Application = {
+        ...application,
+        data: { 'risks-of-serious-harm-to-others': { summary: { a: 'a' } } },
+      }
+      const page = new ManualRoshInformation(body, applicationWithRoshSummary)
       expect(page.response()).toEqual({})
     })
   })
