@@ -807,7 +807,7 @@ describe('getPage', () => {
             text: 'Application type',
           },
           value: {
-            html: 'Intensive supervision courts (ISC)',
+            html: 'Intensive Supervision Courts (ISC)',
           },
         }
 

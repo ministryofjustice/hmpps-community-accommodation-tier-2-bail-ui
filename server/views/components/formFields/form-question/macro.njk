@@ -18,7 +18,12 @@
             {
                 fieldset: fieldset,
                 fieldName: fieldName,
-                items: convertKeyValuePairToRadioItems(question.answers, context.page.body[qKey])
+                items: convertKeyValuePairToRadioItems(
+                    question.answers,
+                    context.page.body[qKey],
+                    undefined,
+                    undefined,
+                    question.hints)
             },
             context
         ) }}

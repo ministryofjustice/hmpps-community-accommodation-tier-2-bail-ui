@@ -340,7 +340,7 @@ describe('utils', () => {
 
         expect(response.render).toHaveBeenCalledWith('applications/taskList', {
           application,
-          cohortLabel: 'Intensive supervision courts (ISC)',
+          cohortLabel: 'Intensive Supervision Courts (ISC)',
           taskList: thisMockTaskList,
           errorSummary: [],
           errors: {},

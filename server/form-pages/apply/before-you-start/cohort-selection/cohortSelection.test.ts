@@ -37,7 +37,7 @@ describe('ConsentRefused', () => {
     it('gets the response from the body', () => {
       expect(new CohortSelection(bodyIsc, application).response()).toEqual({
         'Provide details (optional)': 'some notes',
-        'Why does Roger Smith need CAS2 accommodation?': 'Intensive supervision courts (ISC)',
+        'Why does Roger Smith need CAS2 accommodation?': 'Intensive Supervision Courts (ISC)',
       })
     })
   })

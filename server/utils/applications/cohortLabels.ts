@@ -3,12 +3,21 @@ import { ApplicationOrigin, Cas2Application, Cas2CohortDto, Cas2SubmittedApplica
 export type NonBailCohort = Exclude<Cas2CohortDto, 'hdc' | 'prisonBail' | 'courtBail'>
 
 export const newCohortLabels: Record<NonBailCohort, string> = {
-  atcr: 'Alternative to custodial recall (ATCR)',
-  hcrd: 'Homeless at conditional release date (HCRD)',
-  hefr: 'Homeless at end of fixed-term recall',
-  isc: 'Intensive supervision courts (ISC)',
+  hcrd: 'Homeless at Conditional Release Date (HCRD)',
+  hefr: 'Homeless following Fixed Term Recall (HFTR)',
   rarr: 'Risk Assessed Recall Review (RARR)',
-  from_ap: 'Move on from Approved Premises',
+  from_ap: 'Move-on from Approved Premises (CAS1)',
+  atcr: 'Alternative to Custodial Recall (ATCR)',
+  isc: 'Intensive Supervision Courts (ISC)',
+}
+
+export const newCohortHints: Record<NonBailCohort, string> = {
+  hcrd: 'Person is currently in prison but will be released as homeless on their conditional release date.',
+  hefr: 'Person was sent back to prison for a period of time and will be released as homeless after their recall.',
+  rarr: 'Person is in prison because of a recall but could be re-released without referral to a parole board.',
+  from_ap: 'Person is in Approved Premises but no longer needs the public protection measures that an AP provides.',
+  atcr: 'Person is in the community but at risk of being recalled due to a breakdown of accommodation.',
+  isc: 'Person has been sentenced to an Intensive Supervision order as part of the ISC scheme.',
 }
 
 export const cohortLabels: Record<Cas2CohortDto, string> = {
