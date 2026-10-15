@@ -32,6 +32,15 @@ describe('DashboardController', () => {
         pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: false,
+        typesOfApplications: [
+          'Bail',
+          'Homeless at Conditional Release Date (HCRD)',
+          'Homeless following Fixed Term Recall (HFTR)',
+          'Risk Assessed Recall Review (RARR)',
+          'Move-on from Approved Premises (CAS1)',
+          'Alternative to Custodial Recall (ATCR)',
+          'Intensive Supervision Courts (ISC)',
+        ],
       })
     })
 
@@ -46,6 +55,15 @@ describe('DashboardController', () => {
         pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: true,
+        typesOfApplications: [
+          'Bail',
+          'Homeless at Conditional Release Date (HCRD)',
+          'Homeless following Fixed Term Recall (HFTR)',
+          'Risk Assessed Recall Review (RARR)',
+          'Move-on from Approved Premises (CAS1)',
+          'Alternative to Custodial Recall (ATCR)',
+          'Intensive Supervision Courts (ISC)',
+        ],
       })
     })
 
@@ -60,6 +78,15 @@ describe('DashboardController', () => {
         pageHeading: 'CAS2 for bail',
         sections,
         isReferrer: true,
+        typesOfApplications: [
+          'Bail',
+          'Homeless at Conditional Release Date (HCRD)',
+          'Homeless following Fixed Term Recall (HFTR)',
+          'Risk Assessed Recall Review (RARR)',
+          'Move-on from Approved Premises (CAS1)',
+          'Alternative to Custodial Recall (ATCR)',
+          'Intensive Supervision Courts (ISC)',
+        ],
       })
     })
   })

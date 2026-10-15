@@ -39,13 +39,9 @@
       <h2 class="govuk-heading-m">Types of application you can submit</h2>
 
       <ul class="govuk-list govuk-list--bullet">
-        <li>Bail</li>
-        <li>Alternative to custodial recall (ATCR)</li>
-        <li>Homeless at conditional release date (HCRD)</li>
-        <li>Homeless at end of fixed-term recall</li>
-        <li>Intensive supervision courts (ISC)</li>
-        <li>Risk Assessed Recall Review (RARR)</li>
-        <li>Move on from Approved Premises</li>
+        {% for application in typesOfApplications %}
+          <li>{{ application }}</li>
+        {% endfor %}
       </ul>
     </div>
 

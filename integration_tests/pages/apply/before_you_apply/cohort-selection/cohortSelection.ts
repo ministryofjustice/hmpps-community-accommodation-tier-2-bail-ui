@@ -1,7 +1,7 @@
 import { Cas2Application as Application, FullPerson } from '@approved-premises/api'
 import paths from '../../../../../server/paths/apply'
 import ApplyPage from '../../applyPage'
-import { newCohortLabels } from '../../../../../server/utils/applications/cohortLabels'
+import { newCohortHints, newCohortLabels } from '../../../../../server/utils/applications/cohortLabels'
 
 export default class CohortSelectionPage extends ApplyPage {
   constructor(readonly application: Application) {
@@ -11,6 +11,10 @@ export default class CohortSelectionPage extends ApplyPage {
       'cohort-selection',
       'cohort-selection',
     )
+  }
+
+  personName = () => {
+    return (this.application.person as FullPerson).name
   }
 
   static visit = (application: Application) => {
@@ -25,9 +29,17 @@ export default class CohortSelectionPage extends ApplyPage {
   }
 
   verifyQuestions() {
-    Object.values(newCohortLabels).forEach(question => {
-      cy.contains(question)
-    })
+    cy.contains(`Why does ${this.personName()} need CAS2 accommodation?`)
+      .siblings('.govuk-form-group')
+      .first()
+      .within(() => {
+        Object.keys(newCohortLabels).forEach(key => {
+          const question = newCohortLabels[key]
+          const hint = newCohortHints[key]
+
+          cy.contains(question).siblings().contains(hint)
+        })
+      })
     cy.contains('Provide details (optional)')
   }
 
