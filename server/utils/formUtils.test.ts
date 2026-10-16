@@ -15,6 +15,7 @@ import { DateFormats, isoDateToDateParts } from './dateUtils'
 
 describe('formutils', () => {
   const obj = { foo: 'Foo', bar: 'Bar' }
+  const objHints = { foo: 'Foo hint', bar: 'Bar hint' }
 
   describe('escape', () => {
     it('escapes HTML tags', () => {
@@ -62,6 +63,13 @@ describe('formutils', () => {
         { value: 'foo', text: 'Foo', checked: false },
         { divider: 'divider' },
         { value: 'bar', text: 'Bar', checked: false },
+      ])
+    })
+
+    it('should include hints for the options when they are present', () => {
+      expect(convertKeyValuePairToRadioItems(obj, '', undefined, undefined, objHints)).toEqual([
+        { value: 'foo', text: 'Foo', checked: false, hint: { text: 'Foo hint' } },
+        { value: 'bar', text: 'Bar', checked: false, hint: { text: 'Bar hint' } },
       ])
     })
   })

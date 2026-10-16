@@ -1,6 +1,7 @@
 import type { Request, RequestHandler, Response } from 'express'
 import { sectionsForUser } from '../utils/userUtils'
 import config from '../config'
+import { newCohortLabels } from '../utils/applications/cohortLabels'
 
 export default class DashboardController {
   index(): RequestHandler {
@@ -12,10 +13,13 @@ export default class DashboardController {
         res.locals.user.userRoles.includes('CAS2_COURT_BAIL_REFERRER') ||
         res.locals.user.userRoles.includes('PROBATION')
 
+      const typesOfApplications: Array<string> = ['Bail', ...Object.values(newCohortLabels)]
+
       res.render('dashboard/index', {
         pageHeading: config.flags.cas2IsrEnabled ? 'CAS2' : 'CAS2 for bail',
         sections,
         isReferrer,
+        typesOfApplications,
       })
     }
   }

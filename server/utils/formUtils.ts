@@ -26,6 +26,7 @@ export function convertKeyValuePairToRadioItems<T extends object>(
   checkedItem: string,
   conditionals?: Record<string, unknown>,
   separators?: Record<string, string>,
+  hints?: Record<string, string>,
 ): Array<RadioItem> {
   return Object.entries(object)
     .reduce((out, [key, value]) => {
@@ -37,6 +38,7 @@ export function convertKeyValuePairToRadioItems<T extends object>(
           text: value,
           checked: checkedItem === key,
           conditional: conditionals?.[key],
+          hint: hints?.[key] ? { text: hints[key] } : undefined,
         },
       ]
     }, [])

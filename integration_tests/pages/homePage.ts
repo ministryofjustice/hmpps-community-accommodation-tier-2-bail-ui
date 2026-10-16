@@ -55,12 +55,12 @@ export default class HomePage extends Page {
       .siblings('ul')
       .within(_ => {
         cy.get('li').contains('Bail').should('exist')
-        cy.get('li').contains('Alternative to custodial recall (ATCR)').should('exist')
-        cy.get('li').contains('Homeless at conditional release date (HCRD)').should('exist')
-        cy.get('li').contains('Homeless at end of fixed-term recall').should('exist')
-        cy.get('li').contains('Intensive supervision courts (ISC)').should('exist')
+        cy.get('li').contains('Homeless at Conditional Release Date (HCRD)').should('exist')
+        cy.get('li').contains('Homeless following Fixed Term Recall (HFTR)').should('exist')
         cy.get('li').contains('Risk Assessed Recall Review (RARR)').should('exist')
-        cy.get('li').contains('Move on from Approved Premises').should('exist')
+        cy.get('li').contains('Move-on from Approved Premises (CAS1)').should('exist')
+        cy.get('li').contains('Alternative to Custodial Recall (ATCR)').should('exist')
+        cy.get('li').contains('Intensive Supervision Courts (ISC)').should('exist')
       })
   }
 

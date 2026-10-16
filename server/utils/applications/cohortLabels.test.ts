@@ -5,7 +5,7 @@ describe('applicationTypeLabel', () => {
   it('returns the label for the cohort', () => {
     const application = submittedApplicationFactory.build({ applicationOrigin: 'other', cohort: 'isc' })
 
-    expect(applicationTypeLabel(application)).toEqual('Intensive supervision courts (ISC)')
+    expect(applicationTypeLabel(application)).toEqual('Intensive Supervision Courts (ISC)')
   })
 
   it('falls back to the application origin when there is no cohort', () => {
