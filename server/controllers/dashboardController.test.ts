@@ -21,6 +21,20 @@ describe('DashboardController', () => {
     const sections = createMock<Array<ServiceSection>>()
     ;(sectionsForUser as jest.Mock).mockReturnValue(sections)
 
+    const expectedRenderParameters = {
+      pageHeading: 'CAS2 for bail',
+      sections,
+      typesOfApplications: [
+        'Bail',
+        'Homeless at Conditional Release Date (HCRD)',
+        'Homeless following Fixed Term Recall (HFTR)',
+        'Risk Assessed Recall Review (RARR)',
+        'Move-on from Approved Premises (CAS1)',
+        'Alternative to Custodial Recall (ATCR)',
+        'Intensive Supervision Courts (ISC)',
+      ],
+    }
+
     it('should render the dashboard template', () => {
       const response = createMock<Response>({ locals: { user: { userRoles: 'CAS2_MI' } } })
 
@@ -29,18 +43,8 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'CAS2 for bail',
-        sections,
+        ...expectedRenderParameters,
         isReferrer: false,
-        typesOfApplications: [
-          'Bail',
-          'Homeless at Conditional Release Date (HCRD)',
-          'Homeless following Fixed Term Recall (HFTR)',
-          'Risk Assessed Recall Review (RARR)',
-          'Move-on from Approved Premises (CAS1)',
-          'Alternative to Custodial Recall (ATCR)',
-          'Intensive Supervision Courts (ISC)',
-        ],
       })
     })
 
@@ -52,18 +56,8 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'CAS2 for bail',
-        sections,
+        ...expectedRenderParameters,
         isReferrer: true,
-        typesOfApplications: [
-          'Bail',
-          'Homeless at Conditional Release Date (HCRD)',
-          'Homeless following Fixed Term Recall (HFTR)',
-          'Risk Assessed Recall Review (RARR)',
-          'Move-on from Approved Premises (CAS1)',
-          'Alternative to Custodial Recall (ATCR)',
-          'Intensive Supervision Courts (ISC)',
-        ],
       })
     })
 
@@ -75,18 +69,8 @@ describe('DashboardController', () => {
       requestHandler(request, response, next)
 
       expect(response.render).toHaveBeenCalledWith('dashboard/index', {
-        pageHeading: 'CAS2 for bail',
-        sections,
+        ...expectedRenderParameters,
         isReferrer: true,
-        typesOfApplications: [
-          'Bail',
-          'Homeless at Conditional Release Date (HCRD)',
-          'Homeless following Fixed Term Recall (HFTR)',
-          'Risk Assessed Recall Review (RARR)',
-          'Move-on from Approved Premises (CAS1)',
-          'Alternative to Custodial Recall (ATCR)',
-          'Intensive Supervision Courts (ISC)',
-        ],
       })
     })
   })
