@@ -12,9 +12,9 @@ export const newCohortLabels: Record<NonBailCohort, string> = {
 }
 
 export const newCohortHints: Record<NonBailCohort, string> = {
-  hcrd: 'Person is currently in prison but will be released as homeless on their conditional release date.',
-  hefr: 'Person was sent back to prison for a period of time and will be released as homeless after their recall.',
-  rarr: 'Person is in prison because of a recall but could be re-released without referral to a parole board.',
+  hcrd: 'Person is currently in prison but will be released homeless on their conditional release date.',
+  hefr: 'Person was sent back to prison for a period of time and will be released homeless after their recall.',
+  rarr: 'Person is in prison subject to a recall but could be re-released through the endorsement of Public Protection Casework Section (not parole cases).',
   from_ap: 'Person is in Approved Premises but no longer needs the public protection measures that an AP provides.',
   atcr: 'Person is in the community but at risk of being recalled due to a breakdown of accommodation.',
   isc: 'Person has been sentenced to an Intensive Supervision order as part of the ISC scheme.',
