@@ -157,6 +157,11 @@ export function getQuestions(
           dataType: 'radio',
         },
       },
+      'community-probation-practitioner-details': {
+        cppDetails: {
+          question: 'Community probation practitioner (CPP)',
+        },
+      },
     },
     'solicitor-details': {
       'has-solicitor': {
