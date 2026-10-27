@@ -10,6 +10,7 @@ import { fullPersonFactory } from '../testutils/factories/person'
 import applicationFactory from '../testutils/factories/application'
 import { DateFormats } from '../utils/dateUtils'
 import paths from '../paths/apply'
+import config from '../config'
 
 jest.mock('../utils/viewUtils')
 
@@ -362,6 +363,55 @@ describe('peopleController', () => {
         })
         expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('crn', 'Enter a CRN')])
         expect(response.redirect).toHaveBeenCalledWith(paths.applications.searchByCrn({}))
+      })
+    })
+  })
+
+  describe('findByCrnFromFama', () => {
+    beforeEach(() => {
+      config.findAndManageAccommodationUrl = 'http://localhost:3333'
+    })
+
+    describe('when there is a valid CRN', () => {
+      it('renders the confirm applicant details page', async () => {
+        const requestHandler = peopleController.findByCrnFromFama()
+
+        const person = fullPersonFactory.build({})
+        request.query = { crn: person.crn }
+
+        personService.findByCrn.mockResolvedValue(person)
+
+        await requestHandler(request, response, next)
+
+        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
+          pageHeading: `Confirm ${person.name}'s details`,
+          person,
+          date: DateFormats.dateObjtoUIDate(new Date()),
+          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          applicationOrigin: 'other',
+          backUrl: `http://localhost:3333/cases/${person.crn}`,
+        })
+      })
+    })
+
+    describe('when there is an error', () => {
+      it('renders the generic error page with a valid back link', async () => {
+        const requestHandler = peopleController.findByCrnFromFama()
+
+        const person = fullPersonFactory.build({})
+        request.query = { crn: person.crn }
+
+        personService.findByCrn.mockImplementation(() => {
+          throw new Error('Oh no')
+        })
+
+        await requestHandler(request, response, next)
+
+        expect(response.status).toHaveBeenCalledWith(500)
+        expect(response.render).toHaveBeenCalledWith('pages/error', {
+          message: 'Something went wrong. The error has been logged. Please try again',
+          backUrl: `http://localhost:3333/cases/${person.crn}`,
+        })
       })
     })
   })

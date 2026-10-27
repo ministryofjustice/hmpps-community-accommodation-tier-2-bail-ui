@@ -147,6 +147,10 @@ export default function applyRoutes(controllers: Controllers, router: Router): R
     auditBodyParams: ['crn'],
   })
 
+  get(paths.applications.newCohorts.people.findByCrn.pattern, peopleController.findByCrnFromFama(), {
+    auditEvent: 'FIND_APPLICATION_PERSON_BY_CRN',
+  })
+
   get(
     paths.applications.unauthorisedCourtBailApplication.pattern,
     applicationsController.unauthorisedCourtBailApplication(),

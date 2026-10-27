@@ -104,6 +104,11 @@ export default {
     },
   },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
+  findAndManageAccommodationUrl: get(
+    'FIND_AND_MANAGE_ACCOMMODATION_URL',
+    'http://localhost:3000',
+    requiredInProduction,
+  ),
   environmentName: get('ENVIRONMENT_NAME', ''),
   flags: {
     maintenanceMode: get('IN_MAINTENANCE_MODE', 'false') === 'true',

@@ -1,9 +1,16 @@
 {% extends "../partials/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = applicationName + " - Error" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+  {% if backUrl %}
+    {{ govukBackLink({
+      text: "Back",
+      href: backUrl
+    }) }}
+  {% endif %}
 
   <h1>{{ message }}</h1>
   <h2>{{ status }}</h2>
