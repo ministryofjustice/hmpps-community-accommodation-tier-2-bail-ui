@@ -29,6 +29,7 @@
       <ul class="govuk-list govuk-list--bullet">
         <li>be 18 or over</li>
         <li>be low, medium or high risk</li>
+        <li>not be tier A</li>
         <li>not be very high risk</li>
         <li>not be on police bail for, cautioned for, convicted of, or charged with offences mentioned in Schedule 3 of the Sexual Offences Act 2003</li>
         <li>not have broken UK immigration laws (except overstaying)</li>
@@ -59,7 +60,8 @@
       {% call govukInsetText({
         classes: "guidance-panel"
       }) %}
-        <p class="govuk-!-margin-bottom-0">Emergency referrals must be made before 4pm.</p>
+        <p>Emergency referrals must be made before 4pm.</p>
+        <p class="govuk-!-margin-bottom-0">Applications must be made at least 3 days before the release date, unless there are exceptional circumstances. Email <a href="mailto:referrals@nacrocas2.org.uk" class="govuk-link">referrals@nacrocas2.org.uk</a> if you have any questions.</p>
       {% endcall %}
 
       <p class="govuk-body govuk-!-margin-top-7">You can save your progress and return to the application at any time.</p>
