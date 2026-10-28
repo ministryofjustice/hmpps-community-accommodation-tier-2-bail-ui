@@ -30,11 +30,13 @@ export default class CPPDetails implements TaskListPage {
 
   options: Record<string, string>
 
+  contactType = 'CPP'
+
   body: CPPDetailsBody
 
   constructor(
     body: Partial<CPPDetailsBody>,
-    private readonly application: Application,
+    protected readonly application: Application,
   ) {
     this.body = body as CPPDetailsBody
     this.title = this.questions.cppDetails.question
@@ -57,18 +59,18 @@ export default class CPPDetails implements TaskListPage {
   errors() {
     const errors: TaskListErrors<this> = {}
     if (!this.body.name) {
-      errors.name = "Enter the CPP's full name"
+      errors.name = `Enter the ${this.contactType}'s full name`
     }
     if (!this.body.probationRegion) {
       errors.probationRegion = 'Enter the probation region'
     }
     if (!this.body.email) {
-      errors.email = "Enter the CPP's email address"
+      errors.email = `Enter the ${this.contactType}'s email address`
     } else if (!isValidEmail(this.body.email)) {
       errors.email = 'Enter an email address ending .gov.uk'
     }
     if (!this.body.telephone) {
-      errors.telephone = "Enter the CPP's contact number"
+      errors.telephone = `Enter the ${this.contactType}'s contact number`
     }
     return errors
   }

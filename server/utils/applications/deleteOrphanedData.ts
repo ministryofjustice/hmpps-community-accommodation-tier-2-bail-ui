@@ -17,6 +17,7 @@ export const deleteOrphanedAnswersOnCppCheckChange = (
     delete applicationData['referrer-details']['job-title']
     delete applicationData['referrer-details']['contact-number']
     delete applicationData['referrer-details'].location
+    delete applicationData['referrer-details']['backup-contact-details']
   }
 
   return applicationData
