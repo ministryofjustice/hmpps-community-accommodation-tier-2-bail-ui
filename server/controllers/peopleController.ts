@@ -7,6 +7,7 @@ import ApplicationService from '../services/applicationService'
 import { DateFormats } from '../utils/dateUtils'
 import paths from '../paths/apply'
 import { isValidCrnOrNomsNumber } from '../utils/utils'
+import config from '../config'
 
 export default class PeopleController {
   constructor(
@@ -110,6 +111,32 @@ export default class PeopleController {
       } else {
         addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
         return res.redirect(backUrl)
+      }
+    }
+  }
+
+  findByCrnFromFama(): RequestHandler {
+    return async (req: Request, res: Response) => {
+      const crn = req.query.crn as string
+      const backUrl = new URL(`cases/${encodeURIComponent(crn)}`, config.findAndManageAccommodationUrl).toString()
+
+      try {
+        const person = await this.personService.findByCrn(req.user.token, crn)
+
+        return res.render('people/confirm-applicant-details', {
+          pageHeading: `Confirm ${person.name}'s details`,
+          person,
+          date: DateFormats.dateObjtoUIDate(new Date()),
+          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
+          applicationOrigin: 'other',
+          backUrl,
+        })
+      } catch (err) {
+        res.status(500)
+        return res.render('pages/error', {
+          message: 'Something went wrong. The error has been logged. Please try again',
+          backUrl,
+        })
       }
     }
   }
