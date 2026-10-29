@@ -1,7 +1,13 @@
 import type { Request } from 'express'
 import { Cas2CohortDto, Cas2Application, Cas2ApplicationSummary } from '@approved-premises/api'
-import type { BailApplicationOrigin, DataServices, GroupedApplications, PaginatedResponse } from '@approved-premises/ui'
-import { getBody, getPageName, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
+import type {
+  BailApplicationOrigin,
+  DataServices,
+  GroupedApplications,
+  PaginatedResponse,
+  TaskData,
+} from '@approved-premises/ui'
+import { getBody, getPageName, getPrefillPageData, getTaskName, pageBodyShallowEquals } from '../form-pages/utils'
 import type { ApplicationClient, RestClientBuilder } from '../data'
 import { getApplicationSubmissionData, getApplicationUpdateData } from '../utils/applications/getApplicationData'
 import TaskListPage, { TaskListPageInterface } from '../form-pages/taskListPage'
@@ -196,7 +202,26 @@ export default class ApplicationService {
     userInput?: Record<string, unknown>,
   ): Promise<TaskListPage> {
     const application = await this.findApplication(request.user.token, request.params.id)
-    const body = getBody(Page, application, request, userInput)
+
+    /** ************   New code   ******* */
+
+    let preFill:TaskData = {}
+
+    const mapping = Page.getPrefillMapping && Page.getPrefillMapping()
+    console.log('****  got mapping', mapping)
+    if (mapping) {
+      const preFillImport = await dataServices.formDataService.getFormData(
+        request.user.token,
+        `prefill-${application.person.crn}`,
+      )
+
+      preFill = getPrefillPageData(mapping, preFillImport)
+      console.log('****  generated pre-fill', preFill)
+    }
+
+    const body = { ...preFill, ...getBody(Page, application, request, userInput) }
+
+    /** **********  End new code ******** */
 
     const page = Page.initialize
       ? await Page.initialize(body, application, request, dataServices)

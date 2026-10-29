@@ -18,6 +18,7 @@ import SubmittedApplicationClient from './submittedApplicationClient'
 import ReferenceDataClient from './referenceDataClient'
 import ReportClient from './reportClient'
 import UserClient from './userClient'
+import FormDataClient from './formDataClient'
 
 type RestClientBuilder<T> = (token: string) => T
 
@@ -32,6 +33,7 @@ export const dataAccess = () => ({
     new SubmittedApplicationClient(token)) as RestClientBuilder<SubmittedApplicationClient>,
   reportClient: ((token: string) => new ReportClient(token)) as RestClientBuilder<ReportClient>,
   userClient: ((token: string) => new UserClient(token)) as RestClientBuilder<UserClient>,
+  formDataClient: ((token: string) => new FormDataClient(token)) as RestClientBuilder<FormDataClient>,
 })
 
 export type DataAccess = ReturnType<typeof dataAccess>
@@ -45,4 +47,5 @@ export {
   SubmittedApplicationClient,
   ReferenceDataClient,
   UserClient,
+  FormDataClient,
 }

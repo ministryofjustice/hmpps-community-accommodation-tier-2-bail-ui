@@ -1,8 +1,8 @@
 import type { Request } from 'express'
-import type { FormArtifact, JourneyType, UiTask } from '@approved-premises/ui'
+import type { FormArtifact, JourneyType, TaskData, UiTask } from '@approved-premises/ui'
 import { Cas2Application } from '@approved-premises/api'
 import { TaskListPageInterface } from '../taskListPage'
-import { DateFormats } from '../../utils/dateUtils'
+import { DateFormats, isoDateToDateParts } from '../../utils/dateUtils'
 
 export const getTask = <T>(task: T) => {
   const taskPages: Record<string, unknown> = {}
@@ -50,6 +50,39 @@ export const getPagesForSections = <T>(sections: Array<T>) => {
   })
   return pages
 }
+
+/** ******  universal **** */
+
+export type FieldType = 'DATE' | 'STRING'
+export type FieldDefn = string | { fieldName: string; type?: FieldType }
+export type PrefillMapping = Record<string, FieldDefn>
+
+export function getPrefillPageData(pageMap: PrefillMapping, prefillData: TaskData) {
+  let output: Record<string, unknown> = {}
+
+  Object.entries(pageMap).forEach(([key, pageMapping]) => {
+    let preFillField: string
+    let preFillType: FieldType = 'STRING'
+
+    if (pageMapping instanceof Object) {
+      preFillField = pageMapping.fieldName
+      preFillType = pageMapping.type
+    } else {
+      preFillField = pageMapping
+    }
+    const value = prefillData[preFillField]
+    if (value) {
+      output[key] = value
+      if (preFillType === 'DATE') {
+        output = { ...output, ...isoDateToDateParts(value, key) }
+      }
+    }
+  })
+  return output as TaskData
+}
+
+/** ******  universal ******* */
+
 export function getBody(
   Page: TaskListPageInterface,
   application: FormArtifact,

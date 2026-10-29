@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import type { Request } from 'express'
 import type { DataServices, FormArtifact, TaskListErrors } from '@approved-premises/ui'
+import { PrefillMapping } from './utils'
 
 export interface TaskListPageInterface {
   new (body: Record<string, unknown>, document?: FormArtifact, previousPage?: string): TaskListPage
@@ -10,6 +11,8 @@ export interface TaskListPageInterface {
     req: Request,
     dataServices: DataServices,
   ): Promise<TaskListPage>
+
+  getPrefillMapping?(): PrefillMapping
 }
 
 export default abstract class TaskListPage {

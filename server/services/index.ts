@@ -6,6 +6,7 @@ import AssessmentService from './assessmentService'
 import SubmittedApplicationService from './submittedApplicationService'
 import TaskListService from './taskListService'
 import ReportService from './reportService'
+import FormDataService from './formDataService'
 
 export const services = () => {
   const {
@@ -18,6 +19,7 @@ export const services = () => {
     referenceDataClient,
     reportClient,
     userClient,
+    formDataClient,
   } = dataAccess()
 
   const userService = new UserService(hmppsAuthClient, userClient)
@@ -26,6 +28,7 @@ export const services = () => {
   const assessmentService = new AssessmentService(assessmentClient)
   const submittedApplicationService = new SubmittedApplicationService(submittedApplicationClient, referenceDataClient)
   const reportService = new ReportService(reportClient)
+  const formDataService = new FormDataService(formDataClient)
 
   return {
     applicationInfo,
@@ -35,6 +38,7 @@ export const services = () => {
     assessmentService,
     submittedApplicationService,
     reportService,
+    formDataService,
   }
 }
 
@@ -47,4 +51,5 @@ export {
   AssessmentService,
   SubmittedApplicationService,
   TaskListService,
+  FormDataService,
 }

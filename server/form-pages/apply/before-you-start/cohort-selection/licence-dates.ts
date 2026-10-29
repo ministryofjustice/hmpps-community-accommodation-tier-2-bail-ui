@@ -6,7 +6,7 @@ import { validateDateParts, validateEndDateIsAfterStartDate } from '../../../../
 import { dateIsComplete } from '../../../../utils/dateUtils'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { getQuestions } from '../../../utils/questions'
-import { dateBodyProperties } from '../../../utils'
+import { dateBodyProperties, PrefillMapping } from '../../../utils'
 
 export type LicenceDatesBody = {
   hasHdcExpiryDate: YesOrNo
@@ -92,5 +92,11 @@ export default class LicenceDates extends BasePage {
 
   isApplicable() {
     return this.application.applicationOrigin === 'other'
+  }
+
+  static getPrefillMapping(): PrefillMapping {
+    return {
+      licenceEndDate: { fieldName: 'licenceExpiryDate', type: 'DATE' },
+    }
   }
 }

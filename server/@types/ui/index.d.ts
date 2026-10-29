@@ -91,6 +91,9 @@ export type DataServices = Partial<{
   userService: {
     getUserDetails: (token: string, username: string) => Promise<Cas2v2UserDto>
   }
+  formDataService: {
+    getFormData: (token: string, id:string) => Promise<TaskData>
+  }
 }>
 
 export interface ErrorsAndUserInput {
@@ -238,3 +241,5 @@ export type PaginatedResponse<T> = {
 
 export type NewCohortApplicationOrigin = 'bail' | 'other'
 export type BailApplicationOrigin = 'courtBail' | 'prisonBail'
+
+export type TaskData = Record<string, string>

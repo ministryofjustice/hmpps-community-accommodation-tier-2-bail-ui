@@ -56,4 +56,5 @@ export default {
   users: {
     get: basePath.path('users/me'),
   },
+  formData: path('/cas1/form-data/:id'),
 }

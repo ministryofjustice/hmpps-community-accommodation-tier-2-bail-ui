@@ -4,6 +4,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { PrefillMapping } from '../../../utils'
 
 export type CommunicationAndLanguageBody = {
   hasImpairments: YesOrNo
@@ -74,5 +75,12 @@ export default class CommunicationAndLanguage implements TaskListPage {
 
   response() {
     return {}
+  }
+
+  static getPrefillMapping(): PrefillMapping {
+    return {
+      requiresInterpreter: 'needsInterpreter',
+      interpretationDetail: 'interpreterLanguage',
+    }
   }
 }

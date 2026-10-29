@@ -4,6 +4,7 @@ import { Page } from '../../../utils/decorators'
 import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { PrefillMapping } from '../../../utils'
 
 export type PhysicalHealthBody = {
   hasPhyHealthNeeds: YesOrNo
@@ -98,6 +99,13 @@ export default class PhysicalHealth implements TaskListPage {
 
     if (this.body.canLiveIndependently !== 'no') {
       delete this.body.indyLivingDetail
+    }
+  }
+
+  static getPrefillMapping(): PrefillMapping {
+    return {
+      hasPhyHealthNeeds: 'careAndSupportNeeds',
+      needsDetail: 'careAndSupportNeedsDetail',
     }
   }
 }

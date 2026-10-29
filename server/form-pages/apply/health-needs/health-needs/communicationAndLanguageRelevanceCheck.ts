@@ -4,6 +4,7 @@ import { nameOrPlaceholderCopy } from '../../../../utils/utils'
 import { Page } from '../../../utils/decorators'
 import TaskListPage from '../../../taskListPage'
 import { getQuestions } from '../../../utils/questions'
+import { PrefillMapping } from '../../../utils'
 
 export type CommunicationAndLanguageRelevanceCheckBody = {
   hasCommunicationAndLanguageNeeds: YesOrNo
@@ -77,5 +78,11 @@ export default class CommunicationAndLanguageRelevanceCheck implements TaskListP
     }
 
     return response
+  }
+
+  static getPrefillMapping(): PrefillMapping {
+    return {
+      hasCommunicationAndLanguageNeeds: 'needsInterpreter',
+    }
   }
 }
