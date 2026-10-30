@@ -30,7 +30,8 @@ describe('LicenceDatesNeeded', () => {
   })
 
   describe('Routing', () => {
-    itShouldHaveNextValue(page, '')
+    itShouldHaveNextValue(page, 'accommodation-start-date')
+    itShouldHaveNextValue(yesPage, 'licence-dates')
     itShouldHavePreviousValue(page, 'cohort-selection')
   })
 
