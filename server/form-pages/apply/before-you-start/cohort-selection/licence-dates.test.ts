@@ -51,7 +51,7 @@ describe('LicenceDates', () => {
   })
 
   describe('Routing', () => {
-    itShouldHaveNextValue(page('rarr'), '')
+    itShouldHaveNextValue(page('rarr'), 'accommodation-start-date')
     itShouldHavePreviousValue(page('rarr'), 'cohort-selection')
     itShouldHavePreviousValue(page('isc'), 'licence-dates-needed')
   })

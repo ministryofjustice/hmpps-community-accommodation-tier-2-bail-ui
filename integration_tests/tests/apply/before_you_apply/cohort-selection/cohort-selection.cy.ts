@@ -5,6 +5,7 @@ import CohortSelectionPage from '../../../../pages/apply/before_you_apply/cohort
 import { newCohortLabels, NonBailCohort } from '../../../../../server/utils/applications/cohortLabels'
 import LicenceDatesPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDates'
 import LicenceDatesNeededPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDatesNeededPage'
+import AccommodationStartDatePage from '../../../../pages/apply/before_you_apply/cohort-selection/accommodationStartDatePage'
 
 context('Complete Cohort selection task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -100,6 +101,22 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
       licencePage.clickSubmit('Save and continue')
       // Then the correct dates will have been posted
       licencePage.verifyUpdate(updatedApplication)
+
+      // And I am on the accommodation start date page
+      const accommodationStartDatePage = new AccommodationStartDatePage(application)
+
+      // When I submit the empty form
+      accommodationStartDatePage.clickSubmit('Save and continue')
+
+      // Then I should see an error
+      accommodationStartDatePage.shouldShowErrorSummary('Enter a date the accommodation is required from')
+
+      // When I complete the form and submit
+      accommodationStartDatePage.completeForm()
+      accommodationStartDatePage.clickSubmit('Save and continue')
+
+      // Then the correct date will have been posted
+      accommodationStartDatePage.verifyUpdate(updatedApplication)
     })
   })
 
