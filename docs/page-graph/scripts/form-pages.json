@@ -1,0 +1,1730 @@
+{
+  "sections": [
+    {
+      "title": "Before you apply",
+      "tasks": [
+        {
+          "slug": "confirm-eligibility",
+          "title": "Confirm eligibility",
+          "pages": [
+            {
+              "name": "confirm-eligibility",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "confirm-eligibility",
+          "isApplicable": null
+        },
+        {
+          "slug": "confirm-consent",
+          "title": "Confirm consent to apply",
+          "pages": [
+            {
+              "name": "confirm-consent",
+              "next": [
+                {
+                  "target": "consent-refused",
+                  "conds": [
+                    {
+                      "text": "this.body.hasGivenConsent === 'no'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.hasGivenConsent === 'no'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "consent-refused",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "confirm-consent",
+          "isApplicable": null
+        },
+        {
+          "slug": "cohort-selection",
+          "title": "Type of application and licence details",
+          "pages": [
+            {
+              "name": "cohort-selection",
+              "next": [
+                {
+                  "target": "licence-dates-needed",
+                  "conds": [
+                    {
+                      "text": "this.body.cohort === 'isc'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "licence-dates",
+                  "conds": [
+                    {
+                      "text": "this.body.cohort === 'isc'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "licence-dates-needed",
+              "next": [
+                {
+                  "target": "licence-dates",
+                  "conds": [
+                    {
+                      "text": "this.body.licenceDatesNeeded === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.licenceDatesNeeded === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "licence-dates",
+              "next": [],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            }
+          ],
+          "firstPage": "cohort-selection",
+          "isApplicable": "this.application.applicationOrigin === 'other'"
+        },
+        {
+          "slug": "referrer-details",
+          "title": "Add referrer details",
+          "pages": [
+            {
+              "name": "confirm-details",
+              "next": [
+                {
+                  "target": "cpp-check",
+                  "conds": [
+                    {
+                      "text": "this.application.applicationOrigin === 'other'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "job-title",
+                  "conds": [
+                    {
+                      "text": "this.application.applicationOrigin === 'other'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "cpp-check",
+              "next": [
+                {
+                  "target": "contact-number",
+                  "conds": [
+                    {
+                      "text": "this.body.isCpp === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "community-probation-practitioner-details",
+                  "conds": [
+                    {
+                      "text": "this.body.isCpp === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "community-probation-practitioner-details",
+              "next": [
+                {
+                  "target": "job-title",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "job-title",
+              "next": [
+                {
+                  "target": "contact-number",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "contact-number",
+              "next": [
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.isCpp",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "location",
+                  "conds": [
+                    {
+                      "text": "this.isCpp",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "location",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "confirm-details",
+          "isApplicable": null
+        },
+        {
+          "slug": "solicitor-details",
+          "title": "Add solicitor details",
+          "pages": [
+            {
+              "name": "has-solicitor",
+              "next": [
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.hasSolicitor === 'no'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "contact-information",
+                  "conds": [
+                    {
+                      "text": "this.body.hasSolicitor === 'no'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+            },
+            {
+              "name": "contact-information",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "has-solicitor",
+          "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+        }
+      ]
+    },
+    {
+      "title": "About the applicant",
+      "tasks": [
+        {
+          "slug": "personal-information",
+          "title": "Add personal information",
+          "pages": [
+            {
+              "name": "working-mobile-phone",
+              "next": [
+                {
+                  "target": "custody-location",
+                  "conds": [
+                    {
+                      "text": "custodialCohorts.includes(this.application.cohort)",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "immigration-status",
+                  "conds": [
+                    {
+                      "text": "custodialCohorts.includes(this.application.cohort)",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "custody-location",
+              "next": [
+                {
+                  "target": "immigration-status",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "immigration-status",
+              "next": [
+                {
+                  "target": "gender",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "gender",
+              "next": [
+                {
+                  "target": "pregnancy-information",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "pregnancy-information",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "working-mobile-phone",
+          "isApplicable": null
+        },
+        {
+          "slug": "address-history",
+          "title": "Add address history",
+          "pages": [
+            {
+              "name": "has-fixed-address",
+              "next": [
+                {
+                  "target": "last-fixed-address",
+                  "conds": [
+                    {
+                      "text": "this.body.hasFixedAddress === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "no-fixed-address",
+                  "conds": [
+                    {
+                      "text": "this.body.hasFixedAddress === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "last-fixed-address",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "no-fixed-address",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "previous-address",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "has-fixed-address",
+          "isApplicable": null
+        },
+        {
+          "slug": "equality-and-diversity-monitoring",
+          "title": "Add equality and diversity monitoring information",
+          "pages": [
+            {
+              "name": "will-answer-equality-questions",
+              "next": [
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.willAnswer === 'no'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "disability",
+                  "conds": [
+                    {
+                      "text": "this.body.willAnswer === 'no'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "disability",
+              "next": [
+                {
+                  "target": "sex-and-gender",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "sex-and-gender",
+              "next": [
+                {
+                  "target": "sexual-orientation",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "sexual-orientation",
+              "next": [
+                {
+                  "target": "ethnic-group",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "ethnic-group",
+              "next": [
+                {
+                  "target": "white-background",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.body.ethnicGroup === 'white'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "mixed-background",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.body.ethnicGroup === 'mixed'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "asian-background",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.body.ethnicGroup === 'asian'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "black-background",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.body.ethnicGroup === 'black'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "other-background",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.body.ethnicGroup === 'other'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "religion",
+                  "conds": [
+                    {
+                      "text": "ethnicGroupNext[ethnicGroupBody]",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "white-background",
+              "next": [
+                {
+                  "target": "religion",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "mixed-background",
+              "next": [
+                {
+                  "target": "religion",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "asian-background",
+              "next": [
+                {
+                  "target": "religion",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "black-background",
+              "next": [
+                {
+                  "target": "religion",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "other-background",
+              "next": [
+                {
+                  "target": "religion",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "religion",
+              "next": [
+                {
+                  "target": "military-veteran",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "military-veteran",
+              "next": [
+                {
+                  "target": "care-leaver",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "care-leaver",
+              "next": [
+                {
+                  "target": "parental-carer-responsibilities",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "parental-carer-responsibilities",
+              "next": [
+                {
+                  "target": "marital-status",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "marital-status",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "will-answer-equality-questions",
+          "isApplicable": null
+        }
+      ]
+    },
+    {
+      "title": "Area, funding and ID",
+      "tasks": [
+        {
+          "slug": "area-information",
+          "title": "Add exclusion zones and preferred areas",
+          "pages": [
+            {
+              "name": "first-preferred-area",
+              "next": [
+                {
+                  "target": "second-preferred-area",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "second-preferred-area",
+              "next": [
+                {
+                  "target": "other-area-preferences",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "other-area-preferences",
+              "next": [
+                {
+                  "target": "exclusion-zones",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "exclusion-zones",
+              "next": [
+                {
+                  "target": "gang-affiliations",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "gang-affiliations",
+              "next": [
+                {
+                  "target": "family-accommodation",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "family-accommodation",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "first-preferred-area",
+          "isApplicable": null
+        },
+        {
+          "slug": "funding-information",
+          "title": "Confirm funding and ID",
+          "pages": [
+            {
+              "name": "funding-cas2-accommodation",
+              "next": [
+                {
+                  "target": "applicant-id",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "applicant-id",
+              "next": [
+                {
+                  "target": "alternative-applicant-id",
+                  "conds": [
+                    {
+                      "text": "this.body.idDocuments?.includes('none')",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.idDocuments?.includes('none')",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "alternative-applicant-id",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "funding-cas2-accommodation",
+          "isApplicable": null
+        }
+      ]
+    },
+    {
+      "title": "Offences and concerns",
+      "tasks": [
+        {
+          "slug": "provide-offences-and-convictions-details",
+          "title": "Provide offences and convictions details",
+          "pages": [
+            {
+              "name": "offences-and-convictions-guidance",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+            }
+          ],
+          "firstPage": "offences-and-convictions-guidance",
+          "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+        },
+        {
+          "slug": "alleged-offences",
+          "title": "Add alleged offences",
+          "pages": [
+            {
+              "name": "alleged-offences",
+              "next": [
+                {
+                  "target": "alleged-offences-summary",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin !== 'other'"
+            },
+            {
+              "name": "alleged-offence-data",
+              "next": [
+                {
+                  "target": "alleged-offences",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "alleged-offences-summary",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "alleged-offences",
+          "isApplicable": "this.application.applicationOrigin !== 'other'"
+        },
+        {
+          "slug": "current-offences",
+          "title": "Add current offences",
+          "pages": [
+            {
+              "name": "current-offences",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "current-offence-data",
+              "next": [
+                {
+                  "target": "current-offences",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "current-offences",
+          "isApplicable": "this.application.applicationOrigin === 'other'"
+        },
+        {
+          "slug": "orders-and-licence-conditions",
+          "title": "Add orders and licence conditions",
+          "pages": [
+            {
+              "name": "licence-conditions",
+              "next": [
+                {
+                  "target": "orders",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "orders",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "licence-conditions",
+          "isApplicable": "this.application.applicationOrigin === 'other'"
+        },
+        {
+          "slug": "previous-unspent-convictions",
+          "title": "Add previous unspent convictions",
+          "pages": [
+            {
+              "name": "any-previous-convictions",
+              "next": [
+                {
+                  "target": "unspent-convictions",
+                  "conds": [
+                    {
+                      "text": "this.body.hasAnyPreviousConvictions === 'yesRelevantRisk'",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.application.data?.['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "unspent-convictions-data",
+                  "conds": [
+                    {
+                      "text": "this.body.hasAnyPreviousConvictions === 'yesRelevantRisk'",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.application.data?.['previous-unspent-convictions']?.['unspent-convictions-data']?.length > 0",
+                      "negated": true
+                    }
+                  ]
+                },
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.hasAnyPreviousConvictions === 'yesRelevantRisk'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "unspent-convictions-data",
+              "next": [
+                {
+                  "target": "unspent-convictions",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "unspent-convictions",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "any-previous-convictions",
+          "isApplicable": null
+        },
+        {
+          "slug": "add-probation-supervision-details",
+          "title": "Add probation supervision details",
+          "pages": [
+            {
+              "name": "supervised-by-probation",
+              "next": [
+                {
+                  "target": "community-probation-practitioner-details",
+                  "conds": [
+                    {
+                      "text": "this.body.probationSupervision === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "",
+                  "conds": [
+                    {
+                      "text": "this.body.probationSupervision === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+            },
+            {
+              "name": "community-probation-practitioner-details",
+              "next": [
+                {
+                  "target": "contacted-cpp-about-current-risk-levels",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "contacted-cpp-about-current-risk-levels",
+              "next": [
+                {
+                  "target": "serious-harm-risk-levels",
+                  "conds": [
+                    {
+                      "text": "this.body.hasContactedCppAboutCurrentRiskLevels === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "you-must-contact-the-cpp",
+                  "conds": [
+                    {
+                      "text": "this.body.hasContactedCppAboutCurrentRiskLevels === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "you-must-contact-the-cpp",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "serious-harm-risk-levels",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "supervised-by-probation",
+          "isApplicable": "['courtBail', 'prisonBail'].includes(this.application.applicationOrigin)"
+        },
+        {
+          "slug": "risk-information",
+          "title": "Add information about concerns to the applicant and others",
+          "pages": [
+            {
+              "name": "concerns",
+              "next": [
+                {
+                  "target": "self-harm",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin !== 'other'"
+            },
+            {
+              "name": "self-harm",
+              "next": [
+                {
+                  "target": "does-the-applicant-have-acct-notes",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "does-the-applicant-have-acct-notes",
+              "next": [
+                {
+                  "target": "acct",
+                  "conds": [
+                    {
+                      "text": "this.body.applicantHasAcctNotes === 'yes'",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.hasExistingACCTNotes()",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "add-acct-note",
+                  "conds": [
+                    {
+                      "text": "this.body.applicantHasAcctNotes === 'yes'",
+                      "negated": false
+                    },
+                    {
+                      "text": "this.hasExistingACCTNotes()",
+                      "negated": true
+                    }
+                  ]
+                },
+                {
+                  "target": "domestic-abuse-concerns",
+                  "conds": [
+                    {
+                      "text": "this.body.applicantHasAcctNotes === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "acct",
+              "next": [
+                {
+                  "target": "domestic-abuse-concerns",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "add-acct-note",
+              "next": [
+                {
+                  "target": "acct",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "domestic-abuse-concerns",
+              "next": [
+                {
+                  "target": "details-of-domestic-abuse-concerns",
+                  "conds": [
+                    {
+                      "text": "this.body.areConcerns === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "violence-and-arson",
+                  "conds": [
+                    {
+                      "text": "this.body.areConcerns === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "details-of-domestic-abuse-concerns",
+              "next": [
+                {
+                  "target": "violence-and-arson",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "violence-and-arson",
+              "next": [
+                {
+                  "target": "living-in-the-community",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "living-in-the-community",
+              "next": [
+                {
+                  "target": "safety-of-staff",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "safety-of-staff",
+              "next": [
+                {
+                  "target": "additional-concerns",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "additional-concerns",
+              "next": [
+                {
+                  "target": "risk-management-arrangements",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "risk-management-arrangements",
+              "next": [
+                {
+                  "target": "information-sources",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "information-sources",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "concerns",
+          "isApplicable": "this.application.applicationOrigin !== 'other'"
+        }
+      ]
+    },
+    {
+      "title": "Risk and health needs",
+      "tasks": [
+        {
+          "slug": "health-needs",
+          "title": "Add health needs",
+          "pages": [
+            {
+              "name": "health-needs-information",
+              "next": [
+                {
+                  "target": "substance-misuse",
+                  "conds": [
+                    {
+                      "text": "this.application.applicationOrigin === 'other'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "liaison-and-diversion",
+                  "conds": [
+                    {
+                      "text": "this.application.applicationOrigin === 'other'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "liaison-and-diversion",
+              "next": [
+                {
+                  "target": "substance-misuse",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin !== 'other'"
+            },
+            {
+              "name": "substance-misuse",
+              "next": [
+                {
+                  "target": "physical-health",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "physical-health",
+              "next": [
+                {
+                  "target": "mental-health",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "mental-health",
+              "next": [
+                {
+                  "target": "communication-and-language-relevance-check",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "communication-and-language-relevance-check",
+              "next": [
+                {
+                  "target": "communication-and-language",
+                  "conds": [
+                    {
+                      "text": "this.body.hasCommunicationAndLanguageNeeds === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "learning-difficulties",
+                  "conds": [
+                    {
+                      "text": "this.body.hasCommunicationAndLanguageNeeds === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "communication-and-language",
+              "next": [
+                {
+                  "target": "learning-difficulties",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "learning-difficulties",
+              "next": [
+                {
+                  "target": "learning-difficulties-details",
+                  "conds": [
+                    {
+                      "text": "this.body.hasLearningDifficultiesOrNeurodiversityNeeds === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "brain-injury",
+                  "conds": [
+                    {
+                      "text": "this.body.hasLearningDifficultiesOrNeurodiversityNeeds === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "learning-difficulties-details",
+              "next": [
+                {
+                  "target": "brain-injury",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "brain-injury",
+              "next": [
+                {
+                  "target": "brain-injury-details",
+                  "conds": [
+                    {
+                      "text": "this.body.hasBrainInjury === 'yes'",
+                      "negated": false
+                    }
+                  ]
+                },
+                {
+                  "target": "other-health",
+                  "conds": [
+                    {
+                      "text": "this.body.hasBrainInjury === 'yes'",
+                      "negated": true
+                    }
+                  ]
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "brain-injury-details",
+              "next": [
+                {
+                  "target": "other-health",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "other-health",
+              "next": [
+                {
+                  "target": "information-sources",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "information-sources",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "health-needs-information",
+          "isApplicable": null
+        },
+        {
+          "slug": "risk-to-self",
+          "title": "Add risk to self information",
+          "pages": [
+            {
+              "name": "oasys-import",
+              "next": [
+                {
+                  "target": "vulnerability",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "old-oasys",
+              "next": [
+                {
+                  "target": "vulnerability",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "vulnerability",
+              "next": [
+                {
+                  "target": "current-and-previous-risk",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "current-and-previous-risk",
+              "next": [
+                {
+                  "target": "acct",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "acct-data",
+              "next": [
+                {
+                  "target": "acct",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "acct",
+              "next": [
+                {
+                  "target": "additional-information",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "additional-information",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "oasys-import",
+          "isApplicable": "this.application.applicationOrigin === 'other'"
+        },
+        {
+          "slug": "risks-of-serious-harm-to-others",
+          "title": "Add risk of serious harm to others",
+          "pages": [
+            {
+              "name": "oasys-import",
+              "next": [
+                {
+                  "target": "summary",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin === 'other'"
+            },
+            {
+              "name": "summary",
+              "next": [
+                {
+                  "target": "risk-to-others",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "old-oasys",
+              "next": [
+                {
+                  "target": "manual-rosh-information",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "manual-rosh-information",
+              "next": [
+                {
+                  "target": "risk-to-others",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "risk-to-others",
+              "next": [
+                {
+                  "target": "risk-management-arrangements",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "risk-management-arrangements",
+              "next": [
+                {
+                  "target": "cell-share-information",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "cell-share-information",
+              "next": [
+                {
+                  "target": "additional-risk-information",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            },
+            {
+              "name": "additional-risk-information",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "oasys-import",
+          "isApplicable": "this.application.applicationOrigin === 'other'"
+        }
+      ]
+    },
+    {
+      "title": "Bail information",
+      "tasks": [
+        {
+          "slug": "bail-conditions",
+          "title": "Add bail conditions",
+          "pages": [
+            {
+              "name": "non-standard-bail-conditions",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin !== 'other'"
+            }
+          ],
+          "firstPage": "non-standard-bail-conditions",
+          "isApplicable": "this.application.applicationOrigin !== 'other'"
+        },
+        {
+          "slug": "bail-hearing-information",
+          "title": "Add bail hearing information",
+          "pages": [
+            {
+              "name": "bail-hearing-information",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": "this.application.applicationOrigin !== 'other'"
+            }
+          ],
+          "firstPage": "bail-hearing-information",
+          "isApplicable": "this.application.applicationOrigin !== 'other'"
+        }
+      ]
+    },
+    {
+      "title": "Check answers",
+      "tasks": [
+        {
+          "slug": "check-your-answers",
+          "title": "Check application answers",
+          "pages": [
+            {
+              "name": "check-your-answers",
+              "next": [
+                {
+                  "target": "",
+                  "conds": []
+                }
+              ],
+              "isApplicable": null
+            }
+          ],
+          "firstPage": "check-your-answers",
+          "isApplicable": null
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "courtBail",
+      "label": "Court bail",
+      "applicationOrigin": "courtBail",
+      "cohort": "courtBail"
+    },
+    {
+      "id": "prisonBail",
+      "label": "Prison bail",
+      "applicationOrigin": "prisonBail",
+      "cohort": "prisonBail"
+    },
+    {
+      "id": "hcrd",
+      "label": "Homeless at Conditional Release Date (HCRD)",
+      "applicationOrigin": "other",
+      "cohort": "hcrd"
+    },
+    {
+      "id": "hefr",
+      "label": "Homeless following Fixed Term Recall (HFTR)",
+      "applicationOrigin": "other",
+      "cohort": "hefr"
+    },
+    {
+      "id": "rarr",
+      "label": "Risk Assessed Recall Review (RARR)",
+      "applicationOrigin": "other",
+      "cohort": "rarr"
+    },
+    {
+      "id": "from_ap",
+      "label": "Move-on from Approved Premises (CAS1)",
+      "applicationOrigin": "other",
+      "cohort": "from_ap"
+    },
+    {
+      "id": "atcr",
+      "label": "Alternative to Custodial Recall (ATCR)",
+      "applicationOrigin": "other",
+      "cohort": "atcr"
+    },
+    {
+      "id": "isc",
+      "label": "Intensive Supervision Courts (ISC)",
+      "applicationOrigin": "other",
+      "cohort": "isc"
+    }
+  ],
+  "custodialCohorts": [
+    "rarr",
+    "hcrd",
+    "hefr",
+    "hdc",
+    "prisonBail",
+    "courtBail"
+  ]
+}

@@ -1,0 +1,410 @@
+flowchart TD
+  classDef tl fill:#ffe0b2,stroke:#e65100
+  TL(["Task list<br/>/applications/:id"]):::tl
+  subgraph s__Before_you_apply["Before you apply"]
+    direction TB
+    subgraph t__confirm_eligibility["Confirm eligibility"]
+      direction TB
+      confirm_eligibility__confirm_eligibility["confirm-eligibility"]
+      confirm_eligibility__done(["↩ task list"]):::tl
+    end
+    subgraph t__confirm_consent["Confirm consent to apply"]
+      direction TB
+      confirm_consent__confirm_consent["confirm-consent"]
+      confirm_consent__consent_refused["consent-refused"]
+      confirm_consent__done(["↩ task list"]):::tl
+    end
+    subgraph t__cohort_selection["Type of application and licence details<br/><b>[new cohorts only]</b>"]
+      direction TB
+      cohort_selection__cohort_selection["cohort-selection"]
+      cohort_selection__licence_dates_needed["licence-dates-needed"]
+      cohort_selection__licence_dates["licence-dates"]
+      cohort_selection__done(["↩ task list"]):::tl
+    end
+    subgraph t__referrer_details["Add referrer details"]
+      direction TB
+      referrer_details__confirm_details["confirm-details"]
+      referrer_details__cpp_check["cpp-check"]
+      referrer_details__community_probation_practitioner_details["community-probation-practitioner-details"]
+      referrer_details__job_title["job-title"]
+      referrer_details__contact_number["contact-number"]
+      referrer_details__location["location"]
+      referrer_details__done(["↩ task list"]):::tl
+    end
+    subgraph t__solicitor_details["Add solicitor details<br/><b>[bail only]</b>"]
+      direction TB
+      solicitor_details__has_solicitor["has-solicitor"]
+      solicitor_details__contact_information["contact-information"]
+      solicitor_details__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__About_the_applicant["About the applicant"]
+    direction TB
+    subgraph t__personal_information["Add personal information"]
+      direction TB
+      personal_information__working_mobile_phone["working-mobile-phone"]
+      personal_information__custody_location["custody-location"]
+      personal_information__immigration_status["immigration-status"]
+      personal_information__gender["gender"]
+      personal_information__pregnancy_information["pregnancy-information"]
+      personal_information__done(["↩ task list"]):::tl
+    end
+    subgraph t__address_history["Add address history"]
+      direction TB
+      address_history__has_fixed_address["has-fixed-address"]
+      address_history__last_fixed_address["last-fixed-address"]
+      address_history__no_fixed_address["no-fixed-address"]
+      address_history__previous_address["previous-address"]
+      address_history__done(["↩ task list"]):::tl
+    end
+    subgraph t__equality_and_diversity_monitoring["Add equality and diversity monitoring information"]
+      direction TB
+      equality_and_diversity_monitoring__will_answer_equality_questions["will-answer-equality-questions"]
+      equality_and_diversity_monitoring__disability["disability"]
+      equality_and_diversity_monitoring__sex_and_gender["sex-and-gender"]
+      equality_and_diversity_monitoring__sexual_orientation["sexual-orientation"]
+      equality_and_diversity_monitoring__ethnic_group["ethnic-group"]
+      equality_and_diversity_monitoring__white_background["white-background"]
+      equality_and_diversity_monitoring__mixed_background["mixed-background"]
+      equality_and_diversity_monitoring__asian_background["asian-background"]
+      equality_and_diversity_monitoring__black_background["black-background"]
+      equality_and_diversity_monitoring__other_background["other-background"]
+      equality_and_diversity_monitoring__religion["religion"]
+      equality_and_diversity_monitoring__military_veteran["military-veteran"]
+      equality_and_diversity_monitoring__care_leaver["care-leaver"]
+      equality_and_diversity_monitoring__parental_carer_responsibilities["parental-carer-responsibilities"]
+      equality_and_diversity_monitoring__marital_status["marital-status"]
+      equality_and_diversity_monitoring__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__Area__funding_and_ID["Area, funding and ID"]
+    direction TB
+    subgraph t__area_information["Add exclusion zones and preferred areas"]
+      direction TB
+      area_information__first_preferred_area["first-preferred-area"]
+      area_information__second_preferred_area["second-preferred-area"]
+      area_information__other_area_preferences["other-area-preferences"]
+      area_information__exclusion_zones["exclusion-zones"]
+      area_information__gang_affiliations["gang-affiliations"]
+      area_information__family_accommodation["family-accommodation"]
+      area_information__done(["↩ task list"]):::tl
+    end
+    subgraph t__funding_information["Confirm funding and ID"]
+      direction TB
+      funding_information__funding_cas2_accommodation["funding-cas2-accommodation"]
+      funding_information__applicant_id["applicant-id"]
+      funding_information__alternative_applicant_id["alternative-applicant-id"]
+      funding_information__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__Offences_and_concerns["Offences and concerns"]
+    direction TB
+    subgraph t__provide_offences_and_convictions_details["Provide offences and convictions details<br/><b>[bail only]</b>"]
+      direction TB
+      provide_offences_and_convictions_details__offences_and_convictions_guidance["offences-and-convictions-guidance"]
+      provide_offences_and_convictions_details__done(["↩ task list"]):::tl
+    end
+    subgraph t__alleged_offences["Add alleged offences<br/><b>[bail only]</b>"]
+      direction TB
+      alleged_offences__alleged_offences["alleged-offences"]
+      alleged_offences__alleged_offence_data["alleged-offence-data"]
+      alleged_offences__alleged_offences_summary["alleged-offences-summary"]
+      alleged_offences__done(["↩ task list"]):::tl
+    end
+    subgraph t__current_offences["Add current offences<br/><b>[new cohorts only]</b>"]
+      direction TB
+      current_offences__current_offences["current-offences"]
+      current_offences__current_offence_data["current-offence-data"]
+      current_offences__done(["↩ task list"]):::tl
+    end
+    subgraph t__orders_and_licence_conditions["Add orders and licence conditions<br/><b>[new cohorts only]</b>"]
+      direction TB
+      orders_and_licence_conditions__licence_conditions["licence-conditions"]
+      orders_and_licence_conditions__orders["orders"]
+      orders_and_licence_conditions__done(["↩ task list"]):::tl
+    end
+    subgraph t__previous_unspent_convictions["Add previous unspent convictions"]
+      direction TB
+      previous_unspent_convictions__any_previous_convictions["any-previous-convictions"]
+      previous_unspent_convictions__unspent_convictions_data["unspent-convictions-data"]
+      previous_unspent_convictions__unspent_convictions["unspent-convictions"]
+      previous_unspent_convictions__done(["↩ task list"]):::tl
+    end
+    subgraph t__add_probation_supervision_details["Add probation supervision details<br/><b>[bail only]</b>"]
+      direction TB
+      add_probation_supervision_details__supervised_by_probation["supervised-by-probation"]
+      add_probation_supervision_details__community_probation_practitioner_details["community-probation-practitioner-details"]
+      add_probation_supervision_details__contacted_cpp_about_current_risk_levels["contacted-cpp-about-current-risk-levels"]
+      add_probation_supervision_details__you_must_contact_the_cpp["you-must-contact-the-cpp"]
+      add_probation_supervision_details__serious_harm_risk_levels["serious-harm-risk-levels"]
+      add_probation_supervision_details__done(["↩ task list"]):::tl
+    end
+    subgraph t__risk_information["Add information about concerns to the applicant and others<br/><b>[bail only]</b>"]
+      direction TB
+      risk_information__concerns["concerns"]
+      risk_information__self_harm["self-harm"]
+      risk_information__does_the_applicant_have_acct_notes["does-the-applicant-have-acct-notes"]
+      risk_information__acct["acct"]
+      risk_information__add_acct_note["add-acct-note"]
+      risk_information__domestic_abuse_concerns["domestic-abuse-concerns"]
+      risk_information__details_of_domestic_abuse_concerns["details-of-domestic-abuse-concerns"]
+      risk_information__violence_and_arson["violence-and-arson"]
+      risk_information__living_in_the_community["living-in-the-community"]
+      risk_information__safety_of_staff["safety-of-staff"]
+      risk_information__additional_concerns["additional-concerns"]
+      risk_information__risk_management_arrangements["risk-management-arrangements"]
+      risk_information__information_sources["information-sources"]
+      risk_information__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__Risk_and_health_needs["Risk and health needs"]
+    direction TB
+    subgraph t__health_needs["Add health needs"]
+      direction TB
+      health_needs__health_needs_information["health-needs-information"]
+      health_needs__liaison_and_diversion["liaison-and-diversion"]
+      health_needs__substance_misuse["substance-misuse"]
+      health_needs__physical_health["physical-health"]
+      health_needs__mental_health["mental-health"]
+      health_needs__communication_and_language_relevance_check["communication-and-language-relevance-check"]
+      health_needs__communication_and_language["communication-and-language"]
+      health_needs__learning_difficulties["learning-difficulties"]
+      health_needs__learning_difficulties_details["learning-difficulties-details"]
+      health_needs__brain_injury["brain-injury"]
+      health_needs__brain_injury_details["brain-injury-details"]
+      health_needs__other_health["other-health"]
+      health_needs__information_sources["information-sources"]
+      health_needs__done(["↩ task list"]):::tl
+    end
+    subgraph t__risk_to_self["Add risk to self information<br/><b>[new cohorts only]</b>"]
+      direction TB
+      risk_to_self__oasys_import["oasys-import"]
+      risk_to_self__old_oasys["old-oasys"]
+      risk_to_self__vulnerability["vulnerability"]
+      risk_to_self__current_and_previous_risk["current-and-previous-risk"]
+      risk_to_self__acct_data["acct-data"]
+      risk_to_self__acct["acct"]
+      risk_to_self__additional_information["additional-information"]
+      risk_to_self__done(["↩ task list"]):::tl
+    end
+    subgraph t__risks_of_serious_harm_to_others["Add risk of serious harm to others<br/><b>[new cohorts only]</b>"]
+      direction TB
+      risks_of_serious_harm_to_others__oasys_import["oasys-import"]
+      risks_of_serious_harm_to_others__summary["summary"]
+      risks_of_serious_harm_to_others__old_oasys["old-oasys"]
+      risks_of_serious_harm_to_others__manual_rosh_information["manual-rosh-information"]
+      risks_of_serious_harm_to_others__risk_to_others["risk-to-others"]
+      risks_of_serious_harm_to_others__risk_management_arrangements["risk-management-arrangements"]
+      risks_of_serious_harm_to_others__cell_share_information["cell-share-information"]
+      risks_of_serious_harm_to_others__additional_risk_information["additional-risk-information"]
+      risks_of_serious_harm_to_others__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__Bail_information["Bail information"]
+    direction TB
+    subgraph t__bail_conditions["Add bail conditions<br/><b>[bail only]</b>"]
+      direction TB
+      bail_conditions__non_standard_bail_conditions["non-standard-bail-conditions"]
+      bail_conditions__done(["↩ task list"]):::tl
+    end
+    subgraph t__bail_hearing_information["Add bail hearing information<br/><b>[bail only]</b>"]
+      direction TB
+      bail_hearing_information__bail_hearing_information["bail-hearing-information"]
+      bail_hearing_information__done(["↩ task list"]):::tl
+    end
+  end
+  subgraph s__Check_answers["Check answers"]
+    direction TB
+    subgraph t__check_your_answers["Check application answers"]
+      direction TB
+      check_your_answers__check_your_answers["check-your-answers"]
+      check_your_answers__done(["↩ task list"]):::tl
+    end
+  end
+  TL --> confirm_eligibility__confirm_eligibility
+  confirm_eligibility__confirm_eligibility --> confirm_eligibility__done
+  TL --> confirm_consent__confirm_consent
+  confirm_consent__confirm_consent -.->|"hasGivenConsent = no"| confirm_consent__consent_refused
+  confirm_consent__confirm_consent -.->|"hasGivenConsent ≠ no"| confirm_consent__done
+  confirm_consent__consent_refused --> confirm_consent__done
+  TL --> cohort_selection__cohort_selection
+  cohort_selection__cohort_selection -.->|"cohort = isc"| cohort_selection__licence_dates_needed
+  cohort_selection__cohort_selection -.->|"cohort ≠ isc"| cohort_selection__licence_dates
+  cohort_selection__licence_dates_needed -.->|"licenceDatesNeeded = yes"| cohort_selection__licence_dates
+  cohort_selection__licence_dates_needed -.->|"licenceDatesNeeded ≠ yes"| cohort_selection__done
+  TL --> referrer_details__confirm_details
+  referrer_details__confirm_details -.->|"origin = other"| referrer_details__cpp_check
+  referrer_details__confirm_details -.->|"origin ≠ other"| referrer_details__job_title
+  referrer_details__cpp_check -.->|"isCpp = yes"| referrer_details__contact_number
+  referrer_details__cpp_check -.->|"isCpp ≠ yes"| referrer_details__community_probation_practitioner_details
+  referrer_details__community_probation_practitioner_details --> referrer_details__job_title
+  referrer_details__job_title --> referrer_details__contact_number
+  referrer_details__contact_number -.->|"isCpp"| referrer_details__done
+  referrer_details__contact_number -.->|"not isCpp"| referrer_details__location
+  referrer_details__location --> referrer_details__done
+  TL --> solicitor_details__has_solicitor
+  solicitor_details__has_solicitor -.->|"hasSolicitor = no"| solicitor_details__done
+  solicitor_details__has_solicitor -.->|"hasSolicitor ≠ no"| solicitor_details__contact_information
+  solicitor_details__contact_information --> solicitor_details__done
+  TL --> personal_information__working_mobile_phone
+  personal_information__working_mobile_phone -.->|"custodial cohort"| personal_information__custody_location
+  personal_information__working_mobile_phone -.->|"non-custodial cohort"| personal_information__immigration_status
+  personal_information__custody_location --> personal_information__immigration_status
+  personal_information__immigration_status --> personal_information__gender
+  personal_information__gender --> personal_information__pregnancy_information
+  personal_information__pregnancy_information --> personal_information__done
+  TL --> address_history__has_fixed_address
+  address_history__has_fixed_address -.->|"hasFixedAddress = yes"| address_history__last_fixed_address
+  address_history__has_fixed_address -.->|"hasFixedAddress ≠ yes"| address_history__no_fixed_address
+  address_history__last_fixed_address --> address_history__done
+  address_history__no_fixed_address --> address_history__done
+  address_history__previous_address --> address_history__done
+  TL --> equality_and_diversity_monitoring__will_answer_equality_questions
+  equality_and_diversity_monitoring__will_answer_equality_questions -.->|"willAnswer = no"| equality_and_diversity_monitoring__done
+  equality_and_diversity_monitoring__will_answer_equality_questions -.->|"willAnswer ≠ no"| equality_and_diversity_monitoring__disability
+  equality_and_diversity_monitoring__disability --> equality_and_diversity_monitoring__sex_and_gender
+  equality_and_diversity_monitoring__sex_and_gender --> equality_and_diversity_monitoring__sexual_orientation
+  equality_and_diversity_monitoring__sexual_orientation --> equality_and_diversity_monitoring__ethnic_group
+  equality_and_diversity_monitoring__ethnic_group -.->|"ethnicGroup = white"| equality_and_diversity_monitoring__white_background
+  equality_and_diversity_monitoring__ethnic_group -.->|"ethnicGroup = mixed"| equality_and_diversity_monitoring__mixed_background
+  equality_and_diversity_monitoring__ethnic_group -.->|"ethnicGroup = asian"| equality_and_diversity_monitoring__asian_background
+  equality_and_diversity_monitoring__ethnic_group -.->|"ethnicGroup = black"| equality_and_diversity_monitoring__black_background
+  equality_and_diversity_monitoring__ethnic_group -.->|"ethnicGroup = other"| equality_and_diversity_monitoring__other_background
+  equality_and_diversity_monitoring__ethnic_group -.->|"otherwise"| equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__white_background --> equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__mixed_background --> equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__asian_background --> equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__black_background --> equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__other_background --> equality_and_diversity_monitoring__religion
+  equality_and_diversity_monitoring__religion --> equality_and_diversity_monitoring__military_veteran
+  equality_and_diversity_monitoring__military_veteran --> equality_and_diversity_monitoring__care_leaver
+  equality_and_diversity_monitoring__care_leaver --> equality_and_diversity_monitoring__parental_carer_responsibilities
+  equality_and_diversity_monitoring__parental_carer_responsibilities --> equality_and_diversity_monitoring__marital_status
+  equality_and_diversity_monitoring__marital_status --> equality_and_diversity_monitoring__done
+  TL --> area_information__first_preferred_area
+  area_information__first_preferred_area --> area_information__second_preferred_area
+  area_information__second_preferred_area --> area_information__other_area_preferences
+  area_information__other_area_preferences --> area_information__exclusion_zones
+  area_information__exclusion_zones --> area_information__gang_affiliations
+  area_information__gang_affiliations --> area_information__family_accommodation
+  area_information__family_accommodation --> area_information__done
+  TL --> funding_information__funding_cas2_accommodation
+  funding_information__funding_cas2_accommodation --> funding_information__applicant_id
+  funding_information__applicant_id -.->|"idDocuments?.includes('none')"| funding_information__alternative_applicant_id
+  funding_information__applicant_id -.->|"not idDocuments?.includes('none')"| funding_information__done
+  funding_information__alternative_applicant_id --> funding_information__done
+  TL --> provide_offences_and_convictions_details__offences_and_convictions_guidance
+  provide_offences_and_convictions_details__offences_and_convictions_guidance --> provide_offences_and_convictions_details__done
+  TL --> alleged_offences__alleged_offences
+  alleged_offences__alleged_offences --> alleged_offences__alleged_offences_summary
+  alleged_offences__alleged_offence_data --> alleged_offences__alleged_offences
+  alleged_offences__alleged_offences_summary --> alleged_offences__done
+  TL --> current_offences__current_offences
+  current_offences__current_offences --> current_offences__done
+  current_offences__current_offence_data --> current_offences__current_offences
+  TL --> orders_and_licence_conditions__licence_conditions
+  orders_and_licence_conditions__licence_conditions --> orders_and_licence_conditions__orders
+  orders_and_licence_conditions__orders --> orders_and_licence_conditions__done
+  TL --> previous_unspent_convictions__any_previous_convictions
+  previous_unspent_convictions__any_previous_convictions -.->|"hasAnyPreviousConvictions = yesRelevantRisk & has saved unspent-convictions-data"| previous_unspent_convictions__unspent_convictions
+  previous_unspent_convictions__any_previous_convictions -.->|"hasAnyPreviousConvictions = yesRelevantRisk & no saved unspent-convictions-data"| previous_unspent_convictions__unspent_convictions_data
+  previous_unspent_convictions__any_previous_convictions -.->|"hasAnyPreviousConvictions ≠ yesRelevantRisk"| previous_unspent_convictions__done
+  previous_unspent_convictions__unspent_convictions_data --> previous_unspent_convictions__unspent_convictions
+  previous_unspent_convictions__unspent_convictions --> previous_unspent_convictions__done
+  TL --> add_probation_supervision_details__supervised_by_probation
+  add_probation_supervision_details__supervised_by_probation -.->|"probationSupervision = yes"| add_probation_supervision_details__community_probation_practitioner_details
+  add_probation_supervision_details__supervised_by_probation -.->|"probationSupervision ≠ yes"| add_probation_supervision_details__done
+  add_probation_supervision_details__community_probation_practitioner_details --> add_probation_supervision_details__contacted_cpp_about_current_risk_levels
+  add_probation_supervision_details__contacted_cpp_about_current_risk_levels -.->|"hasContactedCppAboutCurrentRiskLevels = yes"| add_probation_supervision_details__serious_harm_risk_levels
+  add_probation_supervision_details__contacted_cpp_about_current_risk_levels -.->|"hasContactedCppAboutCurrentRiskLevels ≠ yes"| add_probation_supervision_details__you_must_contact_the_cpp
+  add_probation_supervision_details__you_must_contact_the_cpp --> add_probation_supervision_details__done
+  add_probation_supervision_details__serious_harm_risk_levels --> add_probation_supervision_details__done
+  TL --> risk_information__concerns
+  risk_information__concerns --> risk_information__self_harm
+  risk_information__self_harm --> risk_information__does_the_applicant_have_acct_notes
+  risk_information__does_the_applicant_have_acct_notes -.->|"applicantHasAcctNotes = yes & hasExistingACCTNotes()"| risk_information__acct
+  risk_information__does_the_applicant_have_acct_notes -.->|"applicantHasAcctNotes = yes & not hasExistingACCTNotes()"| risk_information__add_acct_note
+  risk_information__does_the_applicant_have_acct_notes -.->|"applicantHasAcctNotes ≠ yes"| risk_information__domestic_abuse_concerns
+  risk_information__acct --> risk_information__domestic_abuse_concerns
+  risk_information__add_acct_note --> risk_information__acct
+  risk_information__domestic_abuse_concerns -.->|"areConcerns = yes"| risk_information__details_of_domestic_abuse_concerns
+  risk_information__domestic_abuse_concerns -.->|"areConcerns ≠ yes"| risk_information__violence_and_arson
+  risk_information__details_of_domestic_abuse_concerns --> risk_information__violence_and_arson
+  risk_information__violence_and_arson --> risk_information__living_in_the_community
+  risk_information__living_in_the_community --> risk_information__safety_of_staff
+  risk_information__safety_of_staff --> risk_information__additional_concerns
+  risk_information__additional_concerns --> risk_information__risk_management_arrangements
+  risk_information__risk_management_arrangements --> risk_information__information_sources
+  risk_information__information_sources --> risk_information__done
+  TL --> health_needs__health_needs_information
+  health_needs__health_needs_information -.->|"origin = other"| health_needs__substance_misuse
+  health_needs__health_needs_information -.->|"origin ≠ other"| health_needs__liaison_and_diversion
+  health_needs__liaison_and_diversion --> health_needs__substance_misuse
+  health_needs__substance_misuse --> health_needs__physical_health
+  health_needs__physical_health --> health_needs__mental_health
+  health_needs__mental_health --> health_needs__communication_and_language_relevance_check
+  health_needs__communication_and_language_relevance_check -.->|"hasCommunicationAndLanguageNeeds = yes"| health_needs__communication_and_language
+  health_needs__communication_and_language_relevance_check -.->|"hasCommunicationAndLanguageNeeds ≠ yes"| health_needs__learning_difficulties
+  health_needs__communication_and_language --> health_needs__learning_difficulties
+  health_needs__learning_difficulties -.->|"hasLearningDifficultiesOrNeurodiversityNeeds = yes"| health_needs__learning_difficulties_details
+  health_needs__learning_difficulties -.->|"hasLearningDifficultiesOrNeurodiversityNeeds ≠ yes"| health_needs__brain_injury
+  health_needs__learning_difficulties_details --> health_needs__brain_injury
+  health_needs__brain_injury -.->|"hasBrainInjury = yes"| health_needs__brain_injury_details
+  health_needs__brain_injury -.->|"hasBrainInjury ≠ yes"| health_needs__other_health
+  health_needs__brain_injury_details --> health_needs__other_health
+  health_needs__other_health --> health_needs__information_sources
+  health_needs__information_sources --> health_needs__done
+  TL --> risk_to_self__oasys_import
+  risk_to_self__oasys_import --> risk_to_self__vulnerability
+  risk_to_self__old_oasys --> risk_to_self__vulnerability
+  risk_to_self__vulnerability --> risk_to_self__current_and_previous_risk
+  risk_to_self__current_and_previous_risk --> risk_to_self__acct
+  risk_to_self__acct_data --> risk_to_self__acct
+  risk_to_self__acct --> risk_to_self__additional_information
+  risk_to_self__additional_information --> risk_to_self__done
+  TL --> risks_of_serious_harm_to_others__oasys_import
+  risks_of_serious_harm_to_others__oasys_import --> risks_of_serious_harm_to_others__summary
+  risks_of_serious_harm_to_others__summary --> risks_of_serious_harm_to_others__risk_to_others
+  risks_of_serious_harm_to_others__old_oasys --> risks_of_serious_harm_to_others__manual_rosh_information
+  risks_of_serious_harm_to_others__manual_rosh_information --> risks_of_serious_harm_to_others__risk_to_others
+  risks_of_serious_harm_to_others__risk_to_others --> risks_of_serious_harm_to_others__risk_management_arrangements
+  risks_of_serious_harm_to_others__risk_management_arrangements --> risks_of_serious_harm_to_others__cell_share_information
+  risks_of_serious_harm_to_others__cell_share_information --> risks_of_serious_harm_to_others__additional_risk_information
+  risks_of_serious_harm_to_others__additional_risk_information --> risks_of_serious_harm_to_others__done
+  TL --> bail_conditions__non_standard_bail_conditions
+  bail_conditions__non_standard_bail_conditions --> bail_conditions__done
+  TL --> bail_hearing_information__bail_hearing_information
+  bail_hearing_information__bail_hearing_information --> bail_hearing_information__done
+  TL --> check_your_answers__check_your_answers
+  check_your_answers__check_your_answers --> check_your_answers__done
+  style s__Before_you_apply fill:#ffffff,stroke:#9e9e9e
+  style t__confirm_eligibility fill:#f5f5f5,stroke:#bdbdbd
+  style t__confirm_consent fill:#f5f5f5,stroke:#bdbdbd
+  style t__cohort_selection fill:#fff4ce,stroke:#b58b00
+  style t__referrer_details fill:#f5f5f5,stroke:#bdbdbd
+  style t__solicitor_details fill:#e3f2fd,stroke:#1565c0
+  style s__About_the_applicant fill:#ffffff,stroke:#9e9e9e
+  style t__personal_information fill:#f5f5f5,stroke:#bdbdbd
+  style t__address_history fill:#f5f5f5,stroke:#bdbdbd
+  style t__equality_and_diversity_monitoring fill:#f5f5f5,stroke:#bdbdbd
+  style s__Area__funding_and_ID fill:#ffffff,stroke:#9e9e9e
+  style t__area_information fill:#f5f5f5,stroke:#bdbdbd
+  style t__funding_information fill:#f5f5f5,stroke:#bdbdbd
+  style s__Offences_and_concerns fill:#ffffff,stroke:#9e9e9e
+  style t__provide_offences_and_convictions_details fill:#e3f2fd,stroke:#1565c0
+  style t__alleged_offences fill:#e3f2fd,stroke:#1565c0
+  style t__current_offences fill:#fff4ce,stroke:#b58b00
+  style t__orders_and_licence_conditions fill:#fff4ce,stroke:#b58b00
+  style t__previous_unspent_convictions fill:#f5f5f5,stroke:#bdbdbd
+  style t__add_probation_supervision_details fill:#e3f2fd,stroke:#1565c0
+  style t__risk_information fill:#e3f2fd,stroke:#1565c0
+  style s__Risk_and_health_needs fill:#ffffff,stroke:#9e9e9e
+  style t__health_needs fill:#f5f5f5,stroke:#bdbdbd
+  style t__risk_to_self fill:#fff4ce,stroke:#b58b00
+  style t__risks_of_serious_harm_to_others fill:#fff4ce,stroke:#b58b00
+  style s__Bail_information fill:#ffffff,stroke:#9e9e9e
+  style t__bail_conditions fill:#e3f2fd,stroke:#1565c0
+  style t__bail_hearing_information fill:#e3f2fd,stroke:#1565c0
+  style s__Check_answers fill:#ffffff,stroke:#9e9e9e
+  style t__check_your_answers fill:#f5f5f5,stroke:#bdbdbd
+  linkStyle 7,8,12,13,26,27,116,117 stroke:#d84315,stroke-width:3px,color:#d84315
