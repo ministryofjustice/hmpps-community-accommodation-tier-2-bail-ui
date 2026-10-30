@@ -7,6 +7,7 @@ import LocationPage from '../../../pages/apply/before_you_apply/referrer_details
 import TaskListPage from '../../../pages/apply/taskListPage'
 import CppCheckPage from '../../../pages/apply/before_you_apply/referrer_details/cppCheck'
 import CPPDetailsPage from '../../../pages/apply/offences-and-concerns/probation-supervision-details/cppDetailsPage'
+import BackupContactDetailsPage from '../../../pages/apply/before_you_apply/referrer_details/backupContactDetailsPage'
 
 context('Complete "Confirm details" page in "Referrer details" task', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -62,15 +63,23 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     // When I complete the page and submit
     locationPage.checkErrorsAndSubmit()
 
+    // Then I am on the 'backup contact details' page
+    const backupContactDetailsPage = Page.verifyOnPage(BackupContactDetailsPage, application)
+
+    // When I complete the page and submit
+    backupContactDetailsPage.checkErrorsAndSubmit()
+
     // Then I am on the task list
     const taskListPage = Page.verifyOnPage(TaskListPage, application)
 
     taskListPage.shouldShowTaskStatus('referrer-details', 'Completed')
 
-    // When I return to the location page
-    LocationPage.visit(application)
+    // When I return to the backup contact details page
+    BackupContactDetailsPage.visit(application)
 
     // Then I can click back through the whole task
+    backupContactDetailsPage.clickBack()
+    locationPage.checkOnPage()
     locationPage.clickBack()
     contactNumberPage.checkOnPage()
     locationPage.clickBack()
@@ -111,15 +120,24 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     // When I complete the form and submit
     contactNumberPage.checkErrorsAndSubmit()
 
+    // Then I am on the backup contact details page
+    const backupContactDetailsPage = Page.verifyOnPage(BackupContactDetailsPage, application)
+
+    // When I complete the form and submit
+    backupContactDetailsPage.checkErrorsAndSubmit()
+
     // Then I am on the task list
     const taskListPage = Page.verifyOnPage(TaskListPage, application)
     taskListPage.shouldShowTaskStatus('referrer-details', 'Completed')
 
-    // When I return to the contact number page
-    ContactNumberPage.visit(application)
-    contactNumberPage.checkOnPage()
+    // When I return to the backup contact details page
+    BackupContactDetailsPage.visit(application)
+    backupContactDetailsPage.checkOnPage()
 
     // Then I click back through all the pages in the task
+    backupContactDetailsPage.clickBack()
+
+    contactNumberPage.checkOnPage()
     contactNumberPage.clickBack()
     cppCheckPage.checkOnPage()
     cppCheckPage.clickBack()
@@ -170,14 +188,21 @@ context('Complete "Confirm details" page in "Referrer details" task', () => {
     const locationPage = Page.verifyOnPage(LocationPage, application)
     locationPage.checkErrorsAndSubmit()
 
+    // Then I am on the backup contact details page
+    const backupContactDetailsPage = Page.verifyOnPage(BackupContactDetailsPage, application)
+    backupContactDetailsPage.checkErrorsAndSubmit()
+
     // Then I am on the task list page
     Page.verifyOnPage(TaskListPage, application)
 
-    // When I return to the location page
-    LocationPage.visit(application)
-    locationPage.checkOnPage()
+    // When I return to the backup contact details page
+    BackupContactDetailsPage.visit(application)
+    backupContactDetailsPage.checkOnPage()
 
     // And I click back through all the pages in the task
+    backupContactDetailsPage.clickBack()
+
+    locationPage.checkOnPage()
     locationPage.clickBack()
 
     contactNumberPage.checkOnPage()

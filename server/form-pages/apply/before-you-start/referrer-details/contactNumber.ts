@@ -44,7 +44,7 @@ export default class ContactNumber implements TaskListPage {
   }
 
   next() {
-    return this.isCpp ? '' : 'location'
+    return this.isCpp ? 'backup-contact-details' : 'location'
   }
 
   errors() {

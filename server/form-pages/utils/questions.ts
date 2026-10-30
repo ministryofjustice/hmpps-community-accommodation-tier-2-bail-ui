@@ -162,6 +162,12 @@ export function getQuestions(
           question: 'Community probation practitioner (CPP)',
         },
       },
+      'backup-contact-details': {
+        backupContactDetails: {
+          question: 'Backup contact details',
+          hint: 'This should be someone who can discuss this referral with NACRO in your absence.',
+        },
+      },
     },
     'solicitor-details': {
       'has-solicitor': {

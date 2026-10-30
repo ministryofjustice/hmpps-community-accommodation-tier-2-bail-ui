@@ -613,6 +613,7 @@ describe('deleteOrphanedAnswersOnCppCheckChange', () => {
       'job-title': { jobTitle: 'some job title' },
       'contact-number': { telephone: '12345' },
       location: { location: 'some location' },
+      'backup-contact-details': { name: 'Some backup contact' },
     },
   })
 
