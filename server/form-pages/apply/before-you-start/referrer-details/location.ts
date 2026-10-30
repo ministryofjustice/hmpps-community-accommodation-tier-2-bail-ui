@@ -41,7 +41,7 @@ export default class Location implements TaskListPage {
   }
 
   next() {
-    return ''
+    return 'backup-contact-details'
   }
 
   errors() {

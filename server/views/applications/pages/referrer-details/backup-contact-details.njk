@@ -1,0 +1,61 @@
+{% from "../../../components/formFields/form-page-input/macro.njk" import formPageInput %}
+
+{% extends "../layout.njk" %}
+
+{% block questions %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-4">{{ page.title }}</h1>
+
+  <p class="govuk-body">{{ page.questions.backupContactDetails.hint }}</p>
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Full name"
+        },
+        fieldName: "name",
+        classes: "govuk-!-width-two-thirds"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "Email address"
+        },
+        type: "email",
+        fieldName: "email",
+        classes: "govuk-input--width-20"
+      },
+      fetchContext()
+    )
+  }}
+
+  {{
+    formPageInput(
+      {
+        label: {
+          text: "UK phone number"
+        },
+        type: "tel",
+        fieldName: "telephone",
+        classes: "govuk-input--width-20"
+      },
+      fetchContext()
+    )
+  }}
+{% endblock %}
+
+{% block button %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+    text: "Save and continue"
+    }) }}
+
+    <a href="{{ paths.applications.show({ id: applicationId }) }}">Exit without saving</a>
+  </div>
+{% endblock %}
