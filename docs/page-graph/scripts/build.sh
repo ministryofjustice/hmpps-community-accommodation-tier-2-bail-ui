@@ -14,8 +14,8 @@ cd ..
 rm -f form-flow-*.svg form-flow-*.png
 for mmd in *.mmd; do
   name="${mmd%.mmd}"
-  npx -y -p @mermaid-js/mermaid-cli mmdc -q -c "$config" -i "$mmd" -o "$name.svg"
+  npx -y -p @mermaid-js/mermaid-cli mmdc -q -b white -c "$config" -i "$mmd" -o "$name.svg"
 done
 for name in site-navigation form-flow-all; do
-  npx -y -p @mermaid-js/mermaid-cli mmdc -q -c "$config" -i "$name.mmd" -o "$name.png"
+  npx -y -p @mermaid-js/mermaid-cli mmdc -q -b white -c "$config" -i "$name.mmd" -o "$name.png"
 done

@@ -1,6 +1,6 @@
 /*
  * Builds the page graph docs from:
- *   - site-navigation.mmd (hand-maintained site navigation diagram)
+ *   - scripts/site-navigation.mmd (hand-maintained site navigation diagram)
  *   - scripts/form-pages.json (produced by scripts/extract.js)
  *
  * Writes README.md, index.html and *.mmd diagrams into docs/page-graph.
@@ -10,7 +10,7 @@ const path = require('path')
 
 const outDir = path.resolve(__dirname, '..')
 const { sections, scenarios, custodialCohorts } = require('./form-pages.json')
-const nav = fs.readFileSync(path.join(outDir, 'site-navigation.mmd'), 'utf8').trim()
+const nav = fs.readFileSync(path.join(__dirname, 'site-navigation.mmd'), 'utf8').trim()
 
 // ---------- conditions ----------
 const SCENARIO_TOKENS = /this\.application\.(applicationOrigin|cohort)|this\.body\.cohort|custodialCohorts/g
@@ -193,7 +193,43 @@ const diagrams = [
   { file: 'form-flow-all', title: 'Application form flow (all scenarios)', mmd: flowchart(buildView(null), { annotate: true }) },
   ...groups.map(g => ({ file: g.file, title: `Application form flow: ${g.name}`, mmd: flowchart(g.view, { annotate: false }) })),
 ]
-diagrams.forEach(d => fs.writeFileSync(path.join(outDir, `${d.file}.mmd`), `${d.mmd}\n`))
+// Force a light theme and wrap everything in a white container, so diagrams stay legible on GitHub's dark mode.
+const THEME = {
+  theme: 'base',
+  themeVariables: {
+    background: '#ffffff',
+    primaryColor: '#ffffff',
+    primaryBorderColor: '#333333',
+    primaryTextColor: '#000000',
+    secondaryColor: '#f5f5f5',
+    tertiaryColor: '#ffffff',
+    lineColor: '#333333',
+    textColor: '#000000',
+    titleColor: '#000000',
+    clusterBkg: '#ffffff',
+    clusterBorder: '#9e9e9e',
+    edgeLabelBackground: '#ffffff',
+  },
+}
+const withWhiteBackground = mmd => {
+  const [header, ...body] = mmd.split('\n')
+  const direction = header.trim().split(/\s+/)[1] ?? 'TD'
+  const isStyling = l => /^\s*(classDef|style|linkStyle)\b/.test(l)
+  return [
+    `%%{init: ${JSON.stringify(THEME)}}%%`,
+    header,
+    '  subgraph PAGE_GRAPH_ROOT[" "]',
+    `    direction ${direction}`,
+    ...body.filter(l => !isStyling(l)).map(l => `  ${l}`),
+    '  end',
+    ...body.filter(isStyling),
+    '  style PAGE_GRAPH_ROOT fill:#ffffff,stroke:#ffffff',
+  ].join('\n')
+}
+diagrams.forEach(d => {
+  d.mmd = withWhiteBackground(d.mmd)
+  fs.writeFileSync(path.join(outDir, `${d.file}.mmd`), `${d.mmd}\n`)
+})
 
 // ---------- applicability matrix ----------
 const matrix = [
@@ -274,7 +310,7 @@ cohorts (${custodialCohorts.join(', ')}). That is not shown in the graphs.
 docs/page-graph/scripts/build.sh
 \`\`\`
 
-\`site-navigation.mmd\` is maintained by hand. The form flow diagrams are generated from the \`@Form\`, \`@Section\`,
+\`scripts/site-navigation.mmd\` is maintained by hand. The form flow diagrams are generated from the \`@Form\`, \`@Section\`,
 \`@Task\` and \`@Page\` decorators and each page's \`next()\` and \`isApplicable()\` methods. Where task page order
 depends on \`cas2IsrEnabled\`, the flag-on order is used.
 `

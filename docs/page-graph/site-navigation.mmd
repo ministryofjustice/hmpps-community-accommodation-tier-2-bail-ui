@@ -1,156 +1,161 @@
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryColor":"#ffffff","primaryBorderColor":"#333333","primaryTextColor":"#000000","secondaryColor":"#f5f5f5","tertiaryColor":"#ffffff","lineColor":"#333333","textColor":"#000000","titleColor":"#000000","clusterBkg":"#ffffff","clusterBorder":"#9e9e9e","edgeLabelBackground":"#ffffff"}}}%%
 flowchart LR
+  subgraph PAGE_GRAPH_ROOT[" "]
+    direction LR
+  
+    DASH["Dashboard<br/>/"]
+  
+    subgraph STATIC["Static (footer / dashboard links)"]
+      PRIV["Privacy notice<br/>/privacy-notice"]:::static
+      COOK["Cookies<br/>/cookies"]:::static
+      A11Y["Accessibility statement<br/>/accessibility-statement"]:::static
+      IQH["Interview questions (HTML)<br/>/interview-questions.html"]:::static
+      IQD["Interview questions (DOCX)<br/>/interview-questions.docx"]:::static
+      MAINT["Maintenance<br/>/maintenance"]:::static
+    end
+  
+    DASH --> IQH & IQD
+    DASH -. "footer (every page)" .-> PRIV & COOK & A11Y
+  
+    subgraph START_BAIL["Start a bail application (original flow)"]
+      BYS["Before you start (bail)<br/>/applications/before-you-start"]
+      ORIG["Application type<br/>/applications/application-type"]
+      SPN["Search by prison number<br/>/applications/search-by-prison-number"]
+      SCRN["Search by CRN<br/>/applications/search-by-crn"]
+      UPB["Unauthorised: prison bail<br/>/applications/unauthorised-prison-bail-application"]
+      UCB["Unauthorised: court bail<br/>/applications/unauthorised-court-bail-application"]
+    end
+  
+    subgraph START_NC["Start an application (new cohorts — cas2IsrEnabled flag)"]
+      NC_ORIG["Application type<br/>/new-cohorts/applications/application-type"]:::flag
+      NC_BYS["Before you start<br/>/new-cohorts/applications/before-you-start"]:::flag
+      NC_SCRN["Search by CRN<br/>/new-cohorts/applications/search-by-crn"]:::flag
+      NCB_BYS["Before you start (bail)<br/>/new-cohorts/applications/bail/before-you-start"]:::flag
+      NCB_ORIG["Bail application type<br/>/new-cohorts/applications/bail/application-type"]:::flag
+      NCB_SPN["Search by prison number<br/>/new-cohorts/applications/bail/search-by-prison-number"]:::flag
+      NCB_SCRN["Search by CRN<br/>/new-cohorts/applications/bail/search-by-crn"]:::flag
+      NCB_UPB["Unauthorised: prison bail<br/>/new-cohorts/.../bail/unauthorised-prison-bail-application"]:::flag
+      NCB_UCB["Unauthorised: court bail<br/>/new-cohorts/.../bail/unauthorised-court-bail-application"]:::flag
+    end
+  
+    CONFIRM_PERSON["Confirm applicant details<br/>(rendered by POST .../people/find-by-*)"]
+  
+    subgraph APPLY["Applications (referrer)"]
+      INDEX["Your applications<br/>/applications"]
+      PRISON["Prison applications<br/>/applications/prison"]
+      SHOW{{"Application<br/>/applications/:id"}}
+      TASKLIST["Task list<br/>(/applications/:id, not submitted)"]
+      FORM[["Application form pages<br/>/applications/:id/tasks/:task/pages/:page<br/>(see form-flow diagram)"]]:::form
+      INELIG["Not eligible<br/>/applications/:id/not-eligible"]
+      SUBMITTED["Submitted application<br/>(/applications/:id, submitted)"]
+      OVERVIEW["Application overview<br/>/applications/:id/overview"]
+      CONFSUB["Confirm submission<br/>/applications/:id/confirm-submission"]
+      CONFIRMED["Application confirmation<br/>(rendered by POST /submission)"]
+      CANCEL["Cancel application<br/>/applications/:id/cancel"]
+    end
+  
+    subgraph ASSESS["Assess (assessor)"]
+      A_INDEX["Submitted applications<br/>/assess/applications"]:::assess
+      A_OVERVIEW["Overview<br/>/assess/applications/:id/overview"]:::assess
+      A_SHOW["Application<br/>/assess/applications/:id"]:::assess
+      A_DETAILS["Assessment details<br/>/assess/applications/:id/assessment-details"]:::assess
+      A_STATUS["Update status<br/>/assess/applications/:id/update-status"]:::assess
+      A_STATUS_DETAILS["Status further information<br/>/assess/applications/:id/update-status/further-information/:statusName"]:::assess
+    end
+  
+    subgraph REPORTS["Reports"]
+      R_NEW["Reports<br/>/reports"]:::report
+      R_UNAUTH["Not authorised<br/>/reports/unauthorised"]:::report
+      R_DL["Download report<br/>/reports/:name"]:::report
+    end
+  
+    %% Dashboard tiles (server/utils/userUtils.ts)
+    DASH --> INDEX
+    DASH --> BYS
+    DASH --> NC_ORIG
+    DASH --> A_INDEX
+    DASH --> R_NEW
+    DASH --> PRISON
+  
+    %% Original bail start flow
+    BYS --> ORIG
+    ORIG -- back --> BYS
+    ORIG -. "POST select-application-origin" .-> SPN & SCRN & UPB & UCB
+    SPN -- back --> ORIG
+    SCRN -- back --> ORIG
+    UPB -- back --> ORIG
+    UCB -- back --> ORIG
+    SPN -- "search by CRN instead" --> SCRN
+    SPN -. "POST people/find-by-prison-number" .-> CONFIRM_PERSON
+    SCRN -. "POST people/find-by-crn" .-> CONFIRM_PERSON
+  
+    %% New cohorts start flow
+    NC_ORIG -- back --> DASH
+    NC_ORIG -. "POST select-application-origin" .-> NCB_BYS & NC_BYS
+    NC_BYS -- back --> NC_ORIG
+    NC_BYS --> NC_SCRN
+    NC_SCRN -- back --> NC_BYS
+    NC_SCRN -. "POST people/find-by-crn" .-> CONFIRM_PERSON
+    NCB_BYS -- back --> NC_ORIG
+    NCB_BYS --> NCB_ORIG
+    NCB_ORIG -- back --> NCB_BYS
+    NCB_ORIG -. "POST bail/select-application-origin" .-> NCB_SPN & NCB_SCRN & NCB_UPB & NCB_UCB
+    NCB_SPN -- back --> NCB_ORIG
+    NCB_SCRN -- back --> NCB_ORIG
+    NCB_UPB -- back --> NCB_ORIG
+    NCB_UCB -- back --> NCB_ORIG
+    NCB_SPN -. "POST bail/people/find-by-prison-number" .-> CONFIRM_PERSON
+    NCB_SCRN -. "POST bail/people/find-by-crn" .-> CONFIRM_PERSON
+  
+    CONFIRM_PERSON -- back --> SPN & SCRN & NC_SCRN & NCB_SPN & NCB_SCRN
+    CONFIRM_PERSON -. "POST /applications/create" .-> SHOW
+  
+    %% Applications
+    INDEX <-- tabs --> PRISON
+    INDEX -- "in progress" --> SHOW
+    INDEX -- submitted --> OVERVIEW
+    INDEX --> CANCEL
+    CANCEL -. "POST cancel" .-> INDEX
+    SHOW -. "not submitted" .-> TASKLIST
+    SHOW -. "eligibility = no" .-> INELIG
+    SHOW -. "required task incomplete" .-> FORM
+    SHOW -. submitted .-> SUBMITTED
+    TASKLIST -- "task links" --> FORM
+    FORM -. "PUT page → next page / task list" .-> TASKLIST
+    FORM -- "consent refused" --> INDEX
+    TASKLIST --> CONFSUB
+    TASKLIST --> INDEX
+    CONFSUB -- back --> SHOW
+    CONFSUB -. "POST submission" .-> CONFIRMED
+    CONFIRMED --> INDEX
+    INELIG -- "change answer" --> FORM
+    INELIG -- "start new application" --> NC_ORIG & BYS
+    SUBMITTED --> OVERVIEW
+    OVERVIEW --> SHOW
+    OVERVIEW --> INDEX
+    OVERVIEW -. "POST add-note" .-> OVERVIEW
+  
+    %% Assess
+    A_INDEX --> A_OVERVIEW
+    A_OVERVIEW --> A_SHOW & A_DETAILS & A_STATUS & A_INDEX
+    A_OVERVIEW -. "POST add-note" .-> A_OVERVIEW
+    A_SHOW --> A_OVERVIEW
+    A_DETAILS -- back --> A_OVERVIEW
+    A_DETAILS -. "POST assessment-details/update" .-> A_OVERVIEW
+    A_STATUS -- back --> A_OVERVIEW
+    A_STATUS -. "POST (status has details)" .-> A_STATUS_DETAILS
+    A_STATUS -. POST .-> A_OVERVIEW
+    A_STATUS_DETAILS -- back --> A_STATUS
+    A_STATUS_DETAILS -. POST .-> A_OVERVIEW
+  
+    %% Reports
+    R_NEW -. "no permission" .-> R_UNAUTH
+    R_NEW --> R_DL
+    R_DL -. error .-> R_NEW
+  end
   classDef flag fill:#fff4ce,stroke:#b58b00
   classDef assess fill:#e3f2fd,stroke:#1565c0
   classDef report fill:#f3e5f5,stroke:#6a1b9a
   classDef static fill:#eeeeee,stroke:#616161
   classDef form fill:#e8f5e9,stroke:#2e7d32
-
-  DASH["Dashboard<br/>/"]
-
-  subgraph STATIC["Static (footer / dashboard links)"]
-    PRIV["Privacy notice<br/>/privacy-notice"]:::static
-    COOK["Cookies<br/>/cookies"]:::static
-    A11Y["Accessibility statement<br/>/accessibility-statement"]:::static
-    IQH["Interview questions (HTML)<br/>/interview-questions.html"]:::static
-    IQD["Interview questions (DOCX)<br/>/interview-questions.docx"]:::static
-    MAINT["Maintenance<br/>/maintenance"]:::static
-  end
-
-  DASH --> IQH & IQD
-  DASH -. "footer (every page)" .-> PRIV & COOK & A11Y
-
-  subgraph START_BAIL["Start a bail application (original flow)"]
-    BYS["Before you start (bail)<br/>/applications/before-you-start"]
-    ORIG["Application type<br/>/applications/application-type"]
-    SPN["Search by prison number<br/>/applications/search-by-prison-number"]
-    SCRN["Search by CRN<br/>/applications/search-by-crn"]
-    UPB["Unauthorised: prison bail<br/>/applications/unauthorised-prison-bail-application"]
-    UCB["Unauthorised: court bail<br/>/applications/unauthorised-court-bail-application"]
-  end
-
-  subgraph START_NC["Start an application (new cohorts — cas2IsrEnabled flag)"]
-    NC_ORIG["Application type<br/>/new-cohorts/applications/application-type"]:::flag
-    NC_BYS["Before you start<br/>/new-cohorts/applications/before-you-start"]:::flag
-    NC_SCRN["Search by CRN<br/>/new-cohorts/applications/search-by-crn"]:::flag
-    NCB_BYS["Before you start (bail)<br/>/new-cohorts/applications/bail/before-you-start"]:::flag
-    NCB_ORIG["Bail application type<br/>/new-cohorts/applications/bail/application-type"]:::flag
-    NCB_SPN["Search by prison number<br/>/new-cohorts/applications/bail/search-by-prison-number"]:::flag
-    NCB_SCRN["Search by CRN<br/>/new-cohorts/applications/bail/search-by-crn"]:::flag
-    NCB_UPB["Unauthorised: prison bail<br/>/new-cohorts/.../bail/unauthorised-prison-bail-application"]:::flag
-    NCB_UCB["Unauthorised: court bail<br/>/new-cohorts/.../bail/unauthorised-court-bail-application"]:::flag
-  end
-
-  CONFIRM_PERSON["Confirm applicant details<br/>(rendered by POST .../people/find-by-*)"]
-
-  subgraph APPLY["Applications (referrer)"]
-    INDEX["Your applications<br/>/applications"]
-    PRISON["Prison applications<br/>/applications/prison"]
-    SHOW{{"Application<br/>/applications/:id"}}
-    TASKLIST["Task list<br/>(/applications/:id, not submitted)"]
-    FORM[["Application form pages<br/>/applications/:id/tasks/:task/pages/:page<br/>(see form-flow diagram)"]]:::form
-    INELIG["Not eligible<br/>/applications/:id/not-eligible"]
-    SUBMITTED["Submitted application<br/>(/applications/:id, submitted)"]
-    OVERVIEW["Application overview<br/>/applications/:id/overview"]
-    CONFSUB["Confirm submission<br/>/applications/:id/confirm-submission"]
-    CONFIRMED["Application confirmation<br/>(rendered by POST /submission)"]
-    CANCEL["Cancel application<br/>/applications/:id/cancel"]
-  end
-
-  subgraph ASSESS["Assess (assessor)"]
-    A_INDEX["Submitted applications<br/>/assess/applications"]:::assess
-    A_OVERVIEW["Overview<br/>/assess/applications/:id/overview"]:::assess
-    A_SHOW["Application<br/>/assess/applications/:id"]:::assess
-    A_DETAILS["Assessment details<br/>/assess/applications/:id/assessment-details"]:::assess
-    A_STATUS["Update status<br/>/assess/applications/:id/update-status"]:::assess
-    A_STATUS_DETAILS["Status further information<br/>/assess/applications/:id/update-status/further-information/:statusName"]:::assess
-  end
-
-  subgraph REPORTS["Reports"]
-    R_NEW["Reports<br/>/reports"]:::report
-    R_UNAUTH["Not authorised<br/>/reports/unauthorised"]:::report
-    R_DL["Download report<br/>/reports/:name"]:::report
-  end
-
-  %% Dashboard tiles (server/utils/userUtils.ts)
-  DASH --> INDEX
-  DASH --> BYS
-  DASH --> NC_ORIG
-  DASH --> A_INDEX
-  DASH --> R_NEW
-  DASH --> PRISON
-
-  %% Original bail start flow
-  BYS --> ORIG
-  ORIG -- back --> BYS
-  ORIG -. "POST select-application-origin" .-> SPN & SCRN & UPB & UCB
-  SPN -- back --> ORIG
-  SCRN -- back --> ORIG
-  UPB -- back --> ORIG
-  UCB -- back --> ORIG
-  SPN -- "search by CRN instead" --> SCRN
-  SPN -. "POST people/find-by-prison-number" .-> CONFIRM_PERSON
-  SCRN -. "POST people/find-by-crn" .-> CONFIRM_PERSON
-
-  %% New cohorts start flow
-  NC_ORIG -- back --> DASH
-  NC_ORIG -. "POST select-application-origin" .-> NCB_BYS & NC_BYS
-  NC_BYS -- back --> NC_ORIG
-  NC_BYS --> NC_SCRN
-  NC_SCRN -- back --> NC_BYS
-  NC_SCRN -. "POST people/find-by-crn" .-> CONFIRM_PERSON
-  NCB_BYS -- back --> NC_ORIG
-  NCB_BYS --> NCB_ORIG
-  NCB_ORIG -- back --> NCB_BYS
-  NCB_ORIG -. "POST bail/select-application-origin" .-> NCB_SPN & NCB_SCRN & NCB_UPB & NCB_UCB
-  NCB_SPN -- back --> NCB_ORIG
-  NCB_SCRN -- back --> NCB_ORIG
-  NCB_UPB -- back --> NCB_ORIG
-  NCB_UCB -- back --> NCB_ORIG
-  NCB_SPN -. "POST bail/people/find-by-prison-number" .-> CONFIRM_PERSON
-  NCB_SCRN -. "POST bail/people/find-by-crn" .-> CONFIRM_PERSON
-
-  CONFIRM_PERSON -- back --> SPN & SCRN & NC_SCRN & NCB_SPN & NCB_SCRN
-  CONFIRM_PERSON -. "POST /applications/create" .-> SHOW
-
-  %% Applications
-  INDEX <-- tabs --> PRISON
-  INDEX -- "in progress" --> SHOW
-  INDEX -- submitted --> OVERVIEW
-  INDEX --> CANCEL
-  CANCEL -. "POST cancel" .-> INDEX
-  SHOW -. "not submitted" .-> TASKLIST
-  SHOW -. "eligibility = no" .-> INELIG
-  SHOW -. "required task incomplete" .-> FORM
-  SHOW -. submitted .-> SUBMITTED
-  TASKLIST -- "task links" --> FORM
-  FORM -. "PUT page → next page / task list" .-> TASKLIST
-  FORM -- "consent refused" --> INDEX
-  TASKLIST --> CONFSUB
-  TASKLIST --> INDEX
-  CONFSUB -- back --> SHOW
-  CONFSUB -. "POST submission" .-> CONFIRMED
-  CONFIRMED --> INDEX
-  INELIG -- "change answer" --> FORM
-  INELIG -- "start new application" --> NC_ORIG & BYS
-  SUBMITTED --> OVERVIEW
-  OVERVIEW --> SHOW
-  OVERVIEW --> INDEX
-  OVERVIEW -. "POST add-note" .-> OVERVIEW
-
-  %% Assess
-  A_INDEX --> A_OVERVIEW
-  A_OVERVIEW --> A_SHOW & A_DETAILS & A_STATUS & A_INDEX
-  A_OVERVIEW -. "POST add-note" .-> A_OVERVIEW
-  A_SHOW --> A_OVERVIEW
-  A_DETAILS -- back --> A_OVERVIEW
-  A_DETAILS -. "POST assessment-details/update" .-> A_OVERVIEW
-  A_STATUS -- back --> A_OVERVIEW
-  A_STATUS -. "POST (status has details)" .-> A_STATUS_DETAILS
-  A_STATUS -. POST .-> A_OVERVIEW
-  A_STATUS_DETAILS -- back --> A_STATUS
-  A_STATUS_DETAILS -. POST .-> A_OVERVIEW
-
-  %% Reports
-  R_NEW -. "no permission" .-> R_UNAUTH
-  R_NEW --> R_DL
-  R_DL -. error .-> R_NEW
+  style PAGE_GRAPH_ROOT fill:#ffffff,stroke:#ffffff
