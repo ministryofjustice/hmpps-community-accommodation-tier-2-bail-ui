@@ -25,6 +25,11 @@
       "licenceEndDate-month": "12",
       "licenceEndDate-day": "31",
       "hasHdcExpiryDate": "no"
+    },
+    "accommodation-start-date": {
+      "accommodationStartDate-year": "2030",
+      "accommodationStartDate-month": "1",
+      "accommodationStartDate-day": "1"
     }
   },
   "referrer-details": {

@@ -52,6 +52,10 @@ export default class LicenceDates extends BasePage {
     return this.application.cohort === 'isc' ? 'licence-dates-needed' : 'cohort-selection'
   }
 
+  next() {
+    return 'accommodation-start-date'
+  }
+
   errors() {
     return {
       ...this.licenceStartDateErrors(),
