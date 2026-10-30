@@ -60,22 +60,6 @@ export const completeCohortSelectionTask = async (page: Page, name: string) => {
   await atcrLicenceDetailsPage.checkRadioInGroup(`Does ${name} have an HDC expiry date?`, 'No')
 
   await atcrLicenceDetailsPage.clickSave()
-
-  await completeAccommodationStartDatePage(page)
-}
-
-async function completeAccommodationStartDatePage(page: Page) {
-  const accommodationStartDatePage = await ApplyPage.initialize(page, 'When is the accommodation required from?')
-
-  const accommodationStartDate = faker.date.soon({ days: 14, refDate: addDays(new Date(), 1) })
-
-  await accommodationStartDatePage.fillDateFieldInGroup('When is the accommodation required from?', {
-    year: accommodationStartDate.getFullYear().toString(),
-    month: (accommodationStartDate.getMonth() + 1).toString(),
-    day: accommodationStartDate.getDate().toString(),
-  })
-
-  await accommodationStartDatePage.clickSave()
 }
 
 export const completeReferrerDetailsTask = async (page: Page) => {
