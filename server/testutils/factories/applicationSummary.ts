@@ -6,20 +6,26 @@ import { DateFormats } from '../../utils/dateUtils'
 import latestStatusUpdateFactory from './latestStatusUpdate'
 import { cohortLabels } from '../../utils/applications/cohortLabels'
 
-export default Factory.define<Cas2ApplicationSummary>(() => ({
-  id: faker.string.uuid(),
-  applicationOrigin: 'prisonBail',
-  cohort: faker.helpers.arrayElement(Object.keys(cohortLabels)) as Cas2CohortDto,
-  type: 'CAS2V2',
-  createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
-  submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
-  createdByUserId: faker.string.uuid(),
-  status: 'inProgress',
-  latestStatusUpdate: latestStatusUpdateFactory.build(),
-  personName: faker.person.fullName(),
-  crn: `C${faker.number.int({ min: 100000, max: 999999 })}`,
-  nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
-  prisonCode: `PC${faker.number.int({ min: 10, max: 99 })}`,
-  hdcEligibilityDate: DateFormats.dateObjToIsoDate(faker.date.soon()),
-  createdByUserName: faker.person.fullName(),
-}))
+export default Factory.define<Cas2ApplicationSummary>(() => {
+  const crn = `C${faker.number.int({ min: 100000, max: 999999 })}`
+  const personName = faker.person.fullName()
+
+  return {
+    id: faker.string.uuid(),
+    applicationOrigin: 'prisonBail',
+    cohort: faker.helpers.arrayElement(Object.keys(cohortLabels)) as Cas2CohortDto,
+    type: 'CAS2V2',
+    createdAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+    submittedAt: DateFormats.dateObjToIsoDateTime(faker.date.past()),
+    createdByUserId: faker.string.uuid(),
+    status: 'inProgress',
+    latestStatusUpdate: latestStatusUpdateFactory.build(),
+    personName,
+    personSummary: { personType: 'Found', crn, name: personName },
+    crn,
+    nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
+    prisonCode: `PC${faker.number.int({ min: 10, max: 99 })}`,
+    hdcEligibilityDate: DateFormats.dateObjToIsoDate(faker.date.soon()),
+    createdByUserName: faker.person.fullName(),
+  }
+})
