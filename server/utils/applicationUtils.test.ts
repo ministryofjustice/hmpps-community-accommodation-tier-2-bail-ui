@@ -19,14 +19,14 @@ import { summaryListItem } from './formUtils'
 describe('inProgressApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
     const applicationA = applicationSummaryFactory.build({
-      personName: 'A',
+      personSummary: { personType: 'Found', crn: 'CA', name: 'A' },
       createdAt: '2022-11-10T21:47:28Z',
       status: 'inProgress',
       latestStatusUpdate: null,
       cohort: 'atcr',
     })
     const applicationB = applicationSummaryFactory.build({
-      personName: 'B',
+      personSummary: { personType: 'Found', crn: 'CB', name: 'B' },
       createdAt: '2022-11-11T21:47:28Z',
       status: 'inProgress',
       latestStatusUpdate: null,
@@ -84,17 +84,31 @@ describe('inProgressApplicationTableRows', () => {
       ],
     ])
   })
+
+  it('returns Not Found without a link if the person is not found', () => {
+    const application = applicationSummaryFactory.build({ personSummary: { personType: 'NotFound', crn: 'X123456' } })
+
+    expect(inProgressApplicationTableRows([application])[0][0]).toEqual({ text: 'Not Found' })
+  })
+
+  it('returns the CRN without a link if the person is a limited access offender', () => {
+    const application = applicationSummaryFactory.build({
+      personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+    })
+
+    expect(inProgressApplicationTableRows([application])[0][0]).toEqual({ text: 'LAO: X123456' })
+  })
 })
 
 describe('submittedApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
     const applicationA = applicationSummaryFactory.build({
-      personName: 'A',
+      personSummary: { personType: 'Found', crn: 'CA', name: 'A' },
       submittedAt: '2022-12-10T21:47:28Z',
       cohort: 'courtBail',
     })
     const applicationB = applicationSummaryFactory.build({
-      personName: 'B',
+      personSummary: { personType: 'Found', crn: 'CB', name: 'B' },
       submittedAt: '2022-12-11T21:47:28Z',
       cohort: 'prisonBail',
     })
@@ -144,17 +158,31 @@ describe('submittedApplicationTableRows', () => {
       ],
     ])
   })
+
+  it('returns Not Found without a link if the person is not found', () => {
+    const application = applicationSummaryFactory.build({ personSummary: { personType: 'NotFound', crn: 'X123456' } })
+
+    expect(submittedApplicationTableRows([application])[0][0]).toEqual({ text: 'Not Found' })
+  })
+
+  it('returns the CRN without a link if the person is a limited access offender', () => {
+    const application = applicationSummaryFactory.build({
+      personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+    })
+
+    expect(submittedApplicationTableRows([application])[0][0]).toEqual({ text: 'LAO: X123456' })
+  })
 })
 
 describe('prisonApplicationTableRows', () => {
   it('returns an array of applications as table rows', async () => {
     const applicationA = applicationSummaryFactory.build({
-      personName: 'A',
+      personSummary: { personType: 'Found', crn: 'CA', name: 'A' },
       submittedAt: '2022-12-10T21:47:28Z',
       cohort: 'prisonBail',
     })
     const applicationB = applicationSummaryFactory.build({
-      personName: 'B',
+      personSummary: { personType: 'Found', crn: 'CB', name: 'B' },
       submittedAt: '2022-12-11T21:47:28Z',
       cohort: 'prisonBail',
     })
@@ -210,17 +238,31 @@ describe('prisonApplicationTableRows', () => {
       ],
     ])
   })
+
+  it('returns Not Found without a link if the person is not found', () => {
+    const application = applicationSummaryFactory.build({ personSummary: { personType: 'NotFound', crn: 'X123456' } })
+
+    expect(prisonApplicationTableRows([application])[0][0]).toEqual({ text: 'Not Found' })
+  })
+
+  it('returns the CRN without a link if the person is a limited access offender', () => {
+    const application = applicationSummaryFactory.build({
+      personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+    })
+
+    expect(prisonApplicationTableRows([application])[0][0]).toEqual({ text: 'LAO: X123456' })
+  })
 })
 
 describe('assessmentsTableRows', () => {
   it('returns an array of applications as table rows', async () => {
     const applicationA = submittedApplicationSummary.build({
       submittedAt: '2022-12-10T21:47:28Z',
-      personName: 'A',
+      personSummary: { personType: 'Found', crn: 'CA', name: 'A' },
     })
     const applicationB = submittedApplicationSummary.build({
       submittedAt: '2022-12-11T21:47:28Z',
-      personName: 'B',
+      personSummary: { personType: 'Found', crn: 'CB', name: 'B' },
     })
 
     const result = assessmentsTableRows([applicationA, applicationB])
@@ -255,6 +297,20 @@ describe('assessmentsTableRows', () => {
         },
       ],
     ])
+  })
+
+  it('returns Not Found without a link if the person is not found', () => {
+    const application = submittedApplicationSummary.build({ personSummary: { personType: 'NotFound', crn: 'X123456' } })
+
+    expect(assessmentsTableRows([application])[0][0]).toEqual({ text: 'Not Found' })
+  })
+
+  it('returns the CRN without a link if the person is a limited access offender', () => {
+    const application = submittedApplicationSummary.build({
+      personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+    })
+
+    expect(assessmentsTableRows([application])[0][0]).toEqual({ text: 'LAO: X123456' })
   })
 })
 
