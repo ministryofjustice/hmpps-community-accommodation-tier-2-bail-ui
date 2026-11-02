@@ -27,7 +27,7 @@ export default class BackupContactDetails extends BaseCppDetails {
 
   response() {
     return {
-      [this.title]: `${this.body.name}\r\n${this.body.telephone}\r\n${this.body.email}`,
+      [this.title]: `${this.body.name}\r\n${this.body.email}\r\n${this.body.telephone}`,
     }
   }
 
