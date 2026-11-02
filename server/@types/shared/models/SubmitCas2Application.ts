@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { ApplicationOrigin } from './ApplicationOrigin';
 export type SubmitCas2Application = {
+    accommodationStartDate?: string;
     /**
      * Id of the application being submitted
      */
