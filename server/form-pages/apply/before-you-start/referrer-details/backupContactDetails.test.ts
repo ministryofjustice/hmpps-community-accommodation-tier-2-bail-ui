@@ -70,7 +70,7 @@ describe('BackupContactDetails', () => {
       )
 
       expect(page.response()).toEqual({
-        'Backup contact details': `a name\r\na phone number\r\nan email address`,
+        'Backup contact details': `a name\r\nan email address\r\na phone number`,
       })
     })
   })
