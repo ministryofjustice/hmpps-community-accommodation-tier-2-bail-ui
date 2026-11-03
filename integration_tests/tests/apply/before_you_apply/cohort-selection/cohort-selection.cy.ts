@@ -12,9 +12,11 @@ import TaskListPage from '../../../../pages/apply/taskListPage'
 context('Complete Cohort selection task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
   let application: Cas2Application
+  let cohortSelectionData: Cas2Application['data']['cohort-selection']
 
   beforeEach(function test() {
     cy.fixture('applicationData.json').then(applicationData => {
+      cohortSelectionData = applicationData['cohort-selection']
       application = applicationFactory.build({
         person,
         data: { ...applicationData, 'cohort-selection': undefined },
@@ -115,6 +117,9 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
 
       // When I complete the form and submit
       accommodationStartDatePage.completeForm()
+      cy.task('stubApplicationGet', {
+        application: { ...application, data: { ...application.data, 'cohort-selection': cohortSelectionData } },
+      })
       accommodationStartDatePage.clickSubmit('Save and continue')
 
       // Then the correct date will have been posted
