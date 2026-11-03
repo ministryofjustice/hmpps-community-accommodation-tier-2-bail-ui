@@ -1,4 +1,11 @@
-import type { Cas2SubmittedApplicationSummary, Cas2ApplicationSummary, Cas2Application } from '@approved-premises/api'
+import type {
+  Cas2SubmittedApplicationSummary,
+  Cas2ApplicationSummary,
+  Cas2Application,
+  Found,
+  LimitedAccess,
+  NotFound,
+} from '@approved-premises/api'
 import type { QuestionAndAnswer, SummaryListItem, TableRow } from '@approved-premises/ui'
 import { UnspentConvictionsUI } from '../form-pages/apply/offences-and-concerns/previous-unspent-convictions/unspentConvictions'
 import applyPaths from '../paths/apply'
@@ -11,7 +18,7 @@ import { cohortLabel } from './applications/cohortLabels'
 export const inProgressApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
-      nameAnchorElement(application.personName, application.id, false, true),
+      personNameCell(application.personSummary, application.id, false, true),
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.createdAt, { format: 'medium' })),
@@ -28,7 +35,7 @@ export const submittedApplicationTableRows = (
 ): Array<TableRow> => {
   return applications.map(application => {
     return [
-      nameAnchorElement(application.personName, application.id, isAssessPath),
+      personNameCell(application.personSummary, application.id, isAssessPath),
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
@@ -41,7 +48,7 @@ export const submittedApplicationTableRows = (
 export const prisonApplicationTableRows = (applications: Array<Cas2ApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
-      nameAnchorElement(application.personName, application.id),
+      personNameCell(application.personSummary, application.id),
       textValue(application.nomsNumber),
       textValue(application.prisonCode),
       textValue(application.crn),
@@ -55,7 +62,7 @@ export const prisonApplicationTableRows = (applications: Array<Cas2ApplicationSu
 export const assessmentsTableRows = (applications: Array<Cas2SubmittedApplicationSummary>): Array<TableRow> => {
   return applications.map(application => {
     return [
-      nameAnchorElement(application.personName, application.id, true),
+      personNameCell(application.personSummary, application.id, true),
       textValue(application.nomsNumber),
       textValue(application.crn),
       textValue(DateFormats.isoDateToUIDate(application.submittedAt, { format: 'medium' })),
@@ -95,6 +102,22 @@ const nameAnchorElement = (
     href = applyPaths.applications.overview({ id: applicationId })
   }
   return htmlValue(`<a href=${href} data-cy-id="${applicationId}">${name}</a>`)
+}
+
+const personNameCell = (
+  personSummary: Found | LimitedAccess | NotFound,
+  applicationId: string,
+  isAssessPath: boolean = false,
+  inProgress: boolean = false,
+) => {
+  switch (personSummary.personType) {
+    case 'NotFound':
+      return textValue('Not Found')
+    case 'LimitedAccess':
+      return textValue(`LAO: ${personSummary.crn}`)
+    default:
+      return nameAnchorElement((personSummary as Found).name, applicationId, isAssessPath, inProgress)
+  }
 }
 
 const cancelAnchorElement = (applicationId: string) =>
