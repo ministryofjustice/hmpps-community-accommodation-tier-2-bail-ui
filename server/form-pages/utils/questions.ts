@@ -130,7 +130,7 @@ export function getQuestions(
       },
       'accommodation-start-date': {
         accommodationStartDate: {
-          question: 'When is the accommodation required from?',
+          question: 'What date is accommodation required from?',
           hint: `For example, ${dateExample}`,
           dataType: 'date',
         },

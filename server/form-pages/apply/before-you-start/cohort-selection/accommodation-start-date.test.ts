@@ -21,7 +21,7 @@ describe('AccommodationStartDate', () => {
     it('Returns the correct questions', () => {
       expect(page().questions).toEqual({
         accommodationStartDate: {
-          question: 'When is the accommodation required from?',
+          question: 'What date is accommodation required from?',
           hint: 'For example, 27 3 2023',
           dataType: 'date',
         },
@@ -94,7 +94,7 @@ describe('AccommodationStartDate', () => {
   describe('response', () => {
     it('Returns the correct response', () => {
       expect(page(filledBody).response()).toEqual({
-        'When is the accommodation required from?': DateFormats.isoDateToUIDate(accommodationStartDateIso, {
+        'What date is accommodation required from?': DateFormats.isoDateToUIDate(accommodationStartDateIso, {
           format: 'medium',
         }),
       })
