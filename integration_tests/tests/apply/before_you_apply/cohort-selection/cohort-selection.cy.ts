@@ -6,6 +6,8 @@ import { newCohortLabels, NonBailCohort } from '../../../../../server/utils/appl
 import LicenceDatesPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDates'
 import LicenceDatesNeededPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDatesNeededPage'
 import AccommodationStartDatePage from '../../../../pages/apply/before_you_apply/cohort-selection/accommodationStartDatePage'
+import Page from '../../../../pages/page'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Complete Cohort selection task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
@@ -117,6 +119,9 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
 
       // Then the correct date will have been posted
       accommodationStartDatePage.verifyUpdate(updatedApplication)
+
+      // And i shouldbe on the task list page
+      Page.verifyOnPage(TaskListPage, application)
     })
   })
 
