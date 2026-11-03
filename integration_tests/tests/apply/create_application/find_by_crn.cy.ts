@@ -47,7 +47,7 @@
 //    Then I see an unathorised error message
 
 import ConfirmApplicantPage from '../../../pages/apply/confirmApplicantPage'
-import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
+import { personFactory } from '../../../../server/testutils/factories/index'
 import Page from '../../../pages/page'
 import FindByCrnPage from '../../../pages/apply/findByCrnPage'
 import BeforeYouStartPage from '../../../pages/apply/beforeYouStartPage'
@@ -57,7 +57,6 @@ import config from '../../../../server/config'
 
 context('Find by CRN without correct roles', () => {
   const person = personFactory.build({ name: 'Roger Smith', crn: '123' })
-  const applications = applicationFactory.buildList(3)
 
   beforeEach(() => {
     cy.task('reset')
@@ -68,9 +67,6 @@ context('Find by CRN without correct roles', () => {
   beforeEach(() => {
     // Given I am logged in
     cy.signIn()
-
-    // and there are existing applications
-    cy.task('stubApplications', applications)
   })
 
   //  Scenario: follow link from 'Before you start' page
