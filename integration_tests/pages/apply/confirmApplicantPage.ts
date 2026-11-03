@@ -9,6 +9,11 @@ export default class ConfirmApplicantPage extends Page {
     super(`Confirm ${name}'s details`, name)
   }
 
+  static visitFromFama(name: string, crn: string) {
+    cy.visit(`/new-cohorts/applications/people/find-by-crn?crn=${crn}`)
+    return new ConfirmApplicantPage(name)
+  }
+
   hasErrorDetails = (): void => {
     cy.get('.govuk-error-summary').contains('There was an error creating the application, please try again')
   }
@@ -23,7 +28,6 @@ export default class ConfirmApplicantPage extends Page {
       ['Prison', applicant.prisonName],
       ['PNC number', applicant.pncNumber],
       ['CRN from NDelius', applicant.crn],
-      ['Status', applicant.status === 'InCommunity' ? 'In Community' : 'In Custody'],
       ['Tier', applicant.tier.tierScore],
     ]
     cy.get('.govuk-summary-list').within(() => {
@@ -34,5 +38,17 @@ export default class ConfirmApplicantPage extends Page {
         })
       })
     })
+  }
+
+  shouldHaveBackLink(url: string) {
+    cy.contains('a', 'Back').should('have.attr', 'href').and('include', url)
+  }
+
+  shouldHaveSearchLink() {
+    cy.contains('a', 'Search for a different applicant').should('exist')
+  }
+
+  shouldNotHaveSearchLink() {
+    cy.contains('a', 'Search for a different applicant').should('not.exist')
   }
 }
