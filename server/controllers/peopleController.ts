@@ -130,6 +130,7 @@ export default class PeopleController {
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
           applicationOrigin: 'other',
           backUrl,
+          hideSearchLink: true,
         })
       } catch (err) {
         res.status(500)

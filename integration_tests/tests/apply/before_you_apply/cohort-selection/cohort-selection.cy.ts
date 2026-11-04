@@ -5,13 +5,18 @@ import CohortSelectionPage from '../../../../pages/apply/before_you_apply/cohort
 import { newCohortLabels, NonBailCohort } from '../../../../../server/utils/applications/cohortLabels'
 import LicenceDatesPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDates'
 import LicenceDatesNeededPage from '../../../../pages/apply/before_you_apply/cohort-selection/licenceDatesNeededPage'
+import AccommodationStartDatePage from '../../../../pages/apply/before_you_apply/cohort-selection/accommodationStartDatePage'
+import Page from '../../../../pages/page'
+import TaskListPage from '../../../../pages/apply/taskListPage'
 
 context('Complete Cohort selection task in "Before you apply" section', () => {
   const person = personFactory.build({ name: 'Roger Smith' })
   let application: Cas2Application
+  let cohortSelectionData: Cas2Application['data']['cohort-selection']
 
   beforeEach(function test() {
     cy.fixture('applicationData.json').then(applicationData => {
+      cohortSelectionData = applicationData['cohort-selection']
       application = applicationFactory.build({
         person,
         data: { ...applicationData, 'cohort-selection': undefined },
@@ -100,6 +105,28 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
       licencePage.clickSubmit('Save and continue')
       // Then the correct dates will have been posted
       licencePage.verifyUpdate(updatedApplication)
+
+      // And I am on the accommodation start date page
+      const accommodationStartDatePage = new AccommodationStartDatePage(application)
+
+      // When I submit the empty form
+      accommodationStartDatePage.clickSubmit('Save and continue')
+
+      // Then I should see an error
+      accommodationStartDatePage.shouldShowErrorSummary('Enter a date the accommodation is required from')
+
+      // When I complete the form and submit
+      accommodationStartDatePage.completeForm()
+      cy.task('stubApplicationGet', {
+        application: { ...application, data: { ...application.data, 'cohort-selection': cohortSelectionData } },
+      })
+      accommodationStartDatePage.clickSubmit('Save and continue')
+
+      // Then the correct date will have been posted
+      accommodationStartDatePage.verifyUpdate(updatedApplication)
+
+      // And i shouldbe on the task list page
+      Page.verifyOnPage(TaskListPage, application)
     })
   })
 

@@ -38,7 +38,7 @@ export default class LicenceDatesNeeded extends BasePage {
   }
 
   next() {
-    return this.body.licenceDatesNeeded === 'yes' ? 'licence-dates' : ''
+    return this.body.licenceDatesNeeded === 'yes' ? 'licence-dates' : 'accommodation-start-date'
   }
 
   errors() {

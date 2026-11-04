@@ -128,6 +128,13 @@ export function getQuestions(
           dataType: 'date',
         },
       },
+      'accommodation-start-date': {
+        accommodationStartDate: {
+          question: 'What date is accommodation required from?',
+          hint: `For example, ${dateExample}`,
+          dataType: 'date',
+        },
+      },
     },
     'referrer-details': {
       'confirm-details': {
