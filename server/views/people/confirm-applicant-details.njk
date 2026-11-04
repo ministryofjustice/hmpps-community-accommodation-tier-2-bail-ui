@@ -49,7 +49,9 @@
                 text: "Confirm and continue"
             }) }}
 
-          <a href="{{ backUrl }}"> Search for a different applicant </a>
+          {% if not hideSearchLink %}
+            <a href="{{ backUrl }}"> Search for a different applicant</a>
+          {% endif %}
         </div>
 
       </form>

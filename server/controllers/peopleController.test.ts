@@ -390,6 +390,7 @@ describe('peopleController', () => {
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
           applicationOrigin: 'other',
           backUrl: `http://localhost:3333/cases/${person.crn}`,
+          hideSearchLink: true,
         })
       })
     })

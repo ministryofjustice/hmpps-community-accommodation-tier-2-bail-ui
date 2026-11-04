@@ -47,16 +47,16 @@
 //    Then I see an unathorised error message
 
 import ConfirmApplicantPage from '../../../pages/apply/confirmApplicantPage'
-import { personFactory, applicationFactory } from '../../../../server/testutils/factories/index'
+import { personFactory } from '../../../../server/testutils/factories/index'
 import Page from '../../../pages/page'
 import FindByCrnPage from '../../../pages/apply/findByCrnPage'
 import BeforeYouStartPage from '../../../pages/apply/beforeYouStartPage'
 import ApplicationOriginPage from '../../../pages/apply/applicationOriginPage'
 import UnauthorisedCourtBailPage from '../../../pages/apply/unauthorisedCourtBailPage'
+import config from '../../../../server/config'
 
 context('Find by CRN without correct roles', () => {
   const person = personFactory.build({ name: 'Roger Smith', crn: '123' })
-  const applications = applicationFactory.buildList(3)
 
   beforeEach(() => {
     cy.task('reset')
@@ -67,9 +67,6 @@ context('Find by CRN without correct roles', () => {
   beforeEach(() => {
     // Given I am logged in
     cy.signIn()
-
-    // and there are existing applications
-    cy.task('stubApplications', applications)
   })
 
   //  Scenario: follow link from 'Before you start' page
@@ -104,7 +101,6 @@ context('Find by CRN without correct roles', () => {
 
 context('Find by CRN', () => {
   const person = personFactory.build({ name: 'Roger Smith', crn: '123' })
-  const applications = applicationFactory.buildList(3)
 
   beforeEach(() => {
     cy.task('reset')
@@ -115,9 +111,6 @@ context('Find by CRN', () => {
   beforeEach(() => {
     // Given I am logged in
     cy.signIn()
-
-    // and there are existing applications
-    cy.task('stubApplications', applications)
   })
 
   //  Scenario: follow link from 'Before you start' page
@@ -153,33 +146,31 @@ context('Find by CRN', () => {
   // ----------------------------------------------
   it('Continues to "Confirm applicant details" section (before task list)', () => {
     // I'm on the enter a CRN page
-    const page = FindByCrnPage.visit(person.name)
+    const findByCrnPage = FindByCrnPage.visit(person.name)
 
     // I enter an existing CRN
-    page.getTextInputByIdAndEnterDetails('crn', person.crn)
+    findByCrnPage.getTextInputByIdAndEnterDetails('crn', person.crn)
     cy.task('stubFindPersonByCrn', { person })
-    const application = applicationFactory.build({
-      person,
-      data: {
-        'confirm-eligibility': {
-          'confirm-eligibility': {},
-        },
-      },
-    })
-
-    cy.task('stubCreateApplication', { application })
-    cy.task('stubApplicationGet', { application })
 
     // I click save and continue
-    page.clickSubmit('Search for applicant')
+    findByCrnPage.clickSubmit('Search for applicant')
 
     // Then I'm on the 'Confirm applicant details' page
-    Page.verifyOnPage(ConfirmApplicantPage, person.name)
+    const confirmApplicantPage = Page.verifyOnPage(ConfirmApplicantPage, person.name)
+
+    // And I should see the applicant's information
+    confirmApplicantPage.hasApplicantInformation(person)
+
+    // And the back link should take me back to the "Find by CRN" page
+    confirmApplicantPage.shouldHaveBackLink(FindByCrnPage.url())
+
+    // And the "Search for a different applicant" link should be shown
+    confirmApplicantPage.shouldHaveSearchLink()
   })
 
   //  Scenario: answer is enforced
   // ----------------------------------------------
-  it('enforces an enswer', () => {
+  it('enforces an answer', () => {
     // I'm on the enter a CRN page
     const page = FindByCrnPage.visit(person.name)
 
@@ -221,7 +212,6 @@ context('Find by CRN', () => {
     const page = FindByCrnPage.visit(person.name)
 
     // I enter a CRN that can't be found
-
     cy.get('#crn').type(person.crn)
     page.clickSubmit('Search for applicant')
 
@@ -234,5 +224,37 @@ context('Find by CRN', () => {
       'contain',
       `You do not have permission to access the CRN ${person.crn}, please try another number.`,
     )
+  })
+})
+
+context('Find by CRN from FAMA', () => {
+  const person = personFactory.build({ name: 'Lee Smith', crn: 'A123456' })
+
+  beforeEach(() => {
+    cy.task('reset')
+    cy.task('stubSignIn', { roles: ['SINGLE_ACCOMMODATION_SERVICE_PROBATION_PRACTITIONER'] })
+    cy.task('stubAuthUser')
+  })
+
+  beforeEach(() => {
+    // Given I am logged in
+    cy.signIn()
+
+    // And a person exists in the database
+    cy.task('stubFindPersonByCrn', { person })
+  })
+
+  it('Renders without the "Search for a different applicant" link', () => {
+    // When I am redirected from FAMA
+    const page = ConfirmApplicantPage.visitFromFama(person.name, person.crn)
+
+    // Then I should see the applicant's information
+    page.hasApplicantInformation(person)
+
+    // And the back link should take me back to FAMA
+    page.shouldHaveBackLink(`${config.findAndManageAccommodationUrl}/cases/${person.crn}`)
+
+    // And the "Search for a different applicant" link should not be shown
+    page.shouldNotHaveSearchLink()
   })
 })
