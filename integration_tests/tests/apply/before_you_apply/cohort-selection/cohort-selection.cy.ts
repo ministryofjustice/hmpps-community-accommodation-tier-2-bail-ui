@@ -38,7 +38,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
     page.verifyQuestions()
 
     // When I submit an empty page
-    page.clickSubmit('Confirm and continue')
+    page.clickSubmit('Save and continue')
 
     // Then I should see an error message
     page.shouldShowErrorSummary('Select why Roger Smith needs CAS2 accommodation')
@@ -51,7 +51,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
         data: { ...application.data, 'cohort-selection': { 'cohort-selection': { cohort: newCohort } } },
       },
     })
-    page.clickSubmit('Confirm and continue')
+    page.clickSubmit('Save and continue')
 
     // Then the application cohort is updated
     cy.task('verifyApplicationUpdate', application.id).then(requests => {
@@ -77,7 +77,7 @@ context('Complete Cohort selection task in "Before you apply" section', () => {
       cy.task('stubApplicationGet', { application: updatedApplication })
 
       // And submit
-      cohortPage.clickSubmit('Confirm and continue')
+      cohortPage.clickSubmit('Save and continue')
 
       if (cohort === 'isc') {
         // Then I see the intermediate page
