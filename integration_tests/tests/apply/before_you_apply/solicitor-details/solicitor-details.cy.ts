@@ -13,6 +13,7 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
 
   const licenceEndDate = faker.date.soon({ days: 60 })
   const licenceStartDate = faker.date.recent({ days: 60, refDate: licenceEndDate })
+  const accommodationStartDate = faker.date.soon({ days: 60 })
 
   beforeEach(() => {
     cy.task('reset')
@@ -33,6 +34,9 @@ context('Complete "Add solicitor details" task in "Before you apply" section', (
               ...isoDateToDateParts(DateFormats.dateObjToIsoDate(licenceStartDate), 'licenceStartDate'),
               ...isoDateToDateParts(DateFormats.dateObjToIsoDate(licenceEndDate), 'licenceEndDate'),
               hasHdcExpiryDate: 'no',
+            },
+            'accommodation-start-date': {
+              ...isoDateToDateParts(DateFormats.dateObjToIsoDate(accommodationStartDate), 'accommodationStartDate'),
             },
           },
         },
