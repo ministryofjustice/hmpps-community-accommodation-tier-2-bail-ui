@@ -46,7 +46,7 @@ export default class CohortSelectionPage extends ApplyPage {
   selectCohort(cohort: string) {
     CohortSelectionPage.visit(this.application)
     this.checkRadioByNameAndValue('cohort', cohort)
-    this.clickSubmit('Confirm and continue')
+    this.clickSubmit('Save and continue')
     cy.task('stubApplicationGetFromLastUpdate', { application: this.application })
     cy.reload()
   }

@@ -143,7 +143,7 @@ export function getQuestions(
         region: { question: 'Region' },
       },
       'job-title': {
-        jobTitle: { question: 'What is your job title?', hint: 'For example, Bail Information Officer (BIO)' },
+        jobTitle: { question: 'What is your job title?', hint: 'For example, Bail Information Officer (BIO).' },
       },
       'contact-number': {
         telephone: {

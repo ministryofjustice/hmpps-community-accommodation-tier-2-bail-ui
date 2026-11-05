@@ -35,7 +35,7 @@ export const completeConsentTask = async (page: Page, name: string) => {
 export const completeCohortSelectionTask = async (page: Page, name: string) => {
   const cohortSelectionPage = await CohortSelectionPage.initialize(page, `Why does ${name} need CAS2 accommodation?`)
   await cohortSelectionPage.checkRadio(cohortLabels.atcr)
-  await cohortSelectionPage.clickConfirm()
+  await cohortSelectionPage.clickSave()
 
   const atcrLicenceDetailsPage = await CohortLicenceDetailsPage.initialize(page, `${name}'s licence`)
 
