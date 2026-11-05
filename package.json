@@ -169,7 +169,7 @@
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-manifest": "^1.0.5",
     "esbuild-sass-plugin": "^3.7.0",
-    "glob": "^11.1.0",
+    "glob": "^14.0.0",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
     "jest-diff": "^29.7.0",
@@ -194,8 +194,11 @@
     "serialize-javascript": "^7.1.2",
     "diff": "^8.0.4",
     "moment": "^2.31.0",
-    "proxy-addr": "^2.0.8",
     "@opentelemetry/core": "^2.12.0",
-    "shell-quote": "^1.12.0"
+    "undici": "^6.29.1",
+    "@kubernetes/client-node": {
+      "undici": "^8.12.2"
+    },
+    "follow-redirects": "^1.16.2"
   }
 }
