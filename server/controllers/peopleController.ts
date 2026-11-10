@@ -133,7 +133,7 @@ export default class PeopleController {
         const person = await this.personService.findByCrn(req.user.token, trimmedCrn)
 
         return res.render('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
+          pageHeading: `Confirm ${person.name}'s details for CAS2 application`,
           person,
           date: DateFormats.dateObjtoUIDate(new Date()),
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
