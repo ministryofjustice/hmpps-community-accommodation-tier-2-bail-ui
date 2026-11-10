@@ -57,6 +57,7 @@ describe('peopleController', () => {
           const requestHandler = peopleController.findByPrisonNumber(newCohortOrigin)
 
           const person = fullPersonFactory.build({})
+          request.body.prisonNumber = ` ${person.nomsNumber} `
 
           personService.findByPrisonNumber.mockResolvedValue(person)
           applicationService.createApplication.mockResolvedValue(applicationFactory.build({}))
@@ -71,6 +72,8 @@ describe('peopleController', () => {
             applicationOrigin,
             backUrl,
           })
+
+          expect(personService.findByPrisonNumber).toHaveBeenCalledWith(token, person.nomsNumber)
         },
       )
 
@@ -226,6 +229,7 @@ describe('peopleController', () => {
           const requestHandler = peopleController.findByCrn(newCohortOrigin)
 
           const person = fullPersonFactory.build({})
+          request.body.crn = ` ${person.crn} `
 
           personService.findByCrn.mockResolvedValue(person)
           applicationService.createApplication.mockResolvedValue(
@@ -242,6 +246,8 @@ describe('peopleController', () => {
             applicationOrigin: 'courtBail',
             backUrl,
           })
+
+          expect(personService.findByCrn).toHaveBeenCalledWith(token, person.crn)
         },
       )
 
@@ -377,7 +383,7 @@ describe('peopleController', () => {
         const requestHandler = peopleController.findByCrnFromFama()
 
         const person = fullPersonFactory.build({})
-        request.query = { crn: person.crn }
+        request.query = { crn: ` ${person.crn} ` }
 
         personService.findByCrn.mockResolvedValue(person)
 
@@ -392,6 +398,8 @@ describe('peopleController', () => {
           backUrl: `http://localhost:3333/cases/${person.crn}`,
           hideSearchLink: true,
         })
+
+        expect(personService.findByCrn).toHaveBeenCalledWith(token, person.crn)
       })
     })
 
