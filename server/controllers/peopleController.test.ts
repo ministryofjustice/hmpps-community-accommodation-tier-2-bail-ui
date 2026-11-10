@@ -57,6 +57,7 @@ describe('peopleController', () => {
           const requestHandler = peopleController.findByPrisonNumber(newCohortOrigin)
 
           const person = fullPersonFactory.build({})
+          request.body.prisonNumber = ` ${person.nomsNumber} `
 
           personService.findByPrisonNumber.mockResolvedValue(person)
           applicationService.createApplication.mockResolvedValue(applicationFactory.build({}))
@@ -71,34 +72,10 @@ describe('peopleController', () => {
             applicationOrigin,
             backUrl,
           })
+
+          expect(personService.findByPrisonNumber).toHaveBeenCalledWith(token, person.nomsNumber)
         },
       )
-
-      it('when there are spaces wrapping the prison number', async () => {
-        const requestHandler = peopleController.findByPrisonNumber(undefined)
-
-        const person = fullPersonFactory.build({})
-        request.body.prisonNumber = ` ${person.nomsNumber} `
-        request.body.applicationOrigin = 'courtBail'
-
-        personService.findByPrisonNumber.mockResolvedValue(person)
-        applicationService.createApplication.mockResolvedValue(
-          applicationFactory.build({ applicationOrigin: 'courtBail' }),
-        )
-
-        await requestHandler(request, response, next)
-
-        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
-          person,
-          date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
-          applicationOrigin: 'courtBail',
-          backUrl: paths.applications.searchByPrisonNumber({}),
-        })
-
-        expect(personService.findByPrisonNumber).toHaveBeenCalledWith(token, person.nomsNumber)
-      })
 
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
@@ -252,6 +229,7 @@ describe('peopleController', () => {
           const requestHandler = peopleController.findByCrn(newCohortOrigin)
 
           const person = fullPersonFactory.build({})
+          request.body.crn = ` ${person.crn} `
 
           personService.findByCrn.mockResolvedValue(person)
           applicationService.createApplication.mockResolvedValue(
@@ -268,32 +246,10 @@ describe('peopleController', () => {
             applicationOrigin: 'courtBail',
             backUrl,
           })
+
+          expect(personService.findByCrn).toHaveBeenCalledWith(token, person.crn)
         },
       )
-
-      it('when there are spaces wrapping the CRN', async () => {
-        const requestHandler = peopleController.findByCrn('other')
-
-        const person = fullPersonFactory.build({})
-        request.body.crn = ` ${person.crn} `
-        request.body.applicationOrigin = 'other'
-
-        personService.findByCrn.mockResolvedValue(person)
-        applicationService.createApplication.mockResolvedValue(applicationFactory.build({ applicationOrigin: 'other' }))
-
-        await requestHandler(request, response, next)
-
-        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
-          person,
-          date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
-          applicationOrigin: 'other',
-          backUrl: paths.applications.newCohorts.searchByCrn({}),
-        })
-
-        expect(personService.findByCrn).toHaveBeenCalledWith(token, person.crn)
-      })
 
       describe('when there are errors', () => {
         describe('when there is a 404 error', () => {
@@ -427,7 +383,7 @@ describe('peopleController', () => {
         const requestHandler = peopleController.findByCrnFromFama()
 
         const person = fullPersonFactory.build({})
-        request.query = { crn: person.crn }
+        request.query = { crn: ` ${person.crn} ` }
 
         personService.findByCrn.mockResolvedValue(person)
 
@@ -442,28 +398,8 @@ describe('peopleController', () => {
           backUrl: `http://localhost:3333/cases/${person.crn}`,
           hideSearchLink: true,
         })
-      })
 
-      it('renders the confirm applicant details page and trims spaces from the crn', async () => {
-        const requestHandler = peopleController.findByCrnFromFama()
-
-        const person = fullPersonFactory.build({})
-        const crnWithSpaces = `  ${person.crn}  `
-        request.query = { crn: crnWithSpaces }
-
-        personService.findByCrn.mockResolvedValue(person)
-
-        await requestHandler(request, response, next)
-
-        expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
-          person,
-          date: DateFormats.dateObjtoUIDate(new Date()),
-          dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
-          applicationOrigin: 'other',
-          backUrl: `http://localhost:3333/cases/${person.crn}`,
-          hideSearchLink: true,
-        })
+        expect(personService.findByCrn).toHaveBeenCalledWith(token, person.crn)
       })
     })
 
