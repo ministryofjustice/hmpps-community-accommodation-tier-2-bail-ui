@@ -25,8 +25,10 @@ export default class PeopleController {
           : paths.applications.searchByPrisonNumber({})
 
       if (prisonNumber) {
+        const trimmedPrisonNumber = (prisonNumber as string).trim()
+
         try {
-          const person = await this.personService.findByPrisonNumber(req.user.token, prisonNumber)
+          const person = await this.personService.findByPrisonNumber(req.user.token, trimmedPrisonNumber)
 
           return res.render(`people/confirm-applicant-details`, {
             pageHeading: `Confirm ${person.name}'s details`,
@@ -41,16 +43,16 @@ export default class PeopleController {
             addErrorMessagesToFlash(
               req,
               'prisonNumber',
-              `No person found for prison number ${prisonNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
+              `No person found for prison number ${trimmedPrisonNumber}. You can try again, or search using a different prison number or a case reference number (CRN)`,
               '404',
             )
           } else if (err.status === 403) {
             addErrorMessagesToFlash(
               req,
               'prisonNumber',
-              `You do not have permission to access the prison number ${prisonNumber}, please try another number.`,
+              `You do not have permission to access the prison number ${trimmedPrisonNumber}, please try another number.`,
             )
-          } else if (!isValidCrnOrNomsNumber(prisonNumber)) {
+          } else if (!isValidCrnOrNomsNumber(trimmedPrisonNumber)) {
             addErrorMessagesToFlash(req, 'prisonNumber', 'Enter a prison number in the correct format')
           } else {
             addErrorMessagesToFlash(req, 'prisonNumber', 'Something went wrong. Please try again later.')
@@ -80,8 +82,10 @@ export default class PeopleController {
       }
 
       if (crn) {
+        const trimmedCrn = (crn as string).trim()
+
         try {
-          const person = await this.personService.findByCrn(req.user.token, crn)
+          const person = await this.personService.findByCrn(req.user.token, trimmedCrn)
 
           return res.render(`people/confirm-applicant-details`, {
             pageHeading: `Confirm ${person.name}'s details`,
@@ -93,14 +97,14 @@ export default class PeopleController {
           })
         } catch (err) {
           if (err.status === 404) {
-            addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${crn}, please try another number.`)
+            addErrorMessagesToFlash(req, 'crn', `No person found for CRN ${trimmedCrn}, please try another number.`)
           } else if (err.status === 403) {
             addErrorMessagesToFlash(
               req,
               'crn',
-              `You do not have permission to access the CRN ${crn}, please try another number.`,
+              `You do not have permission to access the CRN ${trimmedCrn}, please try another number.`,
             )
-          } else if (!isValidCrnOrNomsNumber(crn)) {
+          } else if (!isValidCrnOrNomsNumber(trimmedCrn)) {
             addErrorMessagesToFlash(req, 'crn', 'Enter a CRN in the correct format')
           } else {
             addErrorMessagesToFlash(req, 'crn', 'Something went wrong. Please try again later.')
@@ -118,10 +122,15 @@ export default class PeopleController {
   findByCrnFromFama(): RequestHandler {
     return async (req: Request, res: Response) => {
       const crn = req.query.crn as string
-      const backUrl = new URL(`cases/${encodeURIComponent(crn)}`, config.findAndManageAccommodationUrl).toString()
+      const trimmedCrn = crn.trim()
+
+      const backUrl = new URL(
+        `cases/${encodeURIComponent(trimmedCrn)}`,
+        config.findAndManageAccommodationUrl,
+      ).toString()
 
       try {
-        const person = await this.personService.findByCrn(req.user.token, crn)
+        const person = await this.personService.findByCrn(req.user.token, trimmedCrn)
 
         return res.render('people/confirm-applicant-details', {
           pageHeading: `Confirm ${person.name}'s details`,
