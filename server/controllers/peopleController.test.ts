@@ -390,7 +390,7 @@ describe('peopleController', () => {
         await requestHandler(request, response, next)
 
         expect(response.render).toHaveBeenCalledWith('people/confirm-applicant-details', {
-          pageHeading: `Confirm ${person.name}'s details`,
+          pageHeading: `Confirm ${person.name}'s details for CAS2 application`,
           person,
           date: DateFormats.dateObjtoUIDate(new Date()),
           dateOfBirth: DateFormats.isoDateToUIDate(person.dateOfBirth, { format: 'short' }),
