@@ -122,6 +122,12 @@ export default class PeopleController {
   findByCrnFromFama(): RequestHandler {
     return async (req: Request, res: Response) => {
       const crn = req.query.crn as string
+
+      if (!crn) {
+        addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
+        return res.redirect(paths.applications.newCohorts.searchByCrn({}))
+      }
+
       const trimmedCrn = crn.trim()
 
       const backUrl = new URL(

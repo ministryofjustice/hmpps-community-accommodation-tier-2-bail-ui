@@ -404,6 +404,23 @@ describe('peopleController', () => {
     })
 
     describe('when there is an error', () => {
+      it.each([
+        ['blank', { crn: '' }],
+        ['missing', {}],
+      ])('redirect to ISR CRN search if the CRN is %s', async (_adjective: string, query: { crn?: string }) => {
+        const requestHandler = peopleController.findByCrnFromFama()
+
+        request.query = query
+
+        await requestHandler(request, response, next)
+
+        expect(flashSpy).toHaveBeenCalledWith('errors', {
+          crn: errorMessage('crn', 'Enter a CRN'),
+        })
+        expect(flashSpy).toHaveBeenCalledWith('errorSummary', [errorSummary('crn', 'Enter a CRN')])
+        expect(response.redirect).toHaveBeenCalledWith(paths.applications.newCohorts.searchByCrn({}))
+      })
+
       it('renders the generic error page with a valid back link', async () => {
         const requestHandler = peopleController.findByCrnFromFama()
 
