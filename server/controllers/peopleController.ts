@@ -123,7 +123,7 @@ export default class PeopleController {
     return async (req: Request, res: Response) => {
       const crn = req.query.crn as string
 
-      if (!crn) {
+      if (!crn || !crn.trim()) {
         addErrorMessagesToFlash(req, 'crn', 'Enter a CRN')
         return res.redirect(paths.applications.newCohorts.searchByCrn({}))
       }

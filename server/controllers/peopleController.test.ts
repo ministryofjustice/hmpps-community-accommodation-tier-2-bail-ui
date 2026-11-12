@@ -407,6 +407,7 @@ describe('peopleController', () => {
       it.each([
         ['blank', { crn: '' }],
         ['missing', {}],
+        ['whitespace', { crn: '  ' }],
       ])('redirect to ISR CRN search if the CRN is %s', async (_adjective: string, query: { crn?: string }) => {
         const requestHandler = peopleController.findByCrnFromFama()
 
