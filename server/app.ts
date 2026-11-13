@@ -3,10 +3,10 @@ import flash from 'connect-flash'
 import methodOverride from 'method-override'
 
 import createError from 'http-errors'
+import { telemetryMiddleware } from '@ministryofjustice/hmpps-azure-telemetry'
 
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
-import { appInsightsMiddleware } from './utils/azureAppInsights'
 import authorisationMiddleware from './middleware/authorisationMiddleware'
 
 import setUpAuthentication from './middleware/setUpAuthentication'
@@ -37,7 +37,6 @@ export default function createApp(controllers: Controllers, services: Services):
 
   setUpSentryRequestHandler(app)
 
-  app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
   app.use(setUpProductInfo())
   app.use(setUpWebSecurity())
@@ -49,6 +48,7 @@ export default function createApp(controllers: Controllers, services: Services):
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
   app.use(setUpCurrentUser(services.userService))
+  app.use(telemetryMiddleware.addUserMetadataToTelemetry())
 
   app.use(setUpMaintenancePageRedirect())
   app.use((req, res, next) => {

@@ -12,6 +12,7 @@ describe('populateCurrentUser', () => {
       scope: ['read', 'write'],
       auth_source: 'nomis',
       authorities,
+      user_uuid: 'a610a10-cca6-41db-985f-e87efb303aaf',
       jti: 'a610a10-cca6-41db-985f-e87efb303aaf',
       client_id: 'clientid',
     }
@@ -41,21 +42,18 @@ describe('populateCurrentUser', () => {
 
   it('set user details from the user service if not already set', async () => {
     const request: jest.Mocked<Request> = createMock<Request>()
-    const response: jest.Mocked<Response> = createMock<Response>({
-      locals: {
-        user: {
-          name: 'FakeUser',
-          displayName: 'Fake Display Name',
-        },
-      },
-    })
+    const response = createResWithToken({ authorities: [] })
     const next = jest.fn()
 
     userService.getUser.mockResolvedValue(userDetailsObject)
 
-    populateCurrentUser(userService)(request, response, next)
+    await populateCurrentUser(userService)(request, response, next)
 
-    expect(response.locals.user).toEqual(userDetailsObject)
+    expect(response.locals.user).toMatchObject({
+      ...userDetailsObject,
+      userUuid: 'a610a10-cca6-41db-985f-e87efb303aaf',
+      userRoles: [],
+    })
   })
 
   it('should extract the user roles from the jwt', async () => {
@@ -68,5 +66,6 @@ describe('populateCurrentUser', () => {
     await populateCurrentUser(userService)(request, response, next)
 
     expect(response.locals.user.userRoles).toEqual(['1', '2'])
+    expect(response.locals.user.userUuid).toBe('a610a10-cca6-41db-985f-e87efb303aaf')
   })
 })

@@ -8,11 +8,15 @@ export default function populateCurrentUser(userService: UserService): RequestHa
     try {
       if (res.locals.user) {
         const user = await userService.getUser(res.locals.user.token)
-        const { authorities: roles = [] } = jwtDecode(res.locals.user.token) as { authorities?: string[] }
+        const { authorities: roles = [], user_uuid: userUuid } = jwtDecode<{
+          authorities?: string[]
+          user_uuid: string
+        }>(res.locals.user.token)
         if (user) {
           res.locals.user = {
             ...user,
             ...res.locals.user,
+            userUuid,
             userRoles: roles.map(role => role.substring(role.indexOf('_') + 1)),
           }
         } else {
