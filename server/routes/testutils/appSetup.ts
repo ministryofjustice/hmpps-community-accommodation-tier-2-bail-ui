@@ -16,6 +16,7 @@ export const user: HmppsUser = {
   userId: 'id',
   token: 'token',
   username: 'user1',
+  userUuid: randomUUID(),
   displayName: 'First Last',
   authSource: 'nomis',
   staffId: 1234,
