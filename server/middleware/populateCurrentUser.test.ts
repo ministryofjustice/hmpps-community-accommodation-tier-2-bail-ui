@@ -1,18 +1,19 @@
 import { createMock } from '@golevelup/ts-jest'
 import type { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import logger from '../../logger'
 import type { UserService } from '../services'
 import type { UserDetails } from '../services/userService'
 import populateCurrentUser from './populateCurrentUser'
 
 describe('populateCurrentUser', () => {
-  const createToken = (authorities: string[]) => {
+  const createToken = (authorities: string[], userUuid: unknown = '11111111-1111-4111-8111-111111111111') => {
     const payload = {
       user_name: 'USER1',
       scope: ['read', 'write'],
       auth_source: 'nomis',
       authorities,
-      user_uuid: 'a610a10-cca6-41db-985f-e87efb303aaf',
+      ...(userUuid === null ? {} : { user_uuid: userUuid }),
       jti: 'a610a10-cca6-41db-985f-e87efb303aaf',
       client_id: 'clientid',
     }
@@ -51,7 +52,7 @@ describe('populateCurrentUser', () => {
 
     expect(response.locals.user).toMatchObject({
       ...userDetailsObject,
-      userUuid: 'a610a10-cca6-41db-985f-e87efb303aaf',
+      userUuid: '11111111-1111-4111-8111-111111111111',
       userRoles: [],
     })
   })
@@ -66,6 +67,21 @@ describe('populateCurrentUser', () => {
     await populateCurrentUser(userService)(request, response, next)
 
     expect(response.locals.user.userRoles).toEqual(['1', '2'])
-    expect(response.locals.user.userUuid).toBe('a610a10-cca6-41db-985f-e87efb303aaf')
+    expect(response.locals.user.userUuid).toBe('11111111-1111-4111-8111-111111111111')
+  })
+
+  it.each([null, '', 123])('logs and omits an invalid user_uuid claim: %s', async userUuid => {
+    const request = createMock<Request>()
+    const response = createMock<Response>({ locals: { user: { token: createToken([], userUuid) } } })
+    const next = jest.fn()
+    const warn = jest.spyOn(logger, 'warn').mockImplementation()
+    userService.getUser.mockResolvedValue(userDetailsObject)
+
+    await populateCurrentUser(userService)(request, response, next)
+
+    expect(response.locals.user.userUuid).toBeUndefined()
+    expect(warn).toHaveBeenCalledWith('Authenticated user token does not contain a user_uuid')
+    expect(next).toHaveBeenCalledWith()
+    warn.mockRestore()
   })
 })

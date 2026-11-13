@@ -7,7 +7,7 @@ export interface BaseUser {
   authSource: AuthSource
   username: string
   userId: string
-  userUuid: string
+  userUuid?: string
   name: string
   displayName: string
   userRoles: string[]
