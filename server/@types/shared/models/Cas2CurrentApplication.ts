@@ -5,7 +5,7 @@
 import type { Cas2CohortDto } from './Cas2CohortDto';
 import type { Cas2ExternalSubmittedApplicationDto } from './Cas2ExternalSubmittedApplicationDto';
 import type { Cas2StaffDto } from './Cas2StaffDto';
-export type Cas2SuitableApplication = {
+export type Cas2CurrentApplication = {
     cohort?: Cas2CohortDto;
     createdAt: string;
     createdBy: Cas2StaffDto;
