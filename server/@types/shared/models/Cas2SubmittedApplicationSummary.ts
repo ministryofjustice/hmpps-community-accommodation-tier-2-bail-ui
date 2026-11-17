@@ -16,11 +16,6 @@ export type Cas2SubmittedApplicationSummary = {
     crn: string;
     id: string;
     nomsNumber?: string;
-    /**
-     * Use personSummary instead
-     * @deprecated
-     */
-    personName: string;
     personSummary: (Found | LimitedAccess | NotFound);
     submittedAt?: string;
 };
