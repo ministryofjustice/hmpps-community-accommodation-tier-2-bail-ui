@@ -7,7 +7,7 @@ import { fullPersonFactory } from './person'
 
 export default Factory.define<Cas2SubmittedApplicationSummary>(() => {
   const crn = faker.string.alphanumeric(5)
-  const personName = faker.person.fullName()
+  const name = faker.person.fullName()
 
   return {
     id: faker.string.uuid(),
@@ -19,7 +19,6 @@ export default Factory.define<Cas2SubmittedApplicationSummary>(() => {
     status: 'submitted',
     crn,
     nomsNumber: faker.string.alphanumeric(5),
-    personName,
-    personSummary: { personType: 'Found', crn, name: personName },
+    personSummary: { personType: 'Found', crn, name },
   }
 })

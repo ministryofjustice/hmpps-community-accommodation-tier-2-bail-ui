@@ -13,7 +13,10 @@ export default class ApplicationListPage extends Page {
   static visit(applications: Array<Cas2ApplicationSummary>): ApplicationListPage {
     cy.visit(paths.applications.index.pattern)
 
-    return new ApplicationListPage(applications, applications[0]?.personName)
+    const personSummary = applications[0]?.personSummary
+    const name = personSummary?.personType === 'Found' && 'name' in personSummary ? personSummary.name : undefined
+
+    return new ApplicationListPage(applications, name)
   }
 
   shouldShowInProgressApplications(): void {

@@ -59,6 +59,24 @@ context('Prison applications', () => {
     prisonApplicationsPage.shouldShowApplications(prisonApplications)
   })
 
+  it('displays applications for limited access and missing people', () => {
+    const applications = [
+      applicationSummaryFactory.build({
+        crn: 'X123456',
+        personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+      }),
+      applicationSummaryFactory.build({
+        crn: 'X654321',
+        personSummary: { personType: 'NotFound', crn: 'X654321' },
+      }),
+    ]
+    cy.task('stubApplicationOrigin', { applications })
+
+    const page = PrisonApplicationsPage.visit()
+
+    page.shouldShowApplications(applications)
+  })
+
   // Scenario: searching for a specific Crn as a referrer
   it('displays the applications for the queried Crn', () => {
     const crn = 'SOME-CRN'

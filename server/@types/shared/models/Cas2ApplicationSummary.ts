@@ -21,11 +21,6 @@ export type Cas2ApplicationSummary = {
     id: string;
     latestStatusUpdate?: LatestCas2StatusUpdate;
     nomsNumber?: string;
-    /**
-     * Use personSummary instead
-     * @deprecated
-     */
-    personName: string;
     personSummary: (Found | LimitedAccess | NotFound);
     prisonCode?: string;
     status: ApplicationStatus;

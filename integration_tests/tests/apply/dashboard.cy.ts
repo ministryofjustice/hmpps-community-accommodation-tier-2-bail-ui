@@ -69,6 +69,33 @@ context('Applications dashboard as a prison bail referrer', () => {
     page.shouldShowSubmittedApplications()
   })
 
+  const statuses = ['inProgress', 'submitted'] as const
+  statuses.forEach(status => {
+    it(`shows ${status} applications for limited access and missing people`, () => {
+      const applications = [
+        applicationSummaryFactory.build({
+          status,
+          crn: 'X123456',
+          personSummary: { personType: 'LimitedAccess', crn: 'X123456' },
+        }),
+        applicationSummaryFactory.build({
+          status,
+          crn: 'X654321',
+          personSummary: { personType: 'NotFound', crn: 'X654321' },
+        }),
+      ]
+      cy.task('stubApplications', applications)
+
+      const page = ApplicationListPage.visit(applications)
+
+      if (status === 'inProgress') {
+        page.shouldShowInProgressApplications()
+      } else {
+        page.shouldShowSubmittedApplications()
+      }
+    })
+  })
+
   //  Scenario: see prison dashboard
   it('shows prison dashboard tab', () => {
     cy.task('stubApplications', [])

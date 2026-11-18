@@ -189,21 +189,44 @@ export default abstract class Page {
 
   shouldShowApplications(applications: Array<Cas2ApplicationSummary>, inProgress = false): void {
     applications.forEach(application => {
-      const { personName } = application
-      cy.contains(personName)
-        .should(
-          'have.attr',
-          'href',
-          inProgress
-            ? paths.applications.show({ id: application.id })
-            : paths.applications.overview({ id: application.id }),
-        )
-        .parent()
-        .parent()
-        .within(() => {
-          cy.get('th').eq(0).contains(personName)
-        })
+      this.getApplicationRow(application).within(() => {
+        this.shouldShowApplicationName(application, inProgress)
+      })
     })
+  }
+
+  protected getApplicationRow(application: Cas2ApplicationSummary): PageElement {
+    return application.personSummary.personType === 'Found'
+      ? cy.get(`a[data-cy-id="${application.id}"]`).closest('tr')
+      : cy.contains('tr', application.crn)
+  }
+
+  protected shouldShowApplicationName(application: Cas2ApplicationSummary, inProgress = false): void {
+    const { personSummary } = application
+    cy.get('th')
+      .first()
+      .within(() => {
+        if (personSummary.personType === 'Found') {
+          expect(personSummary).to.have.property('name')
+          if ('name' in personSummary) {
+            cy.get('a')
+              .should('contain.text', personSummary.name)
+              .and(
+                'have.attr',
+                'href',
+                inProgress
+                  ? paths.applications.show({ id: application.id })
+                  : paths.applications.overview({ id: application.id }),
+              )
+          }
+        } else {
+          cy.root().should(
+            'contain.text',
+            personSummary.personType === 'LimitedAccess' ? `LAO: ${personSummary.crn}` : 'Not Found',
+          )
+          cy.get('a').should('not.exist')
+        }
+      })
   }
 
   shouldShowErrorSummary(text: string): void {

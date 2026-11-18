@@ -8,7 +8,7 @@ import { cohortLabels } from '../../utils/applications/cohortLabels'
 
 export default Factory.define<Cas2ApplicationSummary>(() => {
   const crn = `C${faker.number.int({ min: 100000, max: 999999 })}`
-  const personName = faker.person.fullName()
+  const name = faker.person.fullName()
 
   return {
     id: faker.string.uuid(),
@@ -20,8 +20,7 @@ export default Factory.define<Cas2ApplicationSummary>(() => {
     createdByUserId: faker.string.uuid(),
     status: 'inProgress',
     latestStatusUpdate: latestStatusUpdateFactory.build(),
-    personName,
-    personSummary: { personType: 'Found', crn, name: personName },
+    personSummary: { personType: 'Found', crn, name },
     crn,
     nomsNumber: `NOMS${faker.number.int({ min: 100, max: 999 })}`,
     prisonCode: `PC${faker.number.int({ min: 10, max: 99 })}`,
