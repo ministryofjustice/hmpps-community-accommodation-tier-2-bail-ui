@@ -3,6 +3,7 @@ import {
   telephoneNumberFromAppData,
   bailHearingDateFromAppData,
   conditionalReleaseDateFromAppData,
+  accommodationStartDateFromAppData,
 } from './managementInfoFromAppData'
 
 import { applicationFactory } from '../../testutils/factories'
@@ -162,6 +163,45 @@ describe('managementInfoFromAppData', () => {
         data,
       })
       expect(conditionalReleaseDateFromAppData(application)).toEqual(null)
+    })
+  })
+
+  describe('accommodationStartDateFromAppData', () => {
+    it('returns the accommodation start date as an ISO string', () => {
+      const application = applicationFactory.build({
+        data: {
+          'cohort-selection': {
+            'accommodation-start-date': {
+              'accommodationStartDate-year': '2026',
+              'accommodationStartDate-month': '2',
+              'accommodationStartDate-day': '2',
+            },
+          },
+        },
+      })
+      expect(accommodationStartDateFromAppData(application)).toEqual('2026-02-02')
+    })
+
+    const noDateData = [
+      null,
+      {},
+      { 'cohort-selection': null },
+      { 'cohort-selection': { 'accommodation-start-date': null } },
+      { 'cohort-selection': { 'accommodation-start-date': { 'accommodationStartDate-year': '2026' } } },
+      {
+        'cohort-selection': {
+          'accommodation-start-date': {
+            'accommodationStartDate-year': '2026',
+            'accommodationStartDate-month': '2',
+            'accommodationStartDate-day': '30',
+          },
+        },
+      },
+    ]
+
+    it.each(noDateData)('returns null when the accommodation start date is missing or invalid', data => {
+      const application = applicationFactory.build({ data })
+      expect(accommodationStartDateFromAppData(application)).toBeNull()
     })
   })
 })

@@ -48,9 +48,21 @@ const conditionalReleaseDateFromAppData = (application: Application): string | n
   return null
 }
 
+const accommodationStartDateFromAppData = (application: Application): string | null => {
+  const accommodationStartDate = application.data?.['cohort-selection']?.['accommodation-start-date']
+
+  if (dateAndTimeInputsAreValidDates(accommodationStartDate, 'accommodationStartDate')) {
+    return DateFormats.dateAndTimeInputsToIsoString(accommodationStartDate, 'accommodationStartDate')
+      .accommodationStartDate
+  }
+
+  return null
+}
+
 export {
   preferredAreasFromAppData,
   telephoneNumberFromAppData,
   bailHearingDateFromAppData,
   conditionalReleaseDateFromAppData,
+  accommodationStartDateFromAppData,
 }
