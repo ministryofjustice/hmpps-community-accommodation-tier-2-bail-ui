@@ -73,6 +73,13 @@ describe('getApplicationSubmissionData', () => {
       telephoneNumber: '1234567',
       bailHearingDate: '3000-02-02',
       conditionalReleaseDate: '2026-01-01',
+      accommodationStartDate: '2099-01-01',
     })
+  })
+
+  it('returns a null accommodation start date when it is not supplied', () => {
+    const mockApplication = applicationFactory.build({ data: {} })
+
+    expect(getApplicationSubmissionData(mockApplication).accommodationStartDate).toBeNull()
   })
 })
