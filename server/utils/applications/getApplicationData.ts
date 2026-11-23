@@ -12,6 +12,7 @@ import {
   telephoneNumberFromAppData,
   bailHearingDateFromAppData,
   conditionalReleaseDateFromAppData,
+  accommodationStartDateFromAppData,
 } from './managementInfoFromAppData'
 
 export const getApplicationUpdateData = (application: Application, cohort?: Cas2CohortDto): UpdateCas2Application => {
@@ -31,5 +32,6 @@ export const getApplicationSubmissionData = (application: Application): SubmitCa
     telephoneNumber: telephoneNumberFromAppData(application),
     bailHearingDate: bailHearingDateFromAppData(application),
     conditionalReleaseDate: conditionalReleaseDateFromAppData(application),
+    accommodationStartDate: accommodationStartDateFromAppData(application),
   }
 }
