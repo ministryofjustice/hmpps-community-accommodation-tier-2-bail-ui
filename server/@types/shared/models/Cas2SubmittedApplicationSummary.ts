@@ -15,6 +15,7 @@ export type Cas2SubmittedApplicationSummary = {
     createdByUserId: string;
     crn: string;
     id: string;
+    nacroReferralId?: string;
     nomsNumber?: string;
     personSummary: (Found | LimitedAccess | NotFound);
     submittedAt?: string;
