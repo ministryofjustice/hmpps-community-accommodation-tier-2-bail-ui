@@ -9,7 +9,7 @@ import type { Found } from './Found';
 import type { LatestCas2StatusUpdate } from './LatestCas2StatusUpdate';
 import type { LimitedAccess } from './LimitedAccess';
 import type { NotFound } from './NotFound';
-export type Cas2ApplicationSummary = {
+export type Cas2ApplicationSummaryDto = {
     applicationOrigin: ApplicationOrigin;
     bailHearingDate?: string;
     cohort?: Cas2CohortDto;
